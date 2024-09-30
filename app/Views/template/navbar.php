@@ -17,7 +17,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                     </svg>
                     <ul class="absolute left-0 top-full opacity-0 invisible group-hover:visible group-hover:opacity-100 transition-all duration-300 transform bg-white shadow-lg border-opacity-5 border-2 mt-1 py-2 rounded-lg z-50">
-                        <li><a href="#" class="block px-4 py-2 text-primary hover:text-primaryhover hover:bg-secondary">Pengumuman</a></li>
+                        <li><a href="<?= base_url('pengumuman'); ?>" class="block px-4 py-2 text-primary hover:text-primaryhover hover:bg-secondary">Pengumuman</a></li>
                         <li><a href="#" class="block px-4 py-2 text-primary hover:text-primaryhover hover:bg-secondary">Peraturan dan Kebijakan</a></li>
                         <li><a href="#" class="block px-4 py-2 text-primary hover:text-primaryhover hover:bg-secondary">Data dan Statistik</a></li>
                     </ul>

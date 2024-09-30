@@ -10,8 +10,9 @@
 
 <body class="bg-site">
     <?= $this->include('template/scroll'); ?>
-    <?= $this->include('template/navbar'); ?>
+    <?= $this->extend('template/navbarfooter') ?>
 
+    <?= $this->section('content') ?>
     <section id="herosection" class="w-full h-[20rem] sm:h-[30rem] md:h-[34rem] lg:h-[36rem] relative">
         <img src="/images/herosection.png" alt="herosection" class="w-full h-full object-cover object-right md:object-center">
 
@@ -54,23 +55,22 @@
     <section id="kategoripenghargaan">
         <div class="lg:my-12 md:my-8 my-4 lg:mx-20 md:mx-10 mx-7">
             <div id="texttentangkalpataru" class="w-full h-[4rem] sm:h-[5rem] relative flex items-center justify-start">
-                <h2 class="text-lg sm:text-xl md:text-2xl lg:text-4xl font-medium text-black">kategori Penghargaan Kalpataru</h2>
+                <h2 class="text-lg sm:text-xl md:text-2xl lg:text-4xl font-medium text-black">Kategori Penghargaan Kalpataru</h2>
             </div>
             <hr class="border-2 border-primary max-w-40 mt-0" />
         </div>
 
-        <<div class="w-full flex flex-col lg:flex-row items-center justify-c px-6 sm:px-10 md:px-16 lg:px-20 py-12">  
-        <div class="w-full lg:w-1/2 lg:pr-10 flex justify-between">
-            <img src="/images/kategoria.png" alt="kategoria" class="w-1/4 h-auto rounded-md shadow-lg">
-            <img src="/images/kategorib.png" alt="kategorib" class="w-1/4 h-auto rounded-md shadow-lg">
-            <img src="/images/kategoric.png" alt="kategoric" class="w-1/4 h-auto rounded-md shadow-lg">
-            <img src="/images/kategorid.png" alt="kategorid" class="w-1/4 h-auto rounded-md shadow-lg">
-        </div>
-    </div>
+        <<div class="w-full flex flex-col lg:flex-row items-center justify-c px-6 sm:px-10 md:px-16 lg:px-20 py-12">
+            <div class="w-full lg:w-1/2 lg:pr-10 flex justify-between">
+                <img src="/images/kategoria.jpg" alt="kategoria" class="w-1/4 h-auto rounded-md shadow-lg">
+                <img src="/images/kategorib.jpg" alt="kategorib" class="w-1/4 h-auto rounded-md shadow-lg">
+                <img src="/images/kategoric.jpg" alt="kategoric" class="w-1/4 h-auto rounded-md shadow-lg">
+                <img src="/images/kategorid.jpg" alt="kategorid" class="w-1/4 h-auto rounded-md shadow-lg">
+            </div>
+            </div>
     </section>
+    <?= $this->endSection() ?>
 
-
-    <?= $this->include('template/footer'); ?>
 </body>
 
 </html>

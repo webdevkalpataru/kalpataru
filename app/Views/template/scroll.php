@@ -28,7 +28,7 @@
         }
 
         /* cursor */
-        .custom-cursor {
+        /* .custom-cursor {
             cursor: none;
             position: fixed;
             width: 30px;
@@ -66,7 +66,7 @@
             box-shadow: 0 0 20px rgba(217, 237, 191, 1), 
                 0 0 40px rgba(217, 237, 191, 0.8), 
                 0 0 60px rgba(217, 237, 191, 0.6);
-        }
+        } */
 
         /* selection */
         ::selection {
@@ -107,11 +107,11 @@
         });
 
         /* cursor */
-        document.addEventListener('mousemove', function(e) {
+        /* document.addEventListener('mousemove', function(e) {
             const cursor = document.getElementById('customCursor');
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
-        });
+        }); */
     </script>
 
 </body>
