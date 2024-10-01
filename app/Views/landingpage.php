@@ -59,14 +59,14 @@
             <hr class="border-2 border-primary max-w-40 mt-0" />
         </div>
 
-        <<div class="w-full flex flex-col lg:flex-row items-center justify-c px-6 sm:px-10 md:px-16 lg:px-20 py-12">  
-        <div class="w-full lg:w-1/2 lg:pr-10 flex justify-between">
-            <img src="/images/kategoria.png" alt="kategoria" class="w-1/4 h-auto rounded-md shadow-lg">
-            <img src="/images/kategorib.png" alt="kategorib" class="w-1/4 h-auto rounded-md shadow-lg">
-            <img src="/images/kategoric.png" alt="kategoric" class="w-1/4 h-auto rounded-md shadow-lg">
-            <img src="/images/kategorid.png" alt="kategorid" class="w-1/4 h-auto rounded-md shadow-lg">
-        </div>
-    </div>
+        <<div class="w-full flex flex-col lg:flex-row items-center justify-c px-6 sm:px-10 md:px-16 lg:px-20 py-12">
+            <div class="w-full lg:w-1/2 lg:pr-10 flex justify-between">
+                <img src="/images/kategoria.png" alt="kategoria" class="w-1/4 h-auto rounded-md shadow-lg">
+                <img src="/images/kategorib.png" alt="kategorib" class="w-1/4 h-auto rounded-md shadow-lg">
+                <img src="/images/kategoric.png" alt="kategoric" class="w-1/4 h-auto rounded-md shadow-lg">
+                <img src="/images/kategorid.png" alt="kategorid" class="w-1/4 h-auto rounded-md shadow-lg">
+            </div>
+            </div>
     </section>
 
 
