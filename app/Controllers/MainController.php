@@ -19,8 +19,4 @@ class MainController extends BaseController
         return view('kontak', ['title' => 'Kontak']);
     }
 
-    public function masuk()
-    {
-        return view('masuk', ['title' => 'Masuk']);
-    }
 }
