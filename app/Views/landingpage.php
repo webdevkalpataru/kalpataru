@@ -61,7 +61,7 @@
 
         <div class="relative w-full px-6 sm:px-10 md:px-16 lg:px-20 py-12">
             <!-- arrow kiri -->
-            <button id="scrollLeft" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-footer text-white p-2 rounded-full shadow-md z-10 focus:outline-none sm:block md:hidden">
+            <button id="categoryScrollLeft" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-footer text-white p-2 rounded-full shadow-md z-10 focus:outline-none sm:block md:hidden">
                 &#9664;
             </button>
 
@@ -82,12 +82,11 @@
             </div>
 
             <!-- arrow kanan -->
-            <button id="scrollRight" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-footer text-white p-2 rounded-full shadow-md z-10 focus:outline-none sm:block md:hidden">
+            <button id="categoryScrollRight" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-footer text-white p-2 rounded-full shadow-md z-10 focus:outline-none sm:block md:hidden">
                 &#9654;
             </button>
         </div>
     </section>
-
 
     <section id="tujuankalpataru" class="bg-primary">
         <div class="lg:my-12 md:my-8 my-4 pt-10 text-center">
@@ -232,33 +231,121 @@
             </div>
             <hr class="border-2 border-primary w-full mt-0 mb-10" />
 
-            <div class="flex overflow-x-scroll space-x-4 scrollbar-hide">
-                <div class="flex-none w-64 bg-white rounded-lg shadow-md">
-                    <img src="image-url.jpg" alt="Pahlawan Bumi" class="w-full h-40 object-cover rounded-t-lg">
-                    <div class="p-4">
-                        <h3 class="font-bold text-md mb-2">Pahlawan Bumi: Kisah Inspiratif Peraih Kalpataru</h3>
-                        <a href="#" class="text-primary flex items-center text-sm">
-                            Baca Selengkapnya
-                            <svg class="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </a>
+            <div class="relative flex overflow-x-auto space-x-4 scrollbar-hide">
+                <!-- arrow kiri -->
+                <button id="beritaScrollLeft" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-footer text-white p-2 rounded-full shadow-md z-10 focus:outline-none sm:block md:hidden">
+                    &#9664;
+                </button>
+                <div id="beritaContainer" class="flex overflow-x-auto space-x-4 scrollbar-hide">
+                    <div class="flex-none w-64 bg-white rounded-lg shadow-md">
+                        <img src="images/berita1.png" alt="Pahlawan Bumi" class="w-full h-40 object-cover rounded-t-lg">
+                        <div class="p-4">
+                            <h3 class="font-bold text-md mb-2">Pahlawan Bumi: Kisah Inspiratif Peraih Kalpataru</h3>
+                            <a href="#" class="text-primary flex items-center text-sm">
+                                Baca Selengkapnya
+                                <svg class="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="flex-none w-64 bg-white rounded-lg shadow-md">
+                        <img src="images/berita1.png" alt="Pahlawan Bumi" class="w-full h-40 object-cover rounded-t-lg">
+                        <div class="p-4">
+                            <h3 class="font-bold text-md mb-2">Pahlawan Bumi: Kisah Inspiratif Peraih Kalpataru</h3>
+                            <a href="#" class="text-primary flex items-center text-sm">
+                                Baca Selengkapnya
+                                <svg class="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="flex-none w-64 bg-white rounded-lg shadow-md">
+                        <img src="images/berita1.png" alt="Pahlawan Bumi" class="w-full h-40 object-cover rounded-t-lg">
+                        <div class="p-4">
+                            <h3 class="font-bold text-md mb-2">Pahlawan Bumi: Kisah Inspiratif Peraih Kalpataru</h3>
+                            <a href="#" class="text-primary flex items-center text-sm">
+                                Baca Selengkapnya
+                                <svg class="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="flex-none w-64 bg-white rounded-lg shadow-md">
+                        <img src="images/berita1.png" alt="Pahlawan Bumi" class="w-full h-40 object-cover rounded-t-lg">
+                        <div class="p-4">
+                            <h3 class="font-bold text-md mb-2">Pahlawan Bumi: Kisah Inspiratif Peraih Kalpataru</h3>
+                            <a href="#" class="text-primary flex items-center text-sm">
+                                Baca Selengkapnya
+                                <svg class="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="flex-none w-64 bg-white rounded-lg shadow-md">
+                        <img src="images/berita1.png" alt="Pahlawan Bumi" class="w-full h-40 object-cover rounded-t-lg">
+                        <div class="p-4">
+                            <h3 class="font-bold text-md mb-2">Pahlawan Bumi: Kisah Inspiratif Peraih Kalpataru</h3>
+                            <a href="#" class="text-primary flex items-center text-sm">
+                                Baca Selengkapnya
+                                <svg class="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="flex-none w-64 bg-white rounded-lg shadow-md">
+                        <img src="images/berita1.png" alt="Pahlawan Bumi" class="w-full h-40 object-cover rounded-t-lg">
+                        <div class="p-4">
+                            <h3 class="font-bold text-md mb-2">Pahlawan Bumi: Kisah Inspiratif Peraih Kalpataru</h3>
+                            <a href="#" class="text-primary flex items-center text-sm">
+                                Baca Selengkapnya
+                                <svg class="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="flex-none w-64 bg-white rounded-lg shadow-md">
+                        <img src="images/berita1.png" alt="Pahlawan Bumi" class="w-full h-40 object-cover rounded-t-lg">
+                        <div class="p-4">
+                            <h3 class="font-bold text-md mb-2">Pahlawan Bumi: Kisah Inspiratif Peraih Kalpataru</h3>
+                            <a href="#" class="text-primary flex items-center text-sm">
+                                Baca Selengkapnya
+                                <svg class="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="flex-none w-64 bg-white rounded-lg shadow-md">
+                        <img src="images/berita1.png" alt="Pahlawan Bumi" class="w-full h-40 object-cover rounded-t-lg">
+                        <div class="p-4">
+                            <h3 class="font-bold text-md mb-2">Pahlawan Bumi: Kisah Inspiratif Peraih Kalpataru</h3>
+                            <a href="#" class="text-primary flex items-center text-sm">
+                                Baca Selengkapnya
+                                <svg class="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </a>
+                        </div>
                     </div>
                 </div>
 
-                <div class="flex-none w-64 bg-white rounded-lg shadow-md">
-                    <img src="image-url.jpg" alt="Pahlawan Bumi" class="w-full h-40 object-cover rounded-t-lg">
-                    <div class="p-4">
-                        <h3 class="font-bold text-md mb-2">Pahlawan Bumi: Kisah Inspiratif Peraih Kalpataru</h3>
-                        <a href="#" class="text-primary flex items-center text-sm">
-                            Baca Selengkapnya
-                            <svg class="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-
+                <!-- arrow kanan -->
+                <button id="beritaScrollRight" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-footer text-white p-2 rounded-full shadow-md z-10 focus:outline-none sm:block md:hidden">
+                    &#9654;
+                </button>
             </div>
         </div>
     </section>
@@ -277,17 +364,10 @@
             <hr class="border-2 border-primary w-full mt-0 mb-10" />
 
             <div class="flex overflow-x-scroll space-x-4 scrollbar-hide">
-                <div class="card flex flex-col w-56 h-72 max-h-80 bg-white rounded-lg shadow-md hover:shadow-lg hover:-translate-y-2 transition-all duration-300 p-2.5 box-border overflow-hidden cursor-pointer">
-                    <div class="card-image-container flex items-center justify-center w-full h-2/3 mb-3 bg-gray-400 rounded-lg overflow-hidden">
-                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/m89BJiuVwrI" title="Penganugerahan Penghargaan Kalpataru" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                    </div>
-                    <p class="card-title text-lg font-semibold text-cyan-600 truncate">Card Title</p>
-                    <p class="card-des text-sm font-normal text-cyan-600 truncate">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veniam inventore natus modi repellendus dolorem unde odio sequi! Porro, cum maiores tempore suscipit laudantium perspiciatis, illo sunt, reprehenderit quae est blanditiis.</p>
-                    <div class="card-btn flex items-center justify-center bg-red-600 text-white cursor-pointer w-6 h-6 max-h-6 rounded-lg mt-2.5 transition-all duration-500 ease-in-out hover:w-full hover:h-7 hover:rounded-md hover:shadow-md gap-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 576 512" fill="currentColor">
-                            <path d="M549.655 124.083c-6.281-23.648-24.842-42.188-48.479-48.469C464.971 64 288 64 288 64s-176.971 0-213.176 11.615c-23.637 6.281-42.198 24.82-48.479 48.469C16 160.288 16 256 16 256s0 95.712 10.345 131.917c6.281 23.648 24.842 42.188 48.479 48.469C111.029 448 288 448 288 448s176.971 0 213.176-11.615c23.637-6.281 42.198-24.82 48.479-48.469C560 351.712 560 256 560 256s0-95.712-10.345-131.917zM232 336V176l142.857 80L232 336z"></path>
-                        </svg>
-                        <span class="card-btn-text text-sm font-medium opacity-100">Tonton di sini</span>
+                <div class="flex-none w-64 h-full bg-white rounded-lg shadow-md">
+                    <!-- <iframe class="w-full h-full" src="https://www.youtube.com/embed/m89BJiuVwrI" title="Penganugerahan Penghargaan Kalpataru" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> -->
+                    <div class="p-4">
+                        <h3 class="font-bold text-md mb-2">Judul Video</h3>
                     </div>
                 </div>
 
@@ -297,7 +377,8 @@
 
     <section id="faq">
         <div class="max-w-2xl mx-auto px-6 pt-6 pb-14">
-            <h1 class="text-2xl font-bold text-center">Pertanyaan <span class="text-primary">Umum</span></h1>
+            <h1 class="text-2xl font-medium text-center mb-2">Pertanyaan <b>Umum</b></h1>
+            <hr class="border-2 border-primary w-32 mx-auto mt-0" />
             <p class="text-center text-gray-500 mt-2">Temukan jawaban atas pertanyaan Anda seputar Penghargaan Kalpataru dan pelestarian lingkungan</p>
 
             <div class="mt-8 space-y-4">
@@ -411,29 +492,43 @@
 
 
     <script>
-        // scroll kategori kanan kiri
+        //  scroll kategori
         const categoryContainer = document.getElementById('categoryContainer');
-        const scrollLeftButton = document.getElementById('scrollLeft');
-        const scrollRightButton = document.getElementById('scrollRight');
+        const categoryScrollLeft = document.getElementById('categoryScrollLeft');
+        const categoryScrollRight = document.getElementById('categoryScrollRight');
 
-        scrollLeftButton.addEventListener('click', () => {
+        categoryScrollLeft.addEventListener('click', () => {
             categoryContainer.scrollBy({
                 left: -200,
                 behavior: 'smooth'
             });
         });
 
-        scrollRightButton.addEventListener('click', () => {
+        categoryScrollRight.addEventListener('click', () => {
             categoryContainer.scrollBy({
                 left: 200,
                 behavior: 'smooth'
             });
         });
 
-        // video
-        function playVideo() {
-            document.getElementById('video-frame').classList.remove('hidden');
-        }
+        // scroll berita
+        const cardContainer = document.getElementById('beritaContainer');
+        const beritaScrollLeft = document.getElementById('beritaScrollLeft');
+        const beritaScrollRight = document.getElementById('beritaScrollRight');
+
+        beritaScrollLeft.addEventListener('click', () => {
+            cardContainer.scrollBy({
+                left: -300,
+                behavior: 'smooth'
+            });
+        });
+
+        beritaScrollRight.addEventListener('click', () => {
+            cardContainer.scrollBy({
+                left: 300,
+                behavior: 'smooth'
+            });
+        });
 
         // faq
         function toggleAnswer(index) {
