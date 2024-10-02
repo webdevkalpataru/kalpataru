@@ -15,40 +15,6 @@
             height: 100vh;
         }
 
-        /* images */
-        /* 
-        @keyframes fadeInRight {
-            from {
-                opacity: 0;
-                transform: translateX(100%);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes fadeInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-100%);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .fade-in-right {
-            animation: fadeInRight 0.5s forwards;
-        }
-
-        .fade-in-left {
-            animation: fadeInLeft 0.5s forwards;
-        } */
-
         /* toast error */
         .toast {
             position: fixed;
@@ -109,11 +75,12 @@
                 class="w-full h-full object-cover fade-in-right">
         </div>
 
-        <div class="flex-1 flex items-center justify-center bg-white overflow-y-auto h-screen sm:h-auto">
+        <div class="flex-1 flex items-center justify-center bg-white overflow-y-auto h-screen sm:h-auto mt-8">
             <div class="w-full max-w-md p-6 fade-in-left">
 
                 <h2 class="text-2xl font-bold text-gray-900 mb-4">Daftar</h2>
                 <form class="flex flex-col" onsubmit="validateForm(event)">
+
                     <label for="jenisInstansi" class="text-xs">Jenis Instansi</label>
                     <select id="jenisInstansi"
                         class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
@@ -122,8 +89,8 @@
                         <option value="Nonpemerintah">Nonpemerintah</option>
                     </select>
 
-                    <label for="nama" class="text-xs">Nama Instansi/ Nama Pribadi</label>
-                    <input id="nama" type="text"
+                    <label for="nama_instansi_pribadi" class="text-xs">Nama Instansi/ Nama Pribadi</label>
+                    <input id="nama_instansi_pribadi" type="text"
                         class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none"
                         placeholder="contoh: Kemitraan Lingkungan">
 
@@ -255,21 +222,7 @@
 
 
     <div id="toast" class="toast"></div>
-
     <script>
-        // Image Slider
-        /* const imageArray = ['/images/loginregist1.jpeg', '/images/loginregist2.jpeg', '/images/loginregist3.jpeg'];
-        let currentImageIndex = 0;
-        const backgroundImage = document.getElementById('backgroundImage');
-
-        setInterval(() => {
-            currentImageIndex = (currentImageIndex + 1) % imageArray.length;
-            backgroundImage.src = imageArray[currentImageIndex];
-            backgroundImage.classList.remove('fade-in-right');
-            void backgroundImage.offsetWidth;
-            backgroundImage.classList.add('fade-in-right');
-        }, 10000); */
-
         // Toggle password visibility
         const passwordInput = document.getElementById('password');
         const togglePassword = document.getElementById('togglePassword');
@@ -305,7 +258,7 @@
             event.preventDefault();
 
             const jenisInstansi = document.getElementById('jenisInstansi').value;
-            const namaInstansi = document.getElementById('nama').value;
+            const namaInstansi = document.getElementById('nama_instansi_pribadi').value;
             const provinsi = document.getElementById('provinsi').value;
             const telepon = document.getElementById('telepon').value;
             const email = document.getElementById('email').value;

@@ -12,6 +12,7 @@ $routes->get('kontak', 'MainController::kontak');
 
 $routes->get('auth/login', 'AuthController::login');
 $routes->get('auth/register', 'AuthController::register');
+$routes->post('auth/register', 'AuthController::register');
 
 $routes->get('informasi/pengumuman', 'InformasiController::pengumuman');
 $routes->get('informasi/peraturankebijakan', 'InformasiController::peraturankebijakan');
