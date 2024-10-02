@@ -7,6 +7,14 @@
     <title>Penghargaan Kalpataru</title>
     <link rel="stylesheet" href="../css/app.css">
     <style>
+        body {
+            overflow-y: auto;
+        }
+
+        .flex-1 {
+            height: 100vh;
+        }
+
         /* images */
         /* 
         @keyframes fadeInRight {
@@ -81,6 +89,10 @@
             .max-w-md {
                 max-width: 90%;
             }
+
+            .flex-1 {
+                height: 120vh;
+            }
         }
 
         /* toast hidden */
@@ -97,7 +109,7 @@
                 class="w-full h-full object-cover fade-in-right">
         </div>
 
-        <div class="flex-1 flex items-center justify-center bg-white">
+        <div class="flex-1 flex items-center justify-center bg-white overflow-y-auto h-screen sm:h-auto">
             <div class="w-full max-w-md p-6 fade-in-left">
 
                 <h2 class="text-2xl font-bold text-gray-900 mb-4">Daftar</h2>
@@ -192,6 +204,22 @@
                     </div>
                     <small id="passwordCheckError" class="error-message">Konfirmasi kata sandi tidak cocok.</small>
 
+
+                    <div class="grid gap-1 grid-cols-2 mb-2">
+                        <label for="suratpengantar" class="text-xs">Template Surat Pengantar</label>
+                        <label for="suratpengantar" class="text-xs">Surat Pengantar <span class="text-primary">(.pdf)</span></label>
+
+                        <div class="flex items-center">
+                            <img src="/images/word.svg" alt="word" class="w-8 h-8 mr-2">
+                            <button type="button" class="bg-primary text-white text-xs px-2 rounded-md w-14 h-8">
+                                Unduh
+                            </button>
+                        </div>
+
+                        <input id="suratpengantar" type="file" accept="application/pdf"
+                            class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
+                    </div>
+
                     <div class="flex items-center justify-between flex-wrap">
                         <p class="text-gray-900 text-xs">
                             Sudah punya akun? <a href="./login" class="text-primary hover:underline font-bold">Masuk Sekarang</a>
@@ -283,9 +311,22 @@
             const email = document.getElementById('email').value;
             const kata_sandi = passwordInput.value;
             const passwordCheck = passwordCheckInput.value;
+            const suratPengantar = document.getElementById('suratpengantar').files[0];
 
             let isValid = true;
             let passwordErrors = [];
+
+            // Validasi Surat Pengantar
+            if (!suratPengantar) {
+                showToast('Surat Pengantar belum diunggah. Silakan lengkapi');
+                isValid = false;
+            } else if (suratPengantar.type !== 'application/pdf') {
+                showToast('Surat Pengantar harus berformat PDF.');
+                isValid = false;
+            } else if (suratPengantar.size > 1048576) {
+                showToast('Ukuran file Surat Pengantar maksimal 1 MB.');
+                isValid = false;
+            }
 
             // Check for length
             if (kata_sandi.length < 8) {
