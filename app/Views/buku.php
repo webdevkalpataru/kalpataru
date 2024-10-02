@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <titl flex justify-centere>Buku Profil 2024le>
+</head>
+
+<body class="bg-site">
+    <?= $this->extend('template/navbarfooter') ?>
+
+    <?= $this->section('content') ?>
+    <section id="buku" class="w-full h-[25rem] relative">
+        <img src="/images/hero.png" alt="buku" class="w-full h-full object-cover object-center md:object-center">
+
+        <div class="absolute inset-0 flex flex-col justify-center items-center text-white text-center">
+            <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">Buku</h1>
+            <p class="text-sm sm:text-base md:text-lg mt-2 sm:mt-4">Jelajahi buku menarik tentang Kalpataru</p>
+        </div>
+    </section>
+
+    <section id="pengumumancontent">
+        <div class="container mx-auto">
+            <!-- Search Bar -->
+            <div class="flex justify-between items-center my-6">
+                <h1 class="text-xs:lg:text-md ml-4 lg:ml-0 font-semibold">Hasil : 7 Buku</h1>
+                <div class="relative mr-4 lg:mr-0">
+                    <input
+                        placeholder="Masukan kata kunci"
+                        class="input shadow-lg focus:border-2 border-2 border-primary 0 px-5 py-3 rounded-xl lg:w-56 w-48 transition-all focus:w-64 outline-none"
+                        name="search"
+                        type="search" />
+                    <svg
+                        class="size-6 absolute top-3 right-3 text-primary"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                            stroke-linejoin="round"
+                            stroke-linecap="round"></path>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="lg:w-full w-64 mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    <!-- Card 2024 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <img src="/images/buku2024.png" alt="Kalpataru 2024" class="w-full h-64 object-cover">
+                        <div class="p-4">
+                            <h2 class="text-lg font-semibold flex justify-center">Buku Profil 2024</h2>
+                        </div>
+                        <div class="p-4 text-center">
+                            <a href="#" class="bg-primary text-white py-2 px-4 rounded hover:bg-primaryhover">Unduh</a>
+                        </div>
+                    </div>
+
+                    <!-- Card 2023 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <img src="/images/buku2023.png" alt="Kalpataru 2023" class="w-full h-64 object-cover">
+                        <div class="p-4">
+                            <h2 class="text-lg font-semibold flex justify-center">Buku Profil 2023</h2>
+                        </div>
+                        <div class="p-4 text-center">
+                            <a href="#" class="bg-primary text-white py-2 px-4 rounded hover:bg-primaryhover">Unduh</a>
+                        </div>
+                    </div>
+
+                    <!-- Card 2022 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <img src="/images/buku2022.png" alt="Kalpataru 2022" class="w-full h-64 object-cover">
+                        <div class="p-4">
+                            <h2 class="text-lg font-semibold flex justify-center">Buku Profil 2022</h2>
+                        </div>
+                        <div class="p-4 text-center">
+                            <a href="#" class="bg-primary text-white py-2 px-4 rounded hover:bg-primaryhover">Unduh</a>
+                        </div>
+                    </div>
+
+                    <!-- Card 2021 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <img src="/images/buku2021.png" alt="Kalpataru 2021" class="w-full h-64 object-cover">
+                        <div class="p-4">
+                            <h2 class="text-lg font-semibold flex justify-center">Buku Profil 2021</h2>
+                        </div>
+                        <div class="p-4 text-center">
+                            <a href="#" class="bg-primary text-white py-2 px-4 rounded hover:bg-primaryhover">Unduh</a>
+                        </div>
+                    </div>
+
+                    <!-- Card 2020 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <img src="/images/buku2020.png" alt="Kalpataru 2020" class="w-full h-64 object-cover">
+                        <div class="p-4">
+                            <h2 class="text-lg font-semibold flex justify-center">Buku Profil 2020</h2>
+                        </div>
+                        <div class="p-4 text-center">
+                            <a href="#" class="bg-primary text-white py-2 px-4 rounded hover:bg-primaryhover">Unduh</a>
+                        </div>
+                    </div>
+
+                    <!-- Card 2019 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <img src="/images/buku2019.png" alt="Kalpataru 2019" class="w-full h-64 object-cover">
+                        <div class="p-4">
+                            <h2 class="text-lg font-semibold flex justify-center">Buku Profil 2019</h2>
+                        </div>
+                        <div class="p-4 text-center">
+                            <a href="#" class="bg-primary text-white py-2 px-4 rounded hover:bg-primaryhover">Unduh</a>
+                        </div>
+                    </div>
+
+                    <!-- Card 2018 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <img src="/images/buku2018.png" alt="Kalpataru 2018" class="w-full h-64 object-cover">
+                        <div class="p-4">
+                            <h2 class="text-lg font-semibold flex justify-center">Buku Profil 2018</h2>
+                        </div>
+                        <div class="p-4 text-center">
+                            <a href="#" class="bg-primary text-white py-2 px-4 rounded hover:bg-primaryhover">Unduh</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row flex lg:justify-end justify-center my-6">
+                <button class="rounded-md rounded-r-none border border-r-0 border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-primary focus:border-primary active:border-primary active:text-white active:bg-primary disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                        <path fill-rule="evenodd" d="M11.03 3.97a.75.75 0 0 1 0 1.06l-6.22 6.22H21a.75.75 0 0 1 0 1.5H4.81l6.22 6.22a.75.75 0 1 1-1.06 1.06l-7.5-7.5a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+                <button class="rounded-md rounded-r-none rounded-l-none border border-r-0 border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-primary focus:border-primary active:border-primary active:text-white active:bg-primary disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
+                    1
+                </button>
+                <button class="rounded-md rounded-r-none rounded-l-none border border-r-0 border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-primary focus:border-primary active:border-primary active:text-white active:bg-primary disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
+                    2
+                </button>
+                <button class="rounded-md rounded-r-none rounded-l-none border border-r-0 border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-primary focus:border-primary active:border-primary active:text-white active:bg-primary disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
+                    3
+                </button>
+                <button class="rounded-md rounded-r-none rounded-l-none border border-r-0 border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-primary focus:border-primary active:border-primary active:text-white active:bg-primary disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
+                    4
+                </button>
+                <button class="rounded-md rounded-r-none rounded-l-none border border-r-0 border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-primary focus:border-primary active:border-primary active:text-white active:bg-primary disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
+                    5
+                </button>
+                <button class="rounded-md rounded-l-none border border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-primary focus:border-primary active:border-primary active:text-white active:bg-primary disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                        <path fill-rule="evenodd" d="M12.97 3.97a.75.75 0 0 1 1.06 0l7.5 7.5a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 1 1-1.06-1.06l6.22-6.22H3a.75.75 0 0 1 0-1.5h16.19l-6.22-6.22a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </div>
+    </section>
+
+    <?= $this->endSection() ?>
+</body>
+
+</html>
