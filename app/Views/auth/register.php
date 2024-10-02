@@ -77,10 +77,9 @@
 
         <div class="flex-1 flex items-center justify-center bg-white overflow-y-auto h-screen sm:h-auto mt-8">
             <div class="w-full max-w-md p-6 fade-in-left">
-
                 <h2 class="text-2xl font-bold text-gray-900 mb-4">Daftar</h2>
                 <form action="/auth/register/createRegister" method="post" onsubmit="validateForm(event)" class="flex flex-col">
-                        <?= csrf_field() ?>
+                    <?= csrf_field() ?>
                     <label for="jenis_instansi" class="text-xs">Jenis Instansi</label>
                     <select id="jenis_instansi" name="jenis_instansi"
                         class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
@@ -345,21 +344,21 @@
                 const formData = new FormData(form);
 
                 fetch(form.action, {
-                    method: form.method,
-                    body: formData,
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        showPopup();
-                    } else {
-                        showToast('Registration failed. Please try again.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    showToast('An error occurred. Please try again.');
-                });
+                        method: form.method,
+                        body: formData,
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            showPopup();
+                        } else {
+                            showToast('Registration failed. Please try again.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        showToast('An error occurred. Please try again.');
+                    });
             }
         }
 
