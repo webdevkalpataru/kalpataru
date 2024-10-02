@@ -1419,6 +1419,10 @@ video {
     display: none;
   }
 
+  .md\:h-48 {
+    height: 12rem;
+  }
+
   .md\:h-\[34rem\] {
     height: 34rem;
   }
@@ -1506,6 +1510,10 @@ video {
     margin-left: 0px;
   }
 
+  .lg\:mr-0 {
+    margin-right: 0px;
+  }
+
   .lg\:ms-16 {
     margin-inline-start: 4rem;
   }
@@ -1520,10 +1528,6 @@ video {
 
   .lg\:mt-7 {
     margin-top: 1.75rem;
-  }
-
-  .lg\:mr-0 {
-    margin-right: 0px;
   }
 
   .lg\:block {
