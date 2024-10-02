@@ -7,7 +7,7 @@
     <title>Penghargaan Kalpataru</title>
     <link rel="stylesheet" href="../css/app.css">
     <style>
-        /* images */
+        /* images *//* 
         @keyframes fadeInRight {
             from {
                 opacity: 0;
@@ -38,7 +38,7 @@
 
         .fade-in-left {
             animation: fadeInLeft 0.5s forwards;
-        }
+        } */
 
         /* toast error */
         .toast {
@@ -229,7 +229,7 @@
 
     <script>
         // Image Slider
-        const imageArray = ['/images/loginregist1.jpeg', '/images/loginregist2.jpeg', '/images/loginregist3.jpeg'];
+        /* const imageArray = ['/images/loginregist1.jpeg', '/images/loginregist2.jpeg', '/images/loginregist3.jpeg'];
         let currentImageIndex = 0;
         const backgroundImage = document.getElementById('backgroundImage');
 
@@ -239,7 +239,7 @@
             backgroundImage.classList.remove('fade-in-right');
             void backgroundImage.offsetWidth;
             backgroundImage.classList.add('fade-in-right');
-        }, 10000);
+        }, 10000); */
 
         // Toggle password visibility
         const passwordInput = document.getElementById('password');
