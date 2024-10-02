@@ -4,8 +4,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/app.css">
     <title>Penghargaan Kalpataru</title>
+    <style>
+        .fixed {
+            position: fixed;
+        }
+
+        .bottom-4 {
+            bottom: 1rem;
+        }
+
+        .right-4 {
+            right: 1rem;
+        }
+
+        .bg-red-500 {
+            background-color: #800000;
+        }
+
+        .text-white {
+            color: white;
+        }
+
+        .p-4 {
+            padding: 1rem;
+        }
+
+        .rounded {
+            border-radius: 0.25rem;
+        }
+
+        .shadow {
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+
 </head>
 
 <body class="bg-site">
@@ -64,7 +97,7 @@
                 <div class="p-8">
                     <h2 class="text-2xl font-bold mb-2 flex justify-center">Kontak Kami</h2>
                     <hr class="border-2 border-footer w-1/4 mx-auto">
-                    <form action="#" method="POST" class="mt-4">
+                    <form id="contactForm" class="mt-4" onsubmit="return validateForm()">
                         <div class="mb-4">
                             <label for="nama" class="block text-sm font-medium text-gray-700">Nama Instansi / Nama Pribadi</label>
                             <input type="text" name="nama" id="nama" placeholder="contoh: Kemitraan Lingkungan" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
@@ -81,17 +114,71 @@
                         </div>
 
                         <div class="mb-4">
-                            <label for="pesan" class="block text-sm font-medium text-gray-700">Isi</label>
-                            <textarea name="pesan" id="pesan" rows="4" placeholder="Isi pesan Anda" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"></textarea>
+                            <label for="pesan" class="block text-sm font-medium text-gray-700">Pesan dan Saran</label>
+                            <textarea name="pesan" id="pesan" rows="4" placeholder="Isi pesan dan saran Anda" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"></textarea>
                         </div>
 
-                        <button type="submit" class="w-full bg-primary hover:bg-prmary text-white font-semibold py-2 px-4 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">KIRIM</button>
+                        <button type="submit" class="w-full bg-primary hover:bg-primaryhover text-white font-semibold py-2 px-4 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">KIRIM</button>
                     </form>
                 </div>
+
             </div>
         </div>
     </div>
+
+
+    <script>
+        function validateForm() {
+            let nama = document.getElementById('nama').value.trim();
+            let email = document.getElementById('email').value.trim();
+            let telepon = document.getElementById('telepon').value.trim();
+            let pesan = document.getElementById('pesan').value.trim();
+
+            if (!nama) {
+                showToast('Silahkan lengkapi nama instansi / nama pribadi');
+                return false; // Stop form submission
+            }
+
+            if (!email) {
+                showToast('Silahkan lengkapi email Anda');
+                return false;
+            }
+
+            // Simple email format validation
+            let emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+            if (!emailPattern.test(email)) {
+                showToast('Format email tidak valid');
+                return false;
+            }
+
+            if (!telepon) {
+                showToast('Silahkan lengkapi nomor telepon Anda');
+                return false;
+            }
+
+            if (!pesan) {
+                showToast('Silahkan isi pesan dan saran Anda');
+                return false;
+            }
+
+            return true;
+        }
+
+        function showToast(message) {
+            let toast = document.createElement('div');
+            toast.className = 'fixed top-32 right-4 bg-[#800000] text-white p-4 rounded shadow';
+            toast.innerText = message;
+
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+    </script>
+
     <?= $this->endSection() ?>
+
 
 </body>
 
