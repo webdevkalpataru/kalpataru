@@ -8,16 +8,10 @@ class PengusulModel extends Model
 {
     protected $table = 'pengusul';
     protected $primaryKey = 'id_pengusul';
-    protected $allowedFields = ['nama_instansi_pribadi', 'email', 'password', 'telepon', 'provinsi', 'jenis_instansi', 'surat_pengantar', 'role_akun'];
-    protected $beforeInsert = ['hashPassword'];
-    protected $beforeUpdate = ['hashPassword'];
-
-    // Hash the password before saving
-    protected function hashPassword(array $data)
-    {
-        if (isset($data['data']['password'])) {
-            $data['data']['password'] = password_hash($data['data']['password'], PASSWORD_DEFAULT);
-        }
-        return $data;
-    }
+    protected $allowedFields = [
+        'id_admin', 'role_akun', 'jenis_instansi', 'nama_instansi_pribadi', 
+        'telepon', 'email', 'kata_sandi', 'jabatan_pekerjaan', 'jenis_kelamin', 
+        'status_akun', 'jalan', 'rt_rw', 'desa', 'kecamatan', 'kab_kota', 
+        'provinsi', 'kode_pos', 'surat_pengantar'
+    ];
 }
