@@ -11,7 +11,9 @@ $routes->get('profil', 'MainController::profil');
 $routes->get('kontak', 'MainController::kontak');
 
 $routes->get('auth/login', 'AuthController::login');
+$routes->post('auth/login', 'AuthController::loginAction');
 $routes->get('auth/register', 'AuthController::register');
+$routes->add('auth/register/createRegister', 'AuthController::createRegister');
 
 $routes->get('informasi/pengumuman', 'InformasiController::pengumuman');
 $routes->get('informasi/peraturankebijakan', 'InformasiController::peraturankebijakan');
