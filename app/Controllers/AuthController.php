@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Controllers;
-use App\Models\PengusulModel;
 
 use App\Models\PengusulModel; // Pastikan model user sudah ada
 
