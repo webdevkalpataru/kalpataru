@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Models\PengusulModel;
+use App\Models\PengusulModel; // Pastikan model user sudah ada
 
 class AuthController extends BaseController
 {
@@ -93,6 +93,29 @@ class AuthController extends BaseController
         $data['provinsi_list'] = $provinsi_list;
 
         return view('auth/register', $data);
+    }
+
+    public function createRegister()
+    {
+        $model = new PengusulModel();
+
+        $data = [
+            'jenis_instansi' => $this->request->getPost('jenis_instansi'),
+            'nama_instansi_pribadi' => $this->request->getPost('nama_instansi_pribadi'),
+            'provinsi' => $this->request->getPost('provinsi'),
+            'telepon' => $this->request->getPost('telepon'),
+            'email' => $this->request->getPost('email'),
+            'kata_sandi' => password_hash($this->request->getPost('kata_sandi'), PASSWORD_DEFAULT),
+            'role_akun' => 'Pengusul',
+            'status_akun'  => 'Pending'
+        ];
+
+        if ($model->insert($data)) {
+            return $this->response->setJSON(['success' => true]);
+        } else {
+            log_message('error', 'Registration failed: ' . json_encode($model->errors()));
+            return $this->response->setJSON(['success' => false, 'errors' => $model->errors()]);
+        }
     }
 
     public function createRegister()

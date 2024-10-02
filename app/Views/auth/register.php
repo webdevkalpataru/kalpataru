@@ -15,40 +15,6 @@
             height: 100vh;
         }
 
-        /* images */
-        /* 
-        @keyframes fadeInRight {
-            from {
-                opacity: 0;
-                transform: translateX(100%);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes fadeInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-100%);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .fade-in-right {
-            animation: fadeInRight 0.5s forwards;
-        }
-
-        .fade-in-left {
-            animation: fadeInLeft 0.5s forwards;
-        } */
-
         /* toast error */
         .toast {
             position: fixed;
@@ -109,7 +75,7 @@
                 class="w-full h-full object-cover fade-in-right">
         </div>
 
-        <div class="flex-1 flex items-center justify-center bg-white overflow-y-auto h-screen sm:h-auto">
+        <div class="flex-1 flex items-center justify-center bg-white overflow-y-auto h-screen sm:h-auto mt-8">
             <div class="w-full max-w-md p-6 fade-in-left">
 
                 <h2 class="text-2xl font-bold text-gray-900 mb-4">Daftar</h2>
@@ -255,21 +221,7 @@
     </div>
 
     <div id="toast" class="toast"></div>
-
     <script>
-        // Image Slider
-        /* const imageArray = ['/images/loginregist1.jpeg', '/images/loginregist2.jpeg', '/images/loginregist3.jpeg'];
-        let currentImageIndex = 0;
-        const backgroundImage = document.getElementById('backgroundImage');
-
-        setInterval(() => {
-            currentImageIndex = (currentImageIndex + 1) % imageArray.length;
-            backgroundImage.src = imageArray[currentImageIndex];
-            backgroundImage.classList.remove('fade-in-right');
-            void backgroundImage.offsetWidth;
-            backgroundImage.classList.add('fade-in-right');
-        }, 10000); */
-
         // Toggle password visibility
         const passwordInput = document.getElementById('kata_sandi');
         const togglePassword = document.getElementById('togglePassword');
