@@ -66,16 +66,7 @@
                     <div class="p-4">
                         <h2 class="text-xl font-semibold mb-2">Pengumuman: Pembukaan Pendaftaran Kalpataru</h2>
                         <p class="text-gray-600 mb-4">Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                        <a href="#" class="text-primary font-medium">Baca Selengkapnya &rarr;</a>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-lg shadow-md flex overflow-hidden">
-                    <img src="/images/pengumuman1.png" alt="pengumuman" class="w-48 object-cover">
-                    <div class="p-4">
-                        <h2 class="text-xl font-semibold mb-2">Pengumuman: Pembukaan Pendaftaran Kalpataru</h2>
-                        <p class="text-gray-600 mb-4">Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                        <a href="#" class="text-black font-medium flex justify-start items-center">
+                        <a href="#" class="text-black font-medium flex justify-end items-center">
                             Baca Selengkapnya
                             <img src="/images/arrowkanan.svg" alt="arrowkanan" class="w-8 h-8 ml-2">
                         </a>
@@ -87,7 +78,10 @@
                     <div class="p-4">
                         <h2 class="text-xl font-semibold mb-2">Pengumuman: Pembukaan Pendaftaran Kalpataru</h2>
                         <p class="text-gray-600 mb-4">Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                        <a href="#" class="text-primary font-medium">Baca Selengkapnya &rarr;</a>
+                        <a href="#" class="text-black font-medium flex justify-end items-center">
+                            Baca Selengkapnya
+                            <img src="/images/arrowkanan.svg" alt="arrowkanan" class="w-8 h-8 ml-2">
+                        </a>
                     </div>
                 </div>
 
@@ -96,7 +90,22 @@
                     <div class="p-4">
                         <h2 class="text-xl font-semibold mb-2">Pengumuman: Pembukaan Pendaftaran Kalpataru</h2>
                         <p class="text-gray-600 mb-4">Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                        <a href="#" class="text-primary font-medium">Baca Selengkapnya &rarr;</a>
+                        <a href="#" class="text-black font-medium flex justify-end items-center">
+                            Baca Selengkapnya
+                            <img src="/images/arrowkanan.svg" alt="arrowkanan" class="w-8 h-8 ml-2">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md flex overflow-hidden">
+                    <img src="/images/pengumuman1.png" alt="pengumuman" class="w-48 object-cover">
+                    <div class="p-4">
+                        <h2 class="text-xl font-semibold mb-2">Pengumuman: Pembukaan Pendaftaran Kalpataru</h2>
+                        <p class="text-gray-600 mb-4">Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                        <a href="#" class="text-black font-medium flex justify-end items-center">
+                            Baca Selengkapnya
+                            <img src="/images/arrowkanan.svg" alt="arrowkanan" class="w-8 h-8 ml-2">
+                        </a>
                     </div>
                 </div>
             </div>
