@@ -56,23 +56,15 @@
             display: block;
         }
 
-        /* no underline on kembali button */
-        .no-underline:hover {
-            text-decoration: none;
-        }
-
         /* Show/hide password */
-        .relative input {
-            padding-right: 2.5rem;
-        }
-
         .password-icon {
+            cursor: pointer;
             position: absolute;
-            right: 1rem;
+            right: 10px;
             top: 50%;
             transform: translateY(-50%);
-            cursor: pointer;
-            color: #9CA3AF;
+            font-weight: bold;
+            font-size: 1.2rem;
         }
 
 
@@ -98,10 +90,7 @@
 
         <div class="flex-1 flex items-center justify-center bg-white">
             <div class="w-full max-w-md p-6 fade-in-left">
-                <button onclick="window.location.href='/'"
-                    class="text-xs font-bold text-gray-400 mb-4 no-underline focus:outline-none">
-                    &lt Kembali
-                </button>
+
                 <h2 class="text-2xl font-bold text-gray-900 mb-4">Masuk</h2>
                 <form class="flex flex-col" onsubmit="validateForm(event)">
                     <label for="email" class="text-xs">Email</label>
@@ -112,39 +101,34 @@
                     <label for="password" class="text-xs">Kata Sandi</label>
                     <div class="relative">
                         <input id="password" type="password"
-                            class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none"
+                            class="block w-full border-2 border-gray-300 text-primary text-xs rounded-lg p-2 pr-10 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none"
                             placeholder="Masukkan Kata Sandi">
-                        <span id="togglePassword" class="password-icon">
-                            <img src="/images/hide.svg" alt="hide" class="w-4 h-4">
+                        <span id="togglePassword" class="password-icon absolute inset-y-0 right-2 flex items-center">
+                            <img src="/images/hide.svg" alt="hide" class="w-4 h-4 mb-4">
                         </span>
                     </div>
 
                     <div class="flex items-center justify-between flex-wrap">
-                        <p class="text-gray-900">
-                            Belum punya akun? <a href="./register" class="text-sm text-primary hover:underline font-bold">Daftar di sini</a>
+                        <p class="text-gray-900 text-xs">
+                            Belum punya akun? <a href="./register" class="text-primary hover:underline font-bold">Daftar Sekarang</a>
                         </p>
                     </div>
+
                     <button type="submit"
                         class="bg-secondary text-primary font-bold py-2 px-4 rounded-md mt-4 hover:bg-primary hover:text-white transition ease-in-out duration-150">
                         Masuk
                     </button>
                 </form>
+
+                <div class="mt-4">
+                    <button onclick="window.location.href='/'"
+                        class="text-sm font-bold text-gray-400 no-underline focus:outline-none">
+                        <span class="font-bold text-lg items-center">←</span> Kembali
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-
-    <!-- Add this popup after the toast element -->
-    <div id="successPopup" class="toasthidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
-        <div class="bg-green-700 text-center text-white p-6 rounded-lg max-w-md w-full">
-            <h3 class="text-xl font-bold mb-4">Terima kasih telah mendaftar!</h3>
-            <p class="text-sm">Akun Anda sedang dalam proses verifikasi oleh admin. Anda akan menerima email konfirmasi setelah akun diaktifkan.</p>
-            <button onclick="window.location.href='/'"
-                class="mt-4 px-4 py-2 bg-green-300 text-green-900 rounded-md hover:bg-green-400 transition">
-                ← Beranda
-            </button>
-        </div>
-    </div>
-
 
     <div id="toast" class="toast">Email atau password salah!</div>
 
@@ -173,8 +157,8 @@
 
             // Update the icon
             togglePassword.innerHTML = isPasswordVisible ?
-                `<img src="/images/show.svg" alt="show" class="w-4 h-4">` :
-                `<img src="/images/hide.svg" alt="hide" class="w-4 h-4">`;
+                `<img src="/images/show.svg" alt="show" class="w-4 h-4 mb-4">` :
+                `<img src="/images/hide.svg" alt="hide" class="w-4 h-4 mb-4">`;
         });
 
         // Form validation
@@ -183,16 +167,32 @@
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
 
-            if (email === 'test@example.com' && password === 'password123') {
+            // Cek apakah email kosong
+            if (email === '') {
+                showToast('Email belum terisi. Silakan lengkapi');
+            }
+            // Cek apakah password kosong
+            else if (password === '') {
+                showToast('Password belum terisi. Silakan lengkapi');
+            }
+            // Cek validasi email
+            else if (email !== 'test@example.com') {
+                showToast('Maaf, Email Tidak Terdaftar');
+            }
+            // Cek validasi password
+            else if (password !== 'password123') {
+                showToast('Maaf, Kata Sandi Salah');
+            }
+            // Jika email dan password benar
+            else {
                 alert('Login berhasil!');
-            } else {
-                showToast();
             }
         }
 
-        // Show toast
-        function showToast() {
+        // Show toast with custom message
+        function showToast(message) {
             const toast = document.getElementById('toast');
+            toast.textContent = message;
             toast.classList.add('show-toast');
             setTimeout(() => {
                 toast.classList.remove('show-toast');

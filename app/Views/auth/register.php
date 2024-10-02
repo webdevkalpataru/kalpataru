@@ -56,25 +56,24 @@
             display: block;
         }
 
-        /* no underline on kembali button */
-        .no-underline:hover {
-            text-decoration: none;
-        }
-
         /* Show/hide password */
-        .relative input {
-            padding-right: 2.5rem;
-        }
-
         .password-icon {
+            cursor: pointer;
             position: absolute;
-            right: 1rem;
+            right: 10px;
             top: 50%;
             transform: translateY(-50%);
-            cursor: pointer;
-            color: #9CA3AF;
+            font-weight: bold;
+            font-size: 1.2rem;
         }
 
+        .error-message {
+            color: red;
+            font-size: 0.8rem;
+            margin-top: -12px;
+            margin-bottom: 12px;
+            display: none;
+        }
 
         /* Responsive style */
         @media (max-width: 640px) {
@@ -99,60 +98,116 @@
 
         <div class="flex-1 flex items-center justify-center bg-white">
             <div class="w-full max-w-md p-6 fade-in-left">
-                <button onclick="window.location.href='/'"
-                    class="text-xs font-bold text-gray-400 mb-4 no-underline focus:outline-none">
-                    &lt Kembali
-                </button>
+
                 <h2 class="text-2xl font-bold text-gray-900 mb-4">Daftar</h2>
                 <form class="flex flex-col" onsubmit="validateForm(event)">
                     <label for="jenisInstansi" class="text-xs">Jenis Instansi</label>
-                    <input id="jenisInstansi" type="text"
+                    <select id="jenisInstansi"
                         class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
+                        <option value="" disabled selected>Pilih Jenis Instansi</option>
+                        <option value="Pemerintah">Pemerintah</option>
+                        <option value="Nonpemerintah">Nonpemerintah</option>
+                    </select>
 
-                    <label for="email" class="text-xs">Nama Instansi/ Nama Pribadi</label>
-                    <input id="email" type="text"
+                    <label for="nama" class="text-xs">Nama Instansi/ Nama Pribadi</label>
+                    <input id="nama" type="text"
                         class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none"
                         placeholder="contoh: Kemitraan Lingkungan">
 
                     <label for="provinsi" class="text-xs">Provinsi</label>
-                    <input id="provinsi" type="text"
-                        class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none" ">
+                    <select id="provinsi"
+                        class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
+                        <option value="" disabled selected>Pilih Provinsi</option>
+                        <option value="Aceh">Aceh</option>
+                        <option value="Sumatera Utara">Sumatera Utara</option>
+                        <option value="Sumatera Barat">Sumatera Barat</option>
+                        <option value="Sumatera Selatan">Sumatera Selatan</option>
+                        <option value="Riau">Riau</option>
+                        <option value="Kepulauan Riau">Kepulauan Riau</option>
+                        <option value="Jambi">Jambi</option>
+                        <option value="Bengkulu">Bengkulu</option>
+                        <option value="Lampung">Lampung</option>
+                        <option value="Bangka Belitung">Bangka Belitung</option>
+                        <option value="DKI Jakarta">DKI Jakarta</option>
+                        <option value="Jawa Barat">Jawa Barat</option>
+                        <option value="Jawa Tengah">Jawa Tengah</option>
+                        <option value="DI Yogyakarta">DI Yogyakarta</option>
+                        <option value="Jawa Timur">Jawa Timur</option>
+                        <option value="Banten">Banten</option>
+                        <option value="Bali">Bali</option>
+                        <option value="Nusa Tenggara Barat">Nusa Tenggara Barat</option>
+                        <option value="Nusa Tenggara Timur">Nusa Tenggara Timur</option>
+                        <option value="Kalimantan Barat">Kalimantan Barat</option>
+                        <option value="Kalimantan Tengah">Kalimantan Tengah</option>
+                        <option value="Kalimantan Selatan">Kalimantan Selatan</option>
+                        <option value="Kalimantan Timur">Kalimantan Timur</option>
+                        <option value="Kalimantan Utara">Kalimantan Utara</option>
+                        <option value="Sulawesi Utara">Sulawesi Utara</option>
+                        <option value="Sulawesi Tengah">Sulawesi Tengah</option>
+                        <option value="Sulawesi Selatan">Sulawesi Selatan</option>
+                        <option value="Sulawesi Tenggara">Sulawesi Tenggara</option>
+                        <option value="Sulawesi Barat">Sulawesi Barat</option>
+                        <option value="Gorontalo">Gorontalo</option>
+                        <option value="Maluku">Maluku</option>
+                        <option value="Maluku Utara">Maluku Utara</option>
+                        <option value="Papua">Papua</option>
+                        <option value="Papua Barat">Papua Barat</option>
+                        <option value="Papua Barat">Papua Barat Daya</option>
+                        <option value="Papua Tengah">Papua Tengah</option>
+                        <option value="Papua Selatan">Papua Selatan</option>
+                        <option value="Papua Pegunungan">Papua Pegunungan</option>
+                    </select>
 
                     <label for=" telepon" class="text-xs">Nomor Telepon <span class="text-primary">(Pastikan Nomor Aktif)</span></label>
-                    <input id="telepon" type="text"
+                    <input id="telepon" type="number"
                         class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none"
-                        placeholder="Masukkan Email">
+                        placeholder="Contoh: 08XXXXXXXX">
 
                     <label for="email" class="text-xs">Email <span class="text-primary">(Pastikan Email Aktif)</span></label>
-                    <input id="email" type="text"
+                    <input id="email" type="email"
                         class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none"
-                        placeholder="Masukkan Email">
-
-                    <label for="email" class="text-xs">Email</label>
-                    <input id="email" type="text"
-                        class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none"
-                        placeholder="Masukkan Email">
+                        placeholder="Masukkan Email Aktif">
 
                     <label for="password" class="text-xs">Kata Sandi</label>
                     <div class="relative">
                         <input id="password" type="password"
-                            class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none"
+                            class="block w-full border-2 border-gray-300 text-primary text-xs rounded-lg p-2 pr-10 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none"
                             placeholder="Masukkan Kata Sandi">
                         <span id="togglePassword" class="password-icon">
-                            <img src="/images/hide.svg" alt="hide" class="w-4 h-4">
+                            <img src="/images/hide.svg" alt="hide" class="w-4 h-4 mb-4">
                         </span>
                     </div>
+                    <small id="passwordError" class="error-message">Kata sandi harus minimal 8 karakter, termasuk huruf kecil, huruf besar, dan simbol.</small>
+
+                    <label for="passwordcheck" class="text-xs">Konfirmasi Kata Sandi</label>
+                    <div class="relative">
+                        <input id="passwordcheck" type="password"
+                            class="block w-full border-2 border-gray-300 text-primary text-xs rounded-lg p-2 pr-10 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none"
+                            placeholder="Masukkan Konfirmasi Kata Sandi">
+                        <span id="togglePasswordCheck" class="password-icon">
+                            <img src="/images/hide.svg" alt="hide" class="w-4 h-4 mb-4">
+                        </span>
+                    </div>
+                    <small id="passwordCheckError" class="error-message">Konfirmasi kata sandi tidak cocok.</small>
 
                     <div class="flex items-center justify-between flex-wrap">
-                        <p class="text-gray-900">
-                            Belum punya akun? <a href="./login" class="text-sm text-primary hover:underline font-bold">Masuk ke akun</a>
+                        <p class="text-gray-900 text-xs">
+                            Sudah punya akun? <a href="./login" class="text-primary hover:underline font-bold">Masuk Sekarang</a>
                         </p>
                     </div>
+
                     <button type="submit"
                         class="bg-secondary text-primary font-bold py-2 px-4 rounded-md mt-4 hover:bg-primary hover:text-white transition ease-in-out duration-150">
                         Daftar
                     </button>
                 </form>
+
+                <div class="mt-4">
+                    <button onclick="window.location.href='./login'"
+                        class="text-sm font-bold text-gray-400 no-underline focus:outline-none">
+                        <span class="font-bold text-lg items-center">←</span> Kembali
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -170,9 +225,10 @@
     </div>
 
 
-    <div id="toast" class="toast">Email atau password salah!</div>
+    <div id="toast" class="toast"></div>
 
     <script>
+        // Image Slider
         const imageArray = ['/images/loginregist1.jpeg', '/images/loginregist2.jpeg', '/images/loginregist3.jpeg'];
         let currentImageIndex = 0;
         const backgroundImage = document.getElementById('backgroundImage');
@@ -188,63 +244,170 @@
         // Toggle password visibility
         const passwordInput = document.getElementById('password');
         const togglePassword = document.getElementById('togglePassword');
-        let isPasswordVisible = false;
+        const passwordCheckInput = document.getElementById('passwordcheck');
+        const togglePasswordCheck = document.getElementById('togglePasswordCheck');
+        const passwordError = document.getElementById('passwordError');
+        const passwordCheckError = document.getElementById('passwordCheckError');
 
+        let isPasswordVisible = false;
+        let isPasswordCheckVisible = false;
+
+        // Toggle password visibility
         togglePassword.addEventListener('click', () => {
             isPasswordVisible = !isPasswordVisible;
-            const type = isPasswordVisible ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
-
-            // Update the icon
+            passwordInput.type = isPasswordVisible ? 'text' : 'password';
             togglePassword.innerHTML = isPasswordVisible ?
-                `<img src="/images/show.svg" alt="show" class="w-4 h-4">` :
-                `<img src="/images/hide.svg" alt="hide" class="w-4 h-4">`;
+                `<img src="/images/show.svg" alt="show" class="w-4 h-4 mb-4">` :
+                `<img src="/images/hide.svg" alt="hide" class="w-4 h-4 mb-4">`;
         });
+
+        // Toggle password visibility for password confirmation
+        togglePasswordCheck.addEventListener('click', () => {
+            isPasswordCheckVisible = !isPasswordCheckVisible;
+            passwordCheckInput.type = isPasswordCheckVisible ? 'text' : 'password';
+            togglePasswordCheck.innerHTML = isPasswordCheckVisible ?
+                `<img src="/images/show.svg" alt="show" class="w-4 h-4 mb-4">` :
+                `<img src="/images/hide.svg" alt="hide" class="w-4 h-4 mb-4">`;
+        });
+
 
         // Form validation
         function validateForm(event) {
             event.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
 
-            if (email === 'test@example.com' && password === 'password123') {
-                loadNewPageContent();
+            const jenisInstansi = document.getElementById('jenisInstansi').value;
+            const namaInstansi = document.getElementById('nama').value;
+            const provinsi = document.getElementById('provinsi').value;
+            const telepon = document.getElementById('telepon').value;
+            const email = document.getElementById('email').value;
+            const password = passwordInput.value;
+            const passwordCheck = passwordCheckInput.value;
+
+            let isValid = true;
+            let passwordErrors = [];
+
+            // Check for length
+            if (password.length < 8) {
+                passwordErrors.push('Kata sandi harus minimal 8 karakter.');
+            }
+
+            // Check for lowercase letters
+            if (!/[a-z]/.test(password)) {
+                passwordErrors.push('Kata sandi harus mengandung setidaknya satu huruf kecil.');
+            }
+
+            // Check for uppercase letters
+            if (!/[A-Z]/.test(password)) {
+                passwordErrors.push('Kata sandi harus mengandung setidaknya satu huruf besar.');
+            }
+
+            // Check for special characters
+            const specialCharacters = /[!@#$%^&*]/;
+            if (!specialCharacters.test(password)) {
+                passwordErrors.push('Kata sandi harus mengandung setidaknya satu simbol (!@#$%^&*).');
+            }
+
+            // Display password errors if any
+            if (passwordErrors.length > 0) {
+                passwordError.innerHTML = passwordErrors.join('<br>'); // Show all error messages
+                passwordInput.classList.add('error');
+                passwordError.style.display = 'block';
+                isValid = false;
             } else {
-                showToast();
+                passwordInput.classList.remove('error');
+                passwordError.style.display = 'none';
+            }
+
+            // Validasi Konfirmasi Kata Sandi
+            if (password !== passwordCheck) {
+                passwordCheckInput.classList.add('error');
+                passwordCheckError.style.display = 'block';
+                isValid = false;
+            } else {
+                passwordCheckInput.classList.remove('error');
+                passwordCheckError.style.display = 'none';
+            }
+
+            // Validasi input lain
+            if (jenisInstansi === '') {
+                showToast('Jenis Instansi belum terisi. Silakan lengkapi');
+                isValid = false;
+            } else if (namaInstansi === '') {
+                showToast('Nama Instansi/Nama Pribadi belum terisi. Silakan lengkapi');
+                isValid = false;
+            } else if (provinsi === '') {
+                showToast('Provinsi belum terisi. Silakan lengkapi');
+                isValid = false;
+            } else if (telepon === '') {
+                showToast('Nomor Telepon belum terisi. Silakan lengkapi');
+                isValid = false;
+            } else if (email === '') {
+                showToast('Email belum terisi. Silakan lengkapi');
+                isValid = false;
+            }
+
+            if (isValid) {
+                showPopup();
             }
         }
 
-        // Replace form content with new content (simulating a page change)
-        function loadNewPageContent() {
-            const formContainer = document.querySelector('.flex-1.flex.items-center.justify-center.bg-white');
+        // Realtime validation for password
+        passwordInput.addEventListener('input', () => {
+            const password = passwordInput.value;
+            let passwordErrors = [];
 
-            // Replace the current form content with the new content
-            formContainer.innerHTML = `
-        <div class="w-full max-w-md p-6 fade-in-left">
-            <h2 class="text-2xl font-bold text-gray-900 mb-4">Selamat Datang!</h2>
-            <p class="text-gray-700 mb-4">Anda berhasil masuk ke akun Anda. Halaman ini akan memuat fitur-fitur penting.</p>
-            <button onclick="window.location.href='/dashboard'"
-                class="bg-primary text-white font-bold py-2 px-4 rounded-md mt-4 hover:bg-secondary transition ease-in-out duration-150">
-                Lanjut ke Dashboard
-            </button>
-        </div>
-    `;
-        }
+            // Check for length
+            if (password.length < 8) {
+                passwordErrors.push('Kata sandi harus minimal 8 karakter.');
+            }
 
+            // Check for lowercase letters
+            if (!/[a-z]/.test(password)) {
+                passwordErrors.push('Kata sandi harus mengandung setidaknya satu huruf kecil.');
+            }
 
-        // Show success popup
-        function showPopup() {
-            const successPopup = document.getElementById('successPopup');
-            successPopup.classList.remove('hidden');
-        }
+            // Check for uppercase letters
+            if (!/[A-Z]/.test(password)) {
+                passwordErrors.push('Kata sandi harus mengandung setidaknya satu huruf besar.');
+            }
 
-        // Show toast
-        function showToast() {
+            // Check for special characters
+            const specialCharacters = /[!@#$%^&*]/;
+            if (!specialCharacters.test(password)) {
+                passwordErrors.push('Kata sandi harus mengandung setidaknya satu simbol (!@#$%^&*).');
+            }
+
+            if (passwordErrors.length > 0) {
+                passwordError.innerHTML = passwordErrors.join('<br>');
+                passwordError.style.display = 'block';
+            } else {
+                passwordError.style.display = 'none';
+            }
+        });
+
+        // Realtime validation for password confirmation
+        passwordCheckInput.addEventListener('input', () => {
+            if (passwordInput.value === passwordCheckInput.value) {
+                passwordCheckError.style.display = 'none';
+            } else {
+                passwordCheckError.style.display = 'block';
+            }
+        });
+
+        // Fungsi untuk menampilkan toast
+        function showToast(message) {
             const toast = document.getElementById('toast');
+            toast.textContent = message;
             toast.classList.add('show-toast');
             setTimeout(() => {
                 toast.classList.remove('show-toast');
             }, 3000);
+        }
+
+        // Fungsi untuk menampilkan popup sukses
+        function showPopup() {
+            const successPopup = document.getElementById('successPopup');
+            successPopup.classList.remove('toasthidden');
         }
     </script>
 </body>
