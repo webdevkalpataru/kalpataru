@@ -9,7 +9,9 @@ $routes->get('/', 'Home::index');
 $routes->get('/beranda', 'MainController::beranda');
 $routes->get('profil', 'MainController::profil');
 $routes->get('kontak', 'MainController::kontak');
-$routes->get('masuk', 'MainController::masuk');
+
+$routes->get('auth/login', 'AuthController::login');
+$routes->get('auth/register', 'AuthController::register');
 
 $routes->get('informasi/pengumuman', 'InformasiController::pengumuman');
 $routes->get('informasi/peraturankebijakan', 'InformasiController::peraturankebijakan');
