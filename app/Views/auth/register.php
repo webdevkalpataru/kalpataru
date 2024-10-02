@@ -100,22 +100,23 @@
             <div class="w-full max-w-md p-6 fade-in-left">
 
                 <h2 class="text-2xl font-bold text-gray-900 mb-4">Daftar</h2>
-                <form class="flex flex-col" onsubmit="validateForm(event)">
-                    <label for="jenisInstansi" class="text-xs">Jenis Instansi</label>
-                    <select id="jenisInstansi"
+                <form action="/auth/register/createRegister" method="post" onsubmit="validateForm(event)" class="flex flex-col">
+                        <?= csrf_field() ?>
+                    <label for="jenis_instansi" class="text-xs">Jenis Instansi</label>
+                    <select id="jenis_instansi" name="jenis_instansi"
                         class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
                         <option value="" disabled selected>Pilih Jenis Instansi</option>
                         <option value="Pemerintah">Pemerintah</option>
-                        <option value="Nonpemerintah">Nonpemerintah</option>
+                        <option value="Non Pemerintah">Non Pemerintah</option>
                     </select>
 
-                    <label for="nama" class="text-xs">Nama Instansi/ Nama Pribadi</label>
-                    <input id="nama" type="text"
+                    <label for="nama_instansi_pribadi" class="text-xs">Nama Instansi/ Nama Pribadi</label>
+                    <input id="nama_instansi_pribadi" name="nama_instansi_pribadi" type="text"
                         class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none"
                         placeholder="contoh: Kemitraan Lingkungan">
 
                     <label for="provinsi" class="text-xs">Provinsi</label>
-                    <select id="provinsi"
+                    <select id="provinsi" name="provinsi"
                         class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
                         <option value="" disabled selected>Pilih Provinsi</option>
                         <option value="Aceh">Aceh</option>
@@ -152,25 +153,25 @@
                         <option value="Maluku Utara">Maluku Utara</option>
                         <option value="Papua">Papua</option>
                         <option value="Papua Barat">Papua Barat</option>
-                        <option value="Papua Barat">Papua Barat Daya</option>
+                        <option value="Papua Barat Daya">Papua Barat Daya</option>
                         <option value="Papua Tengah">Papua Tengah</option>
                         <option value="Papua Selatan">Papua Selatan</option>
                         <option value="Papua Pegunungan">Papua Pegunungan</option>
                     </select>
 
-                    <label for=" telepon" class="text-xs">Nomor Telepon <span class="text-primary">(Pastikan Nomor Aktif)</span></label>
-                    <input id="telepon" type="number"
+                    <label for="telepon" class="text-xs">Nomor Telepon <span class="text-primary">(Pastikan Nomor Aktif)</span></label>
+                    <input id="telepon" name="telepon" type="number"
                         class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none"
                         placeholder="Contoh: 08XXXXXXXX">
 
                     <label for="email" class="text-xs">Email <span class="text-primary">(Pastikan Email Aktif)</span></label>
-                    <input id="email" type="email"
+                    <input id="email" name="email" type="email"
                         class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none"
                         placeholder="Masukkan Email Aktif">
 
-                    <label for="password" class="text-xs">Kata Sandi</label>
+                    <label for="kata_sandi" class="text-xs">Kata Sandi</label>
                     <div class="relative">
-                        <input id="password" type="password"
+                        <input id="kata_sandi" name="kata_sandi" type="password"
                             class="block w-full border-2 border-gray-300 text-primary text-xs rounded-lg p-2 pr-10 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none"
                             placeholder="Masukkan Kata Sandi">
                         <span id="togglePassword" class="password-icon">
@@ -181,7 +182,7 @@
 
                     <label for="passwordcheck" class="text-xs">Konfirmasi Kata Sandi</label>
                     <div class="relative">
-                        <input id="passwordcheck" type="password"
+                        <input id="passwordcheck" name="passwordcheck" type="password"
                             class="block w-full border-2 border-gray-300 text-primary text-xs rounded-lg p-2 pr-10 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none"
                             placeholder="Masukkan Konfirmasi Kata Sandi">
                         <span id="togglePasswordCheck" class="password-icon">
@@ -224,7 +225,6 @@
         </div>
     </div>
 
-
     <div id="toast" class="toast"></div>
 
     <script>
@@ -242,7 +242,7 @@
         }, 10000); */
 
         // Toggle password visibility
-        const passwordInput = document.getElementById('password');
+        const passwordInput = document.getElementById('kata_sandi');
         const togglePassword = document.getElementById('togglePassword');
         const passwordCheckInput = document.getElementById('passwordcheck');
         const togglePasswordCheck = document.getElementById('togglePasswordCheck');
@@ -275,36 +275,36 @@
         function validateForm(event) {
             event.preventDefault();
 
-            const jenisInstansi = document.getElementById('jenisInstansi').value;
-            const namaInstansi = document.getElementById('nama').value;
+            const jenis_instansi = document.getElementById('jenis_instansi').value;
+            const nama_instansi_pribadi = document.getElementById('nama_instansi_pribadi').value;
             const provinsi = document.getElementById('provinsi').value;
             const telepon = document.getElementById('telepon').value;
             const email = document.getElementById('email').value;
-            const password = passwordInput.value;
+            const kata_sandi = passwordInput.value;
             const passwordCheck = passwordCheckInput.value;
 
             let isValid = true;
             let passwordErrors = [];
 
             // Check for length
-            if (password.length < 8) {
+            if (kata_sandi.length < 8) {
                 passwordErrors.push('Kata sandi harus minimal 8 karakter.');
             }
 
             // Check for lowercase letters
-            if (!/[a-z]/.test(password)) {
+            if (!/[a-z]/.test(kata_sandi)) {
                 passwordErrors.push('Kata sandi harus mengandung setidaknya satu huruf kecil.');
             }
 
             // Check for uppercase letters
-            if (!/[A-Z]/.test(password)) {
+            if (!/[A-Z]/.test(kata_sandi)) {
                 passwordErrors.push('Kata sandi harus mengandung setidaknya satu huruf besar.');
             }
 
             // Check for special characters
-            const specialCharacters = /[!@#$%^&*]/;
-            if (!specialCharacters.test(password)) {
-                passwordErrors.push('Kata sandi harus mengandung setidaknya satu simbol (!@#$%^&*).');
+            const specialCharacters = /[!@#$%^&*_-]/;
+            if (!specialCharacters.test(kata_sandi)) {
+                passwordErrors.push('Kata sandi harus mengandung setidaknya satu simbol (!@#$%^&*_-).');
             }
 
             // Display password errors if any
@@ -319,7 +319,7 @@
             }
 
             // Validasi Konfirmasi Kata Sandi
-            if (password !== passwordCheck) {
+            if (kata_sandi !== passwordCheck) {
                 passwordCheckInput.classList.add('error');
                 passwordCheckError.style.display = 'block';
                 isValid = false;
@@ -329,10 +329,10 @@
             }
 
             // Validasi input lain
-            if (jenisInstansi === '') {
+            if (jenis_instansi === '') {
                 showToast('Jenis Instansi belum terisi. Silakan lengkapi');
                 isValid = false;
-            } else if (namaInstansi === '') {
+            } else if (nama_instansi_pribadi === '') {
                 showToast('Nama Instansi/Nama Pribadi belum terisi. Silakan lengkapi');
                 isValid = false;
             } else if (provinsi === '') {
@@ -347,34 +347,52 @@
             }
 
             if (isValid) {
-                showPopup();
+                const form = event.target;
+                const formData = new FormData(form);
+
+                fetch(form.action, {
+                    method: form.method,
+                    body: formData,
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        showPopup();
+                    } else {
+                        showToast('Registration failed. Please try again.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showToast('An error occurred. Please try again.');
+                });
             }
         }
 
         // Realtime validation for password
         passwordInput.addEventListener('input', () => {
-            const password = passwordInput.value;
+            const kata_sandi = passwordInput.value;
             let passwordErrors = [];
 
             // Check for length
-            if (password.length < 8) {
+            if (kata_sandi.length < 8) {
                 passwordErrors.push('Kata sandi harus minimal 8 karakter.');
             }
 
             // Check for lowercase letters
-            if (!/[a-z]/.test(password)) {
+            if (!/[a-z]/.test(kata_sandi)) {
                 passwordErrors.push('Kata sandi harus mengandung setidaknya satu huruf kecil.');
             }
 
             // Check for uppercase letters
-            if (!/[A-Z]/.test(password)) {
+            if (!/[A-Z]/.test(kata_sandi)) {
                 passwordErrors.push('Kata sandi harus mengandung setidaknya satu huruf besar.');
             }
 
             // Check for special characters
-            const specialCharacters = /[!@#$%^&*]/;
-            if (!specialCharacters.test(password)) {
-                passwordErrors.push('Kata sandi harus mengandung setidaknya satu simbol (!@#$%^&*).');
+            const specialCharacters = /[!@#$%^&*_-]/;
+            if (!specialCharacters.test(kata_sandi)) {
+                passwordErrors.push('Kata sandi harus mengandung setidaknya satu simbol (!@#$%^&*_-).');
             }
 
             if (passwordErrors.length > 0) {
