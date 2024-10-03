@@ -61,6 +61,7 @@ class AuthController extends BaseController
         $provinsi_list = [
             'Aceh',
             'Bali',
+            'Bangka Belitung',
             'Banten',
             'Bengkulu',
             'DI Yogyakarta',
@@ -84,6 +85,10 @@ class AuthController extends BaseController
             'Nusa Tenggara Timur',
             'Papua',
             'Papua Barat',
+            'Papua Barat Daya',
+            'Papua Pegunungan',
+            'Papua Selatan',
+            'Papua Tengah',
             'Riau',
             'Sulawesi Barat',
             'Sulawesi Selatan',
@@ -127,5 +132,10 @@ class AuthController extends BaseController
     public function pengusul()
     {
         return view('pengusul', ['title' => 'Pengusul']);
+    }
+
+    public function dlhk()
+    {
+        return view('dlhk', ['title' => 'Pengusul']);
     }
 }
