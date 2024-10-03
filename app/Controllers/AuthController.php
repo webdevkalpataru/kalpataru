@@ -90,8 +90,8 @@ class AuthController extends BaseController
         }
     }
 
-    public function pengusul()
+    public function register()
     {
-        return view('pengusul', ['title' => 'Pengusul']);
+        return view('auth/register', ['title' => 'Register']);
     }
 }
