@@ -11,7 +11,7 @@ class AuthController extends BaseController
         return view('auth/login', ['title' => 'Login']);
     }
 
-    public function register()
+    public function loginAction()
     {
         // Jika request adalah POST (artinya user sedang submit form)
         if ($this->request->getMethod() == 'post') {
@@ -88,5 +88,10 @@ class AuthController extends BaseController
             log_message('error', 'Registration failed: ' . json_encode($model->errors()));
             return $this->response->setJSON(['success' => false, 'errors' => $model->errors()]);
         }
+    }
+
+    public function pengusul()
+    {
+        return view('pengusul', ['title' => 'Pengusul']);
     }
 }

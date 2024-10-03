@@ -11,6 +11,7 @@ $routes->get('profil', 'MainController::profil');
 $routes->get('kontak', 'MainController::kontak');
 
 $routes->get('auth/login', 'AuthController::login');
+$routes->add('auth/login-action', 'AuthController::loginAction');
 $routes->get('auth/register', 'AuthController::register');
 $routes->add('auth/register/createRegister', 'AuthController::createRegister');
 
