@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <titl flex justify-centere>Buku Profil 2024le>
+    <title flex justify-centere>Buku Profil 2024 </title>
 </head>
 
 <body class="bg-site">
