@@ -15,6 +15,7 @@ class Home extends BaseController
         
         $data['videos'] = $publikasiModel->TampilVideo();
         $data['berita'] = $publikasiModel->TampilBerita();
+        $data['title'] = "Penghargaan Kalpataru";
 
         return view('landingpage', $data);
     }

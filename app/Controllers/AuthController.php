@@ -13,58 +13,98 @@ class AuthController extends BaseController
 
     public function loginAction()
     {
-        // Jika request adalah POST (artinya user sedang submit form)
-        if ($this->request->getMethod() == 'post') {
-            // Validasi input
-            $validationRules = [
-                'nama_instansi_pribadi' => 'required|min_length[3]|max_length[100]',
-                'email' => 'required|valid_email',
-                'password' => 'required|min_length[6]',
-                'password_confirm' => 'required|matches[password]',
-                'telepon' => 'required|numeric',
-                'provinsi' => 'required',
-                'jenis_instansi' => 'required',
-                'surat_pengantar' => 'uploaded[surat_pengantar]|mime_in[surat_pengantar,application/pdf]',
-            ];
+        $model = new PengusulModel();
 
-            if (!$this->validate($validationRules)) {
-                // Jika validasi gagal, kembalikan ke form dengan error message
-                return view('auth/register', [
-                    'title' => 'Register',
-                    'validation' => $this->validator
-                ]);
+        // Ambil input dari formulir
+        $email = $this->request->getPost('email');
+        $kataSandi = $this->request->getPost('kata_sandi');
+
+        // Cari pengguna berdasarkan email
+        $user = $model->where('email', $email)->first();
+
+        // Periksa apakah pengguna ditemukan
+        if ($user) {
+            // Verifikasi kata sandi
+            if (password_verify($kataSandi, $user['kata_sandi'])) {
+                // Cek status akun
+                if ($user['status_akun'] === 'Aktif') {
+                    // Set session berdasarkan role_akun
+                    $sessionData = [
+                        'id_pengusul' => $user['id_pengusul'],
+                        'nama' => $user['nama_instansi_pribadi'],
+                        'email' => $user['email'],
+                        'role_akun' => $user['role_akun'],
+                        'logged_in' => true,
+                    ];
+                    session()->set($sessionData);
+
+                    // Arahkan pengguna sesuai role_akun
+                    if ($user['role_akun'] === 'Pengusul') {
+                        return redirect()->to('/pengusul/dashboard');
+                    } elseif ($user['role_akun'] === 'DLHK') {
+                        return redirect()->to('/dlhk/dashboard');
+                    }
+                } else {
+                    return $this->response->setJSON(['success' => false, 'message' => 'Akun Anda belum aktif.']);
+                }
+            } else {
+                return $this->response->setJSON(['success' => false, 'message' => 'Kata sandi salah.']);
             }
-
-            // Jika validasi sukses, simpan user ke database
-            $PengusulModel = new PengusulModel();
-
-            // Enkripsi password sebelum menyimpannya
-            $passwordHash = password_hash($this->request->getPost('password'), PASSWORD_DEFAULT);
-
-            // Upload file surat pengantar
-            $suratPengantar = $this->request->getFile('surat_pengantar');
-            if ($suratPengantar->isValid() && !$suratPengantar->hasMoved()) {
-                $suratPengantar->move(WRITEPATH . 'upload/', $suratPengantar->getName());
-            }
-
-            // Simpan data user ke database
-            $PengusulModel->save([
-                'nama_instansi_pribadi' => $this->request->getPost('nama_instansi_pribadi'),
-                'email' => $this->request->getPost('email'),
-                'password' => $passwordHash,
-                'telepon' => $this->request->getPost('telepon'),
-                'provinsi' => $this->request->getPost('provinsi'),
-                'jenis_instansi' => $this->request->getPost('jenis_instansi'),
-                'surat_pengantar' => $suratPengantar->getName(),
-                'role_akun' => $this->request->getPost('pengusul')
-            ]);
-
-            // Redirect ke halaman login setelah pendaftaran sukses
-            return redirect()->to('/auth/login')->with('success', 'Registrasi berhasil! Silakan login.');
+        } else {
+            return $this->response->setJSON(['success' => false, 'message' => 'Pengguna tidak ditemukan.']);
         }
+    }
 
-        // Jika request adalah GET, tampilkan form register
-        return view('auth/register', ['title' => 'Register']);
+
+
+    public function register()
+    {
+        $provinsi_list = [
+            'Aceh',
+            'Bali',
+            'Bangka Belitung',
+            'Banten',
+            'Bengkulu',
+            'DI Yogyakarta',
+            'DKI Jakarta',
+            'Gorontalo',
+            'Jambi',
+            'Jawa Barat',
+            'Jawa Tengah',
+            'Jawa Timur',
+            'Kalimantan Barat',
+            'Kalimantan Selatan',
+            'Kalimantan Tengah',
+            'Kalimantan Timur',
+            'Kalimantan Utara',
+            'Kepulauan Bangka Belitung',
+            'Kepulauan Riau',
+            'Lampung',
+            'Maluku',
+            'Maluku Utara',
+            'Nusa Tenggara Barat',
+            'Nusa Tenggara Timur',
+            'Papua',
+            'Papua Barat',
+            'Papua Barat Daya',
+            'Papua Pegunungan',
+            'Papua Selatan',
+            'Papua Tengah',
+            'Riau',
+            'Sulawesi Barat',
+            'Sulawesi Selatan',
+            'Sulawesi Tengah',
+            'Sulawesi Tenggara',
+            'Sulawesi Utara',
+            'Sumatera Barat',
+            'Sumatera Selatan',
+            'Sumatera Utara'
+        ];
+
+        $data['title'] = 'Daftar Akun';
+        $data['provinsi_list'] = $provinsi_list;
+
+        return view('auth/register', $data);
     }
 
     public function createRegister()
@@ -90,8 +130,13 @@ class AuthController extends BaseController
         }
     }
 
-    public function register()
+    public function pengusul()
     {
-        return view('auth/register', ['title' => 'Register']);
+        return view('pengusul', ['title' => 'Pengusul']);
+    }
+
+    public function dlhk()
+    {
+        return view('dlhk', ['title' => 'Pengusul']);
     }
 }

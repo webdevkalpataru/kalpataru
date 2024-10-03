@@ -24,4 +24,5 @@ $routes->get('publikasi/artikel', 'PublikasiController::artikel');
 $routes->get('publikasi/video', 'PublikasiController::video');
 $routes->get('publikasi/buku', 'PublikasiController::buku');
 
-$routes->get('pengusul/profil', 'PengusulController::index');
+$routes->get('/pengusul/dashboard', 'AuthController::pengusul');
+$routes->get('/dlhk/dashboard', 'AuthController::dlhk');

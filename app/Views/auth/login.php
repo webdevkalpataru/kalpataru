@@ -133,6 +133,19 @@
     <div id="toast" class="toast">Email atau password salah!</div>
 
     <script>
+        /* const imageArray = ['/images/loginregist1.jpeg', '/images/loginregist2.jpeg', '/images/loginregist3.jpeg'];
+        let currentImageIndex = 0;
+        const backgroundImage = document.getElementById('backgroundImage');
+
+        setInterval(() => {
+            currentImageIndex = (currentImageIndex + 1) % imageArray.length;
+            backgroundImage.src = imageArray[currentImageIndex];
+            backgroundImage.classList.remove('fade-in-right');
+            void backgroundImage.offsetWidth;
+            backgroundImage.classList.add('fade-in-right');
+        }, 10000); */
+
+        // Toggle password visibility
         const passwordInput = document.getElementById('password');
         const togglePassword = document.getElementById('togglePassword');
         let isPasswordVisible = false;

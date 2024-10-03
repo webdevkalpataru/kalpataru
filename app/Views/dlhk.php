@@ -1,4 +1,4 @@
-<?= $this->extend('layout/template'); ?>
+<?= $this->extend('template/navbarfooter'); ?>
 
 <?= $this->section('content'); ?>
 <h1>Ini adalah dashboard dlhk</h1>
