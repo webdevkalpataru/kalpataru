@@ -92,19 +92,15 @@
             <div class="w-full max-w-md p-6 fade-in-left">
 
                 <h2 class="text-2xl font-bold text-gray-900 mb-4">Masuk</h2>
-                <?php if (session()->getFlashdata('errors')): ?>
-                    <div class="error"><?= session()->getFlashdata('errors') ?></div>
-                <?php endif; ?>
-
-                <form action="<?= base_url('auth/login'); ?>" method="post" class="flex flex-col" onsubmit="validateForm(event)">
+                <form class="flex flex-col" onsubmit="validateForm(event)" action="/auth/login-action" method="POST">
                     <label for="email" class="text-xs">Email</label>
-                    <input id="email" name="email" type="text" required
+                    <input id="email" type="text" name="email" required
                         class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none"
                         placeholder="Masukkan Email">
 
                     <label for="password" class="text-xs">Kata Sandi</label>
                     <div class="relative">
-                        <input id="password" name="kata_sandi" type="password" required
+                        <input id="password" type="password" name="kata_sandi" required
                             class="block w-full border-2 border-gray-300 text-primary text-xs rounded-lg p-2 pr-10 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none"
                             placeholder="Masukkan Kata Sandi">
                         <span id="togglePassword" class="password-icon absolute inset-y-0 right-2 flex items-center">
@@ -165,21 +161,7 @@
                 `<img src="/images/hide.svg" alt="hide" class="w-4 h-4 mb-4">`;
         });
 
-        // Form validation
-        function validateForm(event) {
-            event.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
 
-            // Cek apakah email kosong
-            if (email === '') {
-                showToast('Email belum terisi. Silakan lengkapi');
-            }
-            // Cek apakah password kosong
-            else(password === '') {
-                showToast('Password belum terisi. Silakan lengkapi');
-            }
-        }
 
         // Show toast with custom message
         function showToast(message) {

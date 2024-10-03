@@ -29,23 +29,11 @@ class PengusulModel extends Model
         'surat_pengantar'
     ];
 
-    public function login($email, $password)
-    {
-        // Ambil data pengguna berdasarkan email
-        $user = $this->where('email', $email)->first();
-
-        // Cek apakah pengguna ada dan verifikasi kata sandi
-        if ($user && password_verify($password, $user['kata_sandi'])) {
-            return $user; // Mengembalikan data pengguna jika berhasil
-        }
-
-        return false; // Mengembalikan false jika login gagal
-    }
-
     public function getUserByEmail($email)
     {
-        return $this->where('email', $email)->first(); // Asumsi menggunakan CodeIgniter Model
+        return $this->where('email', $email)->first();
     }
+
 
     public function createPengusul($data)
     {

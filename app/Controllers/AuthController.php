@@ -13,42 +13,48 @@ class AuthController extends BaseController
 
     public function loginAction()
     {
-        $session = session();
         $model = new PengusulModel();
 
-        // Ambil data dari input
+        // Ambil input dari formulir
         $email = $this->request->getPost('email');
         $kataSandi = $this->request->getPost('kata_sandi');
 
-        // Cek email di database
-        $user = $model->getUserByEmail($email);
+        // Cari pengguna berdasarkan email
+        $user = $model->where('email', $email)->first();
 
+        // Periksa apakah pengguna ditemukan
         if ($user) {
             // Verifikasi kata sandi
             if (password_verify($kataSandi, $user['kata_sandi'])) {
-                // Set session data
-                $session->set([
-                    'id_pengusul' => $user['id_pengusul'],
-                    'email' => $user['email'],
-                    'role_akun' => $user['role_akun'],
-                    'logged_in' => true
-                ]);
+                // Cek status akun
+                if ($user['status_akun'] === 'Aktif') {
+                    // Set session berdasarkan role_akun
+                    $sessionData = [
+                        'id_pengusul' => $user['id_pengusul'],
+                        'nama' => $user['nama_instansi_pribadi'],
+                        'email' => $user['email'],
+                        'role_akun' => $user['role_akun'],
+                        'logged_in' => true,
+                    ];
+                    session()->set($sessionData);
 
-                // Arahkan pengguna berdasarkan role
-                if ($user['role_akun'] === 'pengusul') {
-                    return redirect()->to('/halaman_pengusul');
-                } elseif ($user['role_akun'] === 'DLHK') {
-                    return redirect()->to('/halaman_dlhk');
+                    // Arahkan pengguna sesuai role_akun
+                    if ($user['role_akun'] === 'Pengusul') {
+                        return redirect()->to('/pengusul/dashboard');
+                    } elseif ($user['role_akun'] === 'DLHK') {
+                        return redirect()->to('/dlhk/dashboard');
+                    }
+                } else {
+                    return $this->response->setJSON(['success' => false, 'message' => 'Akun Anda belum aktif.']);
                 }
             } else {
-                $session->setFlashdata('errors', 'Kata sandi salah');
+                return $this->response->setJSON(['success' => false, 'message' => 'Kata sandi salah.']);
             }
         } else {
-            $session->setFlashdata('errors', 'Email tidak ditemukan');
+            return $this->response->setJSON(['success' => false, 'message' => 'Pengguna tidak ditemukan.']);
         }
-
-        return redirect()->back()->withInput();
     }
+
 
     public function register()
     {
@@ -118,26 +124,8 @@ class AuthController extends BaseController
         }
     }
 
-    public function createRegister()
+    public function pengusul()
     {
-        $model = new PengusulModel();
-
-        $data = [
-            'jenis_instansi' => $this->request->getPost('jenis_instansi'),
-            'nama_instansi_pribadi' => $this->request->getPost('nama_instansi_pribadi'),
-            'provinsi' => $this->request->getPost('provinsi'),
-            'telepon' => $this->request->getPost('telepon'),
-            'email' => $this->request->getPost('email'),
-            'kata_sandi' => password_hash($this->request->getPost('kata_sandi'), PASSWORD_DEFAULT),
-            'role_akun' => 'Pengusul',
-            'status_akun'  => 'Pending'
-        ];
-
-        if ($model->insert($data)) {
-            return $this->response->setJSON(['success' => true]);
-        } else {
-            log_message('error', 'Registration failed: ' . json_encode($model->errors()));
-            return $this->response->setJSON(['success' => false, 'errors' => $model->errors()]);
-        }
+        return view('pengusul', ['title' => 'Pengusul']);
     }
 }
