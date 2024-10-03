@@ -12,248 +12,172 @@
     <?= $this->extend('template/navbarfooter') ?>
 
     <?= $this->section('content') ?>
-    <section id="herosection" class="w-full h-[10rem] sm:h-[20rem] md:h-[10rem] lg:h-[20rem] relative">
-        <img src="/images/hero.png" alt="herosection" class="w-full h-full object-cover object-right md:object-center">
 
-        <div class="absolute top-2/4 left-1/2 transform -translate-x-1/2 -translate-y-2/4 w-[90%] sm:w-[70%] md:w-[60%] lg:mid-[26%] lg:w-[36%] text-white">
-            <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-center">Profil</h1>
+    <!-- Hero Section -->
+    <section id="profil" class="w-full h-[25rem] relative">
+        <img src="/images/hero.png" alt="profil" class="w-full h-full object-cover object-center md:object-center">
+
+        <div class="absolute inset-0 flex flex-col justify-center items-center text-white text-center">
+            <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">Profil</h1>
+            <p class="text-sm sm:text-base md:text-lg mt-2 sm:mt-4 w-2/3">Penghargaan tertinggi untuk pelestari lingkungan di Indonesia, mendedikasikan apresiasi bagi mereka yang berperan dalam menjaga keberlanjutan alam dan masa depan bumi kita</p>
         </div>
-
-        <div class="text-sm sm:text-base absolute top-2/4 left-1/2 transform -translate-x-1/2 -translate-y-[60%] mt-8 text-white text-center">
-            <p>Penghargaan tertinggi untuk pelestari lingkungan di Indonesia, mendedikasikan apresiasi bagi mereka yang berperan dalam menjaga keberlanjutan alam dan masa depan bumi kita.</p>
-        </div>
-
     </section>
 
-
-
-    <section id="quotes">
-        <div class="w-full flex flex-col lg:flex-row items-center justify-between px-6 sm:px-10 md:px-16 lg:px-20 py-12">
+    <!-- Quote Section -->
+    <section id="quotes" class="lg:px-0 px-4 py-8 lg:py-12 container mx-auto">
+        <div class="w-full flex flex-col lg:flex-row items-center justify-between">
             <div class="w-full lg:w-1/2 lg:pr-10">
-                <p class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-medium text-black ml-12">
+                <p class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium text-black">
                     Pembangunan dan pelestarian lingkungan hidup tidak harus saling bertentangan, keduanya bisa berjalan seiring demi kelanggengan sumber daya alam.
-                    <br>
-                    <br>
+                    <br><br>
                     <span class="text-sm">Presiden Soeharto (1978)</span>
                 </p>
             </div>
-            <figure class="w-full lg:w-1/2 lg:pl-10 mt-12 lg:mt-0">
-                <img src="/images/Pres.png" alt="quotes" class="w-[300px] h-auto rounded-md shadow-lg ml-auto">
+            <figure class="w-full lg:w-1/2 lg:pl-10 mt-8 lg:mt-0">
+                <img src="/images/Pres.png" alt="quotes" class="w-full h-auto rounded-md shadow-lg mx-auto lg:ml-auto">
             </figure>
         </div>
     </section>
 
-    <section id="sejarah">
-        <div class="lg:my-12 md:my-8 my-4">
-            <div id="sejarah" class="w-full h-[4rem] sm:h-[5rem] relative flex items-center justify-center">
-                <h2 class="text-lg sm:text-xl md:text-2xl lg:text-4xl font-medium text-black">Sejarah Penghargaan Kalpataru</h2>
-            </div>
-            <hr class="border-2 border-primary max-w-40 mx-auto mt-0" />
+    <!-- Sejarah Section -->
+    <section id="sejarah" class="lg:my-12 md:my-8 my-4 px-4 sm:px-10 md:px-16 lg:px-20">
+        <div class="text-center mb-6 lg:mb-0">
+            <h2 class="text-lg sm:text-xl md:text-2xl lg:text-4xl font-medium text-black">Sejarah Penghargaan Kalpataru</h2>
+            <hr class="border-2 border-primary w-40 mx-auto mt-2">
         </div>
-
-        <div class="w-full flex flex-col lg:flex-row items-center justify-between px-6 sm:px-10 md:px-16 lg:px-20 py-8">
-            <p class="text-xl">
-                Salah satu strategi Kementerian PPLH di bawah pimpinan Prof. Emil Salim untuk meningkatkan partisipasi masyarakat dalam pelestarian lingkungan adalah melalui pemberian Hadiah Lingkungan setiap tahun pada peringatan Hari Lingkungan Hidup Sedunia. Pada 5 Juni 1980, Hadiah Lingkungan pertama kali diberikan kepada delapan organisasi dan kelompok masyarakat, termasuk LP3ES Jakarta, Pondok Pesantren Cipasung Tasikmalaya, Badan Sosial Maumere, dan Masyarakat Desa Wonolelo.
+        <div class="text-sm md:text-base lg:text-lg leading-relaxed lg:mx-14 mx-0">
+            <p>Salah satu strategi Kementerian PPLH di bawah pimpinan Prof. Emil Salim untuk meningkatkan partisipasi masyarakat dalam pelestarian lingkungan adalah melalui pemberian Hadiah Lingkungan setiap tahun pada peringatan Hari Lingkungan Hidup Sedunia. Pada 5 Juni 1980, Hadiah Lingkungan pertama kali diberikan kepada delapan organisasi dan kelompok masyarakat, termasuk LP3ES Jakarta, Pondok Pesantren Cipasung Tasikmalaya, Badan Sosial Maumere, dan Masyarakat Desa Wonolelo.
                 <br><br>
                 Perubahan nama "Hadiah Lingkungan" menjadi "Kalpataru" terjadi pada tahun 1981. Nama ini ditemukan oleh Bapak Markoes Djajadiningrat, seorang Sarjana Seni Rupa dari ITB, saat ia mendesain prangko seri lingkungan hidup. Beliau menemukan relief "Pohon Kehidupan" yang dikelilingi uang dan batu permata di Candi Mendut. Pohon ini dikenal dengan berbagai nama, seperti Kalpawreksa (aksara Dewanagari), Kalpavṛkṣa (IAST), Kalpataru, Kalpadruma, dan Kalpapāda. Istilah Kalpataru banyak disinggung dalam kesusasteraan India awal, seperti Kitab Purana, Ramayana, Buvanakosa, Vayupurana, Meghaduta, dan Bhanabat. Selain itu, beliau juga yang mendesain Trofi Kalpataru.
             </p>
         </div>
     </section>
 
-    <section id="tujuankalpataru" class="bg-primary">
-        <div class="lg:my-12 md:my-8 my-4 pt-10 text-center">
-            <div id="texttujuankalpataru" class="w-full h-[4rem] sm:h-[5rem] relative flex items-center justify-center">
-                <h2 class="text-lg sm:text-xl md:text-2xl lg:text-4xl font-bold text-white">Prinsip Kalpataru</h2>
-            </div>
-            <hr class="border-2 border-white max-w-40 mx-auto mt-0" />
+    <!-- Prinsip Kalpataru Section -->
+    <section id="tujuankalpataru" class="bg-primary py-8">
+        <div class="text-center text-white">
+            <h2 class="text-lg sm:text-xl md:text-2xl lg:text-4xl font-bold">Prinsip Kalpataru</h2>
+            <hr class="border-2 border-white w-16 mx-auto mt-2">
         </div>
 
-        <div class="px-4 sm:px-10 md:px-16 lg:px-20 text-center">
-            <div class="grid gap-4 grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 mt-6 py-10 justify-center">
-                <!-- Card 1 -->
-                <div class="bg-white shadow-sm border border-slate-200 rounded-lg w-4/5 mx-auto">
-                    <div class="p-4">
-                        <img src="/images/keterbukaan.png" alt="tujuan1" class="w-10 mx-auto pb-2">
-                        <h5 class="mb-2 text-slate-800 text-xl font-semibold">Prinsip Keterbukaan</h5>
-                        <p class="text-slate-600 leading-normal font-light">
-                            Mengutamakan sikap jujur, rendah hati, adil, serta mau menerima pendapat dan kritik
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Card 2 -->
-                <div class="bg-white shadow-sm border border-slate-200 rounded-lg w-4/5 mx-auto">
-                    <div class="p-4">
-                        <img src="/images/partisipatif.png" alt="tujuan2" class="w-10 mx-auto pb-2">
-                        <h5 class="mb-2 text-slate-800 text-xl font-semibold">Prinsip Partisipatif</h5>
-                        <p class="text-slate-600 leading-normal font-light">
-                            Adanya keterlibatan aktif masyarakat terhadap pencapaian tujuan
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="bg-white shadow-sm border border-slate-200 rounded-lg w-4/5 mx-auto">
-                    <div class="p-4">
-                        <img src="/images/keteladanan.png" alt="tujuan1" class="w-10 mx-auto pb-2">
-                        <h5 class="mb-2 text-slate-800 text-xl font-semibold">Prinsip Keteladanan</h5>
-                        <p class="text-slate-600 leading-normal font-light">
-                            Mengutamakan perilaku yang terpuji dan disenangi dan sesuai dengan nilai-nilai kebaikan dan kebenaran, serta keteladanan terhadap peduli lingkungan
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Card 4 -->
-                <div class="bg-white shadow-sm border border-slate-200 rounded-lg w-4/5 mx-auto">
-                    <div class="p-4">
-                        <img src="/images/edukatif.png" alt="tujuan2" class="w-10 mx-auto pb-2">
-                        <h5 class="mb-2 text-slate-800 text-xl font-semibold">Prinsip Edukatif</h5>
-                        <p class="text-slate-600 leading-normal font-light">
-                            Membangun hubungan atau interaksi di dalam
-                            masyarakat yang memuat unsur pembelajaran dan pengajaran
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Card 5 -->
-                <div class="bg-white shadow-sm border border-slate-200 rounded-lg w-4/5 mx-auto">
-                    <div class="p-4">
-                        <img src="/images/akuntabel.png" alt="tujuan3" class="w-10 mx-auto pb-2">
-                        <h5 class="mb-2 text-slate-800 text-xl font-semibold">Prinsip Akuntabel</h5>
-                        <p class="text-slate-600 leading-normal font-light">
-                            Menjamin setiap tahap kegiatan
-                            pemberian Penghargaan Kalpataru dapat dipertanggungjawabkan sesuai ketentuan peraturan perundang-undangan,
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Card 6 -->
-                <div class="bg-white shadow-sm border border-slate-200 rounded-lg w-4/5 mx-auto">
-                    <div class="p-4">
-                        <img src="/images/kesetaraan.png" alt="tujuan4" class="w-10 mx-auto pb-2">
-                        <h5 class="mb-2 text-slate-800 text-xl font-semibold">Prinsip Kesetaraan Gender</h5>
-                        <p class="text-slate-600 leading-normal font-light">
-                            Menjamin bahwa Penghargaan Kalpataru memberikan kesempatan yang sama kepada perempuan dan laki-laki, serta kegiatan yang melibatkan peran aktif , dan dampak terhadap perempuan.
-                        </p>
-                    </div>
-                </div>
+        <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 px-4 py-8 lg:mx-28 mx-0">
+            <!-- Card 1 -->
+            <div class="bg-white shadow-md rounded-lg p-4 text-center">
+                <img src="/images/keterbukaan.png" alt="Keterbukaan" class="w-10 mx-auto mb-2">
+                <h5 class="text-xl font-semibold text-gray-800">Prinsip Keterbukaan</h5>
+                <p class="text-gray-600 text-sm">Mengutamakan sikap jujur, rendah hati, adil, serta mau menerima pendapat dan kritik</p>
             </div>
+
+            <div class="bg-white shadow-md rounded-lg p-4 text-center">
+                <img src="/images/partisipatif.png" alt="partisipatif" class="w-10 mx-auto mb-2">
+                <h5 class="text-xl font-semibold text-gray-800">Prinsip Partisipatif</h5>
+                <p class="text-gray-600 text-sm">Adanya keterlibatan aktif masyarakat terhadap pencapaian tujuan</p>
+            </div>
+
+            <div class="bg-white shadow-md rounded-lg p-4 text-center">
+                <img src="/images/keteladanan.png" alt="keteladanan" class="w-10 mx-auto mb-2">
+                <h5 class="text-xl font-semibold text-gray-800">Prinsip Keteladanan</h5>
+                <p class="text-gray-600 text-sm">Mengutamakan perilaku yang terpuji dan disenangi dan sesuai dengan nilai-nilai kebaikan dan kebenaran, serta keteladanan terhadap peduli lingkungan</p>
+            </div>
+
+            <div class="bg-white shadow-md rounded-lg p-4 text-center">
+                <img src="/images/edukatif.png" alt="edukatif" class="w-10 mx-auto mb-2">
+                <h5 class="text-xl font-semibold text-gray-800">Prinsip Edukatif</h5>
+                <p class="text-gray-600 text-sm">Membangun hubungan atau interaksi di dalam
+                    masyarakat yang memuat unsur pembelajaran dan pengajaran</p>
+            </div>
+
+            <div class="bg-white shadow-md rounded-lg p-4 text-center">
+                <img src="/images/akuntabel.png" alt="akuntabel" class="w-10 mx-auto mb-2">
+                <h5 class="text-xl font-semibold text-gray-800">Prinsip Akuntabel</h5>
+                <p class="text-gray-600 text-sm">Menjamin setiap tahap kegiatan
+                    pemberian Penghargaan Kalpataru dapat dipertanggungjawabkan sesuai ketentuan peraturan perundang-undangan</p>
+            </div>
+
+            <div class="bg-white shadow-md rounded-lg p-4 text-center">
+                <img src="/images/kesetaraan.png" alt="kesetaraan" class="w-10 mx-auto mb-2">
+                <h5 class="text-xl font-semibold text-gray-800">Prinsip Kesetaraan</h5>
+                <p class="text-gray-600 text-sm">Menjamin bahwa Penghargaan Kalpataru memberikan kesempatan yang sama kepada perempuan dan laki-laki, serta kegiatan yang melibatkan peran aktif , dan dampak terhadap perempuan</p>
+            </div>
+
+
         </div>
     </section>
 
-    <section id="kategori">
-        <div class="lg:my-12 md:my-8 my-4">
-            <div id="kategori" class="w-full h-auto sm:h-auto flex flex-col items-center justify-center">
-                <h2 class="text-lg sm:text-xl md:text-2xl lg:text-4xl font-medium text-black py-4">Kategori Penghargaan</h2>
-            </div>
-            <hr class="border-2 border-primary max-w-40 mx-auto mt-0" />
-            <p class="text-center text-black-500 mt-2 py-4">Dalam pelaksanaannya penghargaan Kalpataru tergabi menjadi 4 kategori utama. Di
-                <br>
-                mana setiap kategori memiliki definisi masing-masing dalam menjaga serta melertarikan lingkungan dan kehutanan di Indonesia
-            </p>
+    <!-- Kategori Section -->
+    <section id="kategori" class="py-8 lg:mx-14 mx-0">
+        <div class="text-center mb-4 px-4">
+            <h2 class="text-lg sm:text-xl md:text-2xl lg:text-4xl font-medium text-black">Kategori Penghargaan</h2>
+            <hr class="border-2 border-primary w-16 mx-auto mt-2">
+            <p class="text-sm mt-12 lg:mx-32 mx-0">Dalam pelaksanaannya penghargaan Kalpataru tergabi menjadi 4 kategori utama. Di
+                mana setiap kategori memiliki definisi masing-masing dalam menjaga serta melertarikan lingkungan dan kehutanan di Indonesia</p>
         </div>
 
+        <!-- Perintis Lingkungan -->
+        <div class="flex flex-col lg:flex-row items-center lg:items-start px-4 lg:px-24 my-12">
+            <img src="/images/kategoria.jpg" alt="Perintis Lingkungan" class="w-40 lg:w-56 h-auto rounded-lg mb-4 lg:mb-0 lg:mr-6 mx-auto lg:mx-0">
+            <div class="text-center lg:text-left">
+                <h3 class="text-xl font-medium mb-2"><b>Perintis</b> Lingkungan</h3>
+                <hr class="border-2 border-primary w-40 mt-1 mb-4 mx-auto lg:mx-0">
+                <p class="text-sm leading-relaxed mb-4">Perintis Lingkungan adalah individu bukan pegawai negeri atau bukan pejabat negara yang
+                    mempelopori upaya luar biasa bagi
+                    perlindungan dan pengelolaan lingkungan hidup dan
+                    kehutanan, dan merupakan kegiatan baru di wilayah/kawasan tertentu
+                    dan/atau berhasil
+                    mengembangkan teknologi lokal yang ramah lingkungan. Lebih lanjut, mereka berperan penting
+                    dalam
+                    menginspirasi masyarakat sekitar untuk melakukan kegiatan yang mendukung pelestarian
+                    lingkungan secara terus menerus.
+                </p>
+                <button class="bg-primary text-white px-4 py-2 mb-6 lg:mb-0 rounded-md hover:bg-primaryhover">Lihat Daftar Penerima</button>
+            </div>
+        </div>
+
+        <!-- Pengabdi Lingkungan (Reversed) -->
+        <div class="flex flex-col lg:flex-row-reverse items-center lg:items-start px-4 lg:px-24 my-12">
+            <img src="/images/kategorib.jpg" alt="Pengabdi Lingkungan" class="w-40 lg:w-56 h-auto rounded-lg mb-4 lg:mb-0 lg:ml-6 mx-auto lg:mx-0">
+            <div class="text-center lg:text-left">
+                <h3 class="text-xl font-medium mb-2"><b>Pengabdi</b> Lingkungan</h3>
+                <hr class="border-2 border-primary w-40 mt-1 mb-4 mx-auto lg:mx-0">
+                <p class="text-sm leading-relaxed mb-4"> Pengabdi Lingkungan adalah individu baik petugas lapangan dan/atau pegawai negeri atau
+                    Aparatur Sipil Negara yang mendedikasikan hidupnya dalam upaya perlindungan dan
+                    pengelolaan lingkungan hidup dan kehutanan yang melampaui kewajiban dan tugas pokok
+                    profesi dalam jangka waktu lama secara berurutan</p>
+                <button class="bg-primary text-white px-4 py-2 mb-6 lg:mb-0 rounded-md hover:bg-primaryhover">Lihat Daftar Penerima</button>
+            </div>
+        </div>
+
+        <!-- Penyelamat Lingkungan -->
+        <div class="flex flex-col lg:flex-row items-center lg:items-start px-4 lg:px-24 my-12">
+            <img src="/images/kategoric.jpg" alt="Penyelamat Lingkungan" class="w-40 lg:w-56 h-auto rounded-lg mb-4 lg:mb-0 lg:mr-6 mx-auto lg:mx-0">
+            <div class="text-center lg:text-left">
+                <h3 class="text-xl font-medium mb-2"><b>Penyelamat</b> Lingkungan</h3>
+                <hr class="border-2 border-primary w-40 mt-1 mb-4 mx-auto lg:mx-0">
+                <p class="text-sm leading-relaxed mb-4"> Penyelamat Lingkungan adalah kelompok orang dan/atau lembaga yang menjaga dan/atau
+                    memperbaiki penyelamatan fungsi dan tatanan lingkungan hidup atas dasar prakarsa
+                    kelompok.</p>
+                <button class="bg-primary text-white px-4 py-2 mb-6 lg:mb-0 rounded-md hover:bg-primaryhover">Lihat Daftar Penerima</button>
+            </div>
+        </div>
+
+        <!-- Pembina Lingkungan (Reversed) -->
+        <div class="flex flex-col lg:flex-row-reverse items-center lg:items-start px-4 lg:px-24 my-12">
+            <img src="/images/kategorid.jpg" alt="Pembina Lingkungan" class="w-40 lg:w-56 h-auto rounded-lg mb-4 lg:mb-0 lg:ml-6 mx-auto lg:mx-0">
+            <div class="text-center lg:text-left">
+                <h3 class="text-xl font-medium mb-2"><b>Pembina</b> Lingkungan</h3>
+                <hr class="border-2 border-primary w-40 mt-1 mb-4 mx-auto lg:mx-0">
+                <p class="text-sm leading-relaxed mb-4"> Pembina Lingkungan adalah individu/tokoh masyarakat bukan pejabat pemerintah yang
+                    melakukan pembinaan untuk membangkitkan kesadaran, prakarsa, dan peran masyarakat
+                    guna melestarikan fungsi dan tatanan lingkungan hidup dan/atau berhasil
+                    mengimplementasikan temuan teknologi baru yang ramah lingkungan.</p>
+                <button class="bg-primary text-white px-4 py-2 mb-6 lg:mb-0 rounded-md hover:bg-primaryhover">Lihat Daftar Penerima</button>
+            </div>
+        </div>
+
+    </section>
 
 
-        <section id="kategori">
-            <style>
-                .custom-text {
-                    margin-top: 150px;
-                }
-            </style>
-            <div class="max-w-6xl ml-4 pb-14">
-                <h1 class="text-2xl font-medium text-left mb-2 ml-12"><b>Perintis</b> Lingkungan</h1>
-                <hr class="border-2 border-primary w-32 ml-0 mt-0 ml-12" />
-
-                <div class="flex items-start mt-4">
-                    <img src="/images/perintis.png" class="py-2 max-w-[120px] h-auto ml-12 mr-6">
-                    <div class="text-justify-center custom-text ml-12">
-                        <p>
-                            Perintis Lingkungan adalah individu bukan pegawai negeri atau bukan pejabat negara yang
-                            mempelopori upaya luar biasa bagi
-                            <br>perlindungan dan pengelolaan lingkungan hidup dan
-                            kehutanan, dan merupakan kegiatan baru di wilayah/kawasan tertentu
-                            <br>dan/atau berhasil
-                            mengembangkan teknologi lokal yang ramah lingkungan. Lebih lanjut, mereka berperan penting
-                            dalam
-                            <br>menginspirasi masyarakat sekitar untuk melakukan kegiatan yang mendukung pelestarian
-                            lingkungan secara terus menerus.
-                            <br>
-                            <button class="transform rounded-md bg-primary py-2 px-4 sm:py-3 sm:px-6 text-center text-xs sm:text-sm md:text-base lg:text-base text-white transition-all shadow-md hover:font-bold hover:shadow-lg focus:bg-site focus:shadow-none active:bg-site hover:bg-site active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                                Lihat Daftar Penerima >
-                            </button>
-                        </p>
-                    </div>
-                </div>
-
-                <div class="max-w-6xl mr-4 pb-2 flex justify-end">
-                    <div class="text-left">
-                        <h1 class="text-2xl font-medium mb-2"><b>Pengabdi</b> Lingkungan</h1>
-                        <hr class="border-2 border-primary w-32 mt-0 justify-end" />
-                    </div>
-                </div>
-
-                <div class="flex items-start mt-4 justify-end">
-                    <div class="text-justify-center custom-text ml-12 px-2">
-                        <p>
-                            Pengabdi Lingkungan adalah individu baik petugas lapangan dan/atau pegawai negeri atau
-                            Aparatur Sipil Negara yang mendedikasikan hidupnya dalam upaya perlindungan dan
-                            pengelolaan lingkungan hidup dan kehutanan yang melampaui kewajiban dan tugas pokok
-                            profesi dalam jangka waktu lama secara berurutan
-                            <br>
-                            <button class="transform rounded-md bg-primary py-2 px-4 sm:py-3 sm:px-6 text-center text-xs sm:text-sm md:text-base lg:text-base text-white transition-all shadow-md hover:font-bold hover:shadow-lg focus:bg-site focus:shadow-none active:bg-site hover:bg-site active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                                Lihat Daftar Penerima >
-                            </button>
-                        </p>
-                    </div>
-                    <img src="/images/pengabdi.png" class="py-2 mr-4 max-w-[120px] h-auto ml-6">
-                </div>
-
-                <div class="max-w-6xl ml-4 pb-14">
-                    <h1 class="text-2xl font-medium text-left mb-2 ml-12"><b>Penyelamat</b> Lingkungan</h1>
-                    <hr class="border-2 border-primary w-32 ml-0 mt-0 ml-12" />
-
-                    <div class="flex items-start mt-4">
-                        <img src="/images/penyelamat.png" class="py-2 max-w-[120px] h-auto ml-12 mr-6">
-                        <div class="text-justify-center custom-text ml-12">
-                            <p>
-                                Penyelamat Lingkungan adalah kelompok orang dan/atau lembaga yang menjaga dan/atau
-                                memperbaiki penyelamatan fungsi dan tatanan lingkungan hidup atas dasar prakarsa
-                                kelompok.
-                                <br>
-                                <button class="transform rounded-md bg-primary py-2 px-4 sm:py-3 sm:px-6 text-center text-xs sm:text-sm md:text-base lg:text-base text-white transition-all shadow-md hover:font-bold hover:shadow-lg focus:bg-site focus:shadow-none active:bg-site hover:bg-site active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                                    Lihat Daftar Penerima >
-                                </button>
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="max-w-6xl mr-4 pb-2 flex justify-end">
-                        <div class="text-left">
-                            <h1 class="text-2xl font-medium mb-2"><b>Pembina</b> Lingkungan</h1>
-                            <hr class="border-2 border-primary w-32 mt-0 justify-end" />
-                        </div>
-                    </div>
-
-                    <div class="flex items-start mt-4 justify-end">
-                        <div class="text-justify-center custom-text ml-12 px-2">
-                            <p>
-                                Pembina Lingkungan adalah individu/tokoh masyarakat bukan pejabat pemerintah yang
-                                melakukan pembinaan untuk membangkitkan kesadaran, prakarsa, dan peran masyarakat
-                                guna melestarikan fungsi dan tatanan lingkungan hidup dan/atau berhasil
-                                mengimplementasikan temuan teknologi baru yang ramah lingkungan.
-                                <br>
-                                <button class="transform rounded-md bg-primary py-2 px-4 sm:py-3 sm:px-6 text-center text-xs sm:text-sm md:text-base lg:text-base text-white transition-all shadow-md hover:font-bold hover:shadow-lg focus:bg-site focus:shadow-none active:bg-site hover:bg-site active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                                    Lihat Daftar Penerima >
-                                </button>
-                            </p>
-                        </div>
-                        <img src="/images/pembina.png" class="py-2 mr-4 max-w-[120px] h-auto ml-2">
-                    </div>
-
-        </section>
-
-        <?= $this->endSection() ?>
+    <?= $this->endSection() ?>
 
 </body>
 
