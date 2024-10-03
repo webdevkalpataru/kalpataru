@@ -226,7 +226,7 @@
         <div class="lg:mx-28 p-5">
             <div class="flex justify-between items-center lg:mt-10 mb-2">
                 <h2 class="text-lg font-bold">Berita</h2>
-                <a href="#" class="flex items-center text-primary">
+                <a href="<?= base_url('publikasi/berita') ?>" class="flex items-center text-primary">
                     Selengkapnya
                     <svg class="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -241,11 +241,11 @@
                     &#9664;
                 </button>
                 <div id="beritaContainer" class="flex overflow-x-auto space-x-4 scrollbar-hide">
-                    <?php foreach ($berita as $item): ?>
+                    <?php foreach ($berita['data_berita'] as $item): ?>
                         <div class="flex-none w-64 bg-white rounded-lg shadow-md">
-                            <img src="images/<?= esc($item->foto) ?>" alt="<?= esc($item->judul) ?>" class="w-full h-40 object-cover rounded-t-lg">
+                            <img src="<?= base_url('images/berita/' . esc($item->foto)) ?>" alt="<?= esc($item->judul) ?>" class="w-full h-40 object-cover rounded-t-lg">
                             <div class="p-4">
-                                <h3 class="font-bold text-md mb-2"><?= esc($item->judul) ?></h3>
+                                <h3 class="font-bold text-md mb-2"><?= word_limiter(esc($item->judul), 4); ?></h3>
                                 <a href="#" class="text-primary flex items-center text-sm">
                                     Baca Selengkapnya
                                     <svg class="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -256,6 +256,7 @@
                         </div>
                     <?php endforeach; ?>
                 </div>
+
 
 
 
@@ -272,7 +273,7 @@
         <div class="lg:mx-28 p-5">
             <div class="flex justify-between items-center lg:mt-10 mb-2">
                 <h2 class="text-lg font-bold">Video</h2>
-                <a href="#" class="flex items-center text-primary">
+                <a href="<?= base_url('publikasi/video') ?>" class="flex items-center text-primary">
                     Selengkapnya
                     <svg class="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -282,23 +283,23 @@
             <hr class="border-2 border-primary w-full mt-0 mb-10" />
 
             <div class="flex overflow-x-scroll space-x-4 scrollbar-hide">
-                <?php foreach ($videos as $video): ?>
+                <?php foreach ($videos['data_video'] as $item): ?>
                     <div class="flex-none h-full bg-white rounded-lg shadow-md">
                         <?php
-                        preg_match("/(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/", $video['link_video'], $matches);
+                        preg_match("/(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/", $item->link_video, $matches);
                         $youtube_id = $matches[1];
                         ?>
                         <iframe width="380" height="200" src="https://www.youtube.com/embed/<?= $youtube_id; ?>"
-                            title="<?= $video['judul_video']; ?>" frameborder="0"
+                            title="<?= esc($item->judul_video); ?>" frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
                         <div class="p-2">
-                            <h5 class="font-bold text-sm mb-2"><?= word_limiter($video['judul_video'], 6); ?></h5>
+                            <h5 class="font-bold text-sm mb-2"><?= word_limiter(esc($item->judul_video), 6); ?></h5>
                         </div>
-
                     </div>
                 <?php endforeach; ?>
             </div>
+
         </div>
     </section>
 

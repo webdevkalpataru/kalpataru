@@ -24,7 +24,9 @@
         <div class="container mx-auto">
             <!-- Search Bar -->
             <div class="flex justify-between items-center my-6">
-                <h1 class="text-xs:lg:text-md ml-4 lg:ml-0 font-semibold">Hasil : 7 Buku</h1>
+                <h1 class="text-xs:lg:text-md ml-4 lg:ml-0 font-semibold">
+                    Hasil: <?= esc($total_buku) ?> Buku
+                </h1>
                 <div class="relative mr-4 lg:mr-0">
                     <input
                         placeholder="Masukan kata kunci"
@@ -48,82 +50,17 @@
 
             <div class="lg:w-full w-64 mx-auto">
                 <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                    <!-- Card 2024 -->
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                        <img src="/images/buku2024.png" alt="Kalpataru 2024" class="w-full h-64 object-cover">
-                        <div class="p-4">
-                            <h2 class="text-lg font-semibold flex justify-center">Buku Profil 2024</h2>
+                    <?php foreach ($buku as $item): ?>
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                            <img src="<?= base_url('images/buku/' . esc($item->cover_buku)) ?>" alt="<?= esc($item->judul_buku) ?>" class="w-full h-64 object-cover">
+                            <div class="p-4">
+                                <h2 class="text-lg font-semibold flex justify-center"><?= esc($item->judul_buku) ?></h2>
+                            </div>
+                            <div class="p-4 text-center">
+                                <a href="<?= base_url('file/' . esc($item->file_buku)) ?>" class="bg-primary text-white py-2 px-4 rounded hover:bg-primaryhover" download>Unduh</a>
+                            </div>
                         </div>
-                        <div class="p-4 text-center">
-                            <a href="#" class="bg-primary text-white py-2 px-4 rounded hover:bg-primaryhover">Unduh</a>
-                        </div>
-                    </div>
-
-                    <!-- Card 2023 -->
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                        <img src="/images/buku2023.png" alt="Kalpataru 2023" class="w-full h-64 object-cover">
-                        <div class="p-4">
-                            <h2 class="text-lg font-semibold flex justify-center">Buku Profil 2023</h2>
-                        </div>
-                        <div class="p-4 text-center">
-                            <a href="#" class="bg-primary text-white py-2 px-4 rounded hover:bg-primaryhover">Unduh</a>
-                        </div>
-                    </div>
-
-                    <!-- Card 2022 -->
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                        <img src="/images/buku2022.png" alt="Kalpataru 2022" class="w-full h-64 object-cover">
-                        <div class="p-4">
-                            <h2 class="text-lg font-semibold flex justify-center">Buku Profil 2022</h2>
-                        </div>
-                        <div class="p-4 text-center">
-                            <a href="#" class="bg-primary text-white py-2 px-4 rounded hover:bg-primaryhover">Unduh</a>
-                        </div>
-                    </div>
-
-                    <!-- Card 2021 -->
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                        <img src="/images/buku2021.png" alt="Kalpataru 2021" class="w-full h-64 object-cover">
-                        <div class="p-4">
-                            <h2 class="text-lg font-semibold flex justify-center">Buku Profil 2021</h2>
-                        </div>
-                        <div class="p-4 text-center">
-                            <a href="#" class="bg-primary text-white py-2 px-4 rounded hover:bg-primaryhover">Unduh</a>
-                        </div>
-                    </div>
-
-                    <!-- Card 2020 -->
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                        <img src="/images/buku2020.png" alt="Kalpataru 2020" class="w-full h-64 object-cover">
-                        <div class="p-4">
-                            <h2 class="text-lg font-semibold flex justify-center">Buku Profil 2020</h2>
-                        </div>
-                        <div class="p-4 text-center">
-                            <a href="#" class="bg-primary text-white py-2 px-4 rounded hover:bg-primaryhover">Unduh</a>
-                        </div>
-                    </div>
-
-                    <!-- Card 2019 -->
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                        <img src="/images/buku2019.png" alt="Kalpataru 2019" class="w-full h-64 object-cover">
-                        <div class="p-4">
-                            <h2 class="text-lg font-semibold flex justify-center">Buku Profil 2019</h2>
-                        </div>
-                        <div class="p-4 text-center">
-                            <a href="#" class="bg-primary text-white py-2 px-4 rounded hover:bg-primaryhover">Unduh</a>
-                        </div>
-                    </div>
-
-                    <!-- Card 2018 -->
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                        <img src="/images/buku2018.png" alt="Kalpataru 2018" class="w-full h-64 object-cover">
-                        <div class="p-4">
-                            <h2 class="text-lg font-semibold flex justify-center">Buku Profil 2018</h2>
-                        </div>
-                        <div class="p-4 text-center">
-                            <a href="#" class="bg-primary text-white py-2 px-4 rounded hover:bg-primaryhover">Unduh</a>
-                        </div>
-                    </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
 

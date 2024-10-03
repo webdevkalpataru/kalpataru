@@ -44,7 +44,7 @@ class AuthController extends BaseController
             // Upload file surat pengantar
             $suratPengantar = $this->request->getFile('surat_pengantar');
             if ($suratPengantar->isValid() && !$suratPengantar->hasMoved()) {
-                $suratPengantar->move(WRITEPATH . 'uploads/surat_pengantar', $suratPengantar->getName());
+                $suratPengantar->move(WRITEPATH . 'upload/', $suratPengantar->getName());
             }
 
             // Simpan data user ke database

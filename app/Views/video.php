@@ -24,7 +24,9 @@
         <div class="container mx-auto">
             <!-- Search Bar -->
             <div class="flex justify-between items-center my-6">
-                <h1 class="text-xs:lg:text-md ml-4 lg:ml-0 font-semibold">Hasil : 4 Video</h1>
+                <h1 class="text-xs:lg:text-md ml-4 lg:ml-0 font-semibold">
+                    Hasil: <?= esc($total_video) ?> Video
+                </h1>
                 <div class="relative mr-4 lg:mr-0">
                     <input
                         placeholder="Masukan kata kunci"
@@ -48,44 +50,25 @@
 
             <!-- Cards Section -->
             <div class="lg:w-full w-64 mx-auto">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                        <video class="h-full w-full rounded-lg" controls>
-                            <source
-                                src="https://docs.material-tailwind.com/demo.mp4"
-                                type="video/mp4" />
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
 
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                        <video class="h-full w-full rounded-lg" controls>
-                            <source
-                                src="https://docs.material-tailwind.com/demo.mp4"
-                                type="video/mp4" />
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+                    <?php foreach ($video as $item): ?>
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                            <?php
+                            preg_match("/(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/", $item->link_video, $matches);
+                            $youtube_id = $matches[1];
+                            ?>
+                            <iframe width="100%" height="250" src="https://www.youtube.com/embed/<?= $youtube_id; ?>"
+                                title="<?= esc($item->judul_video); ?>" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                        <video class="h-full w-full rounded-lg" controls>
-                            <source
-                                src="https://docs.material-tailwind.com/demo.mp4"
-                                type="video/mp4" />
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                        <video class="h-full w-full rounded-lg" controls>
-                            <source
-                                src="https://docs.material-tailwind.com/demo.mp4"
-                                type="video/mp4" />
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-
+                            <div class="p-2">
+                                <h5 class="font-bold text-sm mb-2"><?= word_limiter(esc($item->judul_video), 6); ?></h5>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
+
             </div>
 
             <div class="row flex lg:justify-end justify-center my-6">
