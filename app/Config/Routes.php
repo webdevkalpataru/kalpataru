@@ -24,5 +24,7 @@ $routes->get('publikasi/video', 'PublikasiController::video');
 $routes->get('publikasi/buku', 'PublikasiController::buku');
 
 $routes->get('pengusul/profilpengusul', 'PengusulController::profilpengusul');
+$routes->get('pengusul/datacalon', 'DataCalonController::datacalon');
+$routes->get('pengusul/datacalonlengkap', 'DataCalonLengkapController::datacalonlengkap');
 
 

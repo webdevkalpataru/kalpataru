@@ -185,7 +185,7 @@
                         <img src="/images/word.svg" alt="word" class="w-8 h-8 mr-2">
                         <button type="button" class="bg-primary text-white text-xs px-2 rounded-md w-14 h-8">
                             Unduh
-                        </button>
+                        </button
                     </div>
                     <input id="suratpengantar" type="file" accept="application/pdf"
                         class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
