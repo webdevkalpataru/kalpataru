@@ -37,3 +37,8 @@ $routes->get('pengusul/tambahcalonpmik', 'PengusulController::tambahcalonpmik');
 $routes->get('pengusul/tambahcalondampak', 'PengusulController::tambahcalondampak');
 $routes->get('pengusul/tambahcalonkeswadayaan', 'PengusulController::tambahcalonkeswadayaan');
 $routes->get('pengusul/tambahcalonkeistimewaan', 'PengusulController::tambahcalonkeistimewaan');
+$routes->get('pengusul/profilpengusul', 'PengusulController::profilpengusul');
+$routes->get('pengusul/usulansaya', 'PengusulController::usulansaya');
+$routes->get('pengusul/detailusulansaya', 'PengusulController::detailusulansaya');
+
+

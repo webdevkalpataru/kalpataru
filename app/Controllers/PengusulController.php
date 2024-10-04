@@ -90,4 +90,14 @@ class PengusulController extends BaseController
         $data['title'] = 'Tambah Calon Usulan';
         return view('pengusul/tambahcalonkeistimewaan', $data);
     }
+
+    public function usulansaya()
+    {
+        return view('pengusul/usulansaya', ['title' => 'Usulan Saya']);
+    }
+
+    public function detailusulansaya()
+    {
+        return view('pengusul/detailusulansaya', ['title' => 'Detail Usulan Saya']);
+    }
 }
