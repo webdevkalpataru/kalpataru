@@ -31,8 +31,7 @@
                     <input
                         placeholder="Masukan kata kunci"
                         class="input shadow-lg focus:border-2 border-2 border-primary 0 px-5 py-3 rounded-xl w-56 transition-all focus:w-64 outline-none"
-                        name="search"
-                        type="search" />
+                        name="search" />
                     <svg
                         class="size-6 absolute top-3 right-3 text-primary"
                         stroke="currentColor"

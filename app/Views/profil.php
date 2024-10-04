@@ -25,11 +25,11 @@
     <!-- Quote Section -->
     <section id="quotes" class="lg:px-0 px-4 py-8 lg:py-12 container mx-auto">
         <div class="w-full flex flex-col lg:flex-row items-center justify-between">
-            <div class="w-full lg:w-1/2 lg:pr-10">
-                <p class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium text-black">
+            <div class="w-full lg:w-1/2 lg:pr-10 relative">
+                <p class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium text-black relative before:content-['\201C'] before:absolute before:-left-6 before:top-0 before:text-5xl before:text-indigo-200">
                     Pembangunan dan pelestarian lingkungan hidup tidak harus saling bertentangan, keduanya bisa berjalan seiring demi kelanggengan sumber daya alam.
                     <br><br>
-                    <span class="text-sm">Presiden Soeharto (1978)</span>
+                    <span class="text-sm font-semibold">Presiden Soeharto (1978)</span>
                 </p>
             </div>
             <figure class="w-full lg:w-1/2 lg:pl-10 mt-8 lg:mt-0">
@@ -42,10 +42,10 @@
     <section id="sejarah" class="lg:my-12 md:my-8 my-4 px-4 sm:px-10 md:px-16 lg:px-20">
         <div class="text-center mb-6 lg:mb-0">
             <h2 class="text-lg sm:text-xl md:text-2xl lg:text-4xl font-medium text-black">Sejarah Penghargaan Kalpataru</h2>
-            <hr class="border-2 border-primary w-40 mx-auto mt-2">
+            <hr class="border-2 border-primary w-48 mx-auto mt-2 mb-8">
         </div>
-        <div class="text-sm md:text-base lg:text-lg leading-relaxed lg:mx-14 mx-0">
-            <p>Salah satu strategi Kementerian PPLH di bawah pimpinan Prof. Emil Salim untuk meningkatkan partisipasi masyarakat dalam pelestarian lingkungan adalah melalui pemberian Hadiah Lingkungan setiap tahun pada peringatan Hari Lingkungan Hidup Sedunia. Pada 5 Juni 1980, Hadiah Lingkungan pertama kali diberikan kepada delapan organisasi dan kelompok masyarakat, termasuk LP3ES Jakarta, Pondok Pesantren Cipasung Tasikmalaya, Badan Sosial Maumere, dan Masyarakat Desa Wonolelo.
+        <div class="text-sm md:text-base lg:text-lg leading-relaxed text-justify lg:mx-14 mx-0">
+            <p class="text-justify">Salah satu strategi Kementerian PPLH di bawah pimpinan Prof. Emil Salim untuk meningkatkan partisipasi masyarakat dalam pelestarian lingkungan adalah melalui pemberian Hadiah Lingkungan setiap tahun pada peringatan Hari Lingkungan Hidup Sedunia. Pada 5 Juni 1980, Hadiah Lingkungan pertama kali diberikan kepada delapan organisasi dan kelompok masyarakat, termasuk LP3ES Jakarta, Pondok Pesantren Cipasung Tasikmalaya, Badan Sosial Maumere, dan Masyarakat Desa Wonolelo.
                 <br><br>
                 Perubahan nama "Hadiah Lingkungan" menjadi "Kalpataru" terjadi pada tahun 1981. Nama ini ditemukan oleh Bapak Markoes Djajadiningrat, seorang Sarjana Seni Rupa dari ITB, saat ia mendesain prangko seri lingkungan hidup. Beliau menemukan relief "Pohon Kehidupan" yang dikelilingi uang dan batu permata di Candi Mendut. Pohon ini dikenal dengan berbagai nama, seperti Kalpawreksa (aksara Dewanagari), Kalpavṛkṣa (IAST), Kalpataru, Kalpadruma, dan Kalpapāda. Istilah Kalpataru banyak disinggung dalam kesusasteraan India awal, seperti Kitab Purana, Ramayana, Buvanakosa, Vayupurana, Meghaduta, dan Bhanabat. Selain itu, beliau juga yang mendesain Trofi Kalpataru.
             </p>
@@ -53,10 +53,10 @@
     </section>
 
     <!-- Prinsip Kalpataru Section -->
-    <section id="tujuankalpataru" class="bg-primary py-8">
+    <section id="prinsipkalpataru" class="bg-primary py-8">
         <div class="text-center text-white">
             <h2 class="text-lg sm:text-xl md:text-2xl lg:text-4xl font-bold">Prinsip Kalpataru</h2>
-            <hr class="border-2 border-white w-16 mx-auto mt-2">
+            <hr class="border-2 border-white w-32 mx-auto mt-2">
         </div>
 
         <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 px-4 py-8 lg:mx-28 mx-0">
@@ -107,18 +107,18 @@
     <section id="kategori" class="py-8 lg:mx-14 mx-0">
         <div class="text-center mb-4 px-4">
             <h2 class="text-lg sm:text-xl md:text-2xl lg:text-4xl font-medium text-black">Kategori Penghargaan</h2>
-            <hr class="border-2 border-primary w-16 mx-auto mt-2">
+            <hr class="border-2 border-primary w-48 mx-auto mt-2">
             <p class="text-sm mt-12 lg:mx-32 mx-0">Dalam pelaksanaannya penghargaan Kalpataru tergabi menjadi 4 kategori utama. Di
                 mana setiap kategori memiliki definisi masing-masing dalam menjaga serta melertarikan lingkungan dan kehutanan di Indonesia</p>
         </div>
 
         <!-- Perintis Lingkungan -->
-        <div class="flex flex-col lg:flex-row items-center lg:items-start px-4 lg:px-24 my-12">
+        <div id="kategoria" class="flex flex-col lg:flex-row items-center lg:items-start px-4 lg:px-24 my-12">
             <img src="/images/kategoria.jpg" alt="Perintis Lingkungan" class="w-40 lg:w-56 h-auto rounded-lg mb-4 lg:mb-0 lg:mr-6 mx-auto lg:mx-0">
             <div class="text-center lg:text-left">
                 <h3 class="text-xl font-medium mb-2"><b>Perintis</b> Lingkungan</h3>
                 <hr class="border-2 border-primary w-40 mt-1 mb-4 mx-auto lg:mx-0">
-                <p class="text-sm leading-relaxed mb-4">Perintis Lingkungan adalah individu bukan pegawai negeri atau bukan pejabat negara yang
+                <p class="text-sm leading-relaxed text-justify mb-4">Perintis Lingkungan adalah individu bukan pegawai negeri atau bukan pejabat negara yang
                     mempelopori upaya luar biasa bagi
                     perlindungan dan pengelolaan lingkungan hidup dan
                     kehutanan, dan merupakan kegiatan baru di wilayah/kawasan tertentu
@@ -133,12 +133,12 @@
         </div>
 
         <!-- Pengabdi Lingkungan (Reversed) -->
-        <div class="flex flex-col lg:flex-row-reverse items-center lg:items-start px-4 lg:px-24 my-12">
+        <div id="kategorib" class="flex flex-col lg:flex-row-reverse items-center lg:items-start px-4 lg:px-24 my-12">
             <img src="/images/kategorib.jpg" alt="Pengabdi Lingkungan" class="w-40 lg:w-56 h-auto rounded-lg mb-4 lg:mb-0 lg:ml-6 mx-auto lg:mx-0">
             <div class="text-center lg:text-left">
                 <h3 class="text-xl font-medium mb-2"><b>Pengabdi</b> Lingkungan</h3>
                 <hr class="border-2 border-primary w-40 mt-1 mb-4 mx-auto lg:mx-0">
-                <p class="text-sm leading-relaxed mb-4"> Pengabdi Lingkungan adalah individu baik petugas lapangan dan/atau pegawai negeri atau
+                <p class="text-sm leading-relaxed text-justify mb-4"> Pengabdi Lingkungan adalah individu baik petugas lapangan dan/atau pegawai negeri atau
                     Aparatur Sipil Negara yang mendedikasikan hidupnya dalam upaya perlindungan dan
                     pengelolaan lingkungan hidup dan kehutanan yang melampaui kewajiban dan tugas pokok
                     profesi dalam jangka waktu lama secara berurutan</p>
@@ -147,12 +147,12 @@
         </div>
 
         <!-- Penyelamat Lingkungan -->
-        <div class="flex flex-col lg:flex-row items-center lg:items-start px-4 lg:px-24 my-12">
+        <div id="kategoric" class="flex flex-col lg:flex-row items-center lg:items-start px-4 lg:px-24 my-12">
             <img src="/images/kategoric.jpg" alt="Penyelamat Lingkungan" class="w-40 lg:w-56 h-auto rounded-lg mb-4 lg:mb-0 lg:mr-6 mx-auto lg:mx-0">
             <div class="text-center lg:text-left">
                 <h3 class="text-xl font-medium mb-2"><b>Penyelamat</b> Lingkungan</h3>
                 <hr class="border-2 border-primary w-40 mt-1 mb-4 mx-auto lg:mx-0">
-                <p class="text-sm leading-relaxed mb-4"> Penyelamat Lingkungan adalah kelompok orang dan/atau lembaga yang menjaga dan/atau
+                <p class="text-sm leading-relaxed text-justify mb-4"> Penyelamat Lingkungan adalah kelompok orang dan/atau lembaga yang menjaga dan/atau
                     memperbaiki penyelamatan fungsi dan tatanan lingkungan hidup atas dasar prakarsa
                     kelompok.</p>
                 <button class="bg-primary text-white px-4 py-2 mb-6 lg:mb-0 rounded-md hover:bg-primaryhover">Lihat Daftar Penerima</button>
@@ -160,12 +160,12 @@
         </div>
 
         <!-- Pembina Lingkungan (Reversed) -->
-        <div class="flex flex-col lg:flex-row-reverse items-center lg:items-start px-4 lg:px-24 my-12">
+        <div id="kategorid" class="flex flex-col lg:flex-row-reverse items-center lg:items-start px-4 lg:px-24 my-12">
             <img src="/images/kategorid.jpg" alt="Pembina Lingkungan" class="w-40 lg:w-56 h-auto rounded-lg mb-4 lg:mb-0 lg:ml-6 mx-auto lg:mx-0">
             <div class="text-center lg:text-left">
                 <h3 class="text-xl font-medium mb-2"><b>Pembina</b> Lingkungan</h3>
                 <hr class="border-2 border-primary w-40 mt-1 mb-4 mx-auto lg:mx-0">
-                <p class="text-sm leading-relaxed mb-4"> Pembina Lingkungan adalah individu/tokoh masyarakat bukan pejabat pemerintah yang
+                <p class="text-sm leading-relaxed text-justify mb-4"> Pembina Lingkungan adalah individu/tokoh masyarakat bukan pejabat pemerintah yang
                     melakukan pembinaan untuk membangkitkan kesadaran, prakarsa, dan peran masyarakat
                     guna melestarikan fungsi dan tatanan lingkungan hidup dan/atau berhasil
                     mengimplementasikan temuan teknologi baru yang ramah lingkungan.</p>

@@ -11,6 +11,16 @@
     <?= $this->extend('template/navbarfooter') ?>
 
     <?= $this->section('content') ?>
+    <!-- Popup Modal -->
+    <div id="popup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
+        <!-- Close Button -->
+        <div class="relative rounded-lg p-4 shadow-lg max-w-xs w-full">
+            <button id="close-btn" class="absolute top-0 right-0  text-5xl font-bold text-white">X</button>
+            <!-- Popup Image -->
+            <img src="/images/popup.png" alt="Popup Image" class="w-full rounded-md">
+        </div>
+    </div>
+
     <section id="herosection" class="w-full h-[20rem] sm:h-[30rem] md:h-[34rem] lg:h-[36rem] relative">
         <img src="/images/herosection.png" alt="herosection" class="w-full h-full object-cover object-right md:object-center">
 
@@ -38,7 +48,7 @@
             <div class="w-full lg:w-1/2 lg:pr-10">
                 <h3 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-medium text-black">Penghargaan Tertinggi untuk Pelestari Lingkungan</h3>
                 <br />
-                <p class="text-sm sm:text-base md:text-lg">
+                <p class="text-sm sm:text-base md:text-lg text-justify">
                     Kalpataru adalah penghargaan yang diberikan kepada perorangan atau kelompok atas jasanya dalam melestarikan lingkungan hidup di Indonesia. Kalpataru sendiri adalah bahasa Sanskerta yang berarti pohon kehidupan (Kalpavriksha)
                     <br /><br />
                     Penghargaan Kalpataru merupakan penghargaan tertinggi dari pemerintah Indonesia yang diberikan kepada individu, kelompok, dan lembaga yang telah menunjukkan dedikasi dan prakarsa dalam menjaga dan melestarikan lingkungan hidup.
@@ -68,16 +78,16 @@
 
             <!-- Kontainer gambar kategori dengan properti flex untuk memusatkan gambar -->
             <div id="categoryContainer" class="flex gap-16 lg:justify-center lg:items-center overflow-x-auto sm:overflow-x-auto md:overflow-x-hidden scrollbar-show snap-x snap-mandatory scroll-smooth">
-                <a href="/profil/kategoria" class="block flex-shrink-0 snap-center">
+                <a href="/profil/#kategoria" class="block flex-shrink-0 snap-center">
                     <img src="/images/kategoria.jpg" alt="kategoria" class="w-56 h-auto rounded-2xl shadow-lg mx-auto">
                 </a>
-                <a href="/profil/kategorib" class="block flex-shrink-0 snap-center">
+                <a href="/profil/#kategorib" class="block flex-shrink-0 snap-center">
                     <img src="/images/kategorib.jpg" alt="kategorib" class="w-56 h-auto rounded-2xl shadow-lg mx-auto">
                 </a>
-                <a href="/profil/kategoric" class="block flex-shrink-0 snap-center">
+                <a href="/profil/#kategoric" class="block flex-shrink-0 snap-center">
                     <img src="/images/kategoric.jpg" alt="kategoric" class="w-56 h-auto rounded-2xl shadow-lg mx-auto">
                 </a>
-                <a href="/profil/kategorid" class="block flex-shrink-0 snap-center">
+                <a href="/profil/#kategorid" class="block flex-shrink-0 snap-center">
                     <img src="/images/kategorid.jpg" alt="kategorid" class="w-56 h-auto rounded-2xl shadow-lg mx-auto">
                 </a>
             </div>
@@ -213,7 +223,7 @@
                     Tunjukan dukungan Anda untuk upaya pelestarian lingkungan. Bergabunglah dengan kami dan buat perubahan nyata!
                 </p>
                 <a href="auth/register">
-                    <button class="rounded-md bg-white py-1 px-4 sm:py-3 sm:px-3 text-xs sm:text-sm md:text-base lg:text-base text-black transition-all shadow-md hover:font-bold hover:shadow-lg focus:bg-site focus:shadow-none active:bg-site hover:bg-site active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                    <button class="rounded-md bg-white lg:mt-2 py-2 px-4 sm:px-3 text-xs sm:text-sm md:text-base lg:text-base text-black transition-all shadow-md hover:font-bold hover:shadow-lg focus:bg-site focus:shadow-none active:bg-site hover:bg-site active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
                         Daftar Sekarang
                     </button>
                 </a>
@@ -417,6 +427,20 @@
         </div>
     </section>
 
+    <script defer>
+        // popup
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set delay for 5 seconds (5000 milliseconds)
+            setTimeout(function() {
+                document.getElementById('popup').classList.remove('hidden');
+            }, 5000); // 5 seconds delay
+
+            // Close popup on clicking X button
+            document.getElementById('close-btn').addEventListener('click', function() {
+                document.getElementById('popup').classList.add('hidden');
+            });
+        });
+    </script>
 
     <script>
         //  scroll kategori
