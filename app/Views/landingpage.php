@@ -7,7 +7,7 @@
     <title><?= $title; ?></title>
 </head>
 
-<body class="bg-site">
+<body>
     <?= $this->extend('template/navbarfooter') ?>
 
     <?= $this->section('content') ?>
@@ -251,7 +251,7 @@
                 </button>
                 <div id="beritaContainer" class="flex overflow-x-auto space-x-4 scrollbar-hide">
                     <?php foreach ($berita['data_berita'] as $item): ?>
-                        <div class="flex-none w-64 bg-white rounded-lg shadow-md">
+                        <div class="flex-none w-64 bg-white rounded-lg shadow-md my-2">
                             <img src="<?= base_url('images/berita/' . esc($item->foto)) ?>" alt="<?= esc($item->judul) ?>" class="w-full h-40 object-cover rounded-t-lg">
                             <div class="p-4">
                                 <h3 class="font-bold text-md mb-2"><?= word_limiter(esc($item->judul), 4); ?></h3>
@@ -265,10 +265,6 @@
                         </div>
                     <?php endforeach; ?>
                 </div>
-
-
-
-
 
                 <!-- arrow kanan -->
                 <button id="beritaScrollRight" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-footer text-white p-2 rounded-full shadow-md z-10 focus:outline-none sm:block md:hidden">
@@ -293,7 +289,7 @@
 
             <div class="flex overflow-x-scroll space-x-4 scrollbar-hide">
                 <?php foreach ($videos['data_video'] as $item): ?>
-                    <div class="flex-none h-full bg-white rounded-lg shadow-md">
+                    <div class="flex-none h-full bg-white rounded-lg shadow-md my-2">
                         <?php
                         preg_match("/(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/", $item->link_video, $matches);
                         $youtube_id = $matches[1];

@@ -6,6 +6,7 @@ module.exports = withMT({
     './app/Views/**/*.php',
     './app/Views/**/**/*.php',
     './app/Views/**/**/**/*.php',
+    './app/Views/**/**/**/**/*.php',
   ],
   theme: {
     screens: {
@@ -38,9 +39,6 @@ module.exports = withMT({
         rejected: '#800000',
         footer: '#69512A',
 
-      },
-      backgroundColor: {
-        site: '#F8F8F8',
       },
     },
   },

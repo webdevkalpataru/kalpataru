@@ -7,7 +7,7 @@
     <title><?= $title; ?></title>
 </head>
 
-<body class="bg-site">
+<body>
     <?= $this->extend('template/navbarfooter') ?>
 
     <?= $this->section('content') ?>
