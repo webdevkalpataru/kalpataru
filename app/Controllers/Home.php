@@ -12,7 +12,7 @@ class Home extends BaseController
     {
         $publikasiModel = new PublikasiModel();
 
-        
+
         $data['videos'] = $publikasiModel->TampilVideo();
         $data['berita'] = $publikasiModel->TampilBerita();
         $data['title'] = "Penghargaan Kalpataru";

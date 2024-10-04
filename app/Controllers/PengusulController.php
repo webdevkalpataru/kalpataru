@@ -11,6 +11,10 @@ class PengusulController extends BaseController
     {
         $pengusulModel = new PengusulModel();
         $data['pengusul'] = $pengusulModel->where('id_pengusul', session()->get('id_pengusul'))->first();
+        if (!session()->get('logged_in')) {
+            // Simpan pesan ke session flash atau redirect dengan query
+            return redirect()->to('/auth/login')->with('authMessage', 'Harap login terlebih dahulu');
+        }
 
         $data['title'] = 'Profil Pengusul';
         return view('pengusul/profil', $data);
@@ -55,42 +59,35 @@ class PengusulController extends BaseController
     {
         $data['title'] = 'Tambah Calon Usulan';
         return view('pengusul/tambahcalon', $data);
-
     }
     public function tambahcalonidentitas()
     {
         $data['title'] = 'Tambah Calon Usulan';
         return view('pengusul/tambahcalonidentitas', $data);
-
     }
     public function tambahcalonkegiatan()
     {
         $data['title'] = 'Tambah Calon Usulan';
         return view('pengusul/tambahcalonkegiatan', $data);
-
     }
     public function tambahcalonpmik()
     {
         $data['title'] = 'Tambah Calon Usulan';
         return view('pengusul/tambahcalonpmik', $data);
-
     }
     public function tambahcalondampak()
     {
         $data['title'] = 'Tambah Calon Usulan';
         return view('pengusul/tambahcalondampak', $data);
-
     }
     public function tambahcalonkeswadayaan()
     {
         $data['title'] = 'Tambah Calon Usulan';
         return view('pengusul/tambahcalonkeswadayaan', $data);
-
     }
     public function tambahcalonkeistimewaan()
     {
         $data['title'] = 'Tambah Calon Usulan';
         return view('pengusul/tambahcalonkeistimewaan', $data);
-
     }
 }

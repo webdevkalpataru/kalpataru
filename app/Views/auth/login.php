@@ -92,7 +92,7 @@
             <div class="w-full max-w-md p-6 fade-in-left">
 
                 <h2 class="text-2xl font-bold text-gray-900 mb-4">Masuk</h2>
-                <form class="flex flex-col" onsubmit="validateForm(event)" action="/auth/login-action" method="POST">
+                <form class="flex flex-col" onsubmit="validateForm(event)" action="/auth/login" method="POST">
                     <label for="email" class="text-xs">Email</label>
                     <input id="email" type="text" name="email" required
                         class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none"
@@ -161,6 +161,33 @@
                 `<img src="/images/hide.svg" alt="hide" class="w-4 h-4 mb-4">`;
         });
 
+        function validateForm(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            const form = event.target;
+            const formData = new FormData(form);
+
+            fetch(form.action, {
+                    method: form.method,
+                    body: formData,
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Redirect ke URL yang diberikan oleh server
+                        window.location.href = data.redirectUrl;
+                    } else {
+                        showToast(data.message); // Tampilkan pesan kesalahan
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showToast('Terjadi kesalahan. Silakan coba lagi');
+                });
+        }
+
 
 
         // Show toast with custom message
@@ -172,6 +199,22 @@
                 toast.classList.remove('show-toast');
             }, 3000);
         }
+    </script>
+    <script>
+        // Cek jika ada pesan di localStorage
+        const message = localStorage.getItem('authMessage');
+        if (message) {
+            alert(message); // Tampilkan pesan
+            localStorage.removeItem('authMessage'); // Hapus pesan setelah ditampilkan
+            window.location.href = '/auth/login'; // Arahkan ke halaman login
+        }
+    </script>
+
+    <script>
+        // Mengambil pesan dari session flash
+        <?php if (session()->getFlashdata('authMessage')) : ?>
+            localStorage.setItem('authMessage', '<?= session()->getFlashdata('authMessage') ?>');
+        <?php endif; ?>
     </script>
 </body>
 

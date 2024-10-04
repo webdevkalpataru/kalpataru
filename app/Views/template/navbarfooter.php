@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/app.css">
-    <title><?= $title; ?></title>
+    <title>Kalpataru – Penghargaan Lingkungan Hidup Indonesia</title>
+    <meta name="description" content="Website resmi Kalpataru, penghargaan bagi pelestari lingkungan di Indonesia. Temukan informasi, berita, dan program pelestarian alam terbaru.">
     <style>
         /* scrollbar */
         ::-webkit-scrollbar {

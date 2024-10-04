@@ -34,7 +34,6 @@ class PengusulModel extends Model
         return $this->where('email', $email)->first();
     }
 
-
     public function createPengusul($data)
     {
         return $this->insert($data);

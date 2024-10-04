@@ -56,7 +56,7 @@
             <li><a href="#" class="block text-md hover:bg-secondary p-2 rounded">Usulan Saya</a></li>
             <li><a href="#" class="block text-md hover:bg-secondary p-2 rounded">Panduan Pendaftaran</a></li>
             <li><a href="#" class="block text-md hover:bg-secondary p-2 rounded">Video Panduan</a></li>
-            <li><a href="#" class="block text-md hover:bg-secondary p-2 rounded">Keluar</a></li>
+            <li><a href="/auth/logout" class="block text-md hover:bg-secondary p-2 rounded">Keluar</a></li>
         </ul>
     </div>
 

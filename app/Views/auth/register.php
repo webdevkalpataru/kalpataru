@@ -78,7 +78,7 @@
         <div class="flex-1 flex items-center justify-center bg-white overflow-y-auto h-screen sm:h-auto mt-8">
             <div class="w-full max-w-md p-6 fade-in-left">
                 <h2 class="text-2xl font-bold text-gray-900 mb-4">Daftar</h2>
-                <form action="/auth/register/createRegister" method="post" onsubmit="validateForm(event)" class="flex flex-col">
+                <form action="/auth/register" method="post" onsubmit="validateForm(event)" class="flex flex-col" enctype="multipart/form-data">
                     <?= csrf_field() ?>
                     <label for="jenis_instansi" class="text-xs">Jenis Instansi</label>
                     <select id="jenis_instansi" name="jenis_instansi"
@@ -97,7 +97,6 @@
                     <select id="provinsi" name="provinsi"
                         class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
                         <option value="" disabled selected>Pilih Provinsi</option>
-                        <option value="Aceh">Aceh</option>
                         <?php foreach ($provinsi_list as $provinsi) { ?>
                             <option value="<?php echo $provinsi; ?>"><?php echo $provinsi; ?></option>
                         <?php } ?>
@@ -137,8 +136,8 @@
 
 
                     <div class="grid gap-1 grid-cols-2 mb-2">
-                        <label for="suratpengantar" class="text-xs">Template Surat Pengantar</label>
-                        <label for="suratpengantar" class="text-xs">Surat Pengantar <span class="text-primary">(.pdf)</span></label>
+                        <label for="surat_pengantar" class="text-xs">Template Surat Pengantar</label>
+                        <label for="surat_pengantar" class="text-xs">Surat Pengantar <span class="text-primary">(.pdf)</span></label>
 
                         <div class="flex items-center">
                             <img src="/images/word.svg" alt="word" class="w-8 h-8 mr-2">
@@ -147,7 +146,7 @@
                             </button>
                         </div>
 
-                        <input id="suratpengantar" type="file" accept="application/pdf"
+                        <input id="surat_pengantar" type="file" accept="application/pdf" name="surat_pengantar"
                             class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
                     </div>
 
@@ -228,19 +227,19 @@
             const email = document.getElementById('email').value;
             const kata_sandi = passwordInput.value;
             const passwordCheck = passwordCheckInput.value;
-            const suratPengantar = document.getElementById('suratpengantar').files[0];
+            const surat_pengantar = document.getElementById('surat_pengantar').files[0];
 
             let isValid = true;
             let passwordErrors = [];
 
             // Validasi Surat Pengantar
-            if (!suratPengantar) {
+            if (!surat_pengantar) {
                 showToast('Surat Pengantar belum diunggah. Silakan lengkapi');
                 isValid = false;
-            } else if (suratPengantar.type !== 'application/pdf') {
+            } else if (surat_pengantar.type !== 'application/pdf') {
                 showToast('Surat Pengantar harus berformat PDF.');
                 isValid = false;
-            } else if (suratPengantar.size > 1048576) {
+            } else if (surat_pengantar.size > 1048576) {
                 showToast('Ukuran file Surat Pengantar maksimal 1 MB.');
                 isValid = false;
             }
@@ -316,14 +315,14 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
-                            showPopup();
+                            document.getElementById('successPopup').classList.remove('toasthidden');
                         } else {
-                            showToast('Registration failed. Please try again.');
+                            showToast(data.errors);
                         }
                     })
                     .catch(error => {
                         console.error('Error:', error);
-                        showToast('An error occurred. Please try again.');
+                        showToast('Terjadi kesalahan. Silakan coba lagi');
                     });
             }
         }
