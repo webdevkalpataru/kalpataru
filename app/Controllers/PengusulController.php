@@ -12,7 +12,9 @@ class PengusulController extends BaseController
         $pengusulModel = new PengusulModel();
         $data['pengusul'] = $pengusulModel->where('id_pengusul', session()->get('id_pengusul'))->first();
 
+        $data['title'] = 'Profil Pengusul';
         return view('pengusul/profil', $data);
+
     }
 
     public function updateProfil()

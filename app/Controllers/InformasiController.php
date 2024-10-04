@@ -16,6 +16,7 @@ class InformasiController extends BaseController
         $data['pengumuman'] = $pengumumanData['data_pengumuman'];
         $data['total_pengumuman'] = $pengumumanData['total_pengumuman'];
 
+        $data['title'] = 'Pengumuman';
         return view('pengumuman', $data, ['title' => 'Pengumuman']);
     }
 
@@ -27,11 +28,13 @@ class InformasiController extends BaseController
         $data['peraturankebijakan'] = $peraturankebijakanData['data_peraturankebijakan'];
         $data['total_peraturankebijakan'] = $peraturankebijakanData['total_peraturankebijakan'];
 
+        $data['title'] = 'Peraturan dan Kebijakan';
         return view('peraturankebijakan', $data, ['title' => 'Peraturan dan Kebijakan']);
     }
 
     public function datastatistik()
     {
+        $data['title'] = 'Data dan Statistik';
         return view('datastatistik', ['title' => 'Data dan Statistik']);
     }
 }

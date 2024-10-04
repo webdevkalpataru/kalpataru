@@ -16,6 +16,7 @@ class PublikasiController extends BaseController
         $data['berita'] = $BeritaData['data_berita'];
         $data['total_berita'] = $BeritaData['total_berita'];
 
+        $data['title'] = "Berita";
         return view('berita', $data, ['title' => 'Berita']);
     }
 
@@ -27,6 +28,7 @@ class PublikasiController extends BaseController
         $data['artikel'] = $ArtikelData['data_artikel'];
         $data['total_artikel'] = $ArtikelData['total_artikel'];
 
+        $data['title'] = "Artikel";
         return view('Artikel', $data, ['title' => 'Artikel']);
     }
 
@@ -38,6 +40,7 @@ class PublikasiController extends BaseController
         $data['video'] = $VideoData['data_video'];
         $data['total_video'] = $VideoData['total_video'];
 
+        $data['title'] = "Video";
         return view('video', $data, ['title' => 'Video']);
     }
 
@@ -49,6 +52,7 @@ class PublikasiController extends BaseController
         $data['buku'] = $BukuData['data_buku'];
         $data['total_buku'] = $BukuData['total_buku'];
 
+        $data['title'] = "Buku";
         return view('buku', $data, ['title' => 'Buku']);
     }
 }
