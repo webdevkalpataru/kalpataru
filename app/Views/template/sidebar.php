@@ -5,6 +5,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/app.css">
+    <style>
+        /* Sidebar terbuka secara default di layar besar (desktop) */
+        @media (min-width: 768px) {
+            #sidebar {
+                display: block;
+                /* Tampilkan sidebar di desktop */
+            }
+
+            #mainToggleBtn {
+                display: none;
+                /* Sembunyikan tombol utama ☰ di desktop */
+            }
+        }
+
+        /* Sidebar tertutup secara default di layar kecil (mobile) */
+        @media (max-width: 767px) {
+            #sidebar {
+                display: none;
+                /* Sembunyikan sidebar di mobile */
+            }
+
+            #mainToggleBtn {
+                display: block;
+                /* Tampilkan tombol utama ☰ di mobile */
+            }
+        }
+    </style>
 </head>
 
 <body>

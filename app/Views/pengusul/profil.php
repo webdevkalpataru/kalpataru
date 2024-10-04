@@ -4,44 +4,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    /* Sidebar terbuka secara default di layar besar (desktop) */
-    @media (min-width: 768px) {
-      #sidebar {
-        display: block;
-        /* Tampilkan sidebar di desktop */
-      }
-
-      #mainToggleBtn {
-        display: none;
-        /* Sembunyikan tombol utama ☰ di desktop */
-      }
-    }
-
-    /* Sidebar tertutup secara default di layar kecil (mobile) */
-    @media (max-width: 767px) {
-      #sidebar {
-        display: none;
-        /* Sembunyikan sidebar di mobile */
-      }
-
-      #mainToggleBtn {
-        display: block;
-        /* Tampilkan tombol utama ☰ di mobile */
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="../css/app.css">
+  <title><?= $title; ?></title>
 </head>
 
 <body class="bg-site">
-  <?= $this->extend('template/sidebar') ?>
-  <?= $this->extend('template/navbarfooter') ?>
-
-  <?= $this->section('content') ?>
   <!-- Sidebar dan Konten Utama -->
   <div class="flex flex-col lg:flex-row lg:space-x-6">
-    <!-- Tombol toggle sidebar utama saat sidebar tertutup -->
-    <button id="mainToggleBtn" class="text-xl text-primary hover:text-primaryhover hidden">☰</button>
 
     <!-- Konten utama -->
     <div class="relative flex flex-col w-full max-w-xl mx-auto mb-4 rounded-xl border-2 border-primary bg-white shadow-md p-4">
@@ -142,7 +111,6 @@
 
   </div>
 
-  <?= $this->endSection() ?>
 </body>
 
 </html>
