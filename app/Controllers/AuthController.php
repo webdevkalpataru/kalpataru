@@ -38,12 +38,9 @@ class AuthController extends BaseController
                     ];
                     session()->set($sessionData);
 
-                    // Arahkan pengguna sesuai role_akun
-                    if ($user['role_akun'] === 'Pengusul') {
-                        return redirect()->to('/pengusul/dashboard');
-                    } elseif ($user['role_akun'] === 'DLHK') {
-                        return redirect()->to('/dlhk/dashboard');
-                    }
+                    // Kembalikan URL untuk redirect sesuai role_akun
+                    $redirectUrl = ($user['role_akun'] === 'Pengusul') ? '/pengusul/dashboard' : '/dlhk/dashboard';
+                    return $this->response->setJSON(['success' => true, 'redirectUrl' => $redirectUrl]);
                 } else {
                     return $this->response->setJSON(['success' => false, 'message' => 'Akun Anda belum aktif.']);
                 }
@@ -54,6 +51,7 @@ class AuthController extends BaseController
             return $this->response->setJSON(['success' => false, 'message' => 'Pengguna tidak ditemukan.']);
         }
     }
+
 
 
     public function register()

@@ -12,13 +12,10 @@ class Home extends BaseController
     {
         $publikasiModel = new PublikasiModel();
 
-        $data['title'] = "Pebghargaan Kalpataru";
-
-        // Ambil data video
-        $data['videos'] = $publikasiModel->findAll();
-
-        // Ambil data berita
-        $data['berita'] = $publikasiModel->getBerita();
+        $data = [
+            'videos' => $publikasiModel->findAll(),
+            'berita' => $publikasiModel->getBerita(),
+        ];
 
         return view('landingpage', $data);
     }

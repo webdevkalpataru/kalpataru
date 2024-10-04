@@ -79,7 +79,7 @@
             <div class="w-full max-w-md p-6 fade-in-left">
 
                 <h2 class="text-2xl font-bold text-gray-900 mb-4">Daftar</h2>
-                <form action="/auth/register/createRegister" method="post" onsubmit="validateForm(event)" class="flex flex-col" enctype="multipart/form-data">
+                <form action="/auth/register" method="post" onsubmit="validateForm(event)" class="flex flex-col" enctype="multipart/form-data">
                     <?= csrf_field() ?>
                     <label for="jenis_instansi" class="text-xs">Jenis Instansi</label>
                     <select id="jenis_instansi" name="jenis_instansi"
@@ -98,7 +98,6 @@
                     <select id="provinsi" name="provinsi"
                         class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
                         <option value="" disabled selected>Pilih Provinsi</option>
-                        <option value="Aceh">Aceh</option>
                         <?php foreach ($provinsi_list as $provinsi) { ?>
                             <option value="<?php echo $provinsi; ?>"><?php echo $provinsi; ?></option>
                         <?php } ?>
