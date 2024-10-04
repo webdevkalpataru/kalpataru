@@ -14,7 +14,6 @@ class PengusulController extends BaseController
 
         $data['title'] = 'Profil Pengusul';
         return view('pengusul/profil', $data);
-
     }
 
     public function updateProfil()
@@ -50,5 +49,48 @@ class PengusulController extends BaseController
 
         // Jika profil sudah lengkap, lanjutkan ke halaman lainnya
         return view('pengusul/halaman_lainnya');
+    }
+
+    public function tambahcalon()
+    {
+        $data['title'] = 'Tambah Calon Usulan';
+        return view('pengusul/tambahcalon', $data);
+
+    }
+    public function tambahcalonidentitas()
+    {
+        $data['title'] = 'Tambah Calon Usulan';
+        return view('pengusul/tambahcalonidentitas', $data);
+
+    }
+    public function tambahcalonkegiatan()
+    {
+        $data['title'] = 'Tambah Calon Usulan';
+        return view('pengusul/tambahcalonkegiatan', $data);
+
+    }
+    public function tambahcalonpmik()
+    {
+        $data['title'] = 'Tambah Calon Usulan';
+        return view('pengusul/tambahcalonpmik', $data);
+
+    }
+    public function tambahcalondampak()
+    {
+        $data['title'] = 'Tambah Calon Usulan';
+        return view('pengusul/tambahcalondampak', $data);
+
+    }
+    public function tambahcalonkeswadayaan()
+    {
+        $data['title'] = 'Tambah Calon Usulan';
+        return view('pengusul/tambahcalonkeswadayaan', $data);
+
+    }
+    public function tambahcalonkeistimewaan()
+    {
+        $data['title'] = 'Tambah Calon Usulan';
+        return view('pengusul/tambahcalonkeistimewaan', $data);
+
     }
 }

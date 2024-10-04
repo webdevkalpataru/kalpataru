@@ -35,12 +35,14 @@
 </head>
 
 <body>
-    <div id="sidebar" class="w-full lg:w-1/4 h-3/4 rounded-lg lg:left-4 bg-white border-2 text-primary mb-6 p-5 relative">
-        <button id="toggleSidebarBtn" class="absolute top-2 right-2 text-2xl text-primary">✖</button>
-        <h2 class="text-md font-bold">Dinas Lingkungan Hidup Kab Bogor</h2>
-        <p class="text-sm text-slate-400 font-semibold">Pengusul</p>
-        <p class="text-sm text-slate-400 font-semibold">Jawa Barat</p>
-        <ul class="mt-10 space-y-2">
+    <div id="sidebar" class="w-full lg:w-[15rem] h-3/4 rounded-lg bg-white text-primary mb-6 relative lg:left-36">
+        <button id="toggleSidebarBtn" class="absolute top-2 right-3 text-2xl text-primary">✖</button>
+        <div class="mt-12 mb-4 border-2 border-primary rounded-lg px-4 py-2">
+            <h2 class="text-md font-bold">Dinas Lingkungan Hidup Kab Bogor</h2>
+            <p class="text-sm text-slate-400 font-semibold">Pengusul</p>
+            <p class="text-sm text-slate-400 font-semibold">Jawa Barat</p>
+        </div>
+        <ul class="border-2 border-primary rounded-lg px-4 py-4">
             <li><a href="#" class="block text-md hover:bg-secondary p-2 rounded">Pemberitahuan</a></li>
             <li><a href="#" class="block text-md hover:bg-secondary p-2 rounded">Alur Pendaftaran</a></li>
             <li class="text-gray-400"><a href="#" class="block text-md hover:bg-secondary p-2 rounded">Tambah Calon Usulan</a></li>

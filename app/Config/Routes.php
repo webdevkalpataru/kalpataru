@@ -28,5 +28,13 @@ $routes->get('/pengusul/dashboard', 'AuthController::pengusul');
 $routes->get('/dlhk/dashboard', 'AuthController::dlhk');
 
 $routes->get('pengusul/profil', 'PengusulController::index');
+$routes->get('pengusul/tambahcalon', 'PengusulController::tambahcalon');
+$routes->get('pengusul/tambahcalonidentitas', 'PengusulController::tambahcalonidentitas');
+$routes->get('pengusul/tambahcalonkegiatan', 'PengusulController::tambahcalonkegiatan');
+$routes->get('pengusul/tambahcalonpmik', 'PengusulController::tambahcalonpmik');
+$routes->get('pengusul/tambahcalondampak', 'PengusulController::tambahcalondampak');
+$routes->get('pengusul/tambahcalonkeswadayaan', 'PengusulController::tambahcalonkeswadayaan');
+$routes->get('pengusul/tambahcalonkeistimewaan', 'PengusulController::tambahcalonkeistimewaan');
+
 
 
