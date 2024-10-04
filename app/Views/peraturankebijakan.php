@@ -11,8 +11,8 @@
     <?= $this->extend('template/navbarfooter') ?>
 
     <?= $this->section('content') ?>
-    <section id="buku" class="w-full h-[25rem] relative">
-        <img src="/images/hero.png" alt="buku" class="w-full h-full object-cover object-center md:object-center">
+    <section id="peraturankebijakan" class="w-full h-[25rem] relative">
+        <img src="/images/hero.png" alt="peraturankebijakan" class="w-full h-full object-cover object-center md:object-center">
 
         <div class="absolute inset-0 flex flex-col justify-center items-center text-white text-center">
             <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">Peraturan & Kebijakan</h1>
