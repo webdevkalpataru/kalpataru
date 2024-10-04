@@ -12,6 +12,8 @@ class Home extends BaseController
     {
         $publikasiModel = new PublikasiModel();
 
+        $data['title'] = "Pebghargaan Kalpataru";
+
         // Ambil data video
         $data['videos'] = $publikasiModel->findAll();
 
