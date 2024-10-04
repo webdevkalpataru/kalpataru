@@ -8,6 +8,7 @@ class AuthController extends BaseController
 {
     public function login()
     {
+        $data['title'] = "Masuk Akun";
         return view('auth/login', ['title' => 'Login']);
     }
 
@@ -39,8 +40,7 @@ class AuthController extends BaseController
                     session()->set($sessionData);
 
                     // Kembalikan URL untuk redirect sesuai role_akun
-                    $redirectUrl = ($user['role_akun'] === 'Pengusul') ? '/pengusul/dashboard' : '/dlhk/dashboard';
-                    return $this->response->setJSON(['success' => true, 'redirectUrl' => $redirectUrl]);
+                    return $this->response->setJSON(['success' => true, 'redirectUrl' => '/pengusul/profil']);
                 } else {
                     return $this->response->setJSON(['success' => false, 'message' => 'Akun Anda belum aktif.']);
                 }
@@ -51,6 +51,16 @@ class AuthController extends BaseController
             return $this->response->setJSON(['success' => false, 'message' => 'Pengguna tidak ditemukan.']);
         }
     }
+
+    public function logoutAction()
+    {
+        // Hapus semua data sesi
+        session()->destroy();
+
+        // Arahkan pengguna kembali ke halaman login
+        return redirect()->to('/auth/login');
+    }
+
 
 
 

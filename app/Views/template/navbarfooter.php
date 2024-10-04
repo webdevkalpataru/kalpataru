@@ -136,7 +136,7 @@
                     <li class="flex items-center p-1 text-sm gap-x-2 text-primary hover:text-primaryhover">
                         <a href="<?= base_url('kontak') ?>" class="flex items-center">Kontak</a>
                     </li>
-                    <li class="flex items-center p-1 text-sm gap-x-2 text-primary hover:text-primaryhover"><a href="auth/login">
+                    <li class="flex items-center p-1 text-sm gap-x-2 text-primary hover:text-primaryhover"><a href="/auth/login">
                             <button class="rounded-md bg-primary py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-primaryhover focus:shadow-none active:bg-primaryhover hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
                                 Masuk
                         </a>
@@ -194,7 +194,7 @@
                     </ul>
                 </li>
                 <li><a href="<?= base_url('kontak') ?>" class="text-left block px-4 py-2 text-primary hover:text-primaryhover hover:bg-secondary">Kontak</a></li>
-                <li class="flex justify-end"><a href="<?= base_url('auth/login') ?>">
+                <li class="flex justify-end"><a href="<?= base_url('/auth/login') ?>">
                         <button class="text-left block px-4 py-2 rounded-md bg-primary border border-transparent text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-primaryhover focus:shadow-none active:bg-primaryhover hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
                             Masuk
                         </button></li>

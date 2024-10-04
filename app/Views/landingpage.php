@@ -4,14 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/app.css">
-    <title>Penghargaan Kalpataru</title>
+    <title><?= $title; ?></title>
 </head>
 
-<body class="bg-site">
+<body>
     <?= $this->extend('template/navbarfooter') ?>
 
     <?= $this->section('content') ?>
+    <!-- Popup Modal -->
+    <div id="popup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50 mt-12">
+        <!-- Close Button -->
+        <div class="relative rounded-lg max-w-xs w-full flex items-start">
+            <!-- Popup Image -->
+            <img src="/images/popup.png" alt="Popup Image" class="w-full rounded-md">
+            <button id="close-btn" class="lg:text-5xl text-xl top-0 right-0 font-bold text-white ms-2">X</button>
+        </div>
+    </div>
+
     <section id="herosection" class="w-full h-[20rem] sm:h-[30rem] md:h-[34rem] lg:h-[36rem] relative">
         <img src="/images/herosection.png" alt="herosection" class="w-full h-full object-cover object-right md:object-center">
 
@@ -39,7 +48,7 @@
             <div class="w-full lg:w-1/2 lg:pr-10">
                 <h3 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-medium text-black">Penghargaan Tertinggi untuk Pelestari Lingkungan</h3>
                 <br />
-                <p class="text-sm sm:text-base md:text-lg">
+                <p class="text-sm sm:text-base md:text-lg text-justify">
                     Kalpataru adalah penghargaan yang diberikan kepada perorangan atau kelompok atas jasanya dalam melestarikan lingkungan hidup di Indonesia. Kalpataru sendiri adalah bahasa Sanskerta yang berarti pohon kehidupan (Kalpavriksha)
                     <br /><br />
                     Penghargaan Kalpataru merupakan penghargaan tertinggi dari pemerintah Indonesia yang diberikan kepada individu, kelompok, dan lembaga yang telah menunjukkan dedikasi dan prakarsa dalam menjaga dan melestarikan lingkungan hidup.
@@ -69,16 +78,16 @@
 
             <!-- Kontainer gambar kategori dengan properti flex untuk memusatkan gambar -->
             <div id="categoryContainer" class="flex gap-16 lg:justify-center lg:items-center overflow-x-auto sm:overflow-x-auto md:overflow-x-hidden scrollbar-show snap-x snap-mandatory scroll-smooth">
-                <a href="/profil/kategoria" class="block flex-shrink-0 snap-center">
+                <a href="/profil/#kategoria" class="block flex-shrink-0 snap-center">
                     <img src="/images/kategoria.jpg" alt="kategoria" class="w-56 h-auto rounded-2xl shadow-lg mx-auto">
                 </a>
-                <a href="/profil/kategorib" class="block flex-shrink-0 snap-center">
+                <a href="/profil/#kategorib" class="block flex-shrink-0 snap-center">
                     <img src="/images/kategorib.jpg" alt="kategorib" class="w-56 h-auto rounded-2xl shadow-lg mx-auto">
                 </a>
-                <a href="/profil/kategoric" class="block flex-shrink-0 snap-center">
+                <a href="/profil/#kategoric" class="block flex-shrink-0 snap-center">
                     <img src="/images/kategoric.jpg" alt="kategoric" class="w-56 h-auto rounded-2xl shadow-lg mx-auto">
                 </a>
-                <a href="/profil/kategorid" class="block flex-shrink-0 snap-center">
+                <a href="/profil/#kategorid" class="block flex-shrink-0 snap-center">
                     <img src="/images/kategorid.jpg" alt="kategorid" class="w-56 h-auto rounded-2xl shadow-lg mx-auto">
                 </a>
             </div>
@@ -214,7 +223,7 @@
                     Tunjukan dukungan Anda untuk upaya pelestarian lingkungan. Bergabunglah dengan kami dan buat perubahan nyata!
                 </p>
                 <a href="auth/register">
-                    <button class="rounded-md bg-white py-1 px-4 sm:py-3 sm:px-3 text-xs sm:text-sm md:text-base lg:text-base text-black transition-all shadow-md hover:font-bold hover:shadow-lg focus:bg-site focus:shadow-none active:bg-site hover:bg-site active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                    <button class="rounded-md bg-white lg:mt-2 py-2 px-4 sm:px-3 text-xs sm:text-sm md:text-base lg:text-base text-black transition-all shadow-md hover:font-bold hover:shadow-lg focus:bg-site focus:shadow-none active:bg-site hover:bg-site active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
                         Daftar Sekarang
                     </button>
                 </a>
@@ -226,7 +235,7 @@
         <div class="lg:mx-28 p-5">
             <div class="flex justify-between items-center lg:mt-10 mb-2">
                 <h2 class="text-lg font-bold">Berita</h2>
-                <a href="#" class="flex items-center text-primary">
+                <a href="<?= base_url('publikasi/berita') ?>" class="flex items-center text-primary">
                     Selengkapnya
                     <svg class="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -241,11 +250,11 @@
                     &#9664;
                 </button>
                 <div id="beritaContainer" class="flex overflow-x-auto space-x-4 scrollbar-hide">
-                    <?php foreach ($berita as $item): ?>
-                        <div class="flex-none w-64 bg-white rounded-lg shadow-md">
-                            <img src="images/<?= esc($item->foto) ?>" alt="<?= esc($item->judul) ?>" class="w-full h-40 object-cover rounded-t-lg">
+                    <?php foreach ($berita['data_berita'] as $item): ?>
+                        <div class="flex-none w-64 bg-white rounded-lg shadow-md my-2">
+                            <img src="<?= base_url('images/berita/' . esc($item->foto)) ?>" alt="<?= esc($item->judul) ?>" class="w-full h-40 object-cover rounded-t-lg">
                             <div class="p-4">
-                                <h3 class="font-bold text-md mb-2"><?= esc($item->judul) ?></h3>
+                                <h3 class="font-bold text-md mb-2"><?= word_limiter(esc($item->judul), 4); ?></h3>
                                 <a href="#" class="text-primary flex items-center text-sm">
                                     Baca Selengkapnya
                                     <svg class="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -256,9 +265,6 @@
                         </div>
                     <?php endforeach; ?>
                 </div>
-
-
-
 
                 <!-- arrow kanan -->
                 <button id="beritaScrollRight" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-footer text-white p-2 rounded-full shadow-md z-10 focus:outline-none sm:block md:hidden">
@@ -272,7 +278,7 @@
         <div class="lg:mx-28 p-5">
             <div class="flex justify-between items-center lg:mt-10 mb-2">
                 <h2 class="text-lg font-bold">Video</h2>
-                <a href="#" class="flex items-center text-primary">
+                <a href="<?= base_url('publikasi/video') ?>" class="flex items-center text-primary">
                     Selengkapnya
                     <svg class="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -282,23 +288,23 @@
             <hr class="border-2 border-primary w-full mt-0 mb-10" />
 
             <div class="flex overflow-x-scroll space-x-4 scrollbar-hide">
-                <?php foreach ($videos as $video): ?>
-                    <div class="flex-none h-full bg-white rounded-lg shadow-md">
+                <?php foreach ($videos['data_video'] as $item): ?>
+                    <div class="flex-none h-full bg-white rounded-lg shadow-md my-2">
                         <?php
-                        preg_match("/(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/", $video['link_video'], $matches);
+                        preg_match("/(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/", $item->link_video, $matches);
                         $youtube_id = $matches[1];
                         ?>
                         <iframe width="380" height="200" src="https://www.youtube.com/embed/<?= $youtube_id; ?>"
-                            title="<?= $video['judul_video']; ?>" frameborder="0"
+                            title="<?= esc($item->judul_video); ?>" frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
                         <div class="p-2">
-                            <h5 class="font-bold text-sm mb-2"><?= word_limiter($video['judul_video'], 6); ?></h5>
+                            <h5 class="font-bold text-sm mb-2"><?= word_limiter(esc($item->judul_video), 6); ?></h5>
                         </div>
-
                     </div>
                 <?php endforeach; ?>
             </div>
+
         </div>
     </section>
 
@@ -417,6 +423,20 @@
         </div>
     </section>
 
+    <script defer>
+        // popup
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set delay for 5 seconds (5000 milliseconds)
+            setTimeout(function() {
+                document.getElementById('popup').classList.remove('hidden');
+            }, 5000); // 5 seconds delay
+
+            // Close popup on clicking X button
+            document.getElementById('close-btn').addEventListener('click', function() {
+                document.getElementById('popup').classList.add('hidden');
+            });
+        });
+    </script>
 
     <script>
         //  scroll kategori

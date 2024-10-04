@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Penghargaan Kalpataru</title>
     <link rel="stylesheet" href="../css/app.css">
+    <title><?= $title; ?></title>
     <style>
         /* images */
         /*  @keyframes fadeInRight {
@@ -199,6 +199,22 @@
                 toast.classList.remove('show-toast');
             }, 3000);
         }
+    </script>
+    <script>
+        // Cek jika ada pesan di localStorage
+        const message = localStorage.getItem('authMessage');
+        if (message) {
+            alert(message); // Tampilkan pesan
+            localStorage.removeItem('authMessage'); // Hapus pesan setelah ditampilkan
+            window.location.href = '/auth/login'; // Arahkan ke halaman login
+        }
+    </script>
+
+    <script>
+        // Mengambil pesan dari session flash
+        <?php if (session()->getFlashdata('authMessage')) : ?>
+            localStorage.setItem('authMessage', '<?= session()->getFlashdata('authMessage') ?>');
+        <?php endif; ?>
     </script>
 </body>
 

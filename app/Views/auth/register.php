@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Penghargaan Kalpataru</title>
+    <title><?= $title; ?></title>
     <link rel="stylesheet" href="../css/app.css">
     <style>
         body {
@@ -77,7 +77,6 @@
 
         <div class="flex-1 flex items-center justify-center bg-white overflow-y-auto h-screen sm:h-auto mt-8">
             <div class="w-full max-w-md p-6 fade-in-left">
-
                 <h2 class="text-2xl font-bold text-gray-900 mb-4">Daftar</h2>
                 <form action="/auth/register" method="post" onsubmit="validateForm(event)" class="flex flex-col" enctype="multipart/form-data">
                     <?= csrf_field() ?>

@@ -6,20 +6,59 @@ use CodeIgniter\Model;
 
 class PublikasiModel extends Model
 {
-    protected $table = 'video'; // Tabel utama
-    protected $primaryKey = 'id_video';
-    protected $allowedFields = ['link_video', 'judul_video'];
+    protected $BeritaTable = 'berita';
+    protected $BeritaPrimaryKey = 'id_berita';
+    protected $BeritaAllowedFields = ['id_admin', 'judul', 'konten', 'foto', 'tanggal', 'status'];
 
-    // Tabel berita
-    protected $beritaTable = 'berita';
-    protected $beritaPrimaryKey = 'id_berita';
-    protected $beritaAllowedFields = ['id_admin', 'judul', 'konten', 'foto', 'tanggal', 'status'];
-
-    // Metode untuk mengambil semua berita
-    public function getBerita()
+    public function TampilBerita()
     {
-        return $this->db->table($this->beritaTable)->get()->getResult();
+        $berita = $this->db->table($this->BeritaTable)->get()->getResult();
+        $total_berita = $this->db->table($this->BeritaTable)->countAllResults();
+        return [
+            'data_berita' => $berita,
+            'total_berita' => $total_berita
+        ];
     }
 
-    // Metode lain untuk tabel berita jika diperlukan
+    protected $ArtikelTable = 'artikel';
+    protected $ArtikelPrimaryKey = 'id_artikel';
+    protected $ArtikelAllowedFields = ['id_penerima', 'judul', 'konten', 'foto', 'tanggal', 'status'];
+
+    public function TampilArtikel()
+    {
+        $artikel = $this->db->table($this->ArtikelTable)->get()->getResult();
+        $total_atikel = $this->db->table($this->ArtikelTable)->countAllResults();
+        return [
+            'data_artikel' => $artikel,
+            'total_artikel' => $total_atikel
+        ];
+    }
+
+    protected $VideoTable = 'video';
+    protected $VideoPrimaryKey = 'id_video';
+    protected $VideoAllowedFields = ['link_video', 'judul_video'];
+
+    public function TampilVideo()
+    {
+        $video = $this->db->table($this->VideoTable)->get()->getResult();
+        $total_video = $this->db->table($this->VideoTable)->countAllResults();
+        return [
+            'data_video' => $video,
+            'total_video' => $total_video
+        ];
+    }
+
+    protected $BukuTable = 'buku_kalpataru';
+    protected $BukuPrimaryKey = 'id_buku_kalpataru';
+    protected $BukuAllowedFields = ['judul_buku', 'cover_buku', 'tahun_terbit', 'file_buku'];
+
+    public function TampilBuku()
+    {
+        $buku = $this->db->table($this->BukuTable)->get()->getResult();
+        $total_buku = $this->db->table($this->BukuTable)->countAllResults();
+        return [
+            'data_buku' => $buku,
+            'total_buku' => $total_buku
+        ];
+    }
 }
