@@ -9,8 +9,13 @@
 </head>
 
 <body class="bg-site">
-  <!-- Sidebar dan Konten Utama -->
-  <div class="flex flex-col lg:flex-row lg:space-x-6">
+
+  <?= $this->extend('template/navbarfooter') ?>
+
+  <?= $this->section('content') ?>
+
+  <div class="flex flex-col lg:flex-row lg:space-x-6 justify-center">
+    <?= $this->include('template/sidebar') ?>
 
     <!-- Konten utama -->
     <div class="relative flex flex-col w-full max-w-xl mx-auto mb-4 rounded-xl border-2 border-primary bg-white shadow-md p-4">
@@ -111,6 +116,7 @@
 
   </div>
 
+  <?= $this->endSection() ?>
 </body>
 
 </html>

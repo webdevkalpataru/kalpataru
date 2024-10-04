@@ -12,12 +12,12 @@
 
     <?= $this->section('content') ?>
     <!-- Popup Modal -->
-    <div id="popup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
+    <div id="popup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50 mt-12">
         <!-- Close Button -->
-        <div class="relative rounded-lg p-4 shadow-lg max-w-xs w-full">
-            <button id="close-btn" class="absolute top-0 right-0  text-5xl font-bold text-white">X</button>
+        <div class="relative rounded-lg max-w-xs w-full flex items-start">
             <!-- Popup Image -->
             <img src="/images/popup.png" alt="Popup Image" class="w-full rounded-md">
+            <button id="close-btn" class="lg:text-5xl text-xl top-0 right-0 font-bold text-white ms-2">X</button>
         </div>
     </div>
 
