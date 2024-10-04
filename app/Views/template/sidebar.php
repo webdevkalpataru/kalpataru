@@ -34,15 +34,22 @@
     </style>
 </head>
 
-<body>
-    <div id="sidebar" class="w-full lg:w-[15rem] h-3/4 rounded-lg bg-white text-primary mb-6 relative lg:left-36">
+<body class="bg-gray-100">
+    <div id="sidebar" class="w-full lg:w-[15rem] h-3/4 rounded-lg text-primary mb-6 relative lg:left-36">
         <button id="toggleSidebarBtn" class="absolute top-2 right-3 text-2xl text-primary">✖</button>
-        <div class="mt-12 mb-4 border-2 border-primary rounded-lg px-4 py-2">
-            <h2 class="text-md font-bold">Dinas Lingkungan Hidup Kab Bogor</h2>
-            <p class="text-sm text-slate-400 font-semibold">Pengusul</p>
-            <p class="text-sm text-slate-400 font-semibold">Jawa Barat</p>
+        <div class="mt-12 mb-4 border-2 border-primary rounded-lg px-4 py-2 flex items-start bg-white">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-20 h-20 mr-3">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+            </svg>
+
+            <div>
+                <h2 class="text-md font-bold">Dinas Lingkungan Hidup Kab Bogor</h2>
+                <p class="text-sm text-slate-400 font-semibold">Pengusul</p>
+                <p class="text-sm text-slate-400 font-semibold">Jawa Barat</p>
+            </div>
         </div>
-        <ul class="border-2 border-primary rounded-lg px-4 py-4">
+
+        <ul class="border-2 border-primary rounded-lg px-4 py-4 bg-white">
             <li><a href="#" class="block text-md hover:bg-secondary p-2 rounded">Pemberitahuan</a></li>
             <li><a href="#" class="block text-md hover:bg-secondary p-2 rounded">Alur Pendaftaran</a></li>
             <li class="text-gray-400"><a href="#" class="block text-md hover:bg-secondary p-2 rounded">Tambah Calon Usulan</a></li>

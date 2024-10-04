@@ -14,11 +14,11 @@
 
     <?= $this->section('content') ?>
 
-    <div class="flex flex-col lg:flex-row justify-center">
+    <div class="flex flex-col lg:flex-row justify-end gap-16 m-4">
         <?= $this->include('template/sidebar') ?>
 
         <!-- Konten utama -->
-        <div class="relative flex flex-col w-full max-w-2xl mx-auto mb-4 rounded-xl border-2 border-primary bg-white shadow-md p-4">
+        <div class="relative flex flex-col w-full max-w-2xl mx-auto mb-4 rounded-xl border-2 border-primary bg-white shadow-md lg:p-8 p-4">
             <h4 class="block text-xl font-bold text-slate-800 mb-2">
                 Tambah Calon Usulan
             </h4>
@@ -31,8 +31,14 @@
                 </h3>
             </div>
 
-            <!-- Menambahkan grid untuk kontrol layout responsif -->
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 my-12">
+            <div class="lg:my-12 md:my-8 my-4">
+                <div id="texttentangkalpataru" class="w-full relative flex items-center justify-center">
+                    <h2 class="text-2xl font-semibold text-black mb-2 text-center">Kategori Penghargaan Kalpataru</h2>
+                </div>
+                <hr class="border-[1.5px] border-primary max-w-40 mx-auto" />
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 <img src="/images/kategoria.jpg" alt="kategoria" class="w-full h-auto rounded-2xl">
                 <img src="/images/kategorib.jpg" alt="kategorib" class="w-full h-auto rounded-2xl">
                 <img src="/images/kategoric.jpg" alt="kategoric" class="w-full h-auto rounded-2xl">
