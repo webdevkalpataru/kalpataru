@@ -4,19 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <titl flex justify-centere>Buku Profil 2024le>
 </head>
 
 <body class="bg-site">
     <?= $this->extend('template/navbarfooter') ?>
 
     <?= $this->section('content') ?>
-    <section id="buku" class="w-full h-[25rem] relative">
-        <img src="/images/hero.png" alt="buku" class="w-full h-full object-cover object-center md:object-center">
+    <section id="peraturankebijakan" class="w-full h-[25rem] relative">
+        <img src="/images/hero.png" alt="peraturankebijakan" class="w-full h-full object-cover object-center md:object-center">
 
         <div class="absolute inset-0 flex flex-col justify-center items-center text-white text-center">
-            <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">Buku</h1>
-            <p class="text-sm sm:text-base md:text-lg mt-2 sm:mt-4">Jelajahi buku menarik tentang Kalpataru</p>
+            <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">Peraturan & Kebijakan</h1>
+            <p class="text-sm sm:text-base md:text-lg mt-2 sm:mt-4">Peraturan & Kebijakan tentang kalpataru</p>
         </div>
     </section>
 
