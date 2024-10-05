@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Models\PublikasiModel;
+
 class PublikasiController extends BaseController
 {
     public function berita()

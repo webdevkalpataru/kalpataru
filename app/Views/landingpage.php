@@ -241,110 +241,24 @@
                     &#9664;
                 </button>
                 <div id="beritaContainer" class="flex overflow-x-auto space-x-4 scrollbar-hide">
-                    <div class="flex-none w-64 bg-white rounded-lg shadow-md">
-                        <img src="images/berita1.png" alt="Pahlawan Bumi" class="w-full h-40 object-cover rounded-t-lg">
-                        <div class="p-4">
-                            <h3 class="font-bold text-md mb-2">Pahlawan Bumi: Kisah Inspiratif Peraih Kalpataru</h3>
-                            <a href="#" class="text-primary flex items-center text-sm">
-                                Baca Selengkapnya
-                                <svg class="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
+                    <?php foreach ($berita as $item): ?>
+                        <div class="flex-none w-64 bg-white rounded-lg shadow-md">
+                            <img src="images/<?= esc($item->foto) ?>" alt="<?= esc($item->judul) ?>" class="w-full h-40 object-cover rounded-t-lg">
+                            <div class="p-4">
+                                <h3 class="font-bold text-md mb-2"><?= esc($item->judul) ?></h3>
+                                <a href="#" class="text-primary flex items-center text-sm">
+                                    Baca Selengkapnya
+                                    <svg class="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                    </svg>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="flex-none w-64 bg-white rounded-lg shadow-md">
-                        <img src="images/berita1.png" alt="Pahlawan Bumi" class="w-full h-40 object-cover rounded-t-lg">
-                        <div class="p-4">
-                            <h3 class="font-bold text-md mb-2">Pahlawan Bumi: Kisah Inspiratif Peraih Kalpataru</h3>
-                            <a href="#" class="text-primary flex items-center text-sm">
-                                Baca Selengkapnya
-                                <svg class="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="flex-none w-64 bg-white rounded-lg shadow-md">
-                        <img src="images/berita1.png" alt="Pahlawan Bumi" class="w-full h-40 object-cover rounded-t-lg">
-                        <div class="p-4">
-                            <h3 class="font-bold text-md mb-2">Pahlawan Bumi: Kisah Inspiratif Peraih Kalpataru</h3>
-                            <a href="#" class="text-primary flex items-center text-sm">
-                                Baca Selengkapnya
-                                <svg class="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="flex-none w-64 bg-white rounded-lg shadow-md">
-                        <img src="images/berita1.png" alt="Pahlawan Bumi" class="w-full h-40 object-cover rounded-t-lg">
-                        <div class="p-4">
-                            <h3 class="font-bold text-md mb-2">Pahlawan Bumi: Kisah Inspiratif Peraih Kalpataru</h3>
-                            <a href="#" class="text-primary flex items-center text-sm">
-                                Baca Selengkapnya
-                                <svg class="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="flex-none w-64 bg-white rounded-lg shadow-md">
-                        <img src="images/berita1.png" alt="Pahlawan Bumi" class="w-full h-40 object-cover rounded-t-lg">
-                        <div class="p-4">
-                            <h3 class="font-bold text-md mb-2">Pahlawan Bumi: Kisah Inspiratif Peraih Kalpataru</h3>
-                            <a href="#" class="text-primary flex items-center text-sm">
-                                Baca Selengkapnya
-                                <svg class="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="flex-none w-64 bg-white rounded-lg shadow-md">
-                        <img src="images/berita1.png" alt="Pahlawan Bumi" class="w-full h-40 object-cover rounded-t-lg">
-                        <div class="p-4">
-                            <h3 class="font-bold text-md mb-2">Pahlawan Bumi: Kisah Inspiratif Peraih Kalpataru</h3>
-                            <a href="#" class="text-primary flex items-center text-sm">
-                                Baca Selengkapnya
-                                <svg class="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="flex-none w-64 bg-white rounded-lg shadow-md">
-                        <img src="images/berita1.png" alt="Pahlawan Bumi" class="w-full h-40 object-cover rounded-t-lg">
-                        <div class="p-4">
-                            <h3 class="font-bold text-md mb-2">Pahlawan Bumi: Kisah Inspiratif Peraih Kalpataru</h3>
-                            <a href="#" class="text-primary flex items-center text-sm">
-                                Baca Selengkapnya
-                                <svg class="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="flex-none w-64 bg-white rounded-lg shadow-md">
-                        <img src="images/berita1.png" alt="Pahlawan Bumi" class="w-full h-40 object-cover rounded-t-lg">
-                        <div class="p-4">
-                            <h3 class="font-bold text-md mb-2">Pahlawan Bumi: Kisah Inspiratif Peraih Kalpataru</h3>
-                            <a href="#" class="text-primary flex items-center text-sm">
-                                Baca Selengkapnya
-                                <svg class="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
+                    <?php endforeach; ?>
                 </div>
+
+
+
 
                 <!-- arrow kanan -->
                 <button id="beritaScrollRight" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-footer text-white p-2 rounded-full shadow-md z-10 focus:outline-none sm:block md:hidden">
@@ -354,7 +268,7 @@
         </div>
     </section>
 
-    <section id="video">
+    <section id="video" class="mb-6">
         <div class="lg:mx-28 p-5">
             <div class="flex justify-between items-center lg:mt-10 mb-2">
                 <h2 class="text-lg font-bold">Video</h2>
@@ -368,13 +282,22 @@
             <hr class="border-2 border-primary w-full mt-0 mb-10" />
 
             <div class="flex overflow-x-scroll space-x-4 scrollbar-hide">
-                <div class="flex-none w-64 h-full bg-white rounded-lg shadow-md">
-                    <!-- <iframe class="w-full h-full" src="https://www.youtube.com/embed/m89BJiuVwrI" title="Penganugerahan Penghargaan Kalpataru" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> -->
-                    <div class="p-4">
-                        <h3 class="font-bold text-md mb-2">Judul Video</h3>
-                    </div>
-                </div>
+                <?php foreach ($videos as $video): ?>
+                    <div class="flex-none h-full bg-white rounded-lg shadow-md">
+                        <?php
+                        preg_match("/(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/", $video['link_video'], $matches);
+                        $youtube_id = $matches[1];
+                        ?>
+                        <iframe width="380" height="200" src="https://www.youtube.com/embed/<?= $youtube_id; ?>"
+                            title="<?= $video['judul_video']; ?>" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
+                        <div class="p-2">
+                            <h5 class="font-bold text-sm mb-2"><?= word_limiter($video['judul_video'], 6); ?></h5>
+                        </div>
+
+                    </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </section>
