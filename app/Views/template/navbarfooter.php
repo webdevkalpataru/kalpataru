@@ -79,7 +79,7 @@
     </style>
 </head>
 
-<body>
+<body class="bg-gray-100">
     <!-- scroll up -->
     <button id="scroll" class="fixed lg:bottom-14 lg:right-14 right-1/2 translate-x-1/2 bottom-1 text-white p-2 rounded-full hidden lg:opacity-100 opacity-50 transition-opacity duration-300">
         <img class="lg:w-14 lg:h-14 w-10 h-10" src="/images/scroll.svg" alt="Scroll Up">

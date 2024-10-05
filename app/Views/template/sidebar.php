@@ -25,7 +25,7 @@
         <!-- Menu -->
         <ul class="lg:border-2 border-t-2 border-primary lg:rounded-lg lg:px-4 lg:py-4 lg:bg-white bg-white flex justify-between fixed bottom-0 left-0 right-0 shadow-md lg:block lg:relative lg:shadow-none">
             <li class="flex items-center justify-center lg:justify-start">
-                <a href="#" class="flex items-center block text-md hover:bg-secondary p-2 w-full rounded">
+                <a href="../pengusul/profil" class="flex items-center block text-md hover:bg-secondary p-2 w-full rounded">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                     </svg>
@@ -49,7 +49,7 @@
                 </a>
             </li>
             <li class="flex items-center justify-center lg:justify-start">
-                <a href="#" class="flex items-center block text-md hover:bg-secondary p-2 w-full rounded">
+                <a href="../pengusul/tambahcalon" class="flex items-center block text-md hover:bg-secondary p-2 w-full rounded">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
                     </svg>
