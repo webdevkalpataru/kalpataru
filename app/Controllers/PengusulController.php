@@ -112,4 +112,15 @@ class PengusulController extends BaseController
         $data['title'] = 'Detail Usulan DLHK';
         return view('pengusul/detailusulandlhk', ['title' => 'Detail Usulan DLHK']);
     }
+    public function tambahartikel()
+    {
+        $data['title'] = 'Tambah Artikel';
+        return view('pengusul/tambahartikel', ['title' => 'Tambah Artikel']);
+    }
+    public function artikelsaya()
+    {
+        $data['title'] = 'Artikel Saya';
+        return view('pengusul/artikelsaya', ['title' => 'Artikel Saya']);
+    }
+
 }

@@ -86,12 +86,12 @@
 
                         <div class="w-full mb-2">
                             <label class="block mb-2 text-sm text-black">KTP <span class="text-primary">(.jpg/jpeg)</span></label>
-                            <input id="suratpengantar" type="file" accept="application/jpg,application/jpeg"
+                            <input id="ktp" type="file" accept="application/jpg,application/jpeg"
                                 class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
                         </div>
                         <div class="w-full mb-2">
                             <label class="block mb-2 text-sm text-black">SKCK <span class="text-primary">(.pdf)</span></label>
-                            <input id="suratpengantar" type="file" accept="application/pdf"
+                            <input id="skck" type="file" accept="application/pdf"
                                 class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
                         </div>
 
