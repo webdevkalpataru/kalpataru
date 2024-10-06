@@ -74,4 +74,9 @@ $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
 });
 
 
+// $routes->get('penerima/profilpenerima', 'PenerimaController::index');
+$routes->get('penerima/profilpenerima', 'PenerimaController::profilpenerima');
+$routes->get('penerima/tambahartikelpenerima', 'PenerimaController::tambahartikelpenerima');
+$routes->get('penerima/artikelpenerima', 'PenerimaController::artikelpenerima');
+$routes->get('penerima/lihatrincian', 'PenerimaController::lihatrincian');
 
