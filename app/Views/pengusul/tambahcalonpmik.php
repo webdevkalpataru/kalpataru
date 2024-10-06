@@ -80,7 +80,7 @@
                 </div>
             </div>
 
-            <form id="kegiatanForm" class="mt-4 mb-2 w-full">
+            <form id="pmikForm" class="mt-4 mb-2 w-full">
                 <div class="grid grid-cols-1 gap-4" id="formContainer">
                     <div>
                         <label class="block mb-2 text-sm text-black">Prakarsa</label>
