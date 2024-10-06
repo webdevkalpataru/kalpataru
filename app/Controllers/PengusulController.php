@@ -100,4 +100,25 @@ class PengusulController extends BaseController
     {
         return view('pengusul/detailusulansaya', ['title' => 'Detail Usulan Saya']);
     }
+    public function pengumuman()
+    {
+        return view('pengusul/pengumuman', ['title' => 'Pengumuman']);
+    }
+    public function alurpendaftaran()
+    {
+        return view('pengusul/alurpendaftaran', ['title' => 'Alur Pendaftaran']);
+    }
+    public function videopanduan()
+    {
+        return view('pengusul/videopanduan', ['title' => 'Video Panduan']);
+    }
+    public function panduanpendaftaran()
+    {
+        return view('pengusul/panduanpendaftaran', ['title' => 'Panduan Pendaftaran']);
+    }
+    public function sample()
+    {
+        return view('pengusul/sample', ['title' => 'Sample']);
+    }
+    
 }

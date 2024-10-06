@@ -40,5 +40,12 @@ $routes->get('pengusul/tambahcalonkeistimewaan', 'PengusulController::tambahcalo
 $routes->get('pengusul/profilpengusul', 'PengusulController::profilpengusul');
 $routes->get('pengusul/usulansaya', 'PengusulController::usulansaya');
 $routes->get('pengusul/detailusulansaya', 'PengusulController::detailusulansaya');
+$routes->get('pengusul/pengumuman', 'PengusulController::pengumuman');
+$routes->get('pengusul/alurpendaftaran', 'PengusulController::alurpendaftaran');
+$routes->get('pengusul/videopanduan', 'PengusulController::videopanduan');
+$routes->get('pengusul/panduanpendaftaran', 'PengusulController::panduanpendaftaran');
+$routes->get('pengusul/sample', 'PengusulController::sample');
 
+// $routes->get('penerima/profilpenerima', 'PenerimaController::index');
+$routes->get('penerima/profilpenerima', 'PenerimaController::profilpenerima');
 
