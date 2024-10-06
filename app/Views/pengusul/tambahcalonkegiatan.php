@@ -25,7 +25,7 @@
                     <div class="absolute left-0 top-2/4 h-0.5 w-full -translate-y-2/4 bg-accent2 transition-all duration-500"></div>
 
                     <!-- Step 1 -->
-                    <div class="relative z-10 grid w-8 h-8 sm:w-10 sm:h-10 font-bold text-white transition-all duration-300 bg-accent2 rounded-full place-items-center">
+                    <div class="relative z-10 grid w-8 h-8 sm:w-10 sm:h-10 font-bold text-white transition-all duration-300 bg-accent2 border-2 border-accent2 rounded-full place-items-center">
                         <div class="absolute -bottom-8 w-max text-center">
                             <p class="lg:block hidden font-sans text-xs lg:text-md antialiased font-semibold leading-relaxed tracking-normal text-gray-700 w-28 h-8">
                                 Identitas Calon
@@ -162,7 +162,7 @@
                             <label class="block mb-2 text-sm text-black">Penjelasan Kegiatan</label>
                             <textarea id="penjelasan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
                                 oninput="updateWordCount(this, 'penjelasanCount', 1000)"></textarea>
-                            <p id="penjelasanCount" class="text-xs text-slate-400">0/1000 Kata</p>
+                            <p id="penjelasanCount" class="text-xs text-slate-400 flex justify-end ">0/1000 Kata</p>
                         </div>
                     </div>
 
@@ -176,21 +176,23 @@
                             <label class="block mb-2 text-sm text-black">Para Pihak dan Perannya</label>
                             <textarea id="pihakPeran" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
                                 oninput="updateWordCount(this, 'pihakPeranCount', 1000)"></textarea>
-                            <p id="pihakPeranCount" class="text-xs text-slate-400">0/1000 Kata</p>
+                            <p id="pihakPeranCount" class="text-xs text-slate-400 flex justify-end ">0/1000 Kata</p>
                         </div>
                         <div>
                             <label class="block mb-2 text-sm text-black">Keberhasilan yang Dicapai</label>
                             <textarea id="keberhasilan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
                                 oninput="updateWordCount(this, 'keberhasilanCount', 1000)"></textarea>
-                            <p id="keberhasilanCount" class="text-xs text-slate-400">0/1000 kata</p>
+                            <p id="keberhasilanCount" class="text-xs text-slate-400 flex justify-end ">0/1000 kata</p>
                         </div>
 
                     </div>
                 </div>
 
                 <div class="flex justify-between mt-4">
-                    <button id="tambahKegiatanBtn" class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button" onclick="tambahKegiatan()"> <span>&#10010</span> Tambah Kegiatan</button>
-                    <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Selanjutnya</button>
+                    <button id="tambahKegiatanBtn" class="w-40 rounded-md py-2 text-center text-sm text-primary transition-all shadow-md hover:shadow-lg bg-secondary active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button" onclick="tambahKegiatan()"> <span>&#10010</span> Tambah Kegiatan</button>
+                    <a href="./tambahcalondampak">
+                        <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Selanjutnya</button>
+                    </a>
                 </div>
 
 
@@ -332,11 +334,11 @@
                             <input type="date" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                         </div>
                         <div>
-                            <label class="block mb-2 text-sm text-black">Penjelasan Kegiatan</label>
-                            <textarea id="penjelasan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                oninput="updateWordCount(this, 'penjelasanCount', 1000)"></textarea>
-                            <p id="penjelasanCount" class="text-xs text-slate-400">0/1000 Kata</p>
-                        </div>
+                    <label class="block mb-2 text-sm text-black">Penjelasan Kegiatan</label>
+                    <textarea id="penjelasan${kegiatanCount}" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                        oninput="updateWordCount(this, 'penjelasanCount${kegiatanCount}', 1000)"></textarea>
+                    <p id="penjelasanCount${kegiatanCount}" class="text-xs text-slate-400 flex justify-end ">0/1000 Kata</p>
+                </div>
                     </div>
 
                 <!-- Kolom kanan -->
@@ -346,17 +348,17 @@
                             <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                         </div>
                         <div>
-                            <label class="block mb-2 text-sm text-black">Para Pihak dan Perannya</label>
-                            <textarea id="pihakPeran" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                oninput="updateWordCount(this, 'pihakPeranCount', 1000)"></textarea>
-                            <p id="pihakPeranCount" class="text-xs text-slate-400">0/1000 Kata</p>
-                        </div>
+                    <label class="block mb-2 text-sm text-black">Para Pihak dan Perannya</label>
+                    <textarea id="pihakPeran${kegiatanCount}" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                        oninput="updateWordCount(this, 'pihakPeranCount${kegiatanCount}', 1000)"></textarea>
+                    <p id="pihakPeranCount${kegiatanCount}" class="text-xs text-slate-400 flex justify-end ">0/1000 Kata</p>
+                </div>
                         <div>
-                            <label class="block mb-2 text-sm text-black">Keberhasilan yang Dicapai</label>
-                            <textarea id="keberhasilan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                oninput="updateWordCount(this, 'keberhasilanCount', 1000)"></textarea>
-                            <p id="keberhasilanCount" class="text-xs text-slate-400">0/1000 kata</p>
-                        </div>
+                    <label class="block mb-2 text-sm text-black">Keberhasilan yang Dicapai</label>
+                    <textarea id="keberhasilan${kegiatanCount}" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                        oninput="updateWordCount(this, 'keberhasilanCount${kegiatanCount}', 1000)"></textarea>
+                    <p id="keberhasilanCount${kegiatanCount}" class="text-xs text-slate-400 flex justify-end ">0/1000 Kata</p>
+                </div>
 
                     </div>
                 </div>

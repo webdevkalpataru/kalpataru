@@ -102,7 +102,7 @@
               <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
             </div>
             <div>
-              <label class="block mb-2 text-sm text-black">Surat Pengantar</label>
+              <label class="block mb-2 text-sm text-black">Surat Pengantar <span class="text-primary">(.pdf)</span></label>
               <input id="suratpengantar" type="file" accept="application/pdf"
                 class="w-full border-2 border-gray-300 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
             </div>
