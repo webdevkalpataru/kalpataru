@@ -93,13 +93,36 @@ class PengusulController extends BaseController
 
     public function usulansaya()
     {
+        $data['title'] = 'Usulan Saya';
         return view('pengusul/usulansaya', ['title' => 'Usulan Saya']);
+    }
+    public function usulandlhk()
+    {
+        $data['title'] = 'Usulan DLHK';
+        return view('pengusul/usulandlhk', ['title' => 'Usulan DLHK']);
     }
 
     public function detailusulansaya()
     {
+        $data['title'] = 'Detail Usulan Saya';
         return view('pengusul/detailusulansaya', ['title' => 'Detail Usulan Saya']);
     }
+    public function detailusulandlhk()
+    {
+        $data['title'] = 'Detail Usulan DLHK';
+        return view('pengusul/detailusulandlhk', ['title' => 'Detail Usulan DLHK']);
+    }
+    public function tambahartikel()
+    {
+        $data['title'] = 'Tambah Artikel';
+        return view('pengusul/tambahartikel', ['title' => 'Tambah Artikel']);
+    }
+    public function artikelsaya()
+    {
+        $data['title'] = 'Artikel Saya';
+        return view('pengusul/artikelsaya', ['title' => 'Artikel Saya']);
+    }
+
     public function pengumuman()
     {
         return view('pengusul/pengumuman', ['title' => 'Pengumuman']);

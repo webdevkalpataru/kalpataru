@@ -19,7 +19,7 @@
 
         <div class="relative flex flex-col w-full max-w-2xl mx-auto mb-4 rounded-xl border-2 border-primary bg-white shadow-md lg:p-8 p-4">
             <h4 class="block text-xl font-bold text-slate-800 mb-2">
-                Usulan Saya
+                Artikel Saya
             </h4>
             <div class="relative flex flex-col w-full h-full mt-8 overflow-hidden text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
                 <div class="overflow-x-auto">
@@ -28,22 +28,12 @@
                             <tr>
                                 <th class="p-4 border-b border-accent2 bg-accent1 text-center">
                                     <p class="block text-xs md:text-sm font-bold leading-none text-accent2">
-                                        Nama
+                                        Judul Artikel
                                     </p>
                                 </th>
                                 <th class="p-4 border-b border-accent2 bg-accent1 text-center">
                                     <p class="block text-xs md:text-sm font-bold leading-none text-accent2">
-                                        Kategori
-                                    </p>
-                                </th>
-                                <th class="p-4 border-b border-accent2 bg-accent1 text-center">
-                                    <p class="block text-xs md:text-sm font-bold leading-none text-accent2">
-                                        Provinsi
-                                    </p>
-                                </th>
-                                <th class="p-4 border-b border-accent2 bg-accent1 text-center">
-                                    <p class="block text-xs md:text-sm font-bold leading-none text-accent2">
-                                        Detail
+                                        Isi Artikel
                                     </p>
                                 </th>
                                 <th class="p-4 border-b border-accent2 bg-accent1 text-center">
@@ -57,135 +47,85 @@
                             <tr class="hover:bg-slate-50">
                                 <td class="p-4 border-b border-slate-200 text-center">
                                     <p class="block text-xs text-slate-800">
-                                        Joko Susilo
+                                        Surga Tersembunyi di Maros
                                     </p>
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Pengabdi Lingkungan
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Jawa Barat
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <a href="./detailusulansaya">
+                                    <a href="./detailartikelsaya">
                                         <button class="w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat</button>
                                     </a>
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs font-bold text-accepted w-24">
-                                        Lolos Administrasi
+                                    <p class="block text-xs font-bold text-accepted">
+                                        Terbit
                                     </p>
                                 </td>
                             </tr>
                             <tr class="hover:bg-slate-50">
                                 <td class="p-4 border-b border-slate-200 text-center">
                                     <p class="block text-xs text-slate-800">
-                                        Joko Susilo
+                                        Surga Tersembunyi di Maros
                                     </p>
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Pengabdi Lingkungan
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Jawa Barat
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <a href="./detailusulansaya">
+                                    <a href="./detailartikelsaya">
                                         <button class="w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat</button>
                                     </a>
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs font-bold text-rejected w-24">
-                                        Tidak Lolos Administrasi
+                                    <p class="block text-xs font-bold text-rejected">
+                                        Belum Terbit
                                     </p>
                                 </td>
                             </tr>
                             <tr class="hover:bg-slate-50">
                                 <td class="p-4 border-b border-slate-200 text-center">
                                     <p class="block text-xs text-slate-800">
-                                        Joko Susilo
+                                        Surga Tersembunyi di Maros
                                     </p>
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Perintis Lingkungan
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Jawa Barat
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <a href="./detailusulansaya">
+                                    <a href="./detailartikelsaya">
                                         <button class="w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat</button>
                                     </a>
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs font-bold text-rejected w-24">
-                                        Tidak Lolos Administrasi
+                                    <p class="block text-xs font-bold text-rejected">
+                                        Belum Terbit
                                     </p>
                                 </td>
                             </tr>
                             <tr class="hover:bg-slate-50">
                                 <td class="p-4 border-b border-slate-200 text-center">
                                     <p class="block text-xs text-slate-800">
-                                        Joko Susilo
+                                        Surga Tersembunyi di Maros
                                     </p>
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Perintis Lingkungan
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Jawa Barat
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <a href="./detailusulansaya">
+                                    <a href="./detailartikelsaya">
                                         <button class="w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat</button>
                                     </a>
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs font-bold text-accepted w-24">
-                                        Lolos Penerima
+                                    <p class="block text-xs font-bold text-accepted">
+                                        Terbit
                                     </p>
                                 </td>
                             </tr>
                             <tr class="hover:bg-slate-50">
                                 <td class="p-4 border-b border-slate-200 text-center">
                                     <p class="block text-xs text-slate-800">
-                                        Joko Susilo
+                                        Surga Tersembunyi di Maros
                                     </p>
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Perintis Lingkungan
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Jawa Barat
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <a href="./detailusulansaya">
+                                    <a href="./detailartikelsaya">
                                         <button class="w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat</button>
                                     </a>
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs font-bold text-accepted w-24">
-                                        Lolos Nominasi
+                                    <p class="block text-xs font-bold text-accepted">
+                                        Terbit
                                     </p>
                                 </td>
                             </tr>

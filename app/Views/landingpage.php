@@ -18,7 +18,14 @@
             <!-- Popup Image -->
             <img src="/images/popup.png" alt="Popup Image" class="w-full rounded-md">
             <button id="close-btn" class="lg:text-5xl text-xl top-0 right-0 font-bold text-white ms-2">X</button>
+
         </div>
+        <!-- Daftar Sekarang Button -->
+        <a href="auth/register" class="absolute left-1/2 bottom-8  transform -translate-x-1/2">
+            <button class="rounded-md bg-primary text-white py-2 px-4 sm:py-3 sm:px-6 text-center text-xs sm:text-sm md:text-base lg:text-base  transition-all shadow-md hover:font-bold hover:shadow-lg focus:bg-primaryhover focus:shadow-none active:bg-primaryhover hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
+                Daftar Sekarang
+            </button>
+        </a>
     </div>
 
     <section id="herosection" class="w-full h-[20rem] sm:h-[30rem] md:h-[34rem] lg:h-[36rem] relative">
@@ -285,26 +292,36 @@
                     </svg>
                 </a>
             </div>
-            <hr class="border-2 border-primary w-full mt-0 mb-10" />
+            <hr class="border-2 border-primary w-full mt-0 mb-5" />
 
-            <div class="flex overflow-x-scroll space-x-4 scrollbar-hide">
-                <?php foreach ($videos['data_video'] as $item): ?>
-                    <div class="flex-none h-full bg-white rounded-lg shadow-md my-2">
-                        <?php
-                        preg_match("/(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/", $item->link_video, $matches);
-                        $youtube_id = $matches[1];
-                        ?>
-                        <iframe width="380" height="200" src="https://www.youtube.com/embed/<?= $youtube_id; ?>"
-                            title="<?= esc($item->judul_video); ?>" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="relative flex overflow-x-auto space-x-4 scrollbar-hide">
+                <!-- arrow kiri -->
+                <button id="videoScrollLeft" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-footer text-white p-2 rounded-full shadow-md z-10 focus:outline-none sm:block md:hidden">
+                    &#9664;
+                </button>
+                <div id="videoContainer" class="flex overflow-x-auto space-x-4 scrollbar-hide">
+                    <?php foreach ($videos['data_video'] as $item): ?>
+                        <div class="flex-none w-full bg-white rounded-lg shadow-md my-2">
+                            <?php
+                            preg_match("/(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/", $item->link_video, $matches);
+                            $youtube_id = $matches[1];
+                            ?>
+                            <iframe width="380" height="200" src="https://www.youtube.com/embed/<?= $youtube_id; ?>"
+                                title="<?= esc($item->judul_video); ?>" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-                        <div class="p-2">
-                            <h5 class="font-bold text-sm mb-2"><?= word_limiter(esc($item->judul_video), 6); ?></h5>
+                            <div class="p-2">
+                                <h5 class="font-bold text-sm mb-2"><?= word_limiter(esc($item->judul_video), 6); ?></h5>
+                            </div>
                         </div>
-                    </div>
-                <?php endforeach; ?>
-            </div>
+                    <?php endforeach; ?>
+                </div>
 
+                <!-- arrow kanan -->
+                <button id="videoScrollRight" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-footer text-white p-2 rounded-full shadow-md z-10 focus:outline-none sm:block md:hidden">
+                    &#9654;
+                </button>
+            </div>
         </div>
     </section>
 
@@ -312,11 +329,11 @@
         <div class="max-w-2xl mx-auto px-6 pt-6 pb-14">
             <h1 class="text-2xl font-medium text-center mb-2">Pertanyaan <b>Umum</b></h1>
             <hr class="border-2 border-primary w-32 mx-auto mt-0" />
-            <p class="text-center text-gray-500 mt-2">Temukan jawaban atas pertanyaan Anda seputar Penghargaan Kalpataru dan pelestarian lingkungan</p>
+            <p class="text-center text-gray-600 mt-2">Temukan jawaban atas pertanyaan Anda seputar Penghargaan Kalpataru dan pelestarian lingkungan</p>
 
             <div class="mt-8 space-y-4">
                 <!-- Question 1 -->
-                <div class="border rounded-lg p-4 shadow-md" id="card-1">
+                <div class="border rounded-lg p-4 shadow-md bg-white" id="card-1">
                     <div class="flex justify-between items-center cursor-pointer" onclick="toggleAnswer(1)">
                         <p class="font-semibold">Kapan batas waktu penyerahan dokumen usulan?</p>
                         <button class="text-gray-600" id="button-1">
@@ -331,7 +348,7 @@
                 </div>
 
                 <!-- Question 2 -->
-                <div class="border rounded-lg p-4 shadow-md" id="card-2">
+                <div class="border rounded-lg p-4 shadow-md bg-white" id="card-2">
                     <div class="flex justify-between items-center cursor-pointer" onclick="toggleAnswer(2)">
                         <p class="font-semibold">Dimanakah pengusul dapat mengakses contoh dokumen pengusulan dan tata cara pengisian formulir?</p>
                         <button class="text-gray-600" id="button-2">
@@ -346,7 +363,7 @@
                 </div>
 
                 <!-- Question 3 -->
-                <div class="border rounded-lg p-4 shadow-md" id="card-3">
+                <div class="border rounded-lg p-4 shadow-md bg-white" id="card-3">
                     <div class="flex justify-between items-center cursor-pointer" onclick="toggleAnswer(3)">
                         <p class="font-semibold">Apakah calon yang pernah diusulkan dapat mengusulkan kembali?</p>
                         <button class="text-gray-600" id="button-3">
@@ -361,7 +378,7 @@
                 </div>
 
                 <!-- Question 4 -->
-                <div class="border rounded-lg p-4 shadow-md" id="card-4">
+                <div class="border rounded-lg p-4 shadow-md bg-white" id="card-4">
                     <div class="flex justify-between items-center cursor-pointer" onclick="toggleAnswer(4)">
                         <p class="font-semibold">Mengapa disyaratkan kegiatan telah berlangsung minimal selama 5 tahun?</p>
                         <button class="text-gray-600" id="button-4">
@@ -376,7 +393,7 @@
                 </div>
 
                 <!-- Question 5 -->
-                <div class="border rounded-lg p-4 shadow-md" id="card-5">
+                <div class="border rounded-lg p-4 shadow-md bg-white" id="card-5">
                     <div class="flex justify-between items-center cursor-pointer" onclick="toggleAnswer(5)">
                         <p class="font-semibold">Bagaimana jika kelompok belum memiliki Akta Notaris (legalitas), namun telah lama melakukan kegiatan pelestarian lingkungan?</p>
                         <button class="text-gray-600" id="button-5">
@@ -391,7 +408,7 @@
                 </div>
 
                 <!-- Question 6 -->
-                <div class="border rounded-lg p-4 shadow-md" id="card-6">
+                <div class="border rounded-lg p-4 shadow-md bg-white" id="card-6">
                     <div class="flex justify-between items-center cursor-pointer" onclick="toggleAnswer(6)">
                         <p class="font-semibold">Apakah satker di luar Dinas LHK dapat mengirimkan usulan penerima Kalpataru secara langsung ke Sekretariat Kalpataru Nasional?</p>
                         <button class="text-gray-600" id="button-6">
@@ -406,7 +423,7 @@
                 </div>
 
                 <!-- Question 7 -->
-                <div class="border rounded-lg p-4 shadow-md" id="card-7">
+                <div class="border rounded-lg p-4 shadow-md bg-white" id="card-7">
                     <div class="flex justify-between items-center cursor-pointer" onclick="toggleAnswer(7)">
                         <p class="font-semibold">Bagaimana melampirkan dokumentasi video jika kapasitasnya besar?</p>
                         <button class="text-gray-600" id="button-7">
@@ -472,6 +489,25 @@
 
         beritaScrollRight.addEventListener('click', () => {
             cardContainer.scrollBy({
+                left: 300,
+                behavior: 'smooth'
+            });
+        });
+
+        // scroll video
+        const videoContainer = document.getElementById('videoContainer');
+        const videoScrollLeft = document.getElementById('videoScrollLeft');
+        const videoScrollRight = document.getElementById('videoScrollRight');
+
+        videoScrollLeft.addEventListener('click', () => {
+            videoContainer.scrollBy({
+                left: -300,
+                behavior: 'smooth'
+            });
+        });
+
+        videoScrollRight.addEventListener('click', () => {
+            videoContainer.scrollBy({
                 left: 300,
                 behavior: 'smooth'
             });

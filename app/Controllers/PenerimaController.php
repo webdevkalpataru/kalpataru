@@ -11,5 +11,10 @@ class PenerimaController extends BaseController
     {
         return view('penerima/profilpenerima', ['title' => 'Profil Penerima']);
     }
+    public function tambahartikelpenerima()
+    {
+        return view('penerima/tambahartikelpenerima', ['title' => 'Tambah Artikel Penerima']);
+    }
+
 
 }

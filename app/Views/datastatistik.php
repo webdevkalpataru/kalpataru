@@ -91,7 +91,7 @@
 
             <div class="flex flex-col md:flex-row justify-around items-center gap-8 py-8">
                 <!-- Left Card -->
-                <div class="border-2 border-gray-200 rounded-lg p-4 shadow-lg flex flex-col items-start w-full md:w-2/4">
+                <div class="bg-white border-2 border-gray-200 rounded-lg p-4 shadow-lg flex flex-col items-start w-full md:w-2/4">
                     <h2 class="text-sm font-bold text-gray-800">Kalpataru</h2>
                     <p class="text-2xl font-semibold text-primary">428</p>
                     <h2 class="text-sm font-bold text-gray-800">Total Penerima</h2>
@@ -132,7 +132,7 @@
                 </div>
 
                 <!-- Right Card -->
-                <div class="border-2 border-gray-200 rounded-lg p-6 shadow-lg h-auto md:h-52 flex justify-center items-center w-full md:w-auto">
+                <div class="bg-white border-2 border-gray-200 rounded-lg p-6 shadow-lg h-auto md:h-52 flex justify-center items-center w-full md:w-auto">
                     <p class="text-gray-800 text-xs md:text-base mx-4 md:mx-32">
                         Dari total <span class="font-semibold">428</span> penerima penghargaan Kalpataru yang telah diberikan sejak tahun 1980, terdapat
                         <span class="font-semibold">265</span> penerima penghargaan yang berjenis kelamin <span class="font-bold">laki-laki</span> dan

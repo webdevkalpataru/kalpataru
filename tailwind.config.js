@@ -32,7 +32,7 @@ module.exports = withMT({
         primary: '#2C7865',
         primaryhover: '#235F51',
         secondary: '#D9EDBF',
-        tertiary: '#33372C',
+        ternary: '#33372C',
         accent1: '#FFE5CF',
         accent2: '#CD5C08',
         accepted: '#3583DC',
