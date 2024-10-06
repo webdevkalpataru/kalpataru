@@ -15,7 +15,7 @@
     <?= $this->section('content') ?>
 
     <div class="flex flex-col lg:flex-row justify-end m-4">
-        <?= $this->include('template/sidebar') ?>
+        <?= $this->include('template/sidebarpenerima') ?>
 
         <!-- Konten utama -->
         <div class="relative flex flex-col w-full max-w-2xl mx-auto mb-4 rounded-xl border-2 border-primary bg-white shadow-md lg:p-8 p-4">
@@ -54,7 +54,7 @@
             <img src="/images/sukses.png" alt="Success Icon" class="w-16 h-16 mb-4">
             <h2 class="text-center text-lg font-bold text-primary mb-2">Terima kasih telah mengunggah artikel!</h2>
             <p class="text-center text-sm text-slate-600 mb-4">Artikel anda sedang dalam proses validasi. Anda dapat mengecek status artikel anda pada menu “Artikel Saya”.</p>
-            <a href="./artikelsaya">
+            <a href="./artikelpenerima">
                 <button id="closeModalBtn" class="bg-primary text-white py-2 px-4 rounded-lg">Lihat Status</button>
             </a>
         </div>

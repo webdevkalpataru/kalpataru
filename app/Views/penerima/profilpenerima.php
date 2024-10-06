@@ -15,7 +15,7 @@
   <?= $this->section('content') ?>
 
   <div class="flex flex-col lg:flex-row justify-end gap-16 m-4">
-    <?= $this->include('template/sidebarpengusul') ?>
+    <?= $this->include('template/sidebarpenerima') ?>
 
     <!-- Konten utama -->
     <div class="relative flex flex-col w-full max-w-2xl mx-auto mb-4 rounded-xl border-2 border-primary bg-white shadow-md lg:p-8 p-4">
