@@ -37,6 +37,15 @@ class AuthController extends BaseController
                         'provinsi' => $user['provinsi'],
                         'jenis_instansi' => $user['jenis_instansi'],
                         'telepon' => $user['telepon'],
+                        'jabatan_pekerjaan' => $user['jabatan_pekerjaan'], // Sesuaikan dengan field di profil
+                        'jenis_kelamin' => $user['jenis_kelamin'], // Tambahkan jenis kelamin jika perlu
+                        'jalan' => $user['jalan'], // Tambahkan jalan jika perlu
+                        'rt_rw' => $user['rt_rw'], // Tambahkan RT/RW jika perlu
+                        'desa' => $user['desa'], // Tambahkan desa jika perlu
+                        'kecamatan' => $user['kecamatan'], // Tambahkan kecamatan jika perlu
+                        'kab_kota' => $user['kab_kota'], // Tambahkan kab/kota jika perlu
+                        'kode_pos' => $user['kode_pos'], // Tambahkan kode pos jika perlu
+                        'surat_pengantar' => $user['surat_pengantar'],
                         'logged_in' => true,
                     ];
                     session()->set($sessionData);
@@ -157,7 +166,7 @@ class AuthController extends BaseController
 
     public function downloadSuratPengantar($filename)
     {
-        $filePath = WRITEPATH . 'suratpengantar/' . $filename;
+        $filePath = WRITEPATH . 'uploads/suratpengantar/' . $filename;
 
         if (file_exists($filePath)) {
             return $this->response->download($filePath, null)->setFileName($filename);

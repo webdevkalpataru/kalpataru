@@ -28,8 +28,9 @@ $routes->get('publikasi/buku', 'PublikasiController::buku');
 
 $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
     $routes->get('profil', 'PengusulController::index');
+    $routes->post('profil', 'PengusulController::updateProfile');
 });
-// $routes->get('pengusul/profil', 'PengusulController::index');
+$routes->get('pengusul/downloadSuratPengantar/(:any)', 'AuthController::downloadSuratPengantar/$1');
 $routes->get('pengusul/tambahcalon', 'PengusulController::tambahcalon');
 $routes->get('pengusul/tambahcalonidentitas', 'PengusulController::tambahcalonidentitas');
 $routes->get('pengusul/tambahcalonkegiatan', 'PengusulController::tambahcalonkegiatan');
@@ -40,5 +41,3 @@ $routes->get('pengusul/tambahcalonkeistimewaan', 'PengusulController::tambahcalo
 $routes->get('pengusul/profilpengusul', 'PengusulController::profilpengusul');
 $routes->get('pengusul/usulansaya', 'PengusulController::usulansaya');
 $routes->get('pengusul/detailusulansaya', 'PengusulController::detailusulansaya');
-
-
