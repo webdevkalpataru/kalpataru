@@ -130,7 +130,7 @@
 
                 <div class="flex justify-end mt-4">
                     <a href="./usulansaya">
-                        <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Selanjutnya</button>
+                        <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Kirim</button>
                     </a>
                 </div>
             </form>
