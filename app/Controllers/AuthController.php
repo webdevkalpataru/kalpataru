@@ -29,12 +29,14 @@ class AuthController extends BaseController
             if (password_verify($kataSandi, $user['kata_sandi'])) {
                 // Cek status akun
                 if ($user['status_akun'] === 'Aktif') {
-                    // Set session berdasarkan role_akun
                     $sessionData = [
                         'id_pengusul' => $user['id_pengusul'],
                         'nama' => $user['nama_instansi_pribadi'],
                         'email' => $user['email'],
                         'role_akun' => $user['role_akun'],
+                        'provinsi' => $user['provinsi'],
+                        'jenis_instansi' => $user['jenis_instansi'],
+                        'telepon' => $user['telepon'],
                         'logged_in' => true,
                     ];
                     session()->set($sessionData);
@@ -60,9 +62,6 @@ class AuthController extends BaseController
         // Arahkan pengguna kembali ke halaman login
         return redirect()->to('/auth/login');
     }
-
-
-
 
     public function register()
     {
@@ -165,15 +164,5 @@ class AuthController extends BaseController
         } else {
             return $this->response->setJSON(['success' => false, 'errors' => 'File not found.']);
         }
-    }
-
-    public function pengusul()
-    {
-        return view('pengusul', ['title' => 'Pengusul']);
-    }
-
-    public function dlhk()
-    {
-        return view('dlhk', ['title' => 'Pengusul']);
     }
 }
