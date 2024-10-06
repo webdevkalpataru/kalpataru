@@ -29,12 +29,23 @@ class AuthController extends BaseController
             if (password_verify($kataSandi, $user['kata_sandi'])) {
                 // Cek status akun
                 if ($user['status_akun'] === 'Aktif') {
-                    // Set session berdasarkan role_akun
                     $sessionData = [
                         'id_pengusul' => $user['id_pengusul'],
                         'nama' => $user['nama_instansi_pribadi'],
                         'email' => $user['email'],
                         'role_akun' => $user['role_akun'],
+                        'provinsi' => $user['provinsi'],
+                        'jenis_instansi' => $user['jenis_instansi'],
+                        'telepon' => $user['telepon'],
+                        'jabatan_pekerjaan' => $user['jabatan_pekerjaan'], // Sesuaikan dengan field di profil
+                        'jenis_kelamin' => $user['jenis_kelamin'], // Tambahkan jenis kelamin jika perlu
+                        'jalan' => $user['jalan'], // Tambahkan jalan jika perlu
+                        'rt_rw' => $user['rt_rw'], // Tambahkan RT/RW jika perlu
+                        'desa' => $user['desa'], // Tambahkan desa jika perlu
+                        'kecamatan' => $user['kecamatan'], // Tambahkan kecamatan jika perlu
+                        'kab_kota' => $user['kab_kota'], // Tambahkan kab/kota jika perlu
+                        'kode_pos' => $user['kode_pos'], // Tambahkan kode pos jika perlu
+                        'surat_pengantar' => $user['surat_pengantar'],
                         'logged_in' => true,
                     ];
                     session()->set($sessionData);
@@ -60,9 +71,6 @@ class AuthController extends BaseController
         // Arahkan pengguna kembali ke halaman login
         return redirect()->to('/auth/login');
     }
-
-
-
 
     public function register()
     {
@@ -158,22 +166,12 @@ class AuthController extends BaseController
 
     public function downloadSuratPengantar($filename)
     {
-        $filePath = WRITEPATH . 'suratpengantar/' . $filename;
+        $filePath = WRITEPATH . 'uploads/suratpengantar/' . $filename;
 
         if (file_exists($filePath)) {
             return $this->response->download($filePath, null)->setFileName($filename);
         } else {
             return $this->response->setJSON(['success' => false, 'errors' => 'File not found.']);
         }
-    }
-
-    public function pengusul()
-    {
-        return view('pengusul', ['title' => 'Pengusul']);
-    }
-
-    public function dlhk()
-    {
-        return view('dlhk', ['title' => 'Pengusul']);
     }
 }

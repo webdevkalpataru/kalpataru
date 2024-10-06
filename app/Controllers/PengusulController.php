@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\PengusulModel;
-use CodeIgniter\Controller;
+// use CodeIgniter\Controller;
 
 class PengusulController extends BaseController
 {
@@ -19,6 +19,42 @@ class PengusulController extends BaseController
         $data['title'] = 'Profil Pengusul';
         return view('pengusul/profil', $data);
     }
+
+    public function updateProfile()
+    {
+        $pengusulModel = new PengusulModel();
+
+        // Ambil ID pengguna yang login dari session
+        $id_pengusul = session()->get('id_pengusul');
+
+        // Ambil data yang diinputkan dari form
+        $data = [
+            'jenis_instansi' => $this->request->getPost('jenis_instansi'),
+            'nama_instansi_pribadi' => $this->request->getPost('nama'),
+            'provinsi' => $this->request->getPost('provinsi'),
+            'telepon' => $this->request->getPost('telepon'),
+            'email' => $this->request->getPost('email'),
+            'jabatan_pekerjaan' => $this->request->getPost('jabatan_pekerjaan'),
+            'jenis_kelamin' => $this->request->getPost('jenis_kelamin'),
+            'jalan' => $this->request->getPost('jalan'),
+            'rt_rw' => $this->request->getPost('rt_rw'),
+            'desa' => $this->request->getPost('desa'),
+            'kecamatan' => $this->request->getPost('kecamatan'),
+            'kab_kota' => $this->request->getPost('kab_kota'),
+            'kode_pos' => $this->request->getPost('kode_pos')
+        ];
+
+        // Update data di database
+        if ($pengusulModel->update($id_pengusul, $data)) {
+            // Jika berhasil, perbarui session dengan data terbaru
+            session()->set($data);
+
+            return $this->response->setJSON(['success' => true, 'message' => 'Profil berhasil diperbarui.']);
+        } else {
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui profil.']);
+        }
+    }
+
 
     public function updateProfil()
     {

@@ -16,9 +16,9 @@
             </svg>
 
             <div>
-                <h2 class="text-md font-bold">Dinas Lingkungan Hidup Kab Bogor</h2>
-                <p class="text-sm text-slate-400 font-semibold">Pengusul</p>
-                <p class="text-sm text-slate-400 font-semibold">Jawa Barat</p>
+                <h2 class="text-md font-bold"><?= session()->get('nama'); ?></h2>
+                <p class="text-sm text-slate-400 font-semibold"><?= session()->get('role_akun'); ?></p>
+                <p class="text-sm text-slate-400 font-semibold"><?= session()->get('provinsi'); ?></p>
             </div>
         </div>
 
@@ -120,6 +120,7 @@
                     <span class="ml-2 text-sm hidden lg:inline">Keluar</span>
                 </a>
             </li>
+            
         </ul>
     </div>
 </body>
