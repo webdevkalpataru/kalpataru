@@ -16,50 +16,7 @@ class PengusulController extends BaseController
             return redirect()->to('/auth/login')->with('authMessage', 'Harap login terlebih dahulu');
         }
 
-        $provinsi_list = [
-            'Aceh',
-            'Bali',
-            'Bangka Belitung',
-            'Banten',
-            'Bengkulu',
-            'DI Yogyakarta',
-            'DKI Jakarta',
-            'Gorontalo',
-            'Jambi',
-            'Jawa Barat',
-            'Jawa Tengah',
-            'Jawa Timur',
-            'Kalimantan Barat',
-            'Kalimantan Selatan',
-            'Kalimantan Tengah',
-            'Kalimantan Timur',
-            'Kalimantan Utara',
-            'Kepulauan Bangka Belitung',
-            'Kepulauan Riau',
-            'Lampung',
-            'Maluku',
-            'Maluku Utara',
-            'Nusa Tenggara Barat',
-            'Nusa Tenggara Timur',
-            'Papua',
-            'Papua Barat',
-            'Papua Barat Daya',
-            'Papua Pegunungan',
-            'Papua Selatan',
-            'Papua Tengah',
-            'Riau',
-            'Sulawesi Barat',
-            'Sulawesi Selatan',
-            'Sulawesi Tengah',
-            'Sulawesi Tenggara',
-            'Sulawesi Utara',
-            'Sumatera Barat',
-            'Sumatera Selatan',
-            'Sumatera Utara'
-        ];
-
         $data['title'] = 'Profil Pengusul';
-        $data['provinsi_list'] = $provinsi_list;
         return view('pengusul/profil', $data);
     }
 

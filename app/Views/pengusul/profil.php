@@ -143,9 +143,7 @@
             <?php if (session()->get('role_akun') === 'DLHK'): ?>
               <div>
                 <?php
-                // Ambil path surat pengantar dari session
                 $suratPengantar = session()->get('surat_pengantar');
-                // Gunakan basename untuk mendapatkan hanya nama file
                 $namaFile = basename($suratPengantar);
                 ?>
                 <label class="block mb-2 text-sm text-black">Surat Pengantar : <?= $namaFile; ?></label>
