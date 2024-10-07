@@ -21,7 +21,7 @@ $selectedCategory = $session->get('selected_category');
     <?= $this->section('content') ?>
 
     <div class="flex flex-col lg:flex-row justify-end m-4">
-        <?= $this->include('template/sidebar') ?>
+        <?= $this->include('template/sidebarpengusul') ?>
 
         <?php
         $selectedCategory = 'c';
