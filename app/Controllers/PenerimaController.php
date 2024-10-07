@@ -7,20 +7,24 @@ use CodeIgniter\Controller;
 
 class PenerimaController extends BaseController
 {
-    public function profilpenerima()
+    public function profil()
     {
-        return view('penerima/profilpenerima', ['title' => 'Profil Penerima']);
+        $data['title'] = 'Profil Penerima';
+        return view('penerima/profil', ['title' => 'Profil']);
     }
-    public function tambahartikelpenerima()
+    public function tambahartikel()
     {
-        return view('penerima/tambahartikelpenerima', ['title' => 'Tambah Artikel Penerima']);
+        $data['title'] = 'Tambah Artikel';
+        return view('penerima/tambahartikel', ['title' => 'Tambah Artikel']);
     }
-    public function artikelpenerima()
+    public function artikelsaya()
     {
-        return view('penerima/artikelpenerima', ['title' => 'Artikel Saya']);
+        $data['title'] = 'Artikel Saya';
+        return view('penerima/artikelsaya', ['title' => 'Artikel Saya']);
     }
-    public function lihatrincian()
+    public function detailartikelsaya()
     {
-        return view('penerima/lihatrincian', ['title' => 'Lihat Rincian']);
+        $data['title'] = 'Detail Artikel Saya';
+        return view('penerima/detailartikelsaya', ['title' => 'Detail Artikel Saya']);
     }
 }

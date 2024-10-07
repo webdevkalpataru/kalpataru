@@ -26,8 +26,6 @@ $routes->get('publikasi/artikel', 'PublikasiController::artikel');
 $routes->get('publikasi/video', 'PublikasiController::video');
 $routes->get('publikasi/buku', 'PublikasiController::buku');
 
-$routes->get('pengusul/downloadSuratPengantar/(:any)', 'AuthController::downloadSuratPengantar/$1');
-
 $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
     $routes->get('profil', 'PengusulController::index');
     $routes->post('profil', 'PengusulController::updateProfil');
@@ -67,18 +65,20 @@ $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
     $routes->get('detailusulandlhk', 'PengusulController::detailusulandlhk');
     $routes->get('tambahartikel', 'PengusulController::tambahartikel');
     $routes->get('artikelsaya', 'PengusulController::artikelsaya');
+    $routes->get('detailartikelsaya', 'PengusulController::detailartikelsaya');
 
     $routes->get('pemberitahuan', 'PengusulController::pemberitahuan');
     $routes->get('alurpendaftaran', 'PengusulController::alurpendaftaran');
     $routes->get('videopanduan', 'PengusulController::videopanduan');
     $routes->get('panduanpendaftaran', 'PengusulController::panduanpendaftaran');
+    $routes->get('downloadSuratPengantar/(:any)', 'AuthController::downloadSuratPengantar/$1');
     $routes->get('sample', 'PengusulController::sample');
 });
 
+$routes->group('penerima', ['filter' => 'auth'], function ($routes) {
+    $routes->get('profil', 'PenerimaController::profil');
+    $routes->get('tambahartikel', 'PenerimaController::tambahartikel');
+    $routes->get('artikelsaya', 'PenerimaController::artikelsaya');
+    $routes->get('detailartikelsaya', 'PenerimaController::detailartikelsaya');
+});
 
-
-// $routes->get('penerima/profilpenerima', 'PenerimaController::index');
-$routes->get('penerima/profilpenerima', 'PenerimaController::profilpenerima');
-$routes->get('penerima/tambahartikelpenerima', 'PenerimaController::tambahartikelpenerima');
-$routes->get('penerima/artikelpenerima', 'PenerimaController::artikelpenerima');
-$routes->get('penerima/lihatrincian', 'PenerimaController::lihatrincian');
