@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\PengusulModel;
-use CodeIgniter\Controller;
+// use CodeIgniter\Controller;
 
 class PengusulController extends BaseController
 {
@@ -16,7 +16,50 @@ class PengusulController extends BaseController
             return redirect()->to('/auth/login')->with('authMessage', 'Harap login terlebih dahulu');
         }
 
+        $provinsi_list = [
+            'Aceh',
+            'Bali',
+            'Bangka Belitung',
+            'Banten',
+            'Bengkulu',
+            'DI Yogyakarta',
+            'DKI Jakarta',
+            'Gorontalo',
+            'Jambi',
+            'Jawa Barat',
+            'Jawa Tengah',
+            'Jawa Timur',
+            'Kalimantan Barat',
+            'Kalimantan Selatan',
+            'Kalimantan Tengah',
+            'Kalimantan Timur',
+            'Kalimantan Utara',
+            'Kepulauan Bangka Belitung',
+            'Kepulauan Riau',
+            'Lampung',
+            'Maluku',
+            'Maluku Utara',
+            'Nusa Tenggara Barat',
+            'Nusa Tenggara Timur',
+            'Papua',
+            'Papua Barat',
+            'Papua Barat Daya',
+            'Papua Pegunungan',
+            'Papua Selatan',
+            'Papua Tengah',
+            'Riau',
+            'Sulawesi Barat',
+            'Sulawesi Selatan',
+            'Sulawesi Tengah',
+            'Sulawesi Tenggara',
+            'Sulawesi Utara',
+            'Sumatera Barat',
+            'Sumatera Selatan',
+            'Sumatera Utara'
+        ];
+
         $data['title'] = 'Profil Pengusul';
+        $data['provinsi_list'] = $provinsi_list;
         return view('pengusul/profil', $data);
     }
 
@@ -24,22 +67,52 @@ class PengusulController extends BaseController
     {
         $pengusulModel = new PengusulModel();
 
-        // Mengambil input dari form
+        // Ambil ID pengguna yang login dari session
+        $id_pengusul = session()->get('id_pengusul');
+
+        // Ambil data surat pengantar yang sudah ada
+        $currentSuratPengantar = session()->get('surat_pengantar');
+
+        $file = $this->request->getFile('surat_pengantar');
+        $filePath = $currentSuratPengantar; // Default ke nilai lama
+
+        if ($file && $file->isValid() && !$file->hasMoved()) {
+            if ($file->getClientMimeType() == 'application/pdf') {
+                $filePath = $file->store('suratpengantar', $file->getRandomName());
+            } else {
+                return $this->response->setJSON(['success' => false, 'errors' => 'Invalid file type. Only PDF files are allowed']);
+            }
+        }
+
+        // Ambil data yang diinputkan dari form
         $data = [
             'jenis_instansi' => $this->request->getPost('jenis_instansi'),
-            'nama_instansi_pribadi' => $this->request->getPost('nama_instansi_pribadi'),
+            'nama_instansi_pribadi' => $this->request->getPost('nama'),
+            'provinsi' => $this->request->getPost('provinsi'),
             'telepon' => $this->request->getPost('telepon'),
             'email' => $this->request->getPost('email'),
             'jabatan_pekerjaan' => $this->request->getPost('jabatan_pekerjaan'),
-            // Lanjutkan untuk field lainnya...
+            'jenis_kelamin' => $this->request->getPost('jenis_kelamin'),
+            'jalan' => $this->request->getPost('jalan'),
+            'rt_rw' => $this->request->getPost('rt_rw'),
+            'desa' => $this->request->getPost('desa'),
+            'kecamatan' => $this->request->getPost('kecamatan'),
+            'kab_kota' => $this->request->getPost('kab_kota'),
+            'kode_pos' => $this->request->getPost('kode_pos'),
+            'surat_pengantar' => $filePath
         ];
 
-        // Update data profil pengusul
-        $pengusulModel->update(session()->get('id_pengusul'), $data);
+        // Update data di database
+        if ($pengusulModel->update($id_pengusul, $data)) {
+            session()->set($data);
 
-        // Setelah update, arahkan ke halaman lain atau tampilkan pesan sukses
-        return redirect()->to(base_url('pengusul/profil'))->with('success', 'Profil berhasil diperbarui');
+            return $this->response->setJSON(['success' => true, 'message' => 'Profil berhasil diperbarui.']);
+        } else {
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui profil.']);
+        }
     }
+
+
 
     public function halamanLainnya()
     {

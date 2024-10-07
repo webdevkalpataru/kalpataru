@@ -26,13 +26,11 @@ $routes->get('publikasi/artikel', 'PublikasiController::artikel');
 $routes->get('publikasi/video', 'PublikasiController::video');
 $routes->get('publikasi/buku', 'PublikasiController::buku');
 
-$routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
-    $routes->get('profil', 'PengusulController::index');
-});
-// $routes->get('pengusul/profil', 'PengusulController::index');
+$routes->get('pengusul/downloadSuratPengantar/(:any)', 'AuthController::downloadSuratPengantar/$1');
 
 $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
     $routes->get('profil', 'PengusulController::index');
+    $routes->post('profil', 'PengusulController::updateProfil');
 
     // Route for "Tambah Calon" step 1 (Category selection)
     $routes->get('tambahcalon', 'PengusulController::tambahcalon');
@@ -63,7 +61,6 @@ $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
     $routes->post('tambahcalonkeistimewaan', 'PengusulController::tambahcalonkeistimewaan');
 
     // Other routes related to Pengusul
-    $routes->get('profilpengusul', 'PengusulController::profilpengusul');
     $routes->get('usulansaya', 'PengusulController::usulansaya');
     $routes->get('usulandlhk', 'PengusulController::usulandlhk');
     $routes->get('detailusulansaya', 'PengusulController::detailusulansaya');

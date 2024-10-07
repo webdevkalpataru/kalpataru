@@ -16,9 +16,9 @@
             </svg>
 
             <div>
-                <h2 class="text-md font-bold">Dinas Lingkungan Hidup Kab Bogor</h2>
-                <p class="text-sm text-slate-400 font-semibold">Pengusul</p>
-                <p class="text-sm text-slate-400 font-semibold">Jawa Barat</p>
+                <h2 class="text-md font-bold"><?= session()->get('nama'); ?></h2>
+                <p class="text-sm text-slate-400 font-semibold"><?= session()->get('role_akun'); ?></p>
+                <p class="text-sm text-slate-400 font-semibold"><?= session()->get('provinsi'); ?></p>
             </div>
         </div>
 
@@ -67,14 +67,14 @@
                     <span class="ml-2 text-sm hidden lg:inline">Usulan Saya</span>
                 </a>
             </li>
-            <?php if ($isDLHK): ?>
+            <?php if (session()->get('role_akun') === 'DLHK'): ?>
                 <li class="flex items-center justify-center lg:justify-start">
                     <a href="../pengusul/usulandlhk" class="flex items-center block text-md hover:bg-secondary p-2 w-full rounded">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                             <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
                         </svg>
-                        <span class="ml-2 text-sm hidden lg:inline">Usulan: (Nama Provinsi)</span>
+                        <span class="ml-2 text-sm hidden lg:inline">Usulan: <strong>Provinsi <?= session()->get('provinsi'); ?></strong></span>
                     </a>
                 </li>
             <?php endif; ?>
@@ -94,7 +94,7 @@
                     <span class="ml-2 text-sm hidden lg:inline">Video Panduan</span>
                 </a>
             </li>
-            <?php if ($isDLHK): ?>
+            <?php if (session()->get('role_akun') === 'DLHK'): ?>
                 <li class="flex items-center justify-center lg:justify-start">
                     <a href="../pengusul/tambahartikel" class="flex items-center block text-md hover:bg-secondary p-2 w-full rounded">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -113,13 +113,14 @@
                 </li>
             <?php endif; ?>
             <li class="flex items-center justify-center lg:justify-start">
-                <a href="../auth/logout" class="flex items-center block text-md hover:bg-secondary p-2 w-full rounded">
+                <a href="/auth/logout" class="flex items-center block text-md hover:bg-secondary p-2 w-full rounded">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75" />
                     </svg>
                     <span class="ml-2 text-sm hidden lg:inline">Keluar</span>
                 </a>
             </li>
+
         </ul>
     </div>
 </body>
