@@ -69,7 +69,7 @@ class AuthController extends BaseController
         session()->destroy();
 
         // Arahkan pengguna kembali ke halaman login
-        return redirect()->to('/auth/login');
+        return redirect()->to('auth/login');
     }
 
     public function register()

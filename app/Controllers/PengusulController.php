@@ -94,13 +94,32 @@ class PengusulController extends BaseController
     public function tambahcalon()
     {
         $data['title'] = 'Tambah Calon Usulan';
+
         return view('pengusul/tambahcalon', $data);
     }
     public function tambahcalonidentitas()
     {
-        $data['title'] = 'Tambah Calon Usulan';
+        $selectedCategory = $this->request->getPost('selected_category');
+
+        // Cek apakah kategori sudah dipilih
+        if (!$selectedCategory) {
+            // Jika tidak ada kategori yang dipilih, redirect kembali dengan pesan error
+            return redirect()->back()->with('error', 'Silahkan pilih kategori terlebih dahulu');
+        }
+
+        // Simpan kategori yang dipilih ke dalam session
+        $session = session();
+        $session->set('selected_category', $selectedCategory);
+
+        // Data untuk view
+        $data = [
+            'title' => 'Tambah Identitas Calon',
+            'selectedCategory' => $selectedCategory
+        ];
+
         return view('pengusul/tambahcalonidentitas', $data);
     }
+
     public function tambahcalonkegiatan()
     {
         $data['title'] = 'Tambah Calon Usulan';
@@ -179,5 +198,4 @@ class PengusulController extends BaseController
     {
         return view('pengusul/sample', ['title' => 'Sample']);
     }
-    
 }
