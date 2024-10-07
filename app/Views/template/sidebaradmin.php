@@ -36,31 +36,31 @@
                 </div>
                 <hr class="my-2 border-primary" />
 
-                <div role="button" class="text-lg sidebar-item flex items-center w-full p-3 rounded-lg hover:bg-secondary">
+                <div role="button" class="text-md sidebar-item flex items-center w-full p-3 rounded-lg hover:bg-secondary">
                     Dashboard
                 </div>
-                <div role="button" class="text-lg sidebar-item flex items-center w-full p-3 rounded-lg hover:bg-secondary">
+                <div role="button" class="text-md sidebar-item flex items-center w-full p-3 rounded-lg hover:bg-secondary">
                     Pengguna
                 </div>
-                <div role="button" class="text-lg sidebar-item flex items-center w-full p-3 rounded-lg hover:bg-secondary">
+                <div role="button" class="text-md sidebar-item flex items-center w-full p-3 rounded-lg hover:bg-secondary">
                     Akun Baru Pengusul
                 </div>
-                <div role="button" class="text-lg sidebar-item flex items-center w-full p-3 rounded-lg hover:bg-secondary">
+                <div role="button" class="text-md sidebar-item flex items-center w-full p-3 rounded-lg hover:bg-secondary">
                     Pembuatan Akun DPPK
                 </div>
-                <div role="button" class="text-lg sidebar-item flex items-center w-full p-3 rounded-lg hover:bg-secondary">
+                <div role="button" class="text-md sidebar-item flex items-center w-full p-3 rounded-lg hover:bg-secondary">
                     Pembuatan Akun Tim Teknis
                 </div>
-                <div role="button" class="text-lg sidebar-item flex items-center w-full p-3 rounded-lg hover:bg-secondary">
+                <div role="button" class="text-md sidebar-item flex items-center w-full p-3 rounded-lg hover:bg-secondary">
                     Data Calon
                 </div>
-                <div role="button" class="text-lg sidebar-item flex items-center w-full p-3 rounded-lg hover:bg-secondary">
+                <div role="button" class="text-md sidebar-item flex items-center w-full p-3 rounded-lg hover:bg-secondary">
                     Nominasi Kalpataru
                 </div>
 
                 <div class="relative">
                     <div class="flex items-center w-full p-3 rounded-lg cursor-pointer hover:bg-secondary" onclick="toggleDropdown('sidang-dropdown', 'sidang-arrow')">
-                        <span class="text-lg">Sidang</span>
+                        <span>Sidang</span>
                         <div class="ml-auto">
                             <svg id="sidang-arrow" class="h-5 w-5 transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M12 16.5l6-6H6z" />
@@ -68,17 +68,17 @@
                         </div>
                     </div>
                     <div id="sidang-dropdown" class="hidden bg-white rounded-lg shadow-lg mt-2 absolute w-full">
-                        <a href="#" class="block px-4 py-2 text-lg hover:bg-secondary">Sidang 1</a>
-                        <a href="#" class="block px-4 py-2 text-lg hover:bg-secondary">Sidang 2</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-secondary">Sidang 1</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-secondary">Sidang 2</a>
                     </div>
                 </div>
-                <div role="button" class="text-lg sidebar-item flex items-center w-full p-3 rounded-lg hover:bg-secondary">
+                <div role="button" class="text-md sidebar-item flex items-center w-full p-3 rounded-lg hover:bg-secondary">
                     Arsip Penerima
                 </div>
 
                 <div class="relative">
                     <div class="flex items-center w-full p-3 rounded-lg cursor-pointer hover:bg-secondary" onclick="toggleDropdown('publikasi-dropdown', 'publikasi-arrow')">
-                        <span class="text-lg">Publikasi</span>
+                        <span>Publikasi</span>
                         <div class="ml-auto">
                             <svg id="publikasi-arrow" class="h-5 w-5 transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M12 16.5l6-6H6z" />
@@ -86,12 +86,12 @@
                         </div>
                     </div>
                     <div id="publikasi-dropdown" class="hidden bg-white rounded-lg shadow-lg mt-2 absolute w-full">
-                        <a href="#" class="block px-4 py-2 text-lg hover:bg-secondary">Berita</a>
-                        <a href="#" class="block px-4 py-2 text-lg hover:bg-secondary">Artikel Masuk</a>
-                        <a href="#" class="block px-4 py-2 text-lg hover:bg-secondary">Pengumuman</a>
-                        <a href="#" class="block px-4 py-2 text-lg hover:bg-secondary">Video</a>
-                        <a href="#" class="block px-4 py-2 text-lg hover:bg-secondary">Buku</a>
-                        <a href="#" class="block px-4 py-2 text-lg hover:bg-secondary">Kebijakan</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-secondary">Berita</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-secondary">Artikel Masuk</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-secondary">Pengumuman</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-secondary">Video</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-secondary">Buku</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-secondary">Kebijakan</a>
                     </div>
                 </div>
             </nav>
