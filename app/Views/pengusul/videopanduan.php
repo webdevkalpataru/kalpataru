@@ -20,14 +20,14 @@
         <!-- Konten utama -->
         <div class="relative flex flex-col w-full max-w-2xl mx-auto mb-4 rounded-xl border-2 border-primary bg-white shadow-md lg:p-8 p-4">
             <h4 class="block text-xl font-bold text-slate-800 mb-2">
-                Alur Pendaftaran Penghargaan Kalpataru
+                Video Panduan
             </h4>
 
-                                <div class="relative flex flex-col w-full h-full bg-white text-gray-700 shadow-md rounded-lg bg-clip-border mt-4">
-                        <iframe class="w-full h-full rounded-lg" src="https://www.youtube.com/embed/VIDEO_ID" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                                </div>
-
+            <div class="relative flex flex-col w-full h-full bg-white text-gray-700 shadow-md rounded-lg bg-clip-border mt-4">
+                <iframe class="w-full h-full rounded-lg" src="https://www.youtube.com/embed/uBdhO9nJk00" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
+
+        </div>
 
 
     </div>

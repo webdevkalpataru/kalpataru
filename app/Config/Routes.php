@@ -28,11 +28,7 @@ $routes->get('publikasi/buku', 'PublikasiController::buku');
 
 $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
     $routes->get('profil', 'PengusulController::index');
-});
-// $routes->get('pengusul/profil', 'PengusulController::index');
-
-$routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
-    $routes->get('profil', 'PengusulController::index');
+    $routes->post('profil', 'PengusulController::updateProfil');
 
     // Route for "Tambah Calon" step 1 (Category selection)
     $routes->get('tambahcalon', 'PengusulController::tambahcalon');
@@ -63,11 +59,25 @@ $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
     $routes->post('tambahcalonkeistimewaan', 'PengusulController::tambahcalonkeistimewaan');
 
     // Other routes related to Pengusul
-    $routes->get('profilpengusul', 'PengusulController::profilpengusul');
     $routes->get('usulansaya', 'PengusulController::usulansaya');
     $routes->get('usulandlhk', 'PengusulController::usulandlhk');
     $routes->get('detailusulansaya', 'PengusulController::detailusulansaya');
     $routes->get('detailusulandlhk', 'PengusulController::detailusulandlhk');
     $routes->get('tambahartikel', 'PengusulController::tambahartikel');
     $routes->get('artikelsaya', 'PengusulController::artikelsaya');
+    $routes->get('detailartikelsaya', 'PengusulController::detailartikelsaya');
+
+    $routes->get('pemberitahuan', 'PengusulController::pemberitahuan');
+    $routes->get('alurpendaftaran', 'PengusulController::alurpendaftaran');
+    $routes->get('videopanduan', 'PengusulController::videopanduan');
+    $routes->get('panduanpendaftaran', 'PengusulController::panduanpendaftaran');
+    $routes->get('downloadSuratPengantar/(:any)', 'AuthController::downloadSuratPengantar/$1');
+    $routes->get('sample', 'PengusulController::sample');
+});
+
+$routes->group('penerima', ['filter' => 'auth'], function ($routes) {
+    $routes->get('profil', 'PenerimaController::profil');
+    $routes->get('tambahartikel', 'PenerimaController::tambahartikel');
+    $routes->get('artikelsaya', 'PenerimaController::artikelsaya');
+    $routes->get('detailartikelsaya', 'PenerimaController::detailartikelsaya');
 });

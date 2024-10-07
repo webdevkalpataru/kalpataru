@@ -37,14 +37,14 @@ class AuthController extends BaseController
                         'provinsi' => $user['provinsi'],
                         'jenis_instansi' => $user['jenis_instansi'],
                         'telepon' => $user['telepon'],
-                        'jabatan_pekerjaan' => $user['jabatan_pekerjaan'], // Sesuaikan dengan field di profil
-                        'jenis_kelamin' => $user['jenis_kelamin'], // Tambahkan jenis kelamin jika perlu
-                        'jalan' => $user['jalan'], // Tambahkan jalan jika perlu
-                        'rt_rw' => $user['rt_rw'], // Tambahkan RT/RW jika perlu
-                        'desa' => $user['desa'], // Tambahkan desa jika perlu
-                        'kecamatan' => $user['kecamatan'], // Tambahkan kecamatan jika perlu
-                        'kab_kota' => $user['kab_kota'], // Tambahkan kab/kota jika perlu
-                        'kode_pos' => $user['kode_pos'], // Tambahkan kode pos jika perlu
+                        'jabatan_pekerjaan' => $user['jabatan_pekerjaan'],
+                        'jenis_kelamin' => $user['jenis_kelamin'],
+                        'jalan' => $user['jalan'],
+                        'rt_rw' => $user['rt_rw'],
+                        'desa' => $user['desa'],
+                        'kecamatan' => $user['kecamatan'],
+                        'kab_kota' => $user['kab_kota'],
+                        'kode_pos' => $user['kode_pos'],
                         'surat_pengantar' => $user['surat_pengantar'],
                         'logged_in' => true,
                     ];
@@ -65,8 +65,8 @@ class AuthController extends BaseController
 
     public function logoutAction()
     {
-        // Hapus semua data sesi
         session()->destroy();
+        return redirect()->to('/auth/login');
 
         // Arahkan pengguna kembali ke halaman login
         return redirect()->to('auth/login');

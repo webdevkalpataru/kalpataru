@@ -37,7 +37,7 @@
                                     </p>
                                 </th>
                                 <th class="p-4 border-b border-accent2 bg-accent1 text-center">
-                                    <p class="block text-xs md:text-sm font-bold leading-none text-accent2 lg:mr-16 ml-10">
+                                    <p class="block text-xs md:text-sm font-bold leading-none text-accent2">
                                         Status
                                     </p>
                                 </th>
@@ -47,17 +47,16 @@
                             <tr class="hover:bg-slate-50">
                                 <td class="p-4 border-b border-slate-200 text-center">
                                     <p class="block text-xs text-slate-800">
-                                        Mangrove
+                                        Surga Tersembunyi di Maros
                                     </p>
                                 </td>
-                    
                                 <td class="p-4 border-b border-slate-200 text-center">
-                                    <a href="./lihatrincian">
+                                    <a href="./detailartikelsaya">
                                         <button class="w-24 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat Rincian</button>
                                     </a>
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs font-bold text-accepted w-24 ml-10">
+                                    <p class="block text-xs font-bold text-accepted">
                                         Terbit
                                     </p>
                                 </td>
@@ -65,17 +64,16 @@
                             <tr class="hover:bg-slate-50">
                                 <td class="p-4 border-b border-slate-200 text-center">
                                     <p class="block text-xs text-slate-800">
-                                        Mangrove
+                                        Surga Tersembunyi di Maros
                                     </p>
                                 </td>
-                               
                                 <td class="p-4 border-b border-slate-200 text-center">
-                                    <a href="./lihatrincian">
+                                    <a href="./detailartikelsaya">
                                         <button class="w-24 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat Rincian</button>
                                     </a>
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs font-bold text-rejected w-24 ml-10">
+                                    <p class="block text-xs font-bold text-rejected">
                                         Belum Terbit
                                     </p>
                                 </td>
@@ -83,17 +81,33 @@
                             <tr class="hover:bg-slate-50">
                                 <td class="p-4 border-b border-slate-200 text-center">
                                     <p class="block text-xs text-slate-800">
-                                        Mangrove
+                                        Surga Tersembunyi di Maros
                                     </p>
                                 </td>
-                               
                                 <td class="p-4 border-b border-slate-200 text-center">
-                                    <a href="./lihatrincian">
+                                    <a href="./detailartikelsaya">
                                         <button class="w-24 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat Rincian</button>
                                     </a>
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs font-bold text-accepted w-24 ml-10">
+                                    <p class="block text-xs font-bold text-rejected">
+                                        Belum Terbit
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-4 border-b border-slate-200 text-center">
+                                    <p class="block text-xs text-slate-800">
+                                        Surga Tersembunyi di Maros
+                                    </p>
+                                </td>
+                                <td class="p-4 border-b border-slate-200 text-center">
+                                    <a href="./detailartikelsaya">
+                                        <button class="w-24 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat Rincian</button>
+                                    </a>
+                                </td>
+                                <td class="p-4 border-b border-slate-200 text-center">
+                                    <p class="block text-xs font-bold text-accepted">
                                         Terbit
                                     </p>
                                 </td>
@@ -101,36 +115,17 @@
                             <tr class="hover:bg-slate-50">
                                 <td class="p-4 border-b border-slate-200 text-center">
                                     <p class="block text-xs text-slate-800">
-                                        Mangrove
+                                        Surga Tersembunyi di Maros
                                     </p>
                                 </td>
-                                
                                 <td class="p-4 border-b border-slate-200 text-center">
-                                    <a href="./lihatrincian">
+                                    <a href="./detailartikelsaya">
                                         <button class="w-24 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat Rincian</button>
                                     </a>
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs font-bold text-rejected w-24 ml-10">
-                                        Belum Terbit
-                                    </p>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-slate-50">
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Mangrove
-                                    </p>
-                                </td>
-                                
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <a href="./lihatrincian">
-                                        <button class="w-24 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat Rincian</button>
-                                    </a>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs font-bold text-rejected w-24 ml-10">
-                                        Belum Terbit
+                                    <p class="block text-xs font-bold text-accepted">
+                                        Terbit
                                     </p>
                                 </td>
                             </tr>
@@ -165,10 +160,10 @@
                     </button>
                 </div>
             </div>
-
         </div>
     </div>
 
     <?= $this->endSection() ?>
 </body>
+
 </html>
