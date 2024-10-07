@@ -123,9 +123,9 @@ class PengusulController extends BaseController
         return view('pengusul/artikelsaya', ['title' => 'Artikel Saya']);
     }
 
-    public function pengumuman()
+    public function pemberitahuan()
     {
-        return view('pengusul/pengumuman', ['title' => 'Pengumuman']);
+        return view('pengusul/pemberitahuan', ['title' => 'Pemberitahuan']);
     }
     public function alurpendaftaran()
     {

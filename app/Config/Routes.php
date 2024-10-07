@@ -71,7 +71,7 @@ $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
     $routes->get('tambahartikel', 'PengusulController::tambahartikel');
     $routes->get('artikelsaya', 'PengusulController::artikelsaya');
 
-    $routes->get('pengusul/pengumuman', 'PengusulController::pengumuman');
+    $routes->get('pengusul/pemberitahuan', 'PengusulController::pemberitahuan');
     $routes->get('pengusul/alurpendaftaran', 'PengusulController::alurpendaftaran');
     $routes->get('pengusul/videopanduan', 'PengusulController::videopanduan');
     $routes->get('pengusul/panduanpendaftaran', 'PengusulController::panduanpendaftaran');
@@ -82,3 +82,6 @@ $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
 
 // $routes->get('penerima/profilpenerima', 'PenerimaController::index');
 $routes->get('penerima/profilpenerima', 'PenerimaController::profilpenerima');
+$routes->get('penerima/tambahartikelpenerima', 'PenerimaController::tambahartikelpenerima');
+$routes->get('penerima/artikelpenerima', 'PenerimaController::artikelpenerima');
+$routes->get('penerima/lihatrincian', 'PenerimaController::lihatrincian');
