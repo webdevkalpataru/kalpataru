@@ -171,4 +171,19 @@ class AuthController extends BaseController
             return $this->response->setJSON(['success' => false, 'errors' => 'File not found.']);
         }
     }
+
+
+    // BAGIAN AUTH ADMIN DPPK SEKRE
+    public function logininternal()
+    {
+        $data['title'] = "Masuk Akun Internal";
+        return view('auth/logininternal', ['title' => 'Login Internal']);
+    }
+
+    public function registerinternal()
+    {
+        $data['title'] = "Daftar Akun Internal";
+        return view('auth/registerinternal', ['title' => 'Register Internal']);
+    }
+
 }
