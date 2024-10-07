@@ -71,11 +71,11 @@ $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
     $routes->get('tambahartikel', 'PengusulController::tambahartikel');
     $routes->get('artikelsaya', 'PengusulController::artikelsaya');
 
-    $routes->get('pengusul/pemberitahuan', 'PengusulController::pemberitahuan');
-    $routes->get('pengusul/alurpendaftaran', 'PengusulController::alurpendaftaran');
-    $routes->get('pengusul/videopanduan', 'PengusulController::videopanduan');
-    $routes->get('pengusul/panduanpendaftaran', 'PengusulController::panduanpendaftaran');
-    $routes->get('pengusul/sample', 'PengusulController::sample');
+    $routes->get('pemberitahuan', 'PengusulController::pemberitahuan');
+    $routes->get('alurpendaftaran', 'PengusulController::alurpendaftaran');
+    $routes->get('videopanduan', 'PengusulController::videopanduan');
+    $routes->get('panduanpendaftaran', 'PengusulController::panduanpendaftaran');
+    $routes->get('sample', 'PengusulController::sample');
 });
 
 
