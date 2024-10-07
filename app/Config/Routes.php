@@ -72,7 +72,6 @@ $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
     $routes->get('videopanduan', 'PengusulController::videopanduan');
     $routes->get('panduanpendaftaran', 'PengusulController::panduanpendaftaran');
     $routes->get('downloadSuratPengantar/(:any)', 'AuthController::downloadSuratPengantar/$1');
-    $routes->get('sample', 'PengusulController::sample');
 });
 
 $routes->group('penerima', ['filter' => 'auth'], function ($routes) {

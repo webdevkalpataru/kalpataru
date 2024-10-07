@@ -221,10 +221,4 @@ class PengusulController extends BaseController
         $data['title'] = 'Panduan Pendaftaran';
         return view('pengusul/panduanpendaftaran', ['title' => 'Panduan Pendaftaran']);
     }
-    public function sample()
-    {
-        $data['title'] = 'Sample';
-        return view('pengusul/sample', ['title' => 'Sample']);
-    }
-    
 }

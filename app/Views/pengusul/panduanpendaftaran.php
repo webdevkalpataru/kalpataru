@@ -22,8 +22,10 @@
                 Panduan Pendaftaran
             </h4>
 
-            <div>
-                <iframe class="w-full mt-4 h-[350px]" src="<?= base_url('./sample.pdf') ?>" frameborder="0"></iframe>
+            <div class="relative w-full overflow-hidden pt-[80%] rounded-lg">
+                <iframe class="absolute top-0 left-0 w-full h-full" 
+                        src="<?= base_url('file/panduanpendaftaran2024.pdf') ?>" 
+                        frameborder="0"></iframe>
             </div>
 
         </div>
