@@ -22,6 +22,25 @@
       display: block;
     }
 
+    /* Show/hide password */
+    .password-icon {
+      cursor: pointer;
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+
+    /* Responsive style */
+    @media (max-width: 640px) {
+      .max-w-md {
+        max-width: 90%;
+      }
+    }
+
     .toasthidden {
       display: none;
     }
@@ -51,22 +70,22 @@
         </h3>
       </div>
 
-      <form class="mt-4 mb-2 w-full" action="/pengusul/profil" method="post">
+      <form class="mt-4 mb-2 w-full" action="/pengusul/profil" method="post" id="profil-form" onsubmit="validateForm(event)">
         <div class="grid grid-cols-2 gap-4">
 
           <!-- Kolom kiri -->
           <div class="space-y-4">
             <div>
               <label class="block mb-2 text-sm text-black">Jenis Instansi</label>
-              <input type="text" name="jenis_instansi" value="<?= session()->get('jenis_instansi'); ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+              <input type="text" name="jenis_instansi" readonly value="<?= session()->get('jenis_instansi'); ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
             </div>
             <div>
               <label class="block mb-2 text-sm text-black">Nama Instansi / Pribadi</label>
-              <input type="text" name="nama" value="<?= session()->get('nama'); ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+              <input type="text" name="nama" readonly value="<?= session()->get('nama'); ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
             </div>
             <div>
               <label class="block mb-2 text-sm text-black">Provinsi</label>
-              <input type="text" name="provinsi" value="<?= session()->get('provinsi'); ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+              <input type="text" name="provinsi" readonly value="<?= session()->get('provinsi'); ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
             </div>
             <div>
               <label class="block mb-2 text-sm text-black">Nomor Telepon</label>
@@ -123,11 +142,18 @@
             </div>
             <?php if (session()->get('role_akun') === 'DLHK'): ?>
               <div>
-                <label class="block mb-2 text-sm text-black">Surat Pengantar</label>
+                <?php
+                // Ambil path surat pengantar dari session
+                $suratPengantar = session()->get('surat_pengantar');
+                // Gunakan basename untuk mendapatkan hanya nama file
+                $namaFile = basename($suratPengantar);
+                ?>
+                <label class="block mb-2 text-sm text-black">Surat Pengantar : <?= $namaFile; ?></label>
                 <input id="suratpengantar" name="surat_pengantar" type="file" accept="application/pdf"
                   class="w-full border-2 border-gray-300 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
               </div>
             <?php endif; ?>
+
           </div>
         </div>
 
@@ -140,21 +166,9 @@
 
   </div>
   <div id="toast" class="toast"></div>
+
   <script>
-    // Fungsi untuk menampilkan toast dengan pesan kustom
-    function showToast(message) {
-      const toast = document.getElementById('toast');
-      toast.textContent = message;
-      toast.classList.remove('hidden');
-      toast.classList.add('show-toast'); // Pastikan kelas ini untuk menampilkan toast
-
-      setTimeout(() => {
-        toast.classList.remove('show-toast');
-        toast.classList.add('hidden');
-      }, 3000); // Tampilkan selama 3 detik
-    }
-
-    document.getElementById('profile-form').addEventListener('submit', function(e) {
+    document.getElementById('profil-form').addEventListener('submit', function(e) {
       e.preventDefault(); // Mencegah form dari pengiriman default
 
       // Ambil data dari form
@@ -167,9 +181,13 @@
         .then(response => response.json())
         .then(data => {
           if (data.success) {
-            showToast(data.message); // Tampilkan pesan sukses
+            showToast(data.message);
+
+            setTimeout(() => {
+              location.reload();
+            }, 2000);
           } else {
-            showToast(data.message); // Tampilkan pesan kesalahan
+            showToast(data.message);
           }
         })
         .catch(error => {
@@ -177,7 +195,20 @@
           showToast('Terjadi kesalahan. Silakan coba lagi');
         });
     });
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.remove('hidden');
+      toast.classList.add('show-toast');
+
+      setTimeout(() => {
+        toast.classList.remove('show-toast');
+        toast.classList.add('hidden');
+      }, 3000);
+    }
   </script>
+
 
 
   <?= $this->endSection() ?>

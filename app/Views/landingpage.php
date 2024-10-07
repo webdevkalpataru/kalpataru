@@ -18,7 +18,14 @@
             <!-- Popup Image -->
             <img src="/images/popup.png" alt="Popup Image" class="w-full rounded-md">
             <button id="close-btn" class="lg:text-5xl text-xl top-0 right-0 font-bold text-white ms-2">X</button>
+
         </div>
+        <!-- Daftar Sekarang Button -->
+        <a href="auth/register" class="absolute left-1/2 bottom-8  transform -translate-x-1/2">
+            <button class="rounded-md bg-primary text-white py-2 px-4 sm:py-3 sm:px-6 text-center text-xs sm:text-sm md:text-base lg:text-base  transition-all shadow-md hover:font-bold hover:shadow-lg focus:bg-primaryhover focus:shadow-none active:bg-primaryhover hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
+                Daftar Sekarang
+            </button>
+        </a>
     </div>
 
     <section id="herosection" class="w-full h-[20rem] sm:h-[30rem] md:h-[34rem] lg:h-[36rem] relative">
@@ -294,7 +301,7 @@
                 </button>
                 <div id="videoContainer" class="flex overflow-x-auto space-x-4 scrollbar-hide">
                     <?php foreach ($videos['data_video'] as $item): ?>
-                        <div class="flex-none h-full bg-white rounded-lg shadow-md my-2">
+                        <div class="flex-none w-full bg-white rounded-lg shadow-md my-2">
                             <?php
                             preg_match("/(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/", $item->link_video, $matches);
                             $youtube_id = $matches[1];

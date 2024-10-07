@@ -19,7 +19,7 @@
 
         <div class="relative flex flex-col w-full max-w-2xl mx-auto mb-4 rounded-xl border-2 border-primary bg-white shadow-md lg:p-8 p-4">
             <h4 class="block text-xl font-bold text-slate-800 mb-2">
-                Usulan Saya
+                Usulan: (Nama Provinsi)
             </h4>
             <div class="relative flex flex-col w-full h-full mt-8 overflow-hidden text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
                 <div class="overflow-x-auto">
@@ -71,7 +71,7 @@
                                     </p>
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">
-                                    <a href="./detailusulansaya">
+                                    <a href="./detailusulandlhk">
                                         <button class="w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat</button>
                                     </a>
                                 </td>
@@ -98,7 +98,7 @@
                                     </p>
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">
-                                    <a href="./detailusulansaya">
+                                    <a href="./detailusulandlhk">
                                         <button class="w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat</button>
                                     </a>
                                 </td>
@@ -125,7 +125,7 @@
                                     </p>
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">
-                                    <a href="./detailusulansaya">
+                                    <a href="./detailusulandlhk">
                                         <button class="w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat</button>
                                     </a>
                                 </td>
@@ -152,7 +152,7 @@
                                     </p>
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">
-                                    <a href="./detailusulansaya">
+                                    <a href="./detailusulandlhk">
                                         <button class="w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat</button>
                                     </a>
                                 </td>
@@ -179,7 +179,7 @@
                                     </p>
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">
-                                    <a href="./detailusulansaya">
+                                    <a href="./detailusulandlhk">
                                         <button class="w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat</button>
                                     </a>
                                 </td>

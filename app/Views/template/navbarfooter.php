@@ -136,12 +136,27 @@
                     <li class="flex items-center p-1 text-sm gap-x-2 text-primary hover:text-primaryhover">
                         <a href="<?= base_url('kontak') ?>" class="flex items-center">Kontak</a>
                     </li>
-                    <li class="flex items-center p-1 text-sm gap-x-2 text-primary hover:text-primaryhover"><a href="/auth/login">
-                            <button class="rounded-md bg-primary py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-primaryhover focus:shadow-none active:bg-primaryhover hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                                Masuk
-                        </a>
-                        </button>
-                    </li>
+                    <?php if (session()->has('logged_in')): ?>
+                        <!-- Jika user sudah login -->
+                        <li class="flex items-center p-1 text-sm gap-x-2 text-primary hover:text-primaryhover">
+                            <a href="/pengusul/profil">
+                                <button class="rounded-md bg-primary py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-primaryhover focus:shadow-none active:bg-primaryhover hover:bg-primaryhover active:shadow-none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                    </svg>
+                                </button>
+                            </a>
+                        </li>
+                    <?php else: ?>
+                        <!-- Jika user belum login -->
+                        <li class="flex items-center p-1 text-sm gap-x-2 text-primary hover:text-primaryhover">
+                            <a href="<?= base_url('auth/login') ?>">
+                                <button class="rounded-md bg-primary py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-primaryhover focus:shadow-none active:bg-primaryhover hover:bg-primaryhover active:shadow-none">
+                                    Masuk
+                                </button>
+                            </a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
             </div>
             <button class="relative ml-auto h-6 w-6 select-none rounded-lg lg:hidden" type="button" id="hamburger">
@@ -194,11 +209,25 @@
                     </ul>
                 </li>
                 <li><a href="<?= base_url('kontak') ?>" class="text-left block px-4 py-2 text-primary hover:text-primaryhover hover:bg-secondary">Kontak</a></li>
-                <li class="flex justify-end"><a href="<?= base_url('/auth/login') ?>">
-                        <button class="text-left block px-4 py-2 rounded-md bg-primary border border-transparent text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-primaryhover focus:shadow-none active:bg-primaryhover hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                            Masuk
-                        </button></li>
-                </a>
+                <?php if (session()->has('logged_in')): ?>
+                    <li class="flex justify-end">
+                        <a href="/pengusul/profil">
+                            <button class="rounded-md bg-primary py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-primaryhover focus:shadow-none active:bg-primaryhover hover:bg-primaryhover active:shadow-none">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                </svg>
+                            </button>
+                        </a>
+                    </li>
+                <?php else: ?>
+                    <li class="flex justify-end">
+                        <a href="<?= base_url('auth/login') ?>">
+                            <button class="text-left block px-4 py-2 rounded-md bg-primary border border-transparent text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-primaryhover focus:shadow-none active:bg-primaryhover hover:bg-primaryhover active:shadow-none">
+                                Masuk
+                            </button>
+                        </a>
+                    </li>
+                <?php endif; ?>
             </ul>
         </div>
     </nav>
