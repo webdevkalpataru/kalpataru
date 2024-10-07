@@ -89,9 +89,9 @@
                             <label class="block mb-2 text-sm text-black">Tema Kegiatan</label>
                             <select class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease">
                                 <option value="" disabled selected>Pilih Tema Kegiatan</option>
-                                <option value="keanekaragaman-hayati">Keanekaragaman Hayati (Biodiversity)</option>
+                                <option value="keanekaragaman-hayati-biodiversity">Keanekaragaman Hayati (Biodiversity)</option>
                                 <option value="perubahan-iklim">Perubahan Iklim</option>
-                                <option value="pencemaran-kerusakan-lingkungan">Pencemaran dan Kerusakan Lingkungan</option>
+                                <option value="pencemaran-dan-kerusakan-lingkungan">Pencemaran dan Kerusakan Lingkungan</option>
                                 <option value="hukum-dan-budaya">Hukum dan Budaya</option>
                             </select>
                         </div>
@@ -99,16 +99,21 @@
                             <label class="block mb-2 text-sm text-black">Sub Tema Kegiatan</label>
                             <select class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease">
                                 <option value="" disabled selected>Pilih Sub Tema Kegiatan</option>
-                                <option value="pelestarian-keanekaragaman-hayati-kawasan-dilindungi">Pelestarian keanekaragaman hayati dan kawasan dilindungi</option>
+                                <option value="pelestarian-keanekaragaman-hayati-kawasan-dilindungi-yang-meliputi-pelestarian-sumber-daya-genetik-jenis-dan-ekosistem">Pelestarian keanekaragaman hayati dan kawasan dilindungi yang meliputi pelestarian sumber daya genetik, jenis, dan ekosistem</option>
                                 <option value="pemanfaatan-keanekaragaman-hayati-berkelanjutan">Pemanfaatan keanekaragaman hayati secara berkelanjutan</option>
-                                <option value="jasa-lingkungan">Jasa Lingkungan</option>
-                                <option value="adaptasi-perubahan-iklim">Adaptasi Perubahan Iklim</option>
-                                <option value="mitigasi-perubahan-iklim">Mitigasi Perubahan Iklim</option>
-                                <option value="penerapan-ekonomi-hijau-biru">Penerapan ekonomi hijau dan biru</option>
-                                <option value="penanganan-pencemaran-air-tanah-udara">Penanganan pencemaran air, tanah, udara</option>
-                                <option value="kearifan-tradisional-pengelolaan-sda">Kearifan tradisional dalam pengelolaan sumber daya alam</option>
-                                <option value="keadilan-pemanfaatan-sda-lingkungan">Keadilan terhadap pemanfaatan sumber daya alam dan lingkungan</option>
-                                <option value="komunikasi-pendidikan-lingkungan-hidup">Komunikasi dan Pendidikan Lingkungan Hidup</option>
+                                <option value="jasa-lingkungan">Jasa lingkungan</option> 
+                                <!-- Batas Keanekaragaman Hayati (Biodiversity) -->
+                                <option value="adaptasi-perubahan-iklim">Adaptasi perubahan iklim</option>
+                                <option value="mitigasi-perubahan-iklim">Mitigasi perubahan iklim</option>
+                                <option value="penerapan-ekonomi-hijau-biru">Penerapan ekonomi hijau dan ekonomi biru</option>
+                                <!-- Batas Perubahan Iklim -->
+                                <option value="penanganan-pencemaran-air-tanah-udara-yang-meliputi-industri-pertanian-domestik-terutama-plastik">Penanganan pencemaran air, tanah, udara dari industri, pertanian, domestik terutama plastik</option>
+                                <option value="pencegahan-dan-penanggulangan-kerusakan-lingkungan">Pencegahan dan penanggulangan kerusakan lingkungan</option>
+                                <option value="ekonomi-sirkular">Ekonomi sirkular</option>
+                                <!-- Batas Pencemaran dan Kerusakan Lingkungan -->
+                                <option value="keadilan-pemanfaatan-sumber-daya-alam-dan-lingkungan">Keadilan terhadap pemanfaatan sumber daya alam dan lingkungan</option>
+                                <option value="kearifan-tradisional-dalam-pengelolaan-sumber-daya-alam">Kearifan tradisional dalam pengelolaan sumber daya alam</option>
+                                <option value="komunikasi-pendidikan-lingkungan-hidup">Komunikasi dan pendidikan lingkungan hidup</option>
                             </select>
                         </div>
                         <div>
@@ -264,27 +269,20 @@
                         <div>
                             <label class="block mb-2 text-sm text-black">Tema Kegiatan</label>
                             <select class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease">
-                                <option value="" disabled selected>Pilih Tema Kegiatan</option>
-                                <option value="keanekaragaman-hayati">Keanekaragaman Hayati</option>
-                                <option value="perubahan-iklim">Perubahan Iklim</option>
-                                <option value="pencemaran-kerusakan-lingkungan">Pencemaran dan Kerusakan Lingkungan</option>
-                                <option value="hukum-dan-budaya">Hukum dan Budaya</option>
+                                
+
+
+                            
                             </select>
                         </div>
                         <div>
                             <label class="block mb-2 text-sm text-black">Sub Tema Kegiatan</label>
                             <select class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease">
-                                <option value="" disabled selected>Pilih Sub Tema Kegiatan</option>
-                                <option value="pelestarian-keanekaragaman-hayati-kawasan-dilindungi">Pelestarian keanekaragaman hayati dan kawasan dilindungi</option>
-                                <option value="pemanfaatan-keanekaragaman-hayati-berkelanjutan">Pemanfaatan keanekaragaman hayati secara berkelanjutan</option>
-                                <option value="jasa-lingkungan">Jasa Lingkungan</option>
-                                <option value="adaptasi-perubahan-iklim">Adaptasi Perubahan Iklim</option>
-                                <option value="mitigasi-perubahan-iklim">Mitigasi Perubahan Iklim</option>
-                                <option value="penerapan-ekonomi-hijau-biru">Penerapan ekonomi hijau dan biru</option>
-                                <option value="penanganan-pencemaran-air-tanah-udara">Penanganan pencemaran air, tanah, udara</option>
-                                <option value="kearifan-tradisional-pengelolaan-sda">Kearifan tradisional dalam pengelolaan sumber daya alam</option>
-                                <option value="keadilan-pemanfaatan-sda-lingkungan">Keadilan terhadap pemanfaatan sumber daya alam dan lingkungan</option>
-                                <option value="komunikasi-pendidikan-lingkungan-hidup">Komunikasi dan Pendidikan Lingkungan Hidup</option>
+
+
+
+
+
                             </select>
                         </div>
                         <div>

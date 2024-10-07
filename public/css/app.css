@@ -810,9 +810,6 @@ video {
 .h-\[25rem\] {
   height: 25rem;
 }
-.h-\[350px\] {
-  height: 350px;
-}
 .h-\[4rem\] {
   height: 4rem;
 }
@@ -894,6 +891,9 @@ video {
 .w-max {
   width: -moz-max-content;
   width: max-content;
+}
+.w-1\/2 {
+  width: 50%;
 }
 .min-w-max {
   min-width: -moz-max-content;
@@ -1372,20 +1372,8 @@ video {
 .pt-6 {
   padding-top: 1.5rem;
 }
-.pt-\[56\.25\%\] {
-  padding-top: 56.25%;
-}
-.pt-\[100\%\] {
-  padding-top: 100%;
-}
 .pt-\[80\%\] {
   padding-top: 80%;
-}
-.pt-\[70\%\] {
-  padding-top: 70%;
-}
-.pt-\[60\%\] {
-  padding-top: 60%;
 }
 .text-left {
   text-align: left;
