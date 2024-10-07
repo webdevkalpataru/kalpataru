@@ -15,7 +15,7 @@
     <?= $this->section('content') ?>
 
     <div class="flex flex-col lg:flex-row justify-end m-4">
-        <?= $this->include('template/sidebar') ?>
+        <?= $this->include('template/sidebarpengusul') ?>
 
         <div class="relative flex flex-col w-full max-w-2xl mx-auto mb-4 rounded-xl border-2 border-primary bg-white shadow-md lg:p-8 p-4">
             <h4 class="block text-xl font-bold text-slate-800 mb-2">
@@ -52,7 +52,7 @@
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">
                                     <a href="./detailartikelsaya">
-                                        <button class="w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat</button>
+                                        <button class="w-24 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat Rincian</button>
                                     </a>
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">
@@ -69,7 +69,7 @@
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">
                                     <a href="./detailartikelsaya">
-                                        <button class="w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat</button>
+                                        <button class="w-24 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat Rincian</button>
                                     </a>
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">
@@ -86,7 +86,7 @@
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">
                                     <a href="./detailartikelsaya">
-                                        <button class="w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat</button>
+                                        <button class="w-24 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat Rincian</button>
                                     </a>
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">
@@ -103,7 +103,7 @@
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">
                                     <a href="./detailartikelsaya">
-                                        <button class="w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat</button>
+                                        <button class="w-24 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat Rincian</button>
                                     </a>
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">
@@ -120,7 +120,7 @@
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">
                                     <a href="./detailartikelsaya">
-                                        <button class="w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat</button>
+                                        <button class="w-24 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat Rincian</button>
                                     </a>
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">

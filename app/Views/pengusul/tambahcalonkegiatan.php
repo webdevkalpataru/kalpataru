@@ -15,7 +15,7 @@
     <?= $this->section('content') ?>
 
     <div class="flex flex-col lg:flex-row justify-end m-4">
-        <?= $this->include('template/sidebar') ?>
+        <?= $this->include('template/sidebarpengusul') ?>
 
         <!-- Konten utama -->
         <div class="relative flex flex-col w-full max-w-2xl mx-auto mb-4 rounded-xl border-2 border-primary bg-white shadow-md lg:p-8 p-4">
@@ -89,7 +89,7 @@
                             <label class="block mb-2 text-sm text-black">Tema Kegiatan</label>
                             <select class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease">
                                 <option value="" disabled selected>Pilih Tema Kegiatan</option>
-                                <option value="keanekaragaman-hayati">Keanekaragaman Hayati</option>
+                                <option value="keanekaragaman-hayati">Keanekaragaman Hayati (Biodiversity)</option>
                                 <option value="perubahan-iklim">Perubahan Iklim</option>
                                 <option value="pencemaran-kerusakan-lingkungan">Pencemaran dan Kerusakan Lingkungan</option>
                                 <option value="hukum-dan-budaya">Hukum dan Budaya</option>
@@ -113,7 +113,8 @@
                         </div>
                         <div>
                             <label class="block mb-2 text-sm text-black">Jenis Kegiatan</label>
-                            <select id="jenisKegiatan" class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" onchange="toggleJenisLainnya()">
+                            <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" />
+                            <!-- <select id="jenisKegiatan" class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" onchange="toggleJenisLainnya()">
                                 <option value="" disabled selected>Pilih Jenis Kegiatan</option>
                                 <option value="konservasi-hutan">Konservasi Hutan</option>
                                 <option value="konservasi-karst">Konservasi Karst</option>
@@ -148,12 +149,12 @@
                                 <option value="edukasi-lingkungan">Edukasi Lingkungan</option>
                                 <option value="gerakan-aksi-lingkungan">Gerakan Aksi Lingkungan</option>
                                 <option value="jenis-kegiatan-lainnya">Jenis Kegiatan Lainnya</option>
-                            </select>
+                            </select> -->
                         </div>
-                        <div id="jenisLainnya" class="hidden">
+                        <!-- <div id="jenisLainnya" class="hidden">
                             <label class="block mb-2 text-sm text-black">Jenis Kegiatan Lainnya</label>
                             <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" />
-                        </div>
+                        </div> -->
                         <div>
                             <label class="block mb-2 text-sm text-black">Tahun Mulai Kegiatan</label>
                             <input type="date" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
@@ -205,7 +206,7 @@
 
     <script>
         // Jenis Kegiatan Lainnya
-        function toggleJenisLainnya() {
+        /* function toggleJenisLainnya() {
             const jenisKegiatan = document.getElementById('jenisKegiatan');
             const jenisLainnya = document.getElementById('jenisLainnya');
             if (jenisKegiatan.value === 'jenis-kegiatan-lainnya') {
@@ -213,7 +214,7 @@
             } else {
                 jenisLainnya.classList.add('hidden');
             }
-        }
+        } */
 
         // Batasan Kata
         function updateWordCount(textarea, countId, maxWords) {
@@ -288,45 +289,6 @@
                         </div>
                         <div>
                             <label class="block mb-2 text-sm text-black">Jenis Kegiatan</label>
-                            <select id="jenisKegiatan" class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" onchange="toggleJenisLainnya()">
-                                <option value="" disabled selected>Pilih Jenis Kegiatan</option>
-                                <option value="konservasi-hutan">Konservasi Hutan</option>
-                                <option value="konservasi-karst">Konservasi Karst</option>
-                                <option value="mangrove">Mangrove</option>
-                                <option value="konservasi-terumbu-karang">Konservasi Terumbu Karang</option>
-                                <option value="konservasi-mata-air">Konservasi Mata Air</option>
-                                <option value="konservasi-das">Konservasi DAS</option>
-                                <option value="konservasi-kawasan-perairan">Konservasi Kawasan Perairan</option>
-                                <option value="konservasi-satwa">Konservasi Satwa</option>
-                                <option value="konservasi-tanaman">Konservasi Tanaman</option>
-                                <option value="tanaman-obat">Tanaman Obat</option>
-                                <option value="penanaman-tanaman-budidaya">Penanaman Tanaman Budidaya</option>
-                                <option value="pengelolaan-hutan">Pengelolaan Hutan</option>
-                                <option value="pengelolaan-budidaya-perairan">Pengelolaan Budidaya Perairan</option>
-                                <option value="ekowisata">Ekowisata</option>
-                                <option value="penyediaan-air-bersih">Penyediaan Air Bersih</option>
-                                <option value="energi-terbarukan">Energi Terbarukan</option>
-                                <option value="pemanfaatan-teknologi-ramah-lingkungan">Pemanfaatan Teknologi Ramah Lingkungan</option>
-                                <option value="penghijauan">Penghijauan</option>
-                                <option value="rehabilitasi-lahan-kritis">Rehabilitasi Lahan Kritis</option>
-                                <option value="ruang-terbuka-hijau">Ruang Terbuka Hijau</option>
-                                <option value="pertanian-ramah-lingkungan">Pertanian Ramah Lingkungan</option>
-                                <option value="urban-farming">Urban Farming</option>
-                                <option value="kawasan-peduli-lingkungan">Kawasan Peduli Lingkungan</option>
-                                <option value="ketahanan-pangan">Ketahanan Pangan</option>
-                                <option value="pemulihan-area-rusak-tercemar">Pemulihan Area Rusak dan Tercemar</option>
-                                <option value="penanganan-bencana">Penanganan Bencana</option>
-                                <option value="pengelolaan-sampah-limbah">Pengelolaan Sampah dan Limbah</option>
-                                <option value="hutan-adat">Hutan Adat</option>
-                                <option value="kearifan-lokal">Kearifan Lokal</option>
-                                <option value="advokasi-lingkungan">Advokasi Lingkungan</option>
-                                <option value="edukasi-lingkungan">Edukasi Lingkungan</option>
-                                <option value="gerakan-aksi-lingkungan">Gerakan Aksi Lingkungan</option>
-                                <option value="jenis-kegiatan-lainnya">Jenis Kegiatan Lainnya</option>
-                            </select>
-                        </div>
-                        <div id="jenisLainnya" class="hidden">
-                            <label class="block mb-2 text-sm text-black">Jenis Kegiatan Lainnya</label>
                             <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" />
                         </div>
                         <div>
