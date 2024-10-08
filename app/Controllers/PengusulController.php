@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\PengusulModel;
+use App\Models\IdentitasModel;
 // use CodeIgniter\Controller;
 
 class PengusulController extends BaseController
@@ -12,7 +13,6 @@ class PengusulController extends BaseController
         $pengusulModel = new PengusulModel();
         $data['pengusul'] = $pengusulModel->where('id_pengusul', session()->get('id_pengusul'))->first();
         if (!session()->get('logged_in')) {
-            // Simpan pesan ke session flash atau redirect dengan query
             return redirect()->to('/auth/login')->with('authMessage', 'Harap login terlebih dahulu');
         }
 
@@ -24,14 +24,12 @@ class PengusulController extends BaseController
     {
         $pengusulModel = new PengusulModel();
 
-        // Ambil ID pengguna yang login dari session
         $id_pengusul = session()->get('id_pengusul');
 
-        // Ambil data surat pengantar yang sudah ada
         $currentSuratPengantar = session()->get('surat_pengantar');
 
         $file = $this->request->getFile('surat_pengantar');
-        $filePath = $currentSuratPengantar; // Default ke nilai lama
+        $filePath = $currentSuratPengantar;
 
         if ($file && $file->isValid() && !$file->hasMoved()) {
             if ($file->getClientMimeType() == 'application/pdf') {
@@ -41,7 +39,6 @@ class PengusulController extends BaseController
             }
         }
 
-        // Ambil data yang diinputkan dari form
         $data = [
             'jenis_instansi' => $this->request->getPost('jenis_instansi'),
             'nama_instansi_pribadi' => $this->request->getPost('nama'),
@@ -59,7 +56,6 @@ class PengusulController extends BaseController
             'surat_pengantar' => $filePath
         ];
 
-        // Update data di database
         if ($pengusulModel->update($id_pengusul, $data)) {
             session()->set($data);
 
@@ -69,32 +65,121 @@ class PengusulController extends BaseController
         }
     }
 
-
-
-    public function halamanLainnya()
-    {
-        $pengusulModel = new PengusulModel();
-        $pengusul = $pengusulModel->where('id_pengusul', session()->get('id_pengusul'))->first();
-
-        // Cek apakah semua field sudah diisi
-        if (empty($pengusul['nama_instansi_pribadi']) || empty($pengusul['telepon']) || empty($pengusul['email'])) {
-            return redirect()->to(base_url('pengusul/profil'))->with('error', 'Silakan lengkapi profil Anda terlebih dahulu.');
-        }
-
-        // Jika profil sudah lengkap, lanjutkan ke halaman lainnya
-        return view('pengusul/halaman_lainnya');
-    }
-
     public function tambahcalon()
     {
-        $data['title'] = 'Tambah Calon Usulan';
-        return view('pengusul/tambahcalon', $data);
+        $id_pengusul = session()->get('id_pengusul');
+
+        if (!$id_pengusul) {
+            return redirect()->to('/login');
+        }
+
+        return view('pengusul/tambahcalon', ['id_pengusul' => $id_pengusul]);
     }
-    public function tambahcalonidentitas()
+
+    public function inputKategori()
     {
-        $data['title'] = 'Tambah Calon Usulan';
-        return view('pengusul/tambahcalonidentitas', $data);
+        $Model = new IdentitasModel();
+        $id_pengusul = $this->request->getPost('id_pengusul');
+        $kategori = $this->request->getPost('kategori');
+
+        $data = [
+            'id_pengusul' => $id_pengusul,
+            'kategori' => $kategori,
+            'tanggal_pendaftaran' => date('Y-m-d H:i:s')
+        ];
+
+        if ($Model->insert($data)) {
+            // Dapatkan ID dari pendaftaran yang baru disimpan
+            $id_pendaftaran = $Model->insertID();
+
+            session()->set('id_pendaftaran', $id_pendaftaran);
+            session()->set('kategori', $kategori);
+
+            return redirect()->to('pengusul/tambahcalonidentitas')->with('success', 'Kategori berhasil disimpan.');
+        } else {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data. Silakan coba lagi.');
+        }
     }
+
+    public function tambahCalonIdentitas()
+    {
+        $id_pendaftaran = session()->get('id_pendaftaran');
+        $kategori = session()->get('kategori');
+
+        if (!$id_pendaftaran || !$kategori) {
+            return redirect()->back()->with('error', 'Data kategori atau pendaftaran tidak ditemukan.');
+        }
+
+        return view('pengusul/tambahcalonidentitas', [
+            'id_pendaftaran' => $id_pendaftaran,
+            'kategori' => $kategori
+        ]);
+    }
+
+    public function inputIdentitas()
+    {
+        $Model = new IdentitasModel();
+
+        $id_pendaftaran = session()->get('id_pendaftaran');
+        $kategori = session()->get('kategori');
+
+        // Cek apakah kategori yang dipilih adalah penyelamat lingkungan
+        if ($kategori == 'Penyelamat Lingkungan') {
+            $data = [
+                'id_pendaftaran' => $id_pendaftaran,
+                'nama' => $this->request->getPost('nama_kelompok'),
+                'tahun_berdiri' => $this->request->getPost('tahun_berdiri'),
+                'jumlah_anggota' => $this->request->getPost('jumlah_anggota'),
+                'jalan' => $this->request->getPost('jalan'),
+                'rt_rw' => $this->request->getPost('rt_rw'),
+                'desa' => $this->request->getPost('desa'),
+                'kecamatan' => $this->request->getPost('kecamatan'),
+                'kab_kota' => $this->request->getPost('kab_kota'),
+                'provinsi' => $this->request->getPost('provinsi'),
+                'kode_pos' => $this->request->getPost('kode_pos'),
+                'sosial_media' => $this->request->getPost('media_sosial'),
+                'nama_ketua' => $this->request->getPost('nama_ketua'),
+                'nik' => $this->request->getPost('nik_ketua'),
+                'tempat_lahir' => $this->request->getPost('tempat_lahir'),
+                'tanggal_lahir' => $this->request->getPost('tanggal_lahir'),
+                'usia' => $this->request->getPost('usia'),
+                'jenis_kelamin' => $this->request->getPost('jenis_kelamin'),
+                'pekerjaan' => $this->request->getPost('pekerjaan'),
+                'pendidikan' => $this->request->getPost('pendidikan'),
+            ];
+
+            // Simpan ke database
+            $Model->insert($data);
+        } else {
+            $data = [
+                'id_pendaftaran' => $id_pendaftaran,
+                'nama_individu' => $this->request->getPost('nama'),
+                'nik_individu' => $this->request->getPost('nik'),
+                'tempat_lahir' => $this->request->getPost('tempat_lahir'),
+                'usia' => $this->request->getPost('usia'),
+                'jenis_kelamin' => $this->request->getPost('jenis_kelamin'),
+                'pekerjaan' => $this->request->getPost('pekerjaan'),
+                'telepon' => $this->request->getPost('telepon'),
+                'email' => $this->request->getPost('email'),
+                'jalan' => $this->request->getPost('jalan'),
+                'rt_rw' => $this->request->getPost('rt_rw'),
+                'desa' => $this->request->getPost('desa'),
+                'kecamatan' => $this->request->getPost('kecamatan'),
+                'kab_kota' => $this->request->getPost('kab_kota'),
+                'provinsi' => $this->request->getPost('provinsi'),
+                'kode_pos' => $this->request->getPost('kode_pos'),
+                'pendidikan' => $this->request->getPost('pendidikan'),
+                'media_sosial' => $this->request->getPost('sosial_media'),
+            ];
+
+            // Simpan ke database
+            $Model->insert($data);
+        }
+
+        // Redirect atau kembalikan response berhasil
+        return redirect()->to('pengusul/tambahcalonkegiatan');
+    }
+
     public function tambahcalonkegiatan()
     {
         $data['title'] = 'Tambah Calon Usulan';
@@ -177,5 +262,19 @@ class PengusulController extends BaseController
     {
         $data['title'] = 'Panduan Pendaftaran';
         return view('pengusul/panduanpendaftaran', ['title' => 'Panduan Pendaftaran']);
+    }
+
+    public function halamanLainnya()
+    {
+        $pengusulModel = new PengusulModel();
+        $pengusul = $pengusulModel->where('id_pengusul', session()->get('id_pengusul'))->first();
+
+        // Cek apakah semua field sudah diisi
+        if (empty($pengusul['nama_instansi_pribadi']) || empty($pengusul['telepon']) || empty($pengusul['email'])) {
+            return redirect()->to(base_url('pengusul/profil'))->with('error', 'Silakan lengkapi profil Anda terlebih dahulu.');
+        }
+
+        // Jika profil sudah lengkap, lanjutkan ke halaman lainnya
+        return view('pengusul/halaman_lainnya');
     }
 }

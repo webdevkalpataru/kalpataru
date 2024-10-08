@@ -32,11 +32,11 @@ $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
 
     // Route for "Tambah Calon" step 1 (Category selection)
     $routes->get('tambahcalon', 'PengusulController::tambahcalon');
-    $routes->post('tambahcalon', 'PengusulController::tambahcalon'); // Handle category selection form submission
+    $routes->post('tambahcalon', 'PengusulController::inputKategori'); // Handle category selection form submission
 
     // Route for "Tambah Calon" step 2 (Identitas)
     $routes->get('tambahcalonidentitas', 'PengusulController::tambahcalonidentitas');
-    $routes->post('tambahcalonidentitas', 'PengusulController::tambahcalonidentitas'); // Handle the form submission
+    $routes->post('tambahcalonidentitas', 'PengusulController::inputIdentitas'); // Handle the form submission
 
     // Route for "Tambah Calon" step 3 (Kegiatan)
     $routes->get('tambahcalonkegiatan', 'PengusulController::tambahcalonkegiatan');
@@ -80,4 +80,3 @@ $routes->group('penerima', ['filter' => 'auth'], function ($routes) {
     $routes->get('artikelsaya', 'PenerimaController::artikelsaya');
     $routes->get('detailartikelsaya', 'PenerimaController::detailartikelsaya');
 });
-

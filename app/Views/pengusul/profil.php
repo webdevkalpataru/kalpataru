@@ -165,9 +165,9 @@
     <div id="uploadModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
       <div class="bg-white rounded-lg p-8 flex flex-col items-center max-w-md">
         <img src="/images/sukses.png" alt="Success Icon" class="w-16 h-16 mb-4">
-        <h2 class="text-center text-lg font-bold text-primary mb-2">Terima kasih telah memperbarui profil!</h2>
+        <h2 class="text-center text-lg font-bold text-primary mb-2">Profil berhasil diperbarui!</h2>
         <a href="./profil">
-          <button id="closeModalBtn" class="bg-primary text-white py-2 px-4 rounded-lg"><span class="font-bold text-lg items-center">←</span> Kembali</button>
+          <button id="closeModalBtn" class="bg-primary text-white py-2 px-4 rounded-lg"><span class="font-bold text-lg items-center"></span>OK</button>
         </a>
       </div>
     </div>
