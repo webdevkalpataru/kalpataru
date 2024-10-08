@@ -80,14 +80,14 @@
                 </div>
             </div>
 
-            <form id="kegiatanForm" class="mt-4 mb-2 w-full">
+            <form action="<?= base_url('pengusul/simpancalonkegiatan'); ?>" method="post">
                 <div class="grid grid-cols-1 gap-4" id="formContainer">
 
                     <!-- Kolom kiri -->
                     <div class="space-y-4">
                         <div>
-                            <label class="block mb-2 text-sm text-black">Tema Kegiatan</label>
-                            <select class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease">
+                            <label for="tema" class="block mb-2 text-sm text-black">Tema Kegiatan</label>
+                            <select name="tema" id="tema" class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" required>
                                 <option value="" disabled selected>Pilih Tema Kegiatan</option>
                                 <option value="keanekaragaman-hayati">Keanekaragaman Hayati</option>
                                 <option value="perubahan-iklim">Perubahan Iklim</option>
@@ -95,9 +95,10 @@
                                 <option value="hukum-dan-budaya">Hukum dan Budaya</option>
                             </select>
                         </div>
+
                         <div>
                             <label class="block mb-2 text-sm text-black">Sub Tema Kegiatan</label>
-                            <select class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease">
+                            <select name="sub_tema" class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" required>
                                 <option value="" disabled selected>Pilih Sub Tema Kegiatan</option>
                                 <option value="pelestarian-keanekaragaman-hayati-kawasan-dilindungi">Pelestarian keanekaragaman hayati dan kawasan dilindungi</option>
                                 <option value="pemanfaatan-keanekaragaman-hayati-berkelanjutan">Pemanfaatan keanekaragaman hayati secara berkelanjutan</option>
@@ -111,9 +112,10 @@
                                 <option value="komunikasi-pendidikan-lingkungan-hidup">Komunikasi dan Pendidikan Lingkungan Hidup</option>
                             </select>
                         </div>
+
                         <div>
                             <label class="block mb-2 text-sm text-black">Jenis Kegiatan</label>
-                            <select id="jenisKegiatan" class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" onchange="toggleJenisLainnya()">
+                            <select id="jenisKegiatan" name="jenis_kegiatan" class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" onchange="toggleJenisLainnya()" required>
                                 <option value="" disabled selected>Pilih Jenis Kegiatan</option>
                                 <option value="konservasi-hutan">Konservasi Hutan</option>
                                 <option value="konservasi-karst">Konservasi Karst</option>
@@ -152,15 +154,15 @@
                         </div>
                         <div id="jenisLainnya" class="hidden">
                             <label class="block mb-2 text-sm text-black">Jenis Kegiatan Lainnya</label>
-                            <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" />
+                            <input type="text" name="jenis_kegiatan_lainnya" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" />
                         </div>
                         <div>
                             <label class="block mb-2 text-sm text-black">Tahun Mulai Kegiatan</label>
-                            <input type="date" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            <input type="date" name="tahun_mulai" id="tahun_mulai" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                         </div>
                         <div>
                             <label class="block mb-2 text-sm text-black">Penjelasan Kegiatan</label>
-                            <textarea id="penjelasan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                            <textarea name="deskripsi_kegiatan" id="deskripsi_kegiatan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
                                 oninput="updateWordCount(this, 'penjelasanCount', 1000)"></textarea>
                             <p id="penjelasanCount" class="text-xs text-slate-400 flex justify-end ">0/1000 Kata</p>
                         </div>
@@ -170,17 +172,17 @@
                     <div class="space-y-4">
                         <div>
                             <label class="block mb-2 text-sm text-black">Lokasi Kegiatan</label>
-                            <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            <input type="text" name="lokasi_kegiatan" id="lokasi_kegiatan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                         </div>
                         <div>
                             <label class="block mb-2 text-sm text-black">Para Pihak dan Perannya</label>
-                            <textarea id="pihakPeran" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                            <textarea name="pihak_dan_peran" id="pihak_dan_peran" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
                                 oninput="updateWordCount(this, 'pihakPeranCount', 1000)"></textarea>
                             <p id="pihakPeranCount" class="text-xs text-slate-400 flex justify-end ">0/1000 Kata</p>
                         </div>
                         <div>
                             <label class="block mb-2 text-sm text-black">Keberhasilan yang Dicapai</label>
-                            <textarea id="keberhasilan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                            <textarea name="keberhasilan" id="keberhasilan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
                                 oninput="updateWordCount(this, 'keberhasilanCount', 1000)"></textarea>
                             <p id="keberhasilanCount" class="text-xs text-slate-400 flex justify-end ">0/1000 kata</p>
                         </div>
@@ -190,9 +192,9 @@
 
                 <div class="flex justify-between mt-4">
                     <button id="tambahKegiatanBtn" class="w-40 rounded-md py-2 text-center text-sm text-primary transition-all shadow-md hover:shadow-lg bg-secondary active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button" onclick="tambahKegiatan()"> <span>&#10010</span> Tambah Kegiatan</button>
-                    <a href="./tambahcalondampak">
-                        <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Selanjutnya</button>
-                    </a>
+                    <div class="flex justify-end mt-4">
+                        <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="submit">Selanjutnya</button>
+                    </div>
                 </div>
 
 

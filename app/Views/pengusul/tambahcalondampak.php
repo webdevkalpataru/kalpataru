@@ -80,32 +80,30 @@
                 </div>
             </div>
 
-            <form id="dampakForm" class="mt-4 mb-2 w-full">
+            <form action="<?= base_url('pengusul/simpancalondampak'); ?>" method="post" class="mt-4 mb-2 w-full">
                 <div class="grid grid-cols-1 gap-4" id="formContainer">
                     <div>
                         <label class="block mb-2 text-sm text-black">Dampak kegiatan terhadap lingkungan</label>
-                        <textarea id="dampakLingkungan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                            oninput="updateWordCount(this, 'dampakLingkunganCount', 1000)"></textarea>
-                        <p id="dampakLingkunganCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
+                        <textarea name="dampak_lingkungan" id="dampak_lingkungan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                            oninput="updateWordCount(this, 'dampak_lingkunganCount', 1000)"></textarea>
+                        <p id="dampak_lingkunganCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
                     </div>
                     <div>
                         <label class="block mb-2 text-sm text-black">Dampak Ekonomi</label>
-                        <textarea id="dampakEkonomi" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                            oninput="updateWordCount(this, 'dampakEkonomiCount', 1000)"></textarea>
-                        <p id="dampakEkonomiCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
+                        <textarea name="dampak_ekonomi" id="dampak_ekonomi" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                            oninput="updateWordCount(this, 'dampak_ekonomiCount', 1000)"></textarea>
+                        <p id="dampak_ekonomiCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
                     </div>
                     <div>
                         <label class="block mb-2 text-sm text-black">Dampak Sosial dan Budaya</label>
-                        <textarea id="dampakSosial" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                            oninput="updateWordCount(this, 'dampakSosialCount', 1000)"></textarea>
-                        <p id="dampakSosialCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
+                        <textarea name="dampak_sosial_budaya" id="dampak_sosial_budaya" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                            oninput="updateWordCount(this, 'dampak_sosial_budayaCount', 1000)"></textarea>
+                        <p id="dampak_sosial_budayaCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
                     </div>
                 </div>
 
                 <div class="flex justify-end mt-4">
-                    <a href="./tambahcalonpmik">
-                        <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Selanjutnya</button>
-                    </a>
+                    <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="submit">Selanjutnya</button>
                 </div>
             </form>
         </div>

@@ -36,27 +36,31 @@ $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
 
     // Route for "Tambah Calon" step 2 (Identitas)
     $routes->get('tambahcalonidentitas', 'PengusulController::tambahcalonidentitas');
-    $routes->post('tambahcalonidentitas', 'PengusulController::tambahcalonidentitas'); // Handle the form submission
+    $routes->post('simpancalonidentitas', 'PengusulController::simpanCalonIdentitas'); // Handle the form submission
 
     // Route for "Tambah Calon" step 3 (Kegiatan)
     $routes->get('tambahcalonkegiatan', 'PengusulController::tambahcalonkegiatan');
-    $routes->post('tambahcalonkegiatan', 'PengusulController::tambahcalonkegiatan');
+    $routes->post('simpancalonkegiatan', 'PengusulController::simpanCalonKegiatan');
 
-    // Route for "Tambah Calon" step 4 (PMIK)
-    $routes->get('tambahcalonpmik', 'PengusulController::tambahcalonpmik');
-    $routes->post('tambahcalonpmik', 'PengusulController::tambahcalonpmik');
-
-    // Route for "Tambah Calon" step 5 (Dampak)
+    // Route for "Tambah Calon" step 4 (Dampak)
     $routes->get('tambahcalondampak', 'PengusulController::tambahcalondampak');
-    $routes->post('tambahcalondampak', 'PengusulController::tambahcalondampak');
+    $routes->post('simpancalondampak', 'PengusulController::simpanCalonDampak');
+
+    // Route for "Tambah Calon" step 5 (PMIK)
+    $routes->get('tambahcalonpmik', 'PengusulController::tambahcalonpmik');
+    $routes->post('simpancalonpmik', 'PengusulController::simpanCalonPmik');
 
     // Route for "Tambah Calon" step 6 (Keswadayaan)
     $routes->get('tambahcalonkeswadayaan', 'PengusulController::tambahcalonkeswadayaan');
-    $routes->post('tambahcalonkeswadayaan', 'PengusulController::tambahcalonkeswadayaan');
+    $routes->post('simpancalonkeswadayaan', 'PengusulController::simpanCalonKeswadayaan');
 
     // Route for "Tambah Calon" step 7 (Keistimewaan)
     $routes->get('tambahcalonkeistimewaan', 'PengusulController::tambahcalonkeistimewaan');
-    $routes->post('tambahcalonkeistimewaan', 'PengusulController::tambahcalonkeistimewaan');
+    $routes->post('simpancalonkeistimewaan', 'PengusulController::simpanCalonKeistimewaan');
+
+    $routes->get('selesai', 'PengusulController::selesai');
+    $routes->post('selesai', 'PengusulController::selesai');
+
 
     // Other routes related to Pengusul
     $routes->get('usulansaya', 'PengusulController::usulansaya');

@@ -81,11 +81,15 @@
                 // Tampilkan pesan validasi jika kategori belum dipilih
                 document.getElementById('validationMessage').classList.remove('hidden');
             } else {
-                // Redirect ke halaman berikutnya jika kategori sudah dipilih
-                window.location.href = "./tambahcalonidentitas";
+                // Ambil nama file gambar yang dipilih sebagai kategori
+                let selectedCategory = selectedImage.alt;
+
+                // Redirect ke halaman berikutnya dengan kategori sebagai parameter
+                window.location.href = `./tambahcalonidentitas?kategori=${selectedCategory}`;
             }
         }
     </script>
+
 
     <?= $this->endSection() ?>
 

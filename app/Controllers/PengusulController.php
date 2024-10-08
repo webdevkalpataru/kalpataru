@@ -2,11 +2,18 @@
 
 namespace App\Controllers;
 
+use App\Models\PendaftaranModel;
 use App\Models\PengusulModel;
-// use CodeIgniter\Controller;
 
 class PengusulController extends BaseController
 {
+    protected $pengusulModel, $pendaftaranModel;
+
+    public function __construct()
+    {
+        $this->pendaftaranModel = new PendaftaranModel();
+    }
+
     public function index(): string
     {
         $pengusulModel = new PengusulModel();
@@ -112,8 +119,6 @@ class PengusulController extends BaseController
         }
     }
 
-
-
     public function halamanLainnya()
     {
         $pengusulModel = new PengusulModel();
@@ -131,56 +136,204 @@ class PengusulController extends BaseController
     public function tambahcalon()
     {
         $data['title'] = 'Tambah Calon Usulan';
-
         return view('pengusul/tambahcalon', $data);
     }
+
     public function tambahcalonidentitas()
     {
-        $selectedCategory = $this->request->getPost('selected_category');
+        // Cek apakah kategori ada di GET
+        $kategori = $this->request->getGet('kategori') ?? 'unknown';
+        // Tentukan jenis kategori berdasarkan nilai kategori
+        $jenisKategori = ($kategori === 'kategoric') ? 'kelompok' : 'individu';
 
-        // Cek apakah kategori sudah dipilih
-        if (!$selectedCategory) {
-            // Jika tidak ada kategori yang dipilih, redirect kembali dengan pesan error
-            return redirect()->back()->with('error', 'Silahkan pilih kategori terlebih dahulu');
-        }
-
-        // Simpan kategori yang dipilih ke dalam session
-        $session = session();
-        $session->set('selected_category', $selectedCategory);
-
-        // Data untuk view
         $data = [
             'title' => 'Tambah Identitas Calon',
-            'selectedCategory' => $selectedCategory
+            'jenisKategori' => $jenisKategori,
+            'kategori' => $kategori // Pastikan kategori ditambahkan ke data
         ];
 
         return view('pengusul/tambahcalonidentitas', $data);
     }
 
+    public function simpanCalonIdentitas()
+    {
+        $data = [
+            'kategori' => $this->request->getPost('kategori'),
+            'nama' => $this->request->getPost('nama'),
+            'nik' => $this->request->getPost('nik'),
+            'tempat_lahir' => $this->request->getPost('tempat_lahir'),
+            'tanggal_lahir' => $this->request->getPost('tanggal_lahir'),
+            'usia' => $this->request->getPost('usia'),
+            'jenis_kelamin' => $this->request->getPost('jenis_kelamin'),
+            'jalan' => $this->request->getPost('jalan'),
+            'rt_rw' => $this->request->getPost('rt_rw'),
+            'desa' => $this->request->getPost('desa'),
+            'kecamatan' => $this->request->getPost('kecamatan'),
+            'kab_kota' => $this->request->getPost('kab_kota'),
+            'provinsi' => $this->request->getPost('provinsi'),
+            'kode_pos' => $this->request->getPost('kode_pos'),
+            'pekerjaan' => $this->request->getPost('pekerjaan'),
+            'telepon' => $this->request->getPost('telepon'),
+            'email' => $this->request->getPost('email'),
+            'sosial_media' => $this->request->getPost('sosial_media'),
+            'pendidikan' => $this->request->getPost('pendidikan'),
+            'ktp' => $this->request->getPost('ktp'),
+            'skck' => $this->request->getPost('skck'),
+        ];
+
+        $this->pendaftaranModel->simpanKeSession($data);
+
+        return redirect()->to('pengusul/tambahcalonkegiatan');
+    }
+
+
     public function tambahcalonkegiatan()
     {
-        $data['title'] = 'Tambah Calon Usulan';
+        $data['title'] = 'Tambah Kegiatan';
         return view('pengusul/tambahcalonkegiatan', $data);
     }
-    public function tambahcalonpmik()
+
+    public function simpanCalonKegiatan()
     {
-        $data['title'] = 'Tambah Calon Usulan';
-        return view('pengusul/tambahcalonpmik', $data);
+        $data = [
+            'tema' => $this->request->getPost('tema'),
+            'sub_tema' => $this->request->getPost('sub_tema'),
+            'jenis_kegiatan' => $this->request->getPost('jenis_kegiatan'),
+            'tahun_mulai' => $this->request->getPost('tahun_mulai'),
+            'deskripsi_kegiatan' => $this->request->getPost('deskripsi_kegiatan'),
+            'lokasi_kegiatan' => $this->request->getPost('lokasi_kegiatan'),
+            'pihak_dan_peran' => $this->request->getPost('pihak_dan_peran'),
+            'keberhasilan' => $this->request->getPost('keberhasilan'),
+        ];
+
+        $this->pendaftaranModel->simpanKeSession($data);
+
+        return redirect()->to('pengusul/tambahcalondampak');
     }
+
+
+
     public function tambahcalondampak()
     {
-        $data['title'] = 'Tambah Calon Usulan';
+        $data['title'] = 'Tambah Dampak';
         return view('pengusul/tambahcalondampak', $data);
     }
+
+    public function simpanCalonDampak()
+    {
+        $data = [
+            'dampak_lingkungan' => $this->request->getPost('dampak_lingkungan'),
+            'dampak_ekonomi' => $this->request->getPost('dampak_ekonomi'),
+            'dampak_sosial_budaya' => $this->request->getPost('dampak_sosial_budaya'),
+        ];
+
+        $this->pendaftaranModel->simpanKeSession($data);
+
+        return redirect()->to('pengusul/tambahcalonpmik');
+    }
+
+
+    public function tambahcalonpmik()
+    {
+        $data['title'] = 'Tambah PMIK';
+        return view('pengusul/tambahcalonpmik', $data);
+    }
+
+    public function simpanCalonPmik()
+    {
+        $data = [
+            'prakarsa' => $this->request->getPost('prakarsa'),
+            'motivasi' => $this->request->getPost('motivasi'),
+            'inovasi' => $this->request->getPost('inovasi'),
+            'krativitas' => $this->request->getPost('krativitas'),
+        ];
+
+        $this->pendaftaranModel->simpanKeSession($data);
+
+        return redirect()->to('pengusul/tambahcalonkeswadayaan');
+    }
+
+
     public function tambahcalonkeswadayaan()
     {
-        $data['title'] = 'Tambah Calon Usulan';
+        $data['title'] = 'Tambah Keswadayaan';
         return view('pengusul/tambahcalonkeswadayaan', $data);
     }
+
+    public function simpanCalonKeswadayaan()
+    {
+        $data = [
+            'sumber_biaya' => $this->request->getPost('sumber_biaya'),
+            'teknologi_kegiatan' => $this->request->getPost('teknologi_kegiatan'),
+            'status_lahan_kegiatan' => $this->request->getPost('status_lahan_kegiatan'),
+            'jumlah_kelompok_serupa' => $this->request->getPost('jumlah_kelompok_serupa'),
+        ];
+
+        $this->pendaftaranModel->simpanKeSession($data);
+
+        return redirect()->to('pengusul/tambahcalonkeistimewaan');
+    }
+
+
     public function tambahcalonkeistimewaan()
     {
-        $data['title'] = 'Tambah Calon Usulan';
+        $data['title'] = 'Tambah Keistimewaan';
         return view('pengusul/tambahcalonkeistimewaan', $data);
+    }
+    public function simpanCalonKeistimewaan()
+    {
+        $data = [
+            'keistimewaan' => $this->request->getPost('keistimewaan'),
+            'penghargaan' => $this->request->getPost('penghargaan'),
+            'foto_kegiatan1' => $this->request->getPost('foto_kegiatan1'),
+            'foto_kegiatan2' => $this->request->getPost('foto_kegiatan2'),
+            'foto_kegiatan3' => $this->request->getPost('foto_kegiatan3'),
+            'foto_kegiatan4' => $this->request->getPost('foto_kegiatan4'),
+            'foto_kegiatan5' => $this->request->getPost('foto_kegiatan5'),
+            'deskripsi_foto_kegiatan1' => $this->request->getPost('deskripsi_foto_kegiatan1'),
+            'deskripsi_foto_kegiatan2' => $this->request->getPost('deskripsi_foto_kegiatan2'),
+            'deskripsi_foto_kegiatan3' => $this->request->getPost('deskripsi_foto_kegiatan3'),
+            'deskripsi_foto_kegiatan4' => $this->request->getPost('deskripsi_foto_kegiatan4'),
+            'deskripsi_foto_kegiatan5' => $this->request->getPost('deskripsi_foto_kegiatan5'),
+            'tautan_video' => $this->request->getPost('tautan_video'),
+            'tautan_dokumen_pendukung' => $this->request->getPost('tautan_dokumen_pendukung'),
+        ];
+
+        // Simpan data ke session
+        $this->pendaftaranModel->simpanKeSession($data);
+
+        // Redirect ke function selesai untuk penyimpanan semua data ke database
+        return redirect()->to(base_url('pengusul/selesai'));
+    }
+
+
+
+    public function selesai()
+    {
+        // Ambil data dari session
+        $pendaftaranData = $this->pendaftaranModel->ambilDariSession();
+
+        if (!empty($pendaftaranData)) {
+            try {
+                // Simpan semua data ke database
+                $this->pendaftaranModel->simpanSemuaDataKeDatabase();
+
+                // Hapus data dari session setelah penyimpanan selesai
+                session()->remove('pendaftaranData');
+
+                // Redirect ke halaman konfirmasi atau halaman sukses
+                return view('pengusul/usulansaya');
+            } catch (\Exception $e) {
+                // Tangkap kesalahan dan log
+                log_message('error', 'Error saat menyimpan data: ' . $e->getMessage());
+
+                // Redirect kembali dengan pesan error
+                return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data. Silakan coba lagi.');
+            }
+        } else {
+            // Jika data di session kosong, tampilkan pesan error
+            return redirect()->back()->with('error', 'Data tidak ditemukan, silakan isi semua form.');
+        }
     }
 
     public function usulansaya()
