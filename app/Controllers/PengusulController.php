@@ -2,20 +2,12 @@
 
 namespace App\Controllers;
 
-use App\Models\PendaftaranModel;
 use App\Models\PengusulModel;
 use App\Models\IdentitasModel;
 // use CodeIgniter\Controller;
 
 class PengusulController extends BaseController
 {
-    protected $pengusulModel, $pendaftaranModel;
-
-    public function __construct()
-    {
-        $this->pendaftaranModel = new PendaftaranModel();
-    }
-
     public function index(): string
     {
         $pengusulModel = new PengusulModel();
@@ -188,151 +180,28 @@ class PengusulController extends BaseController
 
     public function tambahcalonkegiatan()
     {
-        $data['title'] = 'Tambah Kegiatan';
+        $data['title'] = 'Tambah Calon Usulan';
         return view('pengusul/tambahcalonkegiatan', $data);
     }
-
-    public function simpanCalonKegiatan()
-    {
-        $data = [
-            'tema' => $this->request->getPost('tema'),
-            'sub_tema' => $this->request->getPost('sub_tema'),
-            'jenis_kegiatan' => $this->request->getPost('jenis_kegiatan'),
-            'tahun_mulai' => $this->request->getPost('tahun_mulai'),
-            'deskripsi_kegiatan' => $this->request->getPost('deskripsi_kegiatan'),
-            'lokasi_kegiatan' => $this->request->getPost('lokasi_kegiatan'),
-            'pihak_dan_peran' => $this->request->getPost('pihak_dan_peran'),
-            'keberhasilan' => $this->request->getPost('keberhasilan'),
-        ];
-
-        $this->pendaftaranModel->simpanKeSession($data);
-
-        return redirect()->to('pengusul/tambahcalondampak');
-    }
-
-
-
-    public function tambahcalondampak()
-    {
-        $data['title'] = 'Tambah Dampak';
-        return view('pengusul/tambahcalondampak', $data);
-    }
-
-    public function simpanCalonDampak()
-    {
-        $data = [
-            'dampak_lingkungan' => $this->request->getPost('dampak_lingkungan'),
-            'dampak_ekonomi' => $this->request->getPost('dampak_ekonomi'),
-            'dampak_sosial_budaya' => $this->request->getPost('dampak_sosial_budaya'),
-        ];
-
-        $this->pendaftaranModel->simpanKeSession($data);
-
-        return redirect()->to('pengusul/tambahcalonpmik');
-    }
-
-
     public function tambahcalonpmik()
     {
-        $data['title'] = 'Tambah PMIK';
+        $data['title'] = 'Tambah Calon Usulan';
         return view('pengusul/tambahcalonpmik', $data);
     }
-
-    public function simpanCalonPmik()
+    public function tambahcalondampak()
     {
-        $data = [
-            'prakarsa' => $this->request->getPost('prakarsa'),
-            'motivasi' => $this->request->getPost('motivasi'),
-            'inovasi' => $this->request->getPost('inovasi'),
-            'krativitas' => $this->request->getPost('krativitas'),
-        ];
-
-        $this->pendaftaranModel->simpanKeSession($data);
-
-        return redirect()->to('pengusul/tambahcalonkeswadayaan');
+        $data['title'] = 'Tambah Calon Usulan';
+        return view('pengusul/tambahcalondampak', $data);
     }
-
-
     public function tambahcalonkeswadayaan()
     {
-        $data['title'] = 'Tambah Keswadayaan';
+        $data['title'] = 'Tambah Calon Usulan';
         return view('pengusul/tambahcalonkeswadayaan', $data);
     }
-
-    public function simpanCalonKeswadayaan()
-    {
-        $data = [
-            'sumber_biaya' => $this->request->getPost('sumber_biaya'),
-            'teknologi_kegiatan' => $this->request->getPost('teknologi_kegiatan'),
-            'status_lahan_kegiatan' => $this->request->getPost('status_lahan_kegiatan'),
-            'jumlah_kelompok_serupa' => $this->request->getPost('jumlah_kelompok_serupa'),
-        ];
-
-        $this->pendaftaranModel->simpanKeSession($data);
-
-        return redirect()->to('pengusul/tambahcalonkeistimewaan');
-    }
-
-
     public function tambahcalonkeistimewaan()
     {
-        $data['title'] = 'Tambah Keistimewaan';
+        $data['title'] = 'Tambah Calon Usulan';
         return view('pengusul/tambahcalonkeistimewaan', $data);
-    }
-    public function simpanCalonKeistimewaan()
-    {
-        $data = [
-            'keistimewaan' => $this->request->getPost('keistimewaan'),
-            'penghargaan' => $this->request->getPost('penghargaan'),
-            'foto_kegiatan1' => $this->request->getPost('foto_kegiatan1'),
-            'foto_kegiatan2' => $this->request->getPost('foto_kegiatan2'),
-            'foto_kegiatan3' => $this->request->getPost('foto_kegiatan3'),
-            'foto_kegiatan4' => $this->request->getPost('foto_kegiatan4'),
-            'foto_kegiatan5' => $this->request->getPost('foto_kegiatan5'),
-            'deskripsi_foto_kegiatan1' => $this->request->getPost('deskripsi_foto_kegiatan1'),
-            'deskripsi_foto_kegiatan2' => $this->request->getPost('deskripsi_foto_kegiatan2'),
-            'deskripsi_foto_kegiatan3' => $this->request->getPost('deskripsi_foto_kegiatan3'),
-            'deskripsi_foto_kegiatan4' => $this->request->getPost('deskripsi_foto_kegiatan4'),
-            'deskripsi_foto_kegiatan5' => $this->request->getPost('deskripsi_foto_kegiatan5'),
-            'tautan_video' => $this->request->getPost('tautan_video'),
-            'tautan_dokumen_pendukung' => $this->request->getPost('tautan_dokumen_pendukung'),
-        ];
-
-        // Simpan data ke session
-        $this->pendaftaranModel->simpanKeSession($data);
-
-        // Redirect ke function selesai untuk penyimpanan semua data ke database
-        return redirect()->to(base_url('pengusul/selesai'));
-    }
-
-
-
-    public function selesai()
-    {
-        // Ambil data dari session
-        $pendaftaranData = $this->pendaftaranModel->ambilDariSession();
-
-        if (!empty($pendaftaranData)) {
-            try {
-                // Simpan semua data ke database
-                $this->pendaftaranModel->simpanSemuaDataKeDatabase();
-
-                // Hapus data dari session setelah penyimpanan selesai
-                session()->remove('pendaftaranData');
-
-                // Redirect ke halaman konfirmasi atau halaman sukses
-                return view('pengusul/usulansaya');
-            } catch (\Exception $e) {
-                // Tangkap kesalahan dan log
-                log_message('error', 'Error saat menyimpan data: ' . $e->getMessage());
-
-                // Redirect kembali dengan pesan error
-                return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data. Silakan coba lagi.');
-            }
-        } else {
-            // Jika data di session kosong, tampilkan pesan error
-            return redirect()->back()->with('error', 'Data tidak ditemukan, silakan isi semua form.');
-        }
     }
 
     public function usulansaya()

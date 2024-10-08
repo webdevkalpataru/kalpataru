@@ -209,41 +209,6 @@ $selectedCategory = $session->get('selected_category');
                     </div>
                 </form>
 
-            <?php elseif ($jenisKategori == 'individu'): ?>
-                <!-- Form untuk Individu -->
-                <form action="<?= base_url('pengusul/simpancalonidentitas'); ?>" method="post">
-                    <input type="hidden" name="kategori" value="<?= $kategori; ?>" />
-                    <input type="text" name="nama" placeholder="Nama Calon" required />
-                    <input type="text" name="nik" placeholder="NIK" required />
-                    <input type="text" name="tempat_lahir" placeholder="Tempat Lahir" required />
-                    <input type="date" name="tanggal_lahir" required />
-                    <input type="number" name="usia" placeholder="Usia" required />
-                    <select name="jenis_kelamin" required>
-                        <option value="">-- Pilih Jenis Kelamin --</option>
-                        <option value="Laki-laki">Laki-laki</option>
-                        <option value="Perempuan">Perempuan</option>
-                    </select>
-                    <input type="text" name="jalan" placeholder="Jalan" required />
-                    <input type="text" name="rt_rw" placeholder="RT/RW" required />
-                    <input type="text" name="desa" placeholder="Desa" required />
-                    <input type="text" name="kecamatan" placeholder="Kecamatan" required />
-                    <input type="text" name="kab_kota" placeholder="Kabupaten/Kota" required />
-                    <input type="text" name="provinsi" placeholder="Provinsi" required />
-                    <input type="text" name="kode_pos" placeholder="Kode Pos" required />
-                    <input type="text" name="pekerjaan" placeholder="Pekerjaan" required />
-                    <input type="text" name="telepon" placeholder="Telepon" required />
-                    <input type="email" name="email" placeholder="Email" required />
-                    <input type="text" name="sosial_media" placeholder="Sosial Media" />
-                    <input type="text" name="pendidikan" placeholder="Pendidikan" required />
-                    <input type="text" name="ktp" placeholder="KTP" required />
-                    <input type="text" name="skck" placeholder="SKCK" />
-                    <input type="text" name="nama_kelompok" placeholder="Nama Kelompok (jika ada)" />
-                    <input type="text" name="jumlah_anggota" placeholder="Jumlah Anggota (jika ada)" />
-                    <input type="date" name="tahun_pembentukan" placeholder="Tahun Pembentukan (jika ada)" />
-                    <input type="text" name="legalitas" placeholder="Legalitas (jika ada)" />
-                    <button type="submit">Selanjutnya</button>
-                </form>
-
             <?php else: ?>
                 <form id="identitasabd" class="mt-4 mb-2 w-full" action="/pengusul/tambahcalonidentitas" method="post">
                     <div class="grid grid-cols-2 gap-4">
@@ -357,8 +322,6 @@ $selectedCategory = $session->get('selected_category');
             <?php endif; ?>
 
         </div>
-
-
     </div>
 
     <?= $this->endSection() ?>

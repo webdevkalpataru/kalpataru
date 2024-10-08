@@ -40,27 +40,23 @@ $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
 
     // Route for "Tambah Calon" step 3 (Kegiatan)
     $routes->get('tambahcalonkegiatan', 'PengusulController::tambahcalonkegiatan');
-    $routes->post('simpancalonkegiatan', 'PengusulController::simpanCalonKegiatan');
+    $routes->post('tambahcalonkegiatan', 'PengusulController::tambahcalonkegiatan');
 
-    // Route for "Tambah Calon" step 4 (Dampak)
-    $routes->get('tambahcalondampak', 'PengusulController::tambahcalondampak');
-    $routes->post('simpancalondampak', 'PengusulController::simpanCalonDampak');
-
-    // Route for "Tambah Calon" step 5 (PMIK)
+    // Route for "Tambah Calon" step 4 (PMIK)
     $routes->get('tambahcalonpmik', 'PengusulController::tambahcalonpmik');
-    $routes->post('simpancalonpmik', 'PengusulController::simpanCalonPmik');
+    $routes->post('tambahcalonpmik', 'PengusulController::tambahcalonpmik');
+
+    // Route for "Tambah Calon" step 5 (Dampak)
+    $routes->get('tambahcalondampak', 'PengusulController::tambahcalondampak');
+    $routes->post('tambahcalondampak', 'PengusulController::tambahcalondampak');
 
     // Route for "Tambah Calon" step 6 (Keswadayaan)
     $routes->get('tambahcalonkeswadayaan', 'PengusulController::tambahcalonkeswadayaan');
-    $routes->post('simpancalonkeswadayaan', 'PengusulController::simpanCalonKeswadayaan');
+    $routes->post('tambahcalonkeswadayaan', 'PengusulController::tambahcalonkeswadayaan');
 
     // Route for "Tambah Calon" step 7 (Keistimewaan)
     $routes->get('tambahcalonkeistimewaan', 'PengusulController::tambahcalonkeistimewaan');
-    $routes->post('simpancalonkeistimewaan', 'PengusulController::simpanCalonKeistimewaan');
-
-    $routes->get('selesai', 'PengusulController::selesai');
-    $routes->post('selesai', 'PengusulController::selesai');
-
+    $routes->post('tambahcalonkeistimewaan', 'PengusulController::tambahcalonkeistimewaan');
 
     // Other routes related to Pengusul
     $routes->get('usulansaya', 'PengusulController::usulansaya');
