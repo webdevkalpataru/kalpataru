@@ -54,7 +54,7 @@
   <?= $this->section('content') ?>
 
   <div class="flex flex-col lg:flex-row justify-end m-4">
-    <?= $this->include('template/sidebar') ?>
+    <?= $this->include('template/sidebarpengusul') ?>
 
     <!-- Konten utama -->
     <div class="relative flex flex-col w-full max-w-2xl mx-auto mb-4 rounded-xl border-2 border-primary bg-white shadow-md lg:p-8 p-4">
@@ -143,9 +143,7 @@
             <?php if (session()->get('role_akun') === 'DLHK'): ?>
               <div>
                 <?php
-                // Ambil path surat pengantar dari session
                 $suratPengantar = session()->get('surat_pengantar');
-                // Gunakan basename untuk mendapatkan hanya nama file
                 $namaFile = basename($suratPengantar);
                 ?>
                 <label class="block mb-2 text-sm text-black">Surat Pengantar : <?= $namaFile; ?></label>
@@ -158,16 +156,40 @@
         </div>
 
         <div class="flex justify-end">
-          <button class="mt-4 w-32 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="submit">Simpan</button>
+          <button id="uploadBtn" class="mt-4 w-32 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="submit">Simpan</button>
         </div>
       </form>
     </div>
 
-
+    <!-- Modal -->
+    <div id="uploadModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+      <div class="bg-white rounded-lg p-8 flex flex-col items-center max-w-md">
+        <img src="/images/sukses.png" alt="Success Icon" class="w-16 h-16 mb-4">
+        <h2 class="text-center text-lg font-bold text-primary mb-2">Profil berhasil diperbarui!</h2>
+        <a href="./profil">
+          <button id="closeModalBtn" class="bg-primary text-white py-2 px-4 rounded-lg"><span class="font-bold text-lg items-center"></span>OK</button>
+        </a>
+      </div>
+    </div>
   </div>
+
   <div id="toast" class="toast"></div>
 
   <script>
+    // Modal functionality
+    const uploadBtn = document.getElementById('uploadBtn');
+    const uploadModal = document.getElementById('uploadModal');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+
+    uploadBtn.addEventListener('click', () => {
+      uploadModal.classList.remove('hidden');
+    });
+
+    closeModalBtn.addEventListener('click', () => {
+      uploadModal.classList.add('hidden');
+    });
+
+    // Submit Form
     document.getElementById('profil-form').addEventListener('submit', function(e) {
       e.preventDefault(); // Mencegah form dari pengiriman default
 
@@ -179,23 +201,13 @@
           body: formData
         })
         .then(response => response.json())
-        .then(data => {
-          if (data.success) {
-            showToast(data.message);
-
-            setTimeout(() => {
-              location.reload();
-            }, 2000);
-          } else {
-            showToast(data.message);
-          }
-        })
         .catch(error => {
           console.error('Error:', error);
           showToast('Terjadi kesalahan. Silakan coba lagi');
         });
     });
 
+    // Toast
     function showToast(message) {
       const toast = document.getElementById('toast');
       toast.textContent = message;

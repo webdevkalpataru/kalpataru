@@ -32,11 +32,11 @@ $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
 
     // Route for "Tambah Calon" step 1 (Category selection)
     $routes->get('tambahcalon', 'PengusulController::tambahcalon');
-    $routes->post('tambahcalon', 'PengusulController::tambahcalon'); // Handle category selection form submission
+    $routes->post('tambahcalon', 'PengusulController::inputKategori'); // Handle category selection form submission
 
     // Route for "Tambah Calon" step 2 (Identitas)
     $routes->get('tambahcalonidentitas', 'PengusulController::tambahcalonidentitas');
-    $routes->post('simpancalonidentitas', 'PengusulController::simpanCalonIdentitas'); // Handle the form submission
+    $routes->post('tambahcalonidentitas', 'PengusulController::inputIdentitas'); // Handle the form submission
 
     // Route for "Tambah Calon" step 3 (Kegiatan)
     $routes->get('tambahcalonkegiatan', 'PengusulController::tambahcalonkegiatan');
@@ -76,7 +76,6 @@ $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
     $routes->get('videopanduan', 'PengusulController::videopanduan');
     $routes->get('panduanpendaftaran', 'PengusulController::panduanpendaftaran');
     $routes->get('downloadSuratPengantar/(:any)', 'AuthController::downloadSuratPengantar/$1');
-    $routes->get('sample', 'PengusulController::sample');
 });
 
 $routes->group('penerima', ['filter' => 'auth'], function ($routes) {

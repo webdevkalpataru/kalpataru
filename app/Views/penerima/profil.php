@@ -14,10 +14,9 @@
 
   <?= $this->section('content') ?>
 
-  <div class="flex flex-col lg:flex-row justify-end gap-16 m-4">
+  <div class="flex flex-col lg:flex-row justify-end m-4">
     <?= $this->include('template/sidebarpenerima') ?>
 
-    <!-- Konten utama -->
     <div class="relative flex flex-col w-full max-w-2xl mx-auto mb-4 rounded-xl border-2 border-primary bg-white shadow-md lg:p-8 p-4">
       <h4 class="block text-xl font-bold text-slate-800 mb-2">
         Profil
@@ -75,7 +74,7 @@
               <label class="block mb-2 text-sm text-black">Email</label>
               <input type="text" value="jokosusilo@gmail.com" readonly class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
             </div>
-            
+
           </div>
 
           <!-- Kolom kanan -->
