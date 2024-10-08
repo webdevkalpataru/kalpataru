@@ -128,13 +128,12 @@ class PengusulController extends BaseController
     {
         $Model = new IdentitasModel();
 
+        // Ambil id_pendaftaran dari session
         $id_pendaftaran = session()->get('id_pendaftaran');
         $kategori = session()->get('kategori');
 
-        // Cek apakah kategori yang dipilih adalah penyelamat lingkungan
         if ($kategori == 'Penyelamat Lingkungan') {
             $data = [
-                'id_pendaftaran' => $id_pendaftaran,
                 'nama' => $this->request->getPost('nama_kelompok'),
                 'tahun_berdiri' => $this->request->getPost('tahun_berdiri'),
                 'jumlah_anggota' => $this->request->getPost('jumlah_anggota'),
@@ -156,13 +155,12 @@ class PengusulController extends BaseController
                 'pendidikan' => $this->request->getPost('pendidikan'),
             ];
 
-            // Simpan ke database
-            $Model->insert($data);
+            // Update data berdasarkan id_pendaftaran
+            $Model->update($id_pendaftaran, $data);
         } else {
             $data = [
-                'id_pendaftaran' => $id_pendaftaran,
-                'nama_individu' => $this->request->getPost('nama'),
-                'nik_individu' => $this->request->getPost('nik'),
+                'nama' => $this->request->getPost('nama_individu'),
+                'nik' => $this->request->getPost('nik_individu'),
                 'tempat_lahir' => $this->request->getPost('tempat_lahir'),
                 'usia' => $this->request->getPost('usia'),
                 'jenis_kelamin' => $this->request->getPost('jenis_kelamin'),
@@ -177,16 +175,16 @@ class PengusulController extends BaseController
                 'provinsi' => $this->request->getPost('provinsi'),
                 'kode_pos' => $this->request->getPost('kode_pos'),
                 'pendidikan' => $this->request->getPost('pendidikan'),
-                'media_sosial' => $this->request->getPost('sosial_media'),
+                'sosial_media' => $this->request->getPost('media_sosial'),
             ];
 
-            // Simpan ke database
-            $Model->insert($data);
+            // Update data berdasarkan id_pendaftaran
+            $Model->update($id_pendaftaran, $data);
         }
 
-        // Redirect atau kembalikan response berhasil
-        return redirect()->to('pengusul/tambahcalonkegiatan');
+        return redirect()->to('pengusul/tambahcalonkegiatan')->with('success', 'Identitas berhasil disimpan.');
     }
+
 
     public function tambahcalonkegiatan()
     {
