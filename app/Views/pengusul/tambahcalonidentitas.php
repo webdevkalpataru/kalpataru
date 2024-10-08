@@ -87,9 +87,10 @@ $selectedCategory = $session->get('selected_category');
             </div>
 
             <?php if ($kategori == 'Penyelamat Lingkungan'): ?>
-                <form id="identitasc" class="mt-4 mb-2 w-full" action="pengusul/tambahcalonidentitas" method="post">
-                    <input type="hidden" name="id_pendaftaran" value="<?= $id_pendaftaran ?>">
+                <form class="mt-4 mb-2 w-full" action="/pengusul/tambahcalonidentitas" method="post">
+
                     <div class="grid grid-cols-2 gap-4">
+                        <input type="hidden" name="id_pendaftaran" value="<?= $id_pendaftaran ?>">
 
                         <!-- Kolom kiri -->
                         <div class="space-y-4">
@@ -204,15 +205,15 @@ $selectedCategory = $session->get('selected_category');
                     </div>
 
                     <div class="flex justify-end">
-                        <a href="./tambahcalonkegiatan">
-                            <button class="mt-4 w-32 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Selanjutnya</button>
-                        </a>
+                        <button class="mt-4 w-32 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="submit">Selanjutnya</button>
                     </div>
                 </form>
 
             <?php else: ?>
-                <form id="identitasabd" class="mt-4 mb-2 w-full" action="pengusul/tambahcalonidentitas" method="post">
+                <form id="identitasabd" class="mt-4 mb-2 w-full" action="/pengusul/tambahcalonidentitas" method="post">
                     <div class="grid grid-cols-2 gap-4">
+                        <input type="hidden" name="id_pendaftaran" value="<?= $id_pendaftaran ?>">
+
 
                         <!-- Kolom kiri -->
                         <div class="space-y-4">
