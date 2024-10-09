@@ -82,14 +82,35 @@ class PengusulController extends BaseController
         $id_pengusul = $this->request->getPost('id_pengusul');
         $kategori = $this->request->getPost('kategori');
 
+        $totalKategori = $Model->where('kategori', $kategori)->countAllResults();
+
+        switch ($kategori) {
+            case 'Perintis Lingkungan':
+                $prefix = 'A';
+                break;
+            case 'Pengabdi Lingkungan':
+                $prefix = 'B';
+                break;
+            case 'Penyelamat Lingkungan':
+                $prefix = 'C';
+                break;
+            case 'Pembina Lingkungan':
+                $prefix = 'D';
+                break;
+            default:
+                $prefix = 'X';
+        }
+
+        $kode_registrasi = $prefix . str_pad($totalKategori + 1, 2, '0', STR_PAD_LEFT);
+
         $data = [
             'id_pengusul' => $id_pengusul,
             'kategori' => $kategori,
-            'tanggal_pendaftaran' => date('Y-m-d H:i:s')
+            'tanggal_pendaftaran' => date('Y-m-d H:i:s'),
+            'kode_registrasi' => $kode_registrasi
         ];
 
         if ($Model->insert($data)) {
-            // Dapatkan ID dari pendaftaran yang baru disimpan
             $id_pendaftaran = $Model->insertID();
 
             session()->set('id_pendaftaran', $id_pendaftaran);
@@ -100,6 +121,8 @@ class PengusulController extends BaseController
             return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data. Silakan coba lagi.');
         }
     }
+
+
 
     public function tambahCalonIdentitas()
     {

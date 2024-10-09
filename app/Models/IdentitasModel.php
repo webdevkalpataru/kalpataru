@@ -40,6 +40,8 @@ class IdentitasModel extends Model
         'nama_ketua',
         'jumlah_anggota',
         'tahun_pembentukan',
-        'legalitas'
+        'legalitas',
+        'edit',
+        'kode_registrasi'
     ];
 }
