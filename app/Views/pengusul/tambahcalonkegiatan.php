@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/app.css">
-    <title><?= $title; ?></title>
 </head>
 
 <body>
@@ -115,8 +114,7 @@
 
                         <div>
                             <label class="block mb-2 text-sm text-black">Jenis Kegiatan</label>
-                            <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" />
-                            <!-- <select id="jenisKegiatan" class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" onchange="toggleJenisLainnya()">
+                            <select name="jenis_kegiatan" id="jenis_kegiatan" class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" onchange="toggleJenisLainnya()">
                                 <option value="" disabled selected>Pilih Jenis Kegiatan</option>
                                 <option value="konservasi-hutan">Konservasi Hutan</option>
                                 <option value="konservasi-karst">Konservasi Karst</option>
@@ -151,12 +149,12 @@
                                 <option value="edukasi-lingkungan">Edukasi Lingkungan</option>
                                 <option value="gerakan-aksi-lingkungan">Gerakan Aksi Lingkungan</option>
                                 <option value="jenis-kegiatan-lainnya">Jenis Kegiatan Lainnya</option>
-                            </select> -->
+                            </select>
                         </div>
-                        <!-- <div id="jenisLainnya" class="hidden">
+                        <div id="jenisLainnya" class="hidden">
                             <label class="block mb-2 text-sm text-black">Jenis Kegiatan Lainnya</label>
                             <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" />
-                        </div> -->
+                        </div>
                         <div>
                             <label class="block mb-2 text-sm text-black">Tahun Mulai Kegiatan</label>
                             <input type="date" name="tahun_mulai" id="tahun_mulai" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
@@ -178,8 +176,8 @@
                         <div>
                             <label class="block mb-2 text-sm text-black">Para Pihak dan Perannya</label>
                             <textarea name="pihak_dan_peran" id="pihak_dan_peran" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                oninput="updateWordCount(this, 'pihakPeranCount', 1000)"></textarea>
-                            <p id="pihakPeranCount" class="text-xs text-slate-400 flex justify-end ">0/1000 Kata</p>
+                                oninput="updateWordCount(this, 'pihak_dan_peranCount', 1000)"></textarea>
+                            <p id="pihak_dan_peranCount" class="text-xs text-slate-400 flex justify-end ">0/1000 Kata</p>
                         </div>
                         <div>
                             <label class="block mb-2 text-sm text-black">Keberhasilan yang Dicapai</label>

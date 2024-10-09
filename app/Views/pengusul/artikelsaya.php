@@ -9,6 +9,22 @@
 </head>
 
 <body>
+    <?php if ($kategori == 'Penyelamat Lingkungan'): ?>
+        <form class="mt-4 mb-2 w-full" action="simpancalonidentitas" method="post">
+            <div>
+                <label class="block mb-2 text-sm text-black">Nama Kelompok</label>
+                <input type="text" name="nama_kelompok" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+            </div>
+            (DAN LAIN LAIN)
+        </form>
+    <?php else: ?>
+        <form id="identitasabd" class="mt-4 mb-2 w-full" action="simpancalonidentitas" method="post">
+            <div>
+                <label class="block mb-2 text-sm text-black">Nama Lengkap</label>
+                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+            </div> (DAN LAIN LAIN)
+        </form>
+    <?php endif; ?>
 
     <?= $this->extend('template/navbarfooter') ?>
 

@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/app.css">
-    <title><?= $title; ?></title>
 </head>
 
 <body>
@@ -81,6 +80,7 @@
             </div>
 
             <form action="<?= base_url('pengusul/simpancalonpmik'); ?>" method="post" class="mt-4 mb-2 w-full">
+                <?= csrf_field(); ?>
                 <div class="grid grid-cols-1 gap-4" id="formContainer">
                     <div>
                         <label class="block mb-2 text-sm text-black">Prakarsa</label>

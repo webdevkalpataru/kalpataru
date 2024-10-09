@@ -6,9 +6,11 @@ use CodeIgniter\Model;
 
 class PendaftaranModel extends Model
 {
+    // Default table is pendaftaran
     protected $table = 'pendaftaran';
     protected $primaryKey = 'id_pendaftaran';
     protected $allowedFields = [
+        // Fields for 'pendaftaran' table
         'id_pengusul',
         'id_tim_teknis',
         'kategori',
@@ -37,160 +39,137 @@ class PendaftaranModel extends Model
         'pendidikan',
         'ktp',
         'skck',
-        'nama_kelompok',
+        'nama_ketua',
         'jumlah_anggota',
         'tahun_pembentukan',
         'legalitas'
     ];
 
-    // Untuk tabel kegiatan
-    protected $kegiatanTable = 'kegiatan';
-    protected $kegiatanAllowedFields = [
-        'id_pendaftaran',
-        'tema',
-        'sub_tema',
-        'jenis_kegiatan',
-        'tahun_mulai',
-        'deskripsi_kegiatan',
-        'lokasi_kegiatan',
-        'pihak_dan_peran',
-        'keberhasilan'
-    ];
-
-    // Untuk tabel dampak
-    protected $dampakTable = 'dampak';
-    protected $dampakAllowedFields = [
-        'id_pendaftaran',
-        'dampak_lingkungan',
-        'dampak_ekonomi',
-        'dampak_sosial_budaya'
-    ];
-
-    // Untuk tabel PMIK
-    protected $pmikTable = 'pmik';
-    protected $pmikAllowedFields = [
-        'id_pendaftaran',
-        'prakarsa',
-        'motivasi',
-        'inovasi',
-        'krativitas'
-    ];
-
-    // Untuk tabel keswadayaan
-    protected $keswadayaanTable = 'keswadayaan';
-    protected $keswadayaanAllowedFields = [
-        'id_pendaftaran',
-        'sumber_biaya',
-        'teknologi_kegiatan',
-        'status_lahan_kegiatan',
-        'jumlah_kelompok_serupa'
-    ];
-
-    // Untuk tabel keistimewaan
-    protected $keistimewaanTable = 'keistimewaan';
-    protected $keistimewaanAllowedFields = [
-        'id_pendaftaran',
-        'keistimewaan',
-        'penghargaan',
-        'foto_kegiatan1',
-        'foto_kegiatan2',
-        'foto_kegiatan3',
-        'foto_kegiatan4',
-        'foto_kegiatan5',
-        'deskripsi_foto_kegiatan1',
-        'deskripsi_foto_kegiatan2',
-        'deskripsi_foto_kegiatan3',
-        'deskripsi_foto_kegiatan4',
-        'deskripsi_foto_kegiatan5',
-        'tautan_video',
-        'tautan_dokumen_pendukung'
-    ];
-
-    // Metode untuk menyimpan data ke tabel pendaftaran
-    public function simpanPendaftaran($data)
+    // Function to insert into 'kegiatan' table
+    public function saveKegiatan($data)
     {
-        return $this->db->table($this->table)->insert($data);
+        $this->table = 'kegiatan';  // Change the table to 'kegiatan'
+        $this->allowedFields = [
+            'id_pendaftaran',
+            'tema',
+            'sub_tema',
+            'jenis_kegiatan',
+            'tahun_mulai',
+            'deskripsi_kegiatan',
+            'lokasi_kegiatan',
+            'pihak_dan_peran',
+            'keberhasilan'
+        ];
+        return $this->insert($data);  // Insert into 'kegiatan' table
     }
 
-    // Simpan data kegiatan
-    public function simpanKegiatan($data)
+    // Function to insert into 'dampak' table
+    public function saveDampak($data)
     {
-        return $this->db->table($this->kegiatanTable)->insert($data);
+        $this->table = 'dampak';  // Change the table to 'dampak'
+        $this->allowedFields = [
+            'id_pendaftaran',
+            'dampak_lingkungan',
+            'dampak_ekonomi',
+            'dampak_sosial_budaya'
+        ];
+        return $this->insert($data);  // Insert into 'dampak' table
     }
 
-    // Simpan data dampak
-    public function simpanDampak($data)
+    // Function to insert into 'pmik' table
+    public function savePmik($data)
     {
-        return $this->db->table($this->dampakTable)->insert($data);
+        $this->table = 'pmik';  // Change the table to 'pmik'
+        $this->allowedFields = [
+            'id_pendaftaran',
+            'prakarsa',
+            'motivasi',
+            'inovasi',
+            'krativitas'
+        ];
+        return $this->insert($data);  // Insert into 'pmik' table
     }
 
-    // Simpan data PMIK
-    public function simpanPMIK($data)
+    // Function to insert into 'keswadayaan' table
+    public function saveKeswadayaan($data)
     {
-        return $this->db->table($this->pmikTable)->insert($data);
+        $this->table = 'keswadayaan';  // Change the table to 'keswadayaan'
+        $this->allowedFields = [
+            'id_pendaftaran',
+            'sumber_biaya',
+            'teknologi_kegiatan',
+            'status_lahan_kegiatan',
+            'jumlah_kelompok_serupa'
+        ];
+        return $this->insert($data);  // Insert into 'keswadayaan' table
     }
 
-    // Simpan data keswadayaan
-    public function simpanKeswadayaan($data)
+    // Function to insert into 'keistimewaan' table
+    public function saveKeistimewaan($data)
     {
-        return $this->db->table($this->keswadayaanTable)->insert($data);
+        $this->table = 'keistimewaan';  // Change the table to 'keistimewaan'
+        $this->allowedFields = [
+            'id_pendaftaran',
+            'keistimewaan',
+            'penghargaan',
+            'foto_kegiatan1',
+            'foto_kegiatan2',
+            'foto_kegiatan3',
+            'foto_kegiatan4',
+            'foto_kegiatan5',
+            'deskripsi_foto_kegiatan1',
+            'deskripsi_foto_kegiatan2',
+            'deskripsi_foto_kegiatan3',
+            'deskripsi_foto_kegiatan4',
+            'deskripsi_foto_kegiatan5',
+            'tautan_video',
+            'tautan_dokumen_pendukung'
+        ];
+        return $this->insert($data);  // Insert into 'keistimewaan' table
     }
 
-    // Simpan data keistimewaan
-    public function simpanKeistimewaan($data)
+    // Method to switch back to 'pendaftaran' table
+    public function switchToPendaftaran()
     {
-        return $this->db->table($this->keistimewaanTable)->insert($data);
+        $this->table = 'pendaftaran';
+        $this->allowedFields = [
+            'id_pengusul',
+            'id_tim_teknis',
+            'kategori',
+            'tanggal_pendaftaran',
+            'status_pendaftaran',
+            'catatan_verifikasi',
+            'skor_sidang_1',
+            'skor_sidang_2',
+            'nama',
+            'nik',
+            'tempat_lahir',
+            'tanggal_lahir',
+            'usia',
+            'jenis_kelamin',
+            'jalan',
+            'rt_rw',
+            'desa',
+            'kecamatan',
+            'kab_kota',
+            'provinsi',
+            'kode_pos',
+            'pekerjaan',
+            'telepon',
+            'email',
+            'sosial_media',
+            'pendidikan',
+            'ktp',
+            'skck',
+            'nama_ketua',
+            'jumlah_anggota',
+            'tahun_pembentukan',
+            'legalitas'
+        ];
     }
 
-    // Simpan ke session sementara
-    public function simpanKeSession($data)
+    public function getDataByPengusul($id_pengusul)
     {
-        session()->set('pendaftaranData', array_merge(session()->get('pendaftaranData') ?? [], $data));
-    }
-
-    // Ambil data dari session
-    public function ambilDariSession()
-    {
-        return session()->get('pendaftaranData') ?? [];
-    }
-
-    public function simpanSemuaDataKeDatabase()
-    {
-        $pendaftaranData = $this->ambilDariSession();
-
-        // Simpan ke tabel `pendaftaran`
-        if (!$this->db->table($this->table)->insert($pendaftaranData)) {
-            throw new \Exception('Gagal menyimpan data pendaftaran: ' . json_encode($this->db->error()));
-        }
-
-        $id_pendaftaran = $this->db->insertID();
-
-        // Simpan ke tabel kegiatan
-        if (!$this->db->table($this->kegiatanTable)->insert(array_merge($pendaftaranData, ['id_pendaftaran' => $id_pendaftaran]))) {
-            throw new \Exception('Gagal menyimpan data kegiatan: ' . json_encode($this->db->error()));
-        }
-
-        // Simpan ke tabel dampak
-        if (!$this->db->table($this->dampakTable)->insert(array_merge($pendaftaranData, ['id_pendaftaran' => $id_pendaftaran]))) {
-            throw new \Exception('Gagal menyimpan data dampak: ' . json_encode($this->db->error()));
-        }
-
-        // Simpan ke tabel PMIK
-        if (!$this->db->table($this->pmikTable)->insert(array_merge($pendaftaranData, ['id_pendaftaran' => $id_pendaftaran]))) {
-            throw new \Exception('Gagal menyimpan data PMIK: ' . json_encode($this->db->error()));
-        }
-
-        // Simpan ke tabel keswadayaan
-        if (!$this->db->table($this->keswadayaanTable)->insert(array_merge($pendaftaranData, ['id_pendaftaran' => $id_pendaftaran]))) {
-            throw new \Exception('Gagal menyimpan data keswadayaan: ' . json_encode($this->db->error()));
-        }
-
-        // Simpan ke tabel keistimewaan
-        if (!$this->db->table($this->keistimewaanTable)->insert(array_merge($pendaftaranData, ['id_pendaftaran' => $id_pendaftaran]))) {
-            throw new \Exception('Gagal menyimpan data keistimewaan: ' . json_encode($this->db->error()));
-        }
-
-        // Clear session data
-        session()->remove('pendaftaranData');
+        return $this->where('id_pengusul', $id_pengusul)->findAll();
     }
 }

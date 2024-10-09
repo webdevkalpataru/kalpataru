@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/app.css">
-    <title><?= $title; ?></title>
 </head>
 
 <body>
@@ -92,6 +91,7 @@
 
             <!-- Update action untuk form, dan ubah method POST -->
             <form action="<?= base_url('pengusul/simpancalonkeistimewaan'); ?>" method="post" enctype="multipart/form-data" class="mt-4 mb-2 w-full">
+                <?= csrf_field(); ?>
                 <div class="grid grid-cols-1 gap-4" id="formContainer">
                     <div>
                         <label for="keistimewaan" class="block mb-2 text-sm text-black">Keistimewaan Calon</label>

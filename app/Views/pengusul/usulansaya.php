@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/app.css">
-    <title><?= $title; ?></title>
 </head>
 
 <body>
@@ -26,6 +25,11 @@
                     <table class="w-full text-left table-auto min-w-max">
                         <thead>
                             <tr>
+                                <th class="p-4 border-b border-accent2 bg-accent1 text-center">
+                                    <p class="block text-xs md:text-sm font-bold leading-none text-accent2">
+                                        No
+                                    </p>
+                                </th>
                                 <th class="p-4 border-b border-accent2 bg-accent1 text-center">
                                     <p class="block text-xs md:text-sm font-bold leading-none text-accent2">
                                         Nama
@@ -54,141 +58,47 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="hover:bg-slate-50">
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Joko Susilo
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Pengabdi Lingkungan
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Jawa Barat
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <a href="./detailusulansaya">
-                                        <button class="w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat</button>
-                                    </a>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs font-bold text-accepted w-24">
-                                        Lolos Administrasi
-                                    </p>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-slate-50">
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Joko Susilo
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Pengabdi Lingkungan
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Jawa Barat
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <a href="./detailusulansaya">
-                                        <button class="w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat</button>
-                                    </a>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs font-bold text-rejected w-24">
-                                        Tidak Lolos Administrasi
-                                    </p>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-slate-50">
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Joko Susilo
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Perintis Lingkungan
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Jawa Barat
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <a href="./detailusulansaya">
-                                        <button class="w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat</button>
-                                    </a>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs font-bold text-rejected w-24">
-                                        Tidak Lolos Administrasi
-                                    </p>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-slate-50">
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Joko Susilo
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Perintis Lingkungan
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Jawa Barat
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <a href="./detailusulansaya">
-                                        <button class="w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat</button>
-                                    </a>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs font-bold text-accepted w-24">
-                                        Lolos Penerima
-                                    </p>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-slate-50">
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Joko Susilo
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Perintis Lingkungan
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Jawa Barat
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <a href="./detailusulansaya">
-                                        <button class="w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat</button>
-                                    </a>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs font-bold text-accepted w-24">
-                                        Lolos Nominasi
-                                    </p>
-                                </td>
-                            </tr>
+                            <?php if (!empty($pendaftaran)): ?>
+                                <?php $no = 1; ?>
+                                <?php foreach ($pendaftaran as $calon): ?>
+                                    <tr class="hover:bg-slate-50">
+                                        <td class="p-4 border-b border-slate-200 text-center">
+                                            <p class="block text-xs text-slate-800">
+                                                <?= esc($no++); ?>
+                                            </p>
+                                        </td>
+                                        <td class="p-4 border-b border-slate-200 text-center">
+                                            <p class="block text-xs text-slate-800">
+                                                <?= esc($calon['nama']); ?>
+                                            </p>
+                                        </td>
+                                        <td class="p-4 border-b border-slate-200 text-center">
+                                            <p class="block text-xs text-slate-800">
+                                                <?= esc($calon['kategori']); ?>
+                                            </p>
+                                        </td>
+                                        <td class="p-4 border-b border-slate-200 text-center">
+                                            <p class="block text-xs text-slate-800">
+                                                <?= esc($calon['provinsi']); ?>
+                                            </p>
+                                        </td>
+                                        <td class="p-4 border-b border-slate-200 text-center">
+                                            <a href="./detailusulansaya">
+                                                <button class="w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat</button>
+                                            </a>
+                                        </td>
+                                        <td class="p-4 border-b border-slate-200 text-center">
+                                            <p class="block text-xs font-bold text-accepted w-24">
+                                                <?= esc($calon['status_pendaftaran']); ?>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <tr>
+                                    <td colspan="4">Tidak ada data calon yang terdaftar.</td>
+                                </tr>
+                            <?php endif; ?>
                         </tbody>
                     </table>
                 </div>
