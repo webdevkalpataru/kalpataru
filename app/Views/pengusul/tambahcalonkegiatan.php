@@ -87,7 +87,7 @@
                     <div class="space-y-4">
                         <div>
                             <label class="block mb-2 text-sm text-black">Tema Kegiatan</label>
-                            <select class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease">
+                            <select id="tema-kegiatan" class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease">
                                 <option value="" disabled selected>Pilih Tema Kegiatan</option>
                                 <option value="keanekaragaman-hayati-biodiversity">Keanekaragaman Hayati (Biodiversity)</option>
                                 <option value="perubahan-iklim">Perubahan Iklim</option>
@@ -97,7 +97,7 @@
                         </div>
                         <div>
                             <label class="block mb-2 text-sm text-black">Sub Tema Kegiatan</label>
-                            <select class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease">
+                            <select id="sub-tema-kegiatan" disabled class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease">
                                 <option value="" disabled selected>Pilih Sub Tema Kegiatan</option>
                                 <option value="pelestarian-keanekaragaman-hayati-kawasan-dilindungi-yang-meliputi-pelestarian-sumber-daya-genetik-jenis-dan-ekosistem">Pelestarian keanekaragaman hayati dan kawasan dilindungi yang meliputi pelestarian sumber daya genetik, jenis, dan ekosistem</option>
                                 <option value="pemanfaatan-keanekaragaman-hayati-berkelanjutan">Pemanfaatan keanekaragaman hayati secara berkelanjutan</option>
@@ -197,7 +197,7 @@
                 <div class="flex justify-between mt-4">
                     <button id="tambahKegiatanBtn" class="w-40 rounded-md py-2 text-center text-sm text-primary transition-all shadow-md hover:shadow-lg bg-secondary active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button" onclick="tambahKegiatan()"> <span>&#10010</span> Tambah Kegiatan</button>
                     <a href="./tambahcalondampak">
-                        <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Selanjutnya</button>
+                        <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Kirim</button>
                     </a>
                 </div>
 
@@ -221,20 +221,128 @@
             }
         } */
 
+        // Tema Sub Tema Kegiatan
+        const subTemaOptions = {
+            "keanekaragaman-hayati-biodiversity": [{
+                    value: "pelestarian-keanekaragaman-hayati-kawasan-dilindungi-yang-meliputi-pelestarian-sumber-daya-genetik-jenis-dan-ekosistem",
+                    text: "Pelestarian keanekaragaman hayati dan kawasan dilindungi yang meliputi pelestarian sumber daya genetik, jenis, dan ekosistem"
+                },
+                {
+                    value: "pemanfaatan-keanekaragaman-hayati-berkelanjutan",
+                    text: "Pemanfaatan keanekaragaman hayati secara berkelanjutan"
+                },
+                {
+                    value: "jasa-lingkungan",
+                    text: "Jasa lingkungan"
+                }
+            ],
+            "perubahan-iklim": [{
+                    value: "adaptasi-perubahan-iklim",
+                    text: "Adaptasi perubahan iklim"
+                },
+                {
+                    value: "mitigasi-perubahan-iklim",
+                    text: "Mitigasi perubahan iklim"
+                },
+                {
+                    value: "penerapan-ekonomi-hijau-biru",
+                    text: "Penerapan ekonomi hijau dan ekonomi biru"
+                }
+            ],
+            "pencemaran-dan-kerusakan-lingkungan": [{
+                    value: "penanganan-pencemaran-air-tanah-udara-yang-meliputi-industri-pertanian-domestik-terutama-plastik",
+                    text: "Penanganan pencemaran air, tanah, udara dari industri, pertanian, domestik terutama plastik"
+                },
+                {
+                    value: "pencegahan-dan-penanggulangan-kerusakan-lingkungan",
+                    text: "Pencegahan dan penanggulangan kerusakan lingkungan"
+                },
+                {
+                    value: "ekonomi-sirkular",
+                    text: "Ekonomi sirkular"
+                }
+            ],
+            "hukum-dan-budaya": [{
+                    value: "keadilan-pemanfaatan-sumber-daya-alam-dan-lingkungan",
+                    text: "Keadilan terhadap pemanfaatan sumber daya alam dan lingkungan"
+                },
+                {
+                    value: "kearifan-tradisional-dalam-pengelolaan-sumber-daya-alam",
+                    text: "Kearifan tradisional dalam pengelolaan sumber daya alam"
+                },
+                {
+                    value: "komunikasi-pendidikan-lingkungan-hidup",
+                    text: "Komunikasi dan pendidikan lingkungan hidup"
+                }
+            ]
+        };
+
+        const temaKegiatanSelect = document.getElementById('tema-kegiatan');
+        const subTemaKegiatanSelect = document.getElementById('sub-tema-kegiatan');
+
+        temaKegiatanSelect.addEventListener('change', function() {
+            const selectedTema = this.value;
+            const subTemaList = subTemaOptions[selectedTema];
+
+            // Reset sub-tema options
+            subTemaKegiatanSelect.innerHTML = '<option value="" disabled selected>Pilih Sub Tema Kegiatan</option>';
+
+            if (subTemaList) {
+                // Aktifkan select sub-tema jika ada tema yang dipilih
+                subTemaKegiatanSelect.disabled = false;
+
+                // Tambahkan opsi sub-tema yang sesuai
+                subTemaList.forEach(subTema => {
+                    const option = document.createElement('option');
+                    option.value = subTema.value;
+                    option.text = subTema.text;
+                    subTemaKegiatanSelect.appendChild(option);
+                });
+            } else {
+                // Nonaktifkan select sub-tema jika tema tidak valid
+                subTemaKegiatanSelect.disabled = true;
+            }
+        });
+
+
         // Batasan Kata
         function updateWordCount(textarea, countId, maxWords) {
             const countElement = document.getElementById(countId);
-            const words = textarea.value.trim().split(/\s+/).filter(word => word.length > 0);
-            const currentLength = words.length;
 
-            countElement.textContent = `${currentLength}/${maxWords} kata`;
+            // Tambahkan event listener untuk mendeteksi perubahan input
+            textarea.addEventListener('input', function() {
+                let words = textarea.value.trim().split(/\s+/).filter(word => word.length > 0); // Pisahkan kata berdasarkan spasi
+                let currentLength = words.length;
 
-            if (currentLength > maxWords) {
-                countElement.classList.add('text-rejected');
-            } else {
-                countElement.classList.remove('text-rejected');
-            }
+                // Jika kata lebih dari 1000, potong ke 1000 kata
+                if (currentLength > maxWords) {
+                    words = words.slice(0, maxWords);
+                    textarea.value = words.join(" ");
+                    currentLength = maxWords; // Set currentLength ke batas maksimal
+                }
+
+                // Update jumlah kata di elemen counter
+                countElement.textContent = `${currentLength}/${maxWords} kata`;
+            });
+
+            // Event keydown untuk mencegah input baru jika kata sudah mencapai 1000
+            textarea.addEventListener('keydown', function(event) {
+                let words = textarea.value.trim().split(/\s+/).filter(word => word.length > 0);
+                let currentLength = words.length;
+
+                const isControlKey = event.key === "Backspace" || event.key === "Delete" || event.key.startsWith("Arrow");
+
+                // Jika sudah 1000 kata, cegah input baru kecuali tombol penghapusan atau navigasi
+                if (currentLength >= maxWords && !isControlKey) {
+                    event.preventDefault(); // Cegah penambahan input baru jika mencapai batas maksimal kata
+                }
+            });
         }
+
+        // Jalankan fungsi ketika halaman di-load
+        updateWordCount(document.getElementById('pihakPeran'), 'pihakPeranCount', 1000);
+        updateWordCount(document.getElementById('penjelasan'), 'penjelasanCount', 1000);
+        updateWordCount(document.getElementById('keberhasilan'), 'keberhasilanCount', 1000);
 
         // Tambah Form Kegiatan
         document.addEventListener('DOMContentLoaded', function() {
@@ -254,7 +362,7 @@
         });
 
         let kegiatanCount = 1; // Awal dari 1 karena sudah ada 1 form
-        const maxKegiatan = 4;
+        const maxKegiatan = 4; // Batas maksimal form kegiatan
 
         function tambahKegiatan() {
             if (kegiatanCount < maxKegiatan) {
@@ -338,6 +446,11 @@
 
                 // Tambahkan form baru di bawah form yang sudah ada
                 formContainer.insertAdjacentHTML('beforeend', newForm);
+
+                // Panggil fungsi updateWordCount untuk tiap textarea yang baru ditambahkan
+                updateWordCount(document.getElementById(`penjelasan${kegiatanCount}`), `penjelasanCount${kegiatanCount}`, 1000);
+                updateWordCount(document.getElementById(`pihakPeran${kegiatanCount}`), `pihakPeranCount${kegiatanCount}`, 1000);
+                updateWordCount(document.getElementById(`keberhasilan${kegiatanCount}`), `keberhasilanCount${kegiatanCount}`, 1000);
 
                 // Jika sudah mencapai batas, sembunyikan tombol tambah
                 if (kegiatanCount === maxKegiatan) {

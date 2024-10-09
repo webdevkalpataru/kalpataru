@@ -593,17 +593,58 @@
         // Batasan Kata
         function updateWordCount(textarea, countId, maxWords) {
             const countElement = document.getElementById(countId);
-            const words = textarea.value.trim().split(/\s+/).filter(word => word.length > 0);
-            const currentLength = words.length;
 
-            countElement.textContent = `${currentLength}/${maxWords} kata`;
+            // Tambahkan event listener untuk mendeteksi perubahan input
+            textarea.addEventListener('input', function() {
+                let words = textarea.value.trim().split(/\s+/).filter(word => word.length > 0); // Pisahkan kata berdasarkan spasi
+                let currentLength = words.length;
 
-            if (currentLength > maxWords) {
-                countElement.classList.add('text-rejected');
-            } else {
-                countElement.classList.remove('text-rejected');
-            }
+                // Jika kata lebih dari 1000, potong ke 1000 kata
+                if (currentLength > maxWords) {
+                    words = words.slice(0, maxWords);
+                    textarea.value = words.join(" ");
+                    currentLength = maxWords; // Set currentLength ke batas maksimal
+                }
+
+                // Update jumlah kata di elemen counter
+                countElement.textContent = `${currentLength}/${maxWords} kata`;
+            });
+
+            // Event keydown untuk mencegah input baru jika kata sudah mencapai 1000
+            textarea.addEventListener('keydown', function(event) {
+                let words = textarea.value.trim().split(/\s+/).filter(word => word.length > 0);
+                let currentLength = words.length;
+
+                const isControlKey = event.key === "Backspace" || event.key === "Delete" || event.key.startsWith("Arrow");
+
+                // Jika sudah 1000 kata, cegah input baru kecuali tombol penghapusan atau navigasi
+                if (currentLength >= maxWords && !isControlKey) {
+                    event.preventDefault(); // Cegah penambahan input baru jika mencapai batas maksimal kata
+                }
+            });
         }
+
+        // Jalankan fungsi ketika halaman di-load
+        updateWordCount(document.getElementById('pihakPeran'), 'pihakPeranCount', 1000);
+        updateWordCount(document.getElementById('penjelasan'), 'penjelasanCount', 1000);
+        updateWordCount(document.getElementById('keberhasilan'), 'keberhasilanCount', 1000);
+
+        updateWordCount(document.getElementById('dampakLingkungan'), 'dampakLingkunganCount', 1000);
+        updateWordCount(document.getElementById('dampakEkonomi'), 'dampakEkonomiCount', 1000);
+        updateWordCount(document.getElementById('dampakSosial'), 'dampakSosialCount', 1000);
+
+        updateWordCount(document.getElementById('prakarsa'), 'prakarsaCount', 1000);
+        updateWordCount(document.getElementById('motivasi'), 'motivasiCount', 1000);
+        updateWordCount(document.getElementById('inovasi'), 'inovasiCount', 1000);
+        updateWordCount(document.getElementById('kreativitas'), 'kreativitasCount', 1000);
+
+        updateWordCount(document.getElementById('sumber'), 'sumberCount', 1000);
+        updateWordCount(document.getElementById('teknologi'), 'teknologiCount', 1000);
+        updateWordCount(document.getElementById('statusLahan'), 'statusLahanCount', 1000);
+        updateWordCount(document.getElementById('kelompokPeroranganMeniru'), 'kelompokPeroranganMeniruCount', 1000);
+
+        updateWordCount(document.getElementById('keistimewaanCalon'), 'keistimewaanCalonCount', 1000);
+        updateWordCount(document.getElementById('penghargaanRelevan'), 'penghargaanRelevanCount', 1000);
 
         // Tambah Form Kegiatan
         document.addEventListener('DOMContentLoaded', function() {
@@ -707,6 +748,11 @@
 
                 // Tambahkan form baru di bawah form yang sudah ada
                 formContainer.insertAdjacentHTML('beforeend', newForm);
+
+                // Panggil fungsi updateWordCount untuk tiap textarea yang baru ditambahkan
+                updateWordCount(document.getElementById(`penjelasan${kegiatanCount}`), `penjelasanCount${kegiatanCount}`, 1000);
+                updateWordCount(document.getElementById(`pihakPeran${kegiatanCount}`), `pihakPeranCount${kegiatanCount}`, 1000);
+                updateWordCount(document.getElementById(`keberhasilan${kegiatanCount}`), `keberhasilanCount${kegiatanCount}`, 1000);
 
                 // Jika sudah mencapai batas, sembunyikan tombol tambah
                 if (kegiatanCount === maxKegiatan) {

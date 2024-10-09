@@ -326,7 +326,7 @@ $selectedCategory = $session->get('selected_category');
 
                     <div class="flex justify-end">
                         <a href="./tambahcalonkegiatan">
-                            <button class="mt-4 w-32 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Selanjutnya</button>
+                            <button class="mt-4 w-32 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Kirim</button>
                         </a>
                     </div>
                 </form>
