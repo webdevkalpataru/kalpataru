@@ -158,7 +158,9 @@
                                     class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
                             </div>
 
-
+                            <div class="flex justify-end mt-4">
+                                <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Perbarui</button>
+                            </div>
                         </form>
                     </div>
 
@@ -257,7 +259,9 @@
                                     class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
                             </div>
 
-
+                            <div class="flex justify-end mt-4">
+                                <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Perbarui</button>
+                            </div>
                         </form>
                     </div>
                 <?php endif; ?>
@@ -379,7 +383,13 @@
                             </div>
                         </div>
 
+                        <div class="flex justify-between mt-4">
+                            <button id="tambahKegiatanBtn" class="w-40 rounded-md py-2 text-center text-sm text-primary transition-all shadow-md hover:shadow-lg bg-secondary active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button" onclick="tambahKegiatan()"> <span>&#10010</span> Tambah Kegiatan</button>
+                        </div>
 
+                        <div class="flex justify-end mt-4">
+                            <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Perbarui</button>
+                        </div>
                     </form>
                 </div>
 
@@ -407,7 +417,9 @@
                             </div>
                         </div>
 
-
+                        <div class="flex justify-end mt-4">
+                            <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Perbarui</button>
+                        </div>
                     </form>
                 </div>
 
@@ -441,7 +453,9 @@
                             </div>
                         </div>
 
-
+                        <div class="flex justify-end mt-4">
+                            <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Perbarui</button>
+                        </div>
                     </form>
                 </div>
 
@@ -475,7 +489,9 @@
                             </div>
                         </div>
 
-
+                        <div class="flex justify-end mt-4">
+                            <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Perbarui</button>
+                        </div>
                     </form>
                 </div>
 
@@ -509,19 +525,29 @@
                                         <input type="text" placeholder="Keterangan Foto" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                                     </div>
 
-
+                                    <!-- Tombol Tambah Foto Kegiatan -->
+                                    <button type="button" id="tambahFotoButton" class="mt-4 w-full flex items-center justify-center rounded-md py-2 text-center text-sm text-primary transition-all shadow-md hover:shadow-lg bg-secondary active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                                        <span class="mr-2">&#10010</span> Tambah Foto Kegiatan
+                                    </button>
                                 </div>
 
                                 <!-- Kolom 2 - Tautan Video -->
                                 <div id="videoContainer">
                                     <label class="block mb-2 text-sm text-black">Tautan Video</label>
                                     <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow mb-3" placeholder="Tautan Video" />
+
+                                    <!-- Tombol Tambah Video -->
+                                    <button type="button" id="tambahVideoButton" class="w-full flex items-center justify-center rounded-md py-2 text-center text-sm text-primary transition-all shadow-md hover:shadow-lg bg-secondary active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                                        <span class="mr-2">&#10010</span> Tambah Tautan Video
+                                    </button>
                                 </div>
                             </div>
 
                         </div>
 
-
+                        <div class="flex justify-end mt-4">
+                            <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Perbarui</button>
+                        </div>
                     </form>
                 </div>
 
