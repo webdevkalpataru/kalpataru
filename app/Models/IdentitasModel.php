@@ -6,8 +6,8 @@ use CodeIgniter\Model;
 
 class IdentitasModel extends Model
 {
-    protected $table = 'pendaftaran'; // Nama tabel
-    protected $primaryKey = 'id_pendaftaran'; // Nama kolom primary key
+    protected $table = 'pendaftaran';
+    protected $primaryKey = 'id_pendaftaran';
     protected $allowedFields = [
         'id_pengusul',
         'id_tim_teknis',

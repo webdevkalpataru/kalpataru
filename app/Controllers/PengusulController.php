@@ -128,6 +128,47 @@ class PengusulController extends BaseController
     {
         $id_pendaftaran = session()->get('id_pendaftaran');
         $kategori = session()->get('kategori');
+        $provinsi_list = [
+            'Aceh',
+            'Bali',
+            'Bangka Belitung',
+            'Banten',
+            'Bengkulu',
+            'DI Yogyakarta',
+            'DKI Jakarta',
+            'Gorontalo',
+            'Jambi',
+            'Jawa Barat',
+            'Jawa Tengah',
+            'Jawa Timur',
+            'Kalimantan Barat',
+            'Kalimantan Selatan',
+            'Kalimantan Tengah',
+            'Kalimantan Timur',
+            'Kalimantan Utara',
+            'Kepulauan Bangka Belitung',
+            'Kepulauan Riau',
+            'Lampung',
+            'Maluku',
+            'Maluku Utara',
+            'Nusa Tenggara Barat',
+            'Nusa Tenggara Timur',
+            'Papua',
+            'Papua Barat',
+            'Papua Barat Daya',
+            'Papua Pegunungan',
+            'Papua Selatan',
+            'Papua Tengah',
+            'Riau',
+            'Sulawesi Barat',
+            'Sulawesi Selatan',
+            'Sulawesi Tengah',
+            'Sulawesi Tenggara',
+            'Sulawesi Utara',
+            'Sumatera Barat',
+            'Sumatera Selatan',
+            'Sumatera Utara'
+        ];
 
         if (!$id_pendaftaran || !$kategori) {
             return redirect()->back()->with('error', 'Data kategori atau pendaftaran tidak ditemukan.');
@@ -135,7 +176,8 @@ class PengusulController extends BaseController
 
         return view('pengusul/tambahcalonidentitas', [
             'id_pendaftaran' => $id_pendaftaran,
-            'kategori' => $kategori
+            'kategori' => $kategori,
+            'provinsi_list' => $provinsi_list
         ]);
     }
 
@@ -143,7 +185,6 @@ class PengusulController extends BaseController
     {
         $Model = new IdentitasModel();
 
-        // Ambil id_pendaftaran dari session
         $id_pendaftaran = session()->get('id_pendaftaran');
         $kategori = session()->get('kategori');
 
@@ -170,13 +211,13 @@ class PengusulController extends BaseController
                 'pendidikan' => $this->request->getPost('pendidikan'),
             ];
 
-            // Update data berdasarkan id_pendaftaran
             $Model->update($id_pendaftaran, $data);
         } else {
             $data = [
                 'nama' => $this->request->getPost('nama_individu'),
                 'nik' => $this->request->getPost('nik_individu'),
                 'tempat_lahir' => $this->request->getPost('tempat_lahir'),
+                'tanggal_lahir' => $this->request->getPost('tanggal_lahir'),
                 'usia' => $this->request->getPost('usia'),
                 'jenis_kelamin' => $this->request->getPost('jenis_kelamin'),
                 'pekerjaan' => $this->request->getPost('pekerjaan'),
@@ -193,7 +234,6 @@ class PengusulController extends BaseController
                 'sosial_media' => $this->request->getPost('media_sosial'),
             ];
 
-            // Update data berdasarkan id_pendaftaran
             $Model->update($id_pendaftaran, $data);
         }
 
@@ -229,9 +269,19 @@ class PengusulController extends BaseController
 
     public function usulansaya()
     {
-        $data['title'] = 'Usulan Saya';
-        return view('pengusul/usulansaya', ['title' => 'Usulan Saya']);
+        $id_pengusul = session()->get('id_pengusul');
+        $Model = new IdentitasModel();
+
+        $usulan = $Model->where('id_pengusul', $id_pengusul)->findAll();
+
+        $data = [
+            'title' => 'Usulan Saya',
+            'usulan' => $usulan // Kirim data usulan ke view
+        ];
+
+        return view('pengusul/usulansaya', $data);
     }
+
     public function usulandlhk()
     {
         $data['title'] = 'Usulan DLHK';

@@ -28,12 +28,12 @@
                             <tr>
                                 <th class="p-4 border-b border-accent2 bg-accent1 text-center">
                                     <p class="block text-xs md:text-sm font-bold leading-none text-accent2">
-                                        Nama
+                                        No
                                     </p>
                                 </th>
                                 <th class="p-4 border-b border-accent2 bg-accent1 text-center">
                                     <p class="block text-xs md:text-sm font-bold leading-none text-accent2">
-                                        Kategori
+                                        Nama
                                     </p>
                                 </th>
                                 <th class="p-4 border-b border-accent2 bg-accent1 text-center">
@@ -43,152 +43,41 @@
                                 </th>
                                 <th class="p-4 border-b border-accent2 bg-accent1 text-center">
                                     <p class="block text-xs md:text-sm font-bold leading-none text-accent2">
-                                        Detail
+                                        Kategori
                                     </p>
                                 </th>
                                 <th class="p-4 border-b border-accent2 bg-accent1 text-center">
                                     <p class="block text-xs md:text-sm font-bold leading-none text-accent2">
-                                        Status
+                                        Aksi
                                     </p>
                                 </th>
+                                <!-- <th class="p-4 border-b border-accent2 bg-accent1 text-center">
+                                    <p class="block text-xs md:text-sm font-bold leading-none text-accent2">
+                                        Status
+                                    </p>
+                                </th> -->
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="hover:bg-slate-50">
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Joko Susilo
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Pengabdi Lingkungan
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Jawa Barat
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <a href="./detailusulansaya">
-                                        <button class="w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat</button>
-                                    </a>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs font-bold text-accepted w-24">
-                                        Lolos Administrasi
-                                    </p>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-slate-50">
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Joko Susilo
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Pengabdi Lingkungan
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Jawa Barat
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <a href="./detailusulansaya">
-                                        <button class="w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat</button>
-                                    </a>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs font-bold text-rejected w-24">
-                                        Tidak Lolos Administrasi
-                                    </p>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-slate-50">
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Joko Susilo
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Perintis Lingkungan
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Jawa Barat
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <a href="./detailusulansaya">
-                                        <button class="w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat</button>
-                                    </a>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs font-bold text-rejected w-24">
-                                        Tidak Lolos Administrasi
-                                    </p>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-slate-50">
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Joko Susilo
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Perintis Lingkungan
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Jawa Barat
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <a href="./detailusulansaya">
-                                        <button class="w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat</button>
-                                    </a>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs font-bold text-accepted w-24">
-                                        Lolos Penerima
-                                    </p>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-slate-50">
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Joko Susilo
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Perintis Lingkungan
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Jawa Barat
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <a href="./detailusulansaya">
-                                        <button class="w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat</button>
-                                    </a>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs font-bold text-accepted w-24">
-                                        Lolos Nominasi
-                                    </p>
-                                </td>
-                            </tr>
+                            <?php if (!empty($usulan)) : ?>
+                                <?php foreach ($usulan as $index => $u) : ?>
+                                    <tr class="hover:bg-slate-50">
+                                        <td class="p-4 border-b border-slate-200 text-center"><?= $index + 1; ?></td>
+                                        <td class="p-4 border-b border-slate-200 text-center"><?= $u['nama']; ?></td>
+                                        <td class="p-4 border-b border-slate-200 text-center"><?= $u['provinsi']; ?></td>
+                                        <td class="p-4 border-b border-slate-200 text-center"><?= $u['kategori']; ?></td>
+                                        <td class="p-4 border-b border-slate-200 text-center">
+                                            <a href="/pengusul/detail/<?= $u['id_pendaftaran']; ?>">
+                                                <button class="w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat</button>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php else : ?>
+                                <tr>
+                                    <td colspan="6">Belum ada usulan yang diajukan.</td>
+                                </tr>
+                            <?php endif; ?>
                         </tbody>
                     </table>
                 </div>
