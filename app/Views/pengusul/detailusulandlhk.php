@@ -154,7 +154,7 @@
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Unggah SKCK <span class="text-primary">(.pdf)</span></label>
-                                <input id="skck" type="file"  accept="application/pdf"
+                                <input id="skck" type="file" accept="application/pdf"
                                     class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
                             </div>
 
@@ -167,7 +167,7 @@
                 <?php else: ?>
                     <div id="identitas-calon" class="form-section flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
                         <form id="identitasabd" class="mb-2 w-full">
-                        <div class="w-full mb-2">
+                            <div class="w-full mb-2">
                                 <label class="mb-2 text-sm text-slate-600">Nama Lengkap</label>
                                 <input type="text" class="w-full bg-transparent placeholder:text-primary text-slate-700 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary shadow-sm focus:shadow" />
                             </div>
@@ -277,39 +277,39 @@
                             <div class="space-y-4">
                                 <div>
                                     <label class="block mb-2 text-sm text-black">Tema Kegiatan</label>
-                                    <select class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease">
+                                    <select id="tema-kegiatan" class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease">
                                         <option value="" disabled selected>Pilih Tema Kegiatan</option>
-                                        <option value="keanekaragaman-hayati-biodiversity">Keanekaragaman Hayati (Biodiversity)</option>
+                                        <option value="keanekaragaman-hayati">Keanekaragaman Hayati</option>
                                         <option value="perubahan-iklim">Perubahan Iklim</option>
                                         <option value="pencemaran-dan-kerusakan-lingkungan">Pencemaran dan Kerusakan Lingkungan</option>
                                         <option value="hukum-dan-budaya">Hukum dan Budaya</option>
                                     </select>
-                            </div>
-                            <div>
-                                <label class="block mb-2 text-sm text-black">Sub Tema Kegiatan</label>
-                                <select class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease">
-                                    <option value="" disabled selected>Pilih Sub Tema Kegiatan</option>
-                                    <option value="pelestarian-keanekaragaman-hayati-kawasan-dilindungi-yang-meliputi-pelestarian-sumber-daya-genetik-jenis-dan-ekosistem">Pelestarian keanekaragaman hayati dan kawasan dilindungi yang meliputi pelestarian sumber daya genetik, jenis, dan ekosistem</option>
-                                    <option value="pemanfaatan-keanekaragaman-hayati-berkelanjutan">Pemanfaatan keanekaragaman hayati secara berkelanjutan</option>
-                                    <option value="jasa-lingkungan">Jasa lingkungan</option>
-                                    <!-- Batas Keanekaragaman Hayati (Biodiversity) -->
-                                    <option value="adaptasi-perubahan-iklim">Adaptasi perubahan iklim</option>
-                                    <option value="mitigasi-perubahan-iklim">Mitigasi perubahan iklim</option>
-                                    <option value="penerapan-ekonomi-hijau-biru">Penerapan ekonomi hijau dan ekonomi biru</option>
-                                    <!-- Batas Perubahan Iklim -->
-                                    <option value="penanganan-pencemaran-air-tanah-udara-yang-meliputi-industri-pertanian-domestik-terutama-plastik">Penanganan pencemaran air, tanah, udara dari industri, pertanian, domestik terutama plastik</option>
-                                    <option value="pencegahan-dan-penanggulangan-kerusakan-lingkungan">Pencegahan dan penanggulangan kerusakan lingkungan</option>
-                                    <option value="ekonomi-sirkular">Ekonomi sirkular</option>
-                                    <!-- Batas Pencemaran dan Kerusakan Lingkungan -->
-                                    <option value="keadilan-pemanfaatan-sumber-daya-alam-dan-lingkungan">Keadilan terhadap pemanfaatan sumber daya alam dan lingkungan</option>
-                                    <option value="kearifan-tradisional-dalam-pengelolaan-sumber-daya-alam">Kearifan tradisional dalam pengelolaan sumber daya alam</option>
-                                    <option value="komunikasi-pendidikan-lingkungan-hidup">Komunikasi dan pendidikan lingkungan hidup</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block mb-2 text-sm text-black">Bentuk Kegiatan</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" />
-                                <!-- <select id="jenisKegiatan" class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" onchange="toggleJenisLainnya()">
+                                </div>
+                                <div>
+                                    <label class="block mb-2 text-sm text-black">Sub Tema Kegiatan</label>
+                                    <select id="sub-tema-kegiatan" disabled class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease">
+                                        <option value="" disabled selected>Pilih Sub Tema Kegiatan</option>
+                                        <option value="pelestarian-keanekaragaman-hayati-kawasan-dilindungi-yang-meliputi-pelestarian-sumber-daya-genetik-jenis-dan-ekosistem">Pelestarian keanekaragaman hayati dan kawasan dilindungi yang meliputi pelestarian sumber daya genetik, jenis, dan ekosistem</option>
+                                        <option value="pemanfaatan-keanekaragaman-hayati-berkelanjutan">Pemanfaatan keanekaragaman hayati secara berkelanjutan</option>
+                                        <option value="jasa-lingkungan">Jasa lingkungan</option>
+                                        <!-- Batas Keanekaragaman Hayati -->
+                                        <option value="adaptasi-perubahan-iklim">Adaptasi perubahan iklim</option>
+                                        <option value="mitigasi-perubahan-iklim">Mitigasi perubahan iklim</option>
+                                        <option value="penerapan-ekonomi-hijau-biru">Penerapan ekonomi hijau dan ekonomi biru</option>
+                                        <!-- Batas Perubahan Iklim -->
+                                        <option value="penanganan-pencemaran-air-tanah-udara-yang-meliputi-industri-pertanian-domestik-terutama-plastik">Penanganan pencemaran air, tanah, udara dari industri, pertanian, domestik terutama plastik</option>
+                                        <option value="pencegahan-dan-penanggulangan-kerusakan-lingkungan">Pencegahan dan penanggulangan kerusakan lingkungan</option>
+                                        <option value="ekonomi-sirkular">Ekonomi sirkular</option>
+                                        <!-- Batas Pencemaran dan Kerusakan Lingkungan -->
+                                        <option value="keadilan-pemanfaatan-sumber-daya-alam-dan-lingkungan">Keadilan terhadap pemanfaatan sumber daya alam dan lingkungan</option>
+                                        <option value="kearifan-tradisional-dalam-pengelolaan-sumber-daya-alam">Kearifan tradisional dalam pengelolaan sumber daya alam</option>
+                                        <option value="komunikasi-pendidikan-lingkungan-hidup">Komunikasi dan pendidikan lingkungan hidup</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block mb-2 text-sm text-black">Bentuk Kegiatan</label>
+                                    <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" />
+                                    <!-- <select id="jenisKegiatan" class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" onchange="toggleJenisLainnya()">
                                 <option value="" disabled selected>Pilih Jenis Kegiatan</option>
                                 <option value="konservasi-hutan">Konservasi Hutan</option>
                                 <option value="konservasi-karst">Konservasi Karst</option>
@@ -345,215 +345,215 @@
                                 <option value="gerakan-aksi-lingkungan">Gerakan Aksi Lingkungan</option>
                                 <option value="jenis-kegiatan-lainnya">Jenis Kegiatan Lainnya</option>
                             </select> -->
-                            </div>
-                            <!-- <div id="jenisLainnya" class="hidden">
+                                </div>
+                                <!-- <div id="jenisLainnya" class="hidden">
                             <label class="block mb-2 text-sm text-black">Bentuk Kegiatan Lainnya</label>
                             <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" />
                         </div> -->
-                            <div>
-                                <label class="block mb-2 text-sm text-black">Tahun Mulai Kegiatan</label>
-                                <input type="date" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-                            </div>
-                            <div>
-                                <label class="block mb-2 text-sm text-black">Penjelasan Kegiatan</label>
-                                <textarea id="penjelasan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                    oninput="updateWordCount(this, 'penjelasanCount', 1000)"></textarea>
-                                <p id="penjelasanCount" class="text-xs text-slate-400 flex justify-end ">0/1000 Kata</p>
-                            </div>
-                        </div>
-
-                        <!-- Kolom kanan -->
-                        <div class="space-y-4">
-                            <div>
-                                <label class="block mb-2 text-sm text-black">Lokasi Kegiatan</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-                            </div>
-                            <div>
-                                <label class="block mb-2 text-sm text-black">Para Pihak dan Perannya</label>
-                                <textarea id="pihakPeran" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                    oninput="updateWordCount(this, 'pihakPeranCount', 1000)"></textarea>
-                                <p id="pihakPeranCount" class="text-xs text-slate-400 flex justify-end ">0/1000 Kata</p>
-                            </div>
-                            <div>
-                                <label class="block mb-2 text-sm text-black">Keberhasilan yang Dicapai</label>
-                                <textarea id="keberhasilan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                    oninput="updateWordCount(this, 'keberhasilanCount', 1000)"></textarea>
-                                <p id="keberhasilanCount" class="text-xs text-slate-400 flex justify-end ">0/1000 kata</p>
+                                <div>
+                                    <label class="block mb-2 text-sm text-black">Tahun Mulai Kegiatan</label>
+                                    <input type="date" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                </div>
+                                <div>
+                                    <label class="block mb-2 text-sm text-black">Penjelasan Kegiatan</label>
+                                    <textarea id="penjelasan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                                        oninput="updateWordCount(this, 'penjelasanCount', 1000)"></textarea>
+                                    <p id="penjelasanCount" class="text-xs text-slate-400 flex justify-end ">0/1000 Kata</p>
+                                </div>
                             </div>
 
-                        </div>
-                </div>
-
-                <div class="flex justify-between mt-4">
-                    <button id="tambahKegiatanBtn" class="w-40 rounded-md py-2 text-center text-sm text-primary transition-all shadow-md hover:shadow-lg bg-secondary active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button" onclick="tambahKegiatan()"> <span>&#10010</span> Tambah Kegiatan</button>
-                </div>
-
-                <div class="flex justify-end mt-4">
-                    <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Perbarui</button>
-                </div>
-                </form>
-            </div>
-
-            <!-- Right side: Form inside a card -->
-            <div id="dampak" class="form-section hidden flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
-                <form id="dampakForm" class="mb-2 w-full">
-                    <div class="grid grid-cols-1 gap-4">
-                        <div>
-                            <label class="block mb-2 text-sm text-black">Dampak kegiatan terhadap lingkungan</label>
-                            <textarea id="dampakLingkungan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                oninput="updateWordCount(this, 'dampakLingkunganCount', 1000)"></textarea>
-                            <p id="dampakLingkunganCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
-                        </div>
-                        <div>
-                            <label class="block mb-2 text-sm text-black">Dampak Ekonomi</label>
-                            <textarea id="dampakEkonomi" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                oninput="updateWordCount(this, 'dampakEkonomiCount', 1000)"></textarea>
-                            <p id="dampakEkonomiCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
-                        </div>
-                        <div>
-                            <label class="block mb-2 text-sm text-black">Dampak Sosial dan Budaya</label>
-                            <textarea id="dampakSosial" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                oninput="updateWordCount(this, 'dampakSosialCount', 1000)"></textarea>
-                            <p id="dampakSosialCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
-                        </div>
-                    </div>
-
-                    <div class="flex justify-end mt-4">
-                        <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Perbarui</button>
-                    </div>
-                </form>
-            </div>
-
-            <!-- Right side: Form inside a card -->
-            <div id="pmik" class="form-section hidden flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
-                <form id="pmikForm" class="mb-2 w-full">
-                    <div class="grid grid-cols-1 gap-4">
-                        <div>
-                            <label class="block mb-2 text-sm text-black">Prakarsa</label>
-                            <textarea id="prakarsa" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                oninput="updateWordCount(this, 'prakarsaCount', 1000)"></textarea>
-                            <p id="prakarsaCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
-                        </div>
-                        <div>
-                            <label class="block mb-2 text-sm text-black">Motivasi</label>
-                            <textarea id="motivasi" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                oninput="updateWordCount(this, 'motivasiCount', 1000)"></textarea>
-                            <p id="motivasiCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
-                        </div>
-                        <div>
-                            <label class="block mb-2 text-sm text-black">Inovasi</label>
-                            <textarea id="inovasi" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                oninput="updateWordCount(this, 'inovasiCount', 1000)"></textarea>
-                            <p id="inovasiCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
-                        </div>
-                        <div>
-                            <label class="block mb-2 text-sm text-black">Kreativitas</label>
-                            <textarea id="kreativitas" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                oninput="updateWordCount(this, 'kreativitasCount', 1000)"></textarea>
-                            <p id="kreativitasCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
-                        </div>
-                    </div>
-
-                    <div class="flex justify-end mt-4">
-                        <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Perbarui</button>
-                    </div>
-                </form>
-            </div>
-
-            <!-- Right side: Form inside a card -->
-            <div id="keswadayaan" class="form-section hidden flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
-                <form id="keswadayaanForm" class="mb-2 w-full">
-                    <div class="grid grid-cols-1 gap-4">
-                        <div>
-                            <label class="block mb-2 text-sm text-black">Sumber Pembiayaan Kegiatan</label>
-                            <textarea id="sumber" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                oninput="updateWordCount(this, 'sumberCount', 1000)"></textarea>
-                            <p id="sumberCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
-                        </div>
-                        <div>
-                            <label class="block mb-2 text-sm text-black">Teknologi/Alat/Fasilitas yang digunakan</label>
-                            <textarea id="teknologi" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                oninput="updateWordCount(this, 'teknologiCount', 1000)"></textarea>
-                            <p id="teknologiCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
-                        </div>
-                        <div>
-                            <label class="block mb-2 text-sm text-black">Status Lahan/Areal Kegiatan</label>
-                            <textarea id="statusLahan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                oninput="updateWordCount(this, 'statusLahanCount', 1000)"></textarea>
-                            <p id="statusLahanCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
-                        </div>
-                        <div>
-                            <label class="block mb-2 text-sm text-black">Kelompok/Perorangan yang meniru</label>
-                            <textarea id="kelompokPeroranganMeniru" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                oninput="updateWordCount(this, 'kelompokPeroranganMeniruCount', 1000)"></textarea>
-                            <p id="kelompokPeroranganMeniruCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
-                        </div>
-                    </div>
-
-                    <div class="flex justify-end mt-4">
-                        <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Perbarui</button>
-                    </div>
-                </form>
-            </div>
-
-            <!-- Right side: Form inside a card -->
-            <div id="keistimewaan" class="form-section hidden flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
-                <form id="keistimewaanForm" class="mb-2 w-full">
-                    <div class="grid grid-cols-1 gap-4">
-                        <div>
-                            <label class="block mb-2 text-sm text-black">Keistimewaan Calon</label>
-                            <textarea id="keistimewaanCalon" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                oninput="updateWordCount(this, 'keistimewaanCalonCount', 1000)"></textarea>
-                            <p id="keistimewaanCalonCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
-                        </div>
-                        <div>
-                            <label class="block mb-2 text-sm text-black">Penghargaan relevan yang pernah diterima</label>
-                            <textarea id="penghargaanRelevan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                oninput="updateWordCount(this, 'penghargaanRelevanCount', 1000)"></textarea>
-                            <p id="penghargaanRelevanCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
-                        </div>
-                        <div>
-                            <label class="block mb-2 text-sm text-black">Tautan Dokumen Pendukung (Google Drive)</label>
-                            <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-                        </div>
-
-                        <div class="grid grid-cols-2 gap-4">
-                            <!-- Kolom 1 - Unggah Foto Kegiatan -->
-                            <div id="fotoContainer">
-                                <label class="block mb-2 text-sm text-black">Foto Kegiatan <span class="text-primary"> (.jpg/jpeg)</span></label>
-                                <div class="mb-4">
-                                    <input type="file" accept=".jpg, .jpeg" class="mb-2 w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-                                    <input type="text" placeholder="Keterangan Foto" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            <!-- Kolom kanan -->
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block mb-2 text-sm text-black">Lokasi Kegiatan</label>
+                                    <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                </div>
+                                <div>
+                                    <label class="block mb-2 text-sm text-black">Para Pihak dan Perannya</label>
+                                    <textarea id="pihakPeran" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                                        oninput="updateWordCount(this, 'pihakPeranCount', 1000)"></textarea>
+                                    <p id="pihakPeranCount" class="text-xs text-slate-400 flex justify-end ">0/1000 Kata</p>
+                                </div>
+                                <div>
+                                    <label class="block mb-2 text-sm text-black">Keberhasilan yang Dicapai</label>
+                                    <textarea id="keberhasilan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                                        oninput="updateWordCount(this, 'keberhasilanCount', 1000)"></textarea>
+                                    <p id="keberhasilanCount" class="text-xs text-slate-400 flex justify-end ">0/1000 kata</p>
                                 </div>
 
-                                <!-- Tombol Tambah Foto Kegiatan -->
-                                <button type="button" id="tambahFotoButton" class="mt-4 w-full flex items-center justify-center rounded-md py-2 text-center text-sm text-primary transition-all shadow-md hover:shadow-lg bg-secondary active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
-                                    <span class="mr-2">&#10010</span> Tambah Foto Kegiatan
-                                </button>
-                            </div>
-
-                            <!-- Kolom 2 - Tautan Video -->
-                            <div id="videoContainer">
-                                <label class="block mb-2 text-sm text-black">Tautan Video</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow mb-3" placeholder="Tautan Video" />
-
-                                <!-- Tombol Tambah Video -->
-                                <button type="button" id="tambahVideoButton" class="w-full flex items-center justify-center rounded-md py-2 text-center text-sm text-primary transition-all shadow-md hover:shadow-lg bg-secondary active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
-                                    <span class="mr-2">&#10010</span> Tambah Tautan Video
-                                </button>
                             </div>
                         </div>
 
-                    </div>
+                        <div class="flex justify-between mt-4">
+                            <button id="tambahKegiatanBtn" class="w-40 rounded-md py-2 text-center text-sm text-primary transition-all shadow-md hover:shadow-lg bg-secondary active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button" onclick="tambahKegiatan()"> <span>&#10010</span> Tambah Kegiatan</button>
+                        </div>
 
-                    <div class="flex justify-end mt-4">
-                        <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Perbarui</button>
-                    </div>
-                </form>
+                        <div class="flex justify-end mt-4">
+                            <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Perbarui</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Right side: Form inside a card -->
+                <div id="dampak" class="form-section hidden flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
+                    <form id="dampakForm" class="mb-2 w-full">
+                        <div class="grid grid-cols-1 gap-4">
+                            <div>
+                                <label class="block mb-2 text-sm text-black">Dampak kegiatan terhadap lingkungan</label>
+                                <textarea id="dampakLingkungan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                                    oninput="updateWordCount(this, 'dampakLingkunganCount', 1000)"></textarea>
+                                <p id="dampakLingkunganCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
+                            </div>
+                            <div>
+                                <label class="block mb-2 text-sm text-black">Dampak Ekonomi</label>
+                                <textarea id="dampakEkonomi" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                                    oninput="updateWordCount(this, 'dampakEkonomiCount', 1000)"></textarea>
+                                <p id="dampakEkonomiCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
+                            </div>
+                            <div>
+                                <label class="block mb-2 text-sm text-black">Dampak Sosial dan Budaya</label>
+                                <textarea id="dampakSosial" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                                    oninput="updateWordCount(this, 'dampakSosialCount', 1000)"></textarea>
+                                <p id="dampakSosialCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end mt-4">
+                            <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Perbarui</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Right side: Form inside a card -->
+                <div id="pmik" class="form-section hidden flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
+                    <form id="pmikForm" class="mb-2 w-full">
+                        <div class="grid grid-cols-1 gap-4">
+                            <div>
+                                <label class="block mb-2 text-sm text-black">Prakarsa</label>
+                                <textarea id="prakarsa" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                                    oninput="updateWordCount(this, 'prakarsaCount', 1000)"></textarea>
+                                <p id="prakarsaCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
+                            </div>
+                            <div>
+                                <label class="block mb-2 text-sm text-black">Motivasi</label>
+                                <textarea id="motivasi" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                                    oninput="updateWordCount(this, 'motivasiCount', 1000)"></textarea>
+                                <p id="motivasiCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
+                            </div>
+                            <div>
+                                <label class="block mb-2 text-sm text-black">Inovasi</label>
+                                <textarea id="inovasi" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                                    oninput="updateWordCount(this, 'inovasiCount', 1000)"></textarea>
+                                <p id="inovasiCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
+                            </div>
+                            <div>
+                                <label class="block mb-2 text-sm text-black">Kreativitas</label>
+                                <textarea id="kreativitas" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                                    oninput="updateWordCount(this, 'kreativitasCount', 1000)"></textarea>
+                                <p id="kreativitasCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end mt-4">
+                            <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Perbarui</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Right side: Form inside a card -->
+                <div id="keswadayaan" class="form-section hidden flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
+                    <form id="keswadayaanForm" class="mb-2 w-full">
+                        <div class="grid grid-cols-1 gap-4">
+                            <div>
+                                <label class="block mb-2 text-sm text-black">Sumber Pembiayaan Kegiatan</label>
+                                <textarea id="sumber" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                                    oninput="updateWordCount(this, 'sumberCount', 1000)"></textarea>
+                                <p id="sumberCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
+                            </div>
+                            <div>
+                                <label class="block mb-2 text-sm text-black">Teknologi/Alat/Fasilitas yang digunakan</label>
+                                <textarea id="teknologi" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                                    oninput="updateWordCount(this, 'teknologiCount', 1000)"></textarea>
+                                <p id="teknologiCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
+                            </div>
+                            <div>
+                                <label class="block mb-2 text-sm text-black">Status Lahan/Areal Kegiatan</label>
+                                <textarea id="statusLahan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                                    oninput="updateWordCount(this, 'statusLahanCount', 1000)"></textarea>
+                                <p id="statusLahanCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
+                            </div>
+                            <div>
+                                <label class="block mb-2 text-sm text-black">Kelompok/Perorangan yang meniru</label>
+                                <textarea id="kelompokPeroranganMeniru" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                                    oninput="updateWordCount(this, 'kelompokPeroranganMeniruCount', 1000)"></textarea>
+                                <p id="kelompokPeroranganMeniruCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end mt-4">
+                            <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Perbarui</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Right side: Form inside a card -->
+                <div id="keistimewaan" class="form-section hidden flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
+                    <form id="keistimewaanForm" class="mb-2 w-full">
+                        <div class="grid grid-cols-1 gap-4">
+                            <div>
+                                <label class="block mb-2 text-sm text-black">Keistimewaan Calon</label>
+                                <textarea id="keistimewaanCalon" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                                    oninput="updateWordCount(this, 'keistimewaanCalonCount', 1000)"></textarea>
+                                <p id="keistimewaanCalonCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
+                            </div>
+                            <div>
+                                <label class="block mb-2 text-sm text-black">Penghargaan relevan yang pernah diterima</label>
+                                <textarea id="penghargaanRelevan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                                    oninput="updateWordCount(this, 'penghargaanRelevanCount', 1000)"></textarea>
+                                <p id="penghargaanRelevanCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
+                            </div>
+                            <div>
+                                <label class="block mb-2 text-sm text-black">Tautan Dokumen Pendukung (Google Drive)</label>
+                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <!-- Kolom 1 - Unggah Foto Kegiatan -->
+                                <div id="fotoContainer">
+                                    <label class="block mb-2 text-sm text-black">Foto Kegiatan <span class="text-primary"> (.jpg/jpeg)</span></label>
+                                    <div class="mb-4">
+                                        <input type="file" accept=".jpg, .jpeg" class="mb-2 w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                        <input type="text" placeholder="Keterangan Foto" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                    </div>
+
+                                    <!-- Tombol Tambah Foto Kegiatan -->
+                                    <button type="button" id="tambahFotoButton" class="mt-4 w-full flex items-center justify-center rounded-md py-2 text-center text-sm text-primary transition-all shadow-md hover:shadow-lg bg-secondary active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                                        <span class="mr-2">&#10010</span> Tambah Foto Kegiatan
+                                    </button>
+                                </div>
+
+                                <!-- Kolom 2 - Tautan Video -->
+                                <div id="videoContainer">
+                                    <label class="block mb-2 text-sm text-black">Tautan Video</label>
+                                    <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow mb-3" placeholder="Tautan Video" />
+
+                                    <!-- Tombol Tambah Video -->
+                                    <button type="button" id="tambahVideoButton" class="w-full flex items-center justify-center rounded-md py-2 text-center text-sm text-primary transition-all shadow-md hover:shadow-lg bg-secondary active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                                        <span class="mr-2">&#10010</span> Tambah Tautan Video
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="flex justify-end mt-4">
+                            <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Perbarui</button>
+                        </div>
+                    </form>
+                </div>
+
             </div>
-
         </div>
-    </div>
     </div>
 
 
@@ -580,7 +580,7 @@
 
 
         // Jenis Kegiatan Lainnya
-        function toggleJenisLainnya() {
+        /* function toggleJenisLainnya() {
             const jenisKegiatan = document.getElementById('jenisKegiatan');
             const jenisLainnya = document.getElementById('jenisLainnya');
             if (jenisKegiatan.value === 'jenis-kegiatan-lainnya') {
@@ -588,6 +588,116 @@
             } else {
                 jenisLainnya.classList.add('hidden');
             }
+        }
+ */
+
+        // Tema Sub Tema Kegiatan
+        const subTemaOptions = {
+            "keanekaragaman-hayati": [{
+                    value: "pelestarian-keanekaragaman-hayati-kawasan-dilindungi-yang-meliputi-pelestarian-sumber-daya-genetik-jenis-dan-ekosistem",
+                    text: "Pelestarian keanekaragaman hayati dan kawasan dilindungi yang meliputi pelestarian sumber daya genetik, jenis, dan ekosistem"
+                },
+                {
+                    value: "pemanfaatan-keanekaragaman-hayati-berkelanjutan",
+                    text: "Pemanfaatan keanekaragaman hayati secara berkelanjutan"
+                },
+                {
+                    value: "jasa-lingkungan",
+                    text: "Jasa lingkungan"
+                }
+            ],
+            "perubahan-iklim": [{
+                    value: "adaptasi-perubahan-iklim",
+                    text: "Adaptasi perubahan iklim"
+                },
+                {
+                    value: "mitigasi-perubahan-iklim",
+                    text: "Mitigasi perubahan iklim"
+                },
+                {
+                    value: "penerapan-ekonomi-hijau-biru",
+                    text: "Penerapan ekonomi hijau dan ekonomi biru"
+                }
+            ],
+            "pencemaran-dan-kerusakan-lingkungan": [{
+                    value: "penanganan-pencemaran-air-tanah-udara-yang-meliputi-industri-pertanian-domestik-terutama-plastik",
+                    text: "Penanganan pencemaran air, tanah, udara dari industri, pertanian, domestik terutama plastik"
+                },
+                {
+                    value: "pencegahan-dan-penanggulangan-kerusakan-lingkungan",
+                    text: "Pencegahan dan penanggulangan kerusakan lingkungan"
+                },
+                {
+                    value: "ekonomi-sirkular",
+                    text: "Ekonomi sirkular"
+                }
+            ],
+            "hukum-dan-budaya": [{
+                    value: "keadilan-pemanfaatan-sumber-daya-alam-dan-lingkungan",
+                    text: "Keadilan terhadap pemanfaatan sumber daya alam dan lingkungan"
+                },
+                {
+                    value: "kearifan-tradisional-dalam-pengelolaan-sumber-daya-alam",
+                    text: "Kearifan tradisional dalam pengelolaan sumber daya alam"
+                },
+                {
+                    value: "komunikasi-pendidikan-lingkungan-hidup",
+                    text: "Komunikasi dan pendidikan lingkungan hidup"
+                }
+            ]
+        };
+
+        const temaKegiatanSelect = document.getElementById('tema-kegiatan');
+        const subTemaKegiatanSelect = document.getElementById('sub-tema-kegiatan');
+
+        temaKegiatanSelect.addEventListener('change', function() {
+            const selectedTema = this.value;
+            const subTemaList = subTemaOptions[selectedTema];
+
+            // Reset sub-tema options
+            subTemaKegiatanSelect.innerHTML = '<option value="" disabled selected>Pilih Sub Tema Kegiatan</option>';
+
+            if (subTemaList) {
+                // Aktifkan select sub-tema jika ada tema yang dipilih
+                subTemaKegiatanSelect.disabled = false;
+
+                // Tambahkan opsi sub-tema yang sesuai
+                subTemaList.forEach(subTema => {
+                    const option = document.createElement('option');
+                    option.value = subTema.value;
+                    option.text = subTema.text;
+                    subTemaKegiatanSelect.appendChild(option);
+                });
+            } else {
+                // Nonaktifkan select sub-tema jika tema tidak valid
+                subTemaKegiatanSelect.disabled = true;
+            }
+        });
+
+        function setTemaSubTemaEvent(temaSelect, subTemaSelect) {
+            temaSelect.addEventListener('change', function() {
+                const selectedTema = this.value;
+                const subTemaList = subTemaOptions[selectedTema];
+
+                // Reset sub-tema options
+                subTemaSelect.innerHTML = '<option value="" disabled selected>Pilih Sub Tema Kegiatan</option>';
+
+                if (subTemaList) {
+                    // Aktifkan select sub-tema jika ada tema yang dipilih
+                    subTemaSelect.disabled = false;
+
+                    // Tambahkan opsi sub-tema yang sesuai
+                    subTemaList.forEach(subTema => {
+                        const option = document.createElement('option');
+                        option.value = subTema.value;
+                        option.text = subTema.text;
+                        subTemaSelect.appendChild(option);
+                    });
+                } else {
+                    // Nonaktifkan select sub-tema jika tema tidak valid
+                    subTemaSelect.disabled = true;
+                }
+            });
         }
 
         // Batasan Kata
@@ -664,7 +774,7 @@
         });
 
         let kegiatanCount = 1; // Awal dari 1 karena sudah ada 1 form
-        const maxKegiatan = 4;
+        const maxKegiatan = 4; // Batas maksimal form kegiatan
 
         function tambahKegiatan() {
             if (kegiatanCount < maxKegiatan) {
@@ -678,9 +788,9 @@
                 <div class="space-y-4">
                         <div>
                             <label class="block mb-2 text-sm text-black">Tema Kegiatan</label>
-                            <select class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease">
+                            <select id="tema-kegiatan-${kegiatanCount}" class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease">
                                 <option value="" disabled selected>Pilih Tema Kegiatan</option>
-                                <option value="keanekaragaman-hayati-biodiversity">Keanekaragaman Hayati (Biodiversity)</option>
+                                <option value="keanekaragaman-hayati">Keanekaragaman Hayati</option>
                                 <option value="perubahan-iklim">Perubahan Iklim</option>
                                 <option value="pencemaran-dan-kerusakan-lingkungan">Pencemaran dan Kerusakan Lingkungan</option>
                                 <option value="hukum-dan-budaya">Hukum dan Budaya</option>
@@ -688,12 +798,12 @@
                         </div>
                         <div>
                             <label class="block mb-2 text-sm text-black">Sub Tema Kegiatan</label>
-                            <select class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease">
+                            <select id="sub-tema-kegiatan-${kegiatanCount}" disabled class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease">
                                 <option value="" disabled selected>Pilih Sub Tema Kegiatan</option>
                                 <option value="pelestarian-keanekaragaman-hayati-kawasan-dilindungi-yang-meliputi-pelestarian-sumber-daya-genetik-jenis-dan-ekosistem">Pelestarian keanekaragaman hayati dan kawasan dilindungi yang meliputi pelestarian sumber daya genetik, jenis, dan ekosistem</option>
                                 <option value="pemanfaatan-keanekaragaman-hayati-berkelanjutan">Pemanfaatan keanekaragaman hayati secara berkelanjutan</option>
                                 <option value="jasa-lingkungan">Jasa lingkungan</option>
-                                <!-- Batas Keanekaragaman Hayati (Biodiversity) -->
+                                <!-- Batas Keanekaragaman Hayati -->
                                 <option value="adaptasi-perubahan-iklim">Adaptasi perubahan iklim</option>
                                 <option value="mitigasi-perubahan-iklim">Mitigasi perubahan iklim</option>
                                 <option value="penerapan-ekonomi-hijau-biru">Penerapan ekonomi hijau dan ekonomi biru</option>
@@ -748,6 +858,13 @@
 
                 // Tambahkan form baru di bawah form yang sudah ada
                 formContainer.insertAdjacentHTML('beforeend', newForm);
+
+                // Ambil elemen select tema dan sub-tema untuk form yang baru ditambahkan
+                const temaSelect = document.getElementById(`tema-kegiatan-${kegiatanCount}`);
+                const subTemaSelect = document.getElementById(`sub-tema-kegiatan-${kegiatanCount}`);
+
+                // Apply event listener untuk Tema dan Sub Tema
+                setTemaSubTemaEvent(temaSelect, subTemaSelect);
 
                 // Panggil fungsi updateWordCount untuk tiap textarea yang baru ditambahkan
                 updateWordCount(document.getElementById(`penjelasan${kegiatanCount}`), `penjelasanCount${kegiatanCount}`, 1000);
