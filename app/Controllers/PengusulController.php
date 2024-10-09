@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\PengusulModel;
 use App\Models\IdentitasModel;
+use App\Models\ArtikelModel;
 // use CodeIgniter\Controller;
 
 class PengusulController extends BaseController
@@ -298,16 +299,93 @@ class PengusulController extends BaseController
         $data['title'] = 'Detail Usulan DLHK';
         return view('pengusul/detailusulandlhk', ['title' => 'Detail Usulan DLHK']);
     }
+
     public function tambahartikel()
     {
-        $data['title'] = 'Tambah Artikel';
-        return view('pengusul/tambahartikel', ['title' => 'Tambah Artikel']);
+        // Mengambil ID pengusul dari session
+        $data = [
+            'title' => 'Tambah Artikel',
+            'id_pengusul' => session()->get('id_pengusul'),
+        ];
+
+        return view('pengusul/tambahartikel', $data);
     }
+
+    public function tambahArtikelAction()
+    {
+        // Ambil input dari formulir
+        $judulArtikel = $this->request->getPost('judul_artikel');
+        $konten = $this->request->getPost('konten');
+
+        // Memproses foto yang diupload
+        $foto = $this->request->getFile('foto');
+
+        // Validasi input
+        $validation = \Config\Services::validation();
+        $validation->setRules([
+            'judul_artikel' => 'required|min_length[3]|max_length[255]',
+            'konten' => 'required',
+            'foto' => 'uploaded[foto]|is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/gif,image/png]|max_size[foto,2048]',
+        ]);
+
+        if (!$this->validate($validation->getRules())) { // Memperbaiki cara validasi
+            return $this->response->setJSON([
+                'success' => false,
+                'messages' => $validation->getErrors(),
+            ]);
+        }
+
+        // Menyimpan foto jika ada
+        // $fotoPath = '';
+        // if ($foto->isValid() && !$foto->hasMoved()) {
+        //     // Generate nama file unik
+        //     $fotoPath = 'uploads/artikel/' . uniqid() . '-' . $foto->getName();
+        //     // Pindahkan file ke folder tujuan
+        //     $foto->move('uploads/artikel', $fotoPath);
+        // }
+
+        // Menangani upload file foto
+        if ($foto && $foto->isValid() && !$foto->hasMoved()) {
+            // Memastikan tipe file adalah jpg/jpeg/png
+            if (in_array($foto->getClientMimeType(), ['image/jpeg', 'image/png'])) {
+                $fotoPath = $foto->store('artikel', $foto->getRandomName());
+            } else {
+                return $this->response->setJSON(['success' => false, 'errors' => 'Invalid file type. Only JPG and PNG files are allowed']);
+            }
+        }
+
+        // Simpan data artikel ke dalam database
+        $model = new ArtikelModel();
+        $dataArtikel = [
+            'id_pengusul' => session()->get('id_pengusul'), // Ambil id_pengusul dari session
+            'judul_artikel' => $judulArtikel,
+            'konten' => $konten,
+            'foto' => $fotoPath,
+        ];
+
+        // Simpan artikel
+        if ($model->insert($dataArtikel)) {
+            return $this->response->setJSON(['success' => true, 'message' => 'Artikel berhasil ditambahkan.']);
+        } else {
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal menambahkan artikel.']);
+        }
+    }
+
     public function artikelsaya()
     {
+        $model = new ArtikelModel(); // Gantilah ini dengan nama model yang sesuai untuk artikel
+        $id_pengusul = session()->get('id_pengusul'); // Mengambil id_pengusul dari session
+
+        // Mengambil artikel berdasarkan id_pengusul
+        $data['artikels'] = $model->where('id_pengusul', $id_pengusul)->findAll();
+
+        // Menyiapkan data untuk view
         $data['title'] = 'Artikel Saya';
-        return view('pengusul/artikelsaya', ['title' => 'Artikel Saya']);
+
+        // Menampilkan view dengan data artikel
+        return view('pengusul/artikelsaya', $data);
     }
+
     public function detailartikelsaya()
     {
         $data['title'] = 'Detail Artikel Saya';

@@ -64,6 +64,7 @@ $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
     $routes->get('detailusulansaya', 'PengusulController::detailusulansaya');
     $routes->get('detailusulandlhk', 'PengusulController::detailusulandlhk');
     $routes->get('tambahartikel', 'PengusulController::tambahartikel');
+    $routes->post('tambahartikel', 'PengusulController::tambahArtikelAction');
     $routes->get('artikelsaya', 'PengusulController::artikelsaya');
     $routes->get('detailartikelsaya', 'PengusulController::detailartikelsaya');
 
