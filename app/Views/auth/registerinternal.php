@@ -93,15 +93,6 @@
                         class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none"
                         placeholder="contoh: Kemitraan Lingkungan">
 
-                    <label for="provinsi" class="text-xs">Provinsi</label>
-                    <select id="provinsi" name="provinsi"
-                        class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
-                        <option value="" disabled selected>Pilih Provinsi</option>
-                        <?php foreach ($provinsi_list as $provinsi) { ?>
-                            <option value="<?php echo $provinsi; ?>"><?php echo $provinsi; ?></option>
-                        <?php } ?>
-                    </select>
-
                     <label for="telepon" class="text-xs">Nomor Telepon <span class="text-primary">(Pastikan Nomor Aktif)</span></label>
                     <input id="telepon" name="telepon" type="number"
                         class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none"
