@@ -81,14 +81,14 @@
                                         </svg>
                                     </a>
                                 </td>
-                                <td class="px-4 border-b border-slate-200 text-center" id="edit1">
+                                <td class="px-4 border-b border-slate-200 text-center editCell">
                                     <a href="./detailusulansayaedit">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                                         </svg>
                                     </a>
                                 </td>
-                                <td class="px-4 border-b border-slate-200 text-center hidden" id="download1">
+                                <td class="px-4 border-b border-slate-200 text-center hidden downloadCell">
                                     <a href="./unduhdetailusulan">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
@@ -96,7 +96,7 @@
                                     </a>
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">
-                                    <button id="serahkanButton1" class="w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Serahkan</button>
+                                    <button class="serahkanButton w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Serahkan</button>
                                 </td>
                             </tr>
                             <tr class="hover:bg-slate-50">
@@ -122,14 +122,14 @@
                                         </svg>
                                     </a>
                                 </td>
-                                <td class="px-4 border-b border-slate-200 text-center" id="edit1">
+                                <td class="px-4 border-b border-slate-200 text-center editCell">
                                     <a href="./detailusulansayaedit">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                                         </svg>
                                     </a>
                                 </td>
-                                <td class="px-4 border-b border-slate-200 text-center hidden" id="download1">
+                                <td class="px-4 border-b border-slate-200 text-center hidden downloadCell">
                                     <a href="./unduhdetailusulan">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
@@ -137,7 +137,7 @@
                                     </a>
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">
-                                    <button id="serahkanButton1" class="w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Serahkan</button>
+                                    <button class="serahkanButton w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Serahkan</button>
                                 </td>
                             </tr>
                             <tr class="hover:bg-slate-50">
@@ -163,14 +163,14 @@
                                         </svg>
                                     </a>
                                 </td>
-                                <td class="px-4 border-b border-slate-200 text-center" id="edit1">
+                                <td class="px-4 border-b border-slate-200 text-center editCell">
                                     <a href="./detailusulansayaedit">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                                         </svg>
                                     </a>
                                 </td>
-                                <td class="px-4 border-b border-slate-200 text-center hidden" id="download1">
+                                <td class="px-4 border-b border-slate-200 text-center hidden downloadCell">
                                     <a href="./unduhdetailusulan">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
@@ -178,7 +178,7 @@
                                     </a>
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">
-                                    <button id="serahkanButton1" class="w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Serahkan</button>
+                                    <button class="serahkanButton w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Serahkan</button>
                                 </td>
                             </tr>
                             <tr class="hover:bg-slate-50">
@@ -204,14 +204,14 @@
                                         </svg>
                                     </a>
                                 </td>
-                                <td class="px-4 border-b border-slate-200 text-center" id="edit1">
+                                <td class="px-4 border-b border-slate-200 text-center editCell">
                                     <a href="./detailusulansayaedit">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                                         </svg>
                                     </a>
                                 </td>
-                                <td class="px-4 border-b border-slate-200 text-center hidden" id="download1">
+                                <td class="px-4 border-b border-slate-200 text-center hidden downloadCell">
                                     <a href="./unduhdetailusulan">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
@@ -219,7 +219,7 @@
                                     </a>
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">
-                                    <button id="serahkanButton1" class="w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Serahkan</button>
+                                    <button class="serahkanButton w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Serahkan</button>
                                 </td>
                             </tr>
                             <tr class="hover:bg-slate-50">
@@ -245,14 +245,14 @@
                                         </svg>
                                     </a>
                                 </td>
-                                <td class="px-4 border-b border-slate-200 text-center" id="edit1">
+                                <td class="px-4 border-b border-slate-200 text-center editCell">
                                     <a href="./detailusulansayaedit">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                                         </svg>
                                     </a>
                                 </td>
-                                <td class="px-4 border-b border-slate-200 text-center hidden" id="download1">
+                                <td class="px-4 border-b border-slate-200 text-center hidden downloadCell">
                                     <a href="./unduhdetailusulan">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
@@ -260,7 +260,7 @@
                                     </a>
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">
-                                    <button id="serahkanButton1" class="w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Serahkan</button>
+                                    <button class="serahkanButton w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Serahkan</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -268,12 +268,13 @@
                 </div>
 
                 <!-- Modal -->
-                <div id="modalPopup" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden">
-                    <div class="bg-white p-6 rounded-lg shadow-lg">
-                        <p class="mb-4 text-gray-700">Apakah anda yakin ingin menyerahkan berkas pada admin?</p>
+                <div id="modalPopup" class="fixed inset-0 z-50 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden">
+                    <div class="bg-white rounded-lg p-8 flex flex-col items-center max-w-md">
+                        <img src="/images/question.png" alt="Question Icon" class="w-16 h-16 mb-4">
+                        <p class="text-center text-lg font-bold text-gray-700 mb-4">Apakah anda yakin ingin menyerahkan berkas pada admin?</p>
                         <div class="flex justify-end space-x-4">
-                            <button id="cancelButton" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md">Periksa Kembali</button>
-                            <button id="confirmButton" class="px-4 py-2 bg-green-500 text-white rounded-md">Ya, Serahkan</button>
+                            <button id="cancelButton" class="px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-700 hover:text-white rounded-md">Periksa Kembali</button>
+                            <button id="confirmButton" class="px-4 py-2 bg-primary hover:bg-primaryhover text-white rounded-md">Ya, Serahkan</button>
                         </div>
                     </div>
                 </div>
@@ -312,27 +313,42 @@
     </div>
 
     <script>
-        document.getElementById('serahkanButton1').addEventListener('click', function() {
-            document.getElementById('modalPopup').classList.remove('hidden');
-        });
+        // Ambil semua tombol 'Serahkan'
+        const serahkanButtons = document.querySelectorAll('.serahkanButton');
 
-        document.getElementById('cancelButton').addEventListener('click', function() {
-            document.getElementById('modalPopup').classList.add('hidden');
-        });
+        // Loop melalui setiap tombol dan tambahkan event listener
+        serahkanButtons.forEach((button, index) => {
+            button.addEventListener('click', function() {
+                // Tampilkan modal popup
+                document.getElementById('modalPopup').classList.remove('hidden');
 
-        document.getElementById('confirmButton').addEventListener('click', function() {
-            // Hide the modal popup
-            document.getElementById('modalPopup').classList.add('hidden');
+                // Menyimpan tombol yang sedang diklik
+                const currentButton = button;
 
-            // Change the button state to 'Sudah Diserahkan' and disable it
-            const serahkanButton = document.getElementById('serahkanButton1');
-            serahkanButton.textContent = 'Sudah Diserahkan';
-            serahkanButton.disabled = true;
-            serahkanButton.classList.add('disabled', 'opacity-50', 'bg-gray-800');
+                // Saat tombol 'Confirm' di modal popup diklik
+                document.getElementById('confirmButton').onclick = function() {
+                    // Sembunyikan modal popup
+                    document.getElementById('modalPopup').classList.add('hidden');
 
-            // Update the available actions: hide edit and show download
-            document.getElementById('edit1').classList.add('hidden');
-            document.getElementById('download1').classList.remove('hidden');
+                    // Ubah teks tombol 'Serahkan' menjadi 'Sudah Diserahkan'
+                    currentButton.textContent = 'Sudah Diserahkan';
+                    currentButton.disabled = true;
+                    currentButton.classList.add('disabled', 'opacity-50', 'bg-gray-800');
+
+                    // Sembunyikan tombol 'Edit' dan tampilkan tombol 'Download'
+                    const editCell = document.querySelectorAll('.editCell')[index];
+                    const downloadCell = document.querySelectorAll('.downloadCell')[index];
+
+                    editCell.classList.add('hidden');
+                    downloadCell.classList.remove('hidden');
+                };
+
+                // Saat tombol 'Periksa Kembali' di modal popup diklik
+                document.getElementById('cancelButton').onclick = function() {
+                    // Sembunyikan modal popup
+                    document.getElementById('modalPopup').classList.add('hidden');
+                };
+            });
         });
     </script>
 
