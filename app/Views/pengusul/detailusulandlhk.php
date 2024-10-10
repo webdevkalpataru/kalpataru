@@ -40,66 +40,231 @@
                 </div>
 
                 <!-- Right side: Form inside a card -->
-                <div id="identitas-calon" class="form-section flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
-                    <form id="identitasabd" class="mb-2 w-full">
-                        <div class="w-full mb-2">
-                            <label class="mb-2 text-sm text-slate-600">Nama Lengkap</label>
-                            <input type="text" class="w-full bg-transparent placeholder:text-primary text-slate-700 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary shadow-sm focus:shadow" />
-                        </div>
-                        <div class="w-full mb-2">
-                            <label class="mb-2 text-sm text-slate-600">NIK</label>
-                            <input type="text" class="w-full bg-transparent placeholder:text-primary text-slate-700 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary shadow-sm focus:shadow" />
-                        </div>
-                        <div class="w-full mb-2">
-                            <label class="mb-2 text-sm text-slate-600">Tempat Lahir</label>
-                            <input type="text" class="w-full bg-transparent placeholder:text-primary text-slate-700 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary shadow-sm focus:shadow" />
-                        </div>
-                        <div class="w-full mb-2">
-                            <label class="mb-2 text-sm text-slate-600">Tanggal Lahir</label>
-                            <input type="date" class="w-full bg-transparent placeholder:text-primary text-slate-700 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary shadow-sm focus:shadow" />
-                        </div>
-                        <div class="w-full mb-2">
-                            <label class="mb-2 text-sm text-slate-600">Usia</label>
-                            <input type="number" class="w-full bg-transparent placeholder:text-primary text-slate-700 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary shadow-sm focus:shadow" />
-                        </div>
-                        <div class="w-full mb-2">
-                            <label class="block mb-2 text-sm text-black">Jenis Kelamin</label>
-                            <div class="lg:flex gap-6">
-                                <div class="flex items-center py-2 ">
-                                    <input name="jenis_kelamin" type="radio" class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-primary checked:bg-primary transition-all" id="perempuan">
-                                    <label class="ml-2 text-black cursor-pointer text-sm" for="perempuan">Perempuan</label>
-                                </div>
-                                <div class="flex items-center py-2 ">
-                                    <input name="jenis_kelamin" type="radio" class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-primary checked:bg-primary transition-all" id="laki-laki">
-                                    <label class="ml-2 text-black cursor-pointer text-sm" for="laki-laki">Laki-Laki</label>
+                <?php
+                $selectedCategory = 'a';
+                ?>
+                <?php if ($selectedCategory === 'c'): ?>
+                    <div id="identitas-calon" class="form-section flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
+                        <form id="identitasabd" class="mb-2 w-full">
+                            <p class="font-semibold mb-2 text-md text-primary underline">Data Kelompok/ Komunitas</p>
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">Nama Kelompok</label>
+                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            </div>
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">Tahun Berdiri Kelompok</label>
+                                <input type="date" min="0" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            </div>
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">Jumlah Anggota</label>
+                                <input type="number" min="1" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            </div>
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">Jalan</label>
+                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            </div>
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">RT/RW</label>
+                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            </div>
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">Desa/Kelurahan</label>
+                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            </div>
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">Kecamatan</label>
+                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            </div>
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">Kab/Kota</label>
+                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            </div>
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">Provinsi</label>
+                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            </div>
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">Kode Pos</label>
+                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            </div>
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">Media Sosial</label>
+                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            </div>
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">Unggah Surat Legalitas Kelompok <span class="text-primary">(.pdf)</span></label>
+                                <input id="suratpengantar" type="file" accept="application/pdf"
+                                    class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
+                            </div>
+                            <p class="mt-8 font-semibold mb-2 text-md text-primary underline">Data Ketua Kelompok/ Komunitas</p>
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">Nama Ketua</label>
+                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            </div>
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">NIK</label>
+                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            </div>
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">Tempat Lahir</label>
+                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            </div>
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">Tanggal Lahir</label>
+                                <input type="date" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            </div>
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">Usia</label>
+                                <input type="number" min="0" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            </div>
+                            <div class="w-full">
+                                <label class="block mb-2 text-sm text-black">Jenis Kelamin</label>
+                                <div class="lg:flex gap-6">
+                                    <div class="flex items-center py-2 ">
+                                        <input name="jenis_kelamin" type="radio" class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-primary checked:bg-primary transition-all" id="perempuan">
+                                        <label class="ml-2 text-black cursor-pointer text-sm" for="perempuan">Perempuan</label>
+                                    </div>
+                                    <div class="flex items-center py-2 ">
+                                        <input name="jenis_kelamin" type="radio" class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-primary checked:bg-primary transition-all" id="laki-laki">
+                                        <label class="ml-2 text-black cursor-pointer text-sm" for="laki-laki">Laki-Laki</label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="w-full mb-2">
-                            <label class="block mb-2 text-sm text-black">Pekerjaan</label>
-                            <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-                        </div>
-                        <div class="w-full mb-2">
-                            <label class="block mb-2 text-sm text-black">Pendidikan Terakhir</label>
-                            <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-                        </div>
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">Pekerjaan</label>
+                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            </div>
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">Nomor Telepon</label>
+                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            </div>
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">Email</label>
+                                <input type="email" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            </div>
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">Pendidikan Terakhir</label>
+                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            </div>
 
-                        <div class="w-full mb-2">
-                            <label class="block mb-2 text-sm text-black">KTP <span class="text-primary">(.jpg/jpeg)</span></label>
-                            <input id="suratpengantar" type="file" accept="application/jpg,application/jpeg"
-                                class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
-                        </div>
-                        <div class="w-full mb-2">
-                            <label class="block mb-2 text-sm text-black">SKCK <span class="text-primary">(.pdf)</span></label>
-                            <input id="suratpengantar" type="file" accept="application/pdf"
-                                class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
-                        </div>
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">Unggah KTP <span class="text-primary">(.jpg/jpeg)</span></label>
+                                <input id="ktp" type="file" accept="application/jpg,application/jpeg"
+                                    class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
+                            </div>
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">Unggah SKCK <span class="text-primary">(.pdf)</span></label>
+                                <input id="skck" type="file"  accept="application/pdf"
+                                    class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
+                            </div>
 
-                        <div class="flex justify-end mt-4">
-                            <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Perbarui</button>
-                        </div>
-                    </form>
-                </div>
+                            <div class="flex justify-end mt-4">
+                                <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Perbarui</button>
+                            </div>
+                        </form>
+                    </div>
+
+                <?php else: ?>
+                    <div id="identitas-calon" class="form-section flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
+                        <form id="identitasabd" class="mb-2 w-full">
+                        <div class="w-full mb-2">
+                                <label class="mb-2 text-sm text-slate-600">Nama Lengkap</label>
+                                <input type="text" class="w-full bg-transparent placeholder:text-primary text-slate-700 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary shadow-sm focus:shadow" />
+                            </div>
+                            <div class="w-full mb-2">
+                                <label class="mb-2 text-sm text-slate-600">NIK</label>
+                                <input type="text" class="w-full bg-transparent placeholder:text-primary text-slate-700 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary shadow-sm focus:shadow" />
+                            </div>
+                            <div class="w-full mb-2">
+                                <label class="mb-2 text-sm text-slate-600">Tempat Lahir</label>
+                                <input type="text" class="w-full bg-transparent placeholder:text-primary text-slate-700 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary shadow-sm focus:shadow" />
+                            </div>
+                            <div class="w-full mb-2">
+                                <label class="mb-2 text-sm text-slate-600">Tanggal Lahir</label>
+                                <input type="date" class="w-full bg-transparent placeholder:text-primary text-slate-700 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary shadow-sm focus:shadow" />
+                            </div>
+                            <div class="w-full mb-2">
+                                <label class="mb-2 text-sm text-slate-600">Usia</label>
+                                <input type="number" class="w-full bg-transparent placeholder:text-primary text-slate-700 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary shadow-sm focus:shadow" />
+                            </div>
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">Jenis Kelamin</label>
+                                <div class="lg:flex gap-6">
+                                    <div class="flex items-center py-2 ">
+                                        <input name="jenis_kelamin" type="radio" class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-primary checked:bg-primary transition-all" id="perempuan">
+                                        <label class="ml-2 text-black cursor-pointer text-sm" for="perempuan">Perempuan</label>
+                                    </div>
+                                    <div class="flex items-center py-2 ">
+                                        <input name="jenis_kelamin" type="radio" class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-primary checked:bg-primary transition-all" id="laki-laki">
+                                        <label class="ml-2 text-black cursor-pointer text-sm" for="laki-laki">Laki-Laki</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">Pekerjaan</label>
+                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            </div>
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">Nomor Telepon</label>
+                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            </div>
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">Email</label>
+                                <input type="email" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            </div>
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">Pendidikan Terakhir</label>
+                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            </div>
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">Jalan</label>
+                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            </div>
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">RT/RW</label>
+                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            </div>
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">Desa/Kelurahan</label>
+                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            </div>
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">Kecamatan</label>
+                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            </div>
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">Kab/Kota</label>
+                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            </div>
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">Provinsi</label>
+                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            </div>
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">Kode Pos</label>
+                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            </div>
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">Media Sosial</label>
+                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            </div>
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">KTP <span class="text-primary">(.jpg/jpeg)</span></label>
+                                <input id="ktp" type="file" accept="application/jpg,application/jpeg"
+                                    class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
+                            </div>
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">SKCK <span class="text-primary">(.pdf)</span></label>
+                                <input id="skck" type="file" accept="application/pdf"
+                                    class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
+                            </div>
+
+                            <div class="flex justify-end mt-4">
+                                <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Perbarui</button>
+                            </div>
+                        </form>
+                    </div>
+                <?php endif; ?>
 
 
                 <!-- Right side: Form inside a card -->
@@ -428,17 +593,58 @@
         // Batasan Kata
         function updateWordCount(textarea, countId, maxWords) {
             const countElement = document.getElementById(countId);
-            const words = textarea.value.trim().split(/\s+/).filter(word => word.length > 0);
-            const currentLength = words.length;
 
-            countElement.textContent = `${currentLength}/${maxWords} kata`;
+            // Tambahkan event listener untuk mendeteksi perubahan input
+            textarea.addEventListener('input', function() {
+                let words = textarea.value.trim().split(/\s+/).filter(word => word.length > 0); // Pisahkan kata berdasarkan spasi
+                let currentLength = words.length;
 
-            if (currentLength > maxWords) {
-                countElement.classList.add('text-rejected');
-            } else {
-                countElement.classList.remove('text-rejected');
-            }
+                // Jika kata lebih dari 1000, potong ke 1000 kata
+                if (currentLength > maxWords) {
+                    words = words.slice(0, maxWords);
+                    textarea.value = words.join(" ");
+                    currentLength = maxWords; // Set currentLength ke batas maksimal
+                }
+
+                // Update jumlah kata di elemen counter
+                countElement.textContent = `${currentLength}/${maxWords} kata`;
+            });
+
+            // Event keydown untuk mencegah input baru jika kata sudah mencapai 1000
+            textarea.addEventListener('keydown', function(event) {
+                let words = textarea.value.trim().split(/\s+/).filter(word => word.length > 0);
+                let currentLength = words.length;
+
+                const isControlKey = event.key === "Backspace" || event.key === "Delete" || event.key.startsWith("Arrow");
+
+                // Jika sudah 1000 kata, cegah input baru kecuali tombol penghapusan atau navigasi
+                if (currentLength >= maxWords && !isControlKey) {
+                    event.preventDefault(); // Cegah penambahan input baru jika mencapai batas maksimal kata
+                }
+            });
         }
+
+        // Jalankan fungsi ketika halaman di-load
+        updateWordCount(document.getElementById('pihakPeran'), 'pihakPeranCount', 1000);
+        updateWordCount(document.getElementById('penjelasan'), 'penjelasanCount', 1000);
+        updateWordCount(document.getElementById('keberhasilan'), 'keberhasilanCount', 1000);
+
+        updateWordCount(document.getElementById('dampakLingkungan'), 'dampakLingkunganCount', 1000);
+        updateWordCount(document.getElementById('dampakEkonomi'), 'dampakEkonomiCount', 1000);
+        updateWordCount(document.getElementById('dampakSosial'), 'dampakSosialCount', 1000);
+
+        updateWordCount(document.getElementById('prakarsa'), 'prakarsaCount', 1000);
+        updateWordCount(document.getElementById('motivasi'), 'motivasiCount', 1000);
+        updateWordCount(document.getElementById('inovasi'), 'inovasiCount', 1000);
+        updateWordCount(document.getElementById('kreativitas'), 'kreativitasCount', 1000);
+
+        updateWordCount(document.getElementById('sumber'), 'sumberCount', 1000);
+        updateWordCount(document.getElementById('teknologi'), 'teknologiCount', 1000);
+        updateWordCount(document.getElementById('statusLahan'), 'statusLahanCount', 1000);
+        updateWordCount(document.getElementById('kelompokPeroranganMeniru'), 'kelompokPeroranganMeniruCount', 1000);
+
+        updateWordCount(document.getElementById('keistimewaanCalon'), 'keistimewaanCalonCount', 1000);
+        updateWordCount(document.getElementById('penghargaanRelevan'), 'penghargaanRelevanCount', 1000);
 
         // Tambah Form Kegiatan
         document.addEventListener('DOMContentLoaded', function() {
@@ -542,6 +748,11 @@
 
                 // Tambahkan form baru di bawah form yang sudah ada
                 formContainer.insertAdjacentHTML('beforeend', newForm);
+
+                // Panggil fungsi updateWordCount untuk tiap textarea yang baru ditambahkan
+                updateWordCount(document.getElementById(`penjelasan${kegiatanCount}`), `penjelasanCount${kegiatanCount}`, 1000);
+                updateWordCount(document.getElementById(`pihakPeran${kegiatanCount}`), `pihakPeranCount${kegiatanCount}`, 1000);
+                updateWordCount(document.getElementById(`keberhasilan${kegiatanCount}`), `keberhasilanCount${kegiatanCount}`, 1000);
 
                 // Jika sudah mencapai batas, sembunyikan tombol tambah
                 if (kegiatanCount === maxKegiatan) {

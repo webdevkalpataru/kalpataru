@@ -95,5 +95,8 @@ $routes->group('penerima', ['filter' => 'auth'], function ($routes) {
 /* Admin */
 $routes->group('admin', function ($routes) {
     $routes->get('dashboard', 'AdminController::dashboard');
+    $routes->get('akunpengusul', 'AdminController::akunpengusul');
+    $routes->get('artikeladmin', 'AdminController::artikeladmin');
+
 });
 
