@@ -29,6 +29,11 @@
                     Setelah data calon penerima telah diserahkan, Anda tidak dapat melakukan perubahan atau pengeditan data tersebut!
                 </h3>
             </div>
+            <div class="flex justify-end mt-4">
+                <a href="./tambahcalon">
+                    <button id="tambahCalon" class="w-48 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button"> <span>&#10010</span> Tambah Calon Usulan</button>
+                </a>
+            </div>
             <div class="relative flex flex-col w-full h-full mt-8 overflow-hidden text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
                 <div class="overflow-x-auto">
                     <table class="w-full text-left table-auto min-w-max">
