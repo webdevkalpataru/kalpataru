@@ -173,7 +173,7 @@
                             </td>
                             <td class="p-4 border-b border-slate-200">
                             <button
-                                    class="toggleBtn mt-4 w-3/2 rounded-md py-2 px-2 text-center text-sm text-white shadow-md hover:shadow-lg bg-primary active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                                    class="toggleBtn mt-4 w-3/2 rounded-md py-2 px-2 text-center text-sm text-white shadow-md hover:shadow-lg bg-footer active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                                     type="button"
                                     data-active="Aktif"
                                     data-inactive="Aktifkan"

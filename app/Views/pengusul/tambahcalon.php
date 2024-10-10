@@ -47,7 +47,7 @@
             </div>
 
             <div class="flex justify-end mt-4 items-center">
-                <p id="validationMessage" class="text-sm text-red-500 mr-4 hidden">Silahkan pilih kategori terlebih dahulu</p>
+                <!-- <p id="validationMessage" class="text-sm text-red-500 mr-4 hidden">Silahkan pilih kategori terlebih dahulu</p> -->
                 <button id="selanjutnyaBtn" class="mt-4 w-32 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:bg-gray-400 disabled:shadow-none" type="button" disabled onclick="checkSelection()">Selanjutnya</button>
             </div>
         </div>

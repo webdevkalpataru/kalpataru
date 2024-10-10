@@ -89,7 +89,7 @@
                             <label class="block mb-2 text-sm text-black">Tema Kegiatan</label>
                             <select id="tema-kegiatan" class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease">
                                 <option value="" disabled selected>Pilih Tema Kegiatan</option>
-                                <option value="keanekaragaman-hayati-biodiversity">Keanekaragaman Hayati (Biodiversity)</option>
+                                <option value="keanekaragaman-hayati">Keanekaragaman Hayati</option>
                                 <option value="perubahan-iklim">Perubahan Iklim</option>
                                 <option value="pencemaran-dan-kerusakan-lingkungan">Pencemaran dan Kerusakan Lingkungan</option>
                                 <option value="hukum-dan-budaya">Hukum dan Budaya</option>
@@ -102,7 +102,7 @@
                                 <option value="pelestarian-keanekaragaman-hayati-kawasan-dilindungi-yang-meliputi-pelestarian-sumber-daya-genetik-jenis-dan-ekosistem">Pelestarian keanekaragaman hayati dan kawasan dilindungi yang meliputi pelestarian sumber daya genetik, jenis, dan ekosistem</option>
                                 <option value="pemanfaatan-keanekaragaman-hayati-berkelanjutan">Pemanfaatan keanekaragaman hayati secara berkelanjutan</option>
                                 <option value="jasa-lingkungan">Jasa lingkungan</option>
-                                <!-- Batas Keanekaragaman Hayati (Biodiversity) -->
+                                <!-- Batas Keanekaragaman Hayati -->
                                 <option value="adaptasi-perubahan-iklim">Adaptasi perubahan iklim</option>
                                 <option value="mitigasi-perubahan-iklim">Mitigasi perubahan iklim</option>
                                 <option value="penerapan-ekonomi-hijau-biru">Penerapan ekonomi hijau dan ekonomi biru</option>
@@ -223,7 +223,7 @@
 
         // Tema Sub Tema Kegiatan
         const subTemaOptions = {
-            "keanekaragaman-hayati-biodiversity": [{
+            "keanekaragaman-hayati": [{
                     value: "pelestarian-keanekaragaman-hayati-kawasan-dilindungi-yang-meliputi-pelestarian-sumber-daya-genetik-jenis-dan-ekosistem",
                     text: "Pelestarian keanekaragaman hayati dan kawasan dilindungi yang meliputi pelestarian sumber daya genetik, jenis, dan ekosistem"
                 },
@@ -304,6 +304,32 @@
             }
         });
 
+        function setTemaSubTemaEvent(temaSelect, subTemaSelect) {
+            temaSelect.addEventListener('change', function() {
+                const selectedTema = this.value;
+                const subTemaList = subTemaOptions[selectedTema];
+
+                // Reset sub-tema options
+                subTemaSelect.innerHTML = '<option value="" disabled selected>Pilih Sub Tema Kegiatan</option>';
+
+                if (subTemaList) {
+                    // Aktifkan select sub-tema jika ada tema yang dipilih
+                    subTemaSelect.disabled = false;
+
+                    // Tambahkan opsi sub-tema yang sesuai
+                    subTemaList.forEach(subTema => {
+                        const option = document.createElement('option');
+                        option.value = subTema.value;
+                        option.text = subTema.text;
+                        subTemaSelect.appendChild(option);
+                    });
+                } else {
+                    // Nonaktifkan select sub-tema jika tema tidak valid
+                    subTemaSelect.disabled = true;
+                }
+            });
+        }
+
 
         // Batasan Kata
         function updateWordCount(textarea, countId, maxWords) {
@@ -376,9 +402,9 @@
                 <div class="space-y-4">
                         <div>
                             <label class="block mb-2 text-sm text-black">Tema Kegiatan</label>
-                            <select class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease">
+                            <select id="tema-kegiatan-${kegiatanCount}" class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease">
                                 <option value="" disabled selected>Pilih Tema Kegiatan</option>
-                                <option value="keanekaragaman-hayati-biodiversity">Keanekaragaman Hayati (Biodiversity)</option>
+                                <option value="keanekaragaman-hayati">Keanekaragaman Hayati</option>
                                 <option value="perubahan-iklim">Perubahan Iklim</option>
                                 <option value="pencemaran-dan-kerusakan-lingkungan">Pencemaran dan Kerusakan Lingkungan</option>
                                 <option value="hukum-dan-budaya">Hukum dan Budaya</option>
@@ -386,12 +412,12 @@
                         </div>
                         <div>
                             <label class="block mb-2 text-sm text-black">Sub Tema Kegiatan</label>
-                            <select class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease">
+                            <select id="sub-tema-kegiatan-${kegiatanCount}" disabled class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease">
                                 <option value="" disabled selected>Pilih Sub Tema Kegiatan</option>
                                 <option value="pelestarian-keanekaragaman-hayati-kawasan-dilindungi-yang-meliputi-pelestarian-sumber-daya-genetik-jenis-dan-ekosistem">Pelestarian keanekaragaman hayati dan kawasan dilindungi yang meliputi pelestarian sumber daya genetik, jenis, dan ekosistem</option>
                                 <option value="pemanfaatan-keanekaragaman-hayati-berkelanjutan">Pemanfaatan keanekaragaman hayati secara berkelanjutan</option>
                                 <option value="jasa-lingkungan">Jasa lingkungan</option>
-                                <!-- Batas Keanekaragaman Hayati (Biodiversity) -->
+                                <!-- Batas Keanekaragaman Hayati -->
                                 <option value="adaptasi-perubahan-iklim">Adaptasi perubahan iklim</option>
                                 <option value="mitigasi-perubahan-iklim">Mitigasi perubahan iklim</option>
                                 <option value="penerapan-ekonomi-hijau-biru">Penerapan ekonomi hijau dan ekonomi biru</option>
@@ -446,6 +472,13 @@
 
                 // Tambahkan form baru di bawah form yang sudah ada
                 formContainer.insertAdjacentHTML('beforeend', newForm);
+
+                // Ambil elemen select tema dan sub-tema untuk form yang baru ditambahkan
+                const temaSelect = document.getElementById(`tema-kegiatan-${kegiatanCount}`);
+                const subTemaSelect = document.getElementById(`sub-tema-kegiatan-${kegiatanCount}`);
+
+                // Apply event listener untuk Tema dan Sub Tema
+                setTemaSubTemaEvent(temaSelect, subTemaSelect);
 
                 // Panggil fungsi updateWordCount untuk tiap textarea yang baru ditambahkan
                 updateWordCount(document.getElementById(`penjelasan${kegiatanCount}`), `penjelasanCount${kegiatanCount}`, 1000);
