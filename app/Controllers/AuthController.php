@@ -67,6 +67,9 @@ class AuthController extends BaseController
     {
         session()->destroy();
         return redirect()->to('/auth/login');
+
+        // Arahkan pengguna kembali ke halaman login
+        return redirect()->to('auth/login');
     }
 
     public function register()

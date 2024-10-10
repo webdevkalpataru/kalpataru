@@ -21,5 +21,4 @@ class MainController extends BaseController
         $data['title'] = "Kontak";
         return view('kontak', ['title' => 'Kontak']);
     }
-
 }

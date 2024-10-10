@@ -87,8 +87,8 @@ $selectedCategory = $session->get('selected_category');
             </div>
 
             <?php if ($kategori == 'Penyelamat Lingkungan'): ?>
-                <form class="mt-4 mb-2 w-full" action="/pengusul/tambahcalonidentitas" method="post">
-
+                <form class="mt-4 mb-2 w-full" action="simpancalonidentitas" method="post" enctype="multipart/form-data">
+                    <?= csrf_field(); ?>
                     <div class="grid grid-cols-2 gap-4">
                         <input type="hidden" name="id_pendaftaran" value="<?= $id_pendaftaran ?>">
 
@@ -216,11 +216,10 @@ $selectedCategory = $session->get('selected_category');
                 </form>
 
             <?php else: ?>
-                <form id="identitasabd" class="mt-4 mb-2 w-full" action="/pengusul/tambahcalonidentitas" method="post">
+                <form id="identitasabd" class="mt-4 mb-2 w-full" action="simpancalonidentitas" method="post">
+                    <?= csrf_field(); ?>
                     <div class="grid grid-cols-2 gap-4">
                         <input type="hidden" name="id_pendaftaran" value="<?= $id_pendaftaran ?>">
-
-
                         <!-- Kolom kiri -->
                         <div class="space-y-4">
                             <div>
@@ -298,13 +297,7 @@ $selectedCategory = $session->get('selected_category');
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Provinsi</label>
-                                <select id="provinsi" name="provinsi"
-                                    class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow">
-                                    <option value="" disabled selected>Pilih Provinsi</option>
-                                    <?php foreach ($provinsi_list as $provinsi) { ?>
-                                        <option value="<?php echo $provinsi; ?>"><?php echo $provinsi; ?></option>
-                                    <?php } ?>
-                                </select>
+                                <input type="text" name="provinsi" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Kode Pos</label>
