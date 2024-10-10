@@ -21,13 +21,13 @@
                 Usulan Saya
             </h4>
             <div class="flex bg-yellow-400 items-center justify-center rounded-md px-2">
-        <svg class="lg:ml-0 ml-2 w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
-        </svg>
-        <h3 class="block text-sm font-semibold p-2 text-black">
-          Data pengusul wajib dilengkapi agar dapat mengajukan usulan, silahkan lengkapi data diri Anda!
-        </h3>
-      </div>
+                <svg class="lg:ml-0 ml-2 w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+                </svg>
+                <h3 class="block text-sm font-semibold p-2 text-black">
+                    Data pengusul wajib dilengkapi agar dapat mengajukan usulan, silahkan lengkapi data diri Anda!
+                </h3>
+            </div>
             <div class="relative flex flex-col w-full h-full mt-8 overflow-hidden text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
                 <div class="overflow-x-auto">
                     <table class="w-full text-left table-auto min-w-max">
