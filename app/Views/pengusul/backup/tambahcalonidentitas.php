@@ -26,7 +26,7 @@ $selectedCategory = $session->get('selected_category');
         $selectedCategory = 'a';
         ?>
         <!-- Konten utama -->
-        <div class="relative flex flex-col w-full max-w-4xl mb-4 rounded-xl border-2 border-primary bg-white shadow-md lg:p-8 p-4">
+        <div class="relative flex flex-col w-full max-w-5xl mb-4 rounded-xl border-2 border-primary bg-white shadow-md lg:p-8 p-4">
 
             <div class="w-full pt-1 px-4 lg:mb-8">
                 <div class="relative flex items-center justify-between w-full flex-wrap gap-4 sm:gap-8">

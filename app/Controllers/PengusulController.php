@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\PengusulModel;
+use App\Models\PendaftaranModel;
 // use CodeIgniter\Controller;
 
 class PengusulController extends BaseController
@@ -168,7 +169,9 @@ class PengusulController extends BaseController
     public function usulansaya()
     {
         $data['title'] = 'Usulan Saya';
-        return view('pengusul/usulansaya', ['title' => 'Usulan Saya']);
+        $pendaftaranModel = new PendaftaranModel();
+        $data['usulan'] = $pendaftaranModel->findAll();
+        return view('pengusul/usulansaya', $data);
     }
     public function usulandlhk()
     {

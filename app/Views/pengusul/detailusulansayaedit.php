@@ -16,7 +16,7 @@
     <div class="flex flex-col lg:flex-row justify-center m-4">
         <?= $this->include('template/sidebarpengusul') ?>
 
-        <div class="relative flex flex-col w-full max-w-4xl mb-4 rounded-xl border-2 border-primary bg-white shadow-md lg:p-8 p-4">
+        <div class="relative flex flex-col w-full max-w-5xl mb-4 rounded-xl border-2 border-primary bg-white shadow-md lg:p-8 p-4">
             <h4 class="block text-xl font-bold text-slate-800 mb-2">
                 Detail Usulan Saya
             </h4>
@@ -38,7 +38,7 @@
                     <button id="keistimewaanButton" class="mt-2 w-full btn-section md:w-40 rounded-md py-2 px-4 text-center text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none text-sm" type="button" data-target="keistimewaan">Keistimewaan</button>
 
                     <!-- Button Kirim Data ke Admin -->
-                    <button id="kirimDataButton" class="mt-8 w-full btn-section md:w-40 rounded-md py-2 px-4 text-center text-lg text-primary hover:text-primaryhover font-bold transition-all shadow-md hover:shadow-lg border-2 border-primary opacity-90 hover:opacity-100 bg-accent1 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button" data-target="kirimData">Kirim Data</button>
+                    <!-- <button id="kirimDataButton" class="mt-8 w-full btn-section md:w-40 rounded-md py-2 px-4 text-center text-lg text-primary hover:text-primaryhover font-bold transition-all shadow-md hover:shadow-lg border-2 border-primary opacity-90 hover:opacity-100 bg-accent1 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button" data-target="kirimData">Kirim Data</button> -->
 
                     <!-- Button Kembali ke Usulan Saya -->
                     <button onclick="window.location.href='./usulansaya'"
@@ -572,7 +572,7 @@
     </div>
 
     <!-- Modal -->
-    <div id="modalPopup" class="fixed inset-0 z-50 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden">
+    <!-- <div id="modalPopup" class="fixed inset-0 z-50 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden">
         <div class="bg-white rounded-lg p-8 flex flex-col items-center max-w-md">
             <img src="/images/question.png" alt="Question Icon" class="w-16 h-16 mb-4">
             <p class="text-center text-lg font-bold text-gray-700 mb-4">Apakah anda yakin ingin mengirimkan seluruh data pada admin?</p>
@@ -582,7 +582,7 @@
                 <button id="confirmButton" class="px-4 py-2 bg-primary hover:bg-primaryhover text-white rounded-md">Ya, Kirimkan Data</button>
             </div>
         </div>
-    </div>
+    </div> -->
 
 
     <script>
@@ -966,7 +966,7 @@
 
         // Modal Popup Kirim Data ke Admin
         // Menangani klik tombol "Kirim Data" untuk menampilkan modal
-        document.getElementById('kirimDataButton').addEventListener('click', function() {
+        /* document.getElementById('kirimDataButton').addEventListener('click', function() {
             // Tampilkan modal dengan menghapus class 'hidden'
             document.getElementById('modalPopup').classList.remove('hidden');
         });
@@ -981,7 +981,7 @@
         document.getElementById('confirmButton').addEventListener('click', function() {
             // Arahkan ke halaman 'pengusul/usulansaya'
             window.location.href = '/pengusul/usulansaya';
-        });
+        }); */
     </script>
     <?= $this->endSection() ?>
 
