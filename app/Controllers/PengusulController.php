@@ -138,7 +138,8 @@ class PengusulController extends BaseController
         $data['title'] = 'Tambah Calon Usulan';
         return view('pengusul/tambahcalonidentitas', $data);
     }
-    public function tambahcalonkegiatan()
+    // BACKUP
+    /* public function tambahcalonkegiatan()
     {
         $data['title'] = 'Tambah Calon Usulan';
         return view('pengusul/tambahcalonkegiatan', $data);
@@ -162,7 +163,7 @@ class PengusulController extends BaseController
     {
         $data['title'] = 'Tambah Calon Usulan';
         return view('pengusul/tambahcalonkeistimewaan', $data);
-    }
+    } */
 
     public function usulansaya()
     {

@@ -48,7 +48,8 @@ $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
     $routes->get('tambahcalonidentitas', 'PengusulController::tambahcalonidentitas');
     $routes->post('tambahcalonidentitas', 'PengusulController::tambahcalonidentitas'); // Handle the form submission
 
-    // Route for "Tambah Calon" step 3 (Kegiatan)
+    // BACKUP
+    /* // Route for "Tambah Calon" step 3 (Kegiatan)
     $routes->get('tambahcalonkegiatan', 'PengusulController::tambahcalonkegiatan');
     $routes->post('tambahcalonkegiatan', 'PengusulController::tambahcalonkegiatan');
 
@@ -66,7 +67,7 @@ $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
 
     // Route for "Tambah Calon" step 7 (Keistimewaan)
     $routes->get('tambahcalonkeistimewaan', 'PengusulController::tambahcalonkeistimewaan');
-    $routes->post('tambahcalonkeistimewaan', 'PengusulController::tambahcalonkeistimewaan');
+    $routes->post('tambahcalonkeistimewaan', 'PengusulController::tambahcalonkeistimewaan'); */
 
     // Other routes related to Pengusul
     $routes->get('usulansaya', 'PengusulController::usulansaya');
