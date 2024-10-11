@@ -27,9 +27,66 @@ $selectedCategory = $session->get('selected_category');
         ?>
         <!-- Konten utama -->
         <div class="relative flex flex-col w-full max-w-4xl mb-4 rounded-xl border-2 border-primary bg-white shadow-md lg:p-8 p-4">
-            <h4 class="block text-xl font-bold text-slate-800 mb-2">
-                Formulir Identitas Calon Usulan
-            </h4>
+
+            <div class="w-full pt-1 px-4 lg:mb-8">
+                <div class="relative flex items-center justify-between w-full flex-wrap gap-4 sm:gap-8">
+                    <div class="absolute left-0 top-2/4 h-0.5 w-full -translate-y-2/4 bg-accent2 transition-all duration-500"></div>
+
+                    <!-- Step 1 -->
+                    <div class="relative z-10 grid w-8 h-8 sm:w-10 sm:h-10 font-bold text-white transition-all duration-300 bg-accent2 rounded-full place-items-center">
+                        <div class="absolute -bottom-8 w-max text-center">
+                            <p class="lg:block hidden font-sans text-xs lg:text-md antialiased font-semibold leading-relaxed tracking-normal text-gray-700 w-28 h-8">
+                                Identitas Calon
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="relative z-10 grid w-8 h-8 sm:w-10 sm:h-10 font-bold text-white transition-all duration-300 bg-accent1 border-2 border-accent2 rounded-full place-items-center">
+                        <div class="absolute -bottom-8 w-max text-center">
+                            <p class="lg:block hidden font-sans text-xs lg:text-md antialiased font-semibold leading-relaxed tracking-normal text-gray-700 w-28 h-8">
+                                Kegiatan Calon
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="relative z-10 grid w-8 h-8 sm:w-10 sm:h-10 font-bold text-accent1 transition-all duration-300 bg-accent1 border-2 border-accent2 rounded-full place-items-center">
+                        <div class="absolute -bottom-8 w-max text-center">
+                            <p class="lg:block hidden font-sans text-xs lg:text-md antialiased font-semibold leading-relaxed tracking-normal text-gray-700 w-28 h-8">
+                                Dampak
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="relative z-10 grid w-8 h-8 sm:w-10 sm:h-10 font-bold text-white transition-all duration-300 bg-accent1 border-2 border-accent2  rounded-full place-items-center">
+                        <div class="absolute -bottom-8 w-max text-center">
+                            <p class="lg:block hidden font-sans text-xs lg:text-md antialiased font-semibold leading-relaxed tracking-normal text-gray-700 w-28 h-8">
+                                PMIK
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Step 5 -->
+                    <div class="relative z-10 grid w-8 h-8 sm:w-10 sm:h-10 font-bold text-white transition-all duration-300 bg-accent1 border-2 border-accent2 rounded-full place-items-center">
+                        <div class="absolute -bottom-8 w-max text-center">
+                            <p class="lg:block hidden font-sans text-xs lg:text-md antialiased font-semibold leading-relaxed tracking-normal text-gray-700 w-28 h-8">
+                                Keswadayaan dan Keberlanjutan
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Step 6 -->
+                    <div class="relative z-10 grid w-8 h-8 sm:w-10 sm:h-10 font-bold text-accent1 transition-all duration-300 bg-accent1 border-2 border-accent2 rounded-full place-items-center">
+                        <div class="absolute -bottom-8 w-max text-center">
+                            <p class="lg:block hidden font-sans text-xs lg:text-md antialiased font-semibold leading-relaxed tracking-normal text-gray-700 w-28 h-8">
+                                Keistimewaan
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <?php if ($selectedCategory === 'c'): ?>
                 <form id="identitasc" class="mt-4 mb-2 w-full">
@@ -149,7 +206,7 @@ $selectedCategory = $session->get('selected_category');
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Unggah SKCK <span class="text-primary">(.pdf)</span></label>
-                                <input id="skck" type="file" accept="application/pdf"
+                                <input id="skck" type="file"  accept="application/pdf"
                                     class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
                             </div>
                         </div>
@@ -260,15 +317,15 @@ $selectedCategory = $session->get('selected_category');
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Unggah SKCK <span class="text-primary">(.pdf)</span></label>
-                                <input id="suratpengantar" type="file" accept="application/pdf"
+                                <input id="suratpengantar" type="file" accept="application/pdf" 
                                     class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
                             </div>
                         </div>
                     </div>
 
                     <div class="flex justify-end">
-                        <a href="./usulansaya">
-                            <button class="mt-4 w-32 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Simpan</button>
+                        <a href="./tambahcalonkegiatan">
+                            <button class="mt-4 w-32 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Kirim</button>
                         </a>
                     </div>
                 </form>

@@ -28,7 +28,7 @@
                     Setelah anda melakukan <span class="font-bold text-rejected">Kirim Data</span>, Anda tidak dapat melakukan perubahan atau pengeditan pada Data Usulan!
                 </h3>
             </div>
-            <div class="flex justify-start mt-4">
+            <div class="flex justify-start mt-6">
                 <a href="./tambahcalon">
                     <button id="tambahCalon" class="w-48 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button"> <span>&#10010</span> Tambah Calon Usulan</button>
                 </a>
@@ -79,7 +79,7 @@
                                     <p id="status1" class="block text-xs font-bold text-accepted w-24">Lolos Administrasi</p>
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">
-                                    <button class="serahkanButton w-20 rounded-md py-2 px-2 text-center font-semibold text-xs text-primary bg-secondary" type="button">Lihat</button>
+                                    <button class="w-20 rounded-md py-2 px-2 text-center font-semibold text-xs text-primary bg-secondary" type="button">Lihat</button>
                                 </td>
                                 <td class="px-4 pt-1 border-b border-slate-200 text-center">
                                     <a href="./detailusulansaya">
@@ -127,7 +127,7 @@
                                     <p id="status1" class="block text-xs font-bold text-rejected w-24">Tidak Lolos Administrasi</p>
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">
-                                    <button class="serahkanButton w-20 rounded-md py-2 px-2 text-center font-semibold text-xs text-primary bg-secondary" type="button">Lihat</button>
+                                    <button class="w-20 rounded-md py-2 px-2 text-center font-semibold text-xs text-primary bg-secondary" type="button">Lihat</button>
                                 </td>
                                 <td class="px-4 pt-1 border-b border-slate-200 text-center">
                                     <a href="./detailusulansaya">
@@ -175,7 +175,7 @@
                                     <p id="status1" class="block text-xs font-bold text-accepted w-24">Lolos Administrasi</p>
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">
-                                    <button class="serahkanButton w-20 rounded-md py-2 px-2 text-center font-semibold text-xs text-primary bg-secondary" type="button">Lihat</button>
+                                    <button class="w-20 rounded-md py-2 px-2 text-center font-semibold text-xs text-primary bg-secondary" type="button">Lihat</button>
                                 </td>
                                 <td class="px-4 pt-1 border-b border-slate-200 text-center">
                                     <a href="./detailusulansaya">
@@ -223,7 +223,7 @@
                                     <p id="status1" class="block text-xs font-bold text-accepted w-24">Lolos Administrasi</p>
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">
-                                    <button class="serahkanButton w-20 rounded-md py-2 px-2 text-center font-semibold text-xs text-primary bg-secondary" type="button">Lihat</button>
+                                    <button class="w-20 rounded-md py-2 px-2 text-center font-semibold text-xs text-primary bg-secondary" type="button">Lihat</button>
                                 </td>
                                 <td class="px-4 pt-1 border-b border-slate-200 text-center">
                                     <a href="./detailusulansaya">
@@ -271,7 +271,7 @@
                                     <p id="status1" class="block text-xs font-bold text-rejected w-24">Tidak Lolos Administrasi</p>
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">
-                                    <button class="serahkanButton w-20 rounded-md py-2 px-2 text-center font-semibold text-xs text-primary bg-secondary" type="button">Lihat</button>
+                                    <button class="w-20 rounded-md py-2 px-2 text-center font-semibold text-xs text-primary bg-secondary" type="button">Lihat</button>
                                 </td>
                                 <td class="px-4 pt-1 border-b border-slate-200 text-center">
                                     <a href="./detailusulansaya">
@@ -350,46 +350,6 @@
 
         </div>
     </div>
-
-    <script>
-        // Ambil semua tombol 'Serahkan'
-        const serahkanButtons = document.querySelectorAll('.serahkanButton');
-
-        // Loop melalui setiap tombol dan tambahkan event listener
-        serahkanButtons.forEach((button, index) => {
-            button.addEventListener('click', function() {
-                // Tampilkan modal popup
-                document.getElementById('modalPopup').classList.remove('hidden');
-
-                // Menyimpan tombol yang sedang diklik
-                const currentButton = button;
-
-                // Saat tombol 'Confirm' di modal popup diklik
-                document.getElementById('confirmButton').onclick = function() {
-                    // Sembunyikan modal popup
-                    document.getElementById('modalPopup').classList.add('hidden');
-
-                    // Ubah teks tombol 'Serahkan' menjadi 'Sudah Diserahkan'
-                    currentButton.textContent = 'Sudah Diserahkan';
-                    currentButton.disabled = true;
-                    currentButton.classList.add('disabled', 'opacity-50', 'bg-gray-800');
-
-                    // Sembunyikan tombol 'Edit' dan tampilkan tombol 'Download'
-                    const editCell = document.querySelectorAll('.editCell')[index];
-                    const downloadCell = document.querySelectorAll('.downloadCell')[index];
-
-                    editCell.classList.add('hidden');
-                    downloadCell.classList.remove('hidden');
-                };
-
-                // Saat tombol 'Periksa Kembali' di modal popup diklik
-                document.getElementById('cancelButton').onclick = function() {
-                    // Sembunyikan modal popup
-                    document.getElementById('modalPopup').classList.add('hidden');
-                };
-            });
-        });
-    </script>
 
     <?= $this->endSection() ?>
 </body>

@@ -36,6 +36,12 @@
                     <button id="keswadayaanButton" class="mt-2 w-full btn-section md:w-40 rounded-md py-2 px-4 text-center text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none text-sm" type="button"
                         data-target="keswadayaan">Keswadayaan dan Kebudayaan</button>
                     <button id="keistimewaanButton" class="mt-2 w-full btn-section md:w-40 rounded-md py-2 px-4 text-center text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none text-sm" type="button" data-target="keistimewaan">Keistimewaan</button>
+
+                    <!-- Button Kembali ke Usulan Saya -->
+                    <button onclick="window.location.href='./usulansaya'"
+                        class="text-sm font-bold text-gray-600 no-underline focus:outline-none text-start mt-6">
+                        <span class="font-bold text-lg items-center">←</span> Kembali
+                    </button>
                 </div>
 
                 <!-- Right side: Form inside a card -->
@@ -48,112 +54,112 @@
                             <p class="font-semibold mb-2 text-md text-primary underline">Data Kelompok/ Komunitas</p>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Nama Kelompok</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Tahun Berdiri Kelompok</label>
-                                <input type="date" min="0" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input disabled type="date" min="0" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Jumlah Anggota</label>
-                                <input type="number" min="1" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input disabled type="number" min="1" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Jalan</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">RT/RW</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Desa/Kelurahan</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Kecamatan</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Kab/Kota</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Provinsi</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Kode Pos</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Media Sosial</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Unggah Surat Legalitas Kelompok <span class="text-primary">(.pdf)</span></label>
-                                <input id="suratpengantar" type="file" accept="application/pdf"
+                                <input disabled id="suratpengantar" type="file" accept="application/pdf"
                                     class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
                             </div>
                             <p class="mt-8 font-semibold mb-2 text-md text-primary underline">Data Ketua Kelompok/ Komunitas</p>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Nama Ketua</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">NIK</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Tempat Lahir</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Tanggal Lahir</label>
-                                <input type="date" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input disabled type="date" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Usia</label>
-                                <input type="number" min="0" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input disabled type="number" min="0" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full">
                                 <label class="block mb-2 text-sm text-black">Jenis Kelamin</label>
                                 <div class="lg:flex gap-6">
                                     <div class="flex items-center py-2 ">
-                                        <input name="jenis_kelamin" type="radio" class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-primary checked:bg-primary transition-all" id="perempuan">
+                                        <input disabled name="jenis_kelamin" type="radio" class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-primary checked:bg-primary transition-all" id="perempuan">
                                         <label class="ml-2 text-black cursor-pointer text-sm" for="perempuan">Perempuan</label>
                                     </div>
                                     <div class="flex items-center py-2 ">
-                                        <input name="jenis_kelamin" type="radio" class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-primary checked:bg-primary transition-all" id="laki-laki">
+                                        <input disabled name="jenis_kelamin" type="radio" class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-primary checked:bg-primary transition-all" id="laki-laki">
                                         <label class="ml-2 text-black cursor-pointer text-sm" for="laki-laki">Laki-Laki</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Pekerjaan</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Nomor Telepon</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Email</label>
-                                <input type="email" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input disabled type="email" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Pendidikan Terakhir</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
 
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Unggah KTP <span class="text-primary">(.jpg/jpeg)</span></label>
-                                <input id="ktp" type="file" accept="application/jpg,application/jpeg"
+                                <input disabled id="ktp" type="file" accept="application/jpg,application/jpeg"
                                     class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Unggah SKCK <span class="text-primary">(.pdf)</span></label>
-                                <input id="skck" type="file" accept="application/pdf"
+                                <input disabled id="skck" type="file" accept="application/pdf"
                                     class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
                             </div>
 
@@ -166,93 +172,93 @@
                         <form id="identitasabd" class="mb-2 w-full">
                             <div class="w-full mb-2">
                                 <label class="mb-2 text-sm text-slate-600">Nama Lengkap</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-primary text-slate-700 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary shadow-sm focus:shadow" />
+                                <input disabled type="text" class="w-full bg-transparent placeholder:text-primary text-slate-700 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary shadow-sm focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="mb-2 text-sm text-slate-600">NIK</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-primary text-slate-700 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary shadow-sm focus:shadow" />
+                                <input disabled type="text" class="w-full bg-transparent placeholder:text-primary text-slate-700 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary shadow-sm focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="mb-2 text-sm text-slate-600">Tempat Lahir</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-primary text-slate-700 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary shadow-sm focus:shadow" />
+                                <input disabled type="text" class="w-full bg-transparent placeholder:text-primary text-slate-700 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary shadow-sm focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="mb-2 text-sm text-slate-600">Tanggal Lahir</label>
-                                <input type="date" class="w-full bg-transparent placeholder:text-primary text-slate-700 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary shadow-sm focus:shadow" />
+                                <input disabled type="date" class="w-full bg-transparent placeholder:text-primary text-slate-700 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary shadow-sm focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="mb-2 text-sm text-slate-600">Usia</label>
-                                <input type="number" class="w-full bg-transparent placeholder:text-primary text-slate-700 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary shadow-sm focus:shadow" />
+                                <input disabled type="number" class="w-full bg-transparent placeholder:text-primary text-slate-700 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary shadow-sm focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Jenis Kelamin</label>
                                 <div class="lg:flex gap-6">
                                     <div class="flex items-center py-2 ">
-                                        <input name="jenis_kelamin" type="radio" class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-primary checked:bg-primary transition-all" id="perempuan">
+                                        <input disabled name="jenis_kelamin" type="radio" class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-primary checked:bg-primary transition-all" id="perempuan">
                                         <label class="ml-2 text-black cursor-pointer text-sm" for="perempuan">Perempuan</label>
                                     </div>
                                     <div class="flex items-center py-2 ">
-                                        <input name="jenis_kelamin" type="radio" class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-primary checked:bg-primary transition-all" id="laki-laki">
+                                        <input disabled name="jenis_kelamin" type="radio" class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-primary checked:bg-primary transition-all" id="laki-laki">
                                         <label class="ml-2 text-black cursor-pointer text-sm" for="laki-laki">Laki-Laki</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Pekerjaan</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Nomor Telepon</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Email</label>
-                                <input type="email" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input disabled type="email" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Pendidikan Terakhir</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Jalan</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">RT/RW</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Desa/Kelurahan</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Kecamatan</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Kab/Kota</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Provinsi</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Kode Pos</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Media Sosial</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">KTP <span class="text-primary">(.jpg/jpeg)</span></label>
-                                <input id="ktp" type="file" accept="application/jpg,application/jpeg"
+                                <input disabled id="ktp" type="file" accept="application/jpg,application/jpeg"
                                     class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">SKCK <span class="text-primary">(.pdf)</span></label>
-                                <input id="skck" type="file" accept="application/pdf"
+                                <input disabled id="skck" type="file" accept="application/pdf"
                                     class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
                             </div>
 
@@ -271,7 +277,7 @@
                             <div class="space-y-4">
                                 <div>
                                     <label class="block mb-2 text-sm text-black">Tema Kegiatan</label>
-                                    <select id="tema-kegiatan" class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease">
+                                    <select disabled id="tema-kegiatan" class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease">
                                         <option value="" disabled selected>Pilih Tema Kegiatan</option>
                                         <option value="keanekaragaman-hayati">Keanekaragaman Hayati</option>
                                         <option value="perubahan-iklim">Perubahan Iklim</option>
@@ -281,7 +287,7 @@
                                 </div>
                                 <div>
                                     <label class="block mb-2 text-sm text-black">Sub Tema Kegiatan</label>
-                                    <select id="sub-tema-kegiatan" disabled class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease">
+                                    <select disabled id="sub-tema-kegiatan" disabled class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease">
                                         <option value="" disabled selected>Pilih Sub Tema Kegiatan</option>
                                         <option value="pelestarian-keanekaragaman-hayati-kawasan-dilindungi-yang-meliputi-pelestarian-sumber-daya-genetik-jenis-dan-ekosistem">Pelestarian keanekaragaman hayati dan kawasan dilindungi yang meliputi pelestarian sumber daya genetik, jenis, dan ekosistem</option>
                                         <option value="pemanfaatan-keanekaragaman-hayati-berkelanjutan">Pemanfaatan keanekaragaman hayati secara berkelanjutan</option>
@@ -302,8 +308,8 @@
                                 </div>
                                 <div>
                                     <label class="block mb-2 text-sm text-black">Bentuk Kegiatan</label>
-                                    <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" />
-                                    <!-- <select id="jenisKegiatan" class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" onchange="toggleJenisLainnya()">
+                                    <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" />
+                                    <!-- <select disabled id="jenisKegiatan" class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" onchange="toggleJenisLainnya()">
                                 <option value="" disabled selected>Pilih Jenis Kegiatan</option>
                                 <option value="konservasi-hutan">Konservasi Hutan</option>
                                 <option value="konservasi-karst">Konservasi Karst</option>
@@ -342,15 +348,15 @@
                                 </div>
                                 <!-- <div id="jenisLainnya" class="hidden">
                             <label class="block mb-2 text-sm text-black">Bentuk Kegiatan Lainnya</label>
-                            <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" />
+                            <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" />
                         </div> -->
                                 <div>
                                     <label class="block mb-2 text-sm text-black">Tahun Mulai Kegiatan</label>
-                                    <input type="date" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                    <input disabled type="date" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                                 </div>
                                 <div>
                                     <label class="block mb-2 text-sm text-black">Penjelasan Kegiatan</label>
-                                    <textarea id="penjelasan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                                    <textarea disabled id="penjelasan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
                                         oninput="updateWordCount(this, 'penjelasanCount', 1000)"></textarea>
                                     <p id="penjelasanCount" class="text-xs text-slate-400 flex justify-end ">0/1000 Kata</p>
                                 </div>
@@ -360,17 +366,21 @@
                             <div class="space-y-4">
                                 <div>
                                     <label class="block mb-2 text-sm text-black">Lokasi Kegiatan</label>
-                                    <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                    <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                </div>
+                                <div>
+                                    <label class="block mb-2 text-sm text-black">Koordinat Lokasi Kegiatan</label>
+                                    <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                                 </div>
                                 <div>
                                     <label class="block mb-2 text-sm text-black">Para Pihak dan Perannya</label>
-                                    <textarea id="pihakPeran" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                                    <textarea disabled id="pihakPeran" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
                                         oninput="updateWordCount(this, 'pihakPeranCount', 1000)"></textarea>
                                     <p id="pihakPeranCount" class="text-xs text-slate-400 flex justify-end ">0/1000 Kata</p>
                                 </div>
                                 <div>
                                     <label class="block mb-2 text-sm text-black">Keberhasilan yang Dicapai</label>
-                                    <textarea id="keberhasilan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                                    <textarea disabled id="keberhasilan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
                                         oninput="updateWordCount(this, 'keberhasilanCount', 1000)"></textarea>
                                     <p id="keberhasilanCount" class="text-xs text-slate-400 flex justify-end ">0/1000 kata</p>
                                 </div>
@@ -388,19 +398,19 @@
                         <div class="grid grid-cols-1 gap-4">
                             <div>
                                 <label class="block mb-2 text-sm text-black">Dampak kegiatan terhadap lingkungan</label>
-                                <textarea id="dampakLingkungan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                                <textarea disabled id="dampakLingkungan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
                                     oninput="updateWordCount(this, 'dampakLingkunganCount', 1000)"></textarea>
                                 <p id="dampakLingkunganCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Dampak Ekonomi</label>
-                                <textarea id="dampakEkonomi" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                                <textarea disabled id="dampakEkonomi" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
                                     oninput="updateWordCount(this, 'dampakEkonomiCount', 1000)"></textarea>
                                 <p id="dampakEkonomiCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Dampak Sosial dan Budaya</label>
-                                <textarea id="dampakSosial" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                                <textarea disabled id="dampakSosial" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
                                     oninput="updateWordCount(this, 'dampakSosialCount', 1000)"></textarea>
                                 <p id="dampakSosialCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
                             </div>
@@ -416,25 +426,25 @@
                         <div class="grid grid-cols-1 gap-4">
                             <div>
                                 <label class="block mb-2 text-sm text-black">Prakarsa</label>
-                                <textarea id="prakarsa" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                                <textarea disabled id="prakarsa" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
                                     oninput="updateWordCount(this, 'prakarsaCount', 1000)"></textarea>
                                 <p id="prakarsaCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Motivasi</label>
-                                <textarea id="motivasi" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                                <textarea disabled id="motivasi" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
                                     oninput="updateWordCount(this, 'motivasiCount', 1000)"></textarea>
                                 <p id="motivasiCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Inovasi</label>
-                                <textarea id="inovasi" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                                <textarea disabled id="inovasi" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
                                     oninput="updateWordCount(this, 'inovasiCount', 1000)"></textarea>
                                 <p id="inovasiCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Kreativitas</label>
-                                <textarea id="kreativitas" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                                <textarea disabled id="kreativitas" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
                                     oninput="updateWordCount(this, 'kreativitasCount', 1000)"></textarea>
                                 <p id="kreativitasCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
                             </div>
@@ -450,25 +460,25 @@
                         <div class="grid grid-cols-1 gap-4">
                             <div>
                                 <label class="block mb-2 text-sm text-black">Sumber Pembiayaan Kegiatan</label>
-                                <textarea id="sumber" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                                <textarea disabled id="sumber" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
                                     oninput="updateWordCount(this, 'sumberCount', 1000)"></textarea>
                                 <p id="sumberCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Teknologi/Alat/Fasilitas yang digunakan</label>
-                                <textarea id="teknologi" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                                <textarea disabled id="teknologi" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
                                     oninput="updateWordCount(this, 'teknologiCount', 1000)"></textarea>
                                 <p id="teknologiCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Status Lahan/Areal Kegiatan</label>
-                                <textarea id="statusLahan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                                <textarea disabled id="statusLahan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
                                     oninput="updateWordCount(this, 'statusLahanCount', 1000)"></textarea>
                                 <p id="statusLahanCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Kelompok/Perorangan yang meniru</label>
-                                <textarea id="kelompokPeroranganMeniru" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                                <textarea disabled id="kelompokPeroranganMeniru" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
                                     oninput="updateWordCount(this, 'kelompokPeroranganMeniruCount', 1000)"></textarea>
                                 <p id="kelompokPeroranganMeniruCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
                             </div>
@@ -484,19 +494,19 @@
                         <div class="grid grid-cols-1 gap-4">
                             <div>
                                 <label class="block mb-2 text-sm text-black">Keistimewaan Calon</label>
-                                <textarea id="keistimewaanCalon" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                                <textarea disabled id="keistimewaanCalon" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
                                     oninput="updateWordCount(this, 'keistimewaanCalonCount', 1000)"></textarea>
                                 <p id="keistimewaanCalonCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Penghargaan relevan yang pernah diterima</label>
-                                <textarea id="penghargaanRelevan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                                <textarea disabled id="penghargaanRelevan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
                                     oninput="updateWordCount(this, 'penghargaanRelevanCount', 1000)"></textarea>
                                 <p id="penghargaanRelevanCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Tautan Dokumen Pendukung (Google Drive)</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
 
                             <div class="grid grid-cols-2 gap-4">
@@ -504,8 +514,8 @@
                                 <div id="fotoContainer">
                                     <label class="block mb-2 text-sm text-black">Foto Kegiatan <span class="text-primary"> (.jpg/jpeg)</span></label>
                                     <div class="mb-4">
-                                        <input type="file" accept=".jpg, .jpeg" class="mb-2 w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-                                        <input type="text" placeholder="Keterangan Foto" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                        <input disabled type="file" accept=".jpg, .jpeg" class="mb-2 w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                        <input disabled type="text" placeholder="Keterangan Foto" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                                     </div>
 
 
@@ -514,7 +524,7 @@
                                 <!-- Kolom 2 - Tautan Video -->
                                 <div id="videoContainer">
                                     <label class="block mb-2 text-sm text-black">Tautan Video</label>
-                                    <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow mb-3" placeholder="Tautan Video" />
+                                    <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow mb-3" placeholder="Tautan Video" />
                                 </div>
                             </div>
 
@@ -759,7 +769,7 @@
                 <div class="space-y-4">
                         <div>
                             <label class="block mb-2 text-sm text-black">Tema Kegiatan</label>
-                            <select id="tema-kegiatan-${kegiatanCount}" class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease">
+                            <select disabled id="tema-kegiatan-${kegiatanCount}" class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease">
                                 <option value="" disabled selected>Pilih Tema Kegiatan</option>
                                 <option value="keanekaragaman-hayati">Keanekaragaman Hayati</option>
                                 <option value="perubahan-iklim">Perubahan Iklim</option>
@@ -769,7 +779,7 @@
                         </div>
                         <div>
                             <label class="block mb-2 text-sm text-black">Sub Tema Kegiatan</label>
-                            <select id="sub-tema-kegiatan-${kegiatanCount}" disabled class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease">
+                            <select disabled id="sub-tema-kegiatan-${kegiatanCount}" disabled class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease">
                                 <option value="" disabled selected>Pilih Sub Tema Kegiatan</option>
                                 <option value="pelestarian-keanekaragaman-hayati-kawasan-dilindungi-yang-meliputi-pelestarian-sumber-daya-genetik-jenis-dan-ekosistem">Pelestarian keanekaragaman hayati dan kawasan dilindungi yang meliputi pelestarian sumber daya genetik, jenis, dan ekosistem</option>
                                 <option value="pemanfaatan-keanekaragaman-hayati-berkelanjutan">Pemanfaatan keanekaragaman hayati secara berkelanjutan</option>
@@ -790,15 +800,15 @@
                         </div>
                         <div>
                             <label class="block mb-2 text-sm text-black">Bentuk Kegiatan</label>
-                            <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" />
+                            <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" />
                         </div>
                         <div>
                             <label class="block mb-2 text-sm text-black">Tahun Mulai Kegiatan</label>
-                            <input type="date" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            <input disabled type="date" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                         </div>
                         <div>
                     <label class="block mb-2 text-sm text-black">Penjelasan Kegiatan</label>
-                    <textarea id="penjelasan${kegiatanCount}" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                    <textarea disabled id="penjelasan${kegiatanCount}" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
                         oninput="updateWordCount(this, 'penjelasanCount${kegiatanCount}', 1000)"></textarea>
                     <p id="penjelasanCount${kegiatanCount}" class="text-xs text-slate-400 flex justify-end ">0/1000 Kata</p>
                 </div>
@@ -808,17 +818,21 @@
                 <div class="space-y-4">
                         <div>
                             <label class="block mb-2 text-sm text-black">Lokasi Kegiatan</label>
-                            <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                        </div>
+                        <div>
+                            <label class="block mb-2 text-sm text-black">Koordinat Lokasi Kegiatan</label>
+                            <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                         </div>
                         <div>
                     <label class="block mb-2 text-sm text-black">Para Pihak dan Perannya</label>
-                    <textarea id="pihakPeran${kegiatanCount}" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                    <textarea disabled id="pihakPeran${kegiatanCount}" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
                         oninput="updateWordCount(this, 'pihakPeranCount${kegiatanCount}', 1000)"></textarea>
                     <p id="pihakPeranCount${kegiatanCount}" class="text-xs text-slate-400 flex justify-end ">0/1000 Kata</p>
                 </div>
                         <div>
                     <label class="block mb-2 text-sm text-black">Keberhasilan yang Dicapai</label>
-                    <textarea id="keberhasilan${kegiatanCount}" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                    <textarea disabled id="keberhasilan${kegiatanCount}" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
                         oninput="updateWordCount(this, 'keberhasilanCount${kegiatanCount}', 1000)"></textarea>
                     <p id="keberhasilanCount${kegiatanCount}" class="text-xs text-slate-400 flex justify-end ">0/1000 Kata</p>
                 </div>
@@ -873,8 +887,8 @@
                 const newFotoDiv = document.createElement('div');
                 newFotoDiv.classList.add('mb-4');
                 newFotoDiv.innerHTML = `
-                    <input type="file" accept=".jpg, .jpeg" class="mb-2 w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-                    <input type="text" placeholder="Keterangan Foto" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                    <input disabled type="file" accept=".jpg, .jpeg" class="mb-2 w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                    <input disabled type="text" placeholder="Keterangan Foto" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                 `;
                 fotoContainer.insertBefore(newFotoDiv, tambahFotoButton);
                 fotoInputCount++;
@@ -892,7 +906,7 @@
                 const newVideoDiv = document.createElement('div');
                 newVideoDiv.classList.add('mb-4');
                 newVideoDiv.innerHTML = `
-                    <input type="text" placeholder="Tautan Video" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                    <input disabled type="text" placeholder="Tautan Video" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                 `;
                 videoContainer.insertBefore(newVideoDiv, tambahVideoButton);
                 videoInputCount++;
