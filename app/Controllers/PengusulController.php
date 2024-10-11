@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\PengusulModel;
+use App\Models\PendaftaranModel;
 // use CodeIgniter\Controller;
 
 class PengusulController extends BaseController
@@ -138,7 +139,8 @@ class PengusulController extends BaseController
         $data['title'] = 'Tambah Calon Usulan';
         return view('pengusul/tambahcalonidentitas', $data);
     }
-    public function tambahcalonkegiatan()
+    // BACKUP
+    /* public function tambahcalonkegiatan()
     {
         $data['title'] = 'Tambah Calon Usulan';
         return view('pengusul/tambahcalonkegiatan', $data);
@@ -162,12 +164,14 @@ class PengusulController extends BaseController
     {
         $data['title'] = 'Tambah Calon Usulan';
         return view('pengusul/tambahcalonkeistimewaan', $data);
-    }
+    } */
 
     public function usulansaya()
     {
         $data['title'] = 'Usulan Saya';
-        return view('pengusul/usulansaya', ['title' => 'Usulan Saya']);
+        $pendaftaranModel = new PendaftaranModel();
+        $data['usulan'] = $pendaftaranModel->findAll();
+        return view('pengusul/usulansaya', $data);
     }
     public function usulandlhk()
     {
@@ -179,6 +183,11 @@ class PengusulController extends BaseController
     {
         $data['title'] = 'Detail Usulan Saya';
         return view('pengusul/detailusulansaya', ['title' => 'Detail Usulan Saya']);
+    }
+    public function detailusulansayaedit()
+    {
+        $data['title'] = 'Edit Detail Usulan Saya';
+        return view('pengusul/detailusulansayaedit', ['title' => 'Edit Detail Usulan Saya']);
     }
     public function detailusulandlhk()
     {

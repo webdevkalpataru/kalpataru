@@ -18,7 +18,7 @@
 
         <div class="relative flex flex-col w-full max-w-5xl mb-4 rounded-xl border-2 border-primary bg-white shadow-md lg:p-8 p-4">
             <h4 class="block text-xl font-bold text-slate-800 mb-2">
-                Detail Usulan: (Nama Provinsi)
+                Detail Usulan Saya
             </h4>
             <h2 class="text-md font-bold text-primary mb-4">Joko Susilo</h2>
 
@@ -36,6 +36,15 @@
                     <button id="keswadayaanButton" class="mt-2 w-full btn-section md:w-40 rounded-md py-2 px-4 text-center text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none text-sm" type="button"
                         data-target="keswadayaan">Keswadayaan dan Kebudayaan</button>
                     <button id="keistimewaanButton" class="mt-2 w-full btn-section md:w-40 rounded-md py-2 px-4 text-center text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none text-sm" type="button" data-target="keistimewaan">Keistimewaan</button>
+
+                    <!-- Button Kirim Data ke Admin -->
+                    <!-- <button id="kirimDataButton" class="mt-8 w-full btn-section md:w-40 rounded-md py-2 px-4 text-center text-lg text-primary hover:text-primaryhover font-bold transition-all shadow-md hover:shadow-lg border-2 border-primary opacity-90 hover:opacity-100 bg-accent1 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button" data-target="kirimData">Kirim Data</button> -->
+
+                    <!-- Button Kembali ke Usulan Saya -->
+                    <button onclick="window.location.href='./usulansaya'"
+                        class="text-sm font-bold text-gray-600 no-underline focus:outline-none text-start mt-6">
+                        <span class="font-bold text-lg items-center">←</span> Kembali
+                    </button>
                 </div>
 
                 <!-- Right side: Form inside a card -->
@@ -158,7 +167,7 @@
                             </div>
 
                             <div class="flex justify-end mt-4">
-                                <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Perbarui</button>
+                                <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Simpan</button>
                             </div>
                         </form>
                     </div>
@@ -259,12 +268,11 @@
                             </div>
 
                             <div class="flex justify-end mt-4">
-                                <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Perbarui</button>
+                                <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Simpan</button>
                             </div>
                         </form>
                     </div>
                 <?php endif; ?>
-
 
                 <!-- Right side: Form inside a card -->
                 <div id="kegiatan-calon" class="form-section hidden flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
@@ -368,6 +376,10 @@
                                     <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                                 </div>
                                 <div>
+                                    <label class="block mb-2 text-sm text-black">Koordinat Lokasi Kegiatan</label>
+                                    <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                </div>
+                                <div>
                                     <label class="block mb-2 text-sm text-black">Para Pihak dan Perannya</label>
                                     <textarea id="pihakPeran" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
                                         oninput="updateWordCount(this, 'pihakPeranCount', 1000)"></textarea>
@@ -388,7 +400,7 @@
                         </div>
 
                         <div class="flex justify-end mt-4">
-                            <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Perbarui</button>
+                            <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Simpan</button>
                         </div>
                     </form>
                 </div>
@@ -418,7 +430,7 @@
                         </div>
 
                         <div class="flex justify-end mt-4">
-                            <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Perbarui</button>
+                            <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Simpan</button>
                         </div>
                     </form>
                 </div>
@@ -454,7 +466,7 @@
                         </div>
 
                         <div class="flex justify-end mt-4">
-                            <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Perbarui</button>
+                            <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Simpan</button>
                         </div>
                     </form>
                 </div>
@@ -490,7 +502,7 @@
                         </div>
 
                         <div class="flex justify-end mt-4">
-                            <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Perbarui</button>
+                            <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Simpan</button>
                         </div>
                     </form>
                 </div>
@@ -515,38 +527,42 @@
                                 <label class="block mb-2 text-sm text-black">Tautan Dokumen Pendukung (Google Drive)</label>
                                 <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
-
-                            <div class="grid grid-cols-2 gap-4">
-                                <!-- Kolom 1 - Unggah Foto Kegiatan -->
-                                <div id="fotoContainer">
-                                    <label class="block mb-2 text-sm text-black">Foto Kegiatan <span class="text-primary"> (.jpg/jpeg)</span></label>
-                                    <div class="mb-4">
-                                        <input type="file" accept=".jpg, .jpeg" class="mb-2 w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-                                        <input type="text" placeholder="Keterangan Foto" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-                                    </div>
-
-                                    <!-- Tombol Tambah Foto Kegiatan -->
-                                    <button type="button" id="tambahFotoButton" class="mt-4 w-full flex items-center justify-center rounded-md py-2 text-center text-sm text-primary transition-all shadow-md hover:shadow-lg bg-secondary active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
-                                        <span class="mr-2">&#10010</span> Tambah Foto Kegiatan
-                                    </button>
-                                </div>
-
-                                <!-- Kolom 2 - Tautan Video -->
-                                <div id="videoContainer">
-                                    <label class="block mb-2 text-sm text-black">Tautan Video</label>
-                                    <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow mb-3" placeholder="Tautan Video" />
-
-                                    <!-- Tombol Tambah Video -->
-                                    <button type="button" id="tambahVideoButton" class="w-full flex items-center justify-center rounded-md py-2 text-center text-sm text-primary transition-all shadow-md hover:shadow-lg bg-secondary active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
-                                        <span class="mr-2">&#10010</span> Tambah Tautan Video
-                                    </button>
-                                </div>
+                            <div>
+                                <label class="block mb-2 text-sm text-black">Tautan Video</label>
+                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow mb-3" placeholder="Tautan Video" />
                             </div>
+
+                            <div id="fotoContainer">
+                                <label class="block mb-2 text-sm text-black">Foto Kegiatan <span class="text-primary"> (.jpg/jpeg)</span></label>
+                                <div class="mb-4">
+                                    <input type="file" accept=".jpg, .jpeg" class="mb-2 w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                    <input type="text" placeholder="Keterangan Foto" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                </div>
+
+                                <!-- Tombol Tambah Foto Kegiatan -->
+                                <button type="button" id="tambahFotoButton" class="mt-4 w-full flex items-center justify-center rounded-md py-2 text-center text-sm text-primary transition-all shadow-md hover:shadow-lg bg-secondary active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                                    <span class="mr-2">&#10010</span> Tambah Foto Kegiatan
+                                </button>
+                            </div>
+                            <!-- <div class="grid grid-cols-2 gap-4"> -->
+                            <!-- Kolom 1 - Unggah Foto Kegiatan -->
+
+                            <!-- Kolom 2 - Tautan Video -->
+                            <!-- <div id="videoContainer"> -->
+                            <!-- <label class="block mb-2 text-sm text-black">Tautan Video</label>
+                                    <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow mb-3" placeholder="Tautan Video" /> -->
+
+                            <!-- Tombol Tambah Video -->
+                            <!-- <button type="button" id="tambahVideoButton" class="w-full flex items-center justify-center rounded-md py-2 text-center text-sm text-primary transition-all shadow-md hover:shadow-lg bg-secondary active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                                        <span class="mr-2">&#10010</span> Tambah Tautan Video
+                                    </button> -->
+                            <!-- </div> -->
+                            <!-- </div> -->
 
                         </div>
 
                         <div class="flex justify-end mt-4">
-                            <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Perbarui</button>
+                            <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Simpan</button>
                         </div>
                     </form>
                 </div>
@@ -554,6 +570,19 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+    <!-- <div id="modalPopup" class="fixed inset-0 z-50 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white rounded-lg p-8 flex flex-col items-center max-w-md">
+            <img src="/images/question.png" alt="Question Icon" class="w-16 h-16 mb-4">
+            <p class="text-center text-lg font-bold text-gray-700 mb-4">Apakah anda yakin ingin mengirimkan seluruh data pada admin?</p>
+            <p class="text-center text-sm text-slate-600 mb-4">Data yang dikirimkan adalah Seluruh Data pada Identitas Calon, Kegiatan Calon, Dampak, PMIK, Keswadayaan dan Kebudayaan, dan Keistimewaan. <span class="font-bold"> Data yang telah dikirimkan tidak dapat diubah kembali, mohon perhatikan dengan seksama!</span></p>
+            <div class="flex justify-end space-x-4">
+                <button id="cancelButton" class="px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-700 hover:text-white rounded-md">Periksa Kembali</button>
+                <button id="confirmButton" class="px-4 py-2 bg-primary hover:bg-primaryhover text-white rounded-md">Ya, Kirimkan Data</button>
+            </div>
+        </div>
+    </div> -->
 
 
     <script>
@@ -587,8 +616,7 @@
             } else {
                 jenisLainnya.classList.add('hidden');
             }
-        }
- */
+        } */
 
         // Tema Sub Tema Kegiatan
         const subTemaOptions = {
@@ -839,6 +867,10 @@
                             <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                         </div>
                         <div>
+                            <label class="block mb-2 text-sm text-black">Koordinat Lokasi Kegiatan</label>
+                            <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                        </div>
+                        <div>
                     <label class="block mb-2 text-sm text-black">Para Pihak dan Perannya</label>
                     <textarea id="pihakPeran${kegiatanCount}" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
                         oninput="updateWordCount(this, 'pihakPeranCount${kegiatanCount}', 1000)"></textarea>
@@ -885,11 +917,11 @@
 
         // Container foto dan video
         const fotoContainer = document.getElementById('fotoContainer');
-        const videoContainer = document.getElementById('videoContainer');
+        // const videoContainer = document.getElementById('videoContainer');
 
         // Tombol tambah foto dan video
         const tambahFotoButton = document.getElementById('tambahFotoButton');
-        const tambahVideoButton = document.getElementById('tambahVideoButton');
+        // const tambahVideoButton = document.getElementById('tambahVideoButton');
 
         // Counter untuk input
         let fotoInputCount = 1;
@@ -915,7 +947,7 @@
         });
 
         // Fungsi untuk menambah input tautan video
-        tambahVideoButton.addEventListener('click', function() {
+        /* tambahVideoButton.addEventListener('click', function() {
             if (videoInputCount < maxVideoInput) {
                 const newVideoDiv = document.createElement('div');
                 newVideoDiv.classList.add('mb-4');
@@ -930,7 +962,26 @@
                     tambahVideoButton.style.display = 'none';
                 }
             }
+        }); */
+
+        // Modal Popup Kirim Data ke Admin
+        // Menangani klik tombol "Kirim Data" untuk menampilkan modal
+        /* document.getElementById('kirimDataButton').addEventListener('click', function() {
+            // Tampilkan modal dengan menghapus class 'hidden'
+            document.getElementById('modalPopup').classList.remove('hidden');
         });
+
+        // Menangani klik tombol "Periksa Kembali" untuk menutup modal
+        document.getElementById('cancelButton').addEventListener('click', function() {
+            // Sembunyikan modal dengan menambahkan class 'hidden'
+            document.getElementById('modalPopup').classList.add('hidden');
+        });
+
+        // Menangani klik tombol "Ya, Kirimkan Data"
+        document.getElementById('confirmButton').addEventListener('click', function() {
+            // Arahkan ke halaman 'pengusul/usulansaya'
+            window.location.href = '/pengusul/usulansaya';
+        }); */
     </script>
     <?= $this->endSection() ?>
 
