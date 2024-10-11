@@ -192,7 +192,7 @@ class PengusulController extends BaseController
         if ($kategori == 'Penyelamat Lingkungan') {
             $data = [
                 'nama' => $this->request->getPost('nama_kelompok'),
-                'tahun_berdiri' => $this->request->getPost('tahun_berdiri'),
+                'tahun_pembentukan' => $this->request->getPost('tahun_berdiri'),
                 'jumlah_anggota' => $this->request->getPost('jumlah_anggota'),
                 'jalan' => $this->request->getPost('jalan'),
                 'rt_rw' => $this->request->getPost('rt_rw'),
@@ -269,7 +269,7 @@ class PengusulController extends BaseController
             'id_pendaftaran' => $id_pendaftaran,
             'tema' => $this->request->getPost('tema'),
             'sub_tema' => $this->request->getPost('sub_tema'),
-            'jenis_kegiatan' => $this->request->getPost('jenis_kegiatan'),
+            'bentuk_kegiatan' => $this->request->getPost('jenis_kegiatan'),
             'tahun_mulai' => $this->request->getPost('tahun_mulai'),
             'deskripsi_kegiatan' => $this->request->getPost('deskripsi_kegiatan'),
             'lokasi_kegiatan' => $this->request->getPost('lokasi_kegiatan'),
@@ -350,7 +350,7 @@ class PengusulController extends BaseController
             'prakarsa' => $this->request->getPost('prakarsa'),
             'motivasi' => $this->request->getPost('motivasi'),
             'inovasi' => $this->request->getPost('inovasi'),
-            'krativitas' => $this->request->getPost('krativitas')
+            'kreativitas' => $this->request->getPost('kreativitas')
         ];
 
         // Simpan data ke tabel 'pmik'
@@ -449,13 +449,18 @@ class PengusulController extends BaseController
 
     public function usulansaya()
     {
-        $PendaftaranModel = new PendaftaranModel();
+        $Model = new PendaftaranModel();
 
         // Ambil ID pengusul dari session
         $id_pengusul = session()->get('id_pengusul');
 
         // Ambil data pendaftaran berdasarkan ID pengusul
-        $data['pendaftaran'] = $PendaftaranModel->getDataByPengusul($id_pengusul);
+        $usulan = $Model->where('id_pengusul', $id_pengusul)->findAll();
+
+        $data = [
+            'title' => 'Usulan Saya',
+            'usulan' => $usulan // Kirim data usulan ke view
+        ];
 
         // Load view untuk menampilkan data calon
         return view('pengusul/usulansaya', $data);
@@ -467,11 +472,43 @@ class PengusulController extends BaseController
         return view('pengusul/usulandlhk', ['title' => 'Usulan DLHK']);
     }
 
-    public function detailusulansaya()
+    public function detailusulansaya($id)
     {
-        $data['title'] = 'Detail Usulan Saya';
-        return view('pengusul/detailusulansaya', ['title' => 'Detail Usulan Saya']);
+        $Model = new PendaftaranModel();
+        $pendaftaran = $Model->getDetailById($id);
+
+        // Validasi jika data ditemukan atau tidak
+        if (!$pendaftaran) {
+            return redirect()->to('/pengusul/usulansaya')->with('error', 'Data tidak ditemukan.');
+        }
+
+        // $temaKegiatan = [
+        //     'Keanekaragaman Hayati',
+        //     'Perubahan Iklim',
+        //     'Bangka Belitung',
+        //     'Pencemaran dan Kerusakan Lingkungan',
+        //     'Hukum dan Budaya'
+        // ];
+
+        $temaKegiatan = [
+            ['value' => 'Keanekaragaman Hayati', 'label' => 'Keanekaragaman Hayati'],
+            ['value' => 'Perubahan Iklim', 'label' => 'Perubahan Iklim'],
+            ['value' => 'Pencemaran dan Kerusakan Lingkungan', 'label' => 'Pencemaran dan Kerusakan Lingkungan'],
+            ['value' => 'Hukum dan Budaya', 'label' => 'Hukum dan Budaya']
+        ];
+
+        // Ambil data dari semua tabel terkait menggunakan join
+        $data = [
+            'title' => 'Usulan Saya',
+            'pendaftaran' => $pendaftaran,
+            'temaKegiatan' => $temaKegiatan
+        ];
+
+        return view('pengusul/detailusulansaya', $data);
     }
+
+
+
     public function detailusulandlhk()
     {
         $data['title'] = 'Detail Usulan DLHK';

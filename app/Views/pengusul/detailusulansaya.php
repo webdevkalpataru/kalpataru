@@ -21,7 +21,7 @@
             <h4 class="block text-xl font-bold text-slate-800 mb-2">
                 Detail Usulan Saya
             </h4>
-            <h2 class="text-md font-bold text-primary mb-4">Joko Susilo</h2>
+            <h2 class="text-md font-bold text-primary mb-4"><?= $pendaftaran['nama']; ?></h2>
 
             <div class="flex flex-col md:flex-row items-start space-x-0 md:space-x-4 space-y-4 md:space-y-0">
                 <!-- Left side: Buttons -->
@@ -44,44 +44,44 @@
                     <form id="identitasabd" class="mb-2 w-full">
                         <div class="w-full mb-2">
                             <label class="mb-2 text-sm text-slate-600">Nama Lengkap</label>
-                            <input type="text" class="w-full bg-transparent placeholder:text-primary text-slate-700 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary shadow-sm focus:shadow" />
+                            <input type="text" value="<?= $pendaftaran['nama']; ?>" class="w-full bg-transparent placeholder:text-primary text-slate-700 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary shadow-sm focus:shadow" />
                         </div>
                         <div class="w-full mb-2">
                             <label class="mb-2 text-sm text-slate-600">NIK</label>
-                            <input type="text" class="w-full bg-transparent placeholder:text-primary text-slate-700 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary shadow-sm focus:shadow" />
+                            <input type="text" value="<?= $pendaftaran['nik']; ?>" class="w-full bg-transparent placeholder:text-primary text-slate-700 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary shadow-sm focus:shadow" />
                         </div>
                         <div class="w-full mb-2">
                             <label class="mb-2 text-sm text-slate-600">Tempat Lahir</label>
-                            <input type="text" class="w-full bg-transparent placeholder:text-primary text-slate-700 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary shadow-sm focus:shadow" />
+                            <input type="text" value="<?= $pendaftaran['tempat_lahir']; ?>" class="w-full bg-transparent placeholder:text-primary text-slate-700 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary shadow-sm focus:shadow" />
                         </div>
                         <div class="w-full mb-2">
                             <label class="mb-2 text-sm text-slate-600">Tanggal Lahir</label>
-                            <input type="date" class="w-full bg-transparent placeholder:text-primary text-slate-700 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary shadow-sm focus:shadow" />
+                            <input type="date" value="<?= $pendaftaran['tanggal_lahir']; ?>" class="w-full bg-transparent placeholder:text-primary text-slate-700 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary shadow-sm focus:shadow" />
                         </div>
                         <div class="w-full mb-2">
                             <label class="mb-2 text-sm text-slate-600">Usia</label>
-                            <input type="number" class="w-full bg-transparent placeholder:text-primary text-slate-700 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary shadow-sm focus:shadow" />
+                            <input type="number" value="<?= $pendaftaran['usia']; ?>" class="w-full bg-transparent placeholder:text-primary text-slate-700 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary shadow-sm focus:shadow" />
                         </div>
                         <div class="w-full mb-2">
                             <label class="block mb-2 text-sm text-black">Jenis Kelamin</label>
                             <div class="lg:flex gap-6">
                                 <div class="flex items-center py-2 ">
-                                    <input name="jenis_kelamin" type="radio" class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-primary checked:bg-primary transition-all" id="perempuan">
+                                    <input name="jenis_kelamin" type="radio" class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-primary checked:bg-primary transition-all" id="perempuan" <?= ($pendaftaran['jenis_kelamin'] == 'Perempuan') ? 'checked' : ''; ?>>
                                     <label class="ml-2 text-black cursor-pointer text-sm" for="perempuan">Perempuan</label>
                                 </div>
                                 <div class="flex items-center py-2 ">
-                                    <input name="jenis_kelamin" type="radio" class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-primary checked:bg-primary transition-all" id="laki-laki">
+                                    <input name="jenis_kelamin" type="radio" class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-primary checked:bg-primary transition-all" id="laki-laki" <?= ($pendaftaran['jenis_kelamin'] == 'Laki-Laki') ? 'checked' : ''; ?>>
                                     <label class="ml-2 text-black cursor-pointer text-sm" for="laki-laki">Laki-Laki</label>
                                 </div>
                             </div>
                         </div>
                         <div class="w-full mb-2">
                             <label class="block mb-2 text-sm text-black">Pekerjaan</label>
-                            <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            <input type="text" value="<?= $pendaftaran['pekerjaan']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                         </div>
                         <div class="w-full mb-2">
                             <label class="block mb-2 text-sm text-black">Pendidikan Terakhir</label>
-                            <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            <input type="text" value="<?= $pendaftaran['pendidikan']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                         </div>
 
                         <div class="w-full mb-2">
@@ -96,7 +96,7 @@
                         </div>
 
                         <div class="flex justify-end mt-4">
-                            <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Perbarui</button>
+                            <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Simpan</button>
                         </div>
                     </form>
                 </div>
@@ -112,12 +112,13 @@
                             <div class="space-y-4">
                                 <div>
                                     <label class="block mb-2 text-sm text-black">Tema Kegiatan</label>
-                                    <select class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease">
-                                        <option value="" disabled selected>Pilih Tema Kegiatan</option>
-                                        <option value="keanekaragaman-hayati">Keanekaragaman Hayati</option>
-                                        <option value="perubahan-iklim">Perubahan Iklim</option>
-                                        <option value="pencemaran-kerusakan-lingkungan">Pencemaran dan Kerusakan Lingkungan</option>
-                                        <option value="hukum-dan-budaya">Hukum dan Budaya</option>
+                                    <select name="tema_kegiatan" class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease">
+                                        <option value="" disabled <?= empty($pendaftaran['tema_kegiatan']) ? 'selected' : ''; ?>>Pilih Tema Kegiatan</option>
+                                        <?php foreach ($temaKegiatan as $tema): ?>
+                                            <option value="<?= $tema['value']; ?>" <?= ($pendaftaran['tema'] == $tema['value']) ? 'selected' : ''; ?>>
+                                                <?= $tema['label']; ?>
+                                            </option>
+                                        <?php endforeach; ?>
                                     </select>
                                 </div>
                                 <div>
@@ -175,18 +176,14 @@
                                         <option value="jenis-kegiatan-lainnya">Jenis Kegiatan Lainnya</option>
                                     </select>
                                 </div>
-                                <div id="jenisLainnya" class="hidden">
-                                    <label class="block mb-2 text-sm text-black">Jenis Kegiatan Lainnya</label>
-                                    <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" />
-                                </div>
                                 <div>
                                     <label class="block mb-2 text-sm text-black">Tahun Mulai Kegiatan</label>
-                                    <input type="date" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                    <input type="date" value="<?= $pendaftaran['tahun_mulai']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                                 </div>
                                 <div>
                                     <label class="block mb-2 text-sm text-black">Penjelasan Kegiatan</label>
                                     <textarea id="penjelasan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                        oninput="updateWordCount(this, 'penjelasanCount', 1000)"></textarea>
+                                        oninput="updateWordCount(this, 'penjelasanCount', 1000)"><?= $pendaftaran['deskripsi_kegiatan']; ?></textarea>
                                     <p id="penjelasanCount" class="text-xs text-slate-400 flex justify-end ">0/1000 Kata</p>
                                 </div>
                             </div>
@@ -195,17 +192,17 @@
                             <div class="space-y-4">
                                 <div>
                                     <label class="block mb-2 text-sm text-black">Lokasi Kegiatan</label>
-                                    <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                    <input type="text" value="<?= $pendaftaran['lokasi_kegiatan']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                                 </div>
                                 <div>
                                     <label class="block mb-2 text-sm text-black">Para Pihak dan Perannya</label>
                                     <textarea id="pihakPeran" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                        oninput="updateWordCount(this, 'pihakPeranCount', 1000)"></textarea>
+                                        oninput="updateWordCount(this, 'pihakPeranCount', 1000)"><?= $pendaftaran['pihak_dan_peran']; ?></textarea>
                                     <p id="pihakPeranCount" class="text-xs text-slate-400 flex justify-end ">0/1000 Kata</p>
                                 </div>
                                 <div>
                                     <label class="block mb-2 text-sm text-black">Keberhasilan yang Dicapai</label>
-                                    <textarea id="keberhasilan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                                    <textarea id="keberhasilan" value="<?= $pendaftaran['keberhasilan']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
                                         oninput="updateWordCount(this, 'keberhasilanCount', 1000)"></textarea>
                                     <p id="keberhasilanCount" class="text-xs text-slate-400 flex justify-end ">0/1000 kata</p>
                                 </div>
@@ -218,7 +215,7 @@
                         </div>
 
                         <div class="flex justify-end mt-4">
-                            <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Perbarui</button>
+                            <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Simpan</button>
                         </div>
                     </form>
                 </div>
@@ -230,25 +227,25 @@
                             <div>
                                 <label class="block mb-2 text-sm text-black">Dampak kegiatan terhadap lingkungan</label>
                                 <textarea id="dampakLingkungan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                    oninput="updateWordCount(this, 'dampakLingkunganCount', 1000)"></textarea>
+                                    oninput="updateWordCount(this, 'dampakLingkunganCount', 1000)"><?= $pendaftaran['dampak_lingkungan']; ?></textarea>
                                 <p id="dampakLingkunganCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Dampak Ekonomi</label>
                                 <textarea id="dampakEkonomi" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                    oninput="updateWordCount(this, 'dampakEkonomiCount', 1000)"></textarea>
+                                    oninput="updateWordCount(this, 'dampakEkonomiCount', 1000)"><?= $pendaftaran['dampak_ekonomi']; ?></textarea>
                                 <p id="dampakEkonomiCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Dampak Sosial dan Budaya</label>
                                 <textarea id="dampakSosial" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                    oninput="updateWordCount(this, 'dampakSosialCount', 1000)"></textarea>
+                                    oninput="updateWordCount(this, 'dampakSosialCount', 1000)"><?= $pendaftaran['dampak_sosial_budaya']; ?></textarea>
                                 <p id="dampakSosialCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
                             </div>
                         </div>
 
                         <div class="flex justify-end mt-4">
-                            <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Perbarui</button>
+                            <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Simpan</button>
                         </div>
                     </form>
                 </div>
@@ -260,31 +257,31 @@
                             <div>
                                 <label class="block mb-2 text-sm text-black">Prakarsa</label>
                                 <textarea id="prakarsa" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                    oninput="updateWordCount(this, 'prakarsaCount', 1000)"></textarea>
+                                    oninput="updateWordCount(this, 'prakarsaCount', 1000)"><?= $pendaftaran['prakarsa']; ?></textarea>
                                 <p id="prakarsaCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Motivasi</label>
                                 <textarea id="motivasi" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                    oninput="updateWordCount(this, 'motivasiCount', 1000)"></textarea>
+                                    oninput="updateWordCount(this, 'motivasiCount', 1000)"><?= $pendaftaran['motivasi']; ?></textarea>
                                 <p id="motivasiCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Inovasi</label>
                                 <textarea id="inovasi" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                    oninput="updateWordCount(this, 'inovasiCount', 1000)"></textarea>
+                                    oninput="updateWordCount(this, 'inovasiCount', 1000)"><?= $pendaftaran['inovasi']; ?></textarea>
                                 <p id="inovasiCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Kreativitas</label>
                                 <textarea id="kreativitas" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                    oninput="updateWordCount(this, 'kreativitasCount', 1000)"></textarea>
+                                    oninput="updateWordCount(this, 'kreativitasCount', 1000)"><?= $pendaftaran['kreativitas']; ?></textarea>
                                 <p id="kreativitasCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
                             </div>
                         </div>
 
                         <div class="flex justify-end mt-4">
-                            <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Perbarui</button>
+                            <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Simpan</button>
                         </div>
                     </form>
                 </div>
@@ -296,31 +293,31 @@
                             <div>
                                 <label class="block mb-2 text-sm text-black">Sumber Pembiayaan Kegiatan</label>
                                 <textarea id="sumber" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                    oninput="updateWordCount(this, 'sumberCount', 1000)"></textarea>
+                                    oninput="updateWordCount(this, 'sumberCount', 1000)"><?= $pendaftaran['sumber_biaya']; ?></textarea>
                                 <p id="sumberCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Teknologi/Alat/Fasilitas yang digunakan</label>
                                 <textarea id="teknologi" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                    oninput="updateWordCount(this, 'teknologiCount', 1000)"></textarea>
+                                    oninput="updateWordCount(this, 'teknologiCount', 1000)"><?= $pendaftaran['teknologi_kegiatan']; ?></textarea>
                                 <p id="teknologiCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Status Lahan/Areal Kegiatan</label>
                                 <textarea id="statusLahan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                    oninput="updateWordCount(this, 'statusLahanCount', 1000)"></textarea>
+                                    oninput="updateWordCount(this, 'statusLahanCount', 1000)"><?= $pendaftaran['status_lahan_kegiatan']; ?></textarea>
                                 <p id="statusLahanCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Kelompok/Perorangan yang meniru</label>
                                 <textarea id="kelompokPeroranganMeniru" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                    oninput="updateWordCount(this, 'kelompokPeroranganMeniruCount', 1000)"></textarea>
+                                    oninput="updateWordCount(this, 'kelompokPeroranganMeniruCount', 1000)"><?= $pendaftaran['jumlah_kelompok_serupa']; ?></textarea>
                                 <p id="kelompokPeroranganMeniruCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
                             </div>
                         </div>
 
                         <div class="flex justify-end mt-4">
-                            <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Perbarui</button>
+                            <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Simpan</button>
                         </div>
                     </form>
                 </div>
@@ -332,18 +329,18 @@
                             <div>
                                 <label class="block mb-2 text-sm text-black">Keistimewaan Calon</label>
                                 <textarea id="keistimewaanCalon" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                    oninput="updateWordCount(this, 'keistimewaanCalonCount', 1000)"></textarea>
+                                    oninput="updateWordCount(this, 'keistimewaanCalonCount', 1000)"><?= $pendaftaran['keistimewaan']; ?></textarea>
                                 <p id="keistimewaanCalonCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Penghargaan relevan yang pernah diterima</label>
                                 <textarea id="penghargaanRelevan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                    oninput="updateWordCount(this, 'penghargaanRelevanCount', 1000)"></textarea>
+                                    oninput="updateWordCount(this, 'penghargaanRelevanCount', 1000)"><?= $pendaftaran['penghargaan']; ?></textarea>
                                 <p id="penghargaanRelevanCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Tautan Dokumen Pendukung (Google Drive)</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input type="text" value="<?= $pendaftaran['tautan_dokumen_pendukung']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
 
                             <div class="grid grid-cols-2 gap-4">
@@ -364,7 +361,7 @@
                                 <!-- Kolom 2 - Tautan Video -->
                                 <div id="videoContainer">
                                     <label class="block mb-2 text-sm text-black">Tautan Video</label>
-                                    <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow mb-3" placeholder="Tautan Video" />
+                                    <input type="text" value="<?= $pendaftaran['tautan_video']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow mb-3" placeholder="Tautan Video" />
 
                                     <!-- Tombol Tambah Video -->
                                     <button type="button" id="tambahVideoButton" class="w-full flex items-center justify-center rounded-md py-2 text-center text-sm text-primary transition-all shadow-md hover:shadow-lg bg-secondary active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
@@ -376,7 +373,7 @@
                         </div>
 
                         <div class="flex justify-end mt-4">
-                            <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Perbarui</button>
+                            <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Simpan</button>
                         </div>
                     </form>
                 </div>

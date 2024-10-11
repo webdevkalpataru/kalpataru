@@ -74,7 +74,7 @@
                                         <td class="p-4 border-b border-slate-200 text-center"><?= $u['provinsi']; ?></td>
                                         <td class="p-4 border-b border-slate-200 text-center"><?= $u['kategori']; ?></td>
                                         <td class="p-4 border-b border-slate-200 text-center">
-                                            <a href="/pengusul/detail/<?= $u['id_pendaftaran']; ?>">
+                                            <a href="/pengusul/detailusulansaya/<?= $u['id_pendaftaran']; ?>">
                                                 <button class="w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat</button>
                                             </a>
                                         </td>

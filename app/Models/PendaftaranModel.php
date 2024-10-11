@@ -48,6 +48,19 @@ class PendaftaranModel extends Model
         'skor_dokumen'
     ];
 
+    public function getDetailById($id)
+    {
+        // Ambil data dari tabel pendaftaran dan join dengan tabel lainnya
+        return $this->select('pendaftaran.*, kegiatan.*, dampak.*, pmik.*, keswadayaan.*, keistimewaan.*')
+            ->join('kegiatan', 'kegiatan.id_pendaftaran = pendaftaran.id_pendaftaran', 'left')
+            ->join('dampak', 'dampak.id_pendaftaran = pendaftaran.id_pendaftaran', 'left')
+            ->join('pmik', 'pmik.id_pendaftaran = pendaftaran.id_pendaftaran', 'left')
+            ->join('keswadayaan', 'keswadayaan.id_pendaftaran = pendaftaran.id_pendaftaran', 'left')
+            ->join('keistimewaan', 'keistimewaan.id_pendaftaran = pendaftaran.id_pendaftaran', 'left')
+            ->where('pendaftaran.id_pendaftaran', $id)
+            ->first(); // Mengambil satu baris data berdasarkan ID
+    }
+
     // Function to insert into 'kegiatan' table
     public function saveKegiatan($data)
     {

@@ -179,11 +179,11 @@ $selectedCategory = $session->get('selected_category');
                                 <label class="block mb-2 text-sm text-black">Jenis Kelamin</label>
                                 <div class="lg:flex gap-6">
                                     <div class="flex items-center py-2 ">
-                                        <input name="jenis_kelamin" type="radio" class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-primary checked:bg-primary transition-all" id="perempuan">
+                                        <input name="jenis_kelamin" type="radio" value="Perempuan" class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-primary checked:bg-primary transition-all" id="perempuan">
                                         <label class="ml-2 text-black cursor-pointer text-sm" for="perempuan">Perempuan</label>
                                     </div>
                                     <div class="flex items-center py-2 ">
-                                        <input name="jenis_kelamin" type="radio" class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-primary checked:bg-primary transition-all" id="laki-laki">
+                                        <input name="jenis_kelamin" type="radio" value="Laki-Laki" class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-primary checked:bg-primary transition-all" id="laki-laki">
                                         <label class="ml-2 text-black cursor-pointer text-sm" for="laki-laki">Laki-Laki</label>
                                     </div>
                                 </div>
