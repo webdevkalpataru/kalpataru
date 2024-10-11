@@ -111,24 +111,22 @@ class PengusulController extends BaseController
             'kode_registrasi' => $kode_registrasi
         ];
 
-        if ($Model->insert($data)) {
-            $id_pendaftaran = $Model->insertID();
+        session()->set('pendaftaran_data', $data);
 
-            session()->set('id_pendaftaran', $id_pendaftaran);
-            session()->set('kategori', $kategori);
-
-            return redirect()->to('pengusul/tambahcalonidentitas')->with('success', 'Kategori berhasil disimpan.');
-        } else {
-            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data. Silakan coba lagi.');
-        }
+        return redirect()->to('pengusul/tambahcalonidentitas')->with('success', 'Kategori berhasil dipilih, lanjutkan mengisi identitas.');
     }
 
 
 
     public function tambahCalonIdentitas()
     {
-        $id_pendaftaran = session()->get('id_pendaftaran');
-        $kategori = session()->get('kategori');
+        // Ambil data dari session yang sudah diset di inputKategori()
+        $pendaftaranData = session()->get('pendaftaran_data');
+
+        if (!$pendaftaranData || !isset($pendaftaranData['kategori'])) {
+            return redirect()->back()->with('error', 'Data kategori atau pendaftaran tidak ditemukan.');
+        }
+
         $provinsi_list = [
             'Aceh',
             'Bali',
@@ -171,13 +169,9 @@ class PengusulController extends BaseController
             'Sumatera Utara'
         ];
 
-        if (!$id_pendaftaran || !$kategori) {
-            return redirect()->back()->with('error', 'Data kategori atau pendaftaran tidak ditemukan.');
-        }
-
         return view('pengusul/tambahcalonidentitas', [
-            'id_pendaftaran' => $id_pendaftaran,
-            'kategori' => $kategori,
+            'id_pengusul' => $pendaftaranData['id_pengusul'],  // Data dari session
+            'kategori' => $pendaftaranData['kategori'],        // Data dari session
             'provinsi_list' => $provinsi_list
         ]);
     }
@@ -186,10 +180,14 @@ class PengusulController extends BaseController
     {
         $Model = new PendaftaranModel();
 
-        $id_pendaftaran = session()->get('id_pendaftaran');
-        $kategori = session()->get('kategori');
+        // Ambil data pendaftaran dari session
+        $pendaftaranData = session()->get('pendaftaran_data');
 
-        if ($kategori == 'Penyelamat Lingkungan') {
+        if (!$pendaftaranData || !isset($pendaftaranData['kategori'])) {
+            return redirect()->back()->with('error', 'Data kategori atau pendaftaran tidak ditemukan.');
+        }
+
+        if ($pendaftaranData['kategori'] == 'Penyelamat Lingkungan') {
             $data = [
                 'nama' => $this->request->getPost('nama_kelompok'),
                 'tahun_pembentukan' => $this->request->getPost('tahun_berdiri'),
@@ -211,8 +209,6 @@ class PengusulController extends BaseController
                 'pekerjaan' => $this->request->getPost('pekerjaan'),
                 'pendidikan' => $this->request->getPost('pendidikan'),
             ];
-
-            $Model->update($id_pendaftaran, $data);
         } else {
             $data = [
                 'nama' => $this->request->getPost('nama_individu'),
@@ -234,8 +230,18 @@ class PengusulController extends BaseController
                 'kode_pos' => $this->request->getPost('kode_pos'),
                 'sosial_media' => $this->request->getPost('media_sosial'),
             ];
+        }
+        // Gabungkan data identitas dengan data pendaftaran sebelumnya dari session
+        $finalData = array_merge($pendaftaranData, $data);
 
-            $Model->update($id_pendaftaran, $data);
+        // Simpan data ke database
+        if ($Model->insert($finalData)) {
+            // Hapus session setelah data disimpan
+            session()->remove('pendaftaran_data');
+
+            return redirect()->to('pengusul/tambahcalonkegiatan')->with('success', 'Identitas berhasil disimpan.');
+        } else {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data.');
         }
 
         return redirect()->to('pengusul/tambahcalonkegiatan')->with('success', 'Identitas berhasil disimpan.');

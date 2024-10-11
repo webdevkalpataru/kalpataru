@@ -23,10 +23,10 @@
                 Alur Pendaftaran Penghargaan Kalpataru
             </h4>
 
-                        <div class="relative flex flex-col w-full h-full bg-white text-gray-700 shadow-md rounded-lg bg-clip-border mt-4">
-                           <img src="/images/alurpendaftaran.png">
-                        </div> 
+            <div class="relative flex flex-col w-full h-full bg-white text-gray-700 shadow-md rounded-lg bg-clip-border mt-4">
+                <img src="/images/alurpendaftaran.png">
             </div>
+        </div>
 
 
     </div>

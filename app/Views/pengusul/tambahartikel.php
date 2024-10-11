@@ -24,7 +24,7 @@
             </h4>
             <form id="isiArtikelForm" class="mt-4 mb-2 w-full" action="/pengusul/tambahartikel" method="POST" enctype="multipart/form-data">
                 <div class="grid grid-cols-1 gap-4" id="formContainer">
-                    <!-- <input type="hidden" name="id_pengusul" value="<?= $id_pengusul ?>"> -->
+                    <input type="hidden" name="id_pengusul" value="<?= $id_pengusul ?>">
 
                     <div>
                         <label class="block mb-2 text-sm text-black">Judul Artikel</label>

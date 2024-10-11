@@ -90,7 +90,6 @@ $selectedCategory = $session->get('selected_category');
                 <form class="mt-4 mb-2 w-full" action="simpancalonidentitas" method="post" enctype="multipart/form-data">
                     <?= csrf_field(); ?>
                     <div class="grid grid-cols-2 gap-4">
-                        <input type="hidden" name="id_pendaftaran" value="<?= $id_pendaftaran ?>">
 
                         <!-- Kolom kiri -->
                         <div class="space-y-4">
@@ -219,7 +218,6 @@ $selectedCategory = $session->get('selected_category');
                 <form id="identitasabd" class="mt-4 mb-2 w-full" action="simpancalonidentitas" method="post">
                     <?= csrf_field(); ?>
                     <div class="grid grid-cols-2 gap-4">
-                        <input type="hidden" name="id_pendaftaran" value="<?= $id_pendaftaran ?>">
                         <!-- Kolom kiri -->
                         <div class="space-y-4">
                             <div>
