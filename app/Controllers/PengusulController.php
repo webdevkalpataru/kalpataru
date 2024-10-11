@@ -135,25 +135,16 @@ class PengusulController extends BaseController
         $data['title'] = 'Tambah Calon Usulan';
         return view('pengusul/tambahcalon', $data);
     }
-
     public function tambahcalonidentitas()
-{
-    if ($this->request->getMethod() === 'post') {
-        $identitas = $this->request->getPost('identitas');
-        session()->set('identitas', $identitas);
-        return redirect()->to('/pengusul/tambahcalonkegiatan');
+    {
+        $data['title'] = 'Tambah Calon Usulan';
+        return view('pengusul/tambahcalonidentitas', $data);
     }
-
-    $data['title'] = 'Tambah Calon Usulan';
-    return view('pengusul/tambahcalonidentitas', $data);
-}
-
     public function tambahcalonkegiatan()
     {
         $data['title'] = 'Tambah Calon Usulan';
         return view('pengusul/tambahcalonkegiatan', $data);
     }
-    
     public function tambahcalonpmik()
     {
         $data['title'] = 'Tambah Calon Usulan';
