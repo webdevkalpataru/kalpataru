@@ -82,6 +82,8 @@ $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
     $routes->get('videopanduan', 'PengusulController::videopanduan');
     $routes->get('panduanpendaftaran', 'PengusulController::panduanpendaftaran');
     $routes->get('downloadSuratPengantar/(:any)', 'AuthController::downloadSuratPengantar/$1');
+
+    $routes->get('generatepdf', 'PengusulController::generatePDF');
 });
 
 /* Penerima */

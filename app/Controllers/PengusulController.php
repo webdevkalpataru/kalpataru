@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Models\PengusulModel;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 // use CodeIgniter\Controller;
 
 class PengusulController extends BaseController
@@ -133,16 +135,25 @@ class PengusulController extends BaseController
         $data['title'] = 'Tambah Calon Usulan';
         return view('pengusul/tambahcalon', $data);
     }
+
     public function tambahcalonidentitas()
-    {
-        $data['title'] = 'Tambah Calon Usulan';
-        return view('pengusul/tambahcalonidentitas', $data);
+{
+    if ($this->request->getMethod() === 'post') {
+        $identitas = $this->request->getPost('identitas');
+        session()->set('identitas', $identitas);
+        return redirect()->to('/pengusul/tambahcalonkegiatan');
     }
+
+    $data['title'] = 'Tambah Calon Usulan';
+    return view('pengusul/tambahcalonidentitas', $data);
+}
+
     public function tambahcalonkegiatan()
     {
         $data['title'] = 'Tambah Calon Usulan';
         return view('pengusul/tambahcalonkegiatan', $data);
     }
+    
     public function tambahcalonpmik()
     {
         $data['title'] = 'Tambah Calon Usulan';
@@ -220,5 +231,34 @@ class PengusulController extends BaseController
     {
         $data['title'] = 'Panduan Pendaftaran';
         return view('pengusul/panduanpendaftaran', ['title' => 'Panduan Pendaftaran']);
+    }
+    public function generatePDF()
+    {
+        // Ambil data dari session atau database
+        $data = [
+            'title' => 'Laporan Calon Usulan',
+            'identitas' => session()->get('identitas'),
+            'kegiatan' => session()->get('kegiatan'),
+            'pmik' => session()->get('pmik'),
+            'dampak' => session()->get('dampak'),
+            'keswadayaan' => session()->get('keswadayaan'),
+            'keistimewaan' => session()->get('keistimewaan')
+        ];
+
+        // Load view untuk PDF
+        $html = view('pengusul/pdf', $data);
+
+        // Konfigurasi DomPDF
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isRemoteEnabled', true);
+
+        $dompdf = new Dompdf($options);
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        // Output PDF
+        $dompdf->stream('laporan_calon_usulan.pdf', ['Attachment' => false]);
     }
 }
