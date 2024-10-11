@@ -99,3 +99,11 @@ $routes->group('admin', function ($routes) {
     $routes->get('dashboard', 'AdminController::dashboard');
 });
 
+/* Tim Teknis */
+$routes->group('timteknis', function ($routes) {
+    $routes->get('datacalonusulan', 'TimteknisController::datacalonusulan');
+    $routes->get('detaildatacalonusulan', 'TimteknisController::detaildatacalonusulan');
+    $routes->get('verifikasiadministrasi', 'TimteknisController::verifikasiadministrasi');
+    $routes->get('sidang1', 'TimteknisController::sidang1');
+    $routes->get('sidang2', 'TimteknisController::sidang2');
+});
