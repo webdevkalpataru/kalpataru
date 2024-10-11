@@ -76,6 +76,15 @@
             background-color: #2C7865;
             color: white;
         }
+
+        #map {
+            height: 600px;
+            border-radius: 10px;
+        }
+
+        .leaflet-control-attribution {
+            display: none !important;
+        }
     </style>
 </head>
 
@@ -240,6 +249,8 @@
     </footer>
 
 
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
         /* scroll */
         document.addEventListener('DOMContentLoaded', () => {

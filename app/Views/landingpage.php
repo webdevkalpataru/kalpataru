@@ -5,6 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $title; ?></title>
+    <style>
+        .province-label {
+            font-size: 16px;
+            font-weight: bold;
+            background: none;
+            border: none;
+            box-shadow: none;
+            color: black;
+            text-align: center;
+            line-height: 1.5;
+            white-space: nowrap;
+        }
+    </style>
 </head>
 
 <body>
@@ -169,7 +182,7 @@
         </div>
 
         <div class="relative w-full px-6 sm:px-10 md:px-16 lg:px-20 py-12">
-            <img src="/images/peta.png" alt="peta" class="w-full mx-auto">
+            <div id="map"></div>
         </div>
     </section>
 
@@ -435,6 +448,157 @@
             document.getElementById('close-btn').addEventListener('click', function() {
                 document.getElementById('popup').classList.add('hidden');
             });
+        });
+    </script>
+
+    <script defer>
+        document.addEventListener('DOMContentLoaded', function () {
+            var map = L.map('map', {
+                center: [-1.062209, 113.885034],
+                zoom: 5,
+                minZoom: 4,
+                maxZoom: 14,
+                maxBounds: [
+                    [-37.972342, 29.516035],
+                    [32.873401, 178.643460]
+                ]
+            });
+
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png', {
+                attribution: ''
+            }).addTo(map);
+
+            var penerimaData = <?= json_encode($peta); ?>;
+
+            var geojsonUrls = {
+                'DKI Jakarta': 'https://penyebarankalpataru.vercel.app/dkijakarta.geojson',
+                'Jawa Barat': 'https://penyebarankalpataru.vercel.app/jawabarat.geojson',
+                'Jawa Tengah': 'https://penyebarankalpataru.vercel.app/jawatengah.geojson',
+                'Jawa Timur': 'https://penyebarankalpataru.vercel.app/jawatimur.geojson',
+                'Banten': 'https://penyebarankalpataru.vercel.app/banten.geojson',
+                'DI Yogyakarta': 'https://penyebarankalpataru.vercel.app/diy.geojson',
+                'Bali': 'https://penyebarankalpataru.vercel.app/bali.geojson',
+                'Aceh': 'https://penyebarankalpataru.vercel.app/aceh.geojson',
+                'Papua Barat Daya': 'https://penyebarankalpataru.vercel.app/papuabaratdaya.geojson',
+                'Papua Barat': 'https://penyebarankalpataru.vercel.app/papuabarat.geojson',
+                'Papua Tengah': 'https://penyebarankalpataru.vercel.app/papuatengah.geojson',
+                'Papua Selatan': 'https://penyebarankalpataru.vercel.app/papuaselatan.geojson',
+                'Papua Pegunungan': 'https://penyebarankalpataru.vercel.app/papuapegunungan.geojson',
+                'Papua': 'https://penyebarankalpataru.vercel.app/papua.geojson',
+                'Maluku Utara': 'https://penyebarankalpataru.vercel.app/malukuutara.geojson',
+                'Maluku': 'https://penyebarankalpataru.vercel.app/maluku.geojson',
+                'Sulawesi Barat': 'https://penyebarankalpataru.vercel.app/sulawesibarat.geojson',
+                'Gorontalo': 'https://penyebarankalpataru.vercel.app/gorontalo.geojson',
+                'Sulawesi Tenggara': 'https://penyebarankalpataru.vercel.app/sulawesitenggara.geojson',
+                'Sulawesi Selatan': 'https://penyebarankalpataru.vercel.app/sulawesiselatan.geojson',
+                'Sulawesi Tengah': 'https://penyebarankalpataru.vercel.app/sulawesitengah.geojson',
+                'Sulawesi Utara': 'https://penyebarankalpataru.vercel.app/sulawesiutara.geojson',
+                'Kalimantan Utara': 'https://penyebarankalpataru.vercel.app/kalimantanutara.geojson',
+                'Kalimantan Timur': 'https://penyebarankalpataru.vercel.app/kalimantantimur.geojson',
+                'Kalimantan Selatan': 'https://penyebarankalpataru.vercel.app/kalimantanselatan.geojson',
+                'Kalimantan Tengah': 'https://penyebarankalpataru.vercel.app/kalimantantengah.geojson',
+                'Kalimantan Barat': 'https://penyebarankalpataru.vercel.app/kalimantanbarat.geojson',
+                'Nusa Tenggara Timur': 'https://penyebarankalpataru.vercel.app/nusatenggaratimur.geojson',
+                'Nusa Tenggara Barat': 'https://penyebarankalpataru.vercel.app/nusatenggarabarat.geojson',
+                'Kepulauan Riau': 'https://penyebarankalpataru.vercel.app/kepulauanriau.geojson',
+                'Kepulauan Bangka Belitung': 'https://penyebarankalpataru.vercel.app/kepulauanbangkabelitung.geojson',
+                'Lampung': 'https://penyebarankalpataru.vercel.app/lampung.geojson',
+                'Bengkulu': 'https://penyebarankalpataru.vercel.app/bengkulu.geojson',
+                'Sumatera Selatan': 'https://penyebarankalpataru.vercel.app/sumateraselatan.geojson',
+                'Sumatera Barat': 'https://penyebarankalpataru.vercel.app/sumaterabarat.geojson',
+                'Sumatera Utara': 'https://penyebarankalpataru.vercel.app/sumaterautara.geojson',
+                'Jambi': 'https://penyebarankalpataru.vercel.app/jambi.geojson',
+                'Riau': 'https://penyebarankalpataru.vercel.app/riau.geojson',
+            };
+
+            var colors = {
+                'DKI Jakarta': '#FF0000',
+                'Jawa Barat': '#0000FF',
+                'Jawa Tengah': '#00FF00',
+                'Jawa Timur': '#FFFF00',
+                'Banten': '#800080',
+                'DI Yogyakarta': '#FFA500',
+                'Bali': '#FFC0CB',
+                'Aceh': '#00FFFF',
+                'Papua Barat Daya': '#808000',
+                'Papua Barat': '#FF1493',
+                'Papua Tengah': '#008080',
+                'Papua Selatan': '#006400',
+                'Papua Pegunungan': '#4B0082',
+                'Papua': '#FF4500',
+                'Maluku Utara': '#4682B4',
+                'Maluku': '#00008B',
+                'Sulawesi Barat': '#008B8B',
+                'Gorontalo': '#8B4513',
+                'Sulawesi Tenggara': '#556B2F',
+                'Sulawesi Selatan': '#FF8C00',
+                'Sulawesi Tengah': '#9932CC',
+                'Sulawesi Utara': '#FF00FF',
+                'Kalimantan Utara': '#00FF7F',
+                'Kalimantan Timur': '#8B0000',
+                'Kalimantan Selatan': '#D2691E',
+                'Kalimantan Tengah': '#FFD700',
+                'Kalimantan Barat': '#00BFFF',
+                'Nusa Tenggara Timur': '#7B68EE',
+                'Nusa Tenggara Barat': '#FF6347',
+                'Kepulauan Riau': '#FFE4B5',
+                'Kepulauan Bangka Belitung': '#FF1493',
+                'Lampung': '#00FA9A',
+                'Bengkulu': '#FF4500',
+                'Sumatera Selatan': '#FF69B4',
+                'Sumatera Barat': '#00FFFF',
+                'Sumatera Utara': '#FFB6C1',
+                'Jambi': '#FFA07A',
+                'Riau': '#20B2AA'   
+            };
+
+            for (let provinsi in geojsonUrls) {
+            fetch(geojsonUrls[provinsi])
+                .then(response => response.json())
+                .then(data => {
+                    var geojsonLayer = L.geoJSON(data, {
+                        style: function () {
+                            return { 
+                                color: colors[provinsi], 
+                                fillColor: colors[provinsi], 
+                                fillOpacity: 1,
+                                weight: 1
+                            };
+                        },
+                        onEachFeature: function (feature, layer) {
+                            var penerimaDiProvinsi = penerimaData.filter(function (penerima) {
+                                return penerima.provinsi === provinsi;
+                            });
+                            var popupContent = '<strong>' + provinsi + '</strong><br>Jumlah Penerima: ' + penerimaDiProvinsi.length;
+
+                            var center = layer.getBounds().getCenter();
+                            var label = L.marker(center, {
+                                icon: L.divIcon({
+                                    className: 'province-label',
+                                    html: '<div style="font-weight: bold; cursor: pointer;">' + provinsi + '</div>',
+                                    iconSize: [100, 40],
+                                    iconAnchor: [50, 20]
+                                })
+                            }).addTo(map);
+
+                            layer.on('click', function () {
+                                var popup = L.popup()
+                                    .setLatLng(center)
+                                    .setContent(popupContent)
+                                    .openOn(map);
+                            });
+
+                            label.on('click', function () {
+                                var popup = L.popup()
+                                    .setLatLng(center)
+                                    .setContent(popupContent)
+                                    .openOn(map);
+                            });
+                        }
+                    }).addTo(map);
+                })
+                .catch(error => console.error('Error loading GeoJSON for ' + provinsi + ':', error));
+        }
         });
     </script>
 
