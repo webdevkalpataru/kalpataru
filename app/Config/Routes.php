@@ -67,7 +67,7 @@ $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
     $routes->get('tambahartikel', 'PengusulController::tambahartikel');
     $routes->post('tambahartikel', 'PengusulController::tambahArtikelAction');
     $routes->get('artikelsaya', 'PengusulController::artikelsaya');
-    $routes->get('detailartikelsaya', 'PengusulController::detailartikelsaya');
+    $routes->get('detailartikelsaya/(:num)', 'PengusulController::detailartikel/$1');
 
     $routes->get('pemberitahuan', 'PengusulController::pemberitahuan');
     $routes->get('alurpendaftaran', 'PengusulController::alurpendaftaran');

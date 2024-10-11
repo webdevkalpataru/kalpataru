@@ -50,11 +50,10 @@
                             <?php foreach ($artikels as $index => $artikel): ?>
                                 <tr class="hover:bg-slate-50">
                                     <td class="p-4 border-b border-slate-200 text-center"><?= $index + 1 ?></td>
-                                    <td class="p-4 border-b border-slate-200 text-center"><?= esc($artikel['judul_artikel']) ?></td>
+                                    <td class="p-4 border-b border-slate-200 text-center"><?= esc($artikel['judul']) ?></td>
                                     <td class="p-4 border-b border-slate-200 text-center"><?= esc($artikel['status']) ?></td>
                                     <td class="p-4 border-b border-slate-200 text-center">
-                                        <a href="/pengusul/editartikel/<?= $artikel['id_artikel'] ?>">Edit</a>
-                                        <a href="/pengusul/hapusartikel/<?= $artikel['id_artikel'] ?>">Hapus</a>
+                                        <a href="/pengusul/detailartikelsaya/<?= $artikel['id_artikel'] ?>">Lihat</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

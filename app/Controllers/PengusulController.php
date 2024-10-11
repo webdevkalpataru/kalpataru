@@ -534,6 +534,8 @@ class PengusulController extends BaseController
 
     public function tambahArtikelAction()
     {
+        $model = new ArtikelModel();
+
         // Ambil input dari formulir
         $judulArtikel = $this->request->getPost('judul_artikel');
         $konten = $this->request->getPost('konten');
@@ -576,10 +578,9 @@ class PengusulController extends BaseController
         }
 
         // Simpan data artikel ke dalam database
-        $model = new ArtikelModel();
         $dataArtikel = [
             'id_pengusul' => session()->get('id_pengusul'), // Ambil id_pengusul dari session
-            'judul_artikel' => $judulArtikel,
+            'judul' => $judulArtikel,
             'konten' => $konten,
             'foto' => $fotoPath,
         ];
@@ -607,10 +608,20 @@ class PengusulController extends BaseController
         return view('pengusul/artikelsaya', $data);
     }
 
-    public function detailartikelsaya()
+    public function detailartikel($id)
     {
-        $data['title'] = 'Detail Artikel Saya';
-        return view('pengusul/detailartikelsaya', ['title' => 'Detail Artikel Saya']);
+        $Model = new ArtikelModel();
+        $artikel = $Model->getDetailById($id);
+
+        if (!$artikel) {
+            return redirect()->to('/pengusul/artikelsaya')->with('error', 'Data tidak ditemukan.');
+        }
+
+        $data = [
+            'title' => 'Detail Artikel Saya',
+            'artikel' => $artikel, // Menambahkan data artikel
+        ];
+        return view('pengusul/detailartikelsaya', $data);
     }
 
     public function pemberitahuan()

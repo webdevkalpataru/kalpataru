@@ -13,9 +13,14 @@ class ArtikelModel extends Model
         'id_admin',
         'id_penerima',
         'id_pengusul',
-        'judul_artikel',
+        'judul',
         'konten',
         'foto',
         'status'
     ];
+
+    public function getDetailById($id)
+    {
+        return $this->where('id_artikel', $id)->first();
+    }
 }
