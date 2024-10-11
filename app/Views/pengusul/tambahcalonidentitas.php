@@ -23,6 +23,9 @@ $selectedCategory = $session->get('selected_category');
     <div class="flex flex-col lg:flex-row justify-end m-4">
         <?= $this->include('template/sidebarpengusul') ?>
 
+        <?php
+        $selectedCategory = 'a';
+        ?>
         <!-- Konten utama -->
         <div class="relative flex flex-col w-full max-w-2xl mx-auto mb-4 rounded-xl border-2 border-primary bg-white shadow-md lg:p-8 p-4">
 
@@ -190,7 +193,15 @@ $selectedCategory = $session->get('selected_category');
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Pekerjaan</label>
-                                <input type="text" name="pekerjaan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            </div>
+                            <div>
+                                <label class="block mb-2 text-sm text-black">Nomor Telepon</label>
+                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            </div>
+                            <div>
+                                <label class="block mb-2 text-sm text-black">Email</label>
+                                <input type="email" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Pendidikan Terakhir</label>
@@ -321,7 +332,9 @@ $selectedCategory = $session->get('selected_category');
                     </div>
 
                     <div class="flex justify-end">
-                        <button class="mt-4 w-32 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="submit">Simpan</button>
+                        <a href="./tambahcalonkegiatan">
+                            <button class="mt-4 w-32 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Kirim</button>
+                        </a>
                     </div>
                 </form>
             <?php endif; ?>
