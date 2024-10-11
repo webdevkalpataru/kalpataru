@@ -8,7 +8,7 @@
 </head>
 
 <body class="bg-gray-100">
-    <div id="sidebar" class="lg:w-[15rem] lg:h-3/4 lg:rounded-lg text-white mb-6 relative lg:left-36 z-50">
+    <div id="sidebar" class="lg:w-[15rem] lg:h-3/4 lg:rounded-lg text-white mb-6 relative lg:mr-6 lg:z-0 z-50">
         <!-- Profil section -->
         <div class="mb-4 border-2 border-primaryhover rounded-lg px-4 py-2 flex items-start bg-primary hidden lg:flex">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-16 h-16 mr-3">
@@ -17,8 +17,8 @@
 
             <div>
                 <h2 class="text-md font-bold"><?= session()->get('nama'); ?></h2>
-                <p class="text-sm text-slate-400 font-semibold"><?= session()->get('role_akun'); ?></p>
-                <p class="text-sm text-slate-400 font-semibold"><?= session()->get('provinsi'); ?></p>
+                <p class="text-sm text-secondary font-semibold"><?= session()->get('role_akun'); ?></p>
+                <p class="text-sm text-secondary font-semibold"><?= session()->get('provinsi'); ?></p>
             </div>
         </div>
 
