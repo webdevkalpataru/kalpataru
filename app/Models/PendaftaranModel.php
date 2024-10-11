@@ -6,11 +6,10 @@ use CodeIgniter\Model;
 
 class PendaftaranModel extends Model
 {
-    // Default table is pendaftaran
+    // Default tabel yang digunakan
     protected $table = 'pendaftaran';
     protected $primaryKey = 'id_pendaftaran';
     protected $allowedFields = [
-        // Fields for 'pendaftaran' table
         'id_pengusul',
         'id_tim_teknis',
         'kategori',
@@ -41,9 +40,26 @@ class PendaftaranModel extends Model
         'skck',
         'nama_ketua',
         'jumlah_anggota',
-        'tahun_pembentukan',
-        'legalitas'
+        'tahun_berdiri',
+        'legalitas',
+        'edit',
+        'kode_registrasi',
+        'status_dokumen',
+        'skor_dokumen'
     ];
+
+    public function getDetailById($id)
+    {
+        // Ambil data dari tabel pendaftaran dan join dengan tabel lainnya
+        return $this->select('pendaftaran.*, kegiatan.*, dampak.*, pmik.*, keswadayaan.*, keistimewaan.*')
+            ->join('kegiatan', 'kegiatan.id_pendaftaran = pendaftaran.id_pendaftaran', 'left')
+            ->join('dampak', 'dampak.id_pendaftaran = pendaftaran.id_pendaftaran', 'left')
+            ->join('pmik', 'pmik.id_pendaftaran = pendaftaran.id_pendaftaran', 'left')
+            ->join('keswadayaan', 'keswadayaan.id_pendaftaran = pendaftaran.id_pendaftaran', 'left')
+            ->join('keistimewaan', 'keistimewaan.id_pendaftaran = pendaftaran.id_pendaftaran', 'left')
+            ->where('pendaftaran.id_pendaftaran', $id)
+            ->first(); // Mengambil satu baris data berdasarkan ID
+    }
 
     // Function to insert into 'kegiatan' table
     public function saveKegiatan($data)

@@ -42,7 +42,7 @@
 
                 <div class="flex justify-end mt-4 items-center">
                     <button id="selanjutnyaBtn" type="submit" disabled class="mt-4 w-32 rounded-md py-2 px-2 text-center text-sm text-white bg-primary">
-                        Selanjutnya
+                        Simpan
                     </button>
                 </div>
 

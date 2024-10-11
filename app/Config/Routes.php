@@ -61,9 +61,11 @@ $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
     // Other routes related to Pengusul
     $routes->get('usulansaya', 'PengusulController::usulansaya');
     $routes->get('usulandlhk', 'PengusulController::usulandlhk');
-    $routes->get('detailusulansaya', 'PengusulController::detailusulansaya');
+    // $routes->get('detailusulansaya', 'PengusulController::detailusulansaya');
+    $routes->get('detailusulansaya/(:num)', 'PengusulController::detailusulansaya/$1');
     $routes->get('detailusulandlhk', 'PengusulController::detailusulandlhk');
     $routes->get('tambahartikel', 'PengusulController::tambahartikel');
+    $routes->post('tambahartikel', 'PengusulController::tambahArtikelAction');
     $routes->get('artikelsaya', 'PengusulController::artikelsaya');
     $routes->get('detailartikelsaya', 'PengusulController::detailartikelsaya');
 
