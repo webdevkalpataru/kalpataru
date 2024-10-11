@@ -488,14 +488,6 @@ class PengusulController extends BaseController
             return redirect()->to('/pengusul/usulansaya')->with('error', 'Data tidak ditemukan.');
         }
 
-        // $temaKegiatan = [
-        //     'Keanekaragaman Hayati',
-        //     'Perubahan Iklim',
-        //     'Bangka Belitung',
-        //     'Pencemaran dan Kerusakan Lingkungan',
-        //     'Hukum dan Budaya'
-        // ];
-
         $temaKegiatan = [
             ['value' => 'Keanekaragaman Hayati', 'label' => 'Keanekaragaman Hayati'],
             ['value' => 'Perubahan Iklim', 'label' => 'Perubahan Iklim'],
@@ -512,9 +504,11 @@ class PengusulController extends BaseController
 
         return view('pengusul/detailusulansaya', $data);
     }
-
-
-
+    public function detailusulansayaedit()
+    {
+        $data['title'] = 'Edit Detail Usulan Saya';
+        return view('pengusul/detailusulansayaedit', ['title' => 'Edit Detail Usulan Saya']);
+    }
     public function detailusulandlhk()
     {
         $data['title'] = 'Detail Usulan DLHK';

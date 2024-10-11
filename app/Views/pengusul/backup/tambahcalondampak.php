@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/app.css">
+    <title><?= $title; ?></title>
 </head>
 
 <body>
@@ -13,11 +14,11 @@
 
     <?= $this->section('content') ?>
 
-    <div class="flex flex-col lg:flex-row justify-end m-4">
+    <div class="flex flex-col lg:flex-row justify-center m-4">
         <?= $this->include('template/sidebarpengusul') ?>
 
         <!-- Konten utama -->
-        <div class="relative flex flex-col w-full max-w-2xl mx-auto mb-4 rounded-xl border-2 border-primary bg-white shadow-md lg:p-8 p-4">
+        <div class="relative flex flex-col w-full max-w-5xl mb-4 rounded-xl border-2 border-primary bg-white shadow-md lg:p-8 p-4">
 
             <div class="w-full pt-1 px-4 lg:mb-8">
                 <div class="relative flex items-center justify-between w-full flex-wrap gap-4 sm:gap-8">
@@ -79,31 +80,32 @@
                 </div>
             </div>
 
-            <form action="<?= base_url('pengusul/simpancalondampak'); ?>" method="post" class="mt-4 mb-2 w-full">
-                <?= csrf_field(); ?>
+            <form id="dampakForm" class="mt-4 mb-2 w-full">
                 <div class="grid grid-cols-1 gap-4" id="formContainer">
                     <div>
                         <label class="block mb-2 text-sm text-black">Dampak kegiatan terhadap lingkungan</label>
-                        <textarea name="dampak_lingkungan" id="dampak_lingkungan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                            oninput="updateWordCount(this, 'dampak_lingkunganCount', 1000)"></textarea>
-                        <p id="dampak_lingkunganCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
+                        <textarea id="dampakLingkungan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                            oninput="updateWordCount(this, 'dampakLingkunganCount', 1000)"></textarea>
+                        <p id="dampakLingkunganCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
                     </div>
                     <div>
                         <label class="block mb-2 text-sm text-black">Dampak Ekonomi</label>
-                        <textarea name="dampak_ekonomi" id="dampak_ekonomi" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                            oninput="updateWordCount(this, 'dampak_ekonomiCount', 1000)"></textarea>
-                        <p id="dampak_ekonomiCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
+                        <textarea id="dampakEkonomi" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                            oninput="updateWordCount(this, 'dampakEkonomiCount', 1000)"></textarea>
+                        <p id="dampakEkonomiCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
                     </div>
                     <div>
                         <label class="block mb-2 text-sm text-black">Dampak Sosial dan Budaya</label>
-                        <textarea name="dampak_sosial_budaya" id="dampak_sosial_budaya" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                            oninput="updateWordCount(this, 'dampak_sosial_budayaCount', 1000)"></textarea>
-                        <p id="dampak_sosial_budayaCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
+                        <textarea id="dampakSosial" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                            oninput="updateWordCount(this, 'dampakSosialCount', 1000)"></textarea>
+                        <p id="dampakSosialCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
                     </div>
                 </div>
 
                 <div class="flex justify-end mt-4">
-                    <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="submit">Selanjutnya</button>
+                    <a href="./tambahcalonpmik">
+                        <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Kirim</button>
+                    </a>
                 </div>
             </form>
         </div>
@@ -114,17 +116,43 @@
         // Batasan Kata
         function updateWordCount(textarea, countId, maxWords) {
             const countElement = document.getElementById(countId);
-            const words = textarea.value.trim().split(/\s+/).filter(word => word.length > 0);
-            const currentLength = words.length;
 
-            countElement.textContent = `${currentLength}/${maxWords} kata`;
+            // Tambahkan event listener untuk mendeteksi perubahan input
+            textarea.addEventListener('input', function() {
+                let words = textarea.value.trim().split(/\s+/).filter(word => word.length > 0); // Pisahkan kata berdasarkan spasi
+                let currentLength = words.length;
 
-            if (currentLength > maxWords) {
-                countElement.classList.add('text-rejected');
-            } else {
-                countElement.classList.remove('text-rejected');
-            }
+                // Jika kata lebih dari 1000, potong ke 1000 kata
+                if (currentLength > maxWords) {
+                    words = words.slice(0, maxWords);
+                    textarea.value = words.join(" ");
+                    currentLength = maxWords; // Set currentLength ke batas maksimal
+                }
+
+                // Update jumlah kata di elemen counter
+                countElement.textContent = `${currentLength}/${maxWords} kata`;
+            });
+
+            // Event keydown untuk mencegah input baru jika kata sudah mencapai 1000
+            textarea.addEventListener('keydown', function(event) {
+                let words = textarea.value.trim().split(/\s+/).filter(word => word.length > 0);
+                let currentLength = words.length;
+
+                const isControlKey = event.key === "Backspace" || event.key === "Delete" || event.key.startsWith("Arrow");
+
+                // Jika sudah 1000 kata, cegah input baru kecuali tombol penghapusan atau navigasi
+                if (currentLength >= maxWords && !isControlKey) {
+                    event.preventDefault(); // Cegah penambahan input baru jika mencapai batas maksimal kata
+                }
+            });
         }
+
+        // Jalankan fungsi ketika halaman di-load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateWordCount(document.getElementById('dampakLingkungan'), 'dampakLingkunganCount', 1000);
+            updateWordCount(document.getElementById('dampakEkonomi'), 'dampakEkonomiCount', 1000);
+            updateWordCount(document.getElementById('dampakSosial'), 'dampakSosialCount', 1000);
+        });
     </script>
     <?= $this->endSection() ?>
 </body>

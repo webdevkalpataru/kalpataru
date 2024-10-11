@@ -10,8 +10,7 @@ $selectedCategory = $session->get('selected_category');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/app.css">
-    <title>Formulir Identitas Calon Usulan</title>
+    <title><?= $title; ?></title>
 </head>
 
 <body>
@@ -20,75 +19,20 @@ $selectedCategory = $session->get('selected_category');
 
     <?= $this->section('content') ?>
 
-    <div class="flex flex-col lg:flex-row justify-end m-4">
+    <div class="flex flex-col lg:flex-row justify-center m-4">
         <?= $this->include('template/sidebarpengusul') ?>
 
+        <?php
+        $selectedCategory = 'a';
+        ?>
         <!-- Konten utama -->
-        <div class="relative flex flex-col w-full max-w-2xl mx-auto mb-4 rounded-xl border-2 border-primary bg-white shadow-md lg:p-8 p-4">
+        <div class="relative flex flex-col w-full max-w-5xl mb-4 rounded-xl border-2 border-primary bg-white shadow-md lg:p-8 p-4">
+            <h4 class="block text-xl font-bold text-slate-800 mb-2">
+                Formulir Identitas Calon Usulan
+            </h4>
 
-            <div class="w-full pt-1 px-4 lg:mb-8">
-                <div class="relative flex items-center justify-between w-full flex-wrap gap-4 sm:gap-8">
-                    <div class="absolute left-0 top-2/4 h-0.5 w-full -translate-y-2/4 bg-accent2 transition-all duration-500"></div>
-
-                    <!-- Step 1 -->
-                    <div class="relative z-10 grid w-8 h-8 sm:w-10 sm:h-10 font-bold text-white transition-all duration-300 bg-accent2 rounded-full place-items-center">
-                        <div class="absolute -bottom-8 w-max text-center">
-                            <p class="lg:block hidden font-sans text-xs lg:text-md antialiased font-semibold leading-relaxed tracking-normal text-gray-700 w-28 h-8">
-                                Identitas Calon
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Step 2 -->
-                    <div class="relative z-10 grid w-8 h-8 sm:w-10 sm:h-10 font-bold text-white transition-all duration-300 bg-accent1 border-2 border-accent2 rounded-full place-items-center">
-                        <div class="absolute -bottom-8 w-max text-center">
-                            <p class="lg:block hidden font-sans text-xs lg:text-md antialiased font-semibold leading-relaxed tracking-normal text-gray-700 w-28 h-8">
-                                Kegiatan Calon
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Step 3 -->
-                    <div class="relative z-10 grid w-8 h-8 sm:w-10 sm:h-10 font-bold text-accent1 transition-all duration-300 bg-accent1 border-2 border-accent2 rounded-full place-items-center">
-                        <div class="absolute -bottom-8 w-max text-center">
-                            <p class="lg:block hidden font-sans text-xs lg:text-md antialiased font-semibold leading-relaxed tracking-normal text-gray-700 w-28 h-8">
-                                Dampak
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Step 4 -->
-                    <div class="relative z-10 grid w-8 h-8 sm:w-10 sm:h-10 font-bold text-white transition-all duration-300 bg-accent1 border-2 border-accent2  rounded-full place-items-center">
-                        <div class="absolute -bottom-8 w-max text-center">
-                            <p class="lg:block hidden font-sans text-xs lg:text-md antialiased font-semibold leading-relaxed tracking-normal text-gray-700 w-28 h-8">
-                                PMIK
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Step 5 -->
-                    <div class="relative z-10 grid w-8 h-8 sm:w-10 sm:h-10 font-bold text-white transition-all duration-300 bg-accent1 border-2 border-accent2 rounded-full place-items-center">
-                        <div class="absolute -bottom-8 w-max text-center">
-                            <p class="lg:block hidden font-sans text-xs lg:text-md antialiased font-semibold leading-relaxed tracking-normal text-gray-700 w-28 h-8">
-                                Keswadayaan dan Keberlanjutan
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Step 6 -->
-                    <div class="relative z-10 grid w-8 h-8 sm:w-10 sm:h-10 font-bold text-accent1 transition-all duration-300 bg-accent1 border-2 border-accent2 rounded-full place-items-center">
-                        <div class="absolute -bottom-8 w-max text-center">
-                            <p class="lg:block hidden font-sans text-xs lg:text-md antialiased font-semibold leading-relaxed tracking-normal text-gray-700 w-28 h-8">
-                                Keistimewaan
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <?php if ($kategori == 'Penyelamat Lingkungan'): ?>
-                <form class="mt-4 mb-2 w-full" action="simpancalonidentitas" method="post" enctype="multipart/form-data">
-                    <?= csrf_field(); ?>
+            <?php if ($selectedCategory === 'c'): ?>
+                <form id="identitasc" class="mt-4 mb-2 w-full">
                     <div class="grid grid-cols-2 gap-4">
 
                         <!-- Kolom kiri -->
@@ -189,7 +133,15 @@ $selectedCategory = $session->get('selected_category');
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Pekerjaan</label>
-                                <input type="text" name="pekerjaan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            </div>
+                            <div>
+                                <label class="block mb-2 text-sm text-black">Nomor Telepon</label>
+                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                            </div>
+                            <div>
+                                <label class="block mb-2 text-sm text-black">Email</label>
+                                <input type="email" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Pendidikan Terakhir</label>
@@ -319,7 +271,9 @@ $selectedCategory = $session->get('selected_category');
                     </div>
 
                     <div class="flex justify-end">
-                        <button class="mt-4 w-32 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="submit">Simpan</button>
+                        <a href="./usulansaya">
+                            <button class="mt-4 w-32 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Simpan</button>
+                        </a>
                     </div>
                 </form>
             <?php endif; ?>

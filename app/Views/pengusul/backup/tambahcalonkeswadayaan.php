@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/app.css">
+    <title><?= $title; ?></title>
 </head>
 
 <body>
@@ -13,11 +14,11 @@
 
     <?= $this->section('content') ?>
 
-    <div class="flex flex-col lg:flex-row justify-end m-4">
+    <div class="flex flex-col lg:flex-row justify-center m-4">
         <?= $this->include('template/sidebarpengusul') ?>
 
         <!-- Konten utama -->
-        <div class="relative flex flex-col w-full max-w-2xl mx-auto mb-4 rounded-xl border-2 border-primary bg-white shadow-md lg:p-8 p-4">
+        <div class="relative flex flex-col w-full max-w-5xl mb-4 rounded-xl border-2 border-primary bg-white shadow-md lg:p-8 p-4">
 
             <div class="w-full pt-1 px-4 lg:mb-8">
                 <div class="relative flex items-center justify-between w-full flex-wrap gap-4 sm:gap-8">
@@ -79,37 +80,38 @@
                 </div>
             </div>
 
-            <form action="<?= base_url('pengusul/simpancalonkeswadayaan'); ?>" method="post" class="mt-4 mb-2 w-full">
-                <?= csrf_field(); ?>
+            <form id="keswadayaanForm" class="mt-4 mb-2 w-full">
                 <div class="grid grid-cols-1 gap-4" id="formContainer">
                     <div>
-                        <label for="sumber_biaya" class="block mb-2 text-sm text-black">Sumber Pembiayaan Kegiatan</label>
-                        <textarea name="sumber_biaya" id="sumber_biaya" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                            oninput="updateWordCount(this, 'sumber_biayaCount', 1000)"></textarea>
-                        <p id="sumber_biayaCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
+                        <label class="block mb-2 text-sm text-black">Sumber Pembiayaan Kegiatan</label>
+                        <textarea id="sumber" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                            oninput="updateWordCount(this, 'sumberCount', 1000)"></textarea>
+                        <p id="sumberCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
                     </div>
                     <div>
-                        <label for="teknologi_kegiatan" class="block mb-2 text-sm text-black">Teknologi/Alat/Fasilitas yang digunakan</label>
-                        <textarea name="teknologi_kegiatan" id="teknologi_kegiatan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                            oninput="updateWordCount(this, 'teknologi_kegiatanCount', 1000)"></textarea>
-                        <p id="teknologi_kegiatanCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
+                        <label class="block mb-2 text-sm text-black">Teknologi/Alat/Fasilitas yang digunakan</label>
+                        <textarea id="teknologi" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                            oninput="updateWordCount(this, 'teknologiCount', 1000)"></textarea>
+                        <p id="teknologiCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
                     </div>
                     <div>
-                        <label for="status_lahan_kegiatan" class="block mb-2 text-sm text-black">Status Lahan/Areal Kegiatan</label>
-                        <textarea name="status_lahan_kegiatan" id="status_lahan_kegiatan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                            oninput="updateWordCount(this, 'status_lahan_kegiatanCount', 1000)"></textarea>
-                        <p id="status_lahan_kegiatanCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
+                        <label class="block mb-2 text-sm text-black">Status Lahan/Areal Kegiatan</label>
+                        <textarea id="statusLahan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                            oninput="updateWordCount(this, 'statusLahanCount', 1000)"></textarea>
+                        <p id="statusLahanCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
                     </div>
                     <div>
-                        <label for="jumlah_kelompok_serupa" class="block mb-2 text-sm text-black">Kelompok/Perorangan yang meniru</label>
-                        <textarea name="jumlah_kelompok_serupa" id="jumlah_kelompok_serupa" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                            oninput="updateWordCount(this, 'jumlah_kelompok_serupaCount', 1000)"></textarea>
-                        <p id="jumlah_kelompok_serupaCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
+                        <label class="block mb-2 text-sm text-black">Kelompok/Perorangan yang meniru</label>
+                        <textarea id="kelompokPeroranganMeniru" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                            oninput="updateWordCount(this, 'kelompokPeroranganMeniruCount', 1000)"></textarea>
+                        <p id="kelompokPeroranganMeniruCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
                     </div>
                 </div>
 
                 <div class="flex justify-end mt-4">
-                    <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="submit">Selanjutnya</button>
+                    <a href="./tambahcalonkeistimewaan">
+                        <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Kirim</button>
+                    </a>
                 </div>
             </form>
         </div>
@@ -120,17 +122,44 @@
         // Batasan Kata
         function updateWordCount(textarea, countId, maxWords) {
             const countElement = document.getElementById(countId);
-            const words = textarea.value.trim().split(/\s+/).filter(word => word.length > 0);
-            const currentLength = words.length;
 
-            countElement.textContent = `${currentLength}/${maxWords} kata`;
+            // Tambahkan event listener untuk mendeteksi perubahan input
+            textarea.addEventListener('input', function() {
+                let words = textarea.value.trim().split(/\s+/).filter(word => word.length > 0); // Pisahkan kata berdasarkan spasi
+                let currentLength = words.length;
 
-            if (currentLength > maxWords) {
-                countElement.classList.add('text-rejected');
-            } else {
-                countElement.classList.remove('text-rejected');
-            }
+                // Jika kata lebih dari 1000, potong ke 1000 kata
+                if (currentLength > maxWords) {
+                    words = words.slice(0, maxWords);
+                    textarea.value = words.join(" ");
+                    currentLength = maxWords; // Set currentLength ke batas maksimal
+                }
+
+                // Update jumlah kata di elemen counter
+                countElement.textContent = `${currentLength}/${maxWords} kata`;
+            });
+
+            // Event keydown untuk mencegah input baru jika kata sudah mencapai 1000
+            textarea.addEventListener('keydown', function(event) {
+                let words = textarea.value.trim().split(/\s+/).filter(word => word.length > 0);
+                let currentLength = words.length;
+
+                const isControlKey = event.key === "Backspace" || event.key === "Delete" || event.key.startsWith("Arrow");
+
+                // Jika sudah 1000 kata, cegah input baru kecuali tombol penghapusan atau navigasi
+                if (currentLength >= maxWords && !isControlKey) {
+                    event.preventDefault(); // Cegah penambahan input baru jika mencapai batas maksimal kata
+                }
+            });
         }
+
+        // Jalankan fungsi ketika halaman di-load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateWordCount(document.getElementById('sumber'), 'sumberCount', 1000);
+            updateWordCount(document.getElementById('teknologi'), 'teknologiCount', 1000);
+            updateWordCount(document.getElementById('statusLahan'), 'statusLahanCount', 1000);
+            updateWordCount(document.getElementById('kelompokPeroranganMeniru'), 'kelompokPeroranganMeniruCount', 1000);
+        });
     </script>
     <?= $this->endSection() ?>
 </body>

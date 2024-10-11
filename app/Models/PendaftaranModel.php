@@ -184,8 +184,34 @@ class PendaftaranModel extends Model
         ];
     }
 
-    public function getDataByPengusul($id_pengusul)
+
+    // Method untuk mendapatkan data pendaftaran berdasarkan ID pengusul
+    public function getPendaftaranByPengusul($id_pengusul)
     {
         return $this->where('id_pengusul', $id_pengusul)->findAll();
+    }
+
+    // Method untuk mendapatkan data pendaftaran berdasarkan status
+    public function getPendaftaranByStatus($status_pendaftaran)
+    {
+        return $this->where('status_pendaftaran', $status_pendaftaran)->findAll();
+    }
+
+    // Method untuk membuat pendaftaran baru
+    public function createPendaftaran($data)
+    {
+        return $this->insert($data);
+    }
+
+    // Method untuk memperbarui pendaftaran berdasarkan ID
+    public function updatePendaftaran($id_pendaftaran, $data)
+    {
+        return $this->update($id_pendaftaran, $data);
+    }
+
+    // Method untuk menghapus pendaftaran berdasarkan ID
+    public function deletePendaftaran($id_pendaftaran)
+    {
+        return $this->delete($id_pendaftaran);
     }
 }
