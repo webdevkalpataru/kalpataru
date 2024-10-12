@@ -189,8 +189,8 @@ class PengusulController extends BaseController
 
         if ($pendaftaranData['kategori'] == 'Penyelamat Lingkungan') {
             $data = [
-                'nama' => $this->request->getPost('nama_kelompok'),
-                'tahun_pembentukan' => $this->request->getPost('tahun_berdiri'),
+                'nama' => $this->request->getPost('nama'),
+                'tahun_pembentukan' => $this->request->getPost('tahun_pembentukan'),
                 'jumlah_anggota' => $this->request->getPost('jumlah_anggota'),
                 'jalan' => $this->request->getPost('jalan'),
                 'rt_rw' => $this->request->getPost('rt_rw'),
@@ -201,12 +201,14 @@ class PengusulController extends BaseController
                 'kode_pos' => $this->request->getPost('kode_pos'),
                 'sosial_media' => $this->request->getPost('media_sosial'),
                 'nama_ketua' => $this->request->getPost('nama_ketua'),
-                'nik' => $this->request->getPost('nik_ketua'),
+                'nik' => $this->request->getPost('nik'),
                 'tempat_lahir' => $this->request->getPost('tempat_lahir'),
                 'tanggal_lahir' => $this->request->getPost('tanggal_lahir'),
                 'usia' => $this->request->getPost('usia'),
                 'jenis_kelamin' => $this->request->getPost('jenis_kelamin'),
                 'pekerjaan' => $this->request->getPost('pekerjaan'),
+                'telepon' => $this->request->getPost('telepon'),
+                'email' => $this->request->getPost('email'),
                 'pendidikan' => $this->request->getPost('pendidikan'),
             ];
         } else {
@@ -239,12 +241,10 @@ class PengusulController extends BaseController
             // Hapus session setelah data disimpan
             session()->remove('pendaftaran_data');
 
-            return redirect()->to('pengusul/tambahcalonkegiatan')->with('success', 'Identitas berhasil disimpan.');
+            return redirect()->to('pengusul/usulansaya')->with('success', 'Identitas berhasil disimpan.');
         } else {
             return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data.');
         }
-
-        return redirect()->to('pengusul/tambahcalonkegiatan')->with('success', 'Identitas berhasil disimpan.');
     }
 
     public function tambahCalonKegiatan()
@@ -488,26 +488,98 @@ class PengusulController extends BaseController
             return redirect()->to('/pengusul/usulansaya')->with('error', 'Data tidak ditemukan.');
         }
 
-        $temaKegiatan = [
-            ['value' => 'Keanekaragaman Hayati', 'label' => 'Keanekaragaman Hayati'],
-            ['value' => 'Perubahan Iklim', 'label' => 'Perubahan Iklim'],
-            ['value' => 'Pencemaran dan Kerusakan Lingkungan', 'label' => 'Pencemaran dan Kerusakan Lingkungan'],
-            ['value' => 'Hukum dan Budaya', 'label' => 'Hukum dan Budaya']
-        ];
-
         // Ambil data dari semua tabel terkait menggunakan join
         $data = [
             'title' => 'Usulan Saya',
             'pendaftaran' => $pendaftaran,
-            'temaKegiatan' => $temaKegiatan
         ];
 
         return view('pengusul/detailusulansaya', $data);
     }
-    public function detailusulansayaedit()
+
+    public function editUsulan($id)
     {
-        $data['title'] = 'Edit Detail Usulan Saya';
-        return view('pengusul/detailusulansayaedit', ['title' => 'Edit Detail Usulan Saya']);
+        $Model = new PendaftaranModel();
+        $pendaftaran = $Model->getDetailById($id);
+
+        // Validasi jika data ditemukan atau tidak
+        if (!$pendaftaran) {
+            return redirect()->to('/pengusul/usulansaya')->with('error', 'Data tidak ditemukan.');
+        }
+
+        $provinsi_list = [
+            'Aceh',
+            'Bali',
+            'Bangka Belitung',
+            'Banten',
+            'Bengkulu',
+            'DI Yogyakarta',
+            'DKI Jakarta',
+            'Gorontalo',
+            'Jambi',
+            'Jawa Barat',
+            'Jawa Tengah',
+            'Jawa Timur',
+            'Kalimantan Barat',
+            'Kalimantan Selatan',
+            'Kalimantan Tengah',
+            'Kalimantan Timur',
+            'Kalimantan Utara',
+            'Kepulauan Bangka Belitung',
+            'Kepulauan Riau',
+            'Lampung',
+            'Maluku',
+            'Maluku Utara',
+            'Nusa Tenggara Barat',
+            'Nusa Tenggara Timur',
+            'Papua',
+            'Papua Barat',
+            'Papua Barat Daya',
+            'Papua Pegunungan',
+            'Papua Selatan',
+            'Papua Tengah',
+            'Riau',
+            'Sulawesi Barat',
+            'Sulawesi Selatan',
+            'Sulawesi Tengah',
+            'Sulawesi Tenggara',
+            'Sulawesi Utara',
+            'Sumatera Barat',
+            'Sumatera Selatan',
+            'Sumatera Utara'
+        ];
+
+        $tema = [
+            'Keanekaragaman Hayati',
+            'Perubahan Iklim',
+            'Pencemaran dan Kerusakan Lingkungan',
+            'Hukum dan Budaya'
+        ];
+
+        $subtema = [
+            'Pelestarian keanekaragaman hayati dan kawasan dilindungi yang meliputi pelestarian sumber daya genetik, jenis, dan ekosistem',
+            'Pemanfaatan keanekaragaman hayati secara berkelanjutan',
+            'Jasa lingkungan',
+            'Adaptasi perubahan iklim',
+            'Mitigasi Perubahan Iklim',
+            'Penerapan ekonomi hijau dan ekonomi biru',
+            'Penanganan pencemaran air, tanah, udara dari industri, pertanian, domestic terutama plastik',
+            'Pencegahan dan penanggulangan kerusakan lingkungan',
+            'Ekonomi Sirkular',
+            'Keadilan terhadap pemanfaatan sumber daya alam dan lingkungan',
+            'Kearifan tradisional dalam pengelolaan sumber daya alam',
+            'Komunikasi dan pendidikan lingkungan hidup'
+        ];
+
+        // Ambil data dari semua tabel terkait menggunakan join
+        $data = [
+            'title' => 'Edit Usulan Saya',
+            'pendaftaran' => $pendaftaran,
+            'tema' => $tema,
+            'sub_tema' => $subtema,
+            'provinsi_list' => $provinsi_list
+        ];
+        return view('pengusul/detailusulansayaedit', $data);
     }
     public function detailusulandlhk()
     {

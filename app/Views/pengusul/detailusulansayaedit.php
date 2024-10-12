@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $title; ?></title>
 </head>
 
 <body>
@@ -20,7 +19,7 @@
             <h4 class="block text-xl font-bold text-slate-800 mb-2">
                 Detail Usulan Saya
             </h4>
-            <h2 class="text-md font-bold text-primary mb-4">Joko Susilo</h2>
+            <h2 class="text-md font-bold text-primary mb-4"><?= $pendaftaran['nama']; ?></h2>
 
             <div class="flex flex-col md:flex-row items-start space-x-0 md:space-x-4 space-y-4 md:space-y-0">
                 <!-- Left side: Buttons -->
@@ -41,23 +40,20 @@
                     <!-- <button id="kirimDataButton" class="mt-8 w-full btn-section md:w-40 rounded-md py-2 px-4 text-center text-lg text-primary hover:text-primaryhover font-bold transition-all shadow-md hover:shadow-lg border-2 border-primary opacity-90 hover:opacity-100 bg-accent1 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button" data-target="kirimData">Kirim Data</button> -->
 
                     <!-- Button Kembali ke Usulan Saya -->
-                    <button onclick="window.location.href='./usulansaya'"
+                    <button onclick="window.location.href='/pengusul/usulansaya'"
                         class="text-sm font-bold text-gray-600 no-underline focus:outline-none text-start mt-6">
                         <span class="font-bold text-lg items-center">←</span> Kembali
                     </button>
                 </div>
 
                 <!-- Right side: Form inside a card -->
-                <?php
-                $selectedCategory = 'a';
-                ?>
-                <?php if ($selectedCategory === 'c'): ?>
+                <?php if ($pendaftaran['kategori'] === 'Penyelamat'): ?>
                     <div id="identitas-calon" class="form-section flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
                         <form id="identitasabd" class="mb-2 w-full">
                             <p class="font-semibold mb-2 text-md text-primary underline">Data Kelompok/ Komunitas</p>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Nama Kelompok</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input type="text" <?= $pendaftaran['nama']; ?> class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Tahun Berdiri Kelompok</label>
@@ -144,11 +140,11 @@
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Nomor Telepon</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input type="text" name="telepon" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Email</label>
-                                <input type="email" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input type="email" name="email" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Pendidikan Terakhir</label>

@@ -73,7 +73,7 @@ $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
     $routes->get('usulandlhk', 'PengusulController::usulandlhk');
     // $routes->get('detailusulansaya', 'PengusulController::detailusulansaya');
     $routes->get('detailusulansaya/(:num)', 'PengusulController::detailusulansaya/$1');
-    $routes->get('detailusulansayaedit', 'PengusulController::detailusulansayaedit');
+    $routes->get('detailusulansayaedit/(:num)', 'PengusulController::editUsulan/$1');
     $routes->get('detailusulandlhk', 'PengusulController::detailusulandlhk');
     $routes->get('tambahartikel', 'PengusulController::tambahartikel');
     $routes->post('tambahartikel', 'PengusulController::tambahArtikelAction');

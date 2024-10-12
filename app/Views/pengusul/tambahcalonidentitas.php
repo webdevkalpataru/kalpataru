@@ -1,16 +1,9 @@
-<?php
-$session = session();
-$selectedCategory = $session->get('selected_category');
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $title; ?></title>
 </head>
 
 <body>
@@ -22,17 +15,14 @@ $selectedCategory = $session->get('selected_category');
     <div class="flex flex-col lg:flex-row justify-center m-4">
         <?= $this->include('template/sidebarpengusul') ?>
 
-        <?php
-        $selectedCategory = 'a';
-        ?>
         <!-- Konten utama -->
         <div class="relative flex flex-col w-full max-w-5xl mb-4 rounded-xl border-2 border-primary bg-white shadow-md lg:p-8 p-4">
             <h4 class="block text-xl font-bold text-slate-800 mb-2">
                 Formulir Identitas Calon Usulan
             </h4>
 
-            <?php if ($selectedCategory === 'c'): ?>
-                <form id="identitasc" class="mt-4 mb-2 w-full">
+            <?php if ($kategori == 'Penyelamat Lingkungan'): ?>
+                <form id="identitasc" action="simpancalonidentitas" method="post" class="mt-4 mb-2 w-full">
                     <div class="grid grid-cols-2 gap-4">
 
                         <!-- Kolom kiri -->
@@ -40,11 +30,11 @@ $selectedCategory = $session->get('selected_category');
                             <p class="font-semibold mb-2 text-md text-primary underline">Data Kelompok/ Komunitas</p>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Nama Kelompok</label>
-                                <input type="text" name="nama_kelompok" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input type="text" name="nama" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div>
-                                <label class="block mb-2 text-sm text-black">Tahun Berdiri Kelompok</label>
-                                <input type="date" name="tahun_berdiri" min="0" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <label for="tahun_pembentukan" class="block mb-2 text-sm text-black">Tahun Berdiri Kelompok</label>
+                                <input type="date" name="tahun_pembentukan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Jumlah Anggota</label>
@@ -104,7 +94,7 @@ $selectedCategory = $session->get('selected_category');
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">NIK</label>
-                                <input type="text" name="nik_ketua" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input type="text" name="nik" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Tempat Lahir</label>
@@ -133,15 +123,15 @@ $selectedCategory = $session->get('selected_category');
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Pekerjaan</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input type="text" name="pekerjaan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Nomor Telepon</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input type="number" name="telepon" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Email</label>
-                                <input type="email" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input type="email" name="email" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Pendidikan Terakhir</label>
@@ -196,11 +186,11 @@ $selectedCategory = $session->get('selected_category');
                                 <label class="block mb-2 text-sm text-black">Jenis Kelamin</label>
                                 <div class="lg:flex gap-6">
                                     <div class="flex items-center py-2 ">
-                                        <input name="jenis_kelamin" type="radio" class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-primary checked:bg-primary transition-all" id="perempuan">
+                                        <input name="jenis_kelamin" type="radio" value="Perempuan" class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-primary checked:bg-primary transition-all" id="perempuan">
                                         <label class="ml-2 text-black cursor-pointer text-sm" for="perempuan">Perempuan</label>
                                     </div>
                                     <div class="flex items-center py-2 ">
-                                        <input name="jenis_kelamin" type="radio" class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-primary checked:bg-primary transition-all" id="laki-laki">
+                                        <input name="jenis_kelamin" type="radio" value="Laki-Laki" class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-primary checked:bg-primary transition-all" id="laki-laki">
                                         <label class="ml-2 text-black cursor-pointer text-sm" for="laki-laki">Laki-Laki</label>
                                     </div>
                                 </div>
@@ -247,7 +237,13 @@ $selectedCategory = $session->get('selected_category');
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Provinsi</label>
-                                <input type="text" name="provinsi" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <select id="provinsi" name="provinsi"
+                                    class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow">
+                                    <option value="" disabled selected>Pilih Provinsi</option>
+                                    <?php foreach ($provinsi_list as $provinsi) { ?>
+                                        <option value="<?php echo $provinsi; ?>"><?php echo $provinsi; ?></option>
+                                    <?php } ?>
+                                </select>
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Kode Pos</label>
@@ -272,7 +268,7 @@ $selectedCategory = $session->get('selected_category');
 
                     <div class="flex justify-end">
                         <a href="./usulansaya">
-                            <button class="mt-4 w-32 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Simpan</button>
+                            <button class="mt-4 w-32 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="submit">Simpan</button>
                         </a>
                     </div>
                 </form>

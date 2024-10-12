@@ -51,14 +51,15 @@ class PendaftaranModel extends Model
     public function getDetailById($id)
     {
         // Ambil data dari tabel pendaftaran dan join dengan tabel lainnya
-        return $this->select('pendaftaran.*, kegiatan.*, dampak.*, pmik.*, keswadayaan.*, keistimewaan.*')
+        return $this->select('pendaftaran.*, kegiatan.id_pendaftaran AS kegiatan_id, dampak.id_pendaftaran AS dampak_id, pmik.id_pendaftaran AS pmik_id, keswadayaan.id_pendaftaran AS keswadayaan_id, keistimewaan.id_pendaftaran AS keistimewaan_id')
             ->join('kegiatan', 'kegiatan.id_pendaftaran = pendaftaran.id_pendaftaran', 'left')
             ->join('dampak', 'dampak.id_pendaftaran = pendaftaran.id_pendaftaran', 'left')
             ->join('pmik', 'pmik.id_pendaftaran = pendaftaran.id_pendaftaran', 'left')
             ->join('keswadayaan', 'keswadayaan.id_pendaftaran = pendaftaran.id_pendaftaran', 'left')
             ->join('keistimewaan', 'keistimewaan.id_pendaftaran = pendaftaran.id_pendaftaran', 'left')
             ->where('pendaftaran.id_pendaftaran', $id)
-            ->first(); // Mengambil satu baris data berdasarkan ID
+            ->first();        // Mengambil satu baris data berdasarkan ID
+
     }
 
     // Function to insert into 'kegiatan' table
