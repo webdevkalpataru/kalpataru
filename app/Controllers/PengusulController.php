@@ -627,8 +627,20 @@ class PengusulController extends BaseController
         // Menangani upload file foto
         $fotoPath = '';
         if ($foto && $foto->isValid() && !$foto->hasMoved()) {
-            $fotoName = $foto->getRandomName(); // Dapatkan nama acak untuk file
-            $foto->move('public/images/artikel', $fotoName); // Pindahkan ke folder public/uploads
+            // Buat nama file acak
+            $fotoName = $foto->getRandomName();
+
+            // Pindahkan file ke folder public/images/artikel
+            if ($foto->move('public/images/artikel', $fotoName)) {
+                // Jika berhasil, simpan path foto ke database
+                $fotoPath = 'images/artikel/' . $fotoName;
+            } else {
+                // Jika gagal memindahkan file
+                return $this->response->setJSON(['success' => false, 'errors' => 'Gagal menyimpan file foto.']);
+            }
+        } else {
+            // Jika tidak ada file yang diupload atau tidak valid
+            return $this->response->setJSON(['success' => false, 'errors' => 'File tidak valid atau belum diupload.']);
         }
 
         // Simpan data artikel ke dalam database

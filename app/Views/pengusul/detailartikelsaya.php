@@ -23,7 +23,7 @@
             </h4>
 
             <div class="relative flex items-center justify-center h-full overflow-hidden text-white rounded-md">
-                <img src="/public/images/<?= $artikel['foto']; ?>" class="object-contain w-full h-full">
+                <img src="/public/<?= $artikel['foto']; ?>" class="object-contain w-full h-full">
             </div>
 
             <div>
