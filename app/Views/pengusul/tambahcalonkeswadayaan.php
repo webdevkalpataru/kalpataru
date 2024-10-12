@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/app.css">
-    <title><?= $title; ?></title>
 </head>
 
 <body>
@@ -80,38 +79,37 @@
                 </div>
             </div>
 
-            <form id="keswadayaanForm" class="mt-4 mb-2 w-full">
+            <form action="<?= base_url('pengusul/simpancalonkeswadayaan'); ?>" method="post" class="mt-4 mb-2 w-full">
+                <?= csrf_field(); ?>
                 <div class="grid grid-cols-1 gap-4" id="formContainer">
                     <div>
-                        <label class="block mb-2 text-sm text-black">Sumber Pembiayaan Kegiatan</label>
-                        <textarea id="sumber" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                            oninput="updateWordCount(this, 'sumberCount', 1000)"></textarea>
-                        <p id="sumberCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
+                        <label for="sumber_biaya" class="block mb-2 text-sm text-black">Sumber Pembiayaan Kegiatan</label>
+                        <textarea name="sumber_biaya" id="sumber_biaya" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                            oninput="updateWordCount(this, 'sumber_biayaCount', 1000)"></textarea>
+                        <p id="sumber_biayaCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
                     </div>
                     <div>
-                        <label class="block mb-2 text-sm text-black">Teknologi/Alat/Fasilitas yang digunakan</label>
-                        <textarea id="teknologi" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                            oninput="updateWordCount(this, 'teknologiCount', 1000)"></textarea>
-                        <p id="teknologiCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
+                        <label for="teknologi_kegiatan" class="block mb-2 text-sm text-black">Teknologi/Alat/Fasilitas yang digunakan</label>
+                        <textarea name="teknologi_kegiatan" id="teknologi_kegiatan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                            oninput="updateWordCount(this, 'teknologi_kegiatanCount', 1000)"></textarea>
+                        <p id="teknologi_kegiatanCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
                     </div>
                     <div>
-                        <label class="block mb-2 text-sm text-black">Status Lahan/Areal Kegiatan</label>
-                        <textarea id="statusLahan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                            oninput="updateWordCount(this, 'statusLahanCount', 1000)"></textarea>
-                        <p id="statusLahanCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
+                        <label for="status_lahan_kegiatan" class="block mb-2 text-sm text-black">Status Lahan/Areal Kegiatan</label>
+                        <textarea name="status_lahan_kegiatan" id="status_lahan_kegiatan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                            oninput="updateWordCount(this, 'status_lahan_kegiatanCount', 1000)"></textarea>
+                        <p id="status_lahan_kegiatanCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
                     </div>
                     <div>
-                        <label class="block mb-2 text-sm text-black">Kelompok/Perorangan yang meniru</label>
-                        <textarea id="kelompokPeroranganMeniru" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                            oninput="updateWordCount(this, 'kelompokPeroranganMeniruCount', 1000)"></textarea>
-                        <p id="kelompokPeroranganMeniruCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
+                        <label for="jumlah_kelompok_serupa" class="block mb-2 text-sm text-black">Kelompok/Perorangan yang meniru</label>
+                        <textarea name="jumlah_kelompok_serupa" id="jumlah_kelompok_serupa" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                            oninput="updateWordCount(this, 'jumlah_kelompok_serupaCount', 1000)"></textarea>
+                        <p id="jumlah_kelompok_serupaCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
                     </div>
                 </div>
 
                 <div class="flex justify-end mt-4">
-                    <a href="./tambahcalonkeistimewaan">
-                        <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Selanjutnya</button>
-                    </a>
+                    <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="submit">Selanjutnya</button>
                 </div>
             </form>
         </div>

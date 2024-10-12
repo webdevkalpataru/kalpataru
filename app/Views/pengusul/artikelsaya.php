@@ -9,6 +9,22 @@
 </head>
 
 <body>
+    <?php if ($kategori == 'Penyelamat Lingkungan'): ?>
+        <form class="mt-4 mb-2 w-full" action="simpancalonidentitas" method="post">
+            <div>
+                <label class="block mb-2 text-sm text-black">Nama Kelompok</label>
+                <input type="text" name="nama_kelompok" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+            </div>
+            (DAN LAIN LAIN)
+        </form>
+    <?php else: ?>
+        <form id="identitasabd" class="mt-4 mb-2 w-full" action="simpancalonidentitas" method="post">
+            <div>
+                <label class="block mb-2 text-sm text-black">Nama Lengkap</label>
+                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+            </div> (DAN LAIN LAIN)
+        </form>
+    <?php endif; ?>
 
     <?= $this->extend('template/navbarfooter') ?>
 
@@ -28,12 +44,11 @@
                             <tr>
                                 <th class="p-4 border-b border-accent2 bg-accent1 text-center">
                                     <p class="block text-xs md:text-sm font-bold leading-none text-accent2">
-                                        Judul Artikel
-                                    </p>
+                                        No </p>
                                 </th>
                                 <th class="p-4 border-b border-accent2 bg-accent1 text-center">
                                     <p class="block text-xs md:text-sm font-bold leading-none text-accent2">
-                                        Isi Artikel
+                                        Judul Artikel
                                     </p>
                                 </th>
                                 <th class="p-4 border-b border-accent2 bg-accent1 text-center">
@@ -41,94 +56,25 @@
                                         Status
                                     </p>
                                 </th>
+                                <th class="p-4 border-b border-accent2 bg-accent1 text-center">
+                                    <p class="block text-xs md:text-sm font-bold leading-none text-accent2">
+                                        Aksi
+                                    </p>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="hover:bg-slate-50">
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Surga Tersembunyi di Maros
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <a href="./detailartikelsaya">
-                                        <button class="w-24 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat Rincian</button>
-                                    </a>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs font-bold text-accepted">
-                                        Terbit
-                                    </p>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-slate-50">
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Surga Tersembunyi di Maros
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <a href="./detailartikelsaya">
-                                        <button class="w-24 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat Rincian</button>
-                                    </a>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs font-bold text-rejected">
-                                        Belum Terbit
-                                    </p>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-slate-50">
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Surga Tersembunyi di Maros
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <a href="./detailartikelsaya">
-                                        <button class="w-24 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat Rincian</button>
-                                    </a>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs font-bold text-rejected">
-                                        Belum Terbit
-                                    </p>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-slate-50">
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Surga Tersembunyi di Maros
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <a href="./detailartikelsaya">
-                                        <button class="w-24 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat Rincian</button>
-                                    </a>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs font-bold text-accepted">
-                                        Terbit
-                                    </p>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-slate-50">
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Surga Tersembunyi di Maros
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <a href="./detailartikelsaya">
-                                        <button class="w-24 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat Rincian</button>
-                                    </a>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs font-bold text-accepted">
-                                        Terbit
-                                    </p>
-                                </td>
-                            </tr>
+                            <?php foreach ($artikels as $index => $artikel): ?>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-4 border-b border-slate-200 text-center"><?= $index + 1 ?></td>
+                                    <td class="p-4 border-b border-slate-200 text-center"><?= esc($artikel['judul_artikel']) ?></td>
+                                    <td class="p-4 border-b border-slate-200 text-center"><?= esc($artikel['status']) ?></td>
+                                    <td class="p-4 border-b border-slate-200 text-center">
+                                        <a href="/pengusul/editartikel/<?= $artikel['id_artikel'] ?>">Edit</a>
+                                        <a href="/pengusul/hapusartikel/<?= $artikel['id_artikel'] ?>">Hapus</a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
