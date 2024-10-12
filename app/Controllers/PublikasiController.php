@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Models\PublikasiModel;
+use App\Models\ArtikelModel;
+
 
 helper('text');
 
@@ -22,14 +24,21 @@ class PublikasiController extends BaseController
 
     public function artikel()
     {
-        $PublikasiModel = new PublikasiModel();
-        $ArtikelData = $PublikasiModel->TampilArtikel();
+        $model = new ArtikelModel();
+        $keyword = $this->request->getGet('search');
 
-        $data['artikel'] = $ArtikelData['data_artikel'];
-        $data['total_artikel'] = $ArtikelData['total_artikel'];
+        if ($keyword) {
+            $data['artikels'] = $model->searchArtikelTerbit($keyword);
+            $data['countTerbit'] = count($data['artikels']);
+        } else {
+            $data['artikels'] = $model->getArtikelTerbit();
+            $data['countTerbit'] = $model->countArtikelTerbit();
+        }
 
-        $data['title'] = "Artikel";
-        return view('Artikel', $data, ['title' => 'Artikel']);
+        $data['title'] = "Daftar Artikel Terbit";
+
+
+        return view('artikel', $data);
     }
 
     public function video()
