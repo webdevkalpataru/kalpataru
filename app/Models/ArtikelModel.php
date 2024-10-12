@@ -16,11 +16,18 @@ class ArtikelModel extends Model
         'judul',
         'konten',
         'foto',
-        'status'
+        'status',
+        'tanggal',
+        'slug'
     ];
 
     public function getDetailById($id)
     {
         return $this->where('id_artikel', $id)->first();
+    }
+
+    public function getDetailBySlug($slug)
+    {
+        return $this->where('slug', $slug)->first(); // Misalkan Anda memiliki kolom slug dalam tabel artikel
     }
 }

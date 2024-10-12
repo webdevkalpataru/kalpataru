@@ -27,17 +27,17 @@
 
                     <div>
                         <label class="block mb-2 text-sm text-black">Judul Artikel</label>
-                        <input type="text" name="judul_artikel" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                        <input required type="text" name="judul_artikel" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                     </div>
                     <div>
                         <label class="block mb-2 text-sm text-black">Isi Artikel</label>
-                        <textarea id="artikel" name="konten" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                        <textarea required id="artikel" name="konten" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
                             oninput="updateWordCount(this, 'artikelCount', 1000)"></textarea>
                         <p id="artikelCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
                     </div>
                     <div>
                         <label class="block mb-2 text-sm text-black">Unggah Foto Artikel <span class="text-primary">(.jpg/jpeg)</span></label>
-                        <input id="fotoArtikel" name="foto" type="file" accept="image/*"
+                        <input required id="fotoArtikel" name="foto" type="file" accept="image/*"
                             class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
                     </div>
                 </div>

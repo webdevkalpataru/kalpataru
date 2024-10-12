@@ -617,47 +617,39 @@ class PengusulController extends BaseController
             'foto' => 'uploaded[foto]|is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/gif,image/png]|max_size[foto,2048]',
         ]);
 
-        if (!$this->validate($validation->getRules())) { // Memperbaiki cara validasi
+        if (!$this->validate($validation->getRules())) {
             return $this->response->setJSON([
                 'success' => false,
                 'messages' => $validation->getErrors(),
             ]);
         }
 
-        // Menyimpan foto jika ada
-        // $fotoPath = '';
-        // if ($foto->isValid() && !$foto->hasMoved()) {
-        //     // Generate nama file unik
-        //     $fotoPath = 'uploads/artikel/' . uniqid() . '-' . $foto->getName();
-        //     // Pindahkan file ke folder tujuan
-        //     $foto->move('uploads/artikel', $fotoPath);
-        // }
-
         // Menangani upload file foto
+        $fotoPath = '';
         if ($foto && $foto->isValid() && !$foto->hasMoved()) {
-            // Memastikan tipe file adalah jpg/jpeg/png
-            if (in_array($foto->getClientMimeType(), ['image/jpeg', 'image/png'])) {
-                $fotoPath = $foto->store('artikel', $foto->getRandomName());
-            } else {
-                return $this->response->setJSON(['success' => false, 'errors' => 'Invalid file type. Only JPG and PNG files are allowed']);
-            }
+            $fotoName = $foto->getRandomName(); // Dapatkan nama acak untuk file
+            $foto->move('public/images/artikel', $fotoName); // Pindahkan ke folder public/uploads
         }
 
         // Simpan data artikel ke dalam database
+        $slug = url_title($judulArtikel, '-', true); // Menghasilkan slug
         $dataArtikel = [
-            'id_pengusul' => session()->get('id_pengusul'), // Ambil id_pengusul dari session
+            'id_pengusul' => session()->get('id_pengusul'),
             'judul' => $judulArtikel,
+            'slug' => $slug,
             'konten' => $konten,
             'foto' => $fotoPath,
+            'tanggal' => date('Y-m-d H:i:s'),
         ];
 
         // Simpan artikel
         if ($model->insert($dataArtikel)) {
             return $this->response->setJSON(['success' => true, 'message' => 'Artikel berhasil ditambahkan.']);
         } else {
-            return $this->response->setJSON(['success' => false, 'message' => 'Gagal menambahkan artikel.']);
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal menambahkan artikel. ' . json_encode($model->errors())]);
         }
     }
+
 
     public function artikelsaya()
     {
@@ -674,18 +666,31 @@ class PengusulController extends BaseController
         return view('pengusul/artikelsaya', $data);
     }
 
-    public function detailartikel($id)
+    public function detailartikel($slug)
     {
         $Model = new ArtikelModel();
-        $artikel = $Model->getDetailById($id);
+        $artikel = $Model->where('slug', $slug)->first(); // Ambil artikel berdasarkan slug
 
         if (!$artikel) {
-            return redirect()->to('/pengusul/artikelsaya')->with('error', 'Data tidak ditemukan.');
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        // Ambil ID pengguna yang sedang login (baik admin maupun pengusul)
+        $id_pengusul = session()->get('id_pengusul');
+        $id_admin = session()->get('id_admin'); // Asumsi admin juga disimpan dalam session
+
+        // Jika artikel masih ditangguhkan
+        if ($artikel['status'] == 'Ditangguhkan') {
+            // Cek apakah yang mengakses adalah admin atau pembuat artikel
+            if (!$id_admin && $artikel['id_pengusul'] != $id_pengusul) {
+                // Jika bukan admin atau pembuat artikel, tampilkan 404
+                throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+            }
         }
 
         $data = [
             'title' => 'Detail Artikel Saya',
-            'artikel' => $artikel, // Menambahkan data artikel
+            'artikel' => $artikel,
         ];
         return view('pengusul/detailartikelsaya', $data);
     }

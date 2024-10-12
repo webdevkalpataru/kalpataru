@@ -19,6 +19,11 @@
             <h4 class="block text-xl font-bold text-slate-800 mb-2">
                 Artikel Saya
             </h4>
+            <div class="flex justify-start mt-2">
+                <a href="./tambahartikel">
+                    <button id="tambahartikel" class="w-48 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button"> <span>&#10010</span> Tambah Artikel Baru</button>
+                </a>
+            </div>
             <div class="relative flex flex-col w-full h-full mt-8 overflow-hidden text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
                 <div class="overflow-x-auto">
                     <table class="w-full text-left table-auto min-w-max">
@@ -52,7 +57,7 @@
                                     <td class="p-4 border-b border-slate-200 text-center"><?= esc($artikel['judul']) ?></td>
                                     <td class="p-4 border-b border-slate-200 text-center"><?= esc($artikel['status']) ?></td>
                                     <td class="p-4 border-b border-slate-200 text-center">
-                                        <a href="/pengusul/detailartikelsaya/<?= $artikel['id_artikel'] ?>">Lihat</a>
+                                        <a href="/artikel/<?= $artikel['slug']; ?>">Lihat</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
