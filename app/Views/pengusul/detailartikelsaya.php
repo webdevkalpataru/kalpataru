@@ -36,7 +36,7 @@
                     </h3>
                 </div>
                 <p class="text-slate-600 leading-normal font-light text-justify mt-4">
-                    <?= $artikel['konten']; ?><br><br>
+                    <?= nl2br(htmlspecialchars($artikel['konten'])); ?><br><br>
                     Lokasi: Desa Salenrang, Kabupaten Maros, Sulawesi Selatan
                 </p>
             </div>

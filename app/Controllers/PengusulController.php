@@ -612,7 +612,7 @@ class PengusulController extends BaseController
         // Validasi input
         $validation = \Config\Services::validation();
         $validation->setRules([
-            'judul_artikel' => 'required|min_length[3]|max_length[255]',
+            'judul_artikel' => 'required|min_length[3]|max_length[255]|regex_match[/^[a-zA-Z0-9\s\-\_\.\,]+$/]', // Regex untuk karakter yang diperbolehkan
             'konten' => 'required',
             'foto' => 'uploaded[foto]|is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/gif,image/png]|max_size[foto,2048]',
         ]);
@@ -627,29 +627,33 @@ class PengusulController extends BaseController
         // Menangani upload file foto
         $fotoPath = '';
         if ($foto && $foto->isValid() && !$foto->hasMoved()) {
-            // Buat nama file acak
+            // Memastikan tipe file dan membuat nama file acak
             $fotoName = $foto->getRandomName();
 
-            // Pindahkan file ke folder public/images/artikel
+            // Memindahkan file ke folder public/images/artikel
             if ($foto->move('public/images/artikel', $fotoName)) {
                 // Jika berhasil, simpan path foto ke database
                 $fotoPath = 'images/artikel/' . $fotoName;
             } else {
-                // Jika gagal memindahkan file
                 return $this->response->setJSON(['success' => false, 'errors' => 'Gagal menyimpan file foto.']);
             }
         } else {
-            // Jika tidak ada file yang diupload atau tidak valid
             return $this->response->setJSON(['success' => false, 'errors' => 'File tidak valid atau belum diupload.']);
         }
 
+        // Menghasilkan slug yang unik
+        $slug = url_title($judulArtikel, '-', true);
+        $existingArticle = $model->where('slug', $slug)->first(); // Cek apakah slug sudah ada
+        if ($existingArticle) {
+            return $this->response->setJSON(['success' => false, 'errors' => 'Judul sudah digunakan.']);
+        }
+
         // Simpan data artikel ke dalam database
-        $slug = url_title($judulArtikel, '-', true); // Menghasilkan slug
         $dataArtikel = [
             'id_pengusul' => session()->get('id_pengusul'),
-            'judul' => $judulArtikel,
+            'judul' => htmlspecialchars($judulArtikel, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
             'slug' => $slug,
-            'konten' => $konten,
+            'konten' => htmlspecialchars($konten, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
             'foto' => $fotoPath,
             'tanggal' => date('Y-m-d H:i:s'),
         ];
@@ -658,9 +662,11 @@ class PengusulController extends BaseController
         if ($model->insert($dataArtikel)) {
             return $this->response->setJSON(['success' => true, 'message' => 'Artikel berhasil ditambahkan.']);
         } else {
-            return $this->response->setJSON(['success' => false, 'message' => 'Gagal menambahkan artikel. ' . json_encode($model->errors())]);
+            // Tampilkan pesan umum untuk kesalahan penyimpanan
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal menambahkan artikel.']);
         }
     }
+
 
 
     public function artikelsaya()

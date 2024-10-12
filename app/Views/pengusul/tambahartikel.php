@@ -23,22 +23,24 @@
             </h4>
             <form id="isiArtikelForm" class="mt-4 mb-2 w-full" action="/pengusul/tambahartikel" method="POST" enctype="multipart/form-data">
                 <div class="grid grid-cols-1 gap-4" id="formContainer">
-                    <input type="hidden" name="id_pengusul" value="<?= $id_pengusul ?>">
 
                     <div>
                         <label class="block mb-2 text-sm text-black">Judul Artikel</label>
                         <input required type="text" name="judul_artikel" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                        <div class="text-red-500" id="judulError"></div> <!-- Menampilkan pesan kesalahan -->
                     </div>
                     <div>
                         <label class="block mb-2 text-sm text-black">Isi Artikel</label>
                         <textarea required id="artikel" name="konten" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
                             oninput="updateWordCount(this, 'artikelCount', 1000)"></textarea>
                         <p id="artikelCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
+                        <div class="text-red-500" id="kontenError"></div> <!-- Menampilkan pesan kesalahan -->
                     </div>
                     <div>
                         <label class="block mb-2 text-sm text-black">Unggah Foto Artikel <span class="text-primary">(.jpg/jpeg)</span></label>
                         <input required id="fotoArtikel" name="foto" type="file" accept="image/*"
                             class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
+                        <div class="text-red-500" id="fotoError"></div> <!-- Menampilkan pesan kesalahan -->
                     </div>
                 </div>
 
@@ -85,6 +87,11 @@
         form.addEventListener('submit', async (event) => {
             event.preventDefault(); // Mencegah submit default
 
+            // Clear previous error messages
+            document.getElementById('judulError').textContent = '';
+            document.getElementById('kontenError').textContent = '';
+            document.getElementById('fotoError').textContent = '';
+
             const formData = new FormData(form);
             const response = await fetch(form.action, {
                 method: 'POST',
@@ -96,8 +103,10 @@
             if (result.success) {
                 uploadModal.classList.remove('hidden'); // Tampilkan modal jika sukses
             } else {
-                // Menampilkan pesan error di sini (misalnya, alert)
-                alert(result.messages.join(', ')); // Menggabungkan pesan error
+                // Menampilkan pesan error di sini
+                for (const [field, message] of Object.entries(result.messages)) {
+                    document.getElementById(`${field}Error`).textContent = message.join(', '); // Menggabungkan pesan error
+                }
             }
         });
 
