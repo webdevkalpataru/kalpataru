@@ -98,6 +98,9 @@ $routes->group('admin', function ($routes) {
     $routes->get('dashboard', 'AdminController::dashboard');
     $routes->get('akunpengusul', 'AdminController::akunpengusul');
     $routes->get('artikeladmin', 'AdminController::artikeladmin');
+    $routes->get('artikelpengguna', 'AdminController::artikelpengguna');
+    $routes->get('akundlhk', 'AdminController::akundlhk');
+    
 
 });
 

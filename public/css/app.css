@@ -755,8 +755,8 @@ video {
 .mt-8 {
   margin-top: 2rem;
 }
-.me-4 {
-  margin-inline-end: 1rem;
+.ml-8 {
+  margin-left: 2rem;
 }
 .block {
   display: block;
@@ -782,6 +782,10 @@ video {
 .size-6 {
   width: 1.5rem;
   height: 1.5rem;
+}
+.size-2 {
+  width: 0.5rem;
+  height: 0.5rem;
 }
 .h-0\.5 {
   height: 0.125rem;
@@ -916,13 +920,8 @@ video {
   width: -moz-max-content;
   width: max-content;
 }
-<<<<<<< HEAD
 .min-w-\[240px\] {
   min-width: 240px;
-=======
-.w-44 {
-  width: 11rem;
->>>>>>> 9ab7c95b9e1e1e1c0a263a83625403870534e7ea
 }
 .min-w-max {
   min-width: -moz-max-content;
@@ -1217,6 +1216,10 @@ video {
   --tw-border-opacity: 1;
   border-color: rgb(44 120 101 / var(--tw-border-opacity));
 }
+.border-primaryhover {
+  --tw-border-opacity: 1;
+  border-color: rgb(35 95 81 / var(--tw-border-opacity));
+}
 .border-slate-200 {
   --tw-border-opacity: 1;
   border-color: rgb(226 232 240 / var(--tw-border-opacity));
@@ -1232,15 +1235,9 @@ video {
   --tw-border-opacity: 1;
   border-color: rgb(255 255 255 / var(--tw-border-opacity));
 }
-<<<<<<< HEAD
 .border-b-blue-gray-100 {
   --tw-border-opacity: 1;
   border-bottom-color: rgb(207 216 220 / var(--tw-border-opacity));
-=======
-.border-primaryhover {
-  --tw-border-opacity: 1;
-  border-color: rgb(35 95 81 / var(--tw-border-opacity));
->>>>>>> 9ab7c95b9e1e1e1c0a263a83625403870534e7ea
 }
 .border-opacity-5 {
   --tw-border-opacity: 0.05;
@@ -1670,10 +1667,6 @@ video {
   --tw-text-opacity: 1;
   color: rgb(253 216 53 / var(--tw-text-opacity));
 }
-.text-secondary {
-  --tw-text-opacity: 1;
-  color: rgb(217 237 191 / var(--tw-text-opacity));
-}
 .underline {
   text-decoration-line: underline;
 }
@@ -1893,10 +1886,6 @@ video {
 .hover\:text-white:hover {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-.hover\:text-primary:hover {
-  --tw-text-opacity: 1;
-  color: rgb(44 120 101 / var(--tw-text-opacity));
 }
 .hover\:underline:hover {
   text-decoration-line: underline;
@@ -2574,14 +2563,14 @@ video {
     border-width: 2px;
   }
 
-  .lg\:bg-white {
-    --tw-bg-opacity: 1;
-    background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-  }
-
   .lg\:bg-primary {
     --tw-bg-opacity: 1;
     background-color: rgb(44 120 101 / var(--tw-bg-opacity));
+  }
+
+  .lg\:bg-white {
+    --tw-bg-opacity: 1;
+    background-color: rgb(255 255 255 / var(--tw-bg-opacity));
   }
 
   .lg\:p-8 {
