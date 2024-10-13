@@ -21,6 +21,8 @@ $routes->get('publikasi/berita', 'PublikasiController::berita');
 $routes->get('publikasi/artikel', 'PublikasiController::artikel');
 $routes->get('publikasi/video', 'PublikasiController::video');
 $routes->get('publikasi/buku', 'PublikasiController::buku');
+$routes->get('artikel/(:any)', 'PengusulController::detailartikel/$1');
+
 
 /* Auth Pengusul */
 $routes->get('auth/login', 'AuthController::login');
@@ -68,16 +70,18 @@ $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
     $routes->get('tambahcalonkeistimewaan', 'PengusulController::tambahcalonkeistimewaan');
     $routes->post('simpancalonkeistimewaan', 'PengusulController::simpanCalonKeistimewaan');
 
-    // Other routes related to Pengusul
+    // Routes usulan saya
     $routes->get('usulansaya', 'PengusulController::usulansaya');
     $routes->get('usulandlhk', 'PengusulController::usulandlhk');
-    // $routes->get('detailusulansaya', 'PengusulController::detailusulansaya');
     $routes->get('detailusulansaya/(:num)', 'PengusulController::detailusulansaya/$1');
+    $routes->get('detailusulansayaedit/(:num)', 'PengusulController::editUsulan/$1');
     $routes->get('detailusulandlhk', 'PengusulController::detailusulandlhk');
+
+    // Routes artikel
+    $routes->get('artikelsaya', 'PengusulController::artikelsaya');
     $routes->get('tambahartikel', 'PengusulController::tambahartikel');
     $routes->post('tambahartikel', 'PengusulController::tambahArtikelAction');
-    $routes->get('artikelsaya', 'PengusulController::artikelsaya');
-    $routes->get('detailartikelsaya', 'PengusulController::detailartikelsaya');
+    // $routes->get('artikel/(:any)', 'PengusulController::detailartikel/$1');
 
     $routes->get('pemberitahuan', 'PengusulController::pemberitahuan');
     $routes->get('alurpendaftaran', 'PengusulController::alurpendaftaran');
@@ -85,7 +89,7 @@ $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
     $routes->get('panduanpendaftaran', 'PengusulController::panduanpendaftaran');
     $routes->get('downloadSuratPengantar/(:any)', 'AuthController::downloadSuratPengantar/$1');
 
-    $routes->get('pdf/(:num)', 'PengusulController::generatePDF/$1');
+    $routes->get('pdf/(:any)', 'PengusulController::generatePDF/$1');
 });
 
 /* Penerima */

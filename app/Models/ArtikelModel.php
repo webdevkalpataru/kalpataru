@@ -13,9 +13,21 @@ class ArtikelModel extends Model
         'id_admin',
         'id_penerima',
         'id_pengusul',
-        'judul_artikel',
+        'judul',
         'konten',
         'foto',
-        'status'
+        'status',
+        'tanggal',
+        'slug'
     ];
+
+    public function getDetailById($id)
+    {
+        return $this->where('id_artikel', $id)->first();
+    }
+
+    public function getDetailBySlug($slug)
+    {
+        return $this->where('slug', $slug)->first(); // Misalkan Anda memiliki kolom slug dalam tabel artikel
+    }
 }
