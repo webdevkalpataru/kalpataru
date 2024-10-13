@@ -2716,16 +2716,6 @@ video {
     box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
   }
 
-  .lg\:before\:-left-0::before {
-    content: var(--tw-content);
-    left: -0px;
-  }
-
-  .lg\:before\:-left-8::before {
-    content: var(--tw-content);
-    left: -2rem;
-  }
-
   .lg\:before\:-left-4::before {
     content: var(--tw-content);
     left: -1rem;
@@ -2735,16 +2725,6 @@ video {
     content: var(--tw-content);
     font-size: 2.25rem;
     line-height: 2.5rem;
-  }
-
-  .lg\:after\:right-4::after {
-    content: var(--tw-content);
-    right: 1rem;
-  }
-
-  .lg\:after\:right-32::after {
-    content: var(--tw-content);
-    right: 8rem;
   }
 
   .lg\:after\:right-28::after {
