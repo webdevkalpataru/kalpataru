@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/app.css">
-    <title><?= $title; ?></title>
 </head>
 
 <body>
@@ -24,6 +23,7 @@
                 <div class="relative flex items-center justify-between w-full flex-wrap gap-4 sm:gap-8">
                     <div class="absolute left-0 top-2/4 h-0.5 w-full -translate-y-2/4 bg-accent2 transition-all duration-500"></div>
 
+                    <!-- Step Indicators -->
                     <!-- Step 1 -->
                     <div class="relative z-10 grid w-8 h-8 sm:w-10 sm:h-10 font-bold text-white transition-all duration-300 bg-accent2 border-2 border-accent2 rounded-full place-items-center">
                         <div class="absolute -bottom-8 w-max text-center">
@@ -77,35 +77,45 @@
                             </p>
                         </div>
                     </div>
+
+                    <!-- Step ke-6 "Keistimewaan" -->
+                    <div class="relative z-10 grid w-8 h-8 sm:w-10 sm:h-10 font-bold text-accent1 transition-all duration-300 bg-accent2 border-2 border-accent2 rounded-full place-items-center">
+                        <div class="absolute -bottom-8 w-max text-center">
+                            <p class="lg:block hidden font-sans text-xs lg:text-md antialiased font-semibold leading-relaxed tracking-normal text-gray-700 w-28 h-8">
+                                Keistimewaan
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <form id="keistimewaanForm" class="mt-4 mb-2 w-full">
+            <!-- Update action untuk form, dan ubah method POST -->
+            <form action="<?= base_url('pengusul/simpancalonkeistimewaan'); ?>" method="post" enctype="multipart/form-data" class="mt-4 mb-2 w-full">
+                <?= csrf_field(); ?>
                 <div class="grid grid-cols-1 gap-4" id="formContainer">
                     <div>
-                        <label class="block mb-2 text-sm text-black">Keistimewaan Calon</label>
-                        <textarea id="keistimewaanCalon" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                            oninput="updateWordCount(this, 'keistimewaanCalonCount', 1000)"></textarea>
+                        <label for="keistimewaan" class="block mb-2 text-sm text-black">Keistimewaan Calon</label>
+                        <textarea name="keistimewaan" id="keistimewaan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4" oninput="updateWordCount(this, 'keistimewaanCalonCount', 1000)"></textarea>
                         <p id="keistimewaanCalonCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
                     </div>
                     <div>
-                        <label class="block mb-2 text-sm text-black">Penghargaan relevan yang pernah diterima</label>
-                        <textarea id="penghargaanRelevan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                            oninput="updateWordCount(this, 'penghargaanRelevanCount', 1000)"></textarea>
-                        <p id="penghargaanRelevanCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
+                        <label for="penghargaan" class="block mb-2 text-sm text-black">Penghargaan relevan yang pernah diterima</label>
+                        <textarea name="penghargaan" id="penghargaan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4" oninput="updateWordCount(this, 'penghargaanCount', 1000)"></textarea>
+                        <p id="penghargaanCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
                     </div>
                     <div>
-                        <label class="block mb-2 text-sm text-black">Tautan Dokumen Pendukung (Google Drive)</label>
-                        <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                        <label for="tautan_dokumen_pendukung" class="block mb-2 text-sm text-black">Tautan Dokumen Pendukung (Google Drive)</label>
+                        <input name="tautan_dokumen_pendukung" id="tautan_dokumen_pendukung" type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                     </div>
 
                     <div class="grid grid-cols-2 gap-4">
                         <!-- Kolom 1 - Unggah Foto Kegiatan -->
                         <div id="fotoContainer">
-                            <label class="block mb-2 text-sm text-black">Unggah Foto Kegiatan <span class="text-primary"> (.jpg/jpeg)</span></label>
+                            <label for="foto_kegiatan1" class="block mb-2 text-sm text-black">Unggah Foto Kegiatan <span class="text-primary"> (.jpg/jpeg)</span></label>
                             <div class="mb-4">
-                                <input type="file" accept=".jpg, .jpeg" class="mb-2 w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-                                <input type="text" placeholder="Keterangan Foto" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <!-- Input Foto Kegiatan 1 -->
+                                <input name="foto_kegiatan1" type="file" accept=".jpg, .jpeg" class="mb-2 w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input name="deskripsi_foto_kegiatan1" type="text" placeholder="Keterangan Foto" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
 
                             <!-- Tombol Tambah Foto Kegiatan -->
@@ -117,7 +127,7 @@
                         <!-- Kolom 2 - Tautan Video -->
                         <div id="videoContainer">
                             <label class="block mb-2 text-sm text-black">Tautan Video</label>
-                            <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow mb-3" placeholder="Tautan Video" />
+                            <input name="tautan_video" type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow mb-3" placeholder="Tautan Video" />
 
                             <!-- Tombol Tambah Video -->
                             <button type="button" id="tambahVideoButton" class="w-full flex items-center justify-center rounded-md py-2 text-center text-sm text-primary transition-all shadow-md hover:shadow-lg bg-secondary active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
@@ -129,9 +139,7 @@
                 </div>
 
                 <div class="flex justify-end mt-4">
-                    <a href="./usulansaya">
-                        <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Kirim</button>
-                    </a>
+                    <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="submit">Selesai</button>
                 </div>
             </form>
         </div>
@@ -180,59 +188,44 @@
         });
 
         // Tambah Foto Kegiatan dan Tambah Tautan Video
-        // Maksimal input yang diperbolehkan
         const maxFotoInput = 5;
         const maxVideoInput = 5;
 
-        // Container foto dan video
         const fotoContainer = document.getElementById('fotoContainer');
         const videoContainer = document.getElementById('videoContainer');
 
-        // Tombol tambah foto dan video
         const tambahFotoButton = document.getElementById('tambahFotoButton');
         const tambahVideoButton = document.getElementById('tambahVideoButton');
 
-        // Counter untuk input
         let fotoInputCount = 1;
         let videoInputCount = 1;
 
-        // Fungsi untuk menambah input foto kegiatan
         tambahFotoButton.addEventListener('click', function() {
             if (fotoInputCount < maxFotoInput) {
                 const newFotoDiv = document.createElement('div');
                 newFotoDiv.classList.add('mb-4');
                 newFotoDiv.innerHTML = `
-                    <input type="file" accept=".jpg, .jpeg" class="mb-2 w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-                    <input type="text" placeholder="Keterangan Foto" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                    <input name="foto_kegiatan${fotoInputCount + 1}" type="file" accept=".jpg, .jpeg" class="mb-2 w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                    <input name="deskripsi_foto_kegiatan${fotoInputCount + 1}" type="text" placeholder="Keterangan Foto" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                 `;
                 fotoContainer.insertBefore(newFotoDiv, tambahFotoButton);
                 fotoInputCount++;
-
-                // Jika sudah mencapai maksimal, sembunyikan tombol tambah foto
-                if (fotoInputCount === maxFotoInput) {
-                    tambahFotoButton.style.display = 'none';
-                }
             }
         });
 
-        // Fungsi untuk menambah input tautan video
         tambahVideoButton.addEventListener('click', function() {
             if (videoInputCount < maxVideoInput) {
-                const newVideoDiv = document.createElement('div');
-                newVideoDiv.classList.add('mb-4');
-                newVideoDiv.innerHTML = `
-                    <input type="text" placeholder="Tautan Video" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-                `;
-                videoContainer.insertBefore(newVideoDiv, tambahVideoButton);
+                const newVideoInput = document.createElement('input');
+                newVideoInput.name = `tautan_video${videoInputCount + 1}`;
+                newVideoInput.type = 'text';
+                newVideoInput.classList.add('w-full', 'bg-transparent', 'placeholder:text-slate-400', 'text-primary', 'text-sm', 'border-2', 'border-slate-200', 'rounded-md', 'px-3', 'py-2', 'transition', 'duration-300', 'ease', 'focus:outline-none', 'focus:border-primary', 'hover:border-primary', 'focus:shadow', 'mb-3');
+                newVideoInput.placeholder = 'Tautan Video';
+                videoContainer.insertBefore(newVideoInput, tambahVideoButton);
                 videoInputCount++;
-
-                // Jika sudah mencapai maksimal, sembunyikan tombol tambah video
-                if (videoInputCount === maxVideoInput) {
-                    tambahVideoButton.style.display = 'none';
-                }
             }
         });
     </script>
+
     <?= $this->endSection() ?>
 </body>
 

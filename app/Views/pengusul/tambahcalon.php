@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $title; ?></title>
+    <title>Pilih Kategori</title>
 </head>
 
 <body>
@@ -37,24 +37,29 @@
                 <hr class="border-[1.5px] border-primary max-w-40 mx-auto" />
             </div>
 
-            <!-- Gambar Kategori -->
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                <img src="/images/kategoria.jpg" alt="kategoria" class="w-full h-auto rounded-2xl cursor-pointer transition-transform transform duration-200 ease-in-out" onclick="selectImage(this)">
-                <img src="/images/kategorib.jpg" alt="kategorib" class="w-full h-auto rounded-2xl cursor-pointer transition-transform transform duration-200 ease-in-out" onclick="selectImage(this)">
-                <img src="/images/kategoric.jpg" alt="kategoric" class="w-full h-auto rounded-2xl cursor-pointer transition-transform transform duration-200 ease-in-out" onclick="selectImage(this)">
-                <img src="/images/kategorid.jpg" alt="kategorid" class="w-full h-auto rounded-2xl cursor-pointer transition-transform transform duration-200 ease-in-out" onclick="selectImage(this)">
-            </div>
+            <!-- Form untuk Kategori -->
+            <form id="kategoriForm" method="POST" action="/pengusul/tambahcalon">
+                <input type="hidden" name="id_pengusul" value="<?= $id_pengusul ?>">
+                <input type="hidden" id="kategoriInput" name="kategori" value="">
 
-            <div class="flex justify-between mt-4 items-center">
-                <div class="mt-4">
-                    <button onclick="window.location.href='./usulansaya'"
-                        class="text-sm font-bold text-gray-600 no-underline focus:outline-none">
-                        <span class="font-bold text-lg items-center">←</span> Kembali
-                    </button>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                    <img src="/images/kategoria.jpg" alt="perintis" class="w-full h-auto rounded-2xl cursor-pointer transition-transform transform duration-200 ease-in-out" onclick="selectImage(this, 'Perintis Lingkungan')">
+                    <img src="/images/kategorib.jpg" alt="pengabdi" class="w-full h-auto rounded-2xl cursor-pointer transition-transform transform duration-200 ease-in-out" onclick="selectImage(this, 'Pengabdi Lingkungan')">
+                    <img src="/images/kategoric.jpg" alt="penyelamat" class="w-full h-auto rounded-2xl cursor-pointer transition-transform transform duration-200 ease-in-out" onclick="selectImage(this, 'Penyelamat Lingkungan')">
+                    <img src="/images/kategorid.jpg" alt="pembina" class="w-full h-auto rounded-2xl cursor-pointer transition-transform transform duration-200 ease-in-out" onclick="selectImage(this, 'Pembina Lingkungan')">
                 </div>
-                <!-- <p id="validationMessage" class="text-sm text-red-500 mr-4 hidden">Silahkan pilih kategori terlebih dahulu</p> -->
-                <button id="selanjutnyaBtn" class="mt-4 w-32 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:bg-gray-400 disabled:shadow-none" type="button" disabled onclick="checkSelection()">Selanjutnya</button>
-            </div>
+
+                <div class="flex justify-between mt-4 items-center">
+                    <div class="mt-4">
+                        <button onclick="window.location.href='./usulansaya'"
+                            class="text-sm font-bold text-gray-600 no-underline focus:outline-none">
+                            <span class="font-bold text-lg items-center">←</span> Kembali
+                        </button>
+                    </div>
+                    <!-- <p id="validationMessage" class="text-sm text-red-500 mr-4 hidden">Silahkan pilih kategori terlebih dahulu</p> -->
+                    <button id="selanjutnyaBtn" class="mt-4 w-32 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:bg-gray-400 disabled:shadow-none" type="submit" disabled onclick="checkSelection()">Selanjutnya</button>
+                </div>
+
         </div>
 
     </div>
@@ -62,7 +67,7 @@
     <script>
         let selectedImage = null;
 
-        function selectImage(imageElement) {
+        function selectImage(imageElement, kategori) {
             // Hapus tanda dari gambar sebelumnya jika ada
             if (selectedImage) {
                 selectedImage.classList.remove('border-4', 'border-accepted', 'shadow-lg', 'scale-110');
@@ -74,6 +79,9 @@
             // Set gambar yang dipilih menjadi elemen baru yang dipilih
             selectedImage = imageElement;
 
+            // Set kategori yang dipilih di input tersembunyi
+            document.getElementById('kategoriInput').value = kategori;
+
             // Aktifkan tombol "Selanjutnya"
             document.getElementById('selanjutnyaBtn').disabled = false;
 
@@ -81,16 +89,16 @@
             document.getElementById('validationMessage').classList.add('hidden');
         }
 
-        function checkSelection() {
+        // Tambahkan event listener untuk submit form
+        document.getElementById('kategoriForm').addEventListener('submit', function(event) {
             if (!selectedImage) {
-                // Tampilkan pesan validasi jika kategori belum dipilih
+                // Jika kategori belum dipilih, tampilkan pesan validasi dan hentikan pengiriman form
+                event.preventDefault();
                 document.getElementById('validationMessage').classList.remove('hidden');
-            } else {
-                // Redirect ke halaman berikutnya jika kategori sudah dipilih
-                window.location.href = "./tambahcalonidentitas";
             }
-        }
+        });
     </script>
+
 
     <?= $this->endSection() ?>
 

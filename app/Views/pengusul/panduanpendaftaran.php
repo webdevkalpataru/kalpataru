@@ -22,9 +22,9 @@
             </h4>
 
             <div class="relative w-full overflow-hidden pt-[50%] rounded-lg flex flex-col h-full bg-white text-gray-700 shadow-md mt-4">
-                <iframe class="absolute top-0 left-0 w-full h-full" 
-                        src="<?= base_url('file/panduanpendaftaran2024.pdf') ?>" 
-                        frameborder="0"></iframe>
+                <iframe class="absolute top-0 left-0 w-full h-full"
+                    src="<?= base_url('file/panduanpendaftaran2024.pdf') ?>"
+                    frameborder="0"></iframe>
             </div>
 
         </div>

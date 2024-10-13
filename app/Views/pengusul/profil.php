@@ -88,11 +88,11 @@
             </div>
             <div>
               <label class="block mb-2 text-sm text-black">Nomor Telepon</label>
-              <input type="text" name="telepon" value="<?= session()->get('telepon'); ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+              <input type="text" name="telepon" readonly value="<?= session()->get('telepon'); ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
             </div>
             <div>
               <label class="block mb-2 text-sm text-black">Email</label>
-              <input type="email" name="email" value="<?= session()->get('email'); ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+              <input type="email" name="email" readonly value="<?= session()->get('email'); ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
             </div>
             <div>
               <label class="block mb-2 text-sm text-black">Jabatan/Pekerjaan</label>
@@ -142,9 +142,7 @@
             <?php if (session()->get('role_akun') === 'DLHK'): ?>
               <div>
                 <?php
-                // Ambil path surat pengantar dari session
                 $suratPengantar = session()->get('surat_pengantar');
-                // Gunakan basename untuk mendapatkan hanya nama file
                 $namaFile = basename($suratPengantar);
                 ?>
                 <label class="block mb-2 text-sm text-black">Surat Pengantar : <?= $namaFile; ?></label>
@@ -166,9 +164,9 @@
     <div id="uploadModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
       <div class="bg-white rounded-lg p-8 flex flex-col items-center max-w-md">
         <img src="/images/sukses.png" alt="Success Icon" class="w-16 h-16 mb-4">
-        <h2 class="text-center text-lg font-bold text-primary mb-2">Terima kasih telah memperbarui profil!</h2>
+        <h2 class="text-center text-lg font-bold text-primary mb-2">Profil berhasil diperbarui!</h2>
         <a href="./profil">
-          <button id="closeModalBtn" class="bg-primary text-white py-2 px-4 rounded-lg"><span class="font-bold text-lg items-center">←</span> Kembali</button>
+          <button id="closeModalBtn" class="bg-primary text-white py-2 px-4 rounded-lg"><span class="font-bold text-lg items-center"></span>OK</button>
         </a>
       </div>
     </div>
