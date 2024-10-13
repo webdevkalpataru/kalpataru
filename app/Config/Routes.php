@@ -104,6 +104,6 @@ $routes->group('timteknis', function ($routes) {
     $routes->get('datacalonusulan', 'TimteknisController::datacalonusulan');
     $routes->get('detaildatacalonusulan', 'TimteknisController::detaildatacalonusulan');
     $routes->get('verifikasiadministrasi', 'TimteknisController::verifikasiadministrasi');
-    $routes->get('sidang1', 'TimteknisController::sidang1');
-    $routes->get('sidang2', 'TimteknisController::sidang2');
+    $routes->get('bahansidang1', 'TimteknisController::bahansidang1');
+    $routes->get('bahansidang2', 'TimteknisController::bahansidang2');
 });
