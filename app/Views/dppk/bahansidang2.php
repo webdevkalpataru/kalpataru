@@ -46,7 +46,7 @@
 <body class="lg:flex">
 
     <!-- Sidebar -->
-    <?= $this->include('template/sidebartimteknis') ?>
+    <?= $this->include('template/sidebardppk') ?>
 
     <!-- Main Content -->
     <div class="lg:flex-1 p-6">
@@ -55,7 +55,7 @@
             <!-- Header -->
             <header class="bg-white shadow">
                 <div class="container mx-auto flex items-center justify-between p-4 md:p-6">
-                    <h1 class="text-xl font-bold text-slate-800 mb-2">Bahan Sidang 1</h1>
+                    <h1 class="text-xl font-bold text-slate-800 mb-2">Bahan Sidang 2</h1>
                 </div>
             </header>
 

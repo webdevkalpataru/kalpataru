@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/app.css">
+    <link rel="stylesheet" href="/css/app.css">
     <title><?= $title; ?></title>
     <style>
         /* images */
@@ -84,7 +84,7 @@
 <body>
     <div class="flex h-screen">
         <div class="flex-1 relative hidden sm:block">
-            <img id="backgroundImage" src="/images/loginregist1.jpeg" alt="loginregist1"
+            <img id="backgroundImage" src="/images/loginregist2.jpeg" alt="loginregist2"
                 class="w-full h-full object-cover fade-in-right">
         </div>
 

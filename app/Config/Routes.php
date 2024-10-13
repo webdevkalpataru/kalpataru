@@ -103,7 +103,23 @@ $routes->group('admin', function ($routes) {
 $routes->group('timteknis', function ($routes) {
     $routes->get('datacalonusulan', 'TimteknisController::datacalonusulan');
     $routes->get('detaildatacalonusulan', 'TimteknisController::detaildatacalonusulan');
-    $routes->get('verifikasiadministrasi', 'TimteknisController::verifikasiadministrasi');
+
+    $routes->get('verifadminkategoria', 'TimteknisController::verifadminkategoria');
+    $routes->get('verifadminkategorib', 'TimteknisController::verifadminkategorib');
+    $routes->get('verifadminkategoric', 'TimteknisController::verifadminkategoric');
+    $routes->get('verifadminkategorid', 'TimteknisController::verifadminkategorid');
+    $routes->post('updatestatus', 'TimteknisController::updateStatus');
+
+
     $routes->get('bahansidang1', 'TimteknisController::bahansidang1');
     $routes->get('bahansidang2', 'TimteknisController::bahansidang2');
+});
+
+/* DPPK */
+$routes->group('dppk', function ($routes) {
+    $routes->get('datacalonusulan', 'DppkController::datacalonusulan');
+    $routes->get('detaildatacalonusulan', 'DppkController::detaildatacalonusulan');
+
+    $routes->get('bahansidang1', 'DppkController::bahansidang1');
+    $routes->get('bahansidang2', 'DppkController::bahansidang2');
 });

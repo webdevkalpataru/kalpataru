@@ -46,7 +46,7 @@
 <body class="lg:flex">
 
     <!-- Sidebar -->
-    <?= $this->include('template/sidebartimteknis') ?>
+    <?= $this->include('template/sidebardppk') ?>
 
     <!-- Main Content -->
     <div class="lg:flex-1 p-6">
