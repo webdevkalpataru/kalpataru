@@ -174,14 +174,14 @@
     </section>
 
     <section id="statistikpeta">
-        <div class="lg:my-12 md:my-8 my-4 pt-10 text-center">
+        <div class="my-4 pt-10 text-center">
             <div id="texttujuankalpataru" class="w-full h-[4rem] sm:h-[5rem] relative flex items-center justify-center">
                 <h2 class="text-lg sm:text-xl md:text-2xl lg:text-4xl font-medium text-black">Statistik Penyebaran Penghargaan Kalpataru</h2>
             </div>
             <hr class="border-2 border-primary max-w-64 mx-auto mt-0" />
         </div>
 
-        <div class="relative w-full px-6 sm:px-10 md:px-16 lg:px-20 py-12">
+        <div class="relative w-full px-6 sm:px-10 md:px-16 lg:px-20 py-10">
             <div id="map"></div>
         </div>
     </section>
@@ -471,44 +471,44 @@
             var penerimaData = <?= json_encode($peta); ?>;
 
             var geojsonUrls = {
-                'DKI Jakarta': 'https://penyebarankalpataru.vercel.app/dkijakarta.geojson',
-                'Jawa Barat': 'https://penyebarankalpataru.vercel.app/jawabarat.geojson',
-                'Jawa Tengah': 'https://penyebarankalpataru.vercel.app/jawatengah.geojson',
-                'Jawa Timur': 'https://penyebarankalpataru.vercel.app/jawatimur.geojson',
-                'Banten': 'https://penyebarankalpataru.vercel.app/banten.geojson',
-                'DI Yogyakarta': 'https://penyebarankalpataru.vercel.app/diy.geojson',
-                'Bali': 'https://penyebarankalpataru.vercel.app/bali.geojson',
-                'Aceh': 'https://penyebarankalpataru.vercel.app/aceh.geojson',
-                'Papua Barat Daya': 'https://penyebarankalpataru.vercel.app/papuabaratdaya.geojson',
-                'Papua Barat': 'https://penyebarankalpataru.vercel.app/papuabarat.geojson',
-                'Papua Tengah': 'https://penyebarankalpataru.vercel.app/papuatengah.geojson',
-                'Papua Selatan': 'https://penyebarankalpataru.vercel.app/papuaselatan.geojson',
-                'Papua Pegunungan': 'https://penyebarankalpataru.vercel.app/papuapegunungan.geojson',
-                'Papua': 'https://penyebarankalpataru.vercel.app/papua.geojson',
-                'Maluku Utara': 'https://penyebarankalpataru.vercel.app/malukuutara.geojson',
-                'Maluku': 'https://penyebarankalpataru.vercel.app/maluku.geojson',
-                'Sulawesi Barat': 'https://penyebarankalpataru.vercel.app/sulawesibarat.geojson',
-                'Gorontalo': 'https://penyebarankalpataru.vercel.app/gorontalo.geojson',
-                'Sulawesi Tenggara': 'https://penyebarankalpataru.vercel.app/sulawesitenggara.geojson',
-                'Sulawesi Selatan': 'https://penyebarankalpataru.vercel.app/sulawesiselatan.geojson',
-                'Sulawesi Tengah': 'https://penyebarankalpataru.vercel.app/sulawesitengah.geojson',
-                'Sulawesi Utara': 'https://penyebarankalpataru.vercel.app/sulawesiutara.geojson',
-                'Kalimantan Utara': 'https://penyebarankalpataru.vercel.app/kalimantanutara.geojson',
-                'Kalimantan Timur': 'https://penyebarankalpataru.vercel.app/kalimantantimur.geojson',
-                'Kalimantan Selatan': 'https://penyebarankalpataru.vercel.app/kalimantanselatan.geojson',
-                'Kalimantan Tengah': 'https://penyebarankalpataru.vercel.app/kalimantantengah.geojson',
-                'Kalimantan Barat': 'https://penyebarankalpataru.vercel.app/kalimantanbarat.geojson',
-                'Nusa Tenggara Timur': 'https://penyebarankalpataru.vercel.app/nusatenggaratimur.geojson',
-                'Nusa Tenggara Barat': 'https://penyebarankalpataru.vercel.app/nusatenggarabarat.geojson',
-                'Kepulauan Riau': 'https://penyebarankalpataru.vercel.app/kepulauanriau.geojson',
-                'Kepulauan Bangka Belitung': 'https://penyebarankalpataru.vercel.app/kepulauanbangkabelitung.geojson',
-                'Lampung': 'https://penyebarankalpataru.vercel.app/lampung.geojson',
-                'Bengkulu': 'https://penyebarankalpataru.vercel.app/bengkulu.geojson',
-                'Sumatera Selatan': 'https://penyebarankalpataru.vercel.app/sumateraselatan.geojson',
-                'Sumatera Barat': 'https://penyebarankalpataru.vercel.app/sumaterabarat.geojson',
-                'Sumatera Utara': 'https://penyebarankalpataru.vercel.app/sumaterautara.geojson',
-                'Jambi': 'https://penyebarankalpataru.vercel.app/jambi.geojson',
-                'Riau': 'https://penyebarankalpataru.vercel.app/riau.geojson',
+                'DKI Jakarta': 'https://kalpatarujson.vercel.app/json/dkijakarta.json',
+                'Jawa Barat': 'https://kalpatarujson.vercel.app/json/jawabarat.json',
+                'Jawa Tengah': 'https://kalpatarujson.vercel.app/json/jawatengah.json',
+                'Jawa Timur': 'https://kalpatarujson.vercel.app/json/jawatimur.json',
+                'Banten': 'https://kalpatarujson.vercel.app/json/banten.json',
+                'DI Yogyakarta': 'https://kalpatarujson.vercel.app/json/diy.json',
+                'Bali': 'https://kalpatarujson.vercel.app/json/bali.json',
+                'Aceh': 'https://kalpatarujson.vercel.app/json/aceh.json',
+                'Papua Barat Daya': 'https://kalpatarujson.vercel.app/json/papuabaratdaya.json',
+                'Papua Barat': 'https://kalpatarujson.vercel.app/json/papuabarat.json',
+                'Papua Tengah': 'https://kalpatarujson.vercel.app/json/papuatengah.json',
+                'Papua Selatan': 'https://kalpatarujson.vercel.app/json/papuaselatan.json',
+                'Papua Pegunungan': 'https://kalpatarujson.vercel.app/json/papuapegunungan.json',
+                'Papua': 'https://kalpatarujson.vercel.app/json/papua.json',
+                'Maluku Utara': 'https://kalpatarujson.vercel.app/json/malukuutara.json',
+                'Maluku': 'https://kalpatarujson.vercel.app/json/maluku.json',
+                'Sulawesi Barat': 'https://kalpatarujson.vercel.app/json/sulawesibarat.json',
+                'Gorontalo': 'https://kalpatarujson.vercel.app/json/gorontalo.json',
+                'Sulawesi Tenggara': 'https://kalpatarujson.vercel.app/json/sulawesitenggara.json',
+                'Sulawesi Selatan': 'https://kalpatarujson.vercel.app/json/sulawesiselatan.json',
+                'Sulawesi Tengah': 'https://kalpatarujson.vercel.app/json/sulawesitengah.json',
+                'Sulawesi Utara': 'https://kalpatarujson.vercel.app/json/sulawesiutara.json',
+                'Kalimantan Utara': 'https://kalpatarujson.vercel.app/json/kalimantanutara.json',
+                'Kalimantan Timur': 'https://kalpatarujson.vercel.app/json/kalimantantimur.json',
+                'Kalimantan Selatan': 'https://kalpatarujson.vercel.app/json/kalimantanselatan.json',
+                'Kalimantan Tengah': 'https://kalpatarujson.vercel.app/json/kalimantantengah.json',
+                'Kalimantan Barat': 'https://kalpatarujson.vercel.app/json/kalimantanbarat.json',
+                'Nusa Tenggara Timur': 'https://kalpatarujson.vercel.app/json/nusatenggaratimur.json',
+                'Nusa Tenggara Barat': 'https://kalpatarujson.vercel.app/json/nusatenggarabarat.json',
+                'Kepulauan Riau': 'https://kalpatarujson.vercel.app/json/kepulauanriau.json',
+                'Kepulauan Bangka Belitung': 'https://kalpatarujson.vercel.app/json/kepulauanbangkabelitung.json',
+                'Lampung': 'https://kalpatarujson.vercel.app/json/lampung.json',
+                'Bengkulu': 'https://kalpatarujson.vercel.app/json/bengkulu.json',
+                'Sumatera Selatan': 'https://kalpatarujson.vercel.app/json/sumateraselatan.json',
+                'Sumatera Barat': 'https://kalpatarujson.vercel.app/json/sumaterabarat.json',
+                'Sumatera Utara': 'https://kalpatarujson.vercel.app/json/sumaterautara.json',
+                'Jambi': 'https://kalpatarujson.vercel.app/json/jambi.json',
+                'Riau': 'https://kalpatarujson.vercel.app/json/riau.json',
             };
 
             var colors = {
@@ -552,10 +552,20 @@
                 'Riau': '#20B2AA'   
             };
 
+            if (window.Worker) {
+                var worker = new Worker('<?= base_url('js/geojsonWorker.js'); ?>');
+
             for (let provinsi in geojsonUrls) {
-            fetch(geojsonUrls[provinsi])
-                .then(response => response.json())
-                .then(data => {
+                worker.postMessage({ url: geojsonUrls[provinsi], provinsi });
+
+                worker.onmessage = function (e) {
+                    var { provinsi, data, error } = e.data;
+
+                    if (error) {
+                        console.error(error);
+                        return;
+                    }
+
                     var geojsonLayer = L.geoJSON(data, {
                         style: function () {
                             return { 
@@ -596,10 +606,12 @@
                             });
                         }
                     }).addTo(map);
-                })
-                .catch(error => console.error('Error loading GeoJSON for ' + provinsi + ':', error));
+                };
+            }
+        } else {
+            console.error('Web Workers are not supported in this browser.');
         }
-        });
+    });
     </script>
 
     <script>
