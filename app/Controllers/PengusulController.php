@@ -5,6 +5,8 @@ namespace App\Controllers;
 use App\Models\PengusulModel;
 use App\Models\PendaftaranModel;
 use App\Models\ArtikelModel;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 // use CodeIgniter\Controller;
 
 class PengusulController extends BaseController
@@ -746,5 +748,92 @@ class PengusulController extends BaseController
 
         // Jika profil sudah lengkap, lanjutkan ke halaman lainnya
         return view('pengusul/halaman_lainnya');
+    }
+
+    public function generatePDF($kode_registrasi)
+    {
+        $id_pengusul = session()->get('id_pengusul'); 
+        
+        if (!$id_pengusul) {
+            return redirect()->back()->with('error', 'Error');
+        }
+
+        $pendaftaranModel = new PendaftaranModel();
+        $pengusulModel = new PengusulModel();
+        
+        $pendaftaranData = $pendaftaranModel->where('kode_registrasi', $kode_registrasi)->first();
+
+        if (!$pendaftaranData || $pendaftaranData['id_pengusul'] != $id_pengusul) {
+            return redirect()->back()->with('error', 'Error');
+        }
+
+        $pengusulData = $pengusulModel->where('id_pengusul', $id_pengusul)->first();
+
+        $kegiatan = $pendaftaranModel->getKegiatanByPendaftaranId($pendaftaranData['id_pendaftaran']);
+        $pendaftaranData['kegiatan'] = $kegiatan;
+
+        $dampak = $pendaftaranModel->db->table('dampak')->where('id_pendaftaran', $pendaftaranData['id_pendaftaran'])->get()->getRowArray();
+        $pmik = $pendaftaranModel->db->table('pmik')->where('id_pendaftaran', $pendaftaranData['id_pendaftaran'])->get()->getRowArray();
+        $keswadayaan = $pendaftaranModel->db->table('keswadayaan')->where('id_pendaftaran', $pendaftaranData['id_pendaftaran'])->get()->getRowArray();
+        $keistimewaan = $pendaftaranModel->db->table('keistimewaan')->where('id_pendaftaran', $pendaftaranData['id_pendaftaran'])->get()->getRowArray();
+
+        $data = [
+            'pendaftaran' => array_merge($pendaftaranData, [
+                'dampak_lingkungan' => $dampak['dampak_lingkungan'] ?? '',
+                'dampak_ekonomi' => $dampak['dampak_ekonomi'] ?? '',
+                'dampak_sosial_budaya' => $dampak['dampak_sosial_budaya'] ?? '',
+                'prakarsa' => $pmik['prakarsa'] ?? '',
+                'motivasi' => $pmik['motivasi'] ?? '',
+                'inovasi' => $pmik['inovasi'] ?? '',
+                'krativitas' => $pmik['krativitas'] ?? '',
+                'sumber_biaya' => $keswadayaan['sumber_biaya'] ?? '',
+                'teknologi_kegiatan' => $keswadayaan['teknologi_kegiatan'] ?? '',
+                'status_lahan_kegiatan' => $keswadayaan['status_lahan_kegiatan'] ?? '',
+                'jumlah_kelompok_serupa' => $keswadayaan['jumlah_kelompok_serupa'] ?? '',
+                'keistimewaan' => $keistimewaan['keistimewaan'] ?? '',
+                'penghargaan' => $keistimewaan['penghargaan'] ?? ''
+            ]),
+            'pengusul' => $pengusulData,
+            'kegiatan' => $kegiatan
+        ];
+
+        $kategori = $pendaftaranData['kategori'];
+        switch ($kategori) {
+            case 'Perintis Lingkungan':
+                $prefix = 'A';
+                break;
+            case 'Pengabdi Lingkungan':
+                $prefix = 'B';
+                break;
+            case 'Penyelamat Lingkungan':
+                $prefix = 'C';
+                break;
+            case 'Pembina Lingkungan':
+                $prefix = 'D';
+                break;
+            default:
+                $prefix = 'X';
+        }
+
+        session()->set('prefix', $prefix);
+
+        $html = view('pengusul/pdf', $data);
+
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isRemoteEnabled', true);
+        $options->set('defaultPaperSize', 'A4');
+        $options->set('defaultPaperOrientation', 'portrait');
+        $options->set('dpi', 150);
+        $options->set('enable_php', false);
+        $options->set('enable_javascript', true);
+        $options->set('enable_html5_parser', true);
+
+        $dompdf = new Dompdf($options);
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        $dompdf->stream('laporan_calon_usulan.pdf', ['Attachment' => false]);
     }
 }

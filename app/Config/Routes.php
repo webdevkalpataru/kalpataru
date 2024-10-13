@@ -88,6 +88,8 @@ $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
     $routes->get('videopanduan', 'PengusulController::videopanduan');
     $routes->get('panduanpendaftaran', 'PengusulController::panduanpendaftaran');
     $routes->get('downloadSuratPengantar/(:any)', 'AuthController::downloadSuratPengantar/$1');
+
+    $routes->get('pdf/(:any)', 'PengusulController::generatePDF/$1');
 });
 
 /* Penerima */
@@ -101,4 +103,29 @@ $routes->group('penerima', ['filter' => 'auth'], function ($routes) {
 /* Admin */
 $routes->group('admin', function ($routes) {
     $routes->get('dashboard', 'AdminController::dashboard');
+});
+
+/* Tim Teknis */
+$routes->group('timteknis', function ($routes) {
+    $routes->get('datacalonusulan', 'TimteknisController::datacalonusulan');
+    $routes->get('detaildatacalonusulan', 'TimteknisController::detaildatacalonusulan');
+
+    $routes->get('verifadminkategoria', 'TimteknisController::verifadminkategoria');
+    $routes->get('verifadminkategorib', 'TimteknisController::verifadminkategorib');
+    $routes->get('verifadminkategoric', 'TimteknisController::verifadminkategoric');
+    $routes->get('verifadminkategorid', 'TimteknisController::verifadminkategorid');
+    $routes->post('updatestatus', 'TimteknisController::updateStatus');
+
+
+    $routes->get('bahansidang1', 'TimteknisController::bahansidang1');
+    $routes->get('bahansidang2', 'TimteknisController::bahansidang2');
+});
+
+/* DPPK */
+$routes->group('dppk', function ($routes) {
+    $routes->get('datacalonusulan', 'DppkController::datacalonusulan');
+    $routes->get('detaildatacalonusulan', 'DppkController::detaildatacalonusulan');
+
+    $routes->get('bahansidang1', 'DppkController::bahansidang1');
+    $routes->get('bahansidang2', 'DppkController::bahansidang2');
 });
