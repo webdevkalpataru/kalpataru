@@ -456,10 +456,10 @@
     <script defer>
         // popup
         document.addEventListener('DOMContentLoaded', function() {
-            // Set delay for 5 seconds (5000 milliseconds)
+            // Set delay for 2 seconds (2000 milliseconds)
             setTimeout(function() {
                 document.getElementById('popup').classList.remove('hidden');
-            }, 5000); // 5 seconds delay
+            }, 2000); // 2 seconds delay
 
             // Close popup on clicking X button
             document.getElementById('close-btn').addEventListener('click', function() {
