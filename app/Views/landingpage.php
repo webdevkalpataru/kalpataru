@@ -552,66 +552,54 @@
                 'Riau': '#20B2AA'   
             };
 
-            if (window.Worker) {
-                var worker = new Worker('<?= base_url('js/geojsonWorker.js'); ?>');
-
             for (let provinsi in geojsonUrls) {
-                worker.postMessage({ url: geojsonUrls[provinsi], provinsi });
+                fetch(geojsonUrls[provinsi])
+                    .then(response => response.json())
+                    .then(data => {
+                        var geojsonLayer = L.geoJSON(data, {
+                            style: function () {
+                                return { 
+                                    color: colors[provinsi], 
+                                    fillColor: colors[provinsi], 
+                                    fillOpacity: 1,
+                                    weight: 1
+                                };
+                            },
+                            onEachFeature: function (feature, layer) {
+                                var penerimaDiProvinsi = penerimaData.filter(function (penerima) {
+                                    return penerima.provinsi === provinsi;
+                                });
+                                var popupContent = '<strong>' + provinsi + '</strong><br>Jumlah Penerima: ' + penerimaDiProvinsi.length;
 
-                worker.onmessage = function (e) {
-                    var { provinsi, data, error } = e.data;
+                                var center = layer.getBounds().getCenter();
+                                var label = L.marker(center, {
+                                    icon: L.divIcon({
+                                        className: 'province-label',
+                                        html: '<div style="font-weight: bold; cursor: pointer;">' + provinsi + '</div>',
+                                        iconSize: [100, 40],
+                                        iconAnchor: [50, 20]
+                                    })
+                                }).addTo(map);
 
-                    if (error) {
-                        console.error(error);
-                        return;
-                    }
+                                layer.on('click', function () {
+                                    var popup = L.popup()
+                                        .setLatLng(center)
+                                        .setContent(popupContent)
+                                        .openOn(map);
+                                });
 
-                    var geojsonLayer = L.geoJSON(data, {
-                        style: function () {
-                            return { 
-                                color: colors[provinsi], 
-                                fillColor: colors[provinsi], 
-                                fillOpacity: 1,
-                                weight: 1
-                            };
-                        },
-                        onEachFeature: function (feature, layer) {
-                            var penerimaDiProvinsi = penerimaData.filter(function (penerima) {
-                                return penerima.provinsi === provinsi;
-                            });
-                            var popupContent = '<strong>' + provinsi + '</strong><br>Jumlah Penerima: ' + penerimaDiProvinsi.length;
-
-                            var center = layer.getBounds().getCenter();
-                            var label = L.marker(center, {
-                                icon: L.divIcon({
-                                    className: 'province-label',
-                                    html: '<div style="font-weight: bold; cursor: pointer;">' + provinsi + '</div>',
-                                    iconSize: [100, 40],
-                                    iconAnchor: [50, 20]
-                                })
-                            }).addTo(map);
-
-                            layer.on('click', function () {
-                                var popup = L.popup()
-                                    .setLatLng(center)
-                                    .setContent(popupContent)
-                                    .openOn(map);
-                            });
-
-                            label.on('click', function () {
-                                var popup = L.popup()
-                                    .setLatLng(center)
-                                    .setContent(popupContent)
-                                    .openOn(map);
-                            });
-                        }
-                    }).addTo(map);
-                };
+                                label.on('click', function () {
+                                    var popup = L.popup()
+                                        .setLatLng(center)
+                                        .setContent(popupContent)
+                                        .openOn(map);
+                                });
+                            }
+                        }).addTo(map);
+                    })
+                    .catch(error => console.error('Error loading GeoJSON for ' + provinsi + ':', error));
             }
-        } else {
-            console.error('Web Workers are not supported in this browser.');
-        }
-    });
+        });
     </script>
 
     <script>
