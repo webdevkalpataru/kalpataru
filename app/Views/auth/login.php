@@ -190,6 +190,7 @@
 
 
 
+
         // Show toast with custom message
         function showToast(message) {
             const toast = document.getElementById('toast');

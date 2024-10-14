@@ -225,8 +225,8 @@
             const provinsi = document.getElementById('provinsi').value;
             const telepon = document.getElementById('telepon').value;
             const email = document.getElementById('email').value;
-            const kata_sandi = passwordInput.value;
-            const passwordCheck = passwordCheckInput.value;
+            const kata_sandi = document.getElementById('kata_sandi').value;
+            const passwordCheck = document.getElementById('passwordcheck').value;
             const surat_pengantar = document.getElementById('surat_pengantar').files[0];
 
             let isValid = true;
@@ -310,19 +310,23 @@
 
                 fetch(form.action, {
                         method: form.method,
-                        body: formData,
+                        body: formData
                     })
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
                             document.getElementById('successPopup').classList.remove('toasthidden');
                         } else {
-                            showToast(data.errors);
+                            let errorMessage = '';
+                            for (const [key, value] of Object.entries(data.errors)) {
+                                errorMessage += `${value}\n`; // Menggabungkan pesan kesalahan
+                            }
+                            alert(errorMessage); // Menampilkan semua kesalahan
                         }
                     })
                     .catch(error => {
                         console.error('Error:', error);
-                        showToast('Terjadi kesalahan. Silakan coba lagi');
+                        alert('Terjadi kesalahan. Silakan coba lagi.');
                     });
             }
         }

@@ -10,5 +10,8 @@ return [
     'is_unique' => '{field} sudah terdaftar.',
     'alpha_space' => '{field} hanya boleh berisi huruf dan spasi.',
     'matches' => '{field} tidak cocok dengan kolom {param}.',
-    'regex_match' => '{field} tidak sesuai format yang ditentukan.'
+    'regex_match' => '{field} tidak sesuai format yang ditentukan.',
+    'uploaded' => '{field} harus diunggah.',
+    'max_size' => '{field} tidak boleh lebih dari {param} kilobyte.',
+    'ext_in' => '{field} harus berupa file dengan ekstensi {param}.'
 ];

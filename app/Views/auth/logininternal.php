@@ -53,6 +53,7 @@
 
                 <h2 class="text-2xl font-bold text-gray-900 mb-4">Masuk</h2>
                 <form class="flex flex-col" onsubmit="validateForm(event)" action="/auth/logininternal" method="POST">
+                    <?= csrf_field() ?>
                     <label for="email" class="text-xs">Email</label>
                     <input id="email" type="text" name="email" required
                         class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none"
