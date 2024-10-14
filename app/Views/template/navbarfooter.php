@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/app.css">
+    <link rel="stylesheet" href="/css/app.css">
     <title>Kalpataru – Penghargaan Lingkungan Hidup Indonesia</title>
     <meta name="description" content="Website resmi Kalpataru, penghargaan bagi pelestari lingkungan di Indonesia. Temukan informasi, berita, dan program pelestarian alam terbaru.">
     <style>
@@ -75,6 +75,15 @@
         ::selection {
             background-color: #2C7865;
             color: white;
+        }
+
+        #map {
+            height: 600px;
+            border-radius: 10px;
+        }
+
+        .leaflet-control-attribution {
+            display: none !important;
         }
     </style>
 </head>
@@ -269,6 +278,8 @@
     </footer>
 
 
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
         /* scroll */
         document.addEventListener('DOMContentLoaded', () => {

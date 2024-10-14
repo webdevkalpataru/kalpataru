@@ -5,6 +5,8 @@ namespace App\Controllers;
 use App\Models\PengusulModel;
 use App\Models\PendaftaranModel;
 use App\Models\ArtikelModel;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 // use CodeIgniter\Controller;
 
 class PengusulController extends BaseController
@@ -111,24 +113,22 @@ class PengusulController extends BaseController
             'kode_registrasi' => $kode_registrasi
         ];
 
-        if ($Model->insert($data)) {
-            $id_pendaftaran = $Model->insertID();
+        session()->set('pendaftaran_data', $data);
 
-            session()->set('id_pendaftaran', $id_pendaftaran);
-            session()->set('kategori', $kategori);
-
-            return redirect()->to('pengusul/tambahcalonidentitas')->with('success', 'Kategori berhasil disimpan.');
-        } else {
-            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data. Silakan coba lagi.');
-        }
+        return redirect()->to('pengusul/tambahcalonidentitas')->with('success', 'Kategori berhasil dipilih, lanjutkan mengisi identitas.');
     }
 
 
 
     public function tambahCalonIdentitas()
     {
-        $id_pendaftaran = session()->get('id_pendaftaran');
-        $kategori = session()->get('kategori');
+        // Ambil data dari session yang sudah diset di inputKategori()
+        $pendaftaranData = session()->get('pendaftaran_data');
+
+        if (!$pendaftaranData || !isset($pendaftaranData['kategori'])) {
+            return redirect()->back()->with('error', 'Data kategori atau pendaftaran tidak ditemukan.');
+        }
+
         $provinsi_list = [
             'Aceh',
             'Bali',
@@ -171,13 +171,9 @@ class PengusulController extends BaseController
             'Sumatera Utara'
         ];
 
-        if (!$id_pendaftaran || !$kategori) {
-            return redirect()->back()->with('error', 'Data kategori atau pendaftaran tidak ditemukan.');
-        }
-
         return view('pengusul/tambahcalonidentitas', [
-            'id_pendaftaran' => $id_pendaftaran,
-            'kategori' => $kategori,
+            'id_pengusul' => $pendaftaranData['id_pengusul'],  // Data dari session
+            'kategori' => $pendaftaranData['kategori'],        // Data dari session
             'provinsi_list' => $provinsi_list
         ]);
     }
@@ -186,13 +182,17 @@ class PengusulController extends BaseController
     {
         $Model = new PendaftaranModel();
 
-        $id_pendaftaran = session()->get('id_pendaftaran');
-        $kategori = session()->get('kategori');
+        // Ambil data pendaftaran dari session
+        $pendaftaranData = session()->get('pendaftaran_data');
 
-        if ($kategori == 'Penyelamat Lingkungan') {
+        if (!$pendaftaranData || !isset($pendaftaranData['kategori'])) {
+            return redirect()->back()->with('error', 'Data kategori atau pendaftaran tidak ditemukan.');
+        }
+
+        if ($pendaftaranData['kategori'] == 'Penyelamat Lingkungan') {
             $data = [
-                'nama' => $this->request->getPost('nama_kelompok'),
-                'tahun_pembentukan' => $this->request->getPost('tahun_berdiri'),
+                'nama' => $this->request->getPost('nama'),
+                'tahun_pembentukan' => $this->request->getPost('tahun_pembentukan'),
                 'jumlah_anggota' => $this->request->getPost('jumlah_anggota'),
                 'jalan' => $this->request->getPost('jalan'),
                 'rt_rw' => $this->request->getPost('rt_rw'),
@@ -203,16 +203,16 @@ class PengusulController extends BaseController
                 'kode_pos' => $this->request->getPost('kode_pos'),
                 'sosial_media' => $this->request->getPost('media_sosial'),
                 'nama_ketua' => $this->request->getPost('nama_ketua'),
-                'nik' => $this->request->getPost('nik_ketua'),
+                'nik' => $this->request->getPost('nik'),
                 'tempat_lahir' => $this->request->getPost('tempat_lahir'),
                 'tanggal_lahir' => $this->request->getPost('tanggal_lahir'),
                 'usia' => $this->request->getPost('usia'),
                 'jenis_kelamin' => $this->request->getPost('jenis_kelamin'),
                 'pekerjaan' => $this->request->getPost('pekerjaan'),
+                'telepon' => $this->request->getPost('telepon'),
+                'email' => $this->request->getPost('email'),
                 'pendidikan' => $this->request->getPost('pendidikan'),
             ];
-
-            $Model->update($id_pendaftaran, $data);
         } else {
             $data = [
                 'nama' => $this->request->getPost('nama_individu'),
@@ -234,11 +234,19 @@ class PengusulController extends BaseController
                 'kode_pos' => $this->request->getPost('kode_pos'),
                 'sosial_media' => $this->request->getPost('media_sosial'),
             ];
-
-            $Model->update($id_pendaftaran, $data);
         }
+        // Gabungkan data identitas dengan data pendaftaran sebelumnya dari session
+        $finalData = array_merge($pendaftaranData, $data);
 
-        return redirect()->to('pengusul/tambahcalonkegiatan')->with('success', 'Identitas berhasil disimpan.');
+        // Simpan data ke database
+        if ($Model->insert($finalData)) {
+            // Hapus session setelah data disimpan
+            session()->remove('pendaftaran_data');
+
+            return redirect()->to('pengusul/usulansaya')->with('success', 'Identitas berhasil disimpan.');
+        } else {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data.');
+        }
     }
 
     public function tambahCalonKegiatan()
@@ -482,33 +490,99 @@ class PengusulController extends BaseController
             return redirect()->to('/pengusul/usulansaya')->with('error', 'Data tidak ditemukan.');
         }
 
-        // $temaKegiatan = [
-        //     'Keanekaragaman Hayati',
-        //     'Perubahan Iklim',
-        //     'Bangka Belitung',
-        //     'Pencemaran dan Kerusakan Lingkungan',
-        //     'Hukum dan Budaya'
-        // ];
-
-        $temaKegiatan = [
-            ['value' => 'Keanekaragaman Hayati', 'label' => 'Keanekaragaman Hayati'],
-            ['value' => 'Perubahan Iklim', 'label' => 'Perubahan Iklim'],
-            ['value' => 'Pencemaran dan Kerusakan Lingkungan', 'label' => 'Pencemaran dan Kerusakan Lingkungan'],
-            ['value' => 'Hukum dan Budaya', 'label' => 'Hukum dan Budaya']
-        ];
-
         // Ambil data dari semua tabel terkait menggunakan join
         $data = [
             'title' => 'Usulan Saya',
             'pendaftaran' => $pendaftaran,
-            'temaKegiatan' => $temaKegiatan
         ];
 
         return view('pengusul/detailusulansaya', $data);
     }
 
+    public function editUsulan($id)
+    {
+        $Model = new PendaftaranModel();
+        $pendaftaran = $Model->getDetailById($id);
 
+        // Validasi jika data ditemukan atau tidak
+        if (!$pendaftaran) {
+            return redirect()->to('/pengusul/usulansaya')->with('error', 'Data tidak ditemukan.');
+        }
 
+        $provinsi_list = [
+            'Aceh',
+            'Bali',
+            'Bangka Belitung',
+            'Banten',
+            'Bengkulu',
+            'DI Yogyakarta',
+            'DKI Jakarta',
+            'Gorontalo',
+            'Jambi',
+            'Jawa Barat',
+            'Jawa Tengah',
+            'Jawa Timur',
+            'Kalimantan Barat',
+            'Kalimantan Selatan',
+            'Kalimantan Tengah',
+            'Kalimantan Timur',
+            'Kalimantan Utara',
+            'Kepulauan Bangka Belitung',
+            'Kepulauan Riau',
+            'Lampung',
+            'Maluku',
+            'Maluku Utara',
+            'Nusa Tenggara Barat',
+            'Nusa Tenggara Timur',
+            'Papua',
+            'Papua Barat',
+            'Papua Barat Daya',
+            'Papua Pegunungan',
+            'Papua Selatan',
+            'Papua Tengah',
+            'Riau',
+            'Sulawesi Barat',
+            'Sulawesi Selatan',
+            'Sulawesi Tengah',
+            'Sulawesi Tenggara',
+            'Sulawesi Utara',
+            'Sumatera Barat',
+            'Sumatera Selatan',
+            'Sumatera Utara'
+        ];
+
+        $tema = [
+            'Keanekaragaman Hayati',
+            'Perubahan Iklim',
+            'Pencemaran dan Kerusakan Lingkungan',
+            'Hukum dan Budaya'
+        ];
+
+        $subtema = [
+            'Pelestarian keanekaragaman hayati dan kawasan dilindungi yang meliputi pelestarian sumber daya genetik, jenis, dan ekosistem',
+            'Pemanfaatan keanekaragaman hayati secara berkelanjutan',
+            'Jasa lingkungan',
+            'Adaptasi perubahan iklim',
+            'Mitigasi Perubahan Iklim',
+            'Penerapan ekonomi hijau dan ekonomi biru',
+            'Penanganan pencemaran air, tanah, udara dari industri, pertanian, domestic terutama plastik',
+            'Pencegahan dan penanggulangan kerusakan lingkungan',
+            'Ekonomi Sirkular',
+            'Keadilan terhadap pemanfaatan sumber daya alam dan lingkungan',
+            'Kearifan tradisional dalam pengelolaan sumber daya alam',
+            'Komunikasi dan pendidikan lingkungan hidup'
+        ];
+
+        // Ambil data dari semua tabel terkait menggunakan join
+        $data = [
+            'title' => 'Edit Usulan Saya',
+            'pendaftaran' => $pendaftaran,
+            'tema' => $tema,
+            'sub_tema' => $subtema,
+            'provinsi_list' => $provinsi_list
+        ];
+        return view('pengusul/detailusulansayaedit', $data);
+    }
     public function detailusulandlhk()
     {
         $data['title'] = 'Detail Usulan DLHK';
@@ -528,6 +602,8 @@ class PengusulController extends BaseController
 
     public function tambahArtikelAction()
     {
+        $model = new ArtikelModel();
+
         // Ambil input dari formulir
         $judulArtikel = $this->request->getPost('judul_artikel');
         $konten = $this->request->getPost('konten');
@@ -538,53 +614,62 @@ class PengusulController extends BaseController
         // Validasi input
         $validation = \Config\Services::validation();
         $validation->setRules([
-            'judul_artikel' => 'required|min_length[3]|max_length[255]',
+            'judul_artikel' => 'required|min_length[3]|max_length[255]|regex_match[/^[a-zA-Z0-9\s\-\_\.\,]+$/]', // Regex untuk karakter yang diperbolehkan
             'konten' => 'required',
             'foto' => 'uploaded[foto]|is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/gif,image/png]|max_size[foto,2048]',
         ]);
 
-        if (!$this->validate($validation->getRules())) { // Memperbaiki cara validasi
+        if (!$this->validate($validation->getRules())) {
             return $this->response->setJSON([
                 'success' => false,
                 'messages' => $validation->getErrors(),
             ]);
         }
 
-        // Menyimpan foto jika ada
-        // $fotoPath = '';
-        // if ($foto->isValid() && !$foto->hasMoved()) {
-        //     // Generate nama file unik
-        //     $fotoPath = 'uploads/artikel/' . uniqid() . '-' . $foto->getName();
-        //     // Pindahkan file ke folder tujuan
-        //     $foto->move('uploads/artikel', $fotoPath);
-        // }
-
         // Menangani upload file foto
+        $fotoPath = '';
         if ($foto && $foto->isValid() && !$foto->hasMoved()) {
-            // Memastikan tipe file adalah jpg/jpeg/png
-            if (in_array($foto->getClientMimeType(), ['image/jpeg', 'image/png'])) {
-                $fotoPath = $foto->store('artikel', $foto->getRandomName());
+            // Memastikan tipe file dan membuat nama file acak
+            $fotoName = $foto->getRandomName();
+
+            // Memindahkan file ke folder public/images/artikel
+            if ($foto->move('public/images/artikel', $fotoName)) {
+                // Jika berhasil, simpan path foto ke database
+                $fotoPath = 'images/artikel/' . $fotoName;
             } else {
-                return $this->response->setJSON(['success' => false, 'errors' => 'Invalid file type. Only JPG and PNG files are allowed']);
+                return $this->response->setJSON(['success' => false, 'errors' => 'Gagal menyimpan file foto.']);
             }
+        } else {
+            return $this->response->setJSON(['success' => false, 'errors' => 'File tidak valid atau belum diupload.']);
+        }
+
+        // Menghasilkan slug yang unik
+        $slug = url_title($judulArtikel, '-', true);
+        $existingArticle = $model->where('slug', $slug)->first(); // Cek apakah slug sudah ada
+        if ($existingArticle) {
+            return $this->response->setJSON(['success' => false, 'errors' => 'Judul sudah digunakan.']);
         }
 
         // Simpan data artikel ke dalam database
-        $model = new ArtikelModel();
         $dataArtikel = [
-            'id_pengusul' => session()->get('id_pengusul'), // Ambil id_pengusul dari session
-            'judul_artikel' => $judulArtikel,
-            'konten' => $konten,
+            'id_pengusul' => session()->get('id_pengusul'),
+            'judul' => htmlspecialchars($judulArtikel, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+            'slug' => $slug,
+            'konten' => htmlspecialchars($konten, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
             'foto' => $fotoPath,
+            'tanggal' => date('Y-m-d H:i:s'),
         ];
 
         // Simpan artikel
         if ($model->insert($dataArtikel)) {
             return $this->response->setJSON(['success' => true, 'message' => 'Artikel berhasil ditambahkan.']);
         } else {
+            // Tampilkan pesan umum untuk kesalahan penyimpanan
             return $this->response->setJSON(['success' => false, 'message' => 'Gagal menambahkan artikel.']);
         }
     }
+
+
 
     public function artikelsaya()
     {
@@ -601,10 +686,33 @@ class PengusulController extends BaseController
         return view('pengusul/artikelsaya', $data);
     }
 
-    public function detailartikelsaya()
+    public function detailartikel($slug)
     {
-        $data['title'] = 'Detail Artikel Saya';
-        return view('pengusul/detailartikelsaya', ['title' => 'Detail Artikel Saya']);
+        $Model = new ArtikelModel();
+        $artikel = $Model->where('slug', $slug)->first(); // Ambil artikel berdasarkan slug
+
+        if (!$artikel) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        // Ambil ID pengguna yang sedang login (baik admin maupun pengusul)
+        $id_pengusul = session()->get('id_pengusul');
+        $id_admin = session()->get('id_admin'); // Asumsi admin juga disimpan dalam session
+
+        // Jika artikel masih ditangguhkan
+        if ($artikel['status'] == 'Ditangguhkan') {
+            // Cek apakah yang mengakses adalah admin atau pembuat artikel
+            if (!$id_admin && $artikel['id_pengusul'] != $id_pengusul) {
+                // Jika bukan admin atau pembuat artikel, tampilkan 404
+                throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+            }
+        }
+
+        $data = [
+            'title' => 'Detail Artikel Saya',
+            'artikel' => $artikel,
+        ];
+        return view('pengusul/detailartikelsaya', $data);
     }
 
     public function pemberitahuan()
@@ -640,5 +748,92 @@ class PengusulController extends BaseController
 
         // Jika profil sudah lengkap, lanjutkan ke halaman lainnya
         return view('pengusul/halaman_lainnya');
+    }
+
+    public function generatePDF($kode_registrasi)
+    {
+        $id_pengusul = session()->get('id_pengusul');
+
+        if (!$id_pengusul) {
+            return redirect()->back()->with('error', 'Error');
+        }
+
+        $pendaftaranModel = new PendaftaranModel();
+        $pengusulModel = new PengusulModel();
+
+        $pendaftaranData = $pendaftaranModel->where('kode_registrasi', $kode_registrasi)->first();
+
+        if (!$pendaftaranData || $pendaftaranData['id_pengusul'] != $id_pengusul) {
+            return redirect()->back()->with('error', 'Error');
+        }
+
+        $pengusulData = $pengusulModel->where('id_pengusul', $id_pengusul)->first();
+
+        $kegiatan = $pendaftaranModel->getKegiatanByPendaftaranId($pendaftaranData['id_pendaftaran']);
+        $pendaftaranData['kegiatan'] = $kegiatan;
+
+        $dampak = $pendaftaranModel->db->table('dampak')->where('id_pendaftaran', $pendaftaranData['id_pendaftaran'])->get()->getRowArray();
+        $pmik = $pendaftaranModel->db->table('pmik')->where('id_pendaftaran', $pendaftaranData['id_pendaftaran'])->get()->getRowArray();
+        $keswadayaan = $pendaftaranModel->db->table('keswadayaan')->where('id_pendaftaran', $pendaftaranData['id_pendaftaran'])->get()->getRowArray();
+        $keistimewaan = $pendaftaranModel->db->table('keistimewaan')->where('id_pendaftaran', $pendaftaranData['id_pendaftaran'])->get()->getRowArray();
+
+        $data = [
+            'pendaftaran' => array_merge($pendaftaranData, [
+                'dampak_lingkungan' => $dampak['dampak_lingkungan'] ?? '',
+                'dampak_ekonomi' => $dampak['dampak_ekonomi'] ?? '',
+                'dampak_sosial_budaya' => $dampak['dampak_sosial_budaya'] ?? '',
+                'prakarsa' => $pmik['prakarsa'] ?? '',
+                'motivasi' => $pmik['motivasi'] ?? '',
+                'inovasi' => $pmik['inovasi'] ?? '',
+                'krativitas' => $pmik['krativitas'] ?? '',
+                'sumber_biaya' => $keswadayaan['sumber_biaya'] ?? '',
+                'teknologi_kegiatan' => $keswadayaan['teknologi_kegiatan'] ?? '',
+                'status_lahan_kegiatan' => $keswadayaan['status_lahan_kegiatan'] ?? '',
+                'jumlah_kelompok_serupa' => $keswadayaan['jumlah_kelompok_serupa'] ?? '',
+                'keistimewaan' => $keistimewaan['keistimewaan'] ?? '',
+                'penghargaan' => $keistimewaan['penghargaan'] ?? ''
+            ]),
+            'pengusul' => $pengusulData,
+            'kegiatan' => $kegiatan
+        ];
+
+        $kategori = $pendaftaranData['kategori'];
+        switch ($kategori) {
+            case 'Perintis Lingkungan':
+                $prefix = 'A';
+                break;
+            case 'Pengabdi Lingkungan':
+                $prefix = 'B';
+                break;
+            case 'Penyelamat Lingkungan':
+                $prefix = 'C';
+                break;
+            case 'Pembina Lingkungan':
+                $prefix = 'D';
+                break;
+            default:
+                $prefix = 'X';
+        }
+
+        session()->set('prefix', $prefix);
+
+        $html = view('pengusul/pdf', $data);
+
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isRemoteEnabled', true);
+        $options->set('defaultPaperSize', 'A4');
+        $options->set('defaultPaperOrientation', 'portrait');
+        $options->set('dpi', 150);
+        $options->set('enable_php', false);
+        $options->set('enable_javascript', true);
+        $options->set('enable_html5_parser', true);
+
+        $dompdf = new Dompdf($options);
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        $dompdf->stream('laporan_calon_usulan.pdf', ['Attachment' => false]);
     }
 }

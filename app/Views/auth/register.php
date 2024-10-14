@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/app.css">
     <title><?= $title; ?></title>
-    <link rel="stylesheet" href="../css/app.css">
     <style>
         body {
             overflow-y: auto;
@@ -75,7 +75,7 @@
                 class="w-full h-full object-cover fade-in-right">
         </div>
 
-        <div class="flex-1 flex items-center justify-center bg-white overflow-y-auto h-screen sm:h-auto mt-8">
+        <div class="flex-1 flex items-center justify-center bg-white h-screen sm:h-auto">
             <div class="w-full max-w-md p-6 fade-in-left">
                 <h2 class="text-2xl font-bold text-gray-900 mb-4">Daftar</h2>
                 <form action="/auth/register" method="post" onsubmit="validateForm(event)" class="flex flex-col" enctype="multipart/form-data">
@@ -225,8 +225,8 @@
             const provinsi = document.getElementById('provinsi').value;
             const telepon = document.getElementById('telepon').value;
             const email = document.getElementById('email').value;
-            const kata_sandi = passwordInput.value;
-            const passwordCheck = passwordCheckInput.value;
+            const kata_sandi = document.getElementById('kata_sandi').value;
+            const passwordCheck = document.getElementById('passwordcheck').value;
             const surat_pengantar = document.getElementById('surat_pengantar').files[0];
 
             let isValid = true;
@@ -310,19 +310,23 @@
 
                 fetch(form.action, {
                         method: form.method,
-                        body: formData,
+                        body: formData
                     })
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
                             document.getElementById('successPopup').classList.remove('toasthidden');
                         } else {
-                            showToast(data.errors);
+                            let errorMessage = '';
+                            for (const [key, value] of Object.entries(data.errors)) {
+                                errorMessage += `${value}\n`; // Menggabungkan pesan kesalahan
+                            }
+                            alert(errorMessage); // Menampilkan semua kesalahan
                         }
                     })
                     .catch(error => {
                         console.error('Error:', error);
-                        showToast('Terjadi kesalahan. Silakan coba lagi');
+                        alert('Terjadi kesalahan. Silakan coba lagi.');
                     });
             }
         }

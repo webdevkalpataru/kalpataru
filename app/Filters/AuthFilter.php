@@ -19,7 +19,7 @@ class AuthFilter implements FilterInterface
                     ->setStatusCode(401);
             } else {
                 // Arahkan ke halaman login jika bukan AJAX request
-                return redirect()->to('/auth/login');
+                return redirect()->to('/');
             }
         }
     }
