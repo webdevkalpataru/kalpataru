@@ -778,23 +778,13 @@ class PengusulController extends BaseController
         $keistimewaan = $pendaftaranModel->db->table('keistimewaan')->where('id_pendaftaran', $pendaftaranData['id_pendaftaran'])->get()->getRowArray();
 
         $data = [
-            'pendaftaran' => array_merge($pendaftaranData, [
-                'dampak_lingkungan' => $dampak['dampak_lingkungan'] ?? '',
-                'dampak_ekonomi' => $dampak['dampak_ekonomi'] ?? '',
-                'dampak_sosial_budaya' => $dampak['dampak_sosial_budaya'] ?? '',
-                'prakarsa' => $pmik['prakarsa'] ?? '',
-                'motivasi' => $pmik['motivasi'] ?? '',
-                'inovasi' => $pmik['inovasi'] ?? '',
-                'krativitas' => $pmik['krativitas'] ?? '',
-                'sumber_biaya' => $keswadayaan['sumber_biaya'] ?? '',
-                'teknologi_kegiatan' => $keswadayaan['teknologi_kegiatan'] ?? '',
-                'status_lahan_kegiatan' => $keswadayaan['status_lahan_kegiatan'] ?? '',
-                'jumlah_kelompok_serupa' => $keswadayaan['jumlah_kelompok_serupa'] ?? '',
-                'keistimewaan' => $keistimewaan['keistimewaan'] ?? '',
-                'penghargaan' => $keistimewaan['penghargaan'] ?? ''
-            ]),
+            'pendaftaran' => $pendaftaranData, 
             'pengusul' => $pengusulData,
-            'kegiatan' => $kegiatan
+            'kegiatan' => $kegiatan,
+            'dampak' => $dampak,
+            'pmik' => $pmik,
+            'keswadayaan' => $keswadayaan,
+            'keistimewaan' => $keistimewaan
         ];
 
         $kategori = $pendaftaranData['kategori'];

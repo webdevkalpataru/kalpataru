@@ -1,19 +1,19 @@
 <?php 
 $prefix = session()->get('prefix'); 
 $kegiatan = $kegiatan ?? [];
-$dampak_lingkungan = $dampak_lingkungan ?? '';
-$dampak_ekonomi = $dampak_ekonomi ?? '';
-$dampak_sosial_budaya = $dampak_sosial_budaya ?? '';
-$prakarsa = $prakarsa ?? '';
-$motivasi = $motivasi ?? '';
-$inovasi = $inovasi ?? '';
-$krativitas = $krativitas ?? '';
-$sumber_biaya = $sumber_biaya ?? '';
-$teknologi_kegiatan = $teknologi_kegiatan ?? '';
-$status_lahan_kegiatan = $status_lahan_kegiatan ?? '';
-$jumlah_kelompok_serupa = $jumlah_kelompok_serupa ?? '';
-$keistimewaan = $keistimewaan ?? '';
-$penghargaan = $penghargaan ?? '';
+$dampak['dampak_lingkungan'] = $dampak['dampak_lingkungan'] ?? '';
+$dampak['dampak_ekonomi'] = $dampak['dampak_ekonomi'] ?? '';
+$dampak['dampak_sosial_budaya'] = $dampak['dampak_sosial_budaya'] ?? '';
+$pmik['prakarsa'] = $pmik['prakarsa'] ?? '';
+$pmik['motivasi'] = $pmik['motivasi'] ?? '';
+$pmik['inovasi'] = $pmik['inovasi'] ?? '';
+$pmik['krativitas'] = $pmik['krativitas'] ?? '';
+$keswadayaan['sumber_biaya'] = $keswadayaan['sumber_biaya'] ?? '';
+$keswadayaan['teknologi_kegiatan'] = $keswadayaan['teknologi_kegiatan'] ?? '';
+$keswadayaan['status_lahan_kegiatan'] = $keswadayaan['status_lahan_kegiatan'] ?? '';
+$keswadayaan['jumlah_kelompok_serupa'] = $keswadayaan['jumlah_kelompok_serupa'] ?? '';
+$keistimewaan['keistimewaan'] = $keistimewaan['keistimewaan'] ?? '';
+$keistimewaan['penghargaan'] = $keistimewaan['penghargaan'] ?? '';
 
 $temaMapping = [
     'keanekaragaman-hayati' => 'Keanekaragaman Hayati',
@@ -128,7 +128,7 @@ $subTemaMapping = [
 
         <tr><td class="label" style="border-right:none;">Alamat :</td><td class="separator" style="border-left: none; border-right:none;"></td><td class="input" style="border-left: none;"></td></tr>
         <tr><td class="label indented">Jalan</td><td class="separator">:</td><td class="input"><?= $pendaftaran['jalan']; ?></td></tr>
-        <tr><td class="label indented">RT/RW</td><td class="separator">:</td><td class="input"<?= $pendaftaran['rt_rw']; ?></td></tr>
+        <tr><td class="label indented">RT/RW</td><td class="separator">:</td><td class="input"><?= $pendaftaran['rt_rw']; ?></td></tr>
         <tr><td class="label indented">Desa/Kelurahan</td><td class="separator">:</td><td class="input"><?= $pendaftaran['desa']; ?></td></tr>
         <tr><td class="label indented">Kecamatan</td><td class="separator">:</td><td class="input"><?= $pendaftaran['kecamatan']; ?></td></tr>
         <tr><td class="label indented">Kabupaten/Kota</td><td class="separator">:</td><td class="input"><?= $pendaftaran['kab_kota']; ?></td></tr>
@@ -185,31 +185,31 @@ $subTemaMapping = [
 
     <p class="heading">D. DAMPAK KEGIATAN</p>
     <table>
-        <tr><td class="label">Dampak kegiatan terhadap lingkungan</td><td class="separator">:</td><td class="input"><?= $dampak_lingkungan; ?></td></tr>
-        <tr><td class="label">Dampak Ekonomi</td><td class="separator">:</td><td class="input"><?= $dampak_ekonomi; ?></td></tr>
-        <tr><td class="label">Dampak Sosial dan Budaya</td><td class="separator">:</td><td class="input"><?= $dampak_sosial_budaya; ?></td></tr>
+        <tr><td class="label">Dampak kegiatan terhadap lingkungan</td><td class="separator">:</td><td class="input"><?=$dampak['dampak_lingkungan']; ?></td></tr>
+        <tr><td class="label">Dampak Ekonomi</td><td class="separator">:</td><td class="input"><?=$dampak['dampak_ekonomi']; ?></td></tr>
+        <tr><td class="label">Dampak Sosial dan Budaya</td><td class="separator">:</td><td class="input"><?=$dampak['dampak_sosial_budaya']; ?></td></tr>
     </table>
 
     <p class="heading">E. PRAKARSA, MOTIVASI, INOVASI DAN KREATIFITAS (PMIK)</p>
     <table>
-        <tr><td class="label">Prakarsa</td><td class="separator">:</td><td class="input"><?= $prakarsa; ?></td></tr>
-        <tr><td class="label">Motivasi</td><td class="separator">:</td><td class="input"><?= $motivasi; ?></td></tr>
-        <tr><td class="label">Inovasi</td><td class="separator">:</td><td class="input"></td><?= $inovasi; ?></tr>
-        <tr><td class="label">Kreatifitas</td><td class="separator">:</td><td class="input"></td><?= $krativitas; ?></tr>
+        <tr><td class="label">Prakarsa</td><td class="separator">:</td><td class="input"><?= $pmik['prakarsa']; ?></td></tr>
+        <tr><td class="label">Motivasi</td><td class="separator">:</td><td class="input"><?= $pmik['motivasi']; ?></td></tr>
+        <tr><td class="label">Inovasi</td><td class="separator">:</td><td class="input"><?= $pmik['inovasi']; ?></td></tr>
+        <tr><td class="label">Kreatifitas</td><td class="separator">:</td><td class="input"><?= $pmik['krativitas']; ?></td></tr>
     </table>
 
     <p class="heading">F. KESWADAYAAN DAN KEBERLANJUTAN</p>
     <table>
-        <tr><td class="label">Sumber Pembiayaan Kegiatan</td><td class="separator">:</td><td class="input"><?= $sumber_biaya; ?></td></tr>
-        <tr><td class="label">Teknologi/Alat/Fasilitas yang digunakan</td><td class="separator">:</td><td class="input"><?= $teknologi_kegiatan; ?></td></tr>
-        <tr><td class="label">Status Lahan/Areal Kegiatan</td><td class="separator">:</td><td class="input"><?= $status_lahan_kegiatan; ?></td></tr>
-        <tr><td class="label">Kelompok/Perorangan yang meniru</td><td class="separator">:</td><td class="input"><?= $jumlah_kelompok_serupa; ?></td></tr>
+        <tr><td class="label">Sumber Pembiayaan Kegiatan</td><td class="separator">:</td><td class="input"><?= $keswadayaan['sumber_biaya']; ?></td></tr>
+        <tr><td class="label">Teknologi/Alat/Fasilitas yang digunakan</td><td class="separator">:</td><td class="input"><?= $keswadayaan['teknologi_kegiatan']; ?></td></tr>
+        <tr><td class="label">Status Lahan/Areal Kegiatan</td><td class="separator">:</td><td class="input"><?= $keswadayaan['status_lahan_kegiatan']; ?></td></tr>
+        <tr><td class="label">Kelompok/Perorangan yang meniru</td><td class="separator">:</td><td class="input"><?= $keswadayaan['jumlah_kelompok_serupa']; ?></td></tr>
     </table>
 
     <p class="heading">G. KEISTIMEWAAN CALON</p>
     <table>
-        <tr><td class="label">Keistimewaan Calon</td><td class="separator">:</td><td class="input"><?= $keistimewaan; ?></td></tr>
-        <tr><td class="label">Penghargaan Relevan yang diterima Calon</td><td class="separator">:</td><td class="input"><?= $penghargaan; ?></td></tr>
+        <tr><td class="label">Keistimewaan Calon</td><td class="separator">:</td><td class="input"><?= $keistimewaan['keistimewaan']; ?></td></tr>
+        <tr><td class="label">Penghargaan Relevan yang diterima Calon</td><td class="separator">:</td><td class="input"><?= $keistimewaan['penghargaan']; ?></td></tr>
     </table>
 
 </body>
