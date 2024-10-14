@@ -100,6 +100,9 @@ $routes->group('admin', function ($routes) {
     $routes->get('artikeladmin', 'AdminController::artikeladmin');
     $routes->get('artikelpengguna', 'AdminController::artikelpengguna');
     $routes->get('akundlhk', 'AdminController::akundlhk');
+    $routes->get('akuntimteknis', 'AdminController::akuntimteknis');
+    $routes->get('tambahartikeladmin', 'AdminController::tambahartikeladmin');
+    $routes->get('beritaadmin', 'AdminController::beritaadmin');
     
 
 });

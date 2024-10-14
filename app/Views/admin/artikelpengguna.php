@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./css/app.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <title><?= $title; ?></title>
 </head>
 
@@ -51,6 +52,25 @@
                     Lokasi: Desa Salenrang, Kabupaten Maros, Sulawesi Selatan
                 </p>
             </div>
+            <div class="flex space-x-4">
+    <div class="mt-4">
+        <button id="tambahArtikel" class="w-48 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button"> 
+            <i class="fas fa-plus"></i> Terbitkan Artikel
+        </button>
+    </div>
+    <a>
+    <div class="mt-4">
+        <button id="editartikel" class="w-48 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button"> 
+            <i class="fas fa-edit"></i> Edit Artikel
+        </button>
+    </div>
+    </a>
+    <div class="mt-4">
+        <button id="tolakartikel" class="w-48 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-rejected hover:bg-rejectedhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button"> 
+            <i class="fas fa-times"></i> Tolak Artikel
+        </button>
+    </div>
+</div>
         </div> 
 </body>
 </html>      

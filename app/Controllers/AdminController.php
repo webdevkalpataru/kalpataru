@@ -33,4 +33,22 @@ class AdminController extends BaseController
         $data['title'] = "Akun DLHK";
         return view('admin/akundlhk', ['title' => 'Akun DLHK']);
     }
+
+    public function akuntimteknis()
+    {
+        $data['title'] = "Akun Tim Teknis";
+        return view('admin/akuntimteknis', ['title' => 'Akun Tim Teknis']);
+    }
+
+    public function tambahartikeladmin()
+    {
+        $data['title'] = "Tambah Artikel Admin";
+        return view('admin/tambahartikeladmin', ['title' => 'Tambah Artikel Admin']);
+    }
+
+    public function beritaadmin()
+    {
+        $data['title'] = "Berita Admin";
+        return view('admin/beritaadmin', ['title' => 'Berita Admin']);
+    }
 }
