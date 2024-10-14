@@ -2,7 +2,8 @@
 
 namespace App\Controllers;
 
-use App\Models\PengusulModel; // Pastikan model user sudah ada
+use App\Models\AdminModel;
+use App\Models\PengusulModel;
 
 class AuthController extends BaseController
 {
@@ -67,9 +68,6 @@ class AuthController extends BaseController
     {
         session()->destroy();
         return redirect()->to('/auth/login');
-
-        // Arahkan pengguna kembali ke halaman login
-        return redirect()->to('auth/login');
     }
 
     public function register()
@@ -186,7 +184,79 @@ class AuthController extends BaseController
     public function registerinternal()
     {
         $data['title'] = "Daftar Akun Internal";
-        return view('auth/registerinternal', ['title' => 'Register Internal']);
+        return view('auth/registerinternal', $data);
     }
 
+    public function createRegisterInternal()
+    {
+        // Load validation service
+        $validation = \Config\Services::validation();
+
+        // Aturan validasi untuk form pendaftaran admin
+        $validation->setRules([
+            'nip' => [
+                'label' => 'NIP',
+                'rules' => 'required|numeric|min_length[8]|is_unique[admin.nip]'
+            ],
+            'nama' => [
+                'label' => 'Nama',
+                'rules' => 'required|alpha_space'
+            ],
+            'no_sk' => [
+                'label' => 'Nomor SK',
+                'rules' => 'required'
+            ],
+            'email' => [
+                'label' => 'Email',
+                'rules' => 'required|valid_email|is_unique[admin.email]'
+            ],
+            'kata_sandi' => [
+                'label' => 'Kata Sandi',
+                'rules' => 'required|min_length[8]|regex_match[/[a-z]/]|regex_match[/[A-Z]/]|regex_match[/[!@#$%^&*_-]/]'
+            ],
+            'passwordcheck' => [
+                'label' => 'Konfirmasi Kata Sandi',
+                'rules' => 'required|matches[kata_sandi]'
+            ]
+        ]);
+
+        // Lakukan validasi input
+        if (!$this->validate($validation->getRules())) {
+            return $this->response->setJSON([
+                'success' => false,
+                'errors' => $validation->getErrors()
+            ]);
+        }
+
+        // Ambil data input dari form
+        $email = $this->request->getPost('email');
+        $nip = $this->request->getPost('nip');
+        $nama = $this->request->getPost('nama');
+        $no_sk = $this->request->getPost('no_sk');
+        $kata_sandi = password_hash($this->request->getPost('kata_sandi'), PASSWORD_DEFAULT);
+
+        // Data yang akan dimasukkan ke database
+        $data = [
+            'nip' => $nip,
+            'nama' => $nama,
+            'no_sk' => $no_sk,
+            'email' => $email,
+            'kata_sandi' => $kata_sandi
+        ];
+
+        // Simpan data ke database menggunakan AdminModel
+        $model = new AdminModel();
+
+        if ($model->insert($data)) {
+            // Jika pendaftaran berhasil
+            return $this->response->setJSON(['success' => true]);
+        } else {
+            // Jika ada kesalahan saat menyimpan ke database
+            log_message('error', 'Pendaftaran admin gagal: ' . json_encode($model->errors()));
+            return $this->response->setJSON([
+                'success' => false,
+                'errors' => 'Terjadi kesalahan saat menyimpan data. Silakan coba lagi.'
+            ]);
+        }
+    }
 }
