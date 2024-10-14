@@ -38,7 +38,7 @@
             </div>
 
             <!-- Form untuk Kategori -->
-            <form id="kategoriForm" method="POST" action="/pendaftaran/tambahcalon">
+            <form id="kategoriForm" method="POST" action="/pengusul/tambahcalon">
                 <input type="hidden" name="id_pengusul" value="<?= $id_pengusul ?>">
                 <input type="hidden" id="kategoriInput" name="kategori" value="">
 

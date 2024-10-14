@@ -50,31 +50,14 @@ $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
     $routes->get('tambahcalonidentitas', 'PengusulController::tambahCalonIdentitas');
     $routes->post('simpancalonidentitas', 'PengusulController::simpanCalonIdentitas'); // Handle the form submission
 
-    // Route for "Tambah Calon" step 3 (Kegiatan)
-    $routes->get('tambahcalonkegiatan', 'PengusulController::tambahCalonKegiatan');
-    $routes->post('simpancalonkegiatan', 'PengusulController::simpanCalonKegiatan');
+    $routes->post('simpanForm/(:any)', 'PengusulController::simpanForm/$1');
+    $routes->get('detailusulansaya/(:num)', 'PengusulController::detailusulansaya/$1');
+    $routes->get('detailusulansayaedit/(:num)', 'PengusulController::detailUsulanSayaEdit/$1');
 
-    // Route for "Tambah Calon" step 4 (Dampak)
-    $routes->get('tambahcalondampak', 'PengusulController::tambahCalonDampak');
-    $routes->post('simpancalondampak', 'PengusulController::simpanCalonDampak');
-
-    // Route for "Tambah Calon" step 5 (PMIK)
-    $routes->get('tambahcalonpmik', 'PengusulController::tambahcalonpmik');
-    $routes->post('simpancalonpmik', 'PengusulController::simpanCalonPmik');
-
-    // Route for "Tambah Calon" step 6 (Keswadayaan)
-    $routes->get('tambahcalonkeswadayaan', 'PengusulController::tambahcalonkeswadayaan');
-    $routes->post('simpancalonkeswadayaan', 'PengusulController::simpanCalonKeswadayaan');
-
-    // Route for "Tambah Calon" step 7 (Keistimewaan)
-    $routes->get('tambahcalonkeistimewaan', 'PengusulController::tambahcalonkeistimewaan');
-    $routes->post('simpancalonkeistimewaan', 'PengusulController::simpanCalonKeistimewaan');
 
     // Routes usulan saya
     $routes->get('usulansaya', 'PengusulController::usulansaya');
     $routes->get('usulandlhk', 'PengusulController::usulandlhk');
-    $routes->get('detailusulansaya/(:num)', 'PengusulController::detailusulansaya/$1');
-    $routes->get('detailusulansayaedit/(:num)', 'PengusulController::editUsulan/$1');
     $routes->get('detailusulandlhk', 'PengusulController::detailusulandlhk');
 
     // Routes artikel
