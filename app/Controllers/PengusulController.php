@@ -304,7 +304,7 @@ class PengusulController extends BaseController
         $id_pendaftaran = session()->get('id_pendaftaran');
 
         if (!$id_pendaftaran) {
-            return redirect()->back()->with('error', 'ID pendaftaran tidak ditemukan di session.');
+            die('ID pendaftaran tidak ditemukan di session.');
         }
 
         switch ($formType) {
@@ -407,24 +407,26 @@ class PengusulController extends BaseController
                 return redirect()->back()->with('error', 'Form tidak ditemukan.');
         }
 
-        return redirect()->to('pengusul/detailusulan')->with('success', 'Data berhasil disimpan.');
+        return redirect()->to('pengusul/detailusulansayaedit/' . $id_pendaftaran)->with('success', ucfirst($formType) . ' berhasil disimpan.');
     }
 
 
-    public function detailUsulanSayaEdit($id)
+    public function detailUsulanSayaEdit($id_pendaftaran)
     {
         $model = new PendaftaranModel();
-        $pendaftaran = $model->getPendaftaranById($id);
+        $pendaftaran = $model->getPendaftaranById($id_pendaftaran);
 
-        $kegiatan = $model->getKegiatanByIdPendaftaran($id);
-        $dampak = $model->getDampakByIdPendaftaran($id);
-        $pmik = $model->getPMIKByIdPendaftaran($id);
-        $keswadayaan = $model->getKeswadayaanByIdPendaftaran($id);
-        $keistimewaan = $model->getKeistimewaanByIdPendaftaran($id);
+        $kegiatan = $model->getKegiatanByIdPendaftaran($id_pendaftaran);
+        $dampak = $model->getDampakByIdPendaftaran($id_pendaftaran);
+        $pmik = $model->getPMIKByIdPendaftaran($id_pendaftaran);
+        $keswadayaan = $model->getKeswadayaanByIdPendaftaran($id_pendaftaran);
+        $keistimewaan = $model->getKeistimewaanByIdPendaftaran($id_pendaftaran);
 
         if (!$pendaftaran) {
             return redirect()->to('pengusul/usulansaya')->with('error', 'Data tidak ditemukan.');
         }
+
+        session()->set('id_pendaftaran', $id_pendaftaran);
 
         $data = [
             'pendaftaran' => $pendaftaran,
