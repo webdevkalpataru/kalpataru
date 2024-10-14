@@ -26,7 +26,8 @@ class PengusulModel extends Model
         'kab_kota',
         'provinsi',
         'kode_pos',
-        'surat_pengantar'
+        'surat_pengantar',
+        'tambah_usulan'
     ];
 
     public function getUserByEmail($email)

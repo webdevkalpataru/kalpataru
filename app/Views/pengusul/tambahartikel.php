@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/app.css">
     <title><?= $title; ?></title>
 </head>
 
@@ -14,35 +13,39 @@
 
     <?= $this->section('content') ?>
 
-    <div class="flex flex-col lg:flex-row justify-end m-4">
+    <div class="flex flex-col lg:flex-row justify-center m-4">
         <?= $this->include('template/sidebarpengusul') ?>
 
         <!-- Konten utama -->
-        <div class="relative flex flex-col w-full max-w-2xl mx-auto mb-4 rounded-xl border-2 border-primary bg-white shadow-md lg:p-8 p-4">
+        <div class="relative flex flex-col w-full max-w-5xl mb-4 rounded-xl border-2 border-primary bg-white shadow-md lg:p-8 p-4">
             <h4 class="block text-xl font-bold text-slate-800 mb-2">
                 Tambah Artikel
             </h4>
-            <form id="isiArtikelForm" class="mt-4 mb-2 w-full">
+            <form id="isiArtikelForm" class="mt-4 mb-2 w-full" action="/pengusul/tambahartikel" method="POST" enctype="multipart/form-data">
                 <div class="grid grid-cols-1 gap-4" id="formContainer">
+
                     <div>
                         <label class="block mb-2 text-sm text-black">Judul Artikel</label>
-                        <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                        <input required type="text" name="judul_artikel" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                        <div class="text-red-500" id="judulError"></div> <!-- Menampilkan pesan kesalahan -->
                     </div>
                     <div>
                         <label class="block mb-2 text-sm text-black">Isi Artikel</label>
-                        <textarea id="artikel" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
+                        <textarea required id="artikel" name="konten" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
                             oninput="updateWordCount(this, 'artikelCount', 1000)"></textarea>
                         <p id="artikelCount" class="text-xs text-slate-400 flex justify-end">0/1000 Kata</p>
+                        <div class="text-red-500" id="kontenError"></div> <!-- Menampilkan pesan kesalahan -->
                     </div>
                     <div>
                         <label class="block mb-2 text-sm text-black">Unggah Foto Artikel <span class="text-primary">(.jpg/jpeg)</span></label>
-                        <input id="fotoArtikel" type="file" accept="application/jpg,application/jpeg"
+                        <input required id="fotoArtikel" name="foto" type="file" accept="image/*"
                             class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
+                        <div class="text-red-500" id="fotoError"></div> <!-- Menampilkan pesan kesalahan -->
                     </div>
                 </div>
 
                 <div class="flex justify-end mt-4">
-                    <button id="uploadBtn" class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Unggah</button>
+                    <button id="" class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="submit">Unggah</button>
                 </div>
             </form>
         </div>
@@ -77,12 +80,34 @@
         }
 
         // Modal functionality
-        const uploadBtn = document.getElementById('uploadBtn');
+        const form = document.getElementById('isiArtikelForm');
         const uploadModal = document.getElementById('uploadModal');
         const closeModalBtn = document.getElementById('closeModalBtn');
 
-        uploadBtn.addEventListener('click', () => {
-            uploadModal.classList.remove('hidden');
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault(); // Mencegah submit default
+
+            // Clear previous error messages
+            document.getElementById('judulError').textContent = '';
+            document.getElementById('kontenError').textContent = '';
+            document.getElementById('fotoError').textContent = '';
+
+            const formData = new FormData(form);
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                uploadModal.classList.remove('hidden'); // Tampilkan modal jika sukses
+            } else {
+                // Menampilkan pesan error di sini
+                for (const [field, message] of Object.entries(result.messages)) {
+                    document.getElementById(`${field}Error`).textContent = message.join(', '); // Menggabungkan pesan error
+                }
+            }
         });
 
         closeModalBtn.addEventListener('click', () => {

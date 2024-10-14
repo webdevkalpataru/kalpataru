@@ -4,23 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/app.css">
     <title><?= $title; ?></title>
 </head>
 
 <body>
-
     <?= $this->extend('template/navbarfooter') ?>
 
     <?= $this->section('content') ?>
 
-    <div class="flex flex-col lg:flex-row justify-end m-4">
+    <div class="flex flex-col lg:flex-row justify-center m-4">
         <?= $this->include('template/sidebarpengusul') ?>
 
-        <div class="relative flex flex-col w-full max-w-2xl mx-auto mb-4 rounded-xl border-2 border-primary bg-white shadow-md lg:p-8 p-4">
+        <div class="relative flex flex-col w-full max-w-5xl mb-4 rounded-xl border-2 border-primary bg-white shadow-md lg:p-8 p-4">
             <h4 class="block text-xl font-bold text-slate-800 mb-2">
                 Artikel Saya
             </h4>
+            <div class="flex justify-start mt-2">
+                <a href="./tambahartikel">
+                    <button id="tambahartikel" class="w-48 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button"> <span>&#10010</span> Tambah Artikel Baru</button>
+                </a>
+            </div>
             <div class="relative flex flex-col w-full h-full mt-8 overflow-hidden text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
                 <div class="overflow-x-auto">
                     <table class="w-full text-left table-auto min-w-max">
@@ -28,12 +31,11 @@
                             <tr>
                                 <th class="p-4 border-b border-accent2 bg-accent1 text-center">
                                     <p class="block text-xs md:text-sm font-bold leading-none text-accent2">
-                                        Judul Artikel
-                                    </p>
+                                        No </p>
                                 </th>
                                 <th class="p-4 border-b border-accent2 bg-accent1 text-center">
                                     <p class="block text-xs md:text-sm font-bold leading-none text-accent2">
-                                        Isi Artikel
+                                        Judul Artikel
                                     </p>
                                 </th>
                                 <th class="p-4 border-b border-accent2 bg-accent1 text-center">
@@ -41,94 +43,24 @@
                                         Status
                                     </p>
                                 </th>
+                                <th class="p-4 border-b border-accent2 bg-accent1 text-center">
+                                    <p class="block text-xs md:text-sm font-bold leading-none text-accent2">
+                                        Aksi
+                                    </p>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="hover:bg-slate-50">
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Surga Tersembunyi di Maros
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <a href="./detailartikelsaya">
-                                        <button class="w-24 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat Rincian</button>
-                                    </a>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs font-bold text-accepted">
-                                        Terbit
-                                    </p>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-slate-50">
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Surga Tersembunyi di Maros
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <a href="./detailartikelsaya">
-                                        <button class="w-24 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat Rincian</button>
-                                    </a>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs font-bold text-rejected">
-                                        Belum Terbit
-                                    </p>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-slate-50">
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Surga Tersembunyi di Maros
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <a href="./detailartikelsaya">
-                                        <button class="w-24 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat Rincian</button>
-                                    </a>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs font-bold text-rejected">
-                                        Belum Terbit
-                                    </p>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-slate-50">
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Surga Tersembunyi di Maros
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <a href="./detailartikelsaya">
-                                        <button class="w-24 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat Rincian</button>
-                                    </a>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs font-bold text-accepted">
-                                        Terbit
-                                    </p>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-slate-50">
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">
-                                        Surga Tersembunyi di Maros
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <a href="./detailartikelsaya">
-                                        <button class="w-24 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lihat Rincian</button>
-                                    </a>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs font-bold text-accepted">
-                                        Terbit
-                                    </p>
-                                </td>
-                            </tr>
+                            <?php foreach ($artikels as $index => $artikel): ?>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-4 border-b border-slate-200 text-center"><?= $index + 1 ?></td>
+                                    <td class="p-4 border-b border-slate-200 text-center"><?= esc($artikel['judul']) ?></td>
+                                    <td class="p-4 border-b border-slate-200 text-center"><?= esc($artikel['status']) ?></td>
+                                    <td class="p-4 border-b border-slate-200 text-center">
+                                        <a href="/artikel/<?= $artikel['slug']; ?>">Lihat</a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>

@@ -5,6 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $title; ?></title>
+    <style>
+        .province-label {
+            font-size: 16px;
+            font-weight: bold;
+            background: none;
+            border: none;
+            box-shadow: none;
+            color: black;
+            text-align: center;
+            line-height: 1.5;
+            white-space: nowrap;
+        }
+    </style>
 </head>
 
 <body>
@@ -168,15 +181,15 @@
     </section>
 
     <section id="statistikpeta">
-        <div class="lg:my-12 md:my-8 my-4 pt-10 text-center">
+        <div class="my-4 pt-10 text-center">
             <div id="texttujuankalpataru" class="w-full h-[4rem] sm:h-[5rem] relative flex items-center justify-center">
                 <h2 class="text-lg sm:text-xl md:text-2xl lg:text-4xl font-medium text-black">Statistik Penyebaran Penghargaan Kalpataru</h2>
             </div>
             <hr class="border-2 border-primary max-w-64 mx-auto mt-0" />
         </div>
 
-        <div class="relative w-full px-6 sm:px-10 md:px-16 lg:px-20 py-12">
-            <img src="/images/peta.png" alt="peta" class="w-full mx-auto">
+        <div class="relative w-full px-6 sm:px-10 md:px-16 lg:px-20 py-10">
+            <div id="map"></div>
         </div>
     </section>
 
@@ -443,15 +456,166 @@
     <script defer>
         // popup
         document.addEventListener('DOMContentLoaded', function() {
-            // Set delay for 5 seconds (5000 milliseconds)
+            // Set delay for 2 seconds (2000 milliseconds)
             setTimeout(function() {
                 document.getElementById('popup').classList.remove('hidden');
-            }, 5000); // 5 seconds delay
+            }, 2000); // 2 seconds delay
 
             // Close popup on clicking X button
             document.getElementById('close-btn').addEventListener('click', function() {
                 document.getElementById('popup').classList.add('hidden');
             });
+        });
+    </script>
+
+    <script defer>
+        document.addEventListener('DOMContentLoaded', function () {
+            var map = L.map('map', {
+                center: [-1.062209, 113.885034],
+                zoom: 5,
+                minZoom: 4,
+                maxZoom: 14,
+                maxBounds: [
+                    [-37.972342, 29.516035],
+                    [32.873401, 178.643460]
+                ]
+            });
+
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png', {
+                attribution: ''
+            }).addTo(map);
+
+            var penerimaData = <?= json_encode($peta); ?>;
+
+            var geojsonUrls = {
+                'DKI Jakarta': 'https://kalpatarujson.vercel.app/json/dkijakarta.json',
+                'Jawa Barat': 'https://kalpatarujson.vercel.app/json/jawabarat.json',
+                'Jawa Tengah': 'https://kalpatarujson.vercel.app/json/jawatengah.json',
+                'Jawa Timur': 'https://kalpatarujson.vercel.app/json/jawatimur.json',
+                'Banten': 'https://kalpatarujson.vercel.app/json/banten.json',
+                'DI Yogyakarta': 'https://kalpatarujson.vercel.app/json/diy.json',
+                'Bali': 'https://kalpatarujson.vercel.app/json/bali.json',
+                'Aceh': 'https://kalpatarujson.vercel.app/json/aceh.json',
+                'Papua Barat Daya': 'https://kalpatarujson.vercel.app/json/papuabaratdaya.json',
+                'Papua Barat': 'https://kalpatarujson.vercel.app/json/papuabarat.json',
+                'Papua Tengah': 'https://kalpatarujson.vercel.app/json/papuatengah.json',
+                'Papua Selatan': 'https://kalpatarujson.vercel.app/json/papuaselatan.json',
+                'Papua Pegunungan': 'https://kalpatarujson.vercel.app/json/papuapegunungan.json',
+                'Papua': 'https://kalpatarujson.vercel.app/json/papua.json',
+                'Maluku Utara': 'https://kalpatarujson.vercel.app/json/malukuutara.json',
+                'Maluku': 'https://kalpatarujson.vercel.app/json/maluku.json',
+                'Sulawesi Barat': 'https://kalpatarujson.vercel.app/json/sulawesibarat.json',
+                'Gorontalo': 'https://kalpatarujson.vercel.app/json/gorontalo.json',
+                'Sulawesi Tenggara': 'https://kalpatarujson.vercel.app/json/sulawesitenggara.json',
+                'Sulawesi Selatan': 'https://kalpatarujson.vercel.app/json/sulawesiselatan.json',
+                'Sulawesi Tengah': 'https://kalpatarujson.vercel.app/json/sulawesitengah.json',
+                'Sulawesi Utara': 'https://kalpatarujson.vercel.app/json/sulawesiutara.json',
+                'Kalimantan Utara': 'https://kalpatarujson.vercel.app/json/kalimantanutara.json',
+                'Kalimantan Timur': 'https://kalpatarujson.vercel.app/json/kalimantantimur.json',
+                'Kalimantan Selatan': 'https://kalpatarujson.vercel.app/json/kalimantanselatan.json',
+                'Kalimantan Tengah': 'https://kalpatarujson.vercel.app/json/kalimantantengah.json',
+                'Kalimantan Barat': 'https://kalpatarujson.vercel.app/json/kalimantanbarat.json',
+                'Nusa Tenggara Timur': 'https://kalpatarujson.vercel.app/json/nusatenggaratimur.json',
+                'Nusa Tenggara Barat': 'https://kalpatarujson.vercel.app/json/nusatenggarabarat.json',
+                'Kepulauan Riau': 'https://kalpatarujson.vercel.app/json/kepulauanriau.json',
+                'Kepulauan Bangka Belitung': 'https://kalpatarujson.vercel.app/json/kepulauanbangkabelitung.json',
+                'Lampung': 'https://kalpatarujson.vercel.app/json/lampung.json',
+                'Bengkulu': 'https://kalpatarujson.vercel.app/json/bengkulu.json',
+                'Sumatera Selatan': 'https://kalpatarujson.vercel.app/json/sumateraselatan.json',
+                'Sumatera Barat': 'https://kalpatarujson.vercel.app/json/sumaterabarat.json',
+                'Sumatera Utara': 'https://kalpatarujson.vercel.app/json/sumaterautara.json',
+                'Jambi': 'https://kalpatarujson.vercel.app/json/jambi.json',
+                'Riau': 'https://kalpatarujson.vercel.app/json/riau.json',
+            };
+
+            var colors = {
+                'DKI Jakarta': '#FF0000',
+                'Jawa Barat': '#0000FF',
+                'Jawa Tengah': '#00FF00',
+                'Jawa Timur': '#FFFF00',
+                'Banten': '#800080',
+                'DI Yogyakarta': '#FFA500',
+                'Bali': '#FFC0CB',
+                'Aceh': '#00FFFF',
+                'Papua Barat Daya': '#808000',
+                'Papua Barat': '#FF1493',
+                'Papua Tengah': '#008080',
+                'Papua Selatan': '#006400',
+                'Papua Pegunungan': '#4B0082',
+                'Papua': '#FF4500',
+                'Maluku Utara': '#4682B4',
+                'Maluku': '#00008B',
+                'Sulawesi Barat': '#008B8B',
+                'Gorontalo': '#8B4513',
+                'Sulawesi Tenggara': '#556B2F',
+                'Sulawesi Selatan': '#FF8C00',
+                'Sulawesi Tengah': '#9932CC',
+                'Sulawesi Utara': '#FF00FF',
+                'Kalimantan Utara': '#00FF7F',
+                'Kalimantan Timur': '#8B0000',
+                'Kalimantan Selatan': '#D2691E',
+                'Kalimantan Tengah': '#FFD700',
+                'Kalimantan Barat': '#00BFFF',
+                'Nusa Tenggara Timur': '#7B68EE',
+                'Nusa Tenggara Barat': '#FF6347',
+                'Kepulauan Riau': '#FFE4B5',
+                'Kepulauan Bangka Belitung': '#FF1493',
+                'Lampung': '#00FA9A',
+                'Bengkulu': '#FF4500',
+                'Sumatera Selatan': '#FF69B4',
+                'Sumatera Barat': '#00FFFF',
+                'Sumatera Utara': '#FFB6C1',
+                'Jambi': '#FFA07A',
+                'Riau': '#20B2AA'   
+            };
+
+            for (let provinsi in geojsonUrls) {
+                fetch(geojsonUrls[provinsi])
+                    .then(response => response.json())
+                    .then(data => {
+                        var geojsonLayer = L.geoJSON(data, {
+                            style: function () {
+                                return { 
+                                    color: colors[provinsi], 
+                                    fillColor: colors[provinsi], 
+                                    fillOpacity: 1,
+                                    weight: 1
+                                };
+                            },
+                            onEachFeature: function (feature, layer) {
+                                var penerimaDiProvinsi = penerimaData.filter(function (penerima) {
+                                    return penerima.provinsi === provinsi;
+                                });
+                                var popupContent = '<strong>' + provinsi + '</strong><br>Jumlah Penerima: ' + penerimaDiProvinsi.length;
+
+                                var center = layer.getBounds().getCenter();
+                                var label = L.marker(center, {
+                                    icon: L.divIcon({
+                                        className: 'province-label',
+                                        html: '<div style="font-weight: bold; cursor: pointer;">' + provinsi + '</div>',
+                                        iconSize: [100, 40],
+                                        iconAnchor: [50, 20]
+                                    })
+                                }).addTo(map);
+
+                                layer.on('click', function () {
+                                    var popup = L.popup()
+                                        .setLatLng(center)
+                                        .setContent(popupContent)
+                                        .openOn(map);
+                                });
+
+                                label.on('click', function () {
+                                    var popup = L.popup()
+                                        .setLatLng(center)
+                                        .setContent(popupContent)
+                                        .openOn(map);
+                                });
+                            }
+                        }).addTo(map);
+                    })
+                    .catch(error => console.error('Error loading GeoJSON for ' + provinsi + ':', error));
+            }
         });
     </script>
 

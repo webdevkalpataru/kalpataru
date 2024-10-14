@@ -21,6 +21,8 @@ $routes->get('publikasi/berita', 'PublikasiController::berita');
 $routes->get('publikasi/artikel', 'PublikasiController::artikel');
 $routes->get('publikasi/video', 'PublikasiController::video');
 $routes->get('publikasi/buku', 'PublikasiController::buku');
+$routes->get('artikel/(:any)', 'PengusulController::detailartikel/$1');
+
 
 /* Auth Pengusul */
 $routes->get('auth/login', 'AuthController::login');
@@ -42,47 +44,52 @@ $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
 
     // Route for "Tambah Calon" step 1 (Category selection)
     $routes->get('tambahcalon', 'PengusulController::tambahcalon');
-    $routes->post('tambahcalon', 'PengusulController::tambahcalon'); // Handle category selection form submission
+    $routes->post('tambahcalon', 'PengusulController::inputKategori'); // Handle category selection form submission
 
     // Route for "Tambah Calon" step 2 (Identitas)
-    $routes->get('tambahcalonidentitas', 'PengusulController::tambahcalonidentitas');
-    $routes->post('tambahcalonidentitas', 'PengusulController::tambahcalonidentitas'); // Handle the form submission
+    $routes->get('tambahcalonidentitas', 'PengusulController::tambahCalonIdentitas');
+    $routes->post('simpancalonidentitas', 'PengusulController::simpanCalonIdentitas'); // Handle the form submission
 
     // Route for "Tambah Calon" step 3 (Kegiatan)
-    $routes->get('tambahcalonkegiatan', 'PengusulController::tambahcalonkegiatan');
-    $routes->post('tambahcalonkegiatan', 'PengusulController::tambahcalonkegiatan');
+    $routes->get('tambahcalonkegiatan', 'PengusulController::tambahCalonKegiatan');
+    $routes->post('simpancalonkegiatan', 'PengusulController::simpanCalonKegiatan');
 
-    // Route for "Tambah Calon" step 4 (PMIK)
+    // Route for "Tambah Calon" step 4 (Dampak)
+    $routes->get('tambahcalondampak', 'PengusulController::tambahCalonDampak');
+    $routes->post('simpancalondampak', 'PengusulController::simpanCalonDampak');
+
+    // Route for "Tambah Calon" step 5 (PMIK)
     $routes->get('tambahcalonpmik', 'PengusulController::tambahcalonpmik');
-    $routes->post('tambahcalonpmik', 'PengusulController::tambahcalonpmik');
-
-    // Route for "Tambah Calon" step 5 (Dampak)
-    $routes->get('tambahcalondampak', 'PengusulController::tambahcalondampak');
-    $routes->post('tambahcalondampak', 'PengusulController::tambahcalondampak');
+    $routes->post('simpancalonpmik', 'PengusulController::simpanCalonPmik');
 
     // Route for "Tambah Calon" step 6 (Keswadayaan)
     $routes->get('tambahcalonkeswadayaan', 'PengusulController::tambahcalonkeswadayaan');
-    $routes->post('tambahcalonkeswadayaan', 'PengusulController::tambahcalonkeswadayaan');
+    $routes->post('simpancalonkeswadayaan', 'PengusulController::simpanCalonKeswadayaan');
 
     // Route for "Tambah Calon" step 7 (Keistimewaan)
     $routes->get('tambahcalonkeistimewaan', 'PengusulController::tambahcalonkeistimewaan');
-    $routes->post('tambahcalonkeistimewaan', 'PengusulController::tambahcalonkeistimewaan');
+    $routes->post('simpancalonkeistimewaan', 'PengusulController::simpanCalonKeistimewaan');
 
-    // Other routes related to Pengusul
+    // Routes usulan saya
     $routes->get('usulansaya', 'PengusulController::usulansaya');
     $routes->get('usulandlhk', 'PengusulController::usulandlhk');
-    $routes->get('detailusulansaya', 'PengusulController::detailusulansaya');
-    $routes->get('detailusulansayaedit', 'PengusulController::detailusulansayaedit');
+    $routes->get('detailusulansaya/(:num)', 'PengusulController::detailusulansaya/$1');
+    $routes->get('detailusulansayaedit/(:num)', 'PengusulController::editUsulan/$1');
     $routes->get('detailusulandlhk', 'PengusulController::detailusulandlhk');
-    $routes->get('tambahartikel', 'PengusulController::tambahartikel');
+
+    // Routes artikel
     $routes->get('artikelsaya', 'PengusulController::artikelsaya');
-    $routes->get('detailartikelsaya', 'PengusulController::detailartikelsaya');
+    $routes->get('tambahartikel', 'PengusulController::tambahartikel');
+    $routes->post('tambahartikel', 'PengusulController::tambahArtikelAction');
+    // $routes->get('artikel/(:any)', 'PengusulController::detailartikel/$1');
 
     $routes->get('pemberitahuan', 'PengusulController::pemberitahuan');
     $routes->get('alurpendaftaran', 'PengusulController::alurpendaftaran');
     $routes->get('videopanduan', 'PengusulController::videopanduan');
     $routes->get('panduanpendaftaran', 'PengusulController::panduanpendaftaran');
     $routes->get('downloadSuratPengantar/(:any)', 'AuthController::downloadSuratPengantar/$1');
+
+    $routes->get('pdf/(:any)', 'PengusulController::generatePDF/$1');
 });
 
 /* Penerima */
@@ -107,3 +114,27 @@ $routes->group('admin', function ($routes) {
 
 });
 
+/* Tim Teknis */
+$routes->group('timteknis', function ($routes) {
+    $routes->get('datacalonusulan', 'TimteknisController::datacalonusulan');
+    $routes->get('detaildatacalonusulan', 'TimteknisController::detaildatacalonusulan');
+
+    $routes->get('verifadminkategoria', 'TimteknisController::verifadminkategoria');
+    $routes->get('verifadminkategorib', 'TimteknisController::verifadminkategorib');
+    $routes->get('verifadminkategoric', 'TimteknisController::verifadminkategoric');
+    $routes->get('verifadminkategorid', 'TimteknisController::verifadminkategorid');
+    $routes->post('updatestatus', 'TimteknisController::updateStatus');
+
+
+    $routes->get('bahansidang1', 'TimteknisController::bahansidang1');
+    $routes->get('bahansidang2', 'TimteknisController::bahansidang2');
+});
+
+/* DPPK */
+$routes->group('dppk', function ($routes) {
+    $routes->get('datacalonusulan', 'DppkController::datacalonusulan');
+    $routes->get('detaildatacalonusulan', 'DppkController::detaildatacalonusulan');
+
+    $routes->get('bahansidang1', 'DppkController::bahansidang1');
+    $routes->get('bahansidang2', 'DppkController::bahansidang2');
+});
