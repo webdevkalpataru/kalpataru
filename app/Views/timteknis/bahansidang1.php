@@ -67,7 +67,7 @@
                     <img src="/images/logomaintenance.png" alt="logomaintenance" class="w-2/3 mx-auto lg:w-1/4 hover:scale-105 transition-transform duration-300 bounce">
 
                     <!-- Teks dengan animasi fade-in -->
-                    <p class="text-md lg:text-xl text-gray-700 font-semibold lg:w-1/2 w-full lg:mx-0 mx-4 fade-in relative before:content-['\201C'] before:absolute lg:before:-left-4 before:-left-2 before:top-0 lg:before:text-4xl before:text-2xl before:text-indigo-200 after:content-['\201C'] after:absolute lg:after:right-28 after:right-10  lg:after:text-4xl after:text-2xl after:text-indigo-200">
+                    <p class="text-md lg:text-xl text-gray-700 font-semibold lg:w-1/2 w-full lg:mx-0 mx-4 fade-in relative">
                         Mohon maaf, halaman ini belum dapat tersedia karena sedang dalam proses penyempurnaan. Kami menghargai kesabaran Anda selama proses ini. Terima kasih atas pengertiannya.
                     </p>
                 </div>

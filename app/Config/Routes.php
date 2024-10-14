@@ -10,6 +10,7 @@ $routes->get('/', 'Home::index');
 $routes->get('/beranda', 'MainController::beranda');
 $routes->get('profil', 'MainController::profil');
 $routes->get('kontak', 'MainController::kontak');
+$routes->post('kontak/sendEmail', 'KontakController::sendEmail');
 
 /* Informasi */
 $routes->get('informasi/pengumuman', 'InformasiController::pengumuman');
