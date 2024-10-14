@@ -584,6 +584,62 @@
         </div>
     </div> -->
 
+    <div id="alertPopup" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden"> 
+        <div class="bg-green-700 text-center text-white p-6 rounded-lg max-w-md w-full"> 
+            <h3 class="text-xl font-bold mb-4">PERINGATAN</h3> 
+            <p class="text-sm">Anda harus simpan terlebih dahulu sebelum beralih ke form lain</p> 
+            <button id="alertOkButton" class="mt-4 px-4 py-2 bg-green-300 text-green-900 rounded-md hover:bg-green-400 transition">OK</button> 
+        </div> 
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let isFormChanged = false;
+            const alertPopup = document.getElementById('alertPopup');
+            const alertOkButton = document.getElementById('alertOkButton');
+            let targetId = '';
+
+            const forms = document.querySelectorAll('.form-section form');
+            forms.forEach(form => {
+                form.addEventListener('input', function () {
+                    isFormChanged = true; 
+                });
+            });
+
+            function showAlert(event) {
+                event.preventDefault();
+                alertPopup.classList.remove('hidden');
+            }
+
+            const buttons = document.querySelectorAll('.btn-section');
+            buttons.forEach(button => {
+                button.addEventListener('click', function () {
+                    if (isFormChanged) {
+                        targetId = button.getAttribute('data-target');
+                        showAlert(event);
+                    } else {
+                        switchForm(button);
+                    }
+                });
+            });
+
+            function switchForm(button) {
+                const targetId = button.getAttribute('data-target');
+                document.querySelectorAll('.form-section').forEach(section => {
+                    section.classList.add('hidden');
+                });
+                document.getElementById(targetId).classList.remove('hidden');
+            }
+
+            alertOkButton.addEventListener('click', function () {
+                alertPopup.classList.add('hidden');
+                isFormChanged = false;
+                if (targetId) {
+                    switchForm({ getAttribute: () => targetId });
+                }
+            });
+        });
+    </script>
 
     <script>
         // Right Side sesuai dengan yang di klik di left side
@@ -982,6 +1038,8 @@
             // Arahkan ke halaman 'pengusul/usulansaya'
             window.location.href = '/pengusul/usulansaya';
         }); */
+
+        
     </script>
     <?= $this->endSection() ?>
 
