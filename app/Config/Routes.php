@@ -101,7 +101,7 @@ $routes->group('penerima', ['filter' => 'auth'], function ($routes) {
 });
 
 /* Admin */
-$routes->group('admin', function ($routes) {
+$routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('dashboard', 'AdminController::dashboard');
 });
 

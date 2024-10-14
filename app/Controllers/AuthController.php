@@ -67,7 +67,7 @@ class AuthController extends BaseController
     public function logoutAction()
     {
         session()->destroy();
-        return redirect()->to('/auth/login');
+        return redirect()->to('/');
     }
 
     public function register()
@@ -179,6 +179,63 @@ class AuthController extends BaseController
     {
         $data['title'] = "Masuk Akun Internal";
         return view('auth/logininternal', ['title' => 'Login Internal']);
+    }
+
+    public function logininternalAction()
+    {
+        // Load validation service
+        $validation = \Config\Services::validation();
+
+        // Aturan validasi untuk form login
+        $validation->setRules([
+            'email' => 'required|valid_email',
+            'kata_sandi' => 'required|min_length[8]',
+        ]);
+
+        // Lakukan validasi input
+        if (!$this->validate($validation->getRules())) {
+            return $this->response->setJSON([
+                'success' => false,
+                'errors' => $validation->getErrors()
+            ]);
+        }
+
+        // Ambil data dari form
+        $email = $this->request->getPost('email');
+        $kata_sandi = $this->request->getPost('kata_sandi');
+
+        // Load model
+        $model = new AdminModel();
+
+        // Cek apakah email ada di database
+        $admin = $model->where('email', $email)->first();
+
+        // Jika admin tidak ditemukan
+        if (!$admin) {
+            return $this->response->setJSON([
+                'success' => false,
+                'errors' => ['email' => 'Pengguna tidak ditemukan.']
+            ]);
+        }
+
+        // Jika kata sandi tidak sesuai
+        if (!password_verify($kata_sandi, $admin['kata_sandi'])) {
+            return $this->response->setJSON([
+                'success' => false,
+                'errors' => ['kata_sandi' => 'Kata sandi salah.']
+            ]);
+        }
+
+        // Simpan data admin ke session
+        session()->set('id_admin', $admin['id_admin']);
+        session()->set('email', $admin['email']);
+        session()->set('nama', $admin['nama']);
+        session()->set('logged_in', true);
+
+        return $this->response->setJSON([
+            'success' => true,
+            'message' => 'Login berhasil!'
+        ]);
     }
 
     public function registerinternal()
