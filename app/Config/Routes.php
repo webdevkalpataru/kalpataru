@@ -86,6 +86,40 @@ $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
     $routes->get('downloadSuratPengantar/(:any)', 'AuthController::downloadSuratPengantar/$1');
 });
 
+$routes->group('pendaftaran', function ($routes) {
+
+    $routes->get('tambahcalon', 'PendaftaranController::tambahcalon');
+    $routes->post('tambahcalon', 'PendaftaranController::inputKategori');
+
+    // Route untuk form Identitas
+    $routes->get('identitas', 'PendaftaranController::formIdentitas');
+    $routes->post('simpanIdentitas', 'PendaftaranController::simpanIdentitas');
+
+    // Route untuk form Kegiatan
+    $routes->get('kegiatan', 'PendaftaranController::formKegiatan');
+    $routes->post('simpanKegiatan', 'PendaftaranController::simpanKegiatan');
+
+    // Route untuk form Dampak
+    $routes->get('dampak', 'PendaftaranController::formDampak');
+    $routes->post('simpanDampak', 'PendaftaranController::simpanDampak');
+
+    // Route untuk form PMIK
+    $routes->get('pmik', 'PendaftaranController::formPMIK');
+    $routes->post('simpanPMIK', 'PendaftaranController::simpanPMIK');
+
+    // Route untuk form Keswadayaan
+    $routes->get('keswadayaan', 'PendaftaranController::formKeswadayaan');
+    $routes->post('simpanKeswadayaan', 'PendaftaranController::simpanKeswadayaan');
+
+    // Route untuk form Keistimewaan
+    $routes->get('keistimewaan', 'PendaftaranController::formKeistimewaan');
+    $routes->post('simpanKeistimewaan', 'PendaftaranController::simpanKeistimewaan');
+
+    $routes->post('pendaftaran/simpanData', 'PendaftaranController::simpanData');
+    $routes->get('pendaftaran/success', 'PendaftaranController::success');
+});
+
+
 /* Penerima */
 $routes->group('penerima', ['filter' => 'auth'], function ($routes) {
     $routes->get('profil', 'PenerimaController::profil');

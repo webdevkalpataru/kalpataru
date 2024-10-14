@@ -506,11 +506,9 @@ class PengusulController extends BaseController
 
         return view('pengusul/detailusulansaya', $data);
     }
-    public function detailusulansayaedit()
-    {
-        $data['title'] = 'Edit Detail Usulan Saya';
-        return view('pengusul/detailusulansayaedit', ['title' => 'Edit Detail Usulan Saya']);
-    }
+
+
+
     public function detailusulandlhk()
     {
         $data['title'] = 'Detail Usulan DLHK';

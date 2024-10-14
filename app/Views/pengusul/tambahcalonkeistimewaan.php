@@ -150,42 +150,17 @@
         // Batasan Kata
         function updateWordCount(textarea, countId, maxWords) {
             const countElement = document.getElementById(countId);
+            const words = textarea.value.trim().split(/\s+/).filter(word => word.length > 0);
+            const currentLength = words.length;
 
-            // Tambahkan event listener untuk mendeteksi perubahan input
-            textarea.addEventListener('input', function() {
-                let words = textarea.value.trim().split(/\s+/).filter(word => word.length > 0); // Pisahkan kata berdasarkan spasi
-                let currentLength = words.length;
+            countElement.textContent = `${currentLength}/${maxWords} kata`;
 
-                // Jika kata lebih dari 1000, potong ke 1000 kata
-                if (currentLength > maxWords) {
-                    words = words.slice(0, maxWords);
-                    textarea.value = words.join(" ");
-                    currentLength = maxWords; // Set currentLength ke batas maksimal
-                }
-
-                // Update jumlah kata di elemen counter
-                countElement.textContent = `${currentLength}/${maxWords} kata`;
-            });
-
-            // Event keydown untuk mencegah input baru jika kata sudah mencapai 1000
-            textarea.addEventListener('keydown', function(event) {
-                let words = textarea.value.trim().split(/\s+/).filter(word => word.length > 0);
-                let currentLength = words.length;
-
-                const isControlKey = event.key === "Backspace" || event.key === "Delete" || event.key.startsWith("Arrow");
-
-                // Jika sudah 1000 kata, cegah input baru kecuali tombol penghapusan atau navigasi
-                if (currentLength >= maxWords && !isControlKey) {
-                    event.preventDefault(); // Cegah penambahan input baru jika mencapai batas maksimal kata
-                }
-            });
+            if (currentLength > maxWords) {
+                countElement.classList.add('text-rejected');
+            } else {
+                countElement.classList.remove('text-rejected');
+            }
         }
-
-        // Jalankan fungsi ketika halaman di-load
-        document.addEventListener('DOMContentLoaded', function() {
-            updateWordCount(document.getElementById('keistimewaanCalon'), 'keistimewaanCalonCount', 1000);
-            updateWordCount(document.getElementById('penghargaanRelevan'), 'penghargaanRelevanCount', 1000);
-        });
 
         // Tambah Foto Kegiatan dan Tambah Tautan Video
         const maxFotoInput = 5;

@@ -29,7 +29,7 @@
                 </h3>
             </div>
             <div class="flex justify-end mt-4">
-                <a href="./tambahcalon">
+                <a href="<?= base_url('pendaftaran/tambahcalon') ?>">
                     <button id="tambahCalon" class="w-48 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button"> <span>&#10010</span> Tambah Calon Usulan</button>
                 </a>
             </div>
@@ -62,211 +62,45 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="hover:bg-slate-50">
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">1</p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">Joko Susilo</p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">Pengabdi Lingkungan</p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">Jawa Barat</p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p id="status1" class="block text-xs font-bold text-accepted w-24">Lolos Administrasi</p>
-                                </td>
-                                <td class="px-4 pt-1 border-b border-slate-200 text-center">
-                                    <a href="./detailusulansaya">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v16.5c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Zm3.75 11.625a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
-                                        </svg>
-                                    </a>
-                                </td>
-                                <td class="px-4 border-b border-slate-200 text-center editCell">
-                                    <a href="./detailusulansayaedit">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                                        </svg>
-                                    </a>
-                                </td>
-                                <td class="px-4 border-b border-slate-200 text-center hidden downloadCell">
-                                    <a href="./unduhdetailusulan">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
-                                        </svg>
-                                    </a>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <button class="serahkanButton w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Serahkan</button>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-slate-50">
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">2</p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">Joko Susilo</p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">Pengabdi Lingkungan</p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">Jawa Barat</p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p id="status1" class="block text-xs font-bold text-rejected w-24">Tidak Lolos Administrasi</p>
-                                </td>
-                                <td class="px-4 pt-1 border-b border-slate-200 text-center">
-                                    <a href="./detailusulansaya">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v16.5c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Zm3.75 11.625a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
-                                        </svg>
-                                    </a>
-                                </td>
-                                <td class="px-4 border-b border-slate-200 text-center editCell">
-                                    <a href="./detailusulansayaedit">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                                        </svg>
-                                    </a>
-                                </td>
-                                <td class="px-4 border-b border-slate-200 text-center hidden downloadCell">
-                                    <a href="./unduhdetailusulan">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
-                                        </svg>
-                                    </a>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <button class="serahkanButton w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Serahkan</button>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-slate-50">
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">3</p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">Joko Susilo</p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">Pengabdi Lingkungan</p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">Jawa Barat</p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p id="status1" class="block text-xs font-bold text-accepted w-24">Lolos Administrasi</p>
-                                </td>
-                                <td class="px-4 pt-1 border-b border-slate-200 text-center">
-                                    <a href="./detailusulansaya">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v16.5c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Zm3.75 11.625a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
-                                        </svg>
-                                    </a>
-                                </td>
-                                <td class="px-4 border-b border-slate-200 text-center editCell">
-                                    <a href="./detailusulansayaedit">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                                        </svg>
-                                    </a>
-                                </td>
-                                <td class="px-4 border-b border-slate-200 text-center hidden downloadCell">
-                                    <a href="./unduhdetailusulan">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
-                                        </svg>
-                                    </a>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <button class="serahkanButton w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Serahkan</button>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-slate-50">
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">4</p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">Joko Susilo</p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">Pengabdi Lingkungan</p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">Jawa Barat</p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p id="status1" class="block text-xs font-bold text-accepted w-24">Lolos Administrasi</p>
-                                </td>
-                                <td class="px-4 pt-1 border-b border-slate-200 text-center">
-                                    <a href="./detailusulansaya">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v16.5c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Zm3.75 11.625a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
-                                        </svg>
-                                    </a>
-                                </td>
-                                <td class="px-4 border-b border-slate-200 text-center editCell">
-                                    <a href="./detailusulansayaedit">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                                        </svg>
-                                    </a>
-                                </td>
-                                <td class="px-4 border-b border-slate-200 text-center hidden downloadCell">
-                                    <a href="./unduhdetailusulan">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
-                                        </svg>
-                                    </a>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <button class="serahkanButton w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Serahkan</button>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-slate-50">
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">5</p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">Joko Susilo</p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">Pengabdi Lingkungan</p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs text-slate-800">Jawa Barat</p>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <p id="status1" class="block text-xs font-bold text-rejected w-24">Tidak Lolos Administrasi</p>
-                                </td>
-                                <td class="px-4 pt-1 border-b border-slate-200 text-center">
-                                    <a href="./detailusulansaya">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v16.5c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Zm3.75 11.625a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
-                                        </svg>
-                                    </a>
-                                </td>
-                                <td class="px-4 border-b border-slate-200 text-center editCell">
-                                    <a href="./detailusulansayaedit">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                                        </svg>
-                                    </a>
-                                </td>
-                                <td class="px-4 border-b border-slate-200 text-center hidden downloadCell">
-                                    <a href="./unduhdetailusulan">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
-                                        </svg>
-                                    </a>
-                                </td>
-                                <td class="p-4 border-b border-slate-200 text-center">
-                                    <button class="serahkanButton w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Serahkan</button>
-                                </td>
-                            </tr>
+                            <?php if (!empty($usulan)) : ?>
+                                <?php foreach ($usulan as $index => $u) : ?>
+                                    <tr class="hover:bg-slate-50">
+                                        <td class="p-4 border-b border-slate-200 text-center"><?= $index + 1; ?></td>
+                                        <td class="p-4 border-b border-slate-200 text-center"><?= $u['nama']; ?></td>
+                                        <td class="p-4 border-b border-slate-200 text-center"><?= $u['kategori']; ?></td>
+                                        <td class="p-4 border-b border-slate-200 text-center"><?= $u['provinsi']; ?></td>
+                                        <td class="p-4 border-b border-slate-200 text-center"><?= $u['status_pendaftaran']; ?></td>
+                                        <td class="px-4 pt-1 border-b border-slate-200 text-center">
+                                            <a href="./detailusulansaya">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v16.5c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Zm3.75 11.625a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+                                                </svg>
+                                            </a>
+                                        </td>
+                                        <td class="px-4 border-b border-slate-200 text-center editCell">
+                                            <a href="/pengusul/detailusulansaya/<?= $u['id_pendaftaran']; ?>">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                                </svg>
+                                            </a>
+                                        </td>
+                                        <td class="px-4 border-b border-slate-200 text-center hidden downloadCell">
+                                            <a href="./unduhdetailusulan">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                                                </svg>
+                                            </a>
+                                        </td>
+                                        <td class="p-4 border-b border-slate-200 text-center">
+                                            <button class="serahkanButton w-20 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Serahkan</button>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php else : ?>
+                                <tr>
+                                    <td colspan="6">Belum ada usulan yang diajukan.</td>
+                                </tr>
+                            <?php endif; ?>
                         </tbody>
                     </table>
                 </div>
