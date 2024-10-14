@@ -454,13 +454,13 @@
     <script defer>
         document.addEventListener('DOMContentLoaded', function () {
             var map = L.map('map', {
-                center: [-1.062209, 113.885034],
+                center: [-2.5, 125.0],
                 zoom: 5,
                 minZoom: 4,
                 maxZoom: 14,
                 maxBounds: [
-                    [-37.972342, 29.516035],
-                    [32.873401, 178.643460]
+                    [-11.0, 94.0],
+                    [6.0, 141.0]
                 ]
             });
 
@@ -525,7 +525,7 @@
                 'Papua Tengah': '#008080',
                 'Papua Selatan': '#006400',
                 'Papua Pegunungan': '#4B0082',
-                'Papua': '#FF4500',
+                'Papua': '#FF5733',
                 'Maluku Utara': '#4682B4',
                 'Maluku': '#00008B',
                 'Sulawesi Barat': '#008B8B',
@@ -542,11 +542,11 @@
                 'Nusa Tenggara Timur': '#7B68EE',
                 'Nusa Tenggara Barat': '#FF6347',
                 'Kepulauan Riau': '#FFE4B5',
-                'Kepulauan Bangka Belitung': '#FF1493',
+                'Kepulauan Bangka Belitung': '#FF7F50',
                 'Lampung': '#00FA9A',
                 'Bengkulu': '#FF4500',
                 'Sumatera Selatan': '#FF69B4',
-                'Sumatera Barat': '#00FFFF',
+                'Sumatera Barat': '#ADFF2F',
                 'Sumatera Utara': '#FFB6C1',
                 'Jambi': '#FFA07A',
                 'Riau': '#20B2AA'   
