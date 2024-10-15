@@ -673,7 +673,7 @@ class PengusulController extends BaseController
 
     public function artikelsaya()
     {
-        $model = new ArtikelModel(); // Gantilah ini dengan nama model yang sesuai untuk artikel
+        $model = new ArtikelModel();
         $id_pengusul = session()->get('id_pengusul'); // Mengambil id_pengusul dari session
 
         // Mengambil artikel berdasarkan id_pengusul
@@ -697,7 +697,7 @@ class PengusulController extends BaseController
 
         // Ambil ID pengguna yang sedang login (baik admin maupun pengusul)
         $id_pengusul = session()->get('id_pengusul');
-        $id_admin = session()->get('id_admin'); // Asumsi admin juga disimpan dalam session
+        $id_admin = session()->get('id_admin');
 
         // Jika artikel masih ditangguhkan
         if ($artikel['status'] == 'Ditangguhkan') {
@@ -752,15 +752,15 @@ class PengusulController extends BaseController
 
     public function generatePDF($kode_registrasi)
     {
-        $id_pengusul = session()->get('id_pengusul'); 
-        
+        $id_pengusul = session()->get('id_pengusul');
+
         if (!$id_pengusul) {
             return redirect()->back()->with('error', 'Error');
         }
 
         $pendaftaranModel = new PendaftaranModel();
         $pengusulModel = new PengusulModel();
-        
+
         $pendaftaranData = $pendaftaranModel->where('kode_registrasi', $kode_registrasi)->first();
 
         if (!$pendaftaranData || $pendaftaranData['id_pengusul'] != $id_pengusul) {

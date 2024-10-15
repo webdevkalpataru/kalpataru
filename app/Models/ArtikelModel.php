@@ -21,10 +21,34 @@ class ArtikelModel extends Model
         'slug'
     ];
 
-    public function getAllArtikel()
+    public function getAllArtikel($keyword = null)
     {
-        return $this->findAll();
+        $builder = $this->db->table('artikel')
+            ->select('artikel.id_artikel, artikel.judul, artikel.slug, artikel.status, artikel.tanggal, 
+                  COALESCE(admin.nama, pengusul.nama_instansi_pribadi, penerima.nama) as penulis')
+            ->join('admin', 'admin.id_admin = artikel.id_admin', 'left')
+            ->join('pengusul', 'pengusul.id_pengusul = artikel.id_pengusul', 'left')
+            ->join('penerima', 'penerima.id_penerima = artikel.id_penerima', 'left');
+
+        if ($keyword) {
+            $builder->groupStart()
+                ->like('artikel.judul', $keyword)
+                ->orLike('admin.nama', $keyword)
+                ->orLike('pengusul.nama_instansi_pribadi', $keyword)
+                ->orLike('penerima.nama', $keyword)
+                ->groupEnd();
+        }
+
+        return $builder->get()->getResultArray();
     }
+
+
+
+
+    // public function getAllArtikel()
+    // {
+    //     return $this->findAll();
+    // }
 
     public function getArtikelTerbit()
     {

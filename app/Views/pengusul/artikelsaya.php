@@ -51,13 +51,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($artikels as $index => $artikel): ?>
+                            <?php
+                            $no = 0;
+                            foreach ($artikels as $index => $artikel):
+                                $no++;
+                            ?>
                                 <tr class="hover:bg-slate-50">
-                                    <td class="p-4 border-b border-slate-200 text-center"><?= $index + 1 ?></td>
+                                    <td class="p-4 border-b border-slate-200 text-center"><?= $no ?></td>
                                     <td class="p-4 border-b border-slate-200 text-center"><?= esc($artikel['judul']) ?></td>
                                     <td class="p-4 border-b border-slate-200 text-center"><?= esc($artikel['status']) ?></td>
                                     <td class="p-4 border-b border-slate-200 text-center">
-                                        <a href="/artikel/<?= $artikel['slug']; ?>">Lihat</a>
+                                        <a href="/artikel/preview/<?= $artikel['slug']; ?>">Lihat</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
