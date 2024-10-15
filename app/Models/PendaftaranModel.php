@@ -183,4 +183,12 @@ class PendaftaranModel extends Model
     {
         return $this->delete($id_pendaftaran);
     }
+
+    public function getKegiatanByPendaftaranId($id_pendaftaran)
+    {
+        return $this->db->table('kegiatan')
+            ->where('id_pendaftaran', $id_pendaftaran)
+            ->get()
+            ->getResultArray();
+    }
 }

@@ -7,7 +7,7 @@ $dampak['dampak_sosial_budaya'] = $dampak['dampak_sosial_budaya'] ?? '';
 $pmik['prakarsa'] = $pmik['prakarsa'] ?? '';
 $pmik['motivasi'] = $pmik['motivasi'] ?? '';
 $pmik['inovasi'] = $pmik['inovasi'] ?? '';
-$pmik['krativitas'] = $pmik['krativitas'] ?? '';
+$pmik['kreativitas'] = $pmik['kreativitas'] ?? '';
 $keswadayaan['sumber_biaya'] = $keswadayaan['sumber_biaya'] ?? '';
 $keswadayaan['teknologi_kegiatan'] = $keswadayaan['teknologi_kegiatan'] ?? '';
 $keswadayaan['status_lahan_kegiatan'] = $keswadayaan['status_lahan_kegiatan'] ?? '';
@@ -195,7 +195,7 @@ $subTemaMapping = [
         <tr><td class="label">Prakarsa</td><td class="separator">:</td><td class="input"><?= $pmik['prakarsa']; ?></td></tr>
         <tr><td class="label">Motivasi</td><td class="separator">:</td><td class="input"><?= $pmik['motivasi']; ?></td></tr>
         <tr><td class="label">Inovasi</td><td class="separator">:</td><td class="input"><?= $pmik['inovasi']; ?></td></tr>
-        <tr><td class="label">Kreatifitas</td><td class="separator">:</td><td class="input"><?= $pmik['krativitas']; ?></td></tr>
+        <tr><td class="label">Kreatifitas</td><td class="separator">:</td><td class="input"><?= $pmik['kreativitas']; ?></td></tr>
     </table>
 
     <p class="heading">F. KESWADAYAAN DAN KEBERLANJUTAN</p>

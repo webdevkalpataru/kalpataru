@@ -748,7 +748,7 @@ class PengusulController extends BaseController
         $id_pengusul = session()->get('id_pengusul');
 
         if (!$id_pengusul) {
-            return redirect()->back()->with('error', 'Error');
+            return redirect()->back()->with('error', '');
         }
 
         $pendaftaranModel = new PendaftaranModel();
