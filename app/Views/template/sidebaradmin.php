@@ -30,6 +30,7 @@
             </h5>
         </div>
         <div class="relative block w-full">
+            <a href="../admin/dashboard">
                 <div role="button"
                     class="flex items-center w-full p-0 leading-tight transition-all rounded-lg outline-none bg-blue-gray-50/50 text-start text-blue-gray-700 hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-primary focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-primary active:bg-blue-gray-50 active:bg-opacity-80 active:text-primary">
                     <button id="dropdownBtn1" type="button"
@@ -44,6 +45,7 @@
                         </p>
                     </button>
                 </div>
+                </a>
             </div>
             <div class="relative block w-full">
                 <div role="button"
@@ -80,6 +82,7 @@
                                 </div>
                                 DPPK
                             </div>
+                            <a href="../admin/akuntimteknis">
                             <div role="button"
                                 class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-primary focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-primary active:bg-blue-gray-50 active:bg-opacity-80 active:text-primary">
                                 <div class="grid mr-4 place-items-center">
@@ -87,6 +90,7 @@
                                 </div>
                                 Tim Teknis
                             </div>
+                            </a>
                             <div role="button"
                                 class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-primary focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-primary active:bg-blue-gray-50 active:bg-opacity-80 active:text-primary">
                                 <div class="grid mr-4 place-items-center">
@@ -94,73 +98,22 @@
                                 </div>
                                 Penerima
                             </div>
+                            <a href="../admin/akunpengusul">
+                                <div role="button"
+                                    class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-primary focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-primary active:bg-blue-gray-50 active:bg-opacity-80 active:text-primary">
+                                    <div class="grid mr-4 place-items-center">
+                                    </div>
+                                    Pengusul
+                                </div>
+                            </a>
+                            <a href="../admin/akundlhk">
                             <div role="button"
                                 class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-primary focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-primary active:bg-blue-gray-50 active:bg-opacity-80 active:text-primary">
                                 <div class="grid mr-4 place-items-center">
-                                    
                                 </div>
-                                Pengusul
+                                DLHK
                             </div>
-                        </nav>
-                    </div>
-                </div>
-            
-            <div class="relative block w-full">
-                <div role="button"
-                    class="flex items-center mt-2 w-full p-0 leading-tight transition-all rounded-lg outline-none bg-blue-gray-50/50 text-start text-blue-gray-700 hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-primary focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-primary active:bg-blue-gray-50 active:bg-opacity-80 active:text-primary">
-                    <button id="dropdownBtn5" type="button"
-                        class="flex items-center justify-between w-full p-3 font-sans text-xl antialiased font-semibold leading-snug text-left transition-colors border-b-0 select-none border-b-blue-gray-100 text-primary hover:text-primary">
-                        <div class="grid mr-4 place-items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
-                        </svg>
-                        </div>
-                        <p class="block mr-auto font-sans text-base antialiased font-normal leading-relaxed text-primary">
-                            Tambah Akun
-                        </p>
-                        <span class="ml-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5"
-                                stroke="currentColor" aria-hidden="true" id="dropdownIcon5"
-                                class="w-4 h-4 mx-auto transition-transform rotate-180">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5">
-                                </path>
-                            </svg>
-                        </span>
-                    </button>
-                </div>
-            </div>
-            <div id="dropdownMenu5" class="hidden">
-                    <div class="block w-full py-1 font-sans text-sm antialiased font-light leading-normal text-gray-700">
-                        <nav
-                            class="flex min-w-[240px] flex-col gap-1 p-0 font-sans text-base font-normal text-blue-gray-700">
-                            <div role="button"
-                                class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-primary focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-primary active:bg-blue-gray-50 active:bg-opacity-80 active:text-primary">
-                                <div class="grid mr-4 place-items-center">
-                                   
-                                </div>
-                                Akun DPPK
-                            </div>
-                            <div role="button"
-                                class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-primary focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-primary active:bg-blue-gray-50 active:bg-opacity-80 active:text-primary">
-                                <div class="grid mr-4 place-items-center">
-                                  
-                                </div>
-                                Akun Tim Teknis
-                            </div>
-                            <div role="button"
-                                class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-primary focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-primary active:bg-blue-gray-50 active:bg-opacity-80 active:text-primary">
-                                <div class="grid mr-4 place-items-center">
-                                   
-                                </div>
-                                Akun Tim Penerima
-                            </div>
-                            <div role="button"
-                                class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-primary focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-primary active:bg-blue-gray-50 active:bg-opacity-80 active:text-primary">
-                                <div class="grid mr-4 place-items-center">
-                                    
-                                </div>
-                                Akun DLHK
-                            </div>
+                            </a>
                         </nav>
                     </div>
                 </div>
@@ -288,18 +241,20 @@
                     <div class="block w-full py-1 font-sans text-sm antialiased font-light leading-normal text-gray-700">
                         <nav
                             class="flex min-w-[240px] flex-col gap-1 p-0 font-sans text-base font-normal text-blue-gray-700">
+                            <a href="../admin/artikeladmin">
+                                <div role="button"
+                                    class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-primary focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-primary active:bg-blue-gray-50 active:bg-opacity-80 active:text-primary">
+                                    <div class="grid mr-4 place-items-center">
+                                    <!-- Bisa tambahkan ikon atau elemen di sini -->
+                                    </div>
+                                    Artikel
+                                </div>
+                                </a>
                             <div role="button"
                                 class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-primary focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-primary active:bg-blue-gray-50 active:bg-opacity-80 active:text-primary">
                                 <div class="grid mr-4 place-items-center">
-                                    
                                 </div>
-                                Artikel
-                            </div>
-                            <div role="button"
-                                class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-primary focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-primary active:bg-blue-gray-50 active:bg-opacity-80 active:text-primary">
-                                <div class="grid mr-4 place-items-center">
-                                    
-                                </div>
+                                
                                 Berita
                             </div>
                             <div role="button"
