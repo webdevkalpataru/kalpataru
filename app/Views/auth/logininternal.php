@@ -7,40 +7,7 @@
     <link rel="stylesheet" href="/css/app.css">
     <title><?= $title; ?></title>
     <style>
-        /* images */
-        /*  @keyframes fadeInRight {
-            from {
-                opacity: 0;
-                transform: translateX(100%);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes fadeInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-100%);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .fade-in-right {
-            animation: fadeInRight 0.5s forwards;
-        }
-
-        .fade-in-left {
-            animation: fadeInLeft 0.5s forwards;
-        } */
-
-        /* toast error */
+        /* styles tetap sama seperti sebelumnya */
         .toast {
             position: fixed;
             top: 10px;
@@ -56,7 +23,6 @@
             display: block;
         }
 
-        /* Show/hide password */
         .password-icon {
             cursor: pointer;
             position: absolute;
@@ -67,16 +33,10 @@
             font-size: 1.2rem;
         }
 
-
-        /* Responsive style */
         @media (max-width: 640px) {
             .max-w-md {
                 max-width: 90%;
             }
-        }
-
-        .toasthidden {
-            display: none;
         }
     </style>
 </head>
@@ -92,7 +52,8 @@
             <div class="w-full max-w-md p-6 fade-in-left">
 
                 <h2 class="text-2xl font-bold text-gray-900 mb-4">Masuk</h2>
-                <form class="flex flex-col" onsubmit="validateForm(event)" action="/auth/login" method="POST">
+                <form class="flex flex-col" onsubmit="validateForm(event)" action="/auth/logininternal" method="POST">
+                    <?= csrf_field() ?>
                     <label for="email" class="text-xs">Email</label>
                     <input id="email" type="text" name="email" required
                         class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none"
@@ -126,18 +87,6 @@
     <div id="toast" class="toast">Email atau password salah!</div>
 
     <script>
-        /* const imageArray = ['/images/loginregist1.jpeg', '/images/loginregist2.jpeg', '/images/loginregist3.jpeg'];
-        let currentImageIndex = 0;
-        const backgroundImage = document.getElementById('backgroundImage');
-
-        setInterval(() => {
-            currentImageIndex = (currentImageIndex + 1) % imageArray.length;
-            backgroundImage.src = imageArray[currentImageIndex];
-            backgroundImage.classList.remove('fade-in-right');
-            void backgroundImage.offsetWidth;
-            backgroundImage.classList.add('fade-in-right');
-        }, 10000); */
-
         // Toggle password visibility
         const passwordInput = document.getElementById('password');
         const togglePassword = document.getElementById('togglePassword');
@@ -169,10 +118,10 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        // Redirect ke URL yang diberikan oleh server
-                        window.location.href = data.redirectUrl;
+                        // Redirect ke halaman yang diinginkan
+                        window.location.href = '/admin/dashboard'; // Sesuaikan dengan URL tujuan setelah login
                     } else {
-                        showToast(data.message); // Tampilkan pesan kesalahan
+                        showToast(data.errors.email || data.errors.kata_sandi || 'Login gagal.'); // Tampilkan pesan kesalahan
                     }
                 })
                 .catch(error => {
@@ -180,8 +129,6 @@
                     showToast('Terjadi kesalahan. Silakan coba lagi');
                 });
         }
-
-
 
         // Show toast with custom message
         function showToast(message) {

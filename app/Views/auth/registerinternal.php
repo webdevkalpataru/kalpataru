@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
     <meta charset="UTF-8">
@@ -78,33 +78,24 @@
         <div class="flex-1 flex items-center justify-center bg-white h-screen sm:h-auto">
             <div class="w-full max-w-md p-6 fade-in-left">
                 <h2 class="text-2xl font-bold text-gray-900 mb-4">Daftar</h2>
-                <form action="/auth/register" method="post" onsubmit="validateForm(event)" class="flex flex-col" enctype="multipart/form-data">
+                <form id="registerForm" action="/auth/registerinternal" method="post" onsubmit="validateForm(event)" class="flex flex-col">
                     <?= csrf_field() ?>
+
                     <label for="nip" class="text-xs">NIP</label>
-                    <input id="nip" name="nip" type="number"
-                        class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none"
-                        placeholder="Contoh: 1425364759">
+                    <input id="nip" name="nip" type="number" class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none" placeholder="Masukkan NIP">
 
                     <label for="nama" class="text-xs">Nama</label>
-                    <input id="nama" name="nama" type="text"
-                        class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none"
-                        placeholder="contoh: Kemitraan Lingkungan">
+                    <input id="nama" name="nama" type="text" class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none" placeholder="Masukkan Nama Lengkap">
 
-                    <label for="sk" class="text-xs">No. SK</label>
-                    <input id="sk" name="sk" type="number"
-                        class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none"
-                        placeholder="Contoh: 1425364759">
+                    <label for="no_sk" class="text-xs">No. SK</label>
+                    <input id="no_sk" name="no_sk" type="text" class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none" placeholder="Masukkan Nomor SK">
 
                     <label for="email" class="text-xs">Email <span class="text-primary">(Pastikan Email Aktif)</span></label>
-                    <input id="email" name="email" type="email"
-                        class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none"
-                        placeholder="Masukkan Email Aktif">
+                    <input id="email" name="email" type="email" class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none" placeholder="Masukkan Email Aktif">
 
                     <label for="kata_sandi" class="text-xs">Kata Sandi</label>
                     <div class="relative">
-                        <input id="kata_sandi" name="kata_sandi" type="password"
-                            class="block w-full border-2 border-gray-300 text-primary text-xs rounded-lg p-2 pr-10 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none"
-                            placeholder="Masukkan Kata Sandi">
+                        <input id="kata_sandi" name="kata_sandi" type="password" class="block w-full border-2 border-gray-300 text-primary text-xs rounded-lg p-2 pr-10 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none" placeholder="Masukkan Kata Sandi">
                         <span id="togglePassword" class="password-icon">
                             <img src="/images/hide.svg" alt="hide" class="w-4 h-4 mb-4">
                         </span>
@@ -113,9 +104,7 @@
 
                     <label for="passwordcheck" class="text-xs">Konfirmasi Kata Sandi</label>
                     <div class="relative">
-                        <input id="passwordcheck" name="passwordcheck" type="password"
-                            class="block w-full border-2 border-gray-300 text-primary text-xs rounded-lg p-2 pr-10 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none"
-                            placeholder="Masukkan Konfirmasi Kata Sandi">
+                        <input id="passwordcheck" name="passwordcheck" type="password" class="block w-full border-2 border-gray-300 text-primary text-xs rounded-lg p-2 pr-10 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none" placeholder="Masukkan Konfirmasi Kata Sandi">
                         <span id="togglePasswordCheck" class="password-icon">
                             <img src="/images/hide.svg" alt="hide" class="w-4 h-4 mb-4">
                         </span>
@@ -128,24 +117,11 @@
                         </p>
                     </div>
 
-                    <button type="submit"
-                        class="bg-secondary text-primary font-bold py-2 px-4 rounded-md mt-4 hover:bg-primary hover:text-white transition ease-in-out duration-150">
+                    <button type="submit" class="bg-secondary text-primary font-bold py-2 px-4 rounded-md mt-4 hover:bg-primary hover:text-white transition ease-in-out duration-150">
                         Daftar
                     </button>
                 </form>
             </div>
-        </div>
-    </div>
-
-    <!-- Add this popup after the toast element -->
-    <div id="successPopup" class="toasthidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
-        <div class="bg-green-700 text-center text-white p-6 rounded-lg max-w-md w-full">
-            <h3 class="text-xl font-bold mb-4">Terima kasih telah mendaftar!</h3>
-            <p class="text-sm">Akun Anda sedang dalam proses verifikasi oleh admin. Anda akan menerima email konfirmasi setelah akun diaktifkan.</p>
-            <button onclick="window.location.href='/'"
-                class="mt-4 px-4 py-2 bg-green-300 text-green-900 rounded-md hover:bg-green-400 transition">
-                ← Beranda
-            </button>
         </div>
     </div>
 
@@ -180,98 +156,48 @@
                 `<img src="/images/hide.svg" alt="hide" class="w-4 h-4 mb-4">`;
         });
 
-
         // Form validation
         function validateForm(event) {
             event.preventDefault();
 
             const nip = document.getElementById('nip').value;
             const nama = document.getElementById('nama').value;
-            const sk = document.getElementById('sk').value;
+            const sk = document.getElementById('no_sk').value;
             const email = document.getElementById('email').value;
-            const kata_sandi = passwordInput.value;
-            const passwordCheck = passwordCheckInput.value;
+            const kata_sandi = document.getElementById('kata_sandi').value;
+            const passwordCheck = document.getElementById('passwordcheck').value;
 
             let isValid = true;
             let passwordErrors = [];
 
-            // Check for length
-            if (kata_sandi.length < 8) {
-                passwordErrors.push('Kata sandi harus minimal 8 karakter.');
-            }
-
-            // Check for lowercase letters
-            if (!/[a-z]/.test(kata_sandi)) {
-                passwordErrors.push('Kata sandi harus mengandung setidaknya satu huruf kecil.');
-            }
-
-            // Check for uppercase letters
-            if (!/[A-Z]/.test(kata_sandi)) {
-                passwordErrors.push('Kata sandi harus mengandung setidaknya satu huruf besar.');
-            }
-
-            // Check for special characters
-            const specialCharacters = /[!@#$%^&*_-]/;
-            if (!specialCharacters.test(kata_sandi)) {
-                passwordErrors.push('Kata sandi harus mengandung setidaknya satu simbol (!@#$%^&*_-).');
-            }
-
-            // Display password errors if any
-            if (passwordErrors.length > 0) {
-                passwordError.innerHTML = passwordErrors.join('<br>'); // Show all error messages
-                passwordInput.classList.add('error');
-                passwordError.style.display = 'block';
-                isValid = false;
-            } else {
-                passwordInput.classList.remove('error');
-                passwordError.style.display = 'none';
-            }
-
-            // Validasi Konfirmasi Kata Sandi
-            if (kata_sandi !== passwordCheck) {
-                passwordCheckInput.classList.add('error');
-                passwordCheckError.style.display = 'block';
-                isValid = false;
-            } else {
-                passwordCheckInput.classList.remove('error');
-                passwordCheckError.style.display = 'none';
-            }
-
-            // Validasi input lain
-            if (nip === '') {
-                showToast('NIP belum terisi. Silakan lengkapi');
-                isValid = false;
-            } else if (nama === '') {
-                showToast('Nama belum terisi. Silakan lengkapi');
-                isValid = false;
-            } else if (sk === '') {
-                showToast('No. SK belum terisi. Silakan lengkapi');
-                isValid = false;
-            } else if (email === '') {
-                showToast('Email belum terisi. Silakan lengkapi');
-                isValid = false;
-            }
-
             if (isValid) {
-                const form = event.target;
+                const form = document.getElementById('registerForm');
                 const formData = new FormData(form);
 
                 fetch(form.action, {
                         method: form.method,
-                        body: formData,
+                        body: formData
                     })
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
-                            document.getElementById('successPopup').classList.remove('toasthidden');
+                            showToast('Pendaftaran berhasil!');
+                            setTimeout(() => {
+                                window.location.href = '/';
+                            }, 3000);
                         } else {
-                            showToast(data.errors);
+                            let errorMessage = '';
+                            for (const [key, value] of Object.entries(data.errors)) {
+                                errorMessage += `${value}\n`; // Menggabungkan pesan kesalahan
+                            }
+                            showToast(errorMessage); // Menampilkan semua kesalahan
                         }
                     })
                     .catch(error => {
                         console.error('Error:', error);
-                        showToast('Terjadi kesalahan. Silakan coba lagi');
+                        alert('Terjadi kesalahan. Silakan coba lagi.');
                     });
+
             }
         }
 
@@ -334,6 +260,7 @@
             successPopup.classList.remove('toasthidden');
         }
     </script>
+
 </body>
 
 </html>
