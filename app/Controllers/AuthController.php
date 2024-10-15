@@ -15,6 +15,22 @@ class AuthController extends BaseController
 
     public function loginAction()
     {
+        $validation = \Config\Services::validation();
+
+        // Aturan validasi untuk form login
+        $validation->setRules([
+            'email' => 'required|valid_email',
+            'kata_sandi' => 'required|min_length[8]',
+        ]);
+
+        // Lakukan validasi input
+        if (!$this->validate($validation->getRules())) {
+            return $this->response->setJSON([
+                'success' => false,
+                'errors' => $validation->getErrors()
+            ]);
+        }
+
         $model = new PengusulModel();
 
         // Ambil input dari formulir
@@ -220,7 +236,7 @@ class AuthController extends BaseController
     public function logininternal()
     {
         $data['title'] = "Masuk Akun Internal";
-        return view('auth/logininternal', ['title' => 'Login Internal']);
+        return view('auth/logininternal', $data);
     }
 
     public function logininternalAction()

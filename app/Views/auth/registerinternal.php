@@ -190,7 +190,7 @@
                             for (const [key, value] of Object.entries(data.errors)) {
                                 errorMessage += `${value}\n`; // Menggabungkan pesan kesalahan
                             }
-                            alert(errorMessage); // Menampilkan semua kesalahan
+                            showToast(errorMessage); // Menampilkan semua kesalahan
                         }
                     })
                     .catch(error => {
