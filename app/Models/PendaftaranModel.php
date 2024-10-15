@@ -10,6 +10,7 @@ class PendaftaranModel extends Model
     protected $table = 'pendaftaran';
     protected $primaryKey = 'id_pendaftaran';
     protected $allowedFields = [
+        'id_pendaftaran',
         'id_pengusul',
         'id_tim_teknis',
         'kategori',
@@ -45,7 +46,8 @@ class PendaftaranModel extends Model
         'edit',
         'kode_registrasi',
         'status_dokumen',
-        'skor_dokumen'
+        'skor_dokumen',
+        'tanggal_skck'
     ];
 
     public function getDetailById($id)
@@ -62,128 +64,94 @@ class PendaftaranModel extends Model
 
     }
 
-    // Function to insert into 'kegiatan' table
-    public function saveKegiatan($data)
+    // -------------------------------------------------------------------------
+
+    public function getPendaftaranById($id)
     {
-        $this->table = 'kegiatan';  // Change the table to 'kegiatan'
-        $this->allowedFields = [
-            'id_pendaftaran',
-            'tema',
-            'sub_tema',
-            'jenis_kegiatan',
-            'tahun_mulai',
-            'deskripsi_kegiatan',
-            'lokasi_kegiatan',
-            'pihak_dan_peran',
-            'keberhasilan'
-        ];
-        return $this->insert($data);  // Insert into 'kegiatan' table
+        return $this->find($id);
     }
 
-    // Function to insert into 'dampak' table
-    public function saveDampak($data)
+    // ------------------KEGIATAN------------------
+    public function insertKegiatan($data)
     {
-        $this->table = 'dampak';  // Change the table to 'dampak'
-        $this->allowedFields = [
-            'id_pendaftaran',
-            'dampak_lingkungan',
-            'dampak_ekonomi',
-            'dampak_sosial_budaya'
-        ];
-        return $this->insert($data);  // Insert into 'dampak' table
+        return $this->db->table('kegiatan')->insert($data);
     }
 
-    // Function to insert into 'pmik' table
-    public function savePmik($data)
+    public function getKegiatanByIdPendaftaran($id_pendaftaran)
     {
-        $this->table = 'pmik';  // Change the table to 'pmik'
-        $this->allowedFields = [
-            'id_pendaftaran',
-            'prakarsa',
-            'motivasi',
-            'inovasi',
-            'krativitas'
-        ];
-        return $this->insert($data);  // Insert into 'pmik' table
+        return $this->db->table('kegiatan')->where('id_pendaftaran', $id_pendaftaran)->get()->getRowArray();
     }
 
-    // Function to insert into 'keswadayaan' table
-    public function saveKeswadayaan($data)
+    public function updateKegiatan($data, $where)
     {
-        $this->table = 'keswadayaan';  // Change the table to 'keswadayaan'
-        $this->allowedFields = [
-            'id_pendaftaran',
-            'sumber_biaya',
-            'teknologi_kegiatan',
-            'status_lahan_kegiatan',
-            'jumlah_kelompok_serupa'
-        ];
-        return $this->insert($data);  // Insert into 'keswadayaan' table
+        return $this->db->table('kegiatan')->where($where)->update($data);
     }
 
-    // Function to insert into 'keistimewaan' table
-    public function saveKeistimewaan($data)
+    // ------------------DAMPAK------------------
+    public function insertDampak($data)
     {
-        $this->table = 'keistimewaan';  // Change the table to 'keistimewaan'
-        $this->allowedFields = [
-            'id_pendaftaran',
-            'keistimewaan',
-            'penghargaan',
-            'foto_kegiatan1',
-            'foto_kegiatan2',
-            'foto_kegiatan3',
-            'foto_kegiatan4',
-            'foto_kegiatan5',
-            'deskripsi_foto_kegiatan1',
-            'deskripsi_foto_kegiatan2',
-            'deskripsi_foto_kegiatan3',
-            'deskripsi_foto_kegiatan4',
-            'deskripsi_foto_kegiatan5',
-            'tautan_video',
-            'tautan_dokumen_pendukung'
-        ];
-        return $this->insert($data);  // Insert into 'keistimewaan' table
+        return $this->db->table('dampak')->insert($data);
     }
 
-    // Method to switch back to 'pendaftaran' table
-    public function switchToPendaftaran()
+    public function getDampakByIdPendaftaran($id_pendaftaran)
     {
-        $this->table = 'pendaftaran';
-        $this->allowedFields = [
-            'id_pengusul',
-            'id_tim_teknis',
-            'kategori',
-            'tanggal_pendaftaran',
-            'status_pendaftaran',
-            'catatan_verifikasi',
-            'skor_sidang_1',
-            'skor_sidang_2',
-            'nama',
-            'nik',
-            'tempat_lahir',
-            'tanggal_lahir',
-            'usia',
-            'jenis_kelamin',
-            'jalan',
-            'rt_rw',
-            'desa',
-            'kecamatan',
-            'kab_kota',
-            'provinsi',
-            'kode_pos',
-            'pekerjaan',
-            'telepon',
-            'email',
-            'sosial_media',
-            'pendidikan',
-            'ktp',
-            'skck',
-            'nama_ketua',
-            'jumlah_anggota',
-            'tahun_pembentukan',
-            'legalitas'
-        ];
+        return $this->db->table('dampak')->where('id_pendaftaran', $id_pendaftaran)->get()->getRowArray();
     }
+
+    public function updateDampak($data, $where)
+    {
+        return $this->db->table('dampak')->where($where)->update($data);
+    }
+
+    // ------------------PMIK------------------
+    public function insertPMIK($data)
+    {
+        return $this->db->table('pmik')->insert($data);
+    }
+
+    public function getPMIKByIdPendaftaran($id_pendaftaran)
+    {
+        return $this->db->table('pmik')->where('id_pendaftaran', $id_pendaftaran)->get()->getRowArray();
+    }
+
+    public function updatePMIK($data, $where)
+    {
+        return $this->db->table('pmik')->where($where)->update($data);
+    }
+
+    // ------------------KESWADAYAAN------------------
+    public function insertKeswadayaan($data)
+    {
+        return $this->db->table('keswadayaan')->insert($data);
+    }
+
+    public function getKeswadayaanByIdPendaftaran($id_pendaftaran)
+    {
+        return $this->db->table('keswadayaan')->where('id_pendaftaran', $id_pendaftaran)->get()->getRowArray();
+    }
+
+    public function updateKeswadayaan($data, $where)
+    {
+        return $this->db->table('keswadayaan')->where($where)->update($data);
+    }
+
+    // ------------------KEISTIMEWAAN------------------
+    public function insertKeistimewaan($data)
+    {
+        return $this->db->table('keistimewaan')->insert($data);
+    }
+
+    public function getKeistimewaanByIdPendaftaran($id_pendaftaran)
+    {
+        return $this->db->table('keistimewaan')->where('id_pendaftaran', $id_pendaftaran)->get()->getRowArray();
+    }
+
+    public function updateKeistimewaan($data, $where)
+    {
+        return $this->db->table('keistimewaan')->where($where)->update($data);
+    }
+
+    // -------------------------------------------------------------------------
 
 
     // Method untuk mendapatkan data pendaftaran berdasarkan ID pengusul
@@ -214,13 +182,5 @@ class PendaftaranModel extends Model
     public function deletePendaftaran($id_pendaftaran)
     {
         return $this->delete($id_pendaftaran);
-    }
-
-    public function getKegiatanByPendaftaranId($id_pendaftaran)
-    {
-        return $this->db->table('kegiatan')
-            ->where('id_pendaftaran', $id_pendaftaran)
-            ->get()
-            ->getResultArray();
     }
 }
