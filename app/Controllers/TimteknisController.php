@@ -282,15 +282,224 @@ class TimteknisController extends BaseController
         }
     }
 
-    public function bahansidang1()
+    public function bahansidang1kategoria()
     {
-        $data['title'] = "Bahan Sidang 1";
-        return view('timteknis/bahansidang1', ['title' => 'Bahan Sidang 1']);
+        $pendaftaranModel = new PendaftaranModel();
+
+        // Ambil data dengan pagination, limit 5 per halaman
+        $perPage = 5;
+
+        // Tentukan kategori secara otomatis ke 'Perintis Lingkungan'
+        $kategori = 'Perintis Lingkungan';
+
+        // Ambil kata kunci dari request untuk pencarian
+        $keyword = $this->request->getGet('search');
+
+        // Filter data berdasarkan kategori 'Perintis Lingkungan'
+        $pendaftaranModel->where('kategori', $kategori);
+
+        // Ambil status dari filter
+        $status_pendaftaran = $this->request->getVar('status_pendaftaran');
+
+        // Jika status dipilih, tambahkan filter status
+        if ($status_pendaftaran) {
+            $pendaftaranModel->where('status_pendaftaran', $status_pendaftaran);
+        }
+
+
+        // Tambahkan filter untuk status pendaftaran
+        $validStatuses = ['Lolos Administrasi'];
+        $pendaftaranModel->whereIn('status_pendaftaran', $validStatuses);
+
+        // Jika ada kata kunci, tambahkan kondisi pencarian berdasarkan nama
+        if ($keyword) {
+            $pendaftaranModel->like('nama', $keyword);
+        }
+
+        // Dapatkan data dengan pagination
+        $data['kategori'] = $kategori;
+        $data['status_pendaftaran'] = $status_pendaftaran;
+        $data['keyword'] = $keyword;
+        $data['usulan'] = $pendaftaranModel->paginate($perPage, 'usulan');
+        $data['pager'] = $pendaftaranModel->pager;
+        $data['kategori'] = $kategori;
+
+        // Set the page title
+        $data['title'] = "Bahan Sidang 1 Kategori A";
+
+        // Pass the $data array to the view
+        return view('timteknis/bahansidang1/kategoria', $data);
     }
 
-    public function bahansidang2()
+
+    public function bahansidang1kategorib()
     {
-        $data['title'] = "Bahan Sidang 2";
-        return view('timteknis/bahansidang2', ['title' => 'Bahan Sidang 2']);
+        $pendaftaranModel = new PendaftaranModel();
+
+        // Ambil data dengan pagination, limit 5 per halaman
+        $perPage = 5;
+
+        // Tentukan kategori secara otomatis ke 'Pengabdi Lingkungan'
+        $kategori = 'Pengabdi Lingkungan';
+
+        // Ambil kata kunci dari request untuk pencarian
+        $keyword = $this->request->getGet('search');
+
+        // Filter data berdasarkan kategori 'Pengabdi Lingkungan'
+        $pendaftaranModel->where('kategori', $kategori);
+
+        // Ambil status dari filter
+        $status_pendaftaran = $this->request->getVar('status_pendaftaran');
+
+        // Jika status dipilih, tambahkan filter status
+        if ($status_pendaftaran) {
+            $pendaftaranModel->where('status_pendaftaran', $status_pendaftaran);
+        }
+
+
+        // Tambahkan filter untuk status pendaftaran
+        $validStatuses = ['Lolos Administrasi'];
+        $pendaftaranModel->whereIn('status_pendaftaran', $validStatuses);
+
+        // Jika ada kata kunci, tambahkan kondisi pencarian berdasarkan nama
+        if ($keyword) {
+            $pendaftaranModel->like('nama', $keyword);
+        }
+
+        // Dapatkan data dengan pagination
+        $data['kategori'] = $kategori;
+        $data['status_pendaftaran'] = $status_pendaftaran;
+        $data['keyword'] = $keyword;
+        $data['usulan'] = $pendaftaranModel->paginate($perPage, 'usulan');
+        $data['pager'] = $pendaftaranModel->pager;
+        $data['kategori'] = $kategori;
+
+        // Set the page title
+        $data['title'] = "Bahan Sidang 1 Kategori B";
+
+        // Pass the $data array to the view
+        return view('timteknis/bahansidang1/kategorib', $data);
+    }
+
+    public function bahansidang1kategoric()
+    {
+        $pendaftaranModel = new PendaftaranModel();
+
+        // Ambil data dengan pagination, limit 5 per halaman
+        $perPage = 5;
+
+        // Tentukan kategori secara otomatis ke 'Penyelamat Lingkungan'
+        $kategori = 'Penyelamat Lingkungan';
+
+        // Ambil kata kunci dari request untuk pencarian
+        $keyword = $this->request->getGet('search');
+
+        // Filter data berdasarkan kategori 'Penyelamat Lingkungan'
+        $pendaftaranModel->where('kategori', $kategori);
+
+        // Ambil status dari filter
+        $status_pendaftaran = $this->request->getVar('status_pendaftaran');
+
+        // Jika status dipilih, tambahkan filter status
+        if ($status_pendaftaran) {
+            $pendaftaranModel->where('status_pendaftaran', $status_pendaftaran);
+        }
+
+
+        // Tambahkan filter untuk status pendaftaran
+        $validStatuses = ['Lolos Administrasi'];
+        $pendaftaranModel->whereIn('status_pendaftaran', $validStatuses);
+
+        // Jika ada kata kunci, tambahkan kondisi pencarian berdasarkan nama
+        if ($keyword) {
+            $pendaftaranModel->like('nama', $keyword);
+        }
+
+        // Dapatkan data dengan pagination
+        $data['kategori'] = $kategori;
+        $data['status_pendaftaran'] = $status_pendaftaran;
+        $data['keyword'] = $keyword;
+        $data['usulan'] = $pendaftaranModel->paginate($perPage, 'usulan');
+        $data['pager'] = $pendaftaranModel->pager;
+        $data['kategori'] = $kategori;
+
+        // Set the page title
+        $data['title'] = "Bahan Sidang 1 Kategori C";
+
+        // Pass the $data array to the view
+        return view('timteknis/bahansidang1/kategoric', $data);
+    }
+
+    public function bahansidang1kategorid()
+    {
+        $pendaftaranModel = new PendaftaranModel();
+
+        // Ambil data dengan pagination, limit 5 per halaman
+        $perPage = 5;
+
+        // Tentukan kategori secara otomatis ke 'Pembina Lingkungan'
+        $kategori = 'Pembina Lingkungan';
+
+        // Ambil kata kunci dari request untuk pencarian
+        $keyword = $this->request->getGet('search');
+
+        // Filter data berdasarkan kategori 'Pembina Lingkungan'
+        $pendaftaranModel->where('kategori', $kategori);
+
+        // Ambil status dari filter
+        $status_pendaftaran = $this->request->getVar('status_pendaftaran');
+
+        // Jika status dipilih, tambahkan filter status
+        if ($status_pendaftaran) {
+            $pendaftaranModel->where('status_pendaftaran', $status_pendaftaran);
+        }
+
+
+        // Tambahkan filter untuk status pendaftaran
+        $validStatuses = ['Lolos Administrasi'];
+        $pendaftaranModel->whereIn('status_pendaftaran', $validStatuses);
+
+        // Jika ada kata kunci, tambahkan kondisi pencarian berdasarkan nama
+        if ($keyword) {
+            $pendaftaranModel->like('nama', $keyword);
+        }
+
+        // Dapatkan data dengan pagination
+        $data['kategori'] = $kategori;
+        $data['status_pendaftaran'] = $status_pendaftaran;
+        $data['keyword'] = $keyword;
+        $data['usulan'] = $pendaftaranModel->paginate($perPage, 'usulan');
+        $data['pager'] = $pendaftaranModel->pager;
+        $data['kategori'] = $kategori;
+
+        // Set the page title
+        $data['title'] = "Bahan Sidang 1 Kategori D";
+
+        // Pass the $data array to the view
+        return view('timteknis/bahansidang1/kategorid', $data);
+    }
+
+    public function bahansidang2kategoria()
+    {
+        $data['title'] = 'Bahan Sidang 2 Kategori A';
+        return view('timteknis/bahansidang2/kategoria', $data);
+    }
+
+    public function bahansidang2kategorib()
+    {
+        $data['title'] = 'Bahan Sidang 2 Kategori B';
+        return view('timteknis/bahansidang2/kategorib', $data);
+    }
+
+    public function bahansidang2kategoric() 
+    {
+        $data['title'] = 'Bahan Sidang 2 Kategori C';
+        return view('timteknis/bahansidang2/kategoric', $data);
+    }
+
+    public function bahansidang2kategorid()
+    {
+        $data['title'] = 'Bahan Sidang 2 Kategori D';
+        return view('timteknis/bahansidang2/kategorid', $data);
     }
 }

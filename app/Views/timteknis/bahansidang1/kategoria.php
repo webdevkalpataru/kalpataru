@@ -5,35 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $title; ?></title>
-    <style>
-        /* scrollbar */
-        ::-webkit-scrollbar {
-            width: 20px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, rgb(230, 156, 59), rgba(217, 237, 191, 1));
-            border-radius: 10px;
-            border: 3px solid #f1f1f1;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(180deg, rgb(207, 140, 53), rgba(195, 213, 172, 1));
-            opacity: 30%;
-            border-radius: 10px;
-            border: 3px solid #f1f1f1;
-        }
-
-        /* selection */
-        ::selection {
-            background-color: #2C7865;
-            color: white;
-        }
-    </style>
 </head>
 
 <body class="lg:flex">
@@ -48,24 +19,13 @@
             <!-- Header -->
             <header class="bg-white shadow">
                 <div class="container mx-auto flex items-center justify-between p-4 md:p-6">
-                    <h1 class="text-xl font-bold text-slate-800 mb-2">Data Calon Usulan</h1>
+                    <h1 class="text-xl font-bold text-slate-800 mb-2">Bahan Sidang 1</h1>
                 </div>
             </header>
 
             <!-- Main Content -->
             <div class="flex-1 container mx-auto">
-                <div class="lg:flex lg:justify-between">
-                    <!-- Dropdown Filter -->
-                    <form id="filterForm" action="" method="get" class="flex items-center my-4 ms-4">
-                        <label for="kategori" class="text-sm font-bold text-primary">Filter Kategori:</label>
-                        <select name="kategori" id="kategori" class="ml-2 border-2 border-primary text-primary rounded-md shadow-sm" onchange="document.getElementById('filterForm').submit();">
-                            <option value="">Semua Kategori</option>
-                            <option value="Perintis Lingkungan" <?= ($kategori == 'Perintis Lingkungan') ? 'selected' : '' ?>>Perintis Lingkungan</option>
-                            <option value="Pengabdi Lingkungan" <?= ($kategori == 'Pengabdi Lingkungan') ? 'selected' : '' ?>>Pengabdi Lingkungan</option>
-                            <option value="Penyelamat Lingkungan" <?= ($kategori == 'Penyelamat Lingkungan') ? 'selected' : '' ?>>Penyelamat Lingkungan</option>
-                            <option value="Pembina Lingkungan" <?= ($kategori == 'Pembina Lingkungan') ? 'selected' : '' ?>>Pembina Lingkungan</option>
-                        </select>
-                    </form>
+                <div class="lg:flex lg:justify-end">
                     <form method="get" class="flex items-center justify-end my-4">
                         <div class="relative lg:w-56 w-80 transition-all focus-within:w-64 lg:mt-0 mt-4">
                             <input
@@ -120,17 +80,12 @@
                                     </th>
                                     <th class="p-4 border-b border-accent2 bg-accent1 text-center">
                                         <p class="block text-xs md:text-sm font-bold leading-none text-accent2">
-                                            Status
-                                        </p>
-                                    </th>
-                                    <th class="p-4 border-b border-accent2 bg-accent1 text-center">
-                                        <p class="block text-xs md:text-sm font-bold leading-none text-accent2">
-                                            Catatan
-                                        </p>
-                                    </th>
-                                    <th class="p-4 border-b border-accent2 bg-accent1 text-center">
-                                        <p class="block text-xs md:text-sm font-bold leading-none text-accent2">
                                             Detail
+                                        </p>
+                                    </th>
+                                    <th class="p-4 border-b border-accent2 bg-accent1 text-center">
+                                        <p class="block text-xs md:text-sm font-bold leading-none text-accent2">
+                                            Bahan Sidang
                                         </p>
                                     </th>
                                 </tr>
@@ -139,7 +94,7 @@
                                 <?php if (empty($usulan)): ?>
                                     <tr>
                                         <td colspan="8" class="p-4 text-center text-sm text-red-600">
-                                            Tidak ditemukan data berdasarkan kategori "<?= $kategori ?: 'Semua Kategori'; ?>"
+                                            Tidak ditemukan data
                                         </td>
                                     </tr>
                                 <?php else: ?>
@@ -162,18 +117,16 @@
                                                 <p class="block text-xs text-slate-800"><?= $item['provinsi'] ?></p>
                                             </td>
                                             <td class="p-4 border-b border-slate-200 text-center">
-                                                <?php
-                                                $statusClass = ($item['status_pendaftaran'] === 'Tidak Lolos Administrasi') ? 'text-rejected' : 'text-accepted';
-                                                ?>
-                                                <p class="block text-xs font-bold <?= $statusClass ?>"><?= $item['status_pendaftaran'] ?></p>
-                                            </td>
-                                            <td class="p-4 border-b border-slate-200 text-center">
-                                                <button class="lihatButton w-20 rounded-md py-2 px-2 text-center font-semibold text-xs text-primary bg-secondary hover:shadow-md" type="button">Lihat</button>
-                                            </td>
-                                            <td class="p-4 border-b border-slate-200 text-center">
                                                 <a href="<?= base_url('timteknis/detaildatacalonusulan') ?>">
                                                     <button class="w-20 rounded-md py-2 px-2 text-center font-semibold text-xs text-primary bg-secondary hover:shadow-md" type="button">Lihat</button>
                                                 </a>
+                                            </td>
+                                            <td class="p-4 border-b border-slate-200 text-center flex justify-center">
+                                                <button class="bahanSidangButton w-20 rounded-md py-2 px-2 text-center font-semibold text-xs text-primary flex justify-center" type="button" data-id="<?= $item['id_pendaftaran']; ?>">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m6.75 12-3-3m0 0-3 3m3-3v6m-1.5-15H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+                                                    </svg>
+                                                </button>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -188,44 +141,50 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
-    <!-- Modal -->
-    <div id="catatanModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
-        <div class="bg-white rounded-lg p-8 flex flex-col max-w-md">
-            <h2 class="text-left text-lg font-bold text-primary mb-2">Catatan:</h2>
-            <p class="text-justify text-sm text-slate-600 mb-4">Ini merupakan contoh catatan Ini merupakan contoh catatan Ini merupakan contoh catatan Ini merupakan contoh catatan</p>
-            <button onclick="closeModal()"
-                class="text-left text-sm font-bold text-gray-600 no-underline focus:outline-none">
-                <span class="font-bold text-lg items-center">←</span> Kembali
-            </button>
+    <!-- Modal Bahan Sidang-->
+    <div id="bahanSidangModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+        <div class="bg-white rounded-lg p-8 flex flex-col max-w-md w-full">
+            <h2 class="text-left text-lg font-bold text-primary mb-2">Unggah Bahan Sidang 1</h2>
+            <form id="bahansidangForm" method="POST" action="<?= base_url('timteknis/unggahbahansidang') ?>">
+                <input type="hidden" name="id_pendaftaran" value="">
+                <input id="bahansidang1" type="file" accept="application/pdf" name="bahansidang1"
+                    class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none w-full">
+                <div class="flex justify-between mt-6">
+                    <button type="button" onclick="closeModal()" class="text-left text-sm font-bold text-gray-600 no-underline focus:outline-none">
+                        <span class="font-bold text-lg items-center">←</span> Kembali
+                    </button>
+                    <button type="submit" class="bg-primary text-white rounded-md py-2 px-4 font-semibold text-sm">Unggah</button>
+                </div>
+            </form>
         </div>
     </div>
 
     <script>
-        // POPUP MODAL CATATAN
-        const modal = document.getElementById('catatanModal');
-        const lihatButtons = document.querySelectorAll('.lihatButton');
+        // POPUP MODAL BAHAN SIDANG
+        const modal = document.getElementById('bahanSidangModal');
+        const bahanSidangButtons = document.querySelectorAll('.bahanSidangButton');
 
-        lihatButtons.forEach(button => {
+        bahanSidangButtons.forEach(button => {
             button.addEventListener('click', function() {
-                modal.classList.remove('hidden');
+                const idPendaftaran = this.getAttribute('data-id');
+                document.querySelector('input[name="id_pendaftaran"]').value = idPendaftaran; // Set the hidden field value
+                modal.classList.remove('hidden'); // Show the modal
             });
         });
 
         function closeModal() {
-            modal.classList.add('hidden');
+            modal.classList.add('hidden'); // Hide the modal
         }
 
         window.addEventListener('click', function(event) {
             if (event.target === modal) {
-                closeModal();
+                closeModal(); // Close the modal when clicking outside of it
             }
         });
     </script>
-
 </body>
 
 </html>

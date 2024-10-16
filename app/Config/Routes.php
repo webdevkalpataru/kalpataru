@@ -136,8 +136,15 @@ $routes->group('timteknis', function ($routes) {
     $routes->post('updatecatatan', 'TimteknisController::updateCatatan');
 
 
-    $routes->get('bahansidang1', 'TimteknisController::bahansidang1');
-    $routes->get('bahansidang2', 'TimteknisController::bahansidang2');
+    $routes->get('bahansidang1/kategoria', 'TimteknisController::bahansidang1kategoria');
+    $routes->get('bahansidang1/kategorib', 'TimteknisController::bahansidang1kategorib');
+    $routes->get('bahansidang1/kategoric', 'TimteknisController::bahansidang1kategoric');
+    $routes->get('bahansidang1/kategorid', 'TimteknisController::bahansidang1kategorid');
+
+    $routes->get('bahansidang2/kategoria', 'TimteknisController::bahansidang2kategoria');
+    $routes->get('bahansidang2/kategorib', 'TimteknisController::bahansidang2kategorib');
+    $routes->get('bahansidang2/kategoric', 'TimteknisController::bahansidang2kategoric');
+    $routes->get('bahansidang2/kategorid', 'TimteknisController::bahansidang2kategorid');
 });
 
 /* DPPK */

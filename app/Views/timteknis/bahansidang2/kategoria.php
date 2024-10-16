@@ -19,7 +19,7 @@
             <!-- Header -->
             <header class="bg-white shadow">
                 <div class="container mx-auto flex items-center justify-between p-4 md:p-6">
-                    <h1 class="text-xl font-bold text-slate-800 mb-2">Bahan Sidang 1</h1>
+                    <h1 class="text-xl font-bold text-slate-800 mb-2">Bahan Sidang 2</h1>
                 </div>
             </header>
 
@@ -28,7 +28,6 @@
 
         </div>
     </div>
-
 </body>
 
 </html>
