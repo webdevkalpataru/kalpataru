@@ -30,7 +30,7 @@
             </h5>
         </div>
         <div class="relative block w-full">
-            <a href="../admin/dashboard">
+            <a href="/admin/dashboard">
                 <div role="button"
                     class="flex items-center w-full p-0 leading-tight transition-all rounded-lg outline-none bg-blue-gray-50/50 text-start text-blue-gray-700 hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-primary focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-primary active:bg-blue-gray-50 active:bg-opacity-80 active:text-primary">
                     <button id="dropdownBtn1" type="button"

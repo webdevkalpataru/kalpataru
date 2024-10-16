@@ -81,7 +81,7 @@ $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
     $routes->get('artikel-saya', 'PengusulController::artikelsaya');
     $routes->get('tambah-artikel', 'PengusulController::tambahartikel');
     $routes->post('tambah-artikel', 'PengusulController::tambahArtikelAction');
-    $routes->get('artikel/(:segment)', 'PengusulController::detailartikel/$1');
+    $routes->get('artikel/(:any)', 'PengusulController::detailartikel/$1');
 
     $routes->get('pemberitahuan', 'PengusulController::pemberitahuan');
     $routes->get('alurpendaftaran', 'PengusulController::alurpendaftaran');
@@ -113,7 +113,8 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('artikelpengguna', 'AdminController::artikelpengguna');
     $routes->get('tambah-artikel', 'AdminController::tambahartikeladmin');
     $routes->post('tambah-artikel', 'AdminController::tambahArtikelAction');
-    $routes->get('artikel/(:segment)', 'PengusulController::detailartikel/$1');
+    $routes->get('artikel/edit/(:any)', 'Artikel::edit/$1');
+    $routes->get('artikel/(:any)', 'AdminController::detailartikel/$1');
     $routes->post('artikel/hapus/(:num)', 'AdminController::hapusArtikel/$1');
     $routes->post('updatestatus', 'AdminController::updateStatus');
 });

@@ -134,8 +134,8 @@ class AdminController extends BaseController
 
     public function detailartikel($slug)
     {
-        $Model = new ArtikelModel();
-        $artikel = $Model->where('slug', $slug)->first(); // Ambil artikel berdasarkan slug
+        $model = new ArtikelModel();
+        $artikel = $model->getDetailArtikelBySlug($slug);
 
         if (!$artikel) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
