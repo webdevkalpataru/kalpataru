@@ -476,8 +476,17 @@ class PengusulController extends BaseController
 
     public function usulandlhk()
     {
-        $data['title'] = 'Usulan DLHK';
-        return view('pengusul/usulandlhk', ['title' => 'Usulan DLHK']);
+        $Model = new PendaftaranModel();
+        $provinsi = session()->get('provinsi');
+        
+        $usulan = $Model->where('provinsi', $provinsi)->findAll();
+        
+        $data = [
+            'title' => 'Usulan DLHK',
+            'usulan' => $usulan
+        ];
+        
+        return view('pengusul/usulandlhk', $data);
     }
 
     public function detailusulansaya($id)
@@ -717,9 +726,32 @@ class PengusulController extends BaseController
 
     public function pemberitahuan()
     {
-        $data['title'] = 'Pemberitahuan';
-        return view('pengusul/pemberitahuan', ['title' => 'Pemberitahuan']);
+        $pendaftaranModel = new PendaftaranModel();
+        $pengusulModel = new PengusulModel();
+    
+        $id_pengusul = session()->get('id_pengusul');
+        $pengusul = $pengusulModel->find($id_pengusul);
+    
+        $pendaftaran = [];
+    
+        if ($pengusul) {
+            if ($pengusul['role_akun'] == 'DLHK') {
+                $provinsi = session()->get('provinsi');
+                $pendaftaran = $pendaftaranModel->where('provinsi', $provinsi)->findAll();
+            } else if ($pengusul['role_akun'] == 'Pengusul') {
+                $pendaftaran = $pendaftaranModel->where('id_pengusul', $id_pengusul)->findAll();
+            }
+        }
+    
+        $data = [
+            'title' => 'Pemberitahuan',
+            'pendaftaran' => $pendaftaran,
+            'pengusul' => $pengusul
+        ];
+    
+        return view('pengusul/pemberitahuan', $data);
     }
+
     public function alurpendaftaran()
     {
         $data['title'] = 'Alur Pendaftaran';
