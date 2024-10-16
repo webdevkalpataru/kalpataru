@@ -30,7 +30,7 @@
                             <p class="font-semibold mb-2 text-md text-primary underline">Data Kelompok/ Komunitas</p>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Nama Kelompok</label>
-                                <input type="text" name="nama" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input type="text" name="nama_kelompok" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div>
                                 <label for="tahun_pembentukan" class="block mb-2 text-sm text-black">Tahun Berdiri Kelompok</label>
@@ -82,6 +82,14 @@
                                 <label class="block mb-2 text-sm text-black">Unggah Surat Legalitas Kelompok <span class="text-primary">(.pdf)</span></label>
                                 <input id="suratpengantar" name="legalitas" type="file" accept="application/pdf"
                                     class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
+                                <!-- Tampilkan pesan kesalahan jika ada -->
+                                <?php if (session()->getFlashdata('error_legalitas')): ?>
+                                    <p class="text-red-500 text-sm mt-1"><?= session()->getFlashdata('error_legalitas') ?></p>
+                                <?php endif; ?>
+                            </div>
+                            <div>
+                                <label class="block mb-2 text-sm text-black" for="tanggal_skck">Tanggal Surat Legalitas Kelompok</label>
+                                <input type="date" name="tanggal_legalitas" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                         </div>
 

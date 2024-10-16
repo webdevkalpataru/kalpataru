@@ -178,8 +178,8 @@ class PengusulController extends BaseController
         ];
 
         return view('pengusul/tambahcalonidentitas', [
-            'id_pengusul' => $pendaftaranData['id_pengusul'],  // Data dari session
-            'kategori' => $pendaftaranData['kategori'],        // Data dari session
+            'id_pengusul' => $pendaftaranData['id_pengusul'],
+            'kategori' => $pendaftaranData['kategori'],
             'provinsi_list' => $provinsi_list
         ]);
     }
@@ -213,24 +213,54 @@ class PengusulController extends BaseController
             return redirect()->back()->withInput()->with('error', 'Validasi file gagal. Pastikan format dan ukuran file benar.');
         }
 
-        // Simpan file KTP
-        $ktpFile = $this->request->getFile('ktp');
-        if ($ktpFile->isValid() && !$ktpFile->hasMoved()) {
-            $ktpFileName = $ktpFile->getRandomName();
-            $ktpFile->store('ktp', $ktpFileName);
+        $legalitasFile = $this->request->getFile('legalitas');
+        if ($legalitasFile->isValid() && !$legalitasFile->hasMoved()) {
+            if ($legalitasFile->getExtension() === 'pdf' && $legalitasFile->getSize() <= 1024 * 1024) {
+                $originalName = pathinfo($legalitasFile->getClientName(), PATHINFO_FILENAME);
+                $extension = $legalitasFile->getExtension();
+                $legalitasFileName = $originalName . '_' . bin2hex(random_bytes(5)) . '.' . $extension;
+                $legalitasFile->store('legalitas', $legalitasFileName);
+            } else {
+                return redirect()->back()->with('error', 'File harus berupa PDF dan ukuran maksimal 1MB.');
+            }
         }
 
-        // Simpan file SKCK
+
+        $ktpFile = $this->request->getFile('ktp');
+        if ($ktpFile->isValid() && !$ktpFile->hasMoved()) {
+            $allowedExtensions = ['jpg', 'jpeg'];
+            if (in_array($ktpFile->getExtension(), $allowedExtensions) && $ktpFile->getSize() <= 1024 * 1024) {
+                // Ambil nama asli file tanpa ekstensi
+                $originalName = pathinfo($ktpFile->getClientName(), PATHINFO_FILENAME);
+                // Dapatkan ekstensi file
+                $extension = $ktpFile->getExtension();
+                // Buat nama file baru dengan format "originalName_randomString.extension"
+                $ktpFileName = $originalName . '_' . bin2hex(random_bytes(5)) . '.' . $extension;
+                // Simpan file dengan nama yang baru
+                $ktpFile->store('ktp', $ktpFileName);
+            } else {
+                // Tampilkan pesan kesalahan jika bukan JPG/JPEG atau melebihi 1MB
+                return redirect()->back()->with('error', 'File harus berupa JPG atau JPEG dan ukuran maksimal 1MB.');
+            }
+        }
+
+
         $skckFile = $this->request->getFile('skck');
         if ($skckFile->isValid() && !$skckFile->hasMoved()) {
-            $skckFileName = $skckFile->getRandomName();
-            $skckFile->store('skck', $skckFileName);
+            if ($skckFile->getExtension() === 'pdf' && $skckFile->getSize() <= 1024 * 1024) {
+                $originalName = pathinfo($skckFile->getClientName(), PATHINFO_FILENAME);
+                $extension = $skckFile->getExtension();
+                $skckFileName = $originalName . '_' . bin2hex(random_bytes(5)) . '.' . $extension;
+                $skckFile->store('skck', $skckFileName);
+            } else {
+                return redirect()->back()->with('error', 'File harus berupa PDF dan ukuran maksimal 1MB.');
+            }
         }
 
         // Simpan data lainnya tergantung kategori
         if ($pendaftaranData['kategori'] == 'Penyelamat Lingkungan') {
             $data = [
-                'nama' => $this->request->getPost('nama'),
+                'nama' => $this->request->getPost('nama_ketua'),
                 'tahun_pembentukan' => $this->request->getPost('tahun_pembentukan'),
                 'jumlah_anggota' => $this->request->getPost('jumlah_anggota'),
                 'jalan' => $this->request->getPost('jalan'),
@@ -241,7 +271,7 @@ class PengusulController extends BaseController
                 'provinsi' => $this->request->getPost('provinsi'),
                 'kode_pos' => $this->request->getPost('kode_pos'),
                 'sosial_media' => $this->request->getPost('media_sosial'),
-                'nama_ketua' => $this->request->getPost('nama_ketua'),
+                'nama_kelompok' => $this->request->getPost('nama_kelompok'),
                 'nik' => $this->request->getPost('nik'),
                 'tempat_lahir' => $this->request->getPost('tempat_lahir'),
                 'tanggal_lahir' => $this->request->getPost('tanggal_lahir'),
@@ -252,6 +282,8 @@ class PengusulController extends BaseController
                 'email' => $this->request->getPost('email'),
                 'pendidikan' => $this->request->getPost('pendidikan'),
                 'tanggal_skck' => $this->request->getPost('tanggal_skck'),
+                'tanggal_legalitas' => $this->request->getPost('tanggal_legalitas'),
+                'legalitas' => $legalitasFileName,
                 'ktp' => $ktpFileName,
                 'skck' => $skckFileName
             ];
@@ -308,7 +340,116 @@ class PengusulController extends BaseController
         }
 
         switch ($formType) {
+            case 'identitasc':
+                $identitas = $model->getIdentitasByIdPendaftaran($id_pendaftaran);
+                $data = [
+                    'nama' => $this->request->getPost('nama'),
+                    'tahun_pembentukan' => $this->request->getPost('tahun_pembentukan'),
+                    'jumlah_anggota' => $this->request->getPost('jumlah_anggota'),
+                    'jalan' => $this->request->getPost('jalan'),
+                    'rt_rw' => $this->request->getPost('rt_rw'),
+                    'desa' => $this->request->getPost('desa'),
+                    'kecamatan' => $this->request->getPost('kecamatan'),
+                    'kab_kota' => $this->request->getPost('kab_kota'),
+                    'provinsi' => $this->request->getPost('provinsi'),
+                    'kode_pos' => $this->request->getPost('kode_pos'),
+                    'sosial_media' => $this->request->getPost('media_sosial'),
+                    'nik' => $this->request->getPost('nik'),
+                    'tempat_lahir' => $this->request->getPost('tempat_lahir'),
+                    'tanggal_lahir' => $this->request->getPost('tanggal_lahir'),
+                    'usia' => $this->request->getPost('usia'),
+                    'jenis_kelamin' => $this->request->getPost('jenis_kelamin'),
+                    'pekerjaan' => $this->request->getPost('pekerjaan'),
+                    'telepon' => $this->request->getPost('telepon'),
+                    'email' => $this->request->getPost('email'),
+                    'pendidikan' => $this->request->getPost('pendidikan'),
+                    'tanggal_skck' => $this->request->getPost('tanggal_skck'),
+                ];
+
+                // Logika untuk upload file KTP
+                $ktpFile = $this->request->getFile('ktp');
+                if ($ktpFile && $ktpFile->isValid() && !$ktpFile->hasMoved()) {
+                    // Validasi file KTP (JPG/JPEG)
+                    if ($ktpFile->isValid() && $ktpFile->getMimeType() === 'image/jpeg' && $ktpFile->getSize() <= 1024 * 1024) {
+                        $ktpFileName = $ktpFile->getRandomName();
+                        $ktpFile->store('ktp', $ktpFileName);
+                        $data['ktp'] = $ktpFileName;
+                    }
+                }
+
+                // Logika untuk upload file SKCK
+                $skckFile = $this->request->getFile('skck');
+                if ($skckFile && $skckFile->isValid() && !$skckFile->hasMoved()) {
+                    // Validasi file SKCK (PDF)
+                    if ($skckFile->isValid() && $skckFile->getMimeType() === 'application/pdf' && $skckFile->getSize() <= 1024 * 1024) {
+                        $skckFileName = $skckFile->getRandomName();
+                        $skckFile->store('skck', $skckFileName);
+                        $data['skck'] = $skckFileName;
+                    }
+                }
+
+                // Update atau insert data identitas
+                if ($identitas) {
+                    $model->updateIdentitas($data, ['id_pendaftaran' => $id_pendaftaran]);
+                } else {
+                    $model->insertIdentitas($data);
+                }
+                break;
+
+            case 'identitasabd':
+                $identitas = $model->getIdentitasByIdPendaftaran($id_pendaftaran);
+                $data = [
+                    'nama' => $this->request->getPost('nama_individu'),
+                    'nik' => $this->request->getPost('nik_individu'),
+                    'tempat_lahir' => $this->request->getPost('tempat_lahir'),
+                    'tanggal_lahir' => $this->request->getPost('tanggal_lahir'),
+                    'usia' => $this->request->getPost('usia'),
+                    'jenis_kelamin' => $this->request->getPost('jenis_kelamin'),
+                    'pekerjaan' => $this->request->getPost('pekerjaan'),
+                    'telepon' => $this->request->getPost('telepon'),
+                    'email' => $this->request->getPost('email'),
+                    'pendidikan' => $this->request->getPost('pendidikan'),
+                    'jalan' => $this->request->getPost('jalan'),
+                    'rt_rw' => $this->request->getPost('rt_rw'),
+                    'desa' => $this->request->getPost('desa'),
+                    'kecamatan' => $this->request->getPost('kecamatan'),
+                    'kab_kota' => $this->request->getPost('kab_kota'),
+                    'provinsi' => $this->request->getPost('provinsi'),
+                    'kode_pos' => $this->request->getPost('kode_pos'),
+                    'sosial_media' => $this->request->getPost('sosial_media'),
+                    'tanggal_skck' => $this->request->getPost('tanggal_skck'),
+                ];
+
+                // Logika untuk upload file KTP dan SKCK sama seperti di atas
+                // Upload KTP
+                $ktpFile = $this->request->getFile('ktp');
+                if ($ktpFile && $ktpFile->isValid() && !$ktpFile->hasMoved()) {
+                    if ($ktpFile->isValid() && $ktpFile->getMimeType() === 'image/jpeg' && $ktpFile->getSize() <= 1024 * 1024) {
+                        $ktpFileName = $ktpFile->getRandomName();
+                        $ktpFile->store('ktp', $ktpFileName);
+                        $data['ktp'] = $ktpFileName;
+                    }
+                }
+
+                // Upload SKCK
+                $skckFile = $this->request->getFile('skck');
+                if ($skckFile && $skckFile->isValid() && !$skckFile->hasMoved()) {
+                    if ($skckFile->isValid() && $skckFile->getMimeType() === 'application/pdf' && $skckFile->getSize() <= 1024 * 1024) {
+                        $skckFileName = $skckFile->getRandomName();
+                        $skckFile->store('skck', $skckFileName);
+                        $data['skck'] = $skckFileName;
+                    }
+                }
+
+                // Update atau insert data identitas
+                if ($identitas) {
+                    $model->updateIdentitas($data, ['id_pendaftaran' => $id_pendaftaran]);
+                } else {
+                    $model->insertIdentitas($data);
+                }
+                break;
             case 'kegiatan':
+                // Ambil data dari request
                 $data = [
                     'id_pendaftaran' => $id_pendaftaran,
                     'tema' => $this->request->getPost('tema'),
@@ -322,12 +463,39 @@ class PengusulController extends BaseController
                     'keberhasilan' => $this->request->getPost('keberhasilan'),
                 ];
 
+                // Ambil semua kegiatan terkait ID pendaftaran
                 $existingKegiatan = $model->getKegiatanByIdPendaftaran($id_pendaftaran);
+
+                // Jika sudah ada kegiatan, perbarui atau tambahkan yang baru
                 if ($existingKegiatan) {
-                    $model->updateKegiatan($data, ['id_pendaftaran' => $id_pendaftaran]);
+                    // Update kegiatan yang sudah ada (misalnya kegiatan utama)
+                    $model->updateKegiatan($data, ['id_kegiatan' => $existingKegiatan['id_kegiatan']]);
                 } else {
+                    // Insert kegiatan baru
                     $model->insertKegiatan($data);
                 }
+
+                // Cek apakah ada kegiatan tambahan yang ingin ditambahkan
+                $kegiatanLainnya = $this->request->getPost('kegiatan_lainnya');
+                if (!empty($kegiatanLainnya)) {
+                    foreach ($kegiatanLainnya as $kegiatan) {
+                        $dataLain = [
+                            'id_pendaftaran' => $id_pendaftaran,
+                            'tema' => $kegiatan['tema'],
+                            'sub_tema' => $kegiatan['sub_tema'],
+                            'bentuk_kegiatan' => $kegiatan['bentuk_kegiatan'],
+                            'tahun_mulai' => $kegiatan['tahun_mulai'],
+                            'deskripsi_kegiatan' => $kegiatan['deskripsi_kegiatan'],
+                            'lokasi_kegiatan' => $kegiatan['lokasi_kegiatan'],
+                            'koordinat' => $kegiatan['koordinat'],
+                            'pihak_dan_peran' => $kegiatan['pihak_dan_peran'],
+                            'keberhasilan' => $kegiatan['keberhasilan'],
+                        ];
+                        // Insert kegiatan tambahan
+                        $model->insertKegiatan($dataLain);
+                    }
+                }
+
                 break;
 
             case 'dampak':
@@ -383,25 +551,41 @@ class PengusulController extends BaseController
                     'id_pendaftaran' => $id_pendaftaran,
                     'keistimewaan' => $this->request->getPost('keistimewaan'),
                     'penghargaan' => $this->request->getPost('penghargaan'),
-                    'foto_kegiatan1' => $this->request->getPost('foto_kegiatan1'),
-                    'foto_kegiatan2' => $this->request->getPost('foto_kegiatan2'),
-                    'foto_kegiatan3' => $this->request->getPost('foto_kegiatan3'),
-                    'foto_kegiatan4' => $this->request->getPost('foto_kegiatan4'),
-                    'foto_kegiatan5' => $this->request->getPost('foto_kegiatan5'),
-                    'deskripsi_foto_kegiatan1' => $this->request->getPost('deskripsi_foto_kegiatan1'),
-                    'deskripsi_foto_kegiatan2' => $this->request->getPost('deskripsi_foto_kegiatan2'),
-                    'deskripsi_foto_kegiatan3' => $this->request->getPost('deskripsi_foto_kegiatan3'),
-                    'deskripsi_foto_kegiatan4' => $this->request->getPost('deskripsi_foto_kegiatan4'),
-                    'deskripsi_foto_kegiatan5' => $this->request->getPost('deskripsi_foto_kegiatan5'),
                     'tautan_video' => $this->request->getPost('tautan_video'),
                     'tautan_dokumen_pendukung' => $this->request->getPost('tautan_dokumen_pendukung'),
                 ];
+
+                // Loop untuk menangani hingga 5 foto_kegiatan
+                for ($i = 1; $i <= 5; $i++) {
+                    $fotoField = 'foto_kegiatan' . $i;
+                    $deskripsiField = 'deskripsi_foto_kegiatan' . $i;
+                    $fotoFile = $this->request->getFile($fotoField);
+
+                    // Hanya proses jika file diunggah
+                    if ($fotoFile && $fotoFile->isValid() && !$fotoFile->hasMoved()) {
+                        if ($fotoFile->getMimeType() === 'image/jpeg' && $fotoFile->getSize() <= 1024 * 1024) {
+                            $randomName = $fotoFile->getRandomName();
+                            $fotoFileName = $fotoField . '_' . $randomName;
+                            $fotoFile->store($fotoField, $fotoFileName);
+                            $data[$fotoField] = $fotoFileName; // Update data array untuk setiap foto
+                        }
+                    }
+
+                    // Tambahkan deskripsi ke data array jika ada
+                    $deskripsiFoto = $this->request->getPost($deskripsiField);
+                    if (!empty($deskripsiFoto)) {
+                        $data[$deskripsiField] = $deskripsiFoto;
+                    }
+                }
+
+                // Update atau insert data ke database
                 if ($keistimewaan) {
                     $model->updateKeistimewaan($data, ['id_pendaftaran' => $id_pendaftaran]);
                 } else {
                     $model->insertKeistimewaan($data);
                 }
                 break;
+
 
             default:
                 return redirect()->back()->with('error', 'Form tidak ditemukan.');
@@ -415,7 +599,7 @@ class PengusulController extends BaseController
     {
         $model = new PendaftaranModel();
         $pendaftaran = $model->getPendaftaranById($id_pendaftaran);
-
+        $identitas = $model->getIdentitasByIdPendaftaran($id_pendaftaran);
         $kegiatan = $model->getKegiatanByIdPendaftaran($id_pendaftaran);
         $dampak = $model->getDampakByIdPendaftaran($id_pendaftaran);
         $pmik = $model->getPMIKByIdPendaftaran($id_pendaftaran);
@@ -430,6 +614,8 @@ class PengusulController extends BaseController
 
         $data = [
             'pendaftaran' => $pendaftaran,
+            'identitasc' => $identitas,
+            'identitasabd' => $identitas,
             'kegiatan' => $kegiatan,
             'dampak' => $dampak,
             'pmik' => $pmik,
@@ -471,8 +657,8 @@ class PengusulController extends BaseController
 
     public function detailusulansaya($id)
     {
-        $Model = new PendaftaranModel();
-        $pendaftaran = $Model->getDetailById($id);
+        $model = new PendaftaranModel();
+        $pendaftaran = $model->getDetailById($id);
 
         // Validasi jika data ditemukan atau tidak
         if (!$pendaftaran) {
@@ -487,6 +673,7 @@ class PengusulController extends BaseController
 
         return view('pengusul/detailusulansaya', $data);
     }
+
 
     public function editUsulan($id)
     {

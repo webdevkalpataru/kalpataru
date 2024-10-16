@@ -39,29 +39,41 @@ class PendaftaranModel extends Model
         'pendidikan',
         'ktp',
         'skck',
+        'nama_kelompok',
         'nama_ketua',
         'jumlah_anggota',
-        'tahun_berdiri',
+        'tahun_pembentukan',
         'legalitas',
         'edit',
         'kode_registrasi',
         'status_dokumen',
         'skor_dokumen',
-        'tanggal_skck'
+        'tanggal_skck',
+        'tanggal_legalitas'
     ];
 
     public function getDetailById($id)
     {
-        // Ambil data dari tabel pendaftaran dan join dengan tabel lainnya
-        return $this->select('pendaftaran.*, kegiatan.id_pendaftaran AS kegiatan_id, dampak.id_pendaftaran AS dampak_id, pmik.id_pendaftaran AS pmik_id, keswadayaan.id_pendaftaran AS keswadayaan_id, keistimewaan.id_pendaftaran AS keistimewaan_id')
+        return $this->select('
+                pendaftaran.*,
+                kegiatan.id_kegiatan AS kegiatan_id, 
+                kegiatan.*,
+                dampak.id_dampak AS dampak_id, 
+                dampak.*,
+                pmik.id_pmik AS pmik_id, 
+                pmik.*,
+                keswadayaan.id_keswadayaan AS keswadayaan_id, 
+                keswadayaan.*,
+                keistimewaan.id_keistimewaan AS keistimewaan_id,
+                keistimewaan.*,
+            ')
             ->join('kegiatan', 'kegiatan.id_pendaftaran = pendaftaran.id_pendaftaran', 'left')
             ->join('dampak', 'dampak.id_pendaftaran = pendaftaran.id_pendaftaran', 'left')
             ->join('pmik', 'pmik.id_pendaftaran = pendaftaran.id_pendaftaran', 'left')
             ->join('keswadayaan', 'keswadayaan.id_pendaftaran = pendaftaran.id_pendaftaran', 'left')
             ->join('keistimewaan', 'keistimewaan.id_pendaftaran = pendaftaran.id_pendaftaran', 'left')
             ->where('pendaftaran.id_pendaftaran', $id)
-            ->first();        // Mengambil satu baris data berdasarkan ID
-
+            ->first();
     }
 
     // -------------------------------------------------------------------------
@@ -69,6 +81,22 @@ class PendaftaranModel extends Model
     public function getPendaftaranById($id)
     {
         return $this->find($id);
+    }
+
+    // ------------------IDENTITAS------------------
+    public function insertIdentitas($data)
+    {
+        return $this->db->table('pendaftaran')->insert($data);
+    }
+
+    public function getIdentitasByIdPendaftaran($id_pendaftaran)
+    {
+        return $this->db->table('pendaftaran')->where('id_pendaftaran', $id_pendaftaran)->get()->getRowArray();
+    }
+
+    public function updateIdentitas($data, $where)
+    {
+        return $this->db->table('pendaftaran')->where($where)->update($data);
     }
 
     // ------------------KEGIATAN------------------
