@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/app.css">
     <title><?= $title; ?></title>
-    <link rel="stylesheet" href="../css/app.css">
     <style>
         body {
             overflow-y: auto;
@@ -71,41 +71,29 @@
 <body>
     <div class="flex h-screen">
         <div class="flex-1 relative hidden sm:block">
-            <img id="backgroundImage" src="/images/loginregist1.jpeg" alt="loginregist1"
+            <img id="backgroundImage" src="/images/loginregist2.jpeg" alt="loginregist2"
                 class="w-full h-full object-cover fade-in-right">
         </div>
 
-        <div class="flex-1 flex items-center justify-center bg-white overflow-y-auto h-screen sm:h-auto mt-8">
+        <div class="flex-1 flex items-center justify-center bg-white h-screen sm:h-auto">
             <div class="w-full max-w-md p-6 fade-in-left">
                 <h2 class="text-2xl font-bold text-gray-900 mb-4">Daftar</h2>
                 <form action="/auth/register" method="post" onsubmit="validateForm(event)" class="flex flex-col" enctype="multipart/form-data">
                     <?= csrf_field() ?>
-                    <label for="jenis_instansi" class="text-xs">Jenis Instansi</label>
-                    <select id="jenis_instansi" name="jenis_instansi"
-                        class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
-                        <option value="" disabled selected>Pilih Jenis Instansi</option>
-                        <option value="Pemerintah">Pemerintah</option>
-                        <option value="Non Pemerintah">Non Pemerintah</option>
-                    </select>
+                    <label for="nip" class="text-xs">NIP</label>
+                    <input id="nip" name="nip" type="number"
+                        class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none"
+                        placeholder="Contoh: 1425364759">
 
-                    <label for="nama_instansi_pribadi" class="text-xs">Nama Instansi/ Nama Pribadi</label>
-                    <input id="nama_instansi_pribadi" name="nama_instansi_pribadi" type="text"
+                    <label for="nama" class="text-xs">Nama</label>
+                    <input id="nama" name="nama" type="text"
                         class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none"
                         placeholder="contoh: Kemitraan Lingkungan">
 
-                    <label for="provinsi" class="text-xs">Provinsi</label>
-                    <select id="provinsi" name="provinsi"
-                        class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
-                        <option value="" disabled selected>Pilih Provinsi</option>
-                        <?php foreach ($provinsi_list as $provinsi) { ?>
-                            <option value="<?php echo $provinsi; ?>"><?php echo $provinsi; ?></option>
-                        <?php } ?>
-                    </select>
-
-                    <label for="telepon" class="text-xs">Nomor Telepon <span class="text-primary">(Pastikan Nomor Aktif)</span></label>
-                    <input id="telepon" name="telepon" type="number"
+                    <label for="sk" class="text-xs">No. SK</label>
+                    <input id="sk" name="sk" type="number"
                         class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none"
-                        placeholder="Contoh: 08XXXXXXXX">
+                        placeholder="Contoh: 1425364759">
 
                     <label for="email" class="text-xs">Email <span class="text-primary">(Pastikan Email Aktif)</span></label>
                     <input id="email" name="email" type="email"
@@ -134,25 +122,9 @@
                     </div>
                     <small id="passwordCheckError" class="error-message">Konfirmasi kata sandi tidak cocok.</small>
 
-
-                    <div class="grid gap-1 grid-cols-2 mb-2">
-                        <label for="surat_pengantar" class="text-xs">Template Surat Pengantar</label>
-                        <label for="surat_pengantar" class="text-xs">Surat Pengantar <span class="text-primary">(.pdf)</span></label>
-
-                        <div class="flex items-center">
-                            <img src="/images/word.svg" alt="word" class="w-8 h-8 mr-2">
-                            <button type="button" class="bg-primary text-white text-xs px-2 rounded-md w-14 h-8">
-                                Unduh
-                            </button>
-                        </div>
-
-                        <input id="surat_pengantar" type="file" accept="application/pdf" name="surat_pengantar"
-                            class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
-                    </div>
-
                     <div class="flex items-center justify-between flex-wrap">
                         <p class="text-gray-900 text-xs">
-                            Sudah punya akun? <a href="./login" class="text-primary hover:underline font-bold">Masuk Sekarang</a>
+                            Sudah punya akun? <a href="./logininternal" class="text-primary hover:underline font-bold">Masuk Sekarang</a>
                         </p>
                     </div>
 
@@ -213,29 +185,15 @@
         function validateForm(event) {
             event.preventDefault();
 
-            const jenis_instansi = document.getElementById('jenis_instansi').value;
-            const nama_instansi_pribadi = document.getElementById('nama_instansi_pribadi').value;
-            const provinsi = document.getElementById('provinsi').value;
-            const telepon = document.getElementById('telepon').value;
+            const nip = document.getElementById('nip').value;
+            const nama = document.getElementById('nama').value;
+            const sk = document.getElementById('sk').value;
             const email = document.getElementById('email').value;
             const kata_sandi = passwordInput.value;
             const passwordCheck = passwordCheckInput.value;
-            const surat_pengantar = document.getElementById('surat_pengantar').files[0];
 
             let isValid = true;
             let passwordErrors = [];
-
-            // Validasi Surat Pengantar
-            if (!surat_pengantar) {
-                showToast('Surat Pengantar belum diunggah. Silakan lengkapi');
-                isValid = false;
-            } else if (surat_pengantar.type !== 'application/pdf') {
-                showToast('Surat Pengantar harus berformat PDF.');
-                isValid = false;
-            } else if (surat_pengantar.size > 1048576) {
-                showToast('Ukuran file Surat Pengantar maksimal 1 MB.');
-                isValid = false;
-            }
 
             // Check for length
             if (kata_sandi.length < 8) {
@@ -280,17 +238,14 @@
             }
 
             // Validasi input lain
-            if (jenis_instansi === '') {
-                showToast('Jenis Instansi belum terisi. Silakan lengkapi');
+            if (nip === '') {
+                showToast('NIP belum terisi. Silakan lengkapi');
                 isValid = false;
-            } else if (nama_instansi_pribadi === '') {
-                showToast('Nama Instansi/Nama Pribadi belum terisi. Silakan lengkapi');
+            } else if (nama === '') {
+                showToast('Nama belum terisi. Silakan lengkapi');
                 isValid = false;
-            } else if (provinsi === '') {
-                showToast('Provinsi belum terisi. Silakan lengkapi');
-                isValid = false;
-            } else if (telepon === '') {
-                showToast('Nomor Telepon belum terisi. Silakan lengkapi');
+            } else if (sk === '') {
+                showToast('No. SK belum terisi. Silakan lengkapi');
                 isValid = false;
             } else if (email === '') {
                 showToast('Email belum terisi. Silakan lengkapi');

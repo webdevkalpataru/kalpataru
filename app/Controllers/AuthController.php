@@ -2,7 +2,10 @@
 
 namespace App\Controllers;
 
-use App\Models\PengusulModel; // Pastikan model user sudah ada
+use App\Models\PengusulModel;
+use App\Models\TimteknisModel;
+use App\Models\DppkModel;
+use App\Models\PenerimaModel;
 
 class AuthController extends BaseController
 {
@@ -122,6 +125,56 @@ class AuthController extends BaseController
         return view('auth/register', $data);
     }
 
+    public function registerDLHK()
+    {
+        $provinsi_list = [
+            'Aceh',
+            'Bali',
+            'Bangka Belitung',
+            'Banten',
+            'Bengkulu',
+            'DI Yogyakarta',
+            'DKI Jakarta',
+            'Gorontalo',
+            'Jambi',
+            'Jawa Barat',
+            'Jawa Tengah',
+            'Jawa Timur',
+            'Kalimantan Barat',
+            'Kalimantan Selatan',
+            'Kalimantan Tengah',
+            'Kalimantan Timur',
+            'Kalimantan Utara',
+            'Kepulauan Bangka Belitung',
+            'Kepulauan Riau',
+            'Lampung',
+            'Maluku',
+            'Maluku Utara',
+            'Nusa Tenggara Barat',
+            'Nusa Tenggara Timur',
+            'Papua',
+            'Papua Barat',
+            'Papua Barat Daya',
+            'Papua Pegunungan',
+            'Papua Selatan',
+            'Papua Tengah',
+            'Riau',
+            'Sulawesi Barat',
+            'Sulawesi Selatan',
+            'Sulawesi Tengah',
+            'Sulawesi Tenggara',
+            'Sulawesi Utara',
+            'Sumatera Barat',
+            'Sumatera Selatan',
+            'Sumatera Utara'
+        ];
+
+        $data['title'] = 'Daftar Akun DLHK';
+        $data['provinsi_list'] = $provinsi_list;
+
+        return view('auth/registerdlhk', $data);
+    }
+
     public function createRegister()
     {
         $model = new PengusulModel();
@@ -164,6 +217,48 @@ class AuthController extends BaseController
         }
     }
 
+    public function createRegisterDLHK()
+    {
+        $model = new PengusulModel();
+
+        $email = $this->request->getPost('email');
+        $existingUser = $model->where('email', $email)->first();
+
+        if ($existingUser) {
+            return $this->response->setJSON(['success' => false, 'errors' => 'Email sudah terdaftar']);
+        }
+
+        $file = $this->request->getFile('surat_pengantar');
+        $filePath = '';
+
+        if ($file && $file->isValid() && !$file->hasMoved()) {
+            if ($file->getClientMimeType() == 'application/pdf') {
+                $filePath = $file->store('suratpengantar', $file->getRandomName());
+            } else {
+                return $this->response->setJSON(['success' => false, 'errors' => 'Invalid file type. Only PDF files are allowed']);
+            }
+        }
+
+        $data = [
+            'jenis_instansi' => $this->request->getPost('jenis_instansi'),
+            'nama_instansi_pribadi' => $this->request->getPost('nama_instansi_pribadi'),
+            'provinsi' => $this->request->getPost('provinsi'),
+            'telepon' => $this->request->getPost('telepon'),
+            'email' => $email,
+            'kata_sandi' => password_hash($this->request->getPost('kata_sandi'), PASSWORD_DEFAULT),
+            'role_akun' => 'DLHK',
+            'status_akun'  => 'Pending',
+            'surat_pengantar' => $filePath
+        ];
+
+        if ($model->insert($data)) {
+            return $this->response->setJSON(['success' => true]);
+        } else {
+            log_message('error', 'Registration failed: ' . json_encode($model->errors()));
+            return $this->response->setJSON(['success' => false, 'errors' => $model->errors()]);
+        }
+    }
+
     public function downloadSuratPengantar($filename)
     {
         $filePath = WRITEPATH . 'uploads/suratpengantar/' . $filename;
@@ -189,4 +284,112 @@ class AuthController extends BaseController
         return view('auth/registerinternal', ['title' => 'Register Internal']);
     }
 
+    public function registerTimTeknis()
+    {
+        return view('auth/registertimteknis', ['title' => 'Register Tim Teknis']);
+    }
+    
+    public function createRegisterTimTeknis()
+    {
+        $model = new TimteknisModel();
+        
+        $email = $this->request->getPost('email');
+        $nip = $this->request->getPost('nip');
+
+        $existingEmailUser = $model->where('email', $email)->first();
+        if ($existingEmailUser) {
+            return $this->response->setJSON(['success' => false, 'errors' => 'Email sudah terdaftar']);
+        }
+
+        $existingNipUser = $model->where('nip', $nip)->first();
+        if ($existingNipUser) {
+            return $this->response->setJSON(['success' => false, 'errors' => 'NIP sudah terdaftar']);
+        }
+
+        $data = [
+            'nama' => $this->request->getPost('nama'),
+            'nip' => $nip,
+            'no_sk' => $this->request->getPost('no_sk'),
+            'email' => $email,
+            'kata_sandi' => password_hash($this->request->getPost('kata_sandi'), PASSWORD_DEFAULT),
+            'status_akun'  => 'Pending',
+        ];
+
+        if ($model->insert($data)) {
+            return $this->response->setJSON(['success' => true]);
+        } else {
+            log_message('error', 'Registration failed: ' . json_encode($model->errors()));
+            return $this->response->setJSON(['success' => false, 'errors' => $model->errors()]);
+        }
+    }
+
+    public function registerDPPK()
+    {
+        return view('auth/registerdppk', ['title' => 'Register DPPK']);
+    }
+    
+    public function createRegisterDPPK()
+    {
+        $model = new DppkModel();
+        
+        $email = $this->request->getPost('email');
+        $nip = $this->request->getPost('nip');
+
+        $existingEmailUser = $model->where('email', $email)->first();
+        if ($existingEmailUser) {
+            return $this->response->setJSON(['success' => false, 'errors' => 'Email sudah terdaftar']);
+        }
+
+        $existingNipUser = $model->where('nip', $nip)->first();
+        if ($existingNipUser) {
+            return $this->response->setJSON(['success' => false, 'errors' => 'NIP sudah terdaftar']);
+        }
+
+        $data = [
+            'nama' => $this->request->getPost('nama'),
+            'nip' => $nip,
+            'no_sk' => $this->request->getPost('no_sk'),
+            'email' => $email,
+            'kata_sandi' => password_hash($this->request->getPost('kata_sandi'), PASSWORD_DEFAULT),
+            'status_akun'  => 'Pending',
+        ];
+
+        if ($model->insert($data)) {
+            return $this->response->setJSON(['success' => true]);
+        } else {
+            log_message('error', 'Registration failed: ' . json_encode($model->errors()));
+            return $this->response->setJSON(['success' => false, 'errors' => $model->errors()]);
+        }
+    }
+
+    public function registerPenerima()
+    {
+        return view('auth/registerpenerima', ['title' => 'Register Penerima']);
+    }
+
+    public function createRegisterPenerima()
+    {
+        $model = new PenerimaModel();
+        
+        $email = $this->request->getPost('email');
+
+        $existingEmailUser = $model->where('email', $email)->first();
+        if ($existingEmailUser) {
+            return $this->response->setJSON(['success' => false, 'errors' => 'Email sudah terdaftar']);
+        }
+
+        $data = [
+            'nama' => $this->request->getPost('nama'),
+            'email' => $email,
+            'kata_sandi' => password_hash($this->request->getPost('kata_sandi'), PASSWORD_DEFAULT),
+            'status_akun'  => 'Pending',
+        ];
+
+        if ($model->insert($data)) {
+            return $this->response->setJSON(['success' => true]);
+        } else {
+            log_message('error', 'Registration failed: ' . json_encode($model->errors()));
+            return $this->response->setJSON(['success' => false, 'errors' => $model->errors()]);
+        }
+    }
 }
