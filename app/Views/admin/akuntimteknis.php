@@ -27,7 +27,7 @@
           </div>
         </div>
         <div>
-                <a href="..">
+                <a href="daftartimteknis">
                     <button id="tambahCalon" class="w-48 rounded-md py-2 ml-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button"> <span>&#10010</span> Tambah Akun Tim Teknis</button>
                 </a>
             </div>
