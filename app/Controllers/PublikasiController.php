@@ -41,6 +41,28 @@ class PublikasiController extends BaseController
         return view('artikel', $data);
     }
 
+    public function detailartikel($slug)
+    {
+        $model = new ArtikelModel();
+        $artikel = $model->getDetailArtikelBySlug($slug);
+
+
+        if (!$artikel) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('Artikel tidak ditemukan');
+        }
+
+        // Jika artikel masih ditangguhkan
+        if ($artikel['status'] !== 'Terbit') {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('Artikel tidak ditemukan');
+        }
+
+        $data = [
+            'title' => $artikel['judul'],
+            'artikel' => $artikel,
+        ];
+        return view('detailartikel', $data);
+    }
+
     public function video()
     {
         $PublikasiModel = new PublikasiModel();

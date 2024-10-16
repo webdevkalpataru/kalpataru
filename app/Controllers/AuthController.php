@@ -169,7 +169,7 @@ class AuthController extends BaseController
             ],
             'surat_pengantar' => [
                 'label' => 'Surat Pengantar',
-                'rules' => 'uploaded[surat_pengantar]|max_size[surat_pengantar,1024]|ext_in[surat_pengantar,pdf]'
+                'rules' => 'uploaded[surat_pengantar]|max_size[surat_pengantar,1024]|mime_in[surat_pengantar,application/pdf]'
             ]
         ]);
 
