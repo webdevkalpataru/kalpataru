@@ -45,7 +45,7 @@ class PendaftaranModel extends Model
         'edit',
         'kode_registrasi',
         'status_dokumen',
-        'skor_dokumen'
+        'skor_dokumen',
     ];
 
     public function getDetailById($id)
@@ -181,7 +181,8 @@ class PendaftaranModel extends Model
             'nama_ketua',
             'jumlah_anggota',
             'tahun_pembentukan',
-            'legalitas'
+            'legalitas',
+            'edit'
         ];
     }
 
@@ -222,5 +223,18 @@ class PendaftaranModel extends Model
             ->where('id_pendaftaran', $id_pendaftaran)
             ->get()
             ->getResultArray();
+    }
+
+    public function updateStatusAndEdit($id_pendaftaran)
+    {
+        $data = [
+            'status_pendaftaran' => 'Terkirim', // Update status menjadi Terkirim
+            'edit' => 'Off' // Update kolom edit menjadi Off
+        ];
+
+        // Update record berdasarkan id_pendaftaran
+        return $this->db->table('pendaftaran')
+            ->where('id_pendaftaran', $id_pendaftaran)
+            ->update($this->table, $data);
     }
 }

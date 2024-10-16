@@ -27,7 +27,7 @@
             border-radius: 10px;
             border: 3px solid #f1f1f1;
         }
-        
+
         /* selection */
         ::selection {
             background-color: #2C7865;
@@ -54,17 +54,40 @@
 
             <!-- Main Content -->
             <div class="flex-1 container mx-auto">
-                <!-- Dropdown Filter -->
-                <form id="filterForm" action="" method="get" class="flex items-center my-4 ms-4">
-                    <label for="kategori" class="text-sm font-bold text-primary">Filter Kategori:</label>
-                    <select name="kategori" id="kategori" class="ml-2 border-2 border-primary text-primary rounded-md shadow-sm" onchange="document.getElementById('filterForm').submit();">
-                        <option value="">Semua Kategori</option>
-                        <option value="Perintis Lingkungan" <?= ($kategori == 'Perintis Lingkungan') ? 'selected' : '' ?>>Perintis Lingkungan</option>
-                        <option value="Pengabdi Lingkungan" <?= ($kategori == 'Pengabdi Lingkungan') ? 'selected' : '' ?>>Pengabdi Lingkungan</option>
-                        <option value="Penyelamat Lingkungan" <?= ($kategori == 'Penyelamat Lingkungan') ? 'selected' : '' ?>>Penyelamat Lingkungan</option>
-                        <option value="Pembina Lingkungan" <?= ($kategori == 'Pembina Lingkungan') ? 'selected' : '' ?>>Pembina Lingkungan</option>
-                    </select>
-                </form>
+                <div class="lg:flex lg:justify-between">
+                    <!-- Dropdown Filter -->
+                    <form id="filterForm" action="" method="get" class="flex items-center my-4 ms-4">
+                        <label for="kategori" class="text-sm font-bold text-primary">Filter Kategori:</label>
+                        <select name="kategori" id="kategori" class="ml-2 border-2 border-primary text-primary rounded-md shadow-sm" onchange="document.getElementById('filterForm').submit();">
+                            <option value="">Semua Kategori</option>
+                            <option value="Perintis Lingkungan" <?= ($kategori == 'Perintis Lingkungan') ? 'selected' : '' ?>>Perintis Lingkungan</option>
+                            <option value="Pengabdi Lingkungan" <?= ($kategori == 'Pengabdi Lingkungan') ? 'selected' : '' ?>>Pengabdi Lingkungan</option>
+                            <option value="Penyelamat Lingkungan" <?= ($kategori == 'Penyelamat Lingkungan') ? 'selected' : '' ?>>Penyelamat Lingkungan</option>
+                            <option value="Pembina Lingkungan" <?= ($kategori == 'Pembina Lingkungan') ? 'selected' : '' ?>>Pembina Lingkungan</option>
+                        </select>
+                    </form>
+                    <form method="get" class="flex items-center justify-end mb-4 lg:mb-0">
+                        <div class="relative lg:w-56 w-80 transition-all focus-within:w-64 lg:mt-0 mt-4">
+                            <input
+                                placeholder="Masukan kata kunci"
+                                class="input shadow-lg focus:border-2 border-2 text-primary border-primary px-5 py-1 pr-10 rounded-md w-full outline-none"
+                                name="search"
+                                value="<?= esc($keyword) ?>" />
+                            <svg
+                                class="w-6 h-6 absolute top-1/2 right-3 transform -translate-y-1/2 text-primary"
+                                stroke="currentColor"
+                                stroke-width="1.5"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                                    stroke-linejoin="round"
+                                    stroke-linecap="round"></path>
+                            </svg>
+                        </div>
+                    </form>
+                </div>
                 <div class="relative flex flex-col w-full h-full overflow-hidden text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
                     <div class="overflow-x-auto">
                         <table class="w-full text-left table-auto min-w-max">
@@ -139,7 +162,10 @@
                                                 <p class="block text-xs text-slate-800"><?= $item['provinsi'] ?></p>
                                             </td>
                                             <td class="p-4 border-b border-slate-200 text-center">
-                                                <p class="block text-xs font-bold text-accepted"><?= $item['status_pendaftaran'] ?></p>
+                                                <?php
+                                                $statusClass = ($item['status_pendaftaran'] === 'Tidak Lolos Administrasi') ? 'text-rejected' : 'text-accepted';
+                                                ?>
+                                                <p class="block text-xs font-bold <?= $statusClass ?>"><?= $item['status_pendaftaran'] ?></p>
                                             </td>
                                             <td class="p-4 border-b border-slate-200 text-center">
                                                 <button class="lihatButton w-20 rounded-md py-2 px-2 text-center font-semibold text-xs text-primary bg-secondary hover:shadow-md" type="button">Lihat</button>
@@ -197,23 +223,6 @@
             if (event.target === modal) {
                 closeModal();
             }
-        });
-
-        // DRODPOWN FILTER KATEGORI
-        document.getElementById('filterKategori').addEventListener('change', function() {
-            const selectedKategori = this.value;
-            const usulanItems = document.querySelectorAll('.usulan-item');
-
-            usulanItems.forEach(item => {
-                const itemKategori = item.getAttribute('data-kategori');
-
-                // Jika kategori sesuai, tampilkan. Jika tidak, sembunyikan.
-                if (selectedKategori === "" || itemKategori === selectedKategori) {
-                    item.style.display = ''; // Tampilkan baris
-                } else {
-                    item.style.display = 'none'; // Sembunyikan baris
-                }
-            });
         });
     </script>
 

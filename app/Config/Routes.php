@@ -93,6 +93,8 @@ $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
     $routes->get('pdf/(:any)', 'PengusulController::generatePDF/$1');
 });
 
+$routes->post('pengusul/usulansaya', 'PengusulController::updateStatus');
+
 /* Penerima */
 $routes->group('penerima', ['filter' => 'auth'], function ($routes) {
     $routes->get('profil', 'PenerimaController::profil');
@@ -125,6 +127,7 @@ $routes->group('timteknis', function ($routes) {
     $routes->get('verifadminkategoric', 'TimteknisController::verifadminkategoric');
     $routes->get('verifadminkategorid', 'TimteknisController::verifadminkategorid');
     $routes->post('updatestatus', 'TimteknisController::updateStatus');
+    $routes->post('updatecatatan', 'TimteknisController::updateCatatan');
 
 
     $routes->get('bahansidang1', 'TimteknisController::bahansidang1');
