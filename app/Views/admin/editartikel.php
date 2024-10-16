@@ -66,9 +66,9 @@
   <div id="successModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
     <div class="bg-white rounded-lg p-8 flex flex-col items-center max-w-md">
       <img src="/images/sukses.png" alt="Success Icon" class="w-16 h-16 mb-4">
-      <h2 class="text-center text-lg font-bold text-primary mb-2">Terima kasih telah mengunggah artikel!</h2>
-      <p class="text-center text-sm text-slate-600 mb-4">Artikel anda sedang dalam proses validasi. Anda dapat mengecek status artikel anda pada menu “Artikel Saya”.</p>
-      <button id="successBtn" class="bg-primary text-white py-2 px-4 rounded-lg">Lihat Status</button>
+      <h2 class="text-center text-lg font-bold text-primary mb-2">Selamat, artikel berhasil di edit!</h2>
+      <!-- <p class="text-center text-sm text-slate-600 mb-4">Artikel anda sedang dalam proses validasi. Anda dapat mengecek status artikel anda pada menu “Artikel Saya”.</p> -->
+      <button id="successBtn" class="bg-primary text-white py-2 px-4 rounded-lg">Lihat Artikel</button>
     </div>
   </div>
 

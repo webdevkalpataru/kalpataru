@@ -150,6 +150,18 @@
         </div>
     </div>
 
+    <!-- Modal Hapus -->
+    <div id="deleteModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+        <div class="bg-white rounded-lg p-8 flex flex-col max-w-md">
+            <h2 class="text-left text-lg font-bold text-red-600 mb-2">Konfirmasi Hapus Artikel</h2>
+            <p class="text-justify text-sm text-slate-600 mb-4">Apakah Anda yakin ingin menghapus artikel ini? Tindakan ini tidak dapat dibatalkan.</p>
+            <div class="flex justify-end space-x-4">
+                <button id="cancelDeleteButton" class="px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-700 hover:text-white rounded-md">Batal</button>
+                <button id="confirmDeleteButton" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md">Ya, Hapus Artikel</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal Status -->
     <div id="statusModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
         <div class="bg-white rounded-lg p-8 flex flex-col max-w-md">
@@ -244,6 +256,34 @@
         // Attach the toggle function to each button's click event
         buttons.forEach(button => {
             button.addEventListener("click", () => toggleButtonText(button));
+        });
+    </script>
+    <script>
+        // POPUP MODAL HAPUS
+        const deleteModal = document.getElementById('deleteModal');
+        const confirmDeleteButton = document.getElementById('confirmDeleteButton');
+        const cancelDeleteButton = document.getElementById('cancelDeleteButton');
+        let deleteForm = null; // Menyimpan form hapus
+
+        // Event listener untuk tombol hapus
+        document.querySelectorAll('form[action^="/admin/artikel/hapus/"] button').forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault(); // Mencegah submit form langsung
+                deleteForm = this.closest('form'); // Ambil form yang akan dihapus
+                deleteModal.classList.remove('hidden'); // Tampilkan modal
+            });
+        });
+
+        // Ketika tombol "Ya, Hapus Artikel" ditekan
+        confirmDeleteButton.addEventListener('click', function() {
+            if (deleteForm) {
+                deleteForm.submit(); // Submit form hapus artikel
+            }
+        });
+
+        // Ketika tombol "Batal" ditekan, sembunyikan modal
+        cancelDeleteButton.addEventListener('click', function() {
+            deleteModal.classList.add('hidden');
         });
     </script>
 </body>
