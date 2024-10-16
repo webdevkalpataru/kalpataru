@@ -51,4 +51,58 @@ class AdminController extends BaseController
         $data['title'] = "Berita Admin";
         return view('admin/beritaadmin', ['title' => 'Berita Admin']);
     }
+
+    public function daftartimteknis()
+    {
+        $data['title'] = "Daftar Tim Teknis";
+        return view('admin/daftartimteknis', ['title' => 'Daftar Tim Teknis']);
+    }
+
+    public function akundppk()
+    {
+        $data['title'] = "Akun DPPK";
+        return view('admin/akundppk', ['title' => 'Akun DPPK']);
+    }
+
+    public function daftardppk()
+    {
+        $data['title'] = "Daftar DPPK";
+        return view('admin/daftardppk', ['title' => 'Daftar DPPK']);
+    }
+
+    public function tambahberitaadmin()
+    {
+        $data['title'] = "Tambah Berita Admin";
+        return view('admin/tambahberitaadmin', ['title' => 'Tambah Berita Admin']);
+    }
+
+    public function pengumumanadmin()
+    {
+        $data['title'] = "Pengumuman Admin";
+        return view('admin/pengumumanadmin', ['title' => 'Pengumuman Admin']);
+    }
+
+    public function tambahpengumumanadmin()
+    {
+        $data['title'] = "Tambah Pengumuman Admin";
+        return view('admin/tambahpengumumanadmin', ['title' => 'Tambah Pengumuman Admin']);
+    }
+
+    public function akunpengguna()
+    {
+        $data['title'] = "Akun Pengguna";
+        return view('admin/akunpengguna', ['title' => 'Akun Pengguna']);
+    }
+
+    public function daftarakunpengguna()
+    {
+        $data['title'] = "Daftar Akun Pengguna";
+        return view('admin/daftarakunpengguna', ['title' => 'Daftar Akun Pengguna']);
+    }
+
+    public function daftarakundlhk()
+    {
+        $data['title'] = "Daftar Akun DLHK";
+        return view('admin/daftarakundlhk', ['title' => 'Daftar Akun DLHK']);
+    }
 }

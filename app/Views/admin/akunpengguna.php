@@ -19,7 +19,7 @@
     <div class="min-h-screen flex flex-col">
 
   <div class="container mx-auto flex items-center justify-between p-4 md:p-6">
-          <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Akun DLHK</h1>
+          <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Akun Penerima</h1>
          
           <div class="flex items-center">
             <p class="text-gray-500 mr-2 md:mr-4">Hello, Admin</p>
@@ -27,8 +27,8 @@
           </div>
         </div>
         <div>
-        <a href="../admin/daftarakundlhk">
-                    <button id="tambahCalon" class="w-48 rounded-md py-2 ml-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button"> <span>&#10010</span> Tambah Akun DLHK</button>
+        <a href="../admin/daftarakunpengguna">
+                    <button id="tambahCalon" class="w-48 rounded-md py-2 ml-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button"> <span>&#10010</span> Tambah Akun Penerima</button>
                 </a>
             </div>
 
@@ -76,7 +76,7 @@
                                 class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
                                 <p
                                     class="flex items-center justify-between gap-2 text-sm font-normal leading-none text-slate-800">
-                                   Status
+                                   Kategori
                                 </p>
                             </th>
                             <th
@@ -116,14 +116,9 @@
                                 </div>
                             </td>
                             <td class="p-4 border-b border-slate-200">
-                            <button
-                                    class="toggleBtn mt-4 w-3/2 rounded-md py-2 px-2 text-center text-sm text-white shadow-md hover:shadow-lg bg-footer active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                                    type="button"
-                                    data-active="Aktif"
-                                    data-inactive="Aktifkan"
-                                    >
-                                    Aktifkan
-                            </button>
+                            <p>
+                                Perintis Lingkungan
+                            </p>
                             </td>
                             <td class="p-4 border-b border-slate-200">
                             <button>
@@ -160,14 +155,9 @@
                                 </div>
                             </td>
                             <td class="p-4 border-b border-slate-200">
-                            <button
-                                    class="toggleBtn mt-4 w-3/2 rounded-md py-2 px-2 text-center text-sm text-white shadow-md hover:shadow-lg bg-footer active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                                    type="button"
-                                    data-active="Aktif"
-                                    data-inactive="Aktifkan"
-                                    >
-                                    Aktifkan
-                            </button>
+                            <p>
+                                Perintis Lingkungan
+                            </p>
                             </td>
                             <td class="p-4 border-b border-slate-200">
                             <button>
@@ -204,14 +194,9 @@
                                 </div>
                             </td>
                             <td class="p-4 border-b border-slate-200">
-                            <button
-                                    class="toggleBtn mt-4 w-3/2 rounded-md py-2 px-2 text-center text-sm text-white shadow-md hover:shadow-lg bg-footer active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                                    type="button"
-                                    data-active="Aktif"
-                                    data-inactive="Aktifkan"
-                                    >
-                                    Aktifkan
-                            </button>
+                            <p>
+                                Perintis Lingkungan
+                            </p>
                             </td>
                             <td class="p-4 border-b border-slate-200">
                             <button>
@@ -248,14 +233,9 @@
                                 </div>
                             </td>
                             <td class="p-4 border-b border-slate-200">
-                            <button
-                                    class="toggleBtn mt-4 w-3/2 rounded-md py-2 px-2 text-center text-sm text-white shadow-md hover:shadow-lg bg-footer active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                                    type="button"
-                                    data-active="Aktif"
-                                    data-inactive="Aktifkan"
-                                    >
-                                    Aktifkan
-                            </button>
+                            <p>
+                                Perintis Lingkungan
+                            </p>
                             </td>
                             <td class="p-4 border-b border-slate-200">
                             <button>
@@ -292,14 +272,9 @@
                                 </div>
                             </td>
                             <td class="p-4 border-b border-slate-200">
-                            <button
-                                    class="toggleBtn mt-4 w-3/2 rounded-md py-2 px-2 text-center text-sm text-white shadow-md hover:shadow-lg bg-footer active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                                    type="button"
-                                    data-active="Aktif"
-                                    data-inactive="Aktifkan"
-                                    >
-                                    Aktifkan
-                            </button>
+                            <p>
+                                Perintis Lingkungan
+                            </p>
                             </td>
                             <td class="p-4 border-b border-slate-200">
                             <button>

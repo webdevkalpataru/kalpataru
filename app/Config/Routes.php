@@ -108,16 +108,27 @@ $routes->group('admin', function ($routes) {
     $routes->get('artikelpengguna', 'AdminController::artikelpengguna');
     $routes->get('akundlhk', 'AdminController::akundlhk');
     $routes->get('akuntimteknis', 'AdminController::akuntimteknis');
-    $routes->get('auth/registertimteknis', 'AuthController::registerTimTeknis');
-    $routes->post('auth/registertimteknis', 'AuthController::createRegisterTimTeknis');
+    $routes->get('daftartimteknis', 'AuthController::registerTimTeknis');
+    $routes->post('daftartimteknis', 'AuthController::createRegisterTimTeknis');
     $routes->get('tambahartikeladmin', 'AdminController::tambahartikeladmin');
     $routes->get('beritaadmin', 'AdminController::beritaadmin');
-    $routes->get('auth/registerdlhk', 'AuthController::registerDLHK');
-    $routes->post('auth/registerdlhk', 'AuthController::createRegisterDLHK');
-    $routes->get('auth/registerdppk', 'AuthController::registerDPPK');
-    $routes->post('auth/registerdppk', 'AuthController::createRegisterDPPK');
-    $routes->get('auth/registerpenerima', 'AuthController::registerPenerima');
-    $routes->post('auth/registerpenerima', 'AuthController::createRegisterPenerima');
+    $routes->get('daftarakundlhk', 'AuthController::registerDLHK');
+    $routes->post('daftarakundlhk', 'AuthController::createRegisterDLHK');
+    $routes->get('daftardppk', 'AuthController::registerDPPK');
+    $routes->post('daftardppk', 'AuthController::createRegisterDPPK');
+    $routes->get('daftarakunpengguna', 'AuthController::registerPenerima');
+    $routes->post('daftarakunpengguna', 'AuthController::createRegisterPenerima');
+    $routes->get('daftartimteknis', 'AdminController::daftartimteknis');
+    $routes->get('akundppk', 'AdminController::akundppk');
+    $routes->get('daftardppk', 'AdminController::daftardppk');
+    $routes->get('tambahberitaadmin', 'AdminController::tambahberitaadmin');
+    $routes->get('pengumumanadmin', 'AdminController::pengumumanadmin');
+    $routes->get('tambahpengumumanadmin', 'AdminController::tambahpengumumanadmin');
+    $routes->get('akunpengguna', 'AdminController::akunpengguna');
+    $routes->get('daftarakunpengguna', 'AdminController::daftarakunpengguna');
+    $routes->get('daftarakundlhk', 'AdminController::daftarakundlhk');
+    
+
 });
 
 /* Tim Teknis */
