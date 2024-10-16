@@ -158,6 +158,112 @@ class AdminController extends BaseController
         return view('admin/detailartikel', $data);
     }
 
+    public function editArtikel($id_artikel)
+    {
+        $model = new ArtikelModel();
+        $artikel = $model->find($id_artikel); // Mengambil artikel berdasarkan id_artikel
+
+        if (!$artikel) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        // Ambil ID admin yang sedang login
+        $id_admin = session()->get('id_admin');
+
+        // Cek apakah yang mengakses adalah admin
+        if (!$id_admin) {
+            // Jika bukan admin, tampilkan 404
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        $data = [
+            'title' => 'Edit Artikel - ' . $artikel['judul'],
+            'artikel' => $artikel,
+        ];
+        return view('admin/editartikel', $data);
+    }
+
+
+    public function updateArtikelAction($id)
+    {
+        $model = new ArtikelModel();
+
+        // Ambil input dari formulir
+        $judulArtikel = $this->request->getPost('judul');
+        $konten = $this->request->getPost('konten');
+
+        // Memproses foto yang diupload
+        $foto = $this->request->getFile('foto');
+
+        // Validasi input
+        $validation = \Config\Services::validation();
+        $validation->setRules([
+            'judul' => [
+                'label' => 'Judul',
+                'rules' => 'required|min_length[5]|max_length[100]|is_unique[artikel.judul,id_artikel,' . $id . ']' // Judul harus unik kecuali untuk artikel yang sedang diedit
+            ],
+            'konten' => [
+                'label' => 'Konten',
+                'rules' => 'required|min_length[20]' // Konten harus ada dan panjang minimum 20 karakter
+            ],
+            'foto' => [
+                'label' => 'Foto',
+                'rules' => 'permit_empty|is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/gif,image/png]|max_size[foto,1024]'
+            ]
+        ]);
+
+        if (!$this->validate($validation->getRules())) {
+            return $this->response->setJSON([
+                'success' => false,
+                'messages' => $validation->getErrors(),
+            ]);
+        }
+
+        // Menangani upload file foto
+        $fotoPath = '';
+        if ($foto && $foto->isValid() && !$foto->hasMoved()) {
+            // Memastikan tipe file dan membuat nama file acak
+            $fotoName = $foto->getRandomName();
+
+            // Memindahkan file ke folder public/images/artikel
+            if ($foto->move('public/images/artikel', $fotoName)) {
+                // Jika berhasil, simpan path foto
+                $fotoPath = 'images/artikel/' . $fotoName;
+            } else {
+                return $this->response->setJSON(['success' => false, 'errors' => 'Gagal menyimpan file foto.']);
+            }
+        }
+
+        // Cek apakah slug perlu diupdate
+        $slug = url_title($judulArtikel, '-', true);
+        $existingArticle = $model->where('slug', $slug)->where('id_artikel !=', $id)->first(); // Cek apakah slug sudah ada
+        if ($existingArticle) {
+            return $this->response->setJSON(['success' => false, 'errors' => 'Judul sudah digunakan.']);
+        }
+
+        // Siapkan data untuk diupdate
+        $dataArtikel = [
+            'judul' => htmlspecialchars($judulArtikel, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+            'slug' => $slug,
+            'konten' => htmlspecialchars($konten, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+        ];
+
+        // Jika ada foto baru yang diupload, masukkan ke dalam data
+        if (!empty($fotoPath)) {
+            $dataArtikel['foto'] = $fotoPath;
+        }
+
+        // Simpan artikel yang sudah diperbarui
+        if ($model->update($id, $dataArtikel)) {
+            return $this->response->setJSON(['success' => true, 'message' => 'Artikel berhasil diperbarui.']);
+        } else {
+            // Tampilkan pesan umum untuk kesalahan penyimpanan
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui artikel.']);
+        }
+    }
+
+
+
     public function hapusArtikel($id_artikel)
     {
         $model = new ArtikelModel();

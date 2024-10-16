@@ -113,7 +113,8 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('artikelpengguna', 'AdminController::artikelpengguna');
     $routes->get('tambah-artikel', 'AdminController::tambahartikeladmin');
     $routes->post('tambah-artikel', 'AdminController::tambahArtikelAction');
-    $routes->get('artikel/edit/(:any)', 'Artikel::edit/$1');
+    $routes->get('artikel/edit/(:any)', 'AdminController::editArtikel/$1');
+    $routes->post('artikel/edit/(:any)', 'AdminController::updateArtikelAction/$1');
     $routes->get('artikel/(:any)', 'AdminController::detailartikel/$1');
     $routes->post('artikel/hapus/(:num)', 'AdminController::hapusArtikel/$1');
     $routes->post('updatestatus', 'AdminController::updateStatus');
