@@ -602,10 +602,17 @@ class PengusulController extends BaseController
 
     public function tambahArtikelAction()
     {
+        if (!session()->has('id_pengusul')) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Session id_pengusul tidak ditemukan. Silakan login kembali.'
+            ]);
+        }
+
         $model = new ArtikelModel();
 
         // Ambil input dari formulir
-        $judulArtikel = $this->request->getPost('judul_artikel');
+        $judulArtikel = $this->request->getPost('judul');
         $konten = $this->request->getPost('konten');
 
         // Memproses foto yang diupload
@@ -614,10 +621,20 @@ class PengusulController extends BaseController
         // Validasi input
         $validation = \Config\Services::validation();
         $validation->setRules([
-            'judul_artikel' => 'required|min_length[3]|max_length[255]|regex_match[/^[a-zA-Z0-9\s\-\_\.\,]+$/]', // Regex untuk karakter yang diperbolehkan
-            'konten' => 'required',
-            'foto' => 'uploaded[foto]|is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/gif,image/png]|max_size[foto,2048]',
+            'judul' => [
+                'label' => 'Judul',
+                'rules' => 'required|min_length[5]|max_length[100]|is_unique[artikel.judul]' // Judul harus unik dan panjang antara 5 dan 100 karakter
+            ],
+            'konten' => [
+                'label' => 'Konten',
+                'rules' => 'required|min_length[20]' // Konten harus ada dan panjang minimum 20 karakter
+            ],
+            'foto' => [
+                'label' => 'Foto',
+                'rules' => 'uploaded[foto]|is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/gif,image/png]|max_size[foto,1024]'
+            ]
         ]);
+
 
         if (!$this->validate($validation->getRules())) {
             return $this->response->setJSON([
