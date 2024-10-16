@@ -100,7 +100,7 @@
                                                     <input type="hidden" name="id_pendaftaran" value="<?= $item['id_pendaftaran'] ?>">
                                                     <select name="status_pendaftaran" class="status-dropdown ml-2 border-2 border-primary text-primary rounded-md shadow-sm text-xs" data-id="<?= $item['id_pendaftaran'] ?>">
                                                         <?php
-                                                        $statuses = ['Draft', 'Terkirim', 'Perlu Perbaikan', 'Sesuai', 'Verifikasi Administrasi', 'Lolos Administrasi', 'Tidak Lolos Administrasi'];
+                                                        $statuses = ['Sesuai', 'Verifikasi Administrasi', 'Lolos Administrasi', 'Tidak Lolos Administrasi'];
                                                         foreach ($statuses as $status) {
                                                             $selected = ($status == $item['status_pendaftaran']) ? 'selected' : '';
                                                             echo "<option value='$status' $selected>$status</option>";
@@ -184,6 +184,7 @@
                 closeModal();
             }
         });
+
         // POPUP MODAL STATUS
         const statusModal = document.getElementById('statusModal');
         const confirmStatusButton = document.getElementById('confirmStatusButton');

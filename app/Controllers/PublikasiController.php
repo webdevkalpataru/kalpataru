@@ -43,31 +43,24 @@ class PublikasiController extends BaseController
 
     public function detailartikel($slug)
     {
-        $Model = new ArtikelModel();
-        $artikel = $Model->where('slug', $slug)->first(); // Ambil artikel berdasarkan slug
+        $model = new ArtikelModel();
+        $artikel = $model->getDetailArtikelBySlug($slug);
+
 
         if (!$artikel) {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('Artikel tidak ditemukan');
         }
 
-        // Ambil ID pengguna yang sedang login (baik admin maupun pengusul)
-        $id_pengusul = session()->get('id_pengusul');
-        $id_admin = session()->get('id_admin'); // Asumsi admin juga disimpan dalam session
-
         // Jika artikel masih ditangguhkan
-        if ($artikel['status'] == 'Ditangguhkan') {
-            // Cek apakah yang mengakses adalah admin atau pembuat artikel
-            if (!$id_admin && $artikel['id_pengusul'] != $id_pengusul) {
-                // Jika bukan admin atau pembuat artikel, tampilkan 404
-                throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-            }
+        if ($artikel['status'] !== 'Terbit') {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('Artikel tidak ditemukan');
         }
 
         $data = [
-            'title' => 'Detail Artikel Saya',
+            'title' => $artikel['judul'],
             'artikel' => $artikel,
         ];
-        return view('pengusul/detailartikelsaya', $data);
+        return view('detailartikel', $data);
     }
 
     public function video()

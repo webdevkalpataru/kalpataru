@@ -21,7 +21,6 @@ $routes->get('publikasi/berita', 'PublikasiController::berita');
 $routes->get('publikasi/artikel', 'PublikasiController::artikel');
 $routes->get('publikasi/video', 'PublikasiController::video');
 $routes->get('publikasi/buku', 'PublikasiController::buku');
-$routes->get('artikel/preview/(:segment)', 'PengusulController::detailartikel/$1');
 $routes->get('artikel/(:any)', 'PublikasiController::detailartikel/$1');
 
 
@@ -82,7 +81,7 @@ $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
     $routes->get('artikel-saya', 'PengusulController::artikelsaya');
     $routes->get('tambah-artikel', 'PengusulController::tambahartikel');
     $routes->post('tambah-artikel', 'PengusulController::tambahArtikelAction');
-    // $routes->get('artikel/(:any)', 'PengusulController::detailartikel/$1');
+    $routes->get('artikel/(:segment)', 'PengusulController::detailartikel/$1');
 
     $routes->get('pemberitahuan', 'PengusulController::pemberitahuan');
     $routes->get('alurpendaftaran', 'PengusulController::alurpendaftaran');
@@ -105,14 +104,18 @@ $routes->group('penerima', ['filter' => 'auth'], function ($routes) {
 $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('dashboard', 'AdminController::dashboard');
     $routes->get('akunpengusul', 'AdminController::akunpengusul');
-    $routes->get('artikel', 'AdminController::artikeladmin');
-    $routes->get('artikelpengguna', 'AdminController::artikelpengguna');
     $routes->get('akundlhk', 'AdminController::akundlhk');
     $routes->get('akuntimteknis', 'AdminController::akuntimteknis');
+    $routes->get('beritaadmin', 'AdminController::beritaadmin');
+
+    // Manajemen Artikel
+    $routes->get('artikel', 'AdminController::artikeladmin');
+    $routes->get('artikelpengguna', 'AdminController::artikelpengguna');
     $routes->get('tambah-artikel', 'AdminController::tambahartikeladmin');
     $routes->post('tambah-artikel', 'AdminController::tambahArtikelAction');
-    $routes->get('beritaadmin', 'AdminController::beritaadmin');
+    $routes->get('artikel/(:segment)', 'PengusulController::detailartikel/$1');
     $routes->post('artikel/hapus/(:num)', 'AdminController::hapusArtikel/$1');
+    $routes->post('updatestatus', 'AdminController::updateStatus');
 });
 
 /* Tim Teknis */

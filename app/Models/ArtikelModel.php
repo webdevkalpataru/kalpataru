@@ -42,6 +42,17 @@ class ArtikelModel extends Model
         return $builder->get()->getResultArray();
     }
 
+    public function getDetailArtikelBySlug($slug)
+    {
+        return $this->select('artikel.*, COALESCE(admin.nama, pengusul.nama_instansi_pribadi, penerima.nama) as penulis')
+            ->join('admin', 'admin.id_admin = artikel.id_admin', 'left')
+            ->join('pengusul', 'pengusul.id_pengusul = artikel.id_pengusul', 'left')
+            ->join('penerima', 'penerima.id_penerima = artikel.id_penerima', 'left')
+            ->where('artikel.slug', $slug)
+            ->first();
+    }
+
+
 
 
 

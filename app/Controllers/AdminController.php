@@ -110,6 +110,54 @@ class AdminController extends BaseController
         }
     }
 
+    public function updateStatus()
+    {
+        // Inisialisasi model
+        $model = new ArtikelModel();
+
+        // Ambil data dari POST request
+        $id_artikel = $this->request->getPost('id_artikel');
+        $status = $this->request->getPost('status');
+
+        // Validasi data (opsional, misalnya cek apakah ID dan status valid)
+        if ($id_artikel && $status) {
+            // Update status di database
+            $model->update($id_artikel, ['status' => $status]);
+
+            // Mengembalikan respons untuk merefresh halaman
+            return $this->response->setJSON(['success' => true, 'message' => 'Data berhasil diperbarui']);
+        } else {
+            // Mengembalikan respons untuk merefresh halaman
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui data']);
+        }
+    }
+
+    public function detailartikel($slug)
+    {
+        $Model = new ArtikelModel();
+        $artikel = $Model->where('slug', $slug)->first(); // Ambil artikel berdasarkan slug
+
+        if (!$artikel) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        // Ambil ID admin yang sedang login
+        $id_admin = session()->get('id_admin');
+
+        // Cek apakah yang mengakses adalah admin
+        if (!$id_admin) {
+            // Jika bukan admin, tampilkan 404
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+
+        $data = [
+            'title' => $artikel['judul'],
+            'artikel' => $artikel,
+        ];
+        return view('admin/detailartikel', $data);
+    }
+
     public function hapusArtikel($id_artikel)
     {
         $model = new ArtikelModel();

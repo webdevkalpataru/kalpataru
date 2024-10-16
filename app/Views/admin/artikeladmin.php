@@ -48,6 +48,9 @@
                                 <p class="flex items-center justify-between gap-2 text-sm font-bold leading-none text-slate-800">Judul</p>
                             </th>
                             <th class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
+                                <p class="flex items-center justify-between gap-2 text-sm font-bold leading-none text-slate-800">Tanggal</p>
+                            </th>
+                            <th class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
                                 <p class="flex items-center justify-between gap-2 text-sm font-bold leading-none text-slate-800">Status</p>
                             </th>
                             <th class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
@@ -76,13 +79,25 @@
                                         <p class="block text-sm text-slate-800"><?= esc($artikel['judul']) ?></p>
                                     </td>
                                     <td class="p-4 border-b border-slate-200">
-                                        <p class="block text-sm <?= $artikel['status'] == 'Terbit' ? 'text-success' : 'text-rejected' ?>">
-                                            <?= esc($artikel['status']) ?>
-                                        </p>
+                                        <p class="block text-sm text-slate-800"><?= esc($artikel['tanggal']) ?></p>
+                                    </td>
+                                    <td class="p-4 border-b border-slate-200 text-center">
+                                        <form method="POST" action="/admin/updatestatus">
+                                            <input type="hidden" name="id_artikel" value="<?= $artikel['id_artikel'] ?>">
+                                            <select name="status" class="status-dropdown ml-2 border-2 border-primary text-primary rounded-md shadow-sm text-xs" data-id="<?= $artikel['id_artikel'] ?>">
+                                                <?php
+                                                $statuses = ['Ditangguhkan', 'Terbit', 'Ditolak'];
+                                                foreach ($statuses as $status) {
+                                                    $selected = ($status == $artikel['status']) ? 'selected' : '';
+                                                    echo "<option value='$status' $selected>$status</option>";
+                                                }
+                                                ?>
+                                            </select>
+                                        </form>
                                     </td>
                                     <td class="p-4 border-b border-slate-200">
                                         <div>
-                                            <a href="/artikel/preview/<?= $artikel['slug']; ?>" class="mt-4 w-3/2 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover">Selengkapnya</a>
+                                            <a href="/admin/artikel/<?= $artikel['slug']; ?>" class="mt-4 w-3/2 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover">Selengkapnya</a>
                                         </div>
                                     </td>
                                     <td class="p-4 border-b border-slate-200">
@@ -134,28 +149,105 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal Status -->
+    <div id="statusModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+        <div class="bg-white rounded-lg p-8 flex flex-col max-w-md">
+            <h2 class="text-left text-lg font-bold text-primary mb-2">Konfirmasi Perubahan Status</h2>
+            <p class="text-justify text-sm text-slate-600 mb-4">Apakah Anda yakin ingin mengubah status?</p>
+            <div class="flex justify-end space-x-4">
+                <button id="cancelStatusButton" class="px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-700 hover:text-white rounded-md">Batal</button>
+                <button id="confirmStatusButton" class="px-4 py-2 bg-primary hover:bg-primaryhover text-white rounded-md">Ya, Ubah Status</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // POPUP MODAL STATUS
+        const statusModal = document.getElementById('statusModal');
+        const confirmStatusButton = document.getElementById('confirmStatusButton');
+        const cancelStatusButton = document.getElementById('cancelStatusButton');
+        let selectedDropdown = null;
+        let initialValue = ''; // Menyimpan nilai awal dropdown
+
+        // Event listener untuk setiap dropdown status
+        document.querySelectorAll('.status-dropdown').forEach(dropdown => {
+            dropdown.addEventListener('change', function() {
+                selectedDropdown = this;
+                initialValue = this.value; // Simpan nilai awal
+                statusModal.classList.remove('hidden'); // Tampilkan modal
+            });
+        });
+
+        // Ketika tombol "Ya, Ubah Status" ditekan
+        confirmStatusButton.addEventListener('click', function() {
+            if (selectedDropdown) {
+                // Ambil data dari dropdown
+                const formData = new FormData(selectedDropdown.form);
+
+                // Kirim request ke server
+                fetch(selectedDropdown.form.action, {
+                        method: 'POST',
+                        body: formData,
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            location.reload(); // Refresh halaman jika berhasil
+                        } else {
+                            alert(data.message); // Menampilkan pesan gagal
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Terjadi kesalahan, silakan coba lagi.');
+                    });
+
+                statusModal.classList.add('hidden'); // Sembunyikan modal
+            }
+        });
+
+        // Ketika tombol "Batal" ditekan
+        cancelStatusButton.addEventListener('click', function() {
+            if (selectedDropdown) {
+                selectedDropdown.value = initialValue; // Kembalikan ke nilai awal
+            }
+            statusModal.classList.add('hidden'); // Sembunyikan modal
+            location.reload(); // Refresh halaman
+        });
+
+        // Tutup modal jika klik di luar modal
+        window.addEventListener('click', function(event) {
+            if (event.target === statusModal) {
+                statusModal.classList.add('hidden');
+                if (selectedDropdown) {
+                    selectedDropdown.value = initialValue; // Kembalikan ke nilai awal jika modal ditutup
+                }
+            }
+        });
+
+        // Function to toggle the button text
+        function toggleButtonText(button) {
+            const activeText = button.getAttribute("data-active");
+            const inactiveText = button.getAttribute("data-inactive");
+
+            if (button.innerText === inactiveText) {
+                button.innerText = activeText;
+            } else {
+                button.innerText = inactiveText;
+            }
+        }
+
+        // Select all buttons with the class 'toggleBtn'
+        const buttons = document.querySelectorAll(".toggleBtn");
+
+        // Attach the toggle function to each button's click event
+        buttons.forEach(button => {
+            button.addEventListener("click", () => toggleButtonText(button));
+        });
+    </script>
 </body>
 
-<script>
-    // Function to toggle the button text
-    function toggleButtonText(button) {
-        const activeText = button.getAttribute("data-active");
-        const inactiveText = button.getAttribute("data-inactive");
 
-        if (button.innerText === inactiveText) {
-            button.innerText = activeText;
-        } else {
-            button.innerText = inactiveText;
-        }
-    }
-
-    // Select all buttons with the class 'toggleBtn'
-    const buttons = document.querySelectorAll(".toggleBtn");
-
-    // Attach the toggle function to each button's click event
-    buttons.forEach(button => {
-        button.addEventListener("click", () => toggleButtonText(button));
-    });
-</script>
 
 </html>

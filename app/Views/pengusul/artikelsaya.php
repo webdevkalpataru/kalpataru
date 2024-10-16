@@ -61,7 +61,7 @@
                                     <td class="p-4 border-b border-slate-200 text-center"><?= esc($artikel['judul']) ?></td>
                                     <td class="p-4 border-b border-slate-200 text-center"><?= esc($artikel['status']) ?></td>
                                     <td class="p-4 border-b border-slate-200 text-center">
-                                        <a href="/artikel/preview/<?= $artikel['slug']; ?>">Lihat</a>
+                                        <a href="/pengusul/artikel/<?= $artikel['slug']; ?>">Lihat</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
