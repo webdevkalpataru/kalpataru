@@ -19,7 +19,7 @@
 
         <div class="relative flex flex-col w-full max-w-2xl mx-auto mb-4 rounded-xl border-2 border-primary bg-white shadow-md lg:p-8 p-4">
             <h4 class="block text-xl font-bold text-slate-800 mb-2">
-                Detail Usulan: (Nama Provinsi)
+                Detail Usulan Saya
             </h4>
             <h2 class="text-md font-bold text-primary mb-4">Joko Susilo</h2>
 
@@ -265,7 +265,6 @@
                         </form>
                     </div>
                 <?php endif; ?>
-
 
                 <!-- Right side: Form inside a card -->
                 <div id="kegiatan-calon" class="form-section hidden flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
@@ -588,8 +587,7 @@
             } else {
                 jenisLainnya.classList.add('hidden');
             }
-        }
- */
+        } */
 
         // Tema Sub Tema Kegiatan
         const subTemaOptions = {

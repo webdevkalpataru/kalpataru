@@ -5,27 +5,37 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
+/* Public */
 $routes->get('/', 'Home::index');
 $routes->get('/beranda', 'MainController::beranda');
 $routes->get('profil', 'MainController::profil');
 $routes->get('kontak', 'MainController::kontak');
 
-$routes->get('auth/login', 'AuthController::login');
-$routes->post('auth/login', 'AuthController::loginAction');
-$routes->get('auth/register', 'AuthController::register');
-$routes->post('auth/register', 'AuthController::createRegister');
-$routes->get('/auth/logout', 'AuthController::logoutAction');
-
-
+/* Informasi */
 $routes->get('informasi/pengumuman', 'InformasiController::pengumuman');
 $routes->get('informasi/peraturankebijakan', 'InformasiController::peraturankebijakan');
 $routes->get('informasi/datastatistik', 'InformasiController::datastatistik');
 
+/* Publikasi */
 $routes->get('publikasi/berita', 'PublikasiController::berita');
 $routes->get('publikasi/artikel', 'PublikasiController::artikel');
 $routes->get('publikasi/video', 'PublikasiController::video');
 $routes->get('publikasi/buku', 'PublikasiController::buku');
 
+/* Auth Pengusul */
+$routes->get('auth/login', 'AuthController::login');
+$routes->post('auth/login', 'AuthController::loginAction');
+$routes->get('auth/register', 'AuthController::register');
+$routes->post('auth/register', 'AuthController::createRegister');
+$routes->get('auth/logout', 'AuthController::logoutAction');
+
+/* Auth Internal */
+$routes->get('auth/logininternal', 'AuthController::logininternal');
+$routes->post('auth/logininternal', 'AuthController::logininternalAction');
+$routes->get('auth/registerinternal', 'AuthController::registerinternal');
+$routes->post('auth/registerinternal', 'AuthController::createRegisterinternal');
+
+/* Pengusul */
 $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
     $routes->get('profil', 'PengusulController::index');
     $routes->post('profil', 'PengusulController::updateProfil');
@@ -76,9 +86,25 @@ $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
     $routes->get('downloadSuratPengantar/(:any)', 'AuthController::downloadSuratPengantar/$1');
 });
 
+/* Penerima */
 $routes->group('penerima', ['filter' => 'auth'], function ($routes) {
     $routes->get('profil', 'PenerimaController::profil');
     $routes->get('tambahartikel', 'PenerimaController::tambahartikel');
     $routes->get('artikelsaya', 'PenerimaController::artikelsaya');
     $routes->get('detailartikelsaya', 'PenerimaController::detailartikelsaya');
 });
+
+/* Admin */
+$routes->group('admin', function ($routes) {
+    $routes->get('dashboard', 'AdminController::dashboard');
+    $routes->get('akunpengusul', 'AdminController::akunpengusul');
+    $routes->get('artikeladmin', 'AdminController::artikeladmin');
+    $routes->get('artikelpengguna', 'AdminController::artikelpengguna');
+    $routes->get('akundlhk', 'AdminController::akundlhk');
+    $routes->get('akuntimteknis', 'AdminController::akuntimteknis');
+    $routes->get('tambahartikeladmin', 'AdminController::tambahartikeladmin');
+    $routes->get('beritaadmin', 'AdminController::beritaadmin');
+    
+
+});
+
