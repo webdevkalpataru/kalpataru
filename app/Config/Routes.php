@@ -37,6 +37,10 @@ $routes->get('auth/logininternal', 'AuthController::logininternal');
 $routes->post('auth/logininternal', 'AuthController::logininternalAction');
 $routes->get('auth/registerinternal', 'AuthController::registerinternal');
 $routes->post('auth/registerinternal', 'AuthController::createRegisterinternal');
+$routes->get('auth/loginadmin', 'AuthController::loginadmin');
+$routes->get('auth/logintimteknis', 'AuthController::logintimteknis');
+$routes->get('auth/loginddpk', 'AuthController::loginddpk');
+
 
 /* Pengusul */
 $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {

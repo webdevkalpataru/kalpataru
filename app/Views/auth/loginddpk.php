@@ -52,35 +52,33 @@
             <div class="w-full max-w-md p-6 fade-in-left">
 
                 <h2 class="text-2xl font-bold text-gray-900 mb-4">Masuk</h2>
-                <form class="flex flex-col gap-4" onsubmit="validateForm(event)" action="/auth/logininternal" method="POST">
+                <form class="flex flex-col" onsubmit="validateForm(event)" action="/auth/logininternal" method="POST">
+                    <?= csrf_field() ?>
+                    <label for="email" class="text-xs">Email</label>
+                    <input id="email" type="text" name="email" required
+                        class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none"
+                        placeholder="Masukkan Email">
 
-                    <a href="/auth/loginadmin">
-                        <div class="group overflow-hidden relative after:duration-500 before:duration-500 duration-500 hover:after:duration-500 hover:after:translate-x-16 hover:before:translate-y-8 hover:before:-translate-x-16 hover:duration-500 after:absolute after:w-16 after:h-16 after:bg-primaryhover after:rounded-full after:blur-lg after:bottom-16 after:right-8 after:w-8 after:h-8 before:absolute before:w-16 before:h-16 before:bg-secondary before:rounded-full before:blur-lg before:top-10 before:right-8 before:w-8 before:h-8 hover:rotate-6 flex justify-center items-center h-40 w-60 origin-bottom-right bg-neutral-900 rounded-xl outline outline-primary -outline-offset-4">
-                            <div class="z-10 flex flex-col items-center gap-2">
-                                <p class="text-primary">Login Sebagai:</p>
-                                <span class="text-primary text-4xl font-bold">ADMIN</span>
-                            </div>
-                        </div>
-                    </a>
+                    <label for="password" class="text-xs">Kata Sandi</label>
+                    <div class="relative">
+                        <input id="password" type="password" name="kata_sandi" required
+                            class="block w-full border-2 border-gray-300 text-primary text-xs rounded-lg p-2 pr-10 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none"
+                            placeholder="Masukkan Kata Sandi">
+                        <span id="togglePassword" class="password-icon absolute inset-y-0 right-2 flex items-center">
+                            <img src="/images/hide.svg" alt="hide" class="w-4 h-4 mb-4">
+                        </span>
+                    </div>
 
-                    <a href="/auth/logintimteknis">
-                        <div class="group overflow-hidden relative after:duration-500 before:duration-500 duration-500 hover:after:duration-500 hover:after:translate-x-16 hover:before:translate-y-8 hover:before:-translate-x-16 hover:duration-500 after:absolute after:w-16 after:h-16 after:bg-primaryhover after:rounded-full after:blur-lg after:bottom-16 after:right-8 after:w-8 after:h-8 before:absolute before:w-16 before:h-16 before:bg-secondary before:rounded-full before:blur-lg before:top-10 before:right-8 before:w-8 before:h-8 hover:rotate-6 flex justify-center items-center h-40 w-60 origin-bottom-right bg-neutral-900 rounded-xl outline outline-primary -outline-offset-4">
-                            <div class="z-10 flex flex-col items-center gap-2">
-                                <p class="text-primary">Login Sebagai:</p>
-                                <span class="text-primary text-4xl font-bold">TIM TEKNIS</span>
-                            </div>
-                        </div>
-                    </a>
+                    <div class="flex items-center justify-between flex-wrap">
+                        <p class="text-gray-900 text-xs">
+                            Belum punya akun? <a href="./registerinternal" class="text-primary hover:underline font-bold">Daftar Sekarang</a>
+                        </p>
+                    </div>
 
-                    <a href="/auth/logindppk">
-                        <div class="group overflow-hidden relative after:duration-500 before:duration-500 duration-500 hover:after:duration-500 hover:after:translate-x-16 hover:before:translate-y-8 hover:before:-translate-x-16 hover:duration-500 after:absolute after:w-16 after:h-16 after:bg-primaryhover after:rounded-full after:blur-lg after:bottom-16 after:right-8 after:w-8 after:h-8 before:absolute before:w-16 before:h-16 before:bg-secondary before:rounded-full before:blur-lg before:top-10 before:right-8 before:w-8 before:h-8 hover:rotate-6 flex justify-center items-center h-40 w-60 origin-bottom-right bg-neutral-900 rounded-xl outline outline-primary -outline-offset-4">
-                            <div class="z-10 flex flex-col items-center gap-2">
-                                <p class="text-primary">Login Sebagai:</p>
-                                <span class="text-primary text-4xl font-bold">DPPK</span>
-                            </div>
-                        </div>
-
-
+                    <button type="submit"
+                        class="bg-secondary text-primary font-bold py-2 px-4 rounded-md mt-4 hover:bg-primary hover:text-white transition ease-in-out duration-150">
+                        Masuk
+                    </button>
                 </form>
             </div>
         </div>
