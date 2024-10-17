@@ -213,15 +213,18 @@ class PengusulController extends BaseController
             return redirect()->back()->withInput()->with('error', 'Validasi file gagal. Pastikan format dan ukuran file benar.');
         }
 
+        $legalitasFileName = null;
+
+        // Pengecekan apakah file legalitas diunggah
         $legalitasFile = $this->request->getFile('legalitas');
-        if ($legalitasFile->isValid() && !$legalitasFile->hasMoved()) {
+        if ($legalitasFile && $legalitasFile->isValid() && !$legalitasFile->hasMoved()) {
             if ($legalitasFile->getExtension() === 'pdf' && $legalitasFile->getSize() <= 1024 * 1024) {
                 $originalName = pathinfo($legalitasFile->getClientName(), PATHINFO_FILENAME);
                 $extension = $legalitasFile->getExtension();
-                $legalitasFileName = $originalName . '_' . bin2hex(random_bytes(5)) . '.' . $extension;
+                $legalitasFileName = $originalName . '' . bin2hex(random_bytes(5)) . '.' . $extension;
                 $legalitasFile->store('legalitas', $legalitasFileName);
             } else {
-                return redirect()->back()->with('error', 'File harus berupa PDF dan ukuran maksimal 1MB.');
+                return redirect()->back()->with('error', 'File legalitas harus berupa PDF dan ukuran maksimal 1MB.');
             }
         }
 
@@ -997,7 +1000,7 @@ class PengusulController extends BaseController
         $id_pengusul = session()->get('id_pengusul');
 
         if (!$id_pengusul) {
-            return redirect()->back()->with('error', 'Error');
+            return redirect()->back()->with('error', '');
         }
 
         $pendaftaranModel = new PendaftaranModel();
@@ -1020,23 +1023,13 @@ class PengusulController extends BaseController
         $keistimewaan = $pendaftaranModel->db->table('keistimewaan')->where('id_pendaftaran', $pendaftaranData['id_pendaftaran'])->get()->getRowArray();
 
         $data = [
-            'pendaftaran' => array_merge($pendaftaranData, [
-                'dampak_lingkungan' => $dampak['dampak_lingkungan'] ?? '',
-                'dampak_ekonomi' => $dampak['dampak_ekonomi'] ?? '',
-                'dampak_sosial_budaya' => $dampak['dampak_sosial_budaya'] ?? '',
-                'prakarsa' => $pmik['prakarsa'] ?? '',
-                'motivasi' => $pmik['motivasi'] ?? '',
-                'inovasi' => $pmik['inovasi'] ?? '',
-                'krativitas' => $pmik['krativitas'] ?? '',
-                'sumber_biaya' => $keswadayaan['sumber_biaya'] ?? '',
-                'teknologi_kegiatan' => $keswadayaan['teknologi_kegiatan'] ?? '',
-                'status_lahan_kegiatan' => $keswadayaan['status_lahan_kegiatan'] ?? '',
-                'jumlah_kelompok_serupa' => $keswadayaan['jumlah_kelompok_serupa'] ?? '',
-                'keistimewaan' => $keistimewaan['keistimewaan'] ?? '',
-                'penghargaan' => $keistimewaan['penghargaan'] ?? ''
-            ]),
+            'pendaftaran' => $pendaftaranData, 
             'pengusul' => $pengusulData,
-            'kegiatan' => $kegiatan
+            'kegiatan' => $kegiatan,
+            'dampak' => $dampak,
+            'pmik' => $pmik,
+            'keswadayaan' => $keswadayaan,
+            'keistimewaan' => $keistimewaan
         ];
 
         $kategori = $pendaftaranData['kategori'];

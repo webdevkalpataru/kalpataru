@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\ArtikelModel;
+use App\Models\BeritaModel;
 
 
 class AdminController extends BaseController
@@ -305,10 +306,138 @@ class AdminController extends BaseController
         return view('admin/tambahartikeladmin', ['title' => 'Tambah Artikel Admin']);
     }
 
-    public function beritaadmin()
+    public function beritaAdmin()
     {
+        $model = new BeritaModel();
+        $keyword = $this->request->getGet('search');
+
+        $data['berita'] = $model->getAllBerita($keyword);
+        $data['countTerbit'] = count($data['berita']);
         $data['title'] = "Berita Admin";
-        return view('admin/beritaadmin', ['title' => 'Berita Admin']);
+
+        return view('admin/berita', $data);
+    }
+
+    public function tambahberitaadmin()
+    {
+        $data['title'] = "Tambah Berita Admin";
+        return view('admin/tambahberitaadmin', $data);
+    }
+
+    public function tambahBeritaAction()
+    {
+        $model = new BeritaModel();
+
+        // Ambil input dari formulir
+        $judulBerita = $this->request->getPost('judul');
+        $konten = $this->request->getPost('konten');
+
+        // Memproses foto yang diupload
+        $foto = $this->request->getFile('foto');
+
+        // Validasi input
+        $validation = \Config\Services::validation();
+        $validation->setRules([
+            'judul' => [
+                'label' => 'Judul',
+                'rules' => 'required|min_length[5]|max_length[100]|is_unique[berita.judul]' // Judul harus unik dan panjang antara 5 dan 100 karakter
+            ],
+            'konten' => [
+                'label' => 'Konten',
+                'rules' => 'required|min_length[20]' // Konten harus ada dan panjang minimum 20 karakter
+            ],
+            'foto' => [
+                'label' => 'Foto',
+                'rules' => 'uploaded[foto]|is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/gif,image/png]|max_size[foto,1024]'
+            ]
+        ]);
+
+
+        if (!$this->validate($validation->getRules())) {
+            return $this->response->setJSON([
+                'success' => false,
+                'messages' => $validation->getErrors(),
+            ]);
+        }
+
+        // Menangani upload file foto
+        $fotoPath = '';
+        if ($foto && $foto->isValid() && !$foto->hasMoved()) {
+            // Memastikan tipe file dan membuat nama file acak
+            $fotoName = $foto->getRandomName();
+
+            // Memindahkan file ke folder public/images/artikel
+            if ($foto->move('public/images/berita', $fotoName)) {
+                // Jika berhasil, simpan path foto ke database
+                $fotoPath = 'images/berita/' . $fotoName;
+            } else {
+                return $this->response->setJSON(['success' => false, 'message' => 'Gagal menyimpan file foto.']);
+            }
+        } else {
+            return $this->response->setJSON(['success' => false, 'message' => 'File tidak valid atau belum diupload.']);
+        }
+
+        // Menghasilkan slug yang unik
+        $slug = url_title($judulBerita, '-', true);
+        $existingBerita = $model->where('slug', $slug)->first(); // Cek apakah slug sudah ada
+        if ($existingBerita) {
+            return $this->response->setJSON(['success' => false, 'message' => 'Judul sudah digunakan.']);
+        }
+
+        // Simpan data artikel ke dalam database
+        $data = [
+            'id_admin' => session()->get('id_admin'),
+            'judul' => htmlspecialchars($judulBerita, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+            'slug' => $slug,
+            'konten' => htmlspecialchars($konten, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+            'foto' => $fotoPath,
+            'tanggal' => date('Y-m-d H:i:s'),
+        ];
+
+        // Simpan artikel
+        if ($model->insert($data)) {
+            return $this->response->setJSON(['success' => true, 'message' => 'Artikel berhasil ditambahkan.']);
+        } else {
+            // Tampilkan pesan umum untuk kesalahan penyimpanan
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal menambahkan artikel.']);
+        }
+    }
+
+    public function updateStatusBerita()
+    {
+        // Inisialisasi model
+        $model = new BeritaModel();
+
+        // Ambil data dari POST request
+        $id_berita = $this->request->getPost('id_berita');
+        $status = $this->request->getPost('status');
+
+        // Validasi data (opsional, misalnya cek apakah ID dan status valid)
+        if ($id_berita && $status) {
+            // Update status di database
+            $model->update($id_berita, ['status' => $status]);
+
+            // Mengembalikan respons untuk merefresh halaman
+            return $this->response->setJSON(['success' => true, 'message' => 'Data berhasil diperbarui']);
+        } else {
+            // Mengembalikan respons untuk merefresh halaman
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui data']);
+        }
+    }
+
+    public function hapusBerita($id_berita)
+    {
+        $model = new BeritaModel();
+
+        // Hapus artikel berdasarkan ID
+        if ($model->delete($id_berita)) {
+            // Set flash message atau lakukan redirect setelah menghapus
+            session()->setFlashdata('success', 'Berita berhasil dihapus.');
+        } else {
+            session()->setFlashdata('error', 'Gagal menghapus berita.');
+        }
+
+        return redirect()->to('/admin/berita'); // Sesuaikan dengan URL yang diinginkan
     }
 
     public function daftartimteknis()
@@ -327,12 +456,6 @@ class AdminController extends BaseController
     {
         $data['title'] = "Daftar DPPK";
         return view('admin/daftardppk', ['title' => 'Daftar DPPK']);
-    }
-
-    public function tambahberitaadmin()
-    {
-        $data['title'] = "Tambah Berita Admin";
-        return view('admin/tambahberitaadmin', ['title' => 'Tambah Berita Admin']);
     }
 
     public function pengumumanadmin()
