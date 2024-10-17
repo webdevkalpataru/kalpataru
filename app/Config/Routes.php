@@ -22,6 +22,8 @@ $routes->get('publikasi/artikel', 'PublikasiController::artikel');
 $routes->get('publikasi/video', 'PublikasiController::video');
 $routes->get('publikasi/buku', 'PublikasiController::buku');
 $routes->get('artikel/(:any)', 'PublikasiController::detailartikel/$1');
+$routes->get('berita/(:any)', 'PublikasiController::detailberita/$1');
+
 
 
 /* Auth Pengusul */

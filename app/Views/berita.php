@@ -56,7 +56,7 @@
                             <div class="p-4">
                                 <h2 class="text-lg md:text-xl font-semibold mb-2"><?= esc($item['judul']) ?></h2>
                                 <p class="text-gray-600 text-sm md:text-base mb-4"><?= word_limiter(esc($item['konten']), 30); ?></p>
-                                <a href="/artikel/<?= $item['slug'] ?>" class="text-black font-medium flex justify-end items-center">
+                                <a href="/berita/<?= $item['slug'] ?>" class="text-black font-medium flex justify-end items-center">
                                     Baca Selengkapnya
                                     <img src="/images/arrowkanan.svg" alt="arrowkanan" class="w-6 h-6 md:w-8 md:h-8 ml-2">
                                 </a>

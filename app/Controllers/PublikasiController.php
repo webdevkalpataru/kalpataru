@@ -27,6 +27,28 @@ class PublikasiController extends BaseController
         return view('berita', $data);
     }
 
+    public function detailberita($slug)
+    {
+        $model = new BeritaModel();
+        $berita = $model->getDetailBeritaBySlug($slug);
+
+
+        if (!$berita) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('Berita tidak ditemukan');
+        }
+
+        // Jika artikel masih ditangguhkan
+        if ($berita['status'] !== 'Terbit') {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('Berita tidak ditemukan');
+        }
+
+        $data = [
+            'title' => $berita['judul'],
+            'berita' => $berita,
+        ];
+        return view('detailberita', $data);
+    }
+
     public function artikel()
     {
         $model = new ArtikelModel();
