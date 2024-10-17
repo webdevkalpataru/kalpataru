@@ -79,7 +79,7 @@
                                         <p class="block text-sm text-slate-800"><?= esc($b['tanggal']) ?></p>
                                     </td>
                                     <td class="p-4 border-b border-slate-200 text-center">
-                                        <form method="POST" action="/admin/updatestatus">
+                                        <form method="POST" action="/admin/updatestatusberita">
                                             <input type="hidden" name="id_berita" value="<?= $b['id_berita'] ?>">
                                             <select name="status" class="status-dropdown ml-2 border-2 border-primary text-primary rounded-md shadow-sm text-xs" data-id="<?= $b['id_berita'] ?>">
                                                 <?php
@@ -262,7 +262,7 @@
         let deleteForm = null; // Menyimpan form hapus
 
         // Event listener untuk tombol hapus
-        document.querySelectorAll('form[action^="/admin/artikel/hapus/"] button').forEach(button => {
+        document.querySelectorAll('form[action^="/admin/berita/hapus/"] button').forEach(button => {
             button.addEventListener('click', function(event) {
                 event.preventDefault(); // Mencegah submit form langsung
                 deleteForm = this.closest('form'); // Ambil form yang akan dihapus
@@ -270,10 +270,10 @@
             });
         });
 
-        // Ketika tombol "Ya, Hapus Artikel" ditekan
+        // Ketika tombol "Ya, Hapus Berita" ditekan
         confirmDeleteButton.addEventListener('click', function() {
             if (deleteForm) {
-                deleteForm.submit(); // Submit form hapus artikel
+                deleteForm.submit(); // Submit form hapus berita
             }
         });
 
