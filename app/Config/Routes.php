@@ -119,6 +119,11 @@ $routes->group('admin', function ($routes) {
     $routes->get('akunpengguna', 'AdminController::akunpengguna');
     $routes->get('daftarakunpengguna', 'AdminController::daftarakunpengguna');
     $routes->get('daftarakundlhk', 'AdminController::daftarakundlhk');
+    $routes->get('video', 'AdminController::video');
+    $routes->get('tambahvideo', 'AdminController::tambahvideo');
+    $routes->get('buku', 'AdminController::buku');
+    $routes->get('tambahbuku', 'AdminController::tambahbuku');
+    $routes->get('kebijakan', 'AdminController::kebijakan');
     
 
 });
