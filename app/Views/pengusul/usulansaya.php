@@ -33,7 +33,7 @@
                     <button id="tambahCalon" class="mb-4 w-48 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button"> <span>&#10010</span> Tambah Calon Usulan</button>
                 </a>
                 <form method="get">
-                    <div class="relative w-56 transition-all focus-within:w-64 lg:mt-0 mt-4">
+                    <div class="mb-4 relative w-56 transition-all focus-within:w-64 lg:mt-0 mt-4">
                         <input
                             placeholder="Masukan kata kunci"
                             class="input shadow-lg focus:border-2 border-2 text-primary border-primary px-5 py-1 pr-10 rounded-md w-full outline-none"
