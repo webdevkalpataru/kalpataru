@@ -30,7 +30,7 @@
             </div>
             <div class="flex justify-start mt-6">
                 <a href="./tambahcalon">
-                    <button id="tambahCalon" class="w-48 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button"> <span>&#10010</span> Tambah Calon Usulan</button>
+                    <button id="tambahCalon" class="mb-4 w-48 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button"> <span>&#10010</span> Tambah Calon Usulan</button>
                 </a>
             </div>
             <div class="relative flex flex-col w-full h-full mt-2 overflow-hidden text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
