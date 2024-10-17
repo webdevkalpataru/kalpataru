@@ -22,7 +22,7 @@
             </h4>
 
             <?php if ($kategori == 'Penyelamat Lingkungan'): ?>
-                <form id="identitasc" action="simpancalonidentitas" method="post" class="mt-4 mb-2 w-full">
+                <form id="identitasc" action="simpancalonidentitas" method="post" class="mt-4 mb-2 w-full" enctype="multipart/form-data">
                     <div class="grid grid-cols-2 gap-4">
 
                         <!-- Kolom kiri -->
@@ -30,7 +30,7 @@
                             <p class="font-semibold mb-2 text-md text-primary underline">Data Kelompok/ Komunitas</p>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Nama Kelompok</label>
-                                <input type="text" name="nama" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input type="text" name="nama_kelompok" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div>
                                 <label for="tahun_pembentukan" class="block mb-2 text-sm text-black">Tahun Berdiri Kelompok</label>
@@ -82,6 +82,14 @@
                                 <label class="block mb-2 text-sm text-black">Unggah Surat Legalitas Kelompok <span class="text-primary">(.pdf)</span></label>
                                 <input id="suratpengantar" name="legalitas" type="file" accept="application/pdf"
                                     class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
+                                <!-- Tampilkan pesan kesalahan jika ada -->
+                                <?php if (session()->getFlashdata('error_legalitas')): ?>
+                                    <p class="text-red-500 text-sm mt-1"><?= session()->getFlashdata('error_legalitas') ?></p>
+                                <?php endif; ?>
+                            </div>
+                            <div>
+                                <label class="block mb-2 text-sm text-black" for="tanggal_skck">Tanggal Surat Legalitas Kelompok</label>
+                                <input type="date" name="tanggal_legalitas" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                         </div>
 
@@ -137,16 +145,27 @@
                                 <label class="block mb-2 text-sm text-black">Pendidikan Terakhir</label>
                                 <input type="text" name="pendidikan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
-
                             <div>
-                                <label class="block mb-2 text-sm text-black">Unggah KTP <span class="text-primary">(.jpg/jpeg)</span></label>
-                                <input id="ktp" type="file" accept="application/jpg,application/jpeg"
-                                    class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
+                                <label for="ktp" class="block mb-2 text-sm text-black">Unggah KTP <span class="text-primary">(.jpg/jpeg)</span></label>
+                                <input type="file" name="ktp" id="ktp" accept=".jpg,.jpeg" required class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
+                                <?php if (isset($validation) && $validation->getError('ktp')): ?>
+                                    <div style="color:red;">
+                                        <?= $validation->getError('ktp') ?>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                             <div>
-                                <label class="block mb-2 text-sm text-black">Unggah SKCK <span class="text-primary">(.pdf)</span></label>
-                                <input id="skck" type="file" accept="application/pdf"
-                                    class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
+                                <label for="skck" class="block mb-2 text-sm text-black">Unggah SKCK <span class="text-primary">(.pdf)</span></label>
+                                <input type="file" name="skck" id="skck" accept=".pdf" required class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
+                                <?php if (isset($validation) && $validation->getError('skck')): ?>
+                                    <div style="color:red;">
+                                        <?= $validation->getError('skck') ?>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                            <div>
+                                <label class="block mb-2 text-sm text-black" for="tanggal_skck">Tanggal SKCK</label>
+                                <input type="date" name="tanggal_skck" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                         </div>
                     </div>
@@ -157,7 +176,7 @@
                 </form>
 
             <?php else: ?>
-                <form id="identitasabd" class="mt-4 mb-2 w-full" action="simpancalonidentitas" method="post">
+                <form id="identitasabd" class="mt-4 mb-2 w-full" action="simpancalonidentitas" method="post" enctype="multipart/form-data">
                     <?= csrf_field(); ?>
                     <div class="grid grid-cols-2 gap-4">
                         <!-- Kolom kiri -->
@@ -254,29 +273,36 @@
                                 <input type="text" name="media_sosial" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div>
-                                <label class="block mb-2 text-sm text-black">Unggah KTP <span class="text-primary">(.jpg/jpeg)</span></label>
-                                <input id="suratpengantar" type="file" accept="application/jpg,application/jpeg"
-                                    class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
+                                <label for="ktp" class="block mb-2 text-sm text-black">Unggah KTP <span class="text-primary">(.jpg/jpeg)</span></label>
+                                <input type="file" name="ktp" id="ktp" accept=".jpg,.jpeg" required class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
+                                <?php if (isset($validation) && $validation->getError('ktp')): ?>
+                                    <div style="color:red;">
+                                        <?= $validation->getError('ktp') ?>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                             <div>
-                                <label class="block mb-2 text-sm text-black">Unggah SKCK <span class="text-primary">(.pdf)</span></label>
-                                <input id="suratpengantar" type="file" accept="application/pdf"
-                                    class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
+                                <label for="skck" class="block mb-2 text-sm text-black">Unggah SKCK <span class="text-primary">(.pdf)</span></label>
+                                <input type="file" name="skck" id="skck" accept=".pdf" required class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
+                                <?php if (isset($validation) && $validation->getError('skck')): ?>
+                                    <div style="color:red;">
+                                        <?= $validation->getError('skck') ?>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                            <div>
+                                <label class="block mb-2 text-sm text-black" for="tanggal_skck">Tanggal SKCK</label>
+                                <input type="date" name="tanggal_skck" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                         </div>
                     </div>
 
                     <div class="flex justify-end">
-                        <a href="./usulansaya">
-                            <button class="mt-4 w-32 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="submit">Simpan</button>
-                        </a>
+                        <button class="mt-4 w-32 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="submit">Simpan</button>
                     </div>
                 </form>
             <?php endif; ?>
-
         </div>
-
-
     </div>
 
     <?= $this->endSection() ?>
