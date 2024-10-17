@@ -30,14 +30,14 @@ class KontakController extends BaseController
             $mail->isSMTP();                                            
             $mail->Host       = 'smtp.gmail.com';                       // SMTP server Gmail
             $mail->SMTPAuth   = true;                                   // Aktifkan autentikasi SMTP
-            $mail->Username   = '';                   // Email Gmail Anda
-            $mail->Password   = '';                  // App Password from Gmail
+            $mail->Username   = 'kalpataru.klhk@gmail.com';                   // Email Gmail Anda
+            $mail->Password   = 'lrll nozp cluf naiq';                  // App Password from Gmail
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enkripsi TLS
             $mail->Port       = 587;                                    // Port SMTP Gmail
 
             // Set detail pengirim dan penerima
             $mail->setFrom($email, $nama);                              // Email pengirim
-            $mail->addAddress('');                    // Email tujuan
+            $mail->addAddress('kalpataru.klhk@gmail.com');                    // Email tujuan
 
             // Konten email
             $mail->isHTML(true);                                       
