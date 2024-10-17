@@ -19,17 +19,19 @@
     <div class="min-h-screen flex flex-col">
 
   <div class="container mx-auto flex items-center justify-between p-4 md:p-6">
-          <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Pengumuman</h1>
+          <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Berita</h1>
           <div class="flex items-center">
             <p class="text-gray-500 mr-2 md:mr-4">Hello, Admin</p>
             <button class="bg-rejected text-white px-3 py-2 md:px-4 md:py-2 rounded-lg">Keluar</button>
           </div>
         </div>
-        <a href="./tambahpengumumanadmin">
+        
         <div>
-                    <button id="tambahPengumuman" class="w-48 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button"> <span>&#10010</span> Tambah Pengumuman</button>
-            </div>
-        </a>    
+    <a href="./tambahberitaadmin" id="tambahArtikel" class="w-48 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none inline-block">
+        <span>&#10010</span> Tambah Berita
+    </a>
+</div>
+      
 
             <div class="relative  flex flex-col w-full h-full bg-white shadow-md rounded-lg bg-clip-border my-6">
             <table class="w-full text-center table-auto min-w-max">
@@ -62,9 +64,15 @@
             </th>
             <th class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
                 <p class="flex items-center justify-center gap-2 text-sm font-bold leading-none text-slate-800">
+                    Tanggal
+                </p>
+            </th>
+            <th class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
+                <p class="flex items-center justify-center gap-2 text-sm font-bold leading-none text-slate-800">
                     Hapus
                 </p>
             </th>
+            
         </tr>
     </thead>
     <tbody>
@@ -78,10 +86,14 @@
             <td class="p-4 border-b border-slate-200">
                 <p class="block text-sm text-slate-800">Pembukaan Kalpataru</p>
             </td>
+            
             <td class="p-4 border-b border-slate-200">
                 <div>
                     <button id="uploadBtn" class="mt-4 w-full rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="submit">Selengkapnya</button>
                 </div>
+            </td>
+            <td class="p-4 border-b border-slate-200">
+                <p class="block text-sm text-slate-800">Pembukaan Kalpataru</p>
             </td>
             <td class="p-4 text-center border-b border-slate-200">
                 <form id="filterForm" action="" method="get" class="flex items-center justify-center my-4 ms-4">
@@ -102,7 +114,6 @@
         <!-- Repeat other rows as needed -->
     </tbody>
 </table>
-
                 <div class="row flex lg:justify-end justify-center my-6 lg:mr-4">
                     <button class="rounded-md rounded-r-none border border-r-0 border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-primary focus:border-primary active:border-primary active:text-white active:bg-primary disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">

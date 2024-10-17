@@ -487,4 +487,34 @@ class AdminController extends BaseController
         $data['title'] = "Daftar Akun DLHK";
         return view('admin/daftarakundlhk', ['title' => 'Daftar Akun DLHK']);
     }
+
+    public function video()
+    {
+        $data['title'] = "Video";
+        return view('admin/video', ['title' => 'Video']);
+    }
+
+    public function tambahvideo()
+    {
+        $data['title'] = "Tambah Video";
+        return view('admin/tambahvideo', ['title' => 'Tambah Video']);
+    }
+
+    public function buku()
+    {
+        $data['title'] = "Buku";
+        return view('admin/buku', ['title' => 'Buku']);
+    }
+
+    public function tambahbuku()
+    {
+        $data['title'] = "Buku";
+        return view('admin/tambahbuku', ['title' => 'Tambah Buku']);
+    }
+
+    public function kebijakan()
+    {
+        $data['title'] = "Kebijakan";
+        return view('admin/kebijakan', ['title' => 'Kebijakan']);
+    }
 }
