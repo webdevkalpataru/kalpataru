@@ -90,7 +90,7 @@
                             <?php if (empty($usulan)): ?>
                                 <tr>
                                     <td colspan="8" class="p-4 text-center text-sm text-red-600">
-                                        Tidak ditemukan data berdasarkan kategori "<?= $kategori ?: 'Semua Kategori'; ?>"
+                                        Belum ada data
                                     </td>
                                 </tr>
                             <?php else: ?>
@@ -205,7 +205,7 @@
             <p class="text-center text-sm text-slate-600 mb-4">Data yang dikirimkan adalah Seluruh Data pada Identitas Calon, Kegiatan Calon, Dampak, PMIK, Keswadayaan dan Kebudayaan, dan Keistimewaan. <span class="font-bold"> Data yang telah dikirimkan tidak dapat diubah kembali, mohon perhatikan dengan seksama!</span></p>
             <div class="flex justify-end space-x-4">
                 <button id="cancelButton" class="px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-700 hover:text-white rounded-md">Periksa Kembali</button>
-                <button id="confirmButton" class="px-4 py-2 bg-primary hover:bg-primaryhover text-white rounded-md" data-id="<?= $u['id_pendaftaran'] ?>">Ya, Kirim Data</button>
+                <button id="confirmButton" class="px-4 py-2 bg-primary hover:bg-primaryhover text-white rounded-md">Ya, Kirim Data</button>
             </div>
         </div>
     </div>
