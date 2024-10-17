@@ -11,6 +11,8 @@ class PenerimaModel extends Model
     protected $allowedFields = [
         'id_admin',
         'nama',
+        'kategori',
+        'tahun',
         'email',
         'kata_sandi',
         'instagram',

@@ -337,9 +337,30 @@ class AuthController extends BaseController
     {
         $model = new PenerimaModel();
         
+        $kategoriValue = $this->request->getPost('kategori');
+        
+        switch ($kategoriValue) {
+            case 'A':
+                $kategori = 'Perintis Lingkungan';
+                break;
+            case 'B':
+                $kategori = 'Pengabdi Lingkungan';
+                break;
+            case 'C':
+                $kategori = 'Penyelamat Lingkungan';
+                break;
+            case 'D':
+                $kategori = 'Pembina Lingkungan';
+                break;
+            default:
+                $kategori = 'Unknown';
+        }
+
         $data = [
             'nama' => $this->request->getPost('nama'),
             'email' => $this->request->getPost('email'),
+            'kategori' => $kategori,
+            'tahun' => $this->request->getPost('tahun'),
             'kata_sandi' => password_hash($this->request->getPost('kata_sandi'), PASSWORD_DEFAULT),
             'status_akun'  => 'Pending',
         ];

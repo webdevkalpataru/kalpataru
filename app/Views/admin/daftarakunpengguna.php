@@ -41,6 +41,10 @@
                                 <input type="text" name="nama" id="nama" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
                             </div>
                             <div>
+                                <label class="block mb-2 text-sm text-black">Tahun</label>
+                                <input type="number" name="tahun" id="tahun" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
+                            </div>
+                            <div>
                                 <label class="block mb-2 text-sm text-black">Kata Sandi</label>
                                 <div class="relative">
                                     <input type="password" name="kata_sandi" id="password" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
@@ -54,6 +58,16 @@
 
                         <!-- Kolom kanan -->
                         <div class="space-y-4">
+                            <div>
+                                <label class="block mb-2 text-sm text-black">Kategori</label>
+                                <select name="kategori" id="kategori" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required>
+                                    <option value="" disabled selected>Pilih Kategori</option>
+                                    <option value="A">Perintis Lingkungan</option>
+                                    <option value="B">Pengabdi Lingkungan</option>
+                                    <option value="C">Penyelamat Lingkungan</option>
+                                    <option value="D">Pembina Lingkungan</option>
+                                </select>
+                            </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Email</label>
                                 <input type="email" name="email" id="email" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
