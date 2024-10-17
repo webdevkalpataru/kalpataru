@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/app.css">
-    <title>Registrasi Akun Penerima</title>
+    <title>Registrasi Akun DPPK</title>
 </head>
 
 <body class="lg:flex">
@@ -31,7 +31,7 @@
             <!-- Main Content -->
             <div class="relative flex flex-col w-full lg:max-w-5xl mb-4 rounded-xl border-2 border-primary mt-4 bg-white shadow-md lg:p-8 p-4">
 
-                <form class="mt-4 mb-2 w-full" method="post" id="profil-form">
+                <form action="/admin/daftardppk" class="mt-4 mb-2 w-full" method="post" id="profil-form">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
                         <!-- Kolom kiri -->
@@ -48,7 +48,7 @@
                             <div>
                                 <label class="block mb-2 text-sm text-black">Kata Sandi</label>
                                 <div class="relative">
-                                    <input type="password" name="password" id="password" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
+                                    <input type="password" name="kata_sandi" id="password" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
                                     <button type="button" id="togglePassword" class="absolute inset-y-0 right-0 flex items-center pr-3">
                                         <img id="passwordIcon" src="/images/hide.svg" class="h-5 w-5 text-gray-500" alt="Password Icon">
                                     </button>
@@ -65,7 +65,7 @@
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">NO SK</label>
-                                <input type="text" name="sk" id="sk" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
+                                <input type="text" name="no_sk" id="sk" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
                             </div>
                         </div>
 
@@ -99,27 +99,48 @@
                 const form = document.getElementById('profil-form');
                 const toast = document.getElementById('toast');
 
-                // Handle form submission
-                form.addEventListener('submit', (event) => {
-                    event.preventDefault(); // Prevent form submission
+                // Handle form submission with fetch (AJAX)
+                form.addEventListener('submit', async (event) => {
+                    event.preventDefault(); // Prevent immediate form submission
 
-                    // Show modal
+                    // Show modal when form is valid and button is clicked
                     uploadModal.classList.remove('hidden');
 
-                    // Show toast notification
-                    toast.classList.remove('hidden');
+                    // Prepare form data to be sent
+                    const formData = new FormData(form);
 
-                    // Hide toast after 3 seconds
-                    setTimeout(() => {
-                        toast.classList.add('hidden');
-                    }, 3000);
+                    try {
+                        // Send form data using fetch (AJAX)
+                        const response = await fetch(form.action, {
+                            method: 'POST',
+                            body: formData
+                        });
 
-                    // Additional logic for form submission can be added here
+                        // Check if the response is OK
+                        if (response.ok) {
+                            // Show success modal
+                            uploadModal.classList.remove('hidden');
+
+                            // Show toast notification
+                            toast.classList.remove('hidden');
+
+                            // Hide toast after 3 seconds
+                            setTimeout(() => {
+                                toast.classList.add('hidden');
+                            }, 3000);
+                        } else {
+                            const errorText = await response.text();
+                            alert('Error: ' + errorText); // Show error in case of failure
+                        }
+                    } catch (error) {
+                        alert('Error occurred: ' + error.message);
+                    }
                 });
 
                 // Close modal button functionality
                 closeModalBtn.addEventListener('click', () => {
                     uploadModal.classList.add('hidden');
+                    // You can optionally reset the form or do something else here
                 });
 
                 // Check if all inputs are filled
@@ -153,7 +174,7 @@
 
                 function validatePassword(password) {
                     const passwordHint = document.getElementById('password-hint');
-                    const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&./])[A-Za-z\d@$!%*?&.,/]{8,}$/;
+                    const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&./\-_])[A-Za-z\d@$!%*?&.,/\-_]{8,}$/;
                     const isValid = re.test(password);
 
                     if (!isValid) {
@@ -176,6 +197,7 @@
                     passwordIcon.src = type === 'password' ? '/images/hide.svg' : '/images/show.svg';
                 });
             </script>
+
         </div>
     </div>
 </body>
