@@ -96,7 +96,15 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('akunpengusul', 'AdminController::akunpengusul');
     $routes->get('akundlhk', 'AdminController::akundlhk');
     $routes->get('akuntimteknis', 'AdminController::akuntimteknis');
+    $routes->get('daftartimteknis', 'AuthController::registerTimTeknis');
+    $routes->post('daftartimteknis', 'AuthController::createRegisterTimTeknis');
     $routes->get('beritaadmin', 'AdminController::beritaadmin');
+    $routes->get('daftarakundlhk', 'AuthController::registerDLHK');
+    $routes->post('daftarakundlhk', 'AuthController::createRegisterDLHK');
+    $routes->get('daftardppk', 'AuthController::registerDPPK');
+    $routes->post('daftardppk', 'AuthController::createRegisterDPPK');
+    $routes->get('daftarakunpengguna', 'AuthController::registerPenerima');
+    $routes->post('daftarakunpengguna', 'AuthController::createRegisterPenerima');
     $routes->get('daftartimteknis', 'AdminController::daftartimteknis');
     $routes->get('akundppk', 'AdminController::akundppk');
     $routes->get('daftardppk', 'AdminController::daftardppk');

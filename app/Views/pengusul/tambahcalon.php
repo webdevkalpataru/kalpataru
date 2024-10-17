@@ -60,6 +60,12 @@
                     <button id="selanjutnyaBtn" class="mt-4 w-32 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:bg-gray-400 disabled:shadow-none" type="submit" disabled onclick="checkSelection()">Selanjutnya</button>
                 </div>
 
+            </form>
+
+            <div id="validationMessage" class="hidden text-red-600 text-center mt-4">
+                Silahkan pilih kategori sebelum melanjutkan!
+            </div>
+
         </div>
 
     </div>

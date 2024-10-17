@@ -2,8 +2,10 @@
 
 namespace App\Controllers;
 
-use App\Models\AdminModel;
 use App\Models\PengusulModel;
+use App\Models\TimteknisModel;
+use App\Models\DppkModel;
+use App\Models\PenerimaModel;
 
 class AuthController extends BaseController
 {
@@ -220,6 +222,90 @@ class AuthController extends BaseController
         }
     }
 
+    public function registerDLHK()
+    {
+        $provinsi_list = [
+            'Aceh',
+            'Bali',
+            'Bangka Belitung',
+            'Banten',
+            'Bengkulu',
+            'DI Yogyakarta',
+            'DKI Jakarta',
+            'Gorontalo',
+            'Jambi',
+            'Jawa Barat',
+            'Jawa Tengah',
+            'Jawa Timur',
+            'Kalimantan Barat',
+            'Kalimantan Selatan',
+            'Kalimantan Tengah',
+            'Kalimantan Timur',
+            'Kalimantan Utara',
+            'Kepulauan Bangka Belitung',
+            'Kepulauan Riau',
+            'Lampung',
+            'Maluku',
+            'Maluku Utara',
+            'Nusa Tenggara Barat',
+            'Nusa Tenggara Timur',
+            'Papua',
+            'Papua Barat',
+            'Papua Barat Daya',
+            'Papua Pegunungan',
+            'Papua Selatan',
+            'Papua Tengah',
+            'Riau',
+            'Sulawesi Barat',
+            'Sulawesi Selatan',
+            'Sulawesi Tengah',
+            'Sulawesi Tenggara',
+            'Sulawesi Utara',
+            'Sumatera Barat',
+            'Sumatera Selatan',
+            'Sumatera Utara'
+        ];
+
+        $data['title'] = 'Daftar Akun DLHK';
+        $data['provinsi_list'] = $provinsi_list;
+
+        return view('admin/daftarakundlhk', $data);
+    }
+
+    public function createRegisterDLHK()
+    {
+        $model = new PengusulModel();
+
+        $file = $this->request->getFile('surat_pengantar');
+        $filePath = '';
+
+        if ($file && $file->isValid() && !$file->hasMoved()) {
+            if ($file->getClientMimeType() == 'application/pdf') {
+                $filePath = $file->store('suratpengantar', $file->getRandomName());
+            } else {
+                return $this->response->setJSON(['success' => false, 'errors' => 'Invalid file type. Only PDF files are allowed']);
+            }
+        }
+
+        $data = [
+            'nama_instansi_pribadi' => $this->request->getPost('nama_instansi_pribadi'),
+            'provinsi' => $this->request->getPost('provinsi'),
+            'telepon' => $this->request->getPost('telepon'),
+            'email' =>  $this->request->getPost('email'),
+            'kata_sandi' => password_hash($this->request->getPost('kata_sandi'), PASSWORD_DEFAULT),
+            'role_akun' => 'DLHK',
+            'status_akun'  => 'Pending',
+            'surat_pengantar' => $filePath
+        ];
+
+        if ($model->insert($data)) {
+            return;
+        } else {
+            log_message('error', 'Registration failed: ' . json_encode($model->errors()));
+            return $this->response->setJSON(['success' => false, 'errors' => $model->errors()]);
+        }
+    }
+
     public function downloadSuratPengantar($filename)
     {
         $filePath = WRITEPATH . 'uploads/suratpengantar/' . $filename;
@@ -388,5 +474,101 @@ class AuthController extends BaseController
     {
         $data['title'] = "Login DDPK";
         return view('auth/loginddpk', $data);
+    }
+    public function registerTimTeknis()
+    {
+        return view('admin/daftartimteknis', ['title' => 'Register Tim Teknis']);
+    }
+    
+    public function createRegisterTimTeknis()
+    {
+        $model = new TimTeknisModel();
+        
+        $data = [
+            'nama' => $this->request->getPost('nama'),
+            'nip' => $this->request->getPost('nip'),
+            'no_sk' => $this->request->getPost('no_sk'),
+            'email' => $this->request->getPost('email'),
+            'kata_sandi' => password_hash($this->request->getPost('kata_sandi'), PASSWORD_DEFAULT),
+            'status_akun'  => 'Pending',
+        ];
+
+        if ($model->insert($data)) {
+            return;
+        } else {
+            log_message('error', 'Registration failed: ' . json_encode($model->errors()));
+            return $this->response->setJSON(['success' => false, 'errors' => $model->errors()]);
+        }
+    }
+
+    public function registerDPPK()
+    {
+        return view('admin/daftardppk', ['title' => 'Register DPPK']);
+    }
+    
+    public function createRegisterDPPK()
+    {
+        $model = new DppkModel();
+        
+        $data = [
+            'nama' => $this->request->getPost('nama'),
+            'nip' => $this->request->getPost('nip'),
+            'no_sk' => $this->request->getPost('no_sk'),
+            'email' => $this->request->getPost('email'),
+            'kata_sandi' => password_hash($this->request->getPost('kata_sandi'), PASSWORD_DEFAULT),
+            'status_akun'  => 'Pending',
+        ];
+
+        if ($model->insert($data)) {
+            return;
+        } else {
+            log_message('error', 'Registration failed: ' . json_encode($model->errors()));
+            return $this->response->setJSON(['success' => false, 'errors' => $model->errors()]);
+        }
+    }
+
+    public function registerPenerima()
+    {
+        return view('admin/daftarakunpengguna', ['title' => 'Register Penerima']);
+    }
+
+    public function createRegisterPenerima()
+    {
+        $model = new PenerimaModel();
+        
+        $kategoriValue = $this->request->getPost('kategori');
+        
+        switch ($kategoriValue) {
+            case 'A':
+                $kategori = 'Perintis Lingkungan';
+                break;
+            case 'B':
+                $kategori = 'Pengabdi Lingkungan';
+                break;
+            case 'C':
+                $kategori = 'Penyelamat Lingkungan';
+                break;
+            case 'D':
+                $kategori = 'Pembina Lingkungan';
+                break;
+            default:
+                $kategori = 'Unknown';
+        }
+
+        $data = [
+            'nama' => $this->request->getPost('nama'),
+            'email' => $this->request->getPost('email'),
+            'kategori' => $kategori,
+            'tahun' => $this->request->getPost('tahun'),
+            'kata_sandi' => password_hash($this->request->getPost('kata_sandi'), PASSWORD_DEFAULT),
+            'status_akun'  => 'Pending',
+        ];
+
+        if ($model->insert($data)) {
+            return;
+        } else {
+            log_message('error', 'Registration failed: ' . json_encode($model->errors()));
+            return $this->response->setJSON(['success' => false, 'errors' => $model->errors()]);
+        }
     }
 }

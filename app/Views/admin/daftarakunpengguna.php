@@ -31,7 +31,7 @@
             <!-- Main Content -->
             <div class="relative flex flex-col w-full lg:max-w-5xl mb-4 rounded-xl border-2 border-primary mt-4 bg-white shadow-md lg:p-8 p-4">
 
-                <form class="mt-4 mb-2 w-full" method="post" id="profil-form">
+                <form action="/admin/daftarakunpengguna" class="mt-4 mb-2 w-full" method="post" id="profil-form">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
                         <!-- Kolom kiri -->
@@ -41,14 +41,13 @@
                                 <input type="text" name="nama" id="nama" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
                             </div>
                             <div>
-                                <label class="block mb-2 text-sm text-black">Email</label>
-                                <input type="email" name="email" id="email" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
-                                <p id="email-hint" class="text-red-500 text-xs hidden">Email harus menggunakan @gmail.com</p>
+                                <label class="block mb-2 text-sm text-black">Tahun</label>
+                                <input type="number" name="tahun" id="tahun" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Kata Sandi</label>
                                 <div class="relative">
-                                    <input type="password" name="password" id="password" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
+                                    <input type="password" name="kata_sandi" id="password" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
                                     <button type="button" id="togglePassword" class="absolute inset-y-0 right-0 flex items-center pr-3">
                                         <img id="passwordIcon" src="/images/hide.svg" class="h-5 w-5 text-gray-500" alt="Password Icon">
                                     </button>
@@ -60,10 +59,6 @@
                         <!-- Kolom kanan -->
                         <div class="space-y-4">
                             <div>
-                                <label class="block mb-2 text-sm text-black">No HP</label>
-                                <input type="text" name="telepon" id="no_hp" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
-                            </div>
-                            <div>
                                 <label class="block mb-2 text-sm text-black">Kategori</label>
                                 <select name="kategori" id="kategori" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required>
                                     <option value="" disabled selected>Pilih Kategori</option>
@@ -74,8 +69,9 @@
                                 </select>
                             </div>
                             <div>
-                                <label class="block mb-2 text-sm text-black">Tahun</label>
-                                <input type="text" name="tahun" id="tahun" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
+                                <label class="block mb-2 text-sm text-black">Email</label>
+                                <input type="email" name="email" id="email" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
+                                <p id="email-hint" class="text-red-500 text-xs hidden">Email harus menggunakan @gmail.com</p>
                             </div>
                         </div>
 
@@ -109,27 +105,48 @@
                 const form = document.getElementById('profil-form');
                 const toast = document.getElementById('toast');
 
-                // Handle form submission
-                form.addEventListener('submit', (event) => {
-                    event.preventDefault(); // Prevent form submission
+                // Handle form submission with fetch (AJAX)
+                form.addEventListener('submit', async (event) => {
+                    event.preventDefault(); // Prevent immediate form submission
 
-                    // Show modal
+                    // Show modal when form is valid and button is clicked
                     uploadModal.classList.remove('hidden');
 
-                    // Show toast notification
-                    toast.classList.remove('hidden');
+                    // Prepare form data to be sent
+                    const formData = new FormData(form);
 
-                    // Hide toast after 3 seconds
-                    setTimeout(() => {
-                        toast.classList.add('hidden');
-                    }, 3000);
+                    try {
+                        // Send form data using fetch (AJAX)
+                        const response = await fetch(form.action, {
+                            method: 'POST',
+                            body: formData
+                        });
 
-                    // Additional logic for form submission can be added here
+                        // Check if the response is OK
+                        if (response.ok) {
+                            // Show success modal
+                            uploadModal.classList.remove('hidden');
+
+                            // Show toast notification
+                            toast.classList.remove('hidden');
+
+                            // Hide toast after 3 seconds
+                            setTimeout(() => {
+                                toast.classList.add('hidden');
+                            }, 3000);
+                        } else {
+                            const errorText = await response.text();
+                            alert('Error: ' + errorText); // Show error in case of failure
+                        }
+                    } catch (error) {
+                        alert('Error occurred: ' + error.message);
+                    }
                 });
 
                 // Close modal button functionality
                 closeModalBtn.addEventListener('click', () => {
                     uploadModal.classList.add('hidden');
+                    // You can optionally reset the form or do something else here
                 });
 
                 // Check if all inputs are filled
@@ -163,7 +180,7 @@
 
                 function validatePassword(password) {
                     const passwordHint = document.getElementById('password-hint');
-                    const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&./])[A-Za-z\d@$!%*?&.,/]{8,}$/;
+                    const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&./\-_])[A-Za-z\d@$!%*?&.,/\-_]{8,}$/;
                     const isValid = re.test(password);
 
                     if (!isValid) {
