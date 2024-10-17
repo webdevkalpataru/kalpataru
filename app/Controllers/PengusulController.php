@@ -213,37 +213,34 @@ class PengusulController extends BaseController
             return redirect()->back()->withInput()->with('error', 'Validasi file gagal. Pastikan format dan ukuran file benar.');
         }
 
+        // Inisialisasi variabel untuk menyimpan nama file
+        $legalitasFileName = null;
+
+        // Pengecekan apakah file legalitas diunggah
         $legalitasFile = $this->request->getFile('legalitas');
-        if ($legalitasFile->isValid() && !$legalitasFile->hasMoved()) {
+        if ($legalitasFile && $legalitasFile->isValid() && !$legalitasFile->hasMoved()) {
             if ($legalitasFile->getExtension() === 'pdf' && $legalitasFile->getSize() <= 1024 * 1024) {
                 $originalName = pathinfo($legalitasFile->getClientName(), PATHINFO_FILENAME);
                 $extension = $legalitasFile->getExtension();
                 $legalitasFileName = $originalName . '_' . bin2hex(random_bytes(5)) . '.' . $extension;
                 $legalitasFile->store('legalitas', $legalitasFileName);
             } else {
-                return redirect()->back()->with('error', 'File harus berupa PDF dan ukuran maksimal 1MB.');
+                return redirect()->back()->with('error', 'File legalitas harus berupa PDF dan ukuran maksimal 1MB.');
             }
         }
-
 
         $ktpFile = $this->request->getFile('ktp');
         if ($ktpFile->isValid() && !$ktpFile->hasMoved()) {
             $allowedExtensions = ['jpg', 'jpeg'];
             if (in_array($ktpFile->getExtension(), $allowedExtensions) && $ktpFile->getSize() <= 1024 * 1024) {
-                // Ambil nama asli file tanpa ekstensi
                 $originalName = pathinfo($ktpFile->getClientName(), PATHINFO_FILENAME);
-                // Dapatkan ekstensi file
                 $extension = $ktpFile->getExtension();
-                // Buat nama file baru dengan format "originalName_randomString.extension"
                 $ktpFileName = $originalName . '_' . bin2hex(random_bytes(5)) . '.' . $extension;
-                // Simpan file dengan nama yang baru
                 $ktpFile->store('ktp', $ktpFileName);
             } else {
-                // Tampilkan pesan kesalahan jika bukan JPG/JPEG atau melebihi 1MB
-                return redirect()->back()->with('error', 'File harus berupa JPG atau JPEG dan ukuran maksimal 1MB.');
+                return redirect()->back()->with('error', 'File KTP harus berupa JPG atau JPEG dan ukuran maksimal 1MB.');
             }
         }
-
 
         $skckFile = $this->request->getFile('skck');
         if ($skckFile->isValid() && !$skckFile->hasMoved()) {
@@ -253,7 +250,7 @@ class PengusulController extends BaseController
                 $skckFileName = $originalName . '_' . bin2hex(random_bytes(5)) . '.' . $extension;
                 $skckFile->store('skck', $skckFileName);
             } else {
-                return redirect()->back()->with('error', 'File harus berupa PDF dan ukuran maksimal 1MB.');
+                return redirect()->back()->with('error', 'File SKCK harus berupa PDF dan ukuran maksimal 1MB.');
             }
         }
 
@@ -326,6 +323,7 @@ class PengusulController extends BaseController
             return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data.');
         }
     }
+
 
 
     // -------------------------------------------------------------------------------------------------------------------

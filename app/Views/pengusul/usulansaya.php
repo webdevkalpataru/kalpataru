@@ -90,7 +90,7 @@
                             <?php if (empty($usulan)): ?>
                                 <tr>
                                     <td colspan="8" class="p-4 text-center text-sm text-red-600">
-                                        Tidak ditemukan data berdasarkan kategori "<?= $kategori ?: 'Semua Kategori'; ?>"
+                                        Tidak ditemukan data berdasarkan kategori
                                     </td>
                                 </tr>
                             <?php else: ?>
