@@ -148,6 +148,8 @@ $routes->group('timteknis', function ($routes) {
     $routes->get('bahansidang2/kategorib', 'TimteknisController::bahansidang2kategorib');
     $routes->get('bahansidang2/kategoric', 'TimteknisController::bahansidang2kategoric');
     $routes->get('bahansidang2/kategorid', 'TimteknisController::bahansidang2kategorid');
+
+    $routes->get('pdf/(:any)', 'PengusulController::generatePDF/$1');
 });
 
 /* DPPK */
