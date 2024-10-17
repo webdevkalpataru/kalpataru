@@ -104,6 +104,14 @@
                                 <option value="Sumatera Utara">Sumatera Utara</option>
                             </select>
                         </div>
+                        <div class="grid gap-1 mb-2">
+                        <label for="surat_pengantar" class="text-xs">Surat Pengantar <span class="text-primary">(.pdf)</span></label>
+
+                        <div class="flex items-center">
+                        </div>
+                        <input id="surat_pengantar" type="file" accept="application/pdf" name="surat_pengantar"
+                            class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
+                            </div>
                             
                         </div>
 

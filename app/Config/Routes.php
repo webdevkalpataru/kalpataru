@@ -107,6 +107,15 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('akundlhk', 'AdminController::akundlhk');
     $routes->get('akuntimteknis', 'AdminController::akuntimteknis');
     $routes->get('beritaadmin', 'AdminController::beritaadmin');
+    $routes->get('daftartimteknis', 'AdminController::daftartimteknis');
+    $routes->get('akundppk', 'AdminController::akundppk');
+    $routes->get('daftardppk', 'AdminController::daftardppk');
+    $routes->get('tambahberitaadmin', 'AdminController::tambahberitaadmin');
+    $routes->get('pengumumanadmin', 'AdminController::pengumumanadmin');
+    $routes->get('tambahpengumumanadmin', 'AdminController::tambahpengumumanadmin');
+    $routes->get('akunpengguna', 'AdminController::akunpengguna');
+    $routes->get('daftarakunpengguna', 'AdminController::daftarakunpengguna');
+    $routes->get('daftarakundlhk', 'AdminController::daftarakundlhk');
 
     // Manajemen Artikel
     $routes->get('artikel', 'AdminController::artikeladmin');
