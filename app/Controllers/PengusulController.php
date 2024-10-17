@@ -634,19 +634,64 @@ class PengusulController extends BaseController
     {
         $Model = new PendaftaranModel();
 
+        // Ambil data dengan pagination, limit 5 per halaman
+        $perPage = 5;
+        // Ambil halaman saat ini dari request, default ke halaman 1 jika tidak ada
+        $currentPage = $this->request->getVar('page_usulan') ? $this->request->getVar('page_usulan') : 1;
+
         // Ambil ID pengusul dari session
         $id_pengusul = session()->get('id_pengusul');
 
-        // Ambil data pendaftaran berdasarkan ID pengusul
-        $usulan = $Model->where('id_pengusul', $id_pengusul)->findAll();
+        // Ambil kata kunci dari request untuk pencarian
+        $keyword = $this->request->getGet('search');
 
-        $data = [
-            'title' => 'Usulan Saya',
-            'usulan' => $usulan // Kirim data usulan ke view
-        ];
+        // Jika ada keyword, tambahkan kondisi pencarian
+        if ($keyword) {
+            $usulan = $Model->where('id_pengusul', $id_pengusul)
+                ->like('nama', $keyword) // Filter berdasarkan nama_instansi_pribadi
+                ->paginate($perPage, 'usulan');
+        } else {
+            // Jika tidak ada pencarian, ambil semua data usulan berdasarkan id_pengusul
+            $usulan = $Model->where('id_pengusul', $id_pengusul)
+                ->paginate($perPage, 'usulan');
+        }
+
+        // Persiapkan data untuk dikirim ke view
+        $data['usulan'] = $usulan;
+        $data['pager'] = $Model->pager;
+        $data['title'] = "Usulan Saya";
+        $data['keyword'] = $keyword; // Tambahkan keyword ke data untuk dikirim ke view
 
         // Load view untuk menampilkan data calon
         return view('pengusul/usulansaya', $data);
+    }
+
+    // Fungsi untuk update status pendaftaran dan edit
+    public function updateStatus()
+    {
+        // Validasi ID pendaftaran
+        $id_pendaftaran = $this->request->getPost('id_pendaftaran');
+
+        if (!$id_pendaftaran) {
+            return $this->response->setJSON(['success' => false, 'message' => 'ID pendaftaran tidak ditemukan']);
+        }
+
+        // Ambil model
+        $pendaftaranModel = new PendaftaranModel();
+
+        // Perbarui status pendaftaran menjadi 'Terkirim' dan edit menjadi 'Off'
+        $data = [
+            'status_pendaftaran' => 'Terkirim',
+            'edit' => 'Off',
+        ];
+
+        $updated = $pendaftaranModel->update($id_pendaftaran, $data);
+
+        if ($updated) {
+            return $this->response->setJSON(['success' => true]);
+        } else {
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui status']);
+        }
     }
 
     public function usulandlhk()
@@ -782,10 +827,17 @@ class PengusulController extends BaseController
 
     public function tambahArtikelAction()
     {
+        if (!session()->has('id_pengusul')) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Session id_pengusul tidak ditemukan. Silakan login kembali.'
+            ]);
+        }
+
         $model = new ArtikelModel();
 
         // Ambil input dari formulir
-        $judulArtikel = $this->request->getPost('judul_artikel');
+        $judulArtikel = $this->request->getPost('judul');
         $konten = $this->request->getPost('konten');
 
         // Memproses foto yang diupload
@@ -794,10 +846,20 @@ class PengusulController extends BaseController
         // Validasi input
         $validation = \Config\Services::validation();
         $validation->setRules([
-            'judul_artikel' => 'required|min_length[3]|max_length[255]|regex_match[/^[a-zA-Z0-9\s\-\_\.\,]+$/]', // Regex untuk karakter yang diperbolehkan
-            'konten' => 'required',
-            'foto' => 'uploaded[foto]|is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/gif,image/png]|max_size[foto,2048]',
+            'judul' => [
+                'label' => 'Judul',
+                'rules' => 'required|min_length[5]|max_length[100]|is_unique[artikel.judul]' // Judul harus unik dan panjang antara 5 dan 100 karakter
+            ],
+            'konten' => [
+                'label' => 'Konten',
+                'rules' => 'required|min_length[20]' // Konten harus ada dan panjang minimum 20 karakter
+            ],
+            'foto' => [
+                'label' => 'Foto',
+                'rules' => 'uploaded[foto]|is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/gif,image/png]|max_size[foto,1024]'
+            ]
         ]);
+
 
         if (!$this->validate($validation->getRules())) {
             return $this->response->setJSON([
@@ -853,7 +915,7 @@ class PengusulController extends BaseController
 
     public function artikelsaya()
     {
-        $model = new ArtikelModel(); // Gantilah ini dengan nama model yang sesuai untuk artikel
+        $model = new ArtikelModel();
         $id_pengusul = session()->get('id_pengusul'); // Mengambil id_pengusul dari session
 
         // Mengambil artikel berdasarkan id_pengusul
@@ -877,7 +939,7 @@ class PengusulController extends BaseController
 
         // Ambil ID pengguna yang sedang login (baik admin maupun pengusul)
         $id_pengusul = session()->get('id_pengusul');
-        $id_admin = session()->get('id_admin'); // Asumsi admin juga disimpan dalam session
+        $id_admin = session()->get('id_admin');
 
         // Jika artikel masih ditangguhkan
         if ($artikel['status'] == 'Ditangguhkan') {

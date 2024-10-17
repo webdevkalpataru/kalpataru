@@ -25,7 +25,39 @@
 
             <!-- Main Content -->
             <div class="flex-1 container mx-auto">
-                <div class="relative flex flex-col w-full h-full mt-8 overflow-hidden text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
+                <div class="lg:flex lg:justify-between">
+                    <form id="filterStatus" action="" method="get" class="flex items-center my-4 ms-4">
+                        <label for="status" class="text-sm font-bold text-primary">Filter Status:</label>
+                        <select name="status_pendaftaran" id="status" class="ml-2 border-2 border-primary text-primary rounded-md shadow-sm" onchange="document.getElementById('filterStatus').submit();">
+                            <option value="">Semua Status</option>
+                            <option value="Verifikasi Administrasi" <?= (isset($status_pendaftaran) && $status_pendaftaran == 'Verifikasi Administrasi') ? 'selected' : '' ?>>Verifikasi Administrasi</option>
+                            <option value="Lolos Administrasi" <?= (isset($status_pendaftaran) && $status_pendaftaran == 'Lolos Administrasi') ? 'selected' : '' ?>>Lolos Administrasi</option>
+                            <option value="Tidak Lolos Administrasi" <?= (isset($status_pendaftaran) && $status_pendaftaran == 'Tidak Lolos Administrasi') ? 'selected' : '' ?>>Tidak Lolos Administrasi</option>
+                        </select>
+                    </form>
+                    <form method="get" class="flex items-center justify-end my-4">
+                        <div class="relative lg:w-56 w-80 transition-all focus-within:w-64 lg:mt-0 mt-4">
+                            <input
+                                placeholder="Masukan kata kunci"
+                                class="input shadow-lg focus:border-2 border-2 text-primary border-primary px-5 py-1 pr-10 rounded-md w-full outline-none"
+                                name="search"
+                                value="<?= esc($keyword) ?>" />
+                            <svg
+                                class="w-6 h-6 absolute top-1/2 right-3 transform -translate-y-1/2 text-primary"
+                                stroke="currentColor"
+                                stroke-width="1.5"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                                    stroke-linejoin="round"
+                                    stroke-linecap="round"></path>
+                            </svg>
+                        </div>
+                    </form>
+                </div>
+                <div class="relative flex flex-col w-full h-full overflow-hidden text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
                     <div class="overflow-x-auto">
                         <table class="w-full text-left table-auto min-w-max">
                             <thead>
@@ -76,7 +108,7 @@
                                 <?php if (empty($usulan)): ?>
                                     <tr>
                                         <td colspan="8" class="p-4 text-center text-sm text-red-600">
-                                            Data dengan Kategori "<?= $kategori ?>" Tidak ditemukan
+                                            Tidak ditemukan data
                                         </td>
                                     </tr>
                                 <?php else: ?>
@@ -100,10 +132,11 @@
                                                     <input type="hidden" name="id_pendaftaran" value="<?= $item['id_pendaftaran'] ?>">
                                                     <select name="status_pendaftaran" class="status-dropdown ml-2 border-2 border-primary text-primary rounded-md shadow-sm text-xs" data-id="<?= $item['id_pendaftaran'] ?>">
                                                         <?php
-                                                        $statuses = ['Draft', 'Terkirim', 'Perlu Perbaikan', 'Sesuai', 'Verifikasi Administrasi', 'Lolos Administrasi', 'Tidak Lolos Administrasi'];
+                                                        $statuses = ['Verifikasi Administrasi', 'Lolos Administrasi', 'Tidak Lolos Administrasi'];
                                                         foreach ($statuses as $status) {
                                                             $selected = ($status == $item['status_pendaftaran']) ? 'selected' : '';
-                                                            echo "<option value='$status' $selected>$status</option>";
+                                                            $disabled = ($status == 'Verifikasi Administrasi') ? 'disabled' : '';
+                                                            echo "<option value='$status' $selected $disabled>$status</option>";
                                                         }
                                                         ?>
                                                     </select>

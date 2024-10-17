@@ -211,4 +211,25 @@ class PendaftaranModel extends Model
     {
         return $this->delete($id_pendaftaran);
     }
+
+    public function getKegiatanByPendaftaranId($id_pendaftaran)
+    {
+        return $this->db->table('kegiatan')
+            ->where('id_pendaftaran', $id_pendaftaran)
+            ->get()
+            ->getResultArray();
+    }
+
+    public function updateStatusAndEdit($id_pendaftaran)
+    {
+        $data = [
+            'status_pendaftaran' => 'Terkirim', // Update status menjadi Terkirim
+            'edit' => 'Off' // Update kolom edit menjadi Off
+        ];
+
+        // Update record berdasarkan id_pendaftaran
+        return $this->db->table('pendaftaran')
+            ->where('id_pendaftaran', $id_pendaftaran)
+            ->update($this->table, $data);
+    }
 }

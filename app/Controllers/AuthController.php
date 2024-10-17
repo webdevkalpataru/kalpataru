@@ -15,6 +15,22 @@ class AuthController extends BaseController
 
     public function loginAction()
     {
+        $validation = \Config\Services::validation();
+
+        // Aturan validasi untuk form login
+        $validation->setRules([
+            'email' => 'required|valid_email',
+            'kata_sandi' => 'required|min_length[8]',
+        ]);
+
+        // Lakukan validasi input
+        if (!$this->validate($validation->getRules())) {
+            return $this->response->setJSON([
+                'success' => false,
+                'errors' => $validation->getErrors()
+            ]);
+        }
+
         $model = new PengusulModel();
 
         // Ambil input dari formulir
@@ -153,7 +169,7 @@ class AuthController extends BaseController
             ],
             'surat_pengantar' => [
                 'label' => 'Surat Pengantar',
-                'rules' => 'uploaded[surat_pengantar]|max_size[surat_pengantar,1024]|ext_in[surat_pengantar,pdf]'
+                'rules' => 'uploaded[surat_pengantar]|max_size[surat_pengantar,1024]|mime_in[surat_pengantar,application/pdf]'
             ]
         ]);
 
@@ -204,49 +220,6 @@ class AuthController extends BaseController
         }
     }
 
-
-    // public function createRegister()
-    // {
-    //     $model = new PengusulModel();
-
-    //     $email = $this->request->getPost('email');
-    //     $existingUser = $model->where('email', $email)->first();
-
-    //     if ($existingUser) {
-    //         return $this->response->setJSON(['success' => false, 'errors' => 'Email sudah terdaftar']);
-    //     }
-
-    //     $file = $this->request->getFile('surat_pengantar');
-    //     $filePath = '';
-
-    //     if ($file && $file->isValid() && !$file->hasMoved()) {
-    //         if ($file->getClientMimeType() == 'application/pdf') {
-    //             $filePath = $file->store('suratpengantar', $file->getRandomName());
-    //         } else {
-    //             return $this->response->setJSON(['success' => false, 'errors' => 'Invalid file type. Only PDF files are allowed']);
-    //         }
-    //     }
-
-    //     $data = [
-    //         'jenis_instansi' => $this->request->getPost('jenis_instansi'),
-    //         'nama_instansi_pribadi' => $this->request->getPost('nama_instansi_pribadi'),
-    //         'provinsi' => $this->request->getPost('provinsi'),
-    //         'telepon' => $this->request->getPost('telepon'),
-    //         'email' => $email,
-    //         'kata_sandi' => password_hash($this->request->getPost('kata_sandi'), PASSWORD_DEFAULT),
-    //         'role_akun' => 'Pengusul',
-    //         'status_akun'  => 'Pending',
-    //         'surat_pengantar' => $filePath
-    //     ];
-
-    //     if ($model->insert($data)) {
-    //         return $this->response->setJSON(['success' => true]);
-    //     } else {
-    //         log_message('error', 'Registration failed: ' . json_encode($model->errors()));
-    //         return $this->response->setJSON(['success' => false, 'errors' => $model->errors()]);
-    //     }
-    // }
-
     public function downloadSuratPengantar($filename)
     {
         $filePath = WRITEPATH . 'uploads/suratpengantar/' . $filename;
@@ -263,7 +236,7 @@ class AuthController extends BaseController
     public function logininternal()
     {
         $data['title'] = "Masuk Akun Internal";
-        return view('auth/logininternal', ['title' => 'Login Internal']);
+        return view('auth/logininternal', $data);
     }
 
     public function logininternalAction()
@@ -400,5 +373,20 @@ class AuthController extends BaseController
                 'errors' => 'Terjadi kesalahan saat menyimpan data. Silakan coba lagi.'
             ]);
         }
+    }
+    public function loginadmin()
+    {
+        $data['title'] = "Login Admin";
+        return view('auth/loginadmin', $data);
+    }
+    public function logintimteknis()
+    {
+        $data['title'] = "Login Tim Teknis";
+        return view('auth/logintimteknis', $data);
+    }
+    public function loginddpk()
+    {
+        $data['title'] = "Login DDPK";
+        return view('auth/loginddpk', $data);
     }
 }

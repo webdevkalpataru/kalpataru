@@ -75,7 +75,7 @@
                                     </a>
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs font-bold text-accepted w-24">
+                                    <p class="block text-xs font-bold text-accepted">
                                         Lolos Administrasi
                                     </p>
                                 </td>
@@ -102,7 +102,7 @@
                                     </a>
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs font-bold text-rejected w-24">
+                                    <p class="block text-xs font-bold text-rejected">
                                         Tidak Lolos Administrasi
                                     </p>
                                 </td>
@@ -129,7 +129,7 @@
                                     </a>
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs font-bold text-rejected w-24">
+                                    <p class="block text-xs font-bold text-rejected">
                                         Tidak Lolos Administrasi
                                     </p>
                                 </td>
@@ -156,7 +156,7 @@
                                     </a>
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs font-bold text-accepted w-24">
+                                    <p class="block text-xs font-bold text-accepted">
                                         Lolos Penerima
                                     </p>
                                 </td>
@@ -183,7 +183,7 @@
                                     </a>
                                 </td>
                                 <td class="p-4 border-b border-slate-200 text-center">
-                                    <p class="block text-xs font-bold text-accepted w-24">
+                                    <p class="block text-xs font-bold text-accepted">
                                         Lolos Nominasi
                                     </p>
                                 </td>

@@ -20,7 +20,7 @@
                 Artikel Saya
             </h4>
             <div class="flex justify-start mt-2">
-                <a href="./tambahartikel">
+                <a href="/pengusul/tambah-artikel">
                     <button id="tambahartikel" class="w-48 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button"> <span>&#10010</span> Tambah Artikel Baru</button>
                 </a>
             </div>
@@ -51,13 +51,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($artikels as $index => $artikel): ?>
+                            <?php
+                            $no = 0;
+                            foreach ($artikels as $index => $artikel):
+                                $no++;
+                            ?>
                                 <tr class="hover:bg-slate-50">
-                                    <td class="p-4 border-b border-slate-200 text-center"><?= $index + 1 ?></td>
+                                    <td class="p-4 border-b border-slate-200 text-center"><?= $no ?></td>
                                     <td class="p-4 border-b border-slate-200 text-center"><?= esc($artikel['judul']) ?></td>
                                     <td class="p-4 border-b border-slate-200 text-center"><?= esc($artikel['status']) ?></td>
                                     <td class="p-4 border-b border-slate-200 text-center">
-                                        <a href="/artikel/<?= $artikel['slug']; ?>">Lihat</a>
+                                        <a href="/pengusul/artikel/<?= $artikel['slug']; ?>">Lihat</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
