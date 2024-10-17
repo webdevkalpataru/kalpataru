@@ -374,4 +374,19 @@ class AuthController extends BaseController
             ]);
         }
     }
+    public function loginadmin()
+    {
+        $data['title'] = "Login Admin";
+        return view('auth/loginadmin', $data);
+    }
+    public function logintimteknis()
+    {
+        $data['title'] = "Login Tim Teknis";
+        return view('auth/logintimteknis', $data);
+    }
+    public function loginddpk()
+    {
+        $data['title'] = "Login DDPK";
+        return view('auth/loginddpk', $data);
+    }
 }
