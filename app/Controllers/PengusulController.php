@@ -459,19 +459,64 @@ class PengusulController extends BaseController
     {
         $Model = new PendaftaranModel();
 
+        // Ambil data dengan pagination, limit 5 per halaman
+        $perPage = 5;
+        // Ambil halaman saat ini dari request, default ke halaman 1 jika tidak ada
+        $currentPage = $this->request->getVar('page_usulan') ? $this->request->getVar('page_usulan') : 1;
+
         // Ambil ID pengusul dari session
         $id_pengusul = session()->get('id_pengusul');
 
-        // Ambil data pendaftaran berdasarkan ID pengusul
-        $usulan = $Model->where('id_pengusul', $id_pengusul)->findAll();
+        // Ambil kata kunci dari request untuk pencarian
+        $keyword = $this->request->getGet('search');
 
-        $data = [
-            'title' => 'Usulan Saya',
-            'usulan' => $usulan // Kirim data usulan ke view
-        ];
+        // Jika ada keyword, tambahkan kondisi pencarian
+        if ($keyword) {
+            $usulan = $Model->where('id_pengusul', $id_pengusul)
+                ->like('nama', $keyword) // Filter berdasarkan nama_instansi_pribadi
+                ->paginate($perPage, 'usulan');
+        } else {
+            // Jika tidak ada pencarian, ambil semua data usulan berdasarkan id_pengusul
+            $usulan = $Model->where('id_pengusul', $id_pengusul)
+                ->paginate($perPage, 'usulan');
+        }
+
+        // Persiapkan data untuk dikirim ke view
+        $data['usulan'] = $usulan;
+        $data['pager'] = $Model->pager;
+        $data['title'] = "Usulan Saya";
+        $data['keyword'] = $keyword; // Tambahkan keyword ke data untuk dikirim ke view
 
         // Load view untuk menampilkan data calon
         return view('pengusul/usulansaya', $data);
+    }
+
+    // Fungsi untuk update status pendaftaran dan edit
+    public function updateStatus()
+    {
+        // Validasi ID pendaftaran
+        $id_pendaftaran = $this->request->getPost('id_pendaftaran');
+
+        if (!$id_pendaftaran) {
+            return $this->response->setJSON(['success' => false, 'message' => 'ID pendaftaran tidak ditemukan']);
+        }
+
+        // Ambil model
+        $pendaftaranModel = new PendaftaranModel();
+
+        // Perbarui status pendaftaran menjadi 'Terkirim' dan edit menjadi 'Off'
+        $data = [
+            'status_pendaftaran' => 'Terkirim',
+            'edit' => 'Off',
+        ];
+
+        $updated = $pendaftaranModel->update($id_pendaftaran, $data);
+
+        if ($updated) {
+            return $this->response->setJSON(['success' => true]);
+        } else {
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui status']);
+        }
     }
 
     public function usulandlhk()

@@ -25,7 +25,39 @@
 
             <!-- Main Content -->
             <div class="flex-1 container mx-auto">
-                <div class="relative flex flex-col w-full h-full mt-8 overflow-hidden text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
+                <div class="lg:flex lg:justify-between">
+                    <form id="filterStatus" action="" method="get" class="flex items-center my-4 ms-4">
+                        <label for="status" class="text-sm font-bold text-primary">Filter Status:</label>
+                        <select name="status_pendaftaran" id="status" class="ml-2 border-2 border-primary text-primary rounded-md shadow-sm" onchange="document.getElementById('filterStatus').submit();">
+                            <option value="">Semua Status</option>
+                            <option value="Verifikasi Administrasi" <?= (isset($status_pendaftaran) && $status_pendaftaran == 'Verifikasi Administrasi') ? 'selected' : '' ?>>Verifikasi Administrasi</option>
+                            <option value="Lolos Administrasi" <?= (isset($status_pendaftaran) && $status_pendaftaran == 'Lolos Administrasi') ? 'selected' : '' ?>>Lolos Administrasi</option>
+                            <option value="Tidak Lolos Administrasi" <?= (isset($status_pendaftaran) && $status_pendaftaran == 'Tidak Lolos Administrasi') ? 'selected' : '' ?>>Tidak Lolos Administrasi</option>
+                        </select>
+                    </form>
+                    <form method="get" class="flex items-center justify-end my-4">
+                        <div class="relative lg:w-56 w-80 transition-all focus-within:w-64 lg:mt-0 mt-4">
+                            <input
+                                placeholder="Masukan kata kunci"
+                                class="input shadow-lg focus:border-2 border-2 text-primary border-primary px-5 py-1 pr-10 rounded-md w-full outline-none"
+                                name="search"
+                                value="<?= esc($keyword) ?>" />
+                            <svg
+                                class="w-6 h-6 absolute top-1/2 right-3 transform -translate-y-1/2 text-primary"
+                                stroke="currentColor"
+                                stroke-width="1.5"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                                    stroke-linejoin="round"
+                                    stroke-linecap="round"></path>
+                            </svg>
+                        </div>
+                    </form>
+                </div>
+                <div class="relative flex flex-col w-full h-full overflow-hidden text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
                     <div class="overflow-x-auto">
                         <table class="w-full text-left table-auto min-w-max">
                             <thead>
@@ -76,7 +108,7 @@
                                 <?php if (empty($usulan)): ?>
                                     <tr>
                                         <td colspan="8" class="p-4 text-center text-sm text-red-600">
-                                            Data dengan Kategori "<?= $kategori ?>" Tidak ditemukan
+                                            Tidak ditemukan data
                                         </td>
                                     </tr>
                                 <?php else: ?>
@@ -100,17 +132,23 @@
                                                     <input type="hidden" name="id_pendaftaran" value="<?= $item['id_pendaftaran'] ?>">
                                                     <select name="status_pendaftaran" class="status-dropdown ml-2 border-2 border-primary text-primary rounded-md shadow-sm text-xs" data-id="<?= $item['id_pendaftaran'] ?>">
                                                         <?php
-                                                        $statuses = ['Sesuai', 'Verifikasi Administrasi', 'Lolos Administrasi', 'Tidak Lolos Administrasi'];
+                                                        $statuses = ['Verifikasi Administrasi', 'Lolos Administrasi', 'Tidak Lolos Administrasi'];
                                                         foreach ($statuses as $status) {
                                                             $selected = ($status == $item['status_pendaftaran']) ? 'selected' : '';
-                                                            echo "<option value='$status' $selected>$status</option>";
+                                                            $disabled = ($status == 'Verifikasi Administrasi') ? 'disabled' : '';
+                                                            echo "<option value='$status' $selected $disabled>$status</option>";
                                                         }
                                                         ?>
                                                     </select>
                                                 </form>
                                             </td>
-                                            <td class="p-4 border-b border-slate-200 text-center">
-                                                <button class="lihatButton w-20 rounded-md py-2 px-2 text-center font-semibold text-xs text-primary bg-secondary hover:shadow-md" type="button">Lihat</button>
+                                            <td class="p-4 border-b border-slate-200 text-center flex justify-center ">
+                                                <button class="catatanButton  rounded-md py-2 px-2 text-center font-semibold text-xs text-primary"
+                                                    type="button" data-id="<?= $item['id_pendaftaran']; ?>">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                                    </svg>
+                                                </button>
                                             </td>
                                             <td class="p-4 border-b border-slate-200 text-center">
                                                 <a href="<?= base_url('timteknis/detaildatacalonusulan') ?>">
@@ -141,15 +179,21 @@
 
     <!-- Modal Catatan-->
     <div id="catatanModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
-        <div class="bg-white rounded-lg p-8 flex flex-col max-w-md">
-            <h2 class="text-left text-lg font-bold text-primary mb-2">Catatan:</h2>
-            <p class="text-justify text-sm text-slate-600 mb-4">Ini merupakan contoh catatan Ini merupakan contoh catatan Ini merupakan contoh catatan Ini merupakan contoh catatan</p>
-            <button onclick="closeModal()"
-                class="text-left text-sm font-bold text-gray-600 no-underline focus:outline-none">
-                <span class="font-bold text-lg items-center">←</span> Kembali
-            </button>
+        <div class="bg-white rounded-lg p-8 flex flex-col max-w-md w-full">
+            <h2 class="text-left text-lg font-bold text-primary mb-2">Tambah Catatan:</h2>
+            <form id="catatanForm" method="POST" action="<?= base_url('timteknis/updatecatatan') ?>">
+                <input type="hidden" name="id_pendaftaran" value="<?= $item['id_pendaftaran']; ?>">
+                <textarea name="catatan_verifikasi" rows="4" class="border-2 border-gray-300 rounded-md p-2 w-full mb-4 focus:outline-none focus:border-primary hover:border-primary" placeholder="Tulis catatan di sini..." data-id="<?= $item['id_pendaftaran'] ?>"></textarea>
+                <div class="flex justify-between">
+                    <button type="button" onclick="closeModal()" class="text-left text-sm font-bold text-gray-600 no-underline focus:outline-none">
+                        <span class="font-bold text-lg items-center">←</span> Kembali
+                    </button>
+                    <button type="submit" class="bg-primary text-white rounded-md py-2 px-4 font-semibold text-sm">Unggah</button>
+                </div>
+            </form>
         </div>
     </div>
+
 
     <!-- Modal Status -->
     <div id="statusModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
@@ -167,10 +211,12 @@
     <script>
         // POPUP MODAL CATATAN
         const modal = document.getElementById('catatanModal');
-        const lihatButtons = document.querySelectorAll('.lihatButton');
+        const catatanButtons = document.querySelectorAll('.catatanButton');
 
-        lihatButtons.forEach(button => {
+        catatanButtons.forEach(button => {
             button.addEventListener('click', function() {
+                const idPendaftaran = this.getAttribute('data-id'); // Ambil id dari atribut data-id
+                document.querySelector('input[name="id_pendaftaran"]').value = idPendaftaran; // Set id_pendaftaran ke input hidden
                 modal.classList.remove('hidden');
             });
         });
