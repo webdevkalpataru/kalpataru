@@ -106,7 +106,7 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('akunpengusul', 'AdminController::akunpengusul');
     $routes->get('akundlhk', 'AdminController::akundlhk');
     $routes->get('akuntimteknis', 'AdminController::akuntimteknis');
-    $routes->get('beritaadmin', 'AdminController::beritaadmin');
+    $routes->get('berita', 'AdminController::beritAadmin');
     $routes->get('daftartimteknis', 'AdminController::daftartimteknis');
     $routes->get('akundppk', 'AdminController::akundppk');
     $routes->get('daftardppk', 'AdminController::daftardppk');

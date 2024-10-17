@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\ArtikelModel;
-
+use App\Models\BeritaModel;
 
 class AdminController extends BaseController
 {
@@ -305,10 +305,16 @@ class AdminController extends BaseController
         return view('admin/tambahartikeladmin', ['title' => 'Tambah Artikel Admin']);
     }
 
-    public function beritaadmin()
+    public function beritaAdmin()
     {
+        $model = new BeritaModel();
+        $keyword = $this->request->getGet('search');
+
+        $data['berita'] = $model->getAllBerita($keyword);
+        $data['countTerbit'] = count($data['berita']);
         $data['title'] = "Berita Admin";
-        return view('admin/beritaadmin', ['title' => 'Berita Admin']);
+
+        return view('admin/berita', $data);
     }
 
     public function daftartimteknis()
