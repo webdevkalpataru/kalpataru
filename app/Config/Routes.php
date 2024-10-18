@@ -133,12 +133,15 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->post('artikel/hapus/(:num)', 'AdminController::hapusArtikel/$1');
     $routes->post('updatestatus', 'AdminController::updateStatus');
 
-    // Manajemen Artikel
+    // Manajemen Berita
     $routes->get('berita', 'AdminController::beritAadmin');
     $routes->get('tambah-berita', 'AdminController::tambahberitaadmin');
     $routes->post('tambah-berita', 'AdminController::tambahBeritaAction');
-    $routes->post('updatestatusberita', 'AdminController::updateStatusBerita');
+    $routes->get('berita/edit/(:any)', 'AdminController::editBerita/$1');
+    $routes->post('berita/edit/(:any)', 'AdminController::updateBeritaAction/$1');
+    $routes->get('berita/(:any)', 'AdminController::detailberita/$1');
     $routes->post('berita/hapus/(:num)', 'AdminController::hapusBerita/$1');
+    $routes->post('updatestatusberita', 'AdminController::updateStatusBerita');
 });
 
 /* Tim Teknis */
