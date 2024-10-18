@@ -26,7 +26,7 @@
           </div>
         </div>
 
-            <div class="relative  flex flex-col w-full h-full overflow-scroll bg-white shadow-md rounded-lg bg-clip-border my-6">
+            <div class="relative  flex flex-col w-full h-full bg-white shadow-md rounded-lg bg-clip-border my-6">
                 <table class="w-full text-left table-auto min-w-max">
                     <thead>
                         <tr>

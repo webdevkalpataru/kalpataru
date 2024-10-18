@@ -35,7 +35,7 @@
           <div class="flex items-center p-4 bg-white shadow rounded-lg">
             <img src="../images/kategoria.jpg" class="w-1/4 mr-4">
             <div>
-              <p class="mb-1 md:mb-2 text-sm font-medium text-gray-600">Perntis Lingkungan</p>
+              <p class="mb-1 md:mb-2 text-sm font-medium text-gray-600">Perintis Lingkungan</p>
               <p class="text-lg font-semibold text-gray-700">1,245</p>
             </div>
           </div>
@@ -63,56 +63,60 @@
         </div>
 
         <!-- Chart Section -->
-        <!-- Chart Section -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <!-- Sales Overview Section with smaller width (1/3 of the grid) -->
-          <div class="lg:col-span-1 bg-white shadow rounded-lg p-4 md:p-6">
-            <h2 class="text-lg md:text-xl font-semibold mb-4">Sales Overview</h2>
-            <div>
-              <!-- Placeholder for Chart -->
-              <div class="w-full h-48 md:h-64 bg-gray-200 flex items-center justify-center text-gray-500">
-                [Insert Chart Here]
-              </div>
-            </div>
-          </div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+  <!-- Sales Overview Section with smaller width (1/3 of the grid) -->
+  <div class="lg:col-span-1 bg-white shadow rounded-lg p-4 md:p-6">
+    <h2 class="text-lg md:text-xl font-semibold mb-4">Pamflet Aktif</h2>
+    <div>
+      <!-- Placeholder for Chart -->
+      <div class="w-full h-full md:h-64 flex items-center justify-center text-gray-500">
+        <img class="h-full" src="../images/popup.png">
+      </div>
+    </div>
+  </div>
 
-          <!-- Recent Orders Section with larger width (2/3 of the grid) -->
-          <div class="lg:col-span-2 bg-white shadow rounded-lg p-4 md:p-6">
-            <h2 class="text-lg md:text-xl font-semibold mb-4">Recent Orders</h2>
-            <!-- Responsive table wrapper -->
-            <div class="overflow-x-auto">
-              <table class="w-full">
-                <thead>
-                  <tr class="text-gray-500 text-xs md:text-sm">
-                    <th class="px-2 md:px-4 py-2 text-left">Order ID</th>
-                    <th class="px-2 md:px-4 py-2 text-left">Customer</th>
-                    <th class="px-2 md:px-4 py-2 text-left">Status</th>
-                    <th class="px-2 md:px-4 py-2 text-left">Amount</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr class="bg-gray-50 text-xs md:text-sm">
-                    <td class="px-2 md:px-4 py-2">#1234</td>
-                    <td class="px-2 md:px-4 py-2">John Doe</td>
-                    <td class="px-2 md:px-4 py-2 text-green-600">Completed</td>
-                    <td class="px-2 md:px-4 py-2">$120.00</td>
-                  </tr>
-                  <tr class="text-xs md:text-sm">
-                    <td class="px-2 md:px-4 py-2">#1235</td>
-                    <td class="px-2 md:px-4 py-2">Jane Smith</td>
-                    <td class="px-2 md:px-4 py-2 text-yellow-600">Pending</td>
-                    <td class="px-2 md:px-4 py-2">$90.00</td>
-                  </tr>
-                  <tr class="bg-gray-50 text-xs md:text-sm">
-                    <td class="px-2 md:px-4 py-2">#1236</td>
-                    <td class="px-2 md:px-4 py-2">Bob Lee</td>
-                    <td class="px-2 md:px-4 py-2 text-red-600">Cancelled</td>
-                    <td class="px-2 md:px-4 py-2">$50.00</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+  <!-- Recent Orders Section with larger width (2/3 of the grid) -->
+  <div class="lg:col-span-2 bg-white shadow rounded-lg p-4 md:p-6">
+    <h2 class="text-lg md:text-xl font-semibold mb-4">Data Calon</h2>
+    <!-- Responsive table wrapper -->
+    <div class="overflow-x-auto">
+      <table class="w-full">
+        <thead>
+          <tr class="text-gray-500 text-xs md:text-sm">
+            <th class="px-2 md:px-4 py-2 text-left">Kode Registrasi</th>
+            <th class="px-2 md:px-4 py-2 text-left">Nama</th>
+            <th class="px-2 md:px-4 py-2 text-left">Kategori</th>
+            <th class="px-2 md:px-4 py-2 text-left">Provinsi</th>
+            <th class="px-2 md:px-4 py-2 text-left">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="bg-gray-50 text-xs md:text-sm">
+            <td class="px-2 md:px-4 py-2">a01</td>
+            <td class="px-2 md:px-4 py-2">Semaoen</td>
+            <td class="px-2 md:px-4 py-2">Perintis Lingkungan</td>
+            <td class="px-2 md:px-4 py-2">Jawa Barat</td>
+            <td class="px-2 md:px-4 py-2">Terkirim</td>
+          </tr>
+          <tr class="text-xs md:text-sm">
+            <td class="px-2 md:px-4 py-2">b02</td>
+            <td class="px-2 md:px-4 py-2">Alimin</td>
+            <td class="px-2 md:px-4 py-2">Pengabdi Lingkungan</td>
+            <td class="px-2 md:px-4 py-2">Jawa Tengah</td>
+            <td class="px-2 md:px-4 py-2">Terkirim</td>
+          </tr>
+          <tr class="bg-gray-50 text-xs md:text-sm">
+            <td class="px-2 md:px-4 py-2">c03</td>
+            <td class="px-2 md:px-4 py-2">Sumanto</td>
+            <td class="px-2 md:px-4 py-2">Perintis Lingkungan</td>
+            <td class="px-2 md:px-4 py-2">Jawa Barat</td>
+            <td class="px-2 md:px-4 py-2">Terkirim</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
         </div>
 
       </div>
