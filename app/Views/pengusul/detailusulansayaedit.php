@@ -37,7 +37,7 @@
                     <button id="keistimewaanButton" class="mt-2 w-full btn-section md:w-40 rounded-md py-2 px-4 text-center text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none text-sm" type="button" data-target="keistimewaan">Keistimewaan</button>
 
                     <!-- Button Kembali ke Usulan Saya -->
-                    <button onclick="window.location.href='/pengusul/usulansaya'"
+                    <button onclick="window.history.back()"
                         class="text-sm font-bold text-gray-600 no-underline focus:outline-none text-start mt-6">
                         <span class="font-bold text-lg items-center">←</span> Kembali
                     </button>
