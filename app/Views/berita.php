@@ -52,11 +52,11 @@
                 <?php if (!empty($berita) && is_array($berita)): ?>
                     <?php foreach ($berita as $item): ?>
                         <div class="bg-white rounded-lg shadow-md flex flex-col md:flex-row overflow-hidden">
-                            <img src="/public/<?= esc($item['foto']); ?>" alt="<?= esc($item['judul']); ?>" class="w-full md:w-48 h-32 md:h-auto object-cover">
+                            <img src="/public/<?= $item['foto']; ?>" alt="<?= esc($item['judul']) ?>" class="w-full md:w-48 h-32 md:h-auto object-cover">
                             <div class="p-4">
                                 <h2 class="text-lg md:text-xl font-semibold mb-2"><?= esc($item['judul']) ?></h2>
                                 <p class="text-gray-600 text-sm md:text-base mb-4"><?= word_limiter(esc($item['konten']), 30); ?></p>
-                                <a href="/berita/<?= esc($item['slug']); ?>" class="text-black font-medium flex justify-end items-center">
+                                <a href="/berita/<?= $item['slug'] ?>" class="text-black font-medium flex justify-end items-center">
                                     Baca Selengkapnya
                                     <img src="/images/arrowkanan.svg" alt="arrowkanan" class="w-6 h-6 md:w-8 md:h-8 ml-2">
                                 </a>

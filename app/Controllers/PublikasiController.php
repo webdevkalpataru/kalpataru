@@ -22,6 +22,16 @@ class PublikasiController extends BaseController
             $data['berita'] = $model->getBeritaTerbit();
             $data['countTerbit'] = $model->countBeritaTerbit();
         }
+        $model = new BeritaModel();
+        $keyword = $this->request->getGet('search');
+
+        if ($keyword) {
+            $data['berita'] = $model->searchBeritaTerbit($keyword);
+            $data['countTerbit'] = count($data['berita']);
+        } else {
+            $data['berita'] = $model->getBeritaTerbit();
+            $data['countTerbit'] = $model->countBeritaTerbit();
+        }
 
         $data['title'] = "Berita";
         return view('berita', $data);
@@ -47,6 +57,7 @@ class PublikasiController extends BaseController
             'berita' => $berita,
         ];
         return view('detailberita', $data);
+        return view('berita', $data);
     }
 
     public function artikel()
