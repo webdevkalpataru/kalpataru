@@ -288,7 +288,9 @@ class AuthController extends BaseController
         session()->set('id_admin', $admin['id_admin']);
         session()->set('email', $admin['email']);
         session()->set('nama', $admin['nama']);
+        session()->set('role', 'admin');
         session()->set('logged_in', true);
+
 
         return $this->response->setJSON([
             'success' => true,
