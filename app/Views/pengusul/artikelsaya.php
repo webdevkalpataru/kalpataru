@@ -19,12 +19,34 @@
             <h4 class="block text-xl font-bold text-slate-800 mb-2">
                 Artikel Saya
             </h4>
-            <div class="flex justify-start mt-2">
+            <div class="lg:flex justify-between items-center my-2">
                 <a href="/pengusul/tambah-artikel">
                     <button id="tambahartikel" class="w-48 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button"> <span>&#10010</span> Tambah Artikel Baru</button>
                 </a>
+
+                <form method="get">
+                    <div class="relative w-56 transition-all focus-within:w-64 lg:mt-0 mt-4">
+                        <input
+                            placeholder="Masukan kata kunci"
+                            class="input shadow-lg focus:border-2 border-2 text-primary border-primary px-5 py-1 pr-10 rounded-md w-full outline-none"
+                            name="search"
+                            value="<?= esc($keyword) ?>" />
+                        <svg
+                            class="w-6 h-6 absolute top-1/2 right-3 transform -translate-y-1/2 text-primary"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                                stroke-linejoin="round"
+                                stroke-linecap="round"></path>
+                        </svg>
+                    </div>
+                </form>
             </div>
-            <div class="relative flex flex-col w-full h-full mt-8 overflow-hidden text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
+            <div class="relative flex flex-col w-full h-full overflow-hidden text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
                 <div class="overflow-x-auto">
                     <table class="w-full text-left table-auto min-w-max">
                         <thead>
@@ -57,11 +79,16 @@
                                 $no++;
                             ?>
                                 <tr class="hover:bg-slate-50">
-                                    <td class="p-4 border-b border-slate-200 text-center"><?= $no ?></td>
-                                    <td class="p-4 border-b border-slate-200 text-center"><?= esc($artikel['judul']) ?></td>
-                                    <td class="p-4 border-b border-slate-200 text-center"><?= esc($artikel['status']) ?></td>
-                                    <td class="p-4 border-b border-slate-200 text-center">
-                                        <a href="/pengusul/artikel/<?= $artikel['slug']; ?>">Lihat</a>
+                                    <td class="p-4 border-b border-slate-200 text-xs text-slate-800 text-center"><?= $no ?></td>
+                                    <td class="p-4 border-b border-slate-200 text-xs text-slate-800 text-center"><?= esc($artikel['judul']) ?></td>
+                                    <td class="p-4 border-b border-slate-200 text-xs text-slate-800 text-center"><?= esc($artikel['status']) ?></td>
+                                    <td class="p-4 border-b border-slate-200 text-xs text-slate-800 text-center">
+                                        <button
+                                            class="lihatButton w-20 rounded-md py-2 px-2 text-center font-semibold text-xs text-primary bg-secondary"
+                                            type="button"
+                                            onclick="window.location.href='/pengusul/artikel/<?= $artikel['slug']; ?>'">
+                                            Lihat
+                                        </button>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -69,34 +96,11 @@
                     </table>
                 </div>
                 <div class="row flex lg:justify-end justify-center my-6 lg:me-2 me-0">
-                    <button class="rounded-md rounded-r-none border border-r-0 border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-primary focus:border-primary active:border-primary active:text-white active:bg-primary disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
-                            <path fill-rule="evenodd" d="M11.03 3.97a.75.75 0 0 1 0 1.06l-6.22 6.22H21a.75.75 0 0 1 0 1.5H4.81l6.22 6.22a.75.75 0 1 1-1.06 1.06l-7.5-7.5a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd" />
-                        </svg>
-                    </button>
-                    <button class="rounded-md rounded-r-none rounded-l-none border border-r-0 border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-primary focus:border-primary active:border-primary active:text-white active:bg-primary disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                        1
-                    </button>
-                    <button class="rounded-md rounded-r-none rounded-l-none border border-r-0 border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-primary focus:border-primary active:border-primary active:text-white active:bg-primary disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                        2
-                    </button>
-                    <button class="rounded-md rounded-r-none rounded-l-none border border-r-0 border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-primary focus:border-primary active:border-primary active:text-white active:bg-primary disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                        3
-                    </button>
-                    <button class="rounded-md rounded-r-none rounded-l-none border border-r-0 border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-primary focus:border-primary active:border-primary active:text-white active:bg-primary disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                        4
-                    </button>
-                    <button class="rounded-md rounded-r-none rounded-l-none border border-r-0 border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-primary focus:border-primary active:border-primary active:text-white active:bg-primary disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                        5
-                    </button>
-                    <button class="rounded-md rounded-l-none border border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-primary focus:border-primary active:border-primary active:text-white active:bg-primary disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
-                            <path fill-rule="evenodd" d="M12.97 3.97a.75.75 0 0 1 1.06 0l7.5 7.5a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 1 1-1.06-1.06l6.22-6.22H3a.75.75 0 0 1 0-1.5h16.19l-6.22-6.22a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
-                        </svg>
-                    </button>
+                    <div class="pagination">
+                        <?= $pager->links('artikel', 'template_pagination') ?>
+                    </div>
                 </div>
             </div>
-
         </div>
     </div>
 

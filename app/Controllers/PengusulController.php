@@ -274,7 +274,7 @@ class PengusulController extends BaseController
                 'provinsi' => $this->request->getPost('provinsi'),
                 'kode_pos' => $this->request->getPost('kode_pos'),
                 'sosial_media' => $this->request->getPost('media_sosial'),
-                'nama_kelompok' => $this->request->getPost('nama_kelompok'),
+                'nama_ketua' => $this->request->getPost('nama_ketua'),
                 'nik' => $this->request->getPost('nik'),
                 'tempat_lahir' => $this->request->getPost('tempat_lahir'),
                 'tanggal_lahir' => $this->request->getPost('tanggal_lahir'),
@@ -639,8 +639,6 @@ class PengusulController extends BaseController
 
         // Ambil data dengan pagination, limit 5 per halaman
         $perPage = 5;
-        // Ambil halaman saat ini dari request, default ke halaman 1 jika tidak ada
-        $currentPage = $this->request->getVar('page_usulan') ? $this->request->getVar('page_usulan') : 1;
 
         // Ambil ID pengusul dari session
         $id_pengusul = session()->get('id_pengusul');
@@ -701,14 +699,14 @@ class PengusulController extends BaseController
     {
         $Model = new PendaftaranModel();
         $provinsi = session()->get('provinsi');
-        
+
         $usulan = $Model->where('provinsi', $provinsi)->findAll();
-        
+
         $data = [
             'title' => 'Usulan DLHK',
             'usulan' => $usulan
         ];
-        
+
         return view('pengusul/usulandlhk', $data);
     }
 
@@ -930,11 +928,27 @@ class PengusulController extends BaseController
         $model = new ArtikelModel();
         $id_pengusul = session()->get('id_pengusul'); // Mengambil id_pengusul dari session
 
-        // Mengambil artikel berdasarkan id_pengusul
-        $data['artikels'] = $model->where('id_pengusul', $id_pengusul)->findAll();
+        // Ambil data dengan pagination, limit 5 per halaman
+        $perPage = 5;
+
+        // Ambil kata kunci dari request untuk pencarian
+        $keyword = $this->request->getGet('search');
+
+        // Jika ada keyword, tambahkan kondisi pencarian
+        if ($keyword) {
+            $artikels = $model->where('id_pengusul', $id_pengusul)
+                ->like('judul', $keyword)
+                ->paginate($perPage, 'artikel');
+        } else {
+            $artikels = $model->where('id_pengusul', $id_pengusul)
+                ->paginate($perPage, 'artikel');
+        }
 
         // Menyiapkan data untuk view
         $data['title'] = 'Artikel Saya';
+        $data['artikels'] = $artikels;
+        $data['pager'] = $model->pager;
+        $data['keyword'] = $keyword;
 
         // Menampilkan view dengan data artikel
         return view('pengusul/artikelsaya', $data);
@@ -973,12 +987,12 @@ class PengusulController extends BaseController
     {
         $pendaftaranModel = new PendaftaranModel();
         $pengusulModel = new PengusulModel();
-    
+
         $id_pengusul = session()->get('id_pengusul');
         $pengusul = $pengusulModel->find($id_pengusul);
-    
+
         $pendaftaran = [];
-    
+
         if ($pengusul) {
             if ($pengusul['role_akun'] == 'DLHK') {
                 $provinsi = session()->get('provinsi');
@@ -987,13 +1001,13 @@ class PengusulController extends BaseController
                 $pendaftaran = $pendaftaranModel->where('id_pengusul', $id_pengusul)->findAll();
             }
         }
-    
+
         $data = [
             'title' => 'Pemberitahuan',
             'pendaftaran' => $pendaftaran,
             'pengusul' => $pengusul
         ];
-    
+
         return view('pengusul/pemberitahuan', $data);
     }
 
@@ -1055,7 +1069,7 @@ class PengusulController extends BaseController
         $keistimewaan = $pendaftaranModel->db->table('keistimewaan')->where('id_pendaftaran', $pendaftaranData['id_pendaftaran'])->get()->getRowArray();
 
         $data = [
-            'pendaftaran' => $pendaftaranData, 
+            'pendaftaran' => $pendaftaranData,
             'pengusul' => $pengusulData,
             'kegiatan' => $kegiatan,
             'dampak' => $dampak,
