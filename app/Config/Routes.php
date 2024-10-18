@@ -121,6 +121,7 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('buku', 'AdminController::buku');
     $routes->get('tambahbuku', 'AdminController::tambahbuku');
     $routes->get('kebijakan', 'AdminController::kebijakan');
+    $routes->get('logout', 'AuthController::logoutAction');
 
     // Manajemen Artikel
     $routes->get('artikel', 'AdminController::artikeladmin');

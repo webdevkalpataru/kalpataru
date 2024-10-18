@@ -195,38 +195,70 @@ class PengusulController extends BaseController
             return redirect()->back()->with('error', 'Data kategori atau pendaftaran tidak ditemukan.');
         }
 
-        // Validasi file upload untuk KTP (JPG/JPEG) dan SKCK (PDF)
-        $validationRule = [
-            'ktp' => [
-                'uploaded[ktp]',
-                'mime_in[ktp,image/jpg,image/jpeg]',
-                'max_size[ktp,1024]',
-            ],
-            'skck' => [
-                'uploaded[skck]',
-                'mime_in[skck,application/pdf]',
-                'max_size[skck,1024]',
-            ]
-        ];
+        $validation = \Config\Services::validation();
+        $validation->setRules([
+            'nama_individu' => 'required|alpha_space',
+            'nama_ketua' => 'required|alpha_space',
+            'nama_kelompok' => 'required',
+            'jumlah_anggota' => 'required|numeric',
+            'tahun_pembentukan' => 'required|valid_date',
+            'nik' => 'required|numeric|exact_length[16]|is_unique[pendaftaran.nik]',
+            'nik_individu' => 'required|numeric|exact_length[16]|is_unique[pendaftaran.nik]',
+            'tempat_lahir' => 'required|alpha_space',
+            'tanggal_lahir' => 'required|valid_date',
+            'usia' => 'required|numeric',
+            'jenis_kelamin' => 'required',
+            'pekerjaan' => 'required',
+            'telepon' => 'required|numeric',
+            'email' => 'required|valid_email',
+            'pendidikan' => 'required',
+            'jalan' => 'required',
+            'rt_rw' => 'required',
+            'desa' => 'required',
+            'kecamatan' => 'required',
+            'kab_kota' => 'required',
+            'provinsi' => 'required',
+            'kode_pos' => 'required|numeric',
+            'media_sosial' => 'required',
+            'legalitas' => 'uploaded[legalitas]|mime_in[legalitas,application/pdf]|max_size[legalitas,1024]',
+            'ktp' => 'uploaded[ktp]|mime_in[ktp,image/jpg,image/jpeg]|max_size[ktp,1024]',
+            'skck' => 'uploaded[skck]|mime_in[skck,application/pdf]|max_size[skck,1024]',
+            'tanggal_skck' => 'required|valid_date',
+            'tanggal_legalitas' => 'required|valid_date'
+        ], [
+            'required' => '{field} harus diisi.',
+            'numeric' => '{field} hanya boleh berisi angka.',
+            'valid_date' => '{field} harus berisi tanggal yang valid.',
+            'valid_email' => '{field} harus berisi email yang valid.',
+            'exact_length' => '{field} harus terdiri dari tepat {param} digit.',
+            'uploaded' => '{field} harus diunggah.',
+            'mime_in' => '{field} harus berformat {param}.',
+        ]);
 
-        if (!$this->validate($validationRule)) {
-            return redirect()->back()->withInput()->with('error', 'Validasi file gagal. Pastikan format dan ukuran file benar.');
+
+        // Cek apakah validasi gagal
+        if (!$this->validate($validation->getRules())) {
+            // Kembalikan ke halaman sebelumnya dengan input dan pesan error
+            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
         }
 
-        $legalitasFileName = null;
-
-        // Pengecekan apakah file legalitas diunggah
         $legalitasFile = $this->request->getFile('legalitas');
+
+        // Cek apakah ada file yang diunggah untuk legalitas
         if ($legalitasFile && $legalitasFile->isValid() && !$legalitasFile->hasMoved()) {
             if ($legalitasFile->getExtension() === 'pdf' && $legalitasFile->getSize() <= 1024 * 1024) {
                 $originalName = pathinfo($legalitasFile->getClientName(), PATHINFO_FILENAME);
                 $extension = $legalitasFile->getExtension();
-                $legalitasFileName = $originalName . '' . bin2hex(random_bytes(5)) . '.' . $extension;
+                $legalitasFileName = $originalName . '_' . bin2hex(random_bytes(5)) . '.' . $extension;
                 $legalitasFile->store('legalitas', $legalitasFileName);
             } else {
-                return redirect()->back()->with('error', 'File legalitas harus berupa PDF dan ukuran maksimal 1MB.');
+                return redirect()->back()->with('error', 'File harus berupa PDF dan ukuran maksimal 1MB.');
             }
+        } else {
+            // Jika tidak ada file legalitas yang diunggah, Anda dapat mengatur nilai default atau mengabaikannya
+            $legalitasFileName = null;
         }
+
 
         $ktpFile = $this->request->getFile('ktp');
         if ($ktpFile->isValid() && !$ktpFile->hasMoved()) {
@@ -237,9 +269,10 @@ class PengusulController extends BaseController
                 $ktpFileName = $originalName . '_' . bin2hex(random_bytes(5)) . '.' . $extension;
                 $ktpFile->store('ktp', $ktpFileName);
             } else {
-                return redirect()->back()->with('error', 'File KTP harus berupa JPG atau JPEG dan ukuran maksimal 1MB.');
+                return redirect()->back()->with('error', 'File harus berupa JPG atau JPEG dan ukuran maksimal 1MB.');
             }
         }
+
 
         $skckFile = $this->request->getFile('skck');
         if ($skckFile->isValid() && !$skckFile->hasMoved()) {
@@ -249,7 +282,7 @@ class PengusulController extends BaseController
                 $skckFileName = $originalName . '_' . bin2hex(random_bytes(5)) . '.' . $extension;
                 $skckFile->store('skck', $skckFileName);
             } else {
-                return redirect()->back()->with('error', 'File SKCK harus berupa PDF dan ukuran maksimal 1MB.');
+                return redirect()->back()->with('error', 'File harus berupa PDF dan ukuran maksimal 1MB.');
             }
         }
 
@@ -340,7 +373,7 @@ class PengusulController extends BaseController
             case 'identitasc':
                 $identitas = $model->getIdentitasByIdPendaftaran($id_pendaftaran);
                 $data = [
-                    'nama' => $this->request->getPost('nama'),
+                    'nama' => $this->request->getPost('nama_ketua'),
                     'tahun_pembentukan' => $this->request->getPost('tahun_pembentukan'),
                     'jumlah_anggota' => $this->request->getPost('jumlah_anggota'),
                     'jalan' => $this->request->getPost('jalan'),
@@ -350,7 +383,8 @@ class PengusulController extends BaseController
                     'kab_kota' => $this->request->getPost('kab_kota'),
                     'provinsi' => $this->request->getPost('provinsi'),
                     'kode_pos' => $this->request->getPost('kode_pos'),
-                    'sosial_media' => $this->request->getPost('media_sosial'),
+                    'sosial_media' => $this->request->getPost('sosial_media'),
+                    'nama_kelompok' => $this->request->getPost('nama_kelompok'),
                     'nik' => $this->request->getPost('nik'),
                     'tempat_lahir' => $this->request->getPost('tempat_lahir'),
                     'tanggal_lahir' => $this->request->getPost('tanggal_lahir'),
@@ -362,6 +396,18 @@ class PengusulController extends BaseController
                     'pendidikan' => $this->request->getPost('pendidikan'),
                     'tanggal_skck' => $this->request->getPost('tanggal_skck'),
                 ];
+
+                // Logika untuk upload file SKCK
+                $legalitasFile = $this->request->getFile('legalitas');
+                if ($legalitasFile && $legalitasFile->isValid() && !$legalitasFile->hasMoved()) {
+                    // Validasi file legalitas (PDF)
+                    if ($legalitasFile->isValid() && $legalitasFile->getMimeType() === 'application/pdf' && $legalitasFile->getSize() <= 1024 * 1024) {
+                        $legalitasFileName = $legalitasFile->getRandomName();
+                        $legalitasFile->store('legalitas', $legalitasFileName);
+                        $data['legalitas'] = $legalitasFileName;
+                    }
+                }
+
 
                 // Logika untuk upload file KTP
                 $ktpFile = $this->request->getFile('ktp');
@@ -695,14 +741,14 @@ class PengusulController extends BaseController
     {
         $Model = new PendaftaranModel();
         $provinsi = session()->get('provinsi');
-        
+
         $usulan = $Model->where('provinsi', $provinsi)->findAll();
-        
+
         $data = [
             'title' => 'Usulan DLHK',
             'usulan' => $usulan
         ];
-        
+
         return view('pengusul/usulandlhk', $data);
     }
 
@@ -967,12 +1013,12 @@ class PengusulController extends BaseController
     {
         $pendaftaranModel = new PendaftaranModel();
         $pengusulModel = new PengusulModel();
-    
+
         $id_pengusul = session()->get('id_pengusul');
         $pengusul = $pengusulModel->find($id_pengusul);
-    
+
         $pendaftaran = [];
-    
+
         if ($pengusul) {
             if ($pengusul['role_akun'] == 'DLHK') {
                 $provinsi = session()->get('provinsi');
@@ -981,13 +1027,13 @@ class PengusulController extends BaseController
                 $pendaftaran = $pendaftaranModel->where('id_pengusul', $id_pengusul)->findAll();
             }
         }
-    
+
         $data = [
             'title' => 'Pemberitahuan',
             'pendaftaran' => $pendaftaran,
             'pengusul' => $pengusul
         ];
-    
+
         return view('pengusul/pemberitahuan', $data);
     }
 
@@ -1049,7 +1095,7 @@ class PengusulController extends BaseController
         $keistimewaan = $pendaftaranModel->db->table('keistimewaan')->where('id_pendaftaran', $pendaftaranData['id_pendaftaran'])->get()->getRowArray();
 
         $data = [
-            'pendaftaran' => $pendaftaranData, 
+            'pendaftaran' => $pendaftaranData,
             'pengusul' => $pengusulData,
             'kegiatan' => $kegiatan,
             'dampak' => $dampak,
