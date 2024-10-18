@@ -52,7 +52,7 @@
                             <p class="font-semibold mb-2 text-md text-primary underline">Data Kelompok/ Komunitas</p>
                             <div class="w-full mb-4">
                                 <label class="block mb-2 text-sm text-black">Nama Kelompok</label>
-                                <input disabled type="text" value="<?= $pendaftaran['nama_kelompok']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input disabled type="text" value="<?= $pendaftaran['nama']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-4">
                                 <label class="block mb-2 text-sm text-black">Tahun Berdiri Kelompok</label>

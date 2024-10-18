@@ -20,112 +20,38 @@
             <h4 class="block text-xl font-bold text-slate-800 mb-2">
                 Pemberitahuan
             </h4>
-            <!-- Membatasi tinggi kontainer agar hanya menampilkan 5 baris sebelum scroll -->
             <div class="relative flex flex-col w-full h-[28rem] bg-white overflow-y-auto text-gray-700 shadow-md rounded-lg mt-4">
-                <table class="w-full text-left table-auto min-w-max h-screen">
-                    <tbody>
+            <table class="w-full text-left table-auto min-w-max h-screen">
+            <tbody>
+                <?php if (!empty($pendaftaran)): ?>
+                    <?php foreach ($pendaftaran as $item): ?>
                         <tr class="hover:bg-slate-50">
                             <td class="p-4 border-b border-slate-200 flex justify-center">
                                 <img src="/images/logoklhk.png" alt="logoklhk" class="w-8 h-8 rounded-full">
                             </td>
                             <td class="p-4 border-b border-slate-200">
                                 <p class="text-sm text-slate-800 text-start">
-                                    Selamat! usulan Anda atas nama Hendra Kurniawan
+                                    <?php if ($pengusul['role_akun'] == 'Pengusul'): ?>
+                                        Terimakasih, <b><?= $item['nama']; ?></b> telah mendaftar pada provinsi <b><?= $item['provinsi']; ?></b>.
+                                    <?php else: ?>
+                                        Selamat! Ada calon usulan baru atas nama <b><?= $item['nama']; ?></b> di provinsi <b><?= $item['provinsi']; ?></b>.
+                                    <?php endif; ?>
                                 </p>
-                                <p class="text-xs">20 September 2023</p>
+                                <p class="text-xs"><?= date('d F Y', strtotime($item['tanggal_pendaftaran'])); ?></p>
                             </td>
                         </tr>
-                        <tr class="hover:bg-slate-50">
-                            <td class="p-4 border-b border-slate-200 flex justify-center">
-                                <img src="/images/logoklhk.png" alt="logoklhk" class="w-8 h-8 rounded-full">
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="text-sm text-slate-800 text-start">
-                                    Selamat! usulan Anda atas nama Hendra Kurniawan
-                                </p>
-                                <p class="text-xs">20 September 2023</p>
-                            </td>
-                        </tr>
-                        <tr class="hover:bg-slate-50">
-                            <td class="p-4 border-b border-slate-200 flex justify-center">
-                                <img src="/images/logoklhk.png" alt="logoklhk" class="w-8 h-8 rounded-full">
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="text-sm text-slate-800 text-start">
-                                    Selamat! usulan Anda atas nama Hendra Kurniawan
-                                </p>
-                                <p class="text-xs">20 September 2023</p>
-                            </td>
-                        </tr>
-                        <tr class="hover:bg-slate-50">
-                            <td class="p-4 border-b border-slate-200 flex justify-center">
-                                <img src="/images/logoklhk.png" alt="logoklhk" class="w-8 h-8 rounded-full">
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="text-sm text-slate-800 text-start">
-                                    Selamat! usulan Anda atas nama Hendra Kurniawan
-                                </p>
-                                <p class="text-xs">20 September 2023</p>
-                            </td>
-                        </tr>
-                        <tr class="hover:bg-slate-50">
-                            <td class="p-4 border-b border-slate-200 flex justify-center">
-                                <img src="/images/logoklhk.png" alt="logoklhk" class="w-8 h-8 rounded-full">
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="text-sm text-slate-800 text-start">
-                                    Selamat! usulan Anda atas nama Hendra Kurniawan
-                                </p>
-                                <p class="text-xs">20 September 2023</p>
-                            </td>
-                        </tr>
-                        <tr class="hover:bg-slate-50">
-                            <td class="p-4 border-b border-slate-200 flex justify-center">
-                                <img src="/images/logoklhk.png" alt="logoklhk" class="w-8 h-8 rounded-full">
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="text-sm text-slate-800 text-start">
-                                    Selamat! usulan Anda atas nama Hendra Kurniawan
-                                </p>
-                                <p class="text-xs">20 September 2023</p>
-                            </td>
-                        </tr>
-                        <tr class="hover:bg-slate-50">
-                            <td class="p-4 border-b border-slate-200 flex justify-center">
-                                <img src="/images/logoklhk.png" alt="logoklhk" class="w-8 h-8 rounded-full">
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="text-sm text-slate-800 text-start">
-                                    Selamat! usulan Anda atas nama Hendra Kurniawan
-                                </p>
-                                <p class="text-xs">20 September 2023</p>
-                            </td>
-                        </tr>
-                        <!-- Baris tambahan yang akan membuat scroll muncul -->
-                        <tr class="hover:bg-slate-50">
-                            <td class="p-4 border-b border-slate-200 flex justify-center">
-                                <img src="/images/logoklhk.png" alt="logoklhk" class="w-8 h-8 rounded-full">
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="text-sm text-slate-800 text-start">
-                                    Selamat! usulan Anda atas nama Hendra Kurniawan
-                                </p>
-                                <p class="text-xs">20 September 2023</p>
-                            </td>
-                        </tr>
-                        <tr class="hover:bg-slate-50">
-                            <td class="p-4 border-b border-slate-200 flex justify-center">
-                                <img src="/images/logoklhk.png" alt="logoklhk" class="w-8 h-8 rounded-full">
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="text-sm text-slate-800 text-start">
-                                    Selamat! usulan Anda atas nama Hendra Kurniawan
-                                </p>
-                                <p class="text-xs">20 September 2023</p>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="2" class="p-4 border-b border-slate-200 text-center">
+                            <p class="text-sm text-slate-800">
+                                Tidak ada pemberitahuan.
+                            </p>
+                        </td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
             </div>
         </div>
     </div>

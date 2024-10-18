@@ -213,7 +213,6 @@ class PengusulController extends BaseController
             return redirect()->back()->withInput()->with('error', 'Validasi file gagal. Pastikan format dan ukuran file benar.');
         }
 
-        // Inisialisasi variabel untuk menyimpan nama file
         $legalitasFileName = null;
 
         // Pengecekan apakah file legalitas diunggah
@@ -222,7 +221,7 @@ class PengusulController extends BaseController
             if ($legalitasFile->getExtension() === 'pdf' && $legalitasFile->getSize() <= 1024 * 1024) {
                 $originalName = pathinfo($legalitasFile->getClientName(), PATHINFO_FILENAME);
                 $extension = $legalitasFile->getExtension();
-                $legalitasFileName = $originalName . '_' . bin2hex(random_bytes(5)) . '.' . $extension;
+                $legalitasFileName = $originalName . '' . bin2hex(random_bytes(5)) . '.' . $extension;
                 $legalitasFile->store('legalitas', $legalitasFileName);
             } else {
                 return redirect()->back()->with('error', 'File legalitas harus berupa PDF dan ukuran maksimal 1MB.');
@@ -694,8 +693,17 @@ class PengusulController extends BaseController
 
     public function usulandlhk()
     {
-        $data['title'] = 'Usulan DLHK';
-        return view('pengusul/usulandlhk', ['title' => 'Usulan DLHK']);
+        $Model = new PendaftaranModel();
+        $provinsi = session()->get('provinsi');
+        
+        $usulan = $Model->where('provinsi', $provinsi)->findAll();
+        
+        $data = [
+            'title' => 'Usulan DLHK',
+            'usulan' => $usulan
+        ];
+        
+        return view('pengusul/usulandlhk', $data);
     }
 
     public function detailusulansaya($id)
@@ -957,9 +965,32 @@ class PengusulController extends BaseController
 
     public function pemberitahuan()
     {
-        $data['title'] = 'Pemberitahuan';
-        return view('pengusul/pemberitahuan', ['title' => 'Pemberitahuan']);
+        $pendaftaranModel = new PendaftaranModel();
+        $pengusulModel = new PengusulModel();
+    
+        $id_pengusul = session()->get('id_pengusul');
+        $pengusul = $pengusulModel->find($id_pengusul);
+    
+        $pendaftaran = [];
+    
+        if ($pengusul) {
+            if ($pengusul['role_akun'] == 'DLHK') {
+                $provinsi = session()->get('provinsi');
+                $pendaftaran = $pendaftaranModel->where('provinsi', $provinsi)->findAll();
+            } else if ($pengusul['role_akun'] == 'Pengusul') {
+                $pendaftaran = $pendaftaranModel->where('id_pengusul', $id_pengusul)->findAll();
+            }
+        }
+    
+        $data = [
+            'title' => 'Pemberitahuan',
+            'pendaftaran' => $pendaftaran,
+            'pengusul' => $pengusul
+        ];
+    
+        return view('pengusul/pemberitahuan', $data);
     }
+
     public function alurpendaftaran()
     {
         $data['title'] = 'Alur Pendaftaran';
@@ -995,7 +1026,7 @@ class PengusulController extends BaseController
         $id_pengusul = session()->get('id_pengusul');
 
         if (!$id_pengusul) {
-            return redirect()->back()->with('error', 'Error');
+            return redirect()->back()->with('error', '');
         }
 
         $pendaftaranModel = new PendaftaranModel();
@@ -1018,23 +1049,13 @@ class PengusulController extends BaseController
         $keistimewaan = $pendaftaranModel->db->table('keistimewaan')->where('id_pendaftaran', $pendaftaranData['id_pendaftaran'])->get()->getRowArray();
 
         $data = [
-            'pendaftaran' => array_merge($pendaftaranData, [
-                'dampak_lingkungan' => $dampak['dampak_lingkungan'] ?? '',
-                'dampak_ekonomi' => $dampak['dampak_ekonomi'] ?? '',
-                'dampak_sosial_budaya' => $dampak['dampak_sosial_budaya'] ?? '',
-                'prakarsa' => $pmik['prakarsa'] ?? '',
-                'motivasi' => $pmik['motivasi'] ?? '',
-                'inovasi' => $pmik['inovasi'] ?? '',
-                'krativitas' => $pmik['krativitas'] ?? '',
-                'sumber_biaya' => $keswadayaan['sumber_biaya'] ?? '',
-                'teknologi_kegiatan' => $keswadayaan['teknologi_kegiatan'] ?? '',
-                'status_lahan_kegiatan' => $keswadayaan['status_lahan_kegiatan'] ?? '',
-                'jumlah_kelompok_serupa' => $keswadayaan['jumlah_kelompok_serupa'] ?? '',
-                'keistimewaan' => $keistimewaan['keistimewaan'] ?? '',
-                'penghargaan' => $keistimewaan['penghargaan'] ?? ''
-            ]),
+            'pendaftaran' => $pendaftaranData, 
             'pengusul' => $pengusulData,
-            'kegiatan' => $kegiatan
+            'kegiatan' => $kegiatan,
+            'dampak' => $dampak,
+            'pmik' => $pmik,
+            'keswadayaan' => $keswadayaan,
+            'keistimewaan' => $keistimewaan
         ];
 
         $kategori = $pendaftaranData['kategori'];

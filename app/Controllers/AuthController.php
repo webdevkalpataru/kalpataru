@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\AdminModel;
 use App\Models\PengusulModel;
 use App\Models\TimteknisModel;
 use App\Models\DppkModel;
@@ -299,7 +300,7 @@ class AuthController extends BaseController
         ];
 
         if ($model->insert($data)) {
-            return;
+            return $this->response->setJSON(['success' => true]);
         } else {
             log_message('error', 'Registration failed: ' . json_encode($model->errors()));
             return $this->response->setJSON(['success' => false, 'errors' => $model->errors()]);

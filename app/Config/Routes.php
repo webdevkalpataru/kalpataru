@@ -23,6 +23,8 @@ $routes->get('publikasi/artikel', 'PublikasiController::artikel');
 $routes->get('publikasi/video', 'PublikasiController::video');
 $routes->get('publikasi/buku', 'PublikasiController::buku');
 $routes->get('artikel/(:any)', 'PublikasiController::detailartikel/$1');
+$routes->get('berita/(:any)', 'PublikasiController::detailberita/$1');
+
 
 
 /* Auth Pengusul */
@@ -98,6 +100,7 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('akuntimteknis', 'AdminController::akuntimteknis');
     $routes->get('daftartimteknis', 'AuthController::registerTimTeknis');
     $routes->post('daftartimteknis', 'AuthController::createRegisterTimTeknis');
+    $routes->get('tambahartikeladmin', 'AdminController::tambahartikeladmin');
     $routes->get('beritaadmin', 'AdminController::beritaadmin');
     $routes->get('daftarakundlhk', 'AuthController::registerDLHK');
     $routes->post('daftarakundlhk', 'AuthController::createRegisterDLHK');
@@ -108,12 +111,16 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('daftartimteknis', 'AdminController::daftartimteknis');
     $routes->get('akundppk', 'AdminController::akundppk');
     $routes->get('daftardppk', 'AdminController::daftardppk');
-    $routes->get('tambahberitaadmin', 'AdminController::tambahberitaadmin');
     $routes->get('pengumumanadmin', 'AdminController::pengumumanadmin');
     $routes->get('tambahpengumumanadmin', 'AdminController::tambahpengumumanadmin');
     $routes->get('akunpengguna', 'AdminController::akunpengguna');
     $routes->get('daftarakunpengguna', 'AdminController::daftarakunpengguna');
     $routes->get('daftarakundlhk', 'AdminController::daftarakundlhk');
+    $routes->get('video', 'AdminController::video');
+    $routes->get('tambahvideo', 'AdminController::tambahvideo');
+    $routes->get('buku', 'AdminController::buku');
+    $routes->get('tambahbuku', 'AdminController::tambahbuku');
+    $routes->get('kebijakan', 'AdminController::kebijakan');
 
     // Manajemen Artikel
     $routes->get('artikel', 'AdminController::artikeladmin');
@@ -125,6 +132,13 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('artikel/(:any)', 'AdminController::detailartikel/$1');
     $routes->post('artikel/hapus/(:num)', 'AdminController::hapusArtikel/$1');
     $routes->post('updatestatus', 'AdminController::updateStatus');
+
+    // Manajemen Artikel
+    $routes->get('berita', 'AdminController::beritAadmin');
+    $routes->get('tambah-berita', 'AdminController::tambahberitaadmin');
+    $routes->post('tambah-berita', 'AdminController::tambahBeritaAction');
+    $routes->post('updatestatusberita', 'AdminController::updateStatusBerita');
+    $routes->post('berita/hapus/(:num)', 'AdminController::hapusBerita/$1');
 });
 
 /* Tim Teknis */
@@ -149,6 +163,8 @@ $routes->group('timteknis', function ($routes) {
     $routes->get('bahansidang2/kategorib', 'TimteknisController::bahansidang2kategorib');
     $routes->get('bahansidang2/kategoric', 'TimteknisController::bahansidang2kategoric');
     $routes->get('bahansidang2/kategorid', 'TimteknisController::bahansidang2kategorid');
+
+    $routes->get('pdf/(:any)', 'PengusulController::generatePDF/$1');
 });
 
 /* DPPK */

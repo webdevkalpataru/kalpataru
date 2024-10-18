@@ -22,7 +22,7 @@
     <div id="sidebar"
         class="fixed top-0 left-0 z-40 mt-4 h-full w-64 -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out flex flex-col rounded-xl bg-white bg-clip-border px-4 py-8 text-gray-700 shadow-xl shadow-blue-gray-900/5 md:relative md:w-1/5">
 
-        <img src="../images/logo.png">
+        <img src="/images/logo.png">
         <hr class="border-primary border-2">
         <div class="p-4 mb-2">
             <h5 class="block font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-primary">
@@ -254,7 +254,7 @@
                                     Artikel
                                 </div>
                                 </a>
-                            <a href="../admin/beritaadmin">  
+                            <a href="/admin/berita">  
                             <div role="button"
                                 class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-primary focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-primary active:bg-blue-gray-50 active:bg-opacity-80 active:text-primary">
                                 <div class="grid mr-4 place-items-center">
@@ -272,6 +272,7 @@
                                 Pengumuman
                             </div>
                             </a>
+                            <a href="video">
                             <div role="button"
                                 class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-primary focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-primary active:bg-blue-gray-50 active:bg-opacity-80 active:text-primary">
                                 <div class="grid mr-4 place-items-center">
@@ -279,6 +280,8 @@
                                 </div>
                                 Video
                             </div>
+                            </a>
+                            <a href="buku">
                             <div role="button"
                                 class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-primary focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-primary active:bg-blue-gray-50 active:bg-opacity-80 active:text-primary">
                                 <div class="grid mr-4 place-items-center">
@@ -286,6 +289,8 @@
                                 </div>
                                 Buku
                             </div>
+                            </a>
+                            <a href="kebijakan">
                             <div role="button"
                                 class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-primary focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-primary active:bg-blue-gray-50 active:bg-opacity-80 active:text-primary">
                                 <div class="grid mr-4 place-items-center">
@@ -293,6 +298,7 @@
                                 </div>
                                 Kebijakan
                             </div>
+                            </a>
                         </nav>
                     </div>
                 </div>
