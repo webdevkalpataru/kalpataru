@@ -6,7 +6,6 @@ use App\Models\PublikasiModel;
 use App\Models\ArtikelModel;
 use App\Models\BeritaModel;
 
-
 helper('text');
 
 class PublikasiController extends BaseController
