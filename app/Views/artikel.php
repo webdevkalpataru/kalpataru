@@ -20,7 +20,7 @@
     </section>
 
     <section id="artikelcontent">
-        <div class="container mx-auto">
+        <div class="container mx-auto max-w-screen-lg">
             <!-- Search Bar -->
             <div class="flex justify-between items-center my-6">
                 <h1 class="text-xs:lg:text-md ml-4 lg:ml-0 font-semibold">
