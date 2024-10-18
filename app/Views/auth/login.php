@@ -7,39 +7,6 @@
     <link rel="stylesheet" href="/css/app.css">
     <title><?= $title; ?></title>
     <style>
-        /* images */
-        /*  @keyframes fadeInRight {
-            from {
-                opacity: 0;
-                transform: translateX(100%);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes fadeInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-100%);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .fade-in-right {
-            animation: fadeInRight 0.5s forwards;
-        }
-
-        .fade-in-left {
-            animation: fadeInLeft 0.5s forwards;
-        } */
-
         /* toast error */
         .toast {
             position: fixed;
@@ -67,7 +34,6 @@
             font-size: 1.2rem;
         }
 
-
         /* Responsive style */
         @media (max-width: 640px) {
             .max-w-md {
@@ -78,51 +44,66 @@
         .toasthidden {
             display: none;
         }
+
+        /* Captcha styles */
+        .captcha-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .captcha-image {
+            font-weight: bold;
+            font-size: 1.2rem;
+            background-color: #f3f3f3;
+            padding: 5px 10px;
+            border-radius: 5px;
+            letter-spacing: 3px;
+        }
     </style>
 </head>
 
 <body>
     <div class="flex h-screen">
         <div class="flex-1 relative hidden sm:block">
-            <img id="backgroundImage" src="/images/loginregist1.jpeg" alt="loginregist1"
-                class="w-full h-full object-cover fade-in-right">
+            <img id="backgroundImage" src="/images/loginregist1.jpeg" alt="loginregist1" class="w-full h-full object-cover">
         </div>
 
         <div class="flex-1 flex items-center justify-center bg-white">
-            <div class="w-full max-w-md p-6 fade-in-left">
+            <div class="w-full max-w-md p-6">
 
                 <h2 class="text-2xl font-bold text-gray-900 mb-4">Masuk</h2>
                 <form class="flex flex-col" onsubmit="validateForm(event)" action="/auth/login" method="POST">
                     <label for="email" class="text-xs">Email</label>
-                    <input id="email" type="text" name="email" required
-                        class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none"
-                        placeholder="Masukkan Email">
+                    <input id="email" type="text" name="email" required class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none" placeholder="Masukkan Email">
 
                     <label for="password" class="text-xs">Kata Sandi</label>
                     <div class="relative">
-                        <input id="password" type="password" name="kata_sandi" required
-                            class="block w-full border-2 border-gray-300 text-primary text-xs rounded-lg p-2 pr-10 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none"
-                            placeholder="Masukkan Kata Sandi">
+                        <input id="password" type="password" name="kata_sandi" required class="block w-full border-2 border-gray-300 text-primary text-xs rounded-lg p-2 pr-10 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none" placeholder="Masukkan Kata Sandi">
                         <span id="togglePassword" class="password-icon absolute inset-y-0 right-2 flex items-center">
                             <img src="/images/hide.svg" alt="hide" class="w-4 h-4 mb-4">
                         </span>
                     </div>
 
+                    <!-- CAPTCHA -->
+                    <label for="captcha" class="text-xs">Masukkan CAPTCHA</label>
+                    <div class="captcha-box">
+                        <div id="captchaText" class="captcha-image"></div>
+                        <button type="button" onclick="generateCaptcha()" class="text-xs text-primary hover:underline">Ganti CAPTCHA</button>
+                    </div>
+                    <input id="captchaInput" type="text" name="captcha" required class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none" placeholder="Masukkan CAPTCHA">
+                    
                     <div class="flex items-center justify-between flex-wrap">
-                        <p class="text-gray-900 text-xs">
-                            Belum punya akun? <a href="./register" class="text-primary hover:underline font-bold">Daftar Sekarang</a>
-                        </p>
+                        <p class="text-gray-900 text-xs">Belum punya akun? <a href="./register" class="text-primary hover:underline font-bold">Daftar Sekarang</a></p>
                     </div>
 
-                    <button type="submit"
-                        class="bg-secondary text-primary font-bold py-2 px-4 rounded-md mt-4 hover:bg-primary hover:text-white transition ease-in-out duration-150">
+                    <button type="submit" class="bg-secondary text-primary font-bold py-2 px-4 rounded-md mt-4 hover:bg-primary hover:text-white transition ease-in-out duration-150">
                         Masuk
                     </button>
                 </form>
 
                 <div class="mt-4">
-                    <button onclick="window.location.href='/'"
-                        class="text-sm font-bold text-gray-400 no-underline focus:outline-none">
+                    <button onclick="window.location.href='/'" class="text-sm font-bold text-gray-400 no-underline focus:outline-none">
                         <span class="font-bold text-lg items-center">←</span> Kembali
                     </button>
                 </div>
@@ -133,18 +114,6 @@
     <div id="toast" class="toast">Email atau password salah!</div>
 
     <script>
-        /* const imageArray = ['/images/loginregist1.jpeg', '/images/loginregist2.jpeg', '/images/loginregist3.jpeg'];
-        let currentImageIndex = 0;
-        const backgroundImage = document.getElementById('backgroundImage');
-
-        setInterval(() => {
-            currentImageIndex = (currentImageIndex + 1) % imageArray.length;
-            backgroundImage.src = imageArray[currentImageIndex];
-            backgroundImage.classList.remove('fade-in-right');
-            void backgroundImage.offsetWidth;
-            backgroundImage.classList.add('fade-in-right');
-        }, 10000); */
-
         // Toggle password visibility
         const passwordInput = document.getElementById('password');
         const togglePassword = document.getElementById('togglePassword');
@@ -161,8 +130,29 @@
                 `<img src="/images/hide.svg" alt="hide" class="w-4 h-4 mb-4">`;
         });
 
+        // Simple CAPTCHA generator
+        function generateCaptcha() {
+            const charsArray = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            const lengthOtp = 6;
+            let captcha = [];
+            for (let i = 0; i < lengthOtp; i++) {
+                const index = Math.floor(Math.random() * charsArray.length + 1);
+                captcha.push(charsArray[index]);
+            }
+            document.getElementById("captchaText").textContent = captcha.join("");
+        }
+
+        // Validate form
         function validateForm(event) {
             event.preventDefault();
+            const captchaInput = document.getElementById('captchaInput').value;
+            const captchaText = document.getElementById('captchaText').textContent;
+
+            if (captchaInput !== captchaText) {
+                showToast("CAPTCHA tidak sesuai");
+                return;
+            }
+
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
 
@@ -176,10 +166,9 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        // Redirect ke URL yang diberikan oleh server
                         window.location.href = data.redirectUrl;
                     } else {
-                        showToast(data.message); // Tampilkan pesan kesalahan
+                        showToast(data.message);
                     }
                 })
                 .catch(error => {
@@ -187,9 +176,6 @@
                     showToast('Terjadi kesalahan. Silakan coba lagi');
                 });
         }
-
-
-
 
         // Show toast with custom message
         function showToast(message) {
@@ -199,6 +185,11 @@
             setTimeout(() => {
                 toast.classList.remove('show-toast');
             }, 3000);
+        }
+
+        // Generate CAPTCHA on page load
+        window.onload = function () {
+            generateCaptcha();
         }
     </script>
 </body>
