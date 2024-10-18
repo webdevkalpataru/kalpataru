@@ -25,8 +25,6 @@ $routes->get('publikasi/buku', 'PublikasiController::buku');
 $routes->get('artikel/(:any)', 'PublikasiController::detailartikel/$1');
 $routes->get('berita/(:any)', 'PublikasiController::detailberita/$1');
 
-$routes->get('berita/(:any)', 'PublikasiController::detailberita/$1');
-
 
 
 /* Auth Pengusul */
@@ -59,15 +57,35 @@ $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
     $routes->get('tambahcalonidentitas', 'PengusulController::tambahCalonIdentitas');
     $routes->post('simpancalonidentitas', 'PengusulController::simpanCalonIdentitas'); // Handle the form submission
 
-    $routes->post('simpanForm/(:any)', 'PengusulController::simpanForm/$1');
-    $routes->get('detailusulansaya/(:num)', 'PengusulController::detailusulansaya/$1');
-    $routes->get('detailusulansayaedit/(:num)', 'PengusulController::detailUsulanSayaEdit/$1');
+    // Route for "Tambah Calon" step 3 (Kegiatan)
+    $routes->get('tambahcalonkegiatan', 'PengusulController::tambahCalonKegiatan');
+    $routes->post('simpancalonkegiatan', 'PengusulController::simpanCalonKegiatan');
 
+    // Route for "Tambah Calon" step 4 (Dampak)
+    $routes->get('tambahcalondampak', 'PengusulController::tambahCalonDampak');
+    $routes->post('simpancalondampak', 'PengusulController::simpanCalonDampak');
+
+    // Route for "Tambah Calon" step 5 (PMIK)
+    $routes->get('tambahcalonpmik', 'PengusulController::tambahcalonpmik');
+    $routes->post('simpancalonpmik', 'PengusulController::simpanCalonPmik');
+
+    // Route for "Tambah Calon" step 6 (Keswadayaan)
+    $routes->get('tambahcalonkeswadayaan', 'PengusulController::tambahcalonkeswadayaan');
+    $routes->post('simpancalonkeswadayaan', 'PengusulController::simpanCalonKeswadayaan');
+
+    // Route for "Tambah Calon" step 7 (Keistimewaan)
+    $routes->get('tambahcalonkeistimewaan', 'PengusulController::tambahcalonkeistimewaan');
+    $routes->post('simpancalonkeistimewaan', 'PengusulController::simpanCalonKeistimewaan');
 
     // Routes usulan saya
     $routes->get('usulansaya', 'PengusulController::usulansaya');
     $routes->get('usulandlhk', 'PengusulController::usulandlhk');
+    $routes->get('detailusulansaya/(:num)', 'PengusulController::detailusulansaya/$1');
+    $routes->get('detailusulansayaedit/(:num)', 'PengusulController::editUsulan/$1');
     $routes->get('detailusulandlhk', 'PengusulController::detailusulandlhk');
+
+    // Routes update status
+    $routes->post('usulansaya', 'PengusulController::updateStatus');
 
     // Routes artikel
     $routes->get('artikel-saya', 'PengusulController::artikelsaya');
@@ -81,10 +99,11 @@ $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
     $routes->get('panduanpendaftaran', 'PengusulController::panduanpendaftaran');
     $routes->get('downloadSuratPengantar/(:any)', 'AuthController::downloadSuratPengantar/$1');
 
+    // Routes PDF
     $routes->get('pdf/(:any)', 'PengusulController::generatePDF/$1');
+
 });
 
-$routes->post('pengusul/usulansaya', 'PengusulController::updateStatus');
 
 /* Penerima */
 $routes->group('penerima', ['filter' => 'auth'], function ($routes) {
@@ -100,6 +119,16 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('akunpengusul', 'AdminController::akunpengusul');
     $routes->get('akundlhk', 'AdminController::akundlhk');
     $routes->get('akuntimteknis', 'AdminController::akuntimteknis');
+    $routes->get('daftartimteknis', 'AuthController::registerTimTeknis');
+    $routes->post('daftartimteknis', 'AuthController::createRegisterTimTeknis');
+    $routes->get('tambahartikeladmin', 'AdminController::tambahartikeladmin');
+    $routes->get('beritaadmin', 'AdminController::beritaadmin');
+    $routes->get('daftarakundlhk', 'AuthController::registerDLHK');
+    $routes->post('daftarakundlhk', 'AuthController::createRegisterDLHK');
+    $routes->get('daftardppk', 'AuthController::registerDPPK');
+    $routes->post('daftardppk', 'AuthController::createRegisterDPPK');
+    $routes->get('daftarakunpengguna', 'AuthController::registerPenerima');
+    $routes->post('daftarakunpengguna', 'AuthController::createRegisterPenerima');
     $routes->get('daftartimteknis', 'AdminController::daftartimteknis');
     $routes->get('akundppk', 'AdminController::akundppk');
     $routes->get('daftardppk', 'AdminController::daftardppk');
@@ -137,7 +166,7 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
 });
 
 /* Tim Teknis */
-$routes->group('timteknis', function ($routes) {
+$routes->group('timteknis', ['filter' => 'auth'], function ($routes) {
     $routes->get('datacalonusulan', 'TimteknisController::datacalonusulan');
     $routes->get('detaildatacalonusulan', 'TimteknisController::detaildatacalonusulan');
 
