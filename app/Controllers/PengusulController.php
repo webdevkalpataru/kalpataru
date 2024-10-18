@@ -697,14 +697,56 @@ class PengusulController extends BaseController
 
     public function usulandlhk()
     {
-        $Model = new PendaftaranModel();
+        $model = new PendaftaranModel();
+
+        // Ambil data dengan pagination, limit 5 per halaman
+        $perPage = 5;
+
+        // Ambil kategori dari filter
+        $kategori = $this->request->getVar('kategori');
+
+        // Ambil kata kunci dari request untuk pencarian
+        $keyword = $this->request->getGet('search');
+
+        // Ambil ID pengusul dan provinsi dari session
+        $id_pengusul = session()->get('id_pengusul');
         $provinsi = session()->get('provinsi');
 
-        $usulan = $Model->where('provinsi', $provinsi)->findAll();
+        // Filter query berdasarkan id_pengusul
+        $model->where('id_pengusul', $id_pengusul);
 
+        // Filter query berdasarkan provinsi
+        if ($provinsi) {
+            $model->where('provinsi', $provinsi);
+        }
+
+        // Tambahkan filter untuk status pendaftaran
+        $validStatuses = ['Sesuai', 'Verifikasi Administrasi', 'Lolos Administrasi', 'Tidak Lolos Administrasi'];
+        $model->whereIn('status_pendaftaran', $validStatuses);
+
+        // Jika kategori dipilih, tambahkan filter kategori
+        if ($kategori) {
+            $model->where('kategori', $kategori);
+        }
+
+        // Jika ada kata kunci, tambahkan kondisi pencarian berdasarkan nama
+        if ($keyword) {
+            $model->like('nama', $keyword);
+        }
+
+        // Dapatkan data dengan pagination
+        $usulan = $model->paginate($perPage, 'usulan');
+
+        // Ambil pager untuk pagination
+        $pager = $model->pager;
+
+        // Persiapkan data untuk dikirim ke view
         $data = [
             'title' => 'Usulan DLHK',
-            'usulan' => $usulan
+            'usulan' => $usulan,
+            'pager' => $pager,
+            'kategori' => $kategori,
+            'keyword' => $keyword,
         ];
 
         return view('pengusul/usulandlhk', $data);

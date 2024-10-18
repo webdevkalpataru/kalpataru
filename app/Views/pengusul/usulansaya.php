@@ -89,8 +89,8 @@
                         <tbody>
                             <?php if (empty($usulan)): ?>
                                 <tr>
-                                    <td colspan="8" class="p-4 text-center text-sm text-red-600">
-                                        Belum ada data
+                                    <td colspan="8" class="p-4 text-center block text-xs text-slate-800">
+                                        Belum ada data usulan
                                     </td>
                                 </tr>
                             <?php else: ?>
@@ -122,7 +122,7 @@
                                         <td class="p-4 border-b border-slate-200 text-center">
                                             <button class="lihatButton w-20 rounded-md py-2 px-2 text-center font-semibold text-xs text-primary bg-secondary" type="button">Lihat</button>
                                         </td>
-                                        <td class="px-2 pt-1 border-b border-slate-200 text-center viewCell">
+                                        <td class="border-b border-slate-200 text-center viewCell">
                                             <a href="./detailusulansaya/<?= $u['id_pendaftaran']; ?>">
                                                 <!-- Ikon Lihat -->
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
@@ -130,7 +130,7 @@
                                                 </svg>
                                             </a>
                                         </td>
-                                        <td class="px-2 border-b border-slate-200 text-center editCell">
+                                        <td class="border-b border-slate-200 text-center editCell">
                                             <?php if (in_array($u['status_pendaftaran'], ['Draft', 'Perlu Perbaikan'])): ?>
                                                 <a href="./detailusulansayaedit/<?= $u['id_pendaftaran']; ?>">
                                                     <!-- Ikon Edit -->
@@ -140,7 +140,7 @@
                                                 </a>
                                             <?php endif; ?>
                                         </td>
-                                        <td class="px-2 border-b border-slate-200 text-center downloadCell">
+                                        <td class="border-b border-slate-200 text-center downloadCell">
                                             <?php if (!in_array($u['status_pendaftaran'], ['Draft', 'Perlu Perbaikan'])): ?>
                                                 <a href="./pdf/<?= $u['kode_registrasi']; ?>">
                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
@@ -149,7 +149,7 @@
                                                 </a>
                                             <?php endif; ?>
                                         </td>
-                                        <td class="px-2 border-b border-slate-200 text-center deleteCell">
+                                        <td class="border-b border-slate-200 text-center deleteCell">
                                             <?php if ($u['status_pendaftaran'] === 'Perlu Perbaikan'): ?>
                                                 <a href="./detailusulansayadelete">
                                                     <!-- Ikon Hapus -->
