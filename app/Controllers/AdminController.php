@@ -458,7 +458,7 @@ class AdminController extends BaseController
         $model = new BeritaModel();
 
         // Ambil input dari formulir
-        $judulBerita = $this->request->getPost('judul');
+        $judul = $this->request->getPost('judul');
         $konten = $this->request->getPost('konten');
 
         // Memproses foto yang diupload
@@ -469,7 +469,7 @@ class AdminController extends BaseController
         $validation->setRules([
             'judul' => [
                 'label' => 'Judul',
-                'rules' => 'required|min_length[5]|max_length[100]|is_unique[artikel.judul,id_berita,' . $id . ']' // Judul harus unik kecuali untuk artikel yang sedang diedit
+                'rules' => 'required|min_length[5]|max_length[100]|is_unique[berita.judul,id_berita,' . $id . ']' // Judul harus unik kecuali untuk artikel yang sedang diedit
             ],
             'konten' => [
                 'label' => 'Konten',
@@ -504,7 +504,7 @@ class AdminController extends BaseController
         }
 
         // Cek apakah slug perlu diupdate
-        $slug = url_title($judulBerita, '-', true);
+        $slug = url_title($judul, '-', true);
         $existingArticle = $model->where('slug', $slug)->where('id_berita !=', $id)->first(); // Cek apakah slug sudah ada
         if ($existingArticle) {
             return $this->response->setJSON(['success' => false, 'errors' => 'Judul sudah digunakan.']);
@@ -512,22 +512,22 @@ class AdminController extends BaseController
 
         // Siapkan data untuk diupdate
         $data = [
-            'judul' => htmlspecialchars($judulBerita, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+            'judul' => htmlspecialchars($judul, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
             'slug' => $slug,
             'konten' => htmlspecialchars($konten, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
         ];
 
         // Jika ada foto baru yang diupload, masukkan ke dalam data
         if (!empty($fotoPath)) {
-            $dataArtikel['foto'] = $fotoPath;
+            $data['foto'] = $fotoPath;
         }
 
         // Simpan artikel yang sudah diperbarui
         if ($model->update($id, $data)) {
-            return $this->response->setJSON(['success' => true, 'message' => 'Artikel berhasil diperbarui.']);
+            return $this->response->setJSON(['success' => true, 'message' => 'Berita berhasil diperbarui.']);
         } else {
             // Tampilkan pesan umum untuk kesalahan penyimpanan
-            return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui artikel.']);
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui berita.']);
         }
     }
 

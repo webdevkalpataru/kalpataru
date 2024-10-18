@@ -270,20 +270,24 @@
                     &#9664;
                 </button>
                 <div id="beritaContainer" class="flex overflow-x-auto space-x-4 scrollbar-hide">
-                    <?php foreach ($berita['data_berita'] as $item): ?>
-                        <div class="flex-none w-64 bg-white rounded-lg shadow-md my-2">
-                            <img src="<?= base_url('images/berita/' . esc($item->foto)) ?>" alt="<?= esc($item->judul) ?>" class="w-full h-40 object-cover rounded-t-lg">
-                            <div class="p-4">
-                                <h3 class="font-bold text-md mb-2"><?= word_limiter(esc($item->judul), 4); ?></h3>
-                                <a href="#" class="text-primary flex items-center text-sm">
-                                    Baca Selengkapnya
-                                    <svg class="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                    </svg>
-                                </a>
+                    <?php if (!empty($berita) && is_array($berita)): ?>
+                        <?php foreach ($berita as $item): ?>
+                            <div class="flex-none w-64 bg-white rounded-lg shadow-md my-2">
+                                <img src="/public/<?= esc($item['foto']); ?>" alt="<?= esc($item['judul']); ?>" class="w-full h-40 object-cover rounded-t-lg">
+                                <div class="p-4">
+                                    <h3 class="font-bold text-md mb-2"><?= word_limiter(esc($item['judul']), 4); ?></h3>
+                                    <a href="/berita/<?= esc($item['slug']); ?>" class="text-primary flex items-center text-sm">
+                                        Baca Selengkapnya
+                                        <svg class="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                        </svg>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                    <?php endforeach; ?>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>Tidak ada berita yang terbit saat ini.</p>
+                    <?php endif; ?>
                 </div>
 
                 <!-- arrow kanan -->
@@ -469,7 +473,7 @@
     </script>
 
     <script defer>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             var map = L.map('map', {
                 center: [-1.062209, 113.885034],
                 zoom: 5,
@@ -566,7 +570,7 @@
                 'Sumatera Barat': '#00FFFF',
                 'Sumatera Utara': '#FFB6C1',
                 'Jambi': '#FFA07A',
-                'Riau': '#20B2AA'   
+                'Riau': '#20B2AA'
             };
 
             for (let provinsi in geojsonUrls) {
@@ -574,16 +578,16 @@
                     .then(response => response.json())
                     .then(data => {
                         var geojsonLayer = L.geoJSON(data, {
-                            style: function () {
-                                return { 
-                                    color: colors[provinsi], 
-                                    fillColor: colors[provinsi], 
+                            style: function() {
+                                return {
+                                    color: colors[provinsi],
+                                    fillColor: colors[provinsi],
                                     fillOpacity: 1,
                                     weight: 1
                                 };
                             },
-                            onEachFeature: function (feature, layer) {
-                                var penerimaDiProvinsi = penerimaData.filter(function (penerima) {
+                            onEachFeature: function(feature, layer) {
+                                var penerimaDiProvinsi = penerimaData.filter(function(penerima) {
                                     return penerima.provinsi === provinsi;
                                 });
                                 var popupContent = '<strong>' + provinsi + '</strong><br>Jumlah Penerima: ' + penerimaDiProvinsi.length;
@@ -598,14 +602,14 @@
                                     })
                                 }).addTo(map);
 
-                                layer.on('click', function () {
+                                layer.on('click', function() {
                                     var popup = L.popup()
                                         .setLatLng(center)
                                         .setContent(popupContent)
                                         .openOn(map);
                                 });
 
-                                label.on('click', function () {
+                                label.on('click', function() {
                                     var popup = L.popup()
                                         .setLatLng(center)
                                         .setContent(popupContent)
