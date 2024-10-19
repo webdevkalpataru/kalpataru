@@ -286,7 +286,7 @@
                             </div>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <p>Tidak ada berita yang terbit saat ini.</p>
+                        <p>Tidak ada berita yang terbit saat ini</p>
                     <?php endif; ?>
                 </div>
 
@@ -319,7 +319,7 @@
                 <div id="videoContainer" class="flex overflow-x-auto space-x-4 scrollbar-hide">
                     <?php if (!empty($video) && is_array($video)): ?>
                         <?php foreach ($video as $item): ?>
-                            <div class="flex-none w-full bg-white rounded-lg shadow-md my-2">
+                            <div class="flex-none bg-white rounded-lg shadow-md my-2">
                                 <?php
                                 preg_match("/(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/", $item['link_video'], $matches);
                                 $youtube_id = $matches[1];
