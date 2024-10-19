@@ -195,7 +195,7 @@ class PengusulController extends BaseController
             return redirect()->back()->with('error', 'Data kategori atau pendaftaran tidak ditemukan.');
         }
 
-        $validation = \Config\Services::validation();
+        /* $validation = \Config\Services::validation();
         $validation->setRules([
             'nama_individu' => 'required|alpha_space',
             'nama_ketua' => 'required|alpha_space',
@@ -233,14 +233,14 @@ class PengusulController extends BaseController
             'exact_length' => '{field} harus terdiri dari tepat {param} digit.',
             'uploaded' => '{field} harus diunggah.',
             'mime_in' => '{field} harus berformat {param}.',
-        ]);
+        ]); */
 
 
         // Cek apakah validasi gagal
-        if (!$this->validate($validation->getRules())) {
+        /* if (!$this->validate($validation->getRules())) {
             // Kembalikan ke halaman sebelumnya dengan input dan pesan error
             return redirect()->back()->withInput()->with('errors', $validation->getErrors());
-        }
+        } */
 
         $legalitasFile = $this->request->getFile('legalitas');
 
@@ -300,7 +300,7 @@ class PengusulController extends BaseController
                 'provinsi' => $this->request->getPost('provinsi'),
                 'kode_pos' => $this->request->getPost('kode_pos'),
                 'sosial_media' => $this->request->getPost('media_sosial'),
-                'nama_ketua' => $this->request->getPost('nama_ketua'),
+                'nama_kelompok' => $this->request->getPost('nama_kelompok'),
                 'nik' => $this->request->getPost('nik'),
                 'tempat_lahir' => $this->request->getPost('tempat_lahir'),
                 'tanggal_lahir' => $this->request->getPost('tanggal_lahir'),
@@ -702,7 +702,7 @@ class PengusulController extends BaseController
         $pengusul = $PengusulModel->where('id_pengusul', $id_pengusul)->first();
 
         // Cek kelengkapan data pengusul
-        $isComplete = !empty($pengusul['jabatan_pekerjaan']) && !empty($pengusul['jenis_kelamin']) && !empty($pengusul['jalan']) && !empty($pengusul['rt_rw']) && !empty($pengusul['rt_rw']) && !empty($pengusul['desa']) && !empty($pengusul['kecamatan']) && !empty($pengusul['kab_kota']) && !empty($pengusul['kode_pos']) && !empty($pengusul['surat_pengantar']);
+        $isComplete = !empty($pengusul['jabatan_pekerjaan']) && !empty($pengusul['jenis_kelamin']) && !empty($pengusul['jalan']) && !empty($pengusul['rt_rw']) && !empty($pengusul['desa']) && !empty($pengusul['kecamatan']) && !empty($pengusul['kab_kota']) && !empty($pengusul['kode_pos']) && !empty($pengusul['surat_pengantar']);
 
         // Persiapkan data untuk dikirim ke view
         $data = [

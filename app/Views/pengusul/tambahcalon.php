@@ -62,10 +62,6 @@
 
             </form>
 
-            <div id="validationMessage" class="hidden text-red-600 text-center mt-4">
-                Silahkan pilih kategori sebelum melanjutkan!
-            </div>
-
         </div>
 
     </div>

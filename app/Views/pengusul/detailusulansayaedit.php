@@ -37,7 +37,7 @@
                     <button id="keistimewaanButton" class="mt-2 w-full btn-section md:w-40 rounded-md py-2 px-4 text-center text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none text-sm" type="button" data-target="keistimewaan">Keistimewaan</button>
 
                     <!-- Button Kembali ke Usulan Saya -->
-                    <button onclick="window.history.back()"
+                    <button onclick="window.location.href='/pengusul/usulansaya'"
                         class="text-sm font-bold text-gray-600 no-underline focus:outline-none text-start mt-6">
                         <span class="font-bold text-lg items-center">←</span> Kembali
                     </button>
@@ -131,12 +131,12 @@
                                 <div class="lg:flex gap-6">
                                     <div class="flex items-center py-2 ">
                                         <input name="jenis_kelamin" type="radio" class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-primary checked:bg-primary transition-all"
-                                            id="perempuan" value="Perempuan" <?= $identitasc['jenis_kelamin'] == 'Perempuan' ? 'checked' : '' ?>>
+                                            id="perempuan" value="Perempuan" <?= $identitasabd['jenis_kelamin'] == 'Perempuan' ? 'checked' : '' ?>>
                                         <label class="ml-2 text-black cursor-pointer text-sm" for="perempuan">Perempuan</label>
                                     </div>
                                     <div class="flex items-center py-2 ">
                                         <input name="jenis_kelamin" type="radio" class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-primary checked:bg-primary transition-all"
-                                            id="laki-laki" value="Laki-Laki" <?= $identitasc['jenis_kelamin'] == 'Laki-Laki' ? 'checked' : '' ?>>
+                                            id="laki-laki" value="Laki-Laki" <?= $identitasabd['jenis_kelamin'] == 'Laki-Laki' ? 'checked' : '' ?>>
                                         <label class="ml-2 text-black cursor-pointer text-sm" for="laki-laki">Laki-Laki</label>
                                     </div>
                                 </div>
@@ -1003,10 +1003,10 @@
                 newFotoDiv.classList.add('mb-4');
                 newFotoDiv.innerHTML = `
                 <label class="block mb-2 text-sm text-black">Foto Kegiatan <span class="text-primary"> (.jpg/jpeg)</span></label>
-                <input name="foto_kegiatan${fotoInputCount + 1}" type="file" accept=".jpg, .jpeg" class="mb-2 w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-                <label class="block mb-2 text-sm text-black">Deskripsi Foto </label>
-                <input name="deskripsi_foto_kegiatan${fotoInputCount + 1}" type="text" placeholder="Keterangan Foto" class="mb-4 w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-                `;
+<input name="foto_kegiatan${fotoInputCount + 1}" type="file" accept=".jpg, .jpeg" class="mb-2 w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+<label class="block mb-2 text-sm text-black">Deskripsi Foto </label>
+            <input name="deskripsi_foto_kegiatan${fotoInputCount + 1}" type="text" placeholder="Keterangan Foto" class="mb-4 w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+        `;
                 fotoContainer.insertBefore(newFotoDiv, tambahFotoButton);
                 fotoInputCount++;
 
