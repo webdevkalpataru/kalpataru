@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\ArtikelModel;
 use App\Models\BeritaModel;
+use App\Models\PengusulModel;
 use App\Models\VideoModel;
 
 
@@ -13,12 +14,6 @@ class AdminController extends BaseController
     {
         $data['title'] = "Dashboard Admin";
         return view('admin/dashboard', ['title' => 'Dashboard Admin']);
-    }
-
-    public function akunpengusul()
-    {
-        $data['title'] = "Akun Pengusul";
-        return view('admin/akunpengusul', ['title' => 'Akun Pengusul']);
     }
 
     public function artikeladmin()
@@ -281,12 +276,52 @@ class AdminController extends BaseController
         return redirect()->to('/admin/artikel'); // Sesuaikan dengan URL yang diinginkan
     }
 
-
-
-    public function artikelpengguna()
+    public function akunpengusul()
     {
-        $data['title'] = "Artikel Pengguna";
-        return view('admin/artikelpengguna', ['title' => 'Artikel Pengguna']);
+        $model = new PengusulModel();
+        $pengusul = $model->where('role_akun', 'Pengusul')->findAll();
+
+        $data['pengusul'] = $pengusul;
+        $data['countAllPengusul'] = count($data['pengusul']); // Menghitung semua akun pengusul
+        $data['title'] = "Akun Pengusul";
+
+        return view('admin/akunpengusul', $data);
+    }
+
+    public function updatePengusul()
+    {
+        // Inisialisasi model
+        $model = new PengusulModel();
+
+        // Ambil data dari POST request
+        $id_pengusul = $this->request->getPost('id_pengusul');
+        $status_akun = $this->request->getPost('status_akun');
+
+        // Validasi data (opsional, misalnya cek apakah ID dan status valid)
+        if ($id_pengusul && $status_akun) {
+            // Update status di database
+            $model->update($id_pengusul, ['status_akun' => $status_akun]);
+            // Mengembalikan respons untuk merefresh halaman
+            return $this->response->setJSON(['success' => true, 'message' => 'Status Pengusul berhasil diperbarui']);
+        } else {
+            // Mengembalikan respons untuk merefresh halaman
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui staus pengusul']);
+        }
+    }
+
+    public function hapusPengusul($id_pengusul)
+    {
+        $model = new PengusulModel();
+
+        // Hapus artikel berdasarkan ID
+        if ($model->delete($id_pengusul)) {
+            // Set flash message atau lakukan redirect setelah menghapus
+            session()->setFlashdata('success', 'Pengusul berhasil dihapus.');
+        } else {
+            session()->setFlashdata('error', 'Gagal menghapus pengusul.');
+        }
+
+        return redirect()->to('/admin/pengusul'); // Sesuaikan dengan URL yang diinginkan
     }
 
     public function akundlhk()

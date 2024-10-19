@@ -113,7 +113,6 @@ $routes->group('penerima', ['filter' => 'auth'], function ($routes) {
 /* Admin */
 $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('dashboard', 'AdminController::dashboard');
-    $routes->get('akunpengusul', 'AdminController::akunpengusul');
     $routes->get('akundlhk', 'AdminController::akundlhk');
     $routes->get('akuntimteknis', 'AdminController::akuntimteknis');
     $routes->get('daftartimteknis', 'AdminController::daftartimteknis');
@@ -125,9 +124,13 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('daftarakunpengguna', 'AdminController::daftarakunpengguna');
     $routes->get('daftarakundlhk', 'AdminController::daftarakundlhk');
 
+    // Manajemen Akun Pengusul
+    $routes->get('pengusul', 'AdminController::akunpengusul');
+    $routes->post('pengusul/hapus/(:num)', 'AdminController::hapusPengusul/$1');
+    $routes->post('updatepengusul', 'AdminController::updatePengusul');
+
     // Manajemen Artikel
     $routes->get('artikel', 'AdminController::artikeladmin');
-    $routes->get('artikelpengguna', 'AdminController::artikelpengguna');
     $routes->get('tambah-artikel', 'AdminController::tambahartikeladmin');
     $routes->post('tambah-artikel', 'AdminController::tambahArtikelAction');
     $routes->get('artikel/edit/(:any)', 'AdminController::editArtikel/$1');

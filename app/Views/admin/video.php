@@ -18,16 +18,18 @@
     <div class="lg:flex-1 p-6">
         <div class="min-h-screen flex flex-col">
 
-            <div class="container mx-auto flex items-center justify-between p-4 md:p-6">
-                <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Video</h1>
-                <div class="flex items-center">
-                    <p class="text-gray-500 mr-2 md:mr-4">Hello, <?= session()->get('nama'); ?></p>
-                    <a href="/auth/logout" class="bg-rejected text-white px-3 py-2 md:px-4 md:py-2 rounded-lg inline-block">Keluar</a>
+            <header class="bg-white shadow">
+                <div class="container mx-auto flex items-center justify-between p-4 md:p-6">
+                    <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Detail Video</h1>
+                    <div class="flex items-center">
+                        <p class="text-gray-500 mr-2 md:mr-4">Hello, <?= session()->get('nama'); ?></p>
+                        <a href="/auth/logout" class="bg-rejected text-white px-3 py-2 md:px-4 md:py-2 rounded-lg inline-block">Keluar</a>
+                    </div>
                 </div>
-            </div>
+            </header>
             <a href="/admin/tambah-video">
                 <div>
-                    <button id="tambahVideo" class="w-48 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button"> <span>&#10010</span> Tambah Video</button>
+                    <button id="tambahVideo" class="mt-4 w-48 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button"> <span>&#10010</span> Tambah Video</button>
                 </div>
             </a>
 
@@ -50,10 +52,10 @@
                                     Tanggal
                                 </p>
                             </th>
-                            <th class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
+                            <th class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100 text-center">
                                 <p class="flex items-center justify-between gap-2 text-sm font-bold leading-none text-slate-800">Status</p>
                             </th>
-                            <th class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
+                            <th class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100 text-center">
                                 <p class="flex items-center ml-8 gap-2 text-sm font-bold leading-none text-slate-800">Detail</p>
                             </th>
                             <th class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100 text-center">
@@ -71,13 +73,13 @@
                                 $no++;
                             ?>
                                 <tr class="hover:bg-slate-50">
-                                    <td class="p-4 border-b border-slate-200">
+                                    <td class="p-4 border-b border-slate-200 text-center">
                                         <p class="block text-sm text-slate-800"><?= $no ?></p>
                                     </td>
-                                    <td class="p-4 border-b border-slate-200">
+                                    <td class="p-4 border-b border-slate-200 text-center">
                                         <p class="block text-sm text-slate-800"><?= esc($b['judul_video']); ?></p>
                                     </td>
-                                    <td class="p-4 border-b border-slate-200">
+                                    <td class="p-4 border-b border-slate-200 text-center">
                                         <p class="block text-sm text-slate-800"><?= esc($b['tanggal']); ?></p>
                                     </td>
                                     <td class="p-4 border-b border-slate-200 text-center">
@@ -94,12 +96,12 @@
                                             </select>
                                         </form>
                                     </td>
-                                    <td class="p-4 border-b border-slate-200">
+                                    <td class="p-4 border-b border-slate-200 text-center">
                                         <div>
                                             <a href="/admin/video/<?= esc($b['id_video']); ?>" class="mt-4 w-3/2 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover">Selengkapnya</a>
                                         </div>
                                     </td>
-                                    <td class="p-4 border-b border-slate-200">
+                                    <td class="p-4 border-b border-slate-200 text-center">
                                         <form action="/admin/video/hapus/<?= esc($b['id_video']); ?>" method="POST">
                                             <button type="submit" class="text-red-600">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="red" class="size-6">
