@@ -299,6 +299,7 @@
                             <div class="space-y-4">
                                 <?= csrf_field(); ?>
                                 <input type="hidden" name="id_pendaftaran" value="<?= $pendaftaran['id_pendaftaran'] ?>">
+                                <p class="font-semibold mb-2 text-md text-primary underline">Kegiatan Utama</p>
                                 <div>
                                     <label class="block mb-2 text-sm text-black" for="tema">Tema Kegiatan</label>
                                     <select name="tema" id="tema-kegiatan" class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease">
@@ -381,7 +382,7 @@
                         </div>
 
                         <div class="flex justify-between mt-4">
-                            <button id="tambahKegiatanBtn" class="w-40 rounded-md py-2 text-center text-sm text-primary transition-all shadow-md hover:shadow-lg bg-secondary active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button" onclick="tambahKegiatan()"> <span>&#10010</span> Tambah Kegiatan</button>
+                            <button id="tambahKegiatanBtn" class="w-60 rounded-md py-2 text-center text-sm text-primary transition-all shadow-md hover:shadow-lg bg-secondary active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button" onclick="tambahKegiatan()"> <span>&#10010</span> Tambah Kegiatan Lainnya</button>
                         </div>
 
                         <div class="flex justify-end mt-4">
@@ -828,6 +829,7 @@
                 <div class="space-y-4">
                  <?= csrf_field(); ?>
                                 <input type="hidden" name="id_pendaftaran" value="<?= $pendaftaran['id_pendaftaran'] ?>">
+                                <p class="mt-8 font-semibold mb-2 text-md text-primary underline">Kegiatan Lainnya</p>
                         <div>
                             <label class="block mb-2 text-sm text-black">Tema Kegiatan</label>
                             <select name="tema_kegiatan[]" id="tema-kegiatan-${kegiatanCount}" class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease">
