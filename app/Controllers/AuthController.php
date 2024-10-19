@@ -6,7 +6,7 @@ use App\Models\AdminModel;
 use App\Models\PengusulModel;
 use App\Models\TimteknisModel;
 use App\Models\DppkModel;
-use App\Models\PenerimaModel; // Pastikan model user sudah ada
+use App\Models\PenerimaModel;
 
 class AuthController extends BaseController
 {
@@ -23,7 +23,7 @@ class AuthController extends BaseController
         // Aturan validasi untuk form login
         $validation->setRules([
             'email' => 'required|valid_email',
-            'kata_sandi' => 'required|min_length[8]',
+            'kata_sandi' => 'required',
         ]);
 
         // Lakukan validasi input
@@ -38,7 +38,7 @@ class AuthController extends BaseController
 
         // Ambil input dari formulir
         $email = $this->request->getPost('email');
-        $kataSandi = $this->request->getPost('kata_sandi');
+        $kata_sandi = $this->request->getPost('kata_sandi');
 
         // Cari pengguna berdasarkan email
         $user = $model->where('email', $email)->first();
@@ -46,7 +46,7 @@ class AuthController extends BaseController
         // Periksa apakah pengguna ditemukan
         if ($user) {
             // Verifikasi kata sandi
-            if (password_verify($kataSandi, $user['kata_sandi'])) {
+            if (password_verify($kata_sandi, $user['kata_sandi'])) {
                 // Cek status akun
                 if ($user['status_akun'] === 'Aktif') {
                     $sessionData = [
@@ -334,7 +334,7 @@ class AuthController extends BaseController
         // Aturan validasi untuk form login
         $validation->setRules([
             'email' => 'required|valid_email',
-            'kata_sandi' => 'required|min_length[8]',
+            'kata_sandi' => 'required',
         ]);
 
         // Lakukan validasi input
@@ -375,7 +375,9 @@ class AuthController extends BaseController
         session()->set('id_admin', $admin['id_admin']);
         session()->set('email', $admin['email']);
         session()->set('nama', $admin['nama']);
+        session()->set('role', 'admin');
         session()->set('logged_in', true);
+
 
         return $this->response->setJSON([
             'success' => true,
@@ -480,11 +482,11 @@ class AuthController extends BaseController
     {
         return view('admin/daftartimteknis', ['title' => 'Register Tim Teknis']);
     }
-    
+
     public function createRegisterTimTeknis()
     {
         $model = new TimTeknisModel();
-        
+
         $data = [
             'nama' => $this->request->getPost('nama'),
             'nip' => $this->request->getPost('nip'),
@@ -506,11 +508,11 @@ class AuthController extends BaseController
     {
         return view('admin/daftardppk', ['title' => 'Register DPPK']);
     }
-    
+
     public function createRegisterDPPK()
     {
         $model = new DppkModel();
-        
+
         $data = [
             'nama' => $this->request->getPost('nama'),
             'nip' => $this->request->getPost('nip'),
@@ -536,9 +538,9 @@ class AuthController extends BaseController
     public function createRegisterPenerima()
     {
         $model = new PenerimaModel();
-        
+
         $kategoriValue = $this->request->getPost('kategori');
-        
+
         switch ($kategoriValue) {
             case 'A':
                 $kategori = 'Perintis Lingkungan';

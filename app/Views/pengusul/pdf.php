@@ -106,10 +106,10 @@ $subTemaMapping = [
     <p class="heading">B. IDENTITAS CALON</p>
     <table>
         <?php if ($prefix === 'C'): ?>
-        <tr><td class="label">Nama Kelompok/Komunitas</td><td class="separator">:</td><td class="input"><?= $pendaftaran['nama']; ?><</td></tr>
+        <tr><td class="label">Nama Kelompok/Komunitas</td><td class="separator">:</td><td class="input"><?= $pendaftaran['nama_kelompok']; ?><</td></tr>
         <tr><td class="label">Tahun Berdirinya Kelompok/Komunitas</td><td class="separator">:</td><td class="input"><?= $pendaftaran['tahun_pembentukan']; ?></td></tr>
         <tr><td class="label">Jumlah Anggota</td><td class="separator">:</td><td class="input"><?= $pendaftaran['jumlah_anggota']; ?></td></tr>
-        <tr><td class="label">Nama Ketua</td><td class="separator">:</td><td class="input"><?= $pendaftaran['nama_ketua']; ?></td></tr>
+        <tr><td class="label">Nama Ketua</td><td class="separator">:</td><td class="input"><?= $pendaftaran['nama']; ?></td></tr>
         <tr><td class="label">Nomor Identitas Kependudukan (NIK) Ketua</td><td class="separator">:</td><td class="input"><?= $pendaftaran['nik']; ?></td></tr>
         <tr><td class="label">Tempat Lahir Ketua</td><td class="separator">:</td><td class="input"><?= $pendaftaran['tempat_lahir']; ?></td></tr>
         <tr><td class="label">Tanggal Lahir Ketua</td><td class="separator">:</td><td class="input"><?= $pendaftaran['tanggal_lahir']; ?></td></tr>

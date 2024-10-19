@@ -6,7 +6,6 @@ use App\Models\PublikasiModel;
 use App\Models\ArtikelModel;
 use App\Models\BeritaModel;
 
-
 helper('text');
 
 class PublikasiController extends BaseController
@@ -23,8 +22,41 @@ class PublikasiController extends BaseController
             $data['berita'] = $model->getBeritaTerbit();
             $data['countTerbit'] = $model->countBeritaTerbit();
         }
+        $model = new BeritaModel();
+        $keyword = $this->request->getGet('search');
+
+        if ($keyword) {
+            $data['berita'] = $model->searchBeritaTerbit($keyword);
+            $data['countTerbit'] = count($data['berita']);
+        } else {
+            $data['berita'] = $model->getBeritaTerbit();
+            $data['countTerbit'] = $model->countBeritaTerbit();
+        }
 
         $data['title'] = "Berita";
+        return view('berita', $data);
+    }
+
+    public function detailberita($slug)
+    {
+        $model = new BeritaModel();
+        $berita = $model->getDetailBeritaBySlug($slug);
+
+
+        if (!$berita) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('Berita tidak ditemukan');
+        }
+
+        // Jika artikel masih ditangguhkan
+        if ($berita['status'] !== 'Terbit') {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('Berita tidak ditemukan');
+        }
+
+        $data = [
+            'title' => $berita['judul'],
+            'berita' => $berita,
+        ];
+        return view('detailberita', $data);
         return view('berita', $data);
     }
 

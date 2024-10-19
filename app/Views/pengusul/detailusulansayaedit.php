@@ -44,7 +44,7 @@
                 </div>
 
                 <!-- Right side: Form inside a card -->
-                <?php if ($pendaftaran['kategori'] === 'Penyelamat'): ?>
+                <?php if ($pendaftaran['kategori'] === 'Penyelamat Lingkungan'): ?>
                     <div id="identitas-calon" class="form-section flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
                         <form id="identitasc" action="<?= base_url('pengusul/simpanForm/identitasc'); ?>" class="mb-2 w-full" method="post" enctype="multipart/form-data">
                             <?= csrf_field(); ?>
@@ -53,113 +53,135 @@
 
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Nama Kelompok</label>
-                                <input type="text" <?= $pendaftaran['nama']; ?> class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input type="text" name="nama_kelompok" value="<?= isset($identitasc['nama_kelompok']) ? $identitasc['nama_kelompok'] : ''; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Tahun Berdiri Kelompok</label>
-                                <input type="date" min="0" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input type="date" name="tahun_pembentukan" value="<?= isset($identitasc['tahun_pembentukan']) ? $identitasc['tahun_pembentukan'] : ''; ?>" min="0" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Jumlah Anggota</label>
-                                <input type="number" min="1" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input type="number" name="jumlah_anggota" value="<?= isset($identitasc['jumlah_anggota']) ? $identitasc['jumlah_anggota'] : ''; ?>" min="1" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Jalan</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input type="text" name="jalan" value="<?= isset($identitasc['jalan']) ? $identitasc['jalan'] : ''; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">RT/RW</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input type="text" name="rt_rw" value="<?= isset($identitasc['rt_rw']) ? $identitasc['rt_rw'] : ''; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Desa/Kelurahan</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input type="text" name="desa" value="<?= isset($identitasc['desa']) ? $identitasc['desa'] : ''; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Kecamatan</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input type="text" name="kecamatan" value="<?= isset($identitasc['kecamatan']) ? $identitasc['kecamatan'] : ''; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Kab/Kota</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input type="text" name="kab_kota" value="<?= isset($identitasc['kab_kota']) ? $identitasc['kab_kota'] : ''; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Provinsi</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input type="text" name="provinsi" value="<?= isset($identitasc['provinsi']) ? $identitasc['provinsi'] : ''; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Kode Pos</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input type="text" name="kode_pos" value="<?= isset($identitasc['kode_pos']) ? $identitasc['kode_pos'] : ''; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
-                            <div class="w-full mb-2">
+                            <div class="w-full mb-4">
                                 <label class="block mb-2 text-sm text-black">Media Sosial</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input name="sosial_media" value="<?= isset($identitasc['sosial_media']) ? $identitasc['sosial_media'] : ''; ?>" type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
-                                <label class="block mb-2 text-sm text-black">Unggah Surat Legalitas Kelompok <span class="text-primary">(.pdf)</span></label>
-                                <input id="suratpengantar" type="file" accept="application/pdf"
-                                    class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
+                                <label class="block mb-2 text-sm text-black">Surat Legalitas : <?php if (!empty($pendaftaran['legalitas'])): ?>
+                                        <?= esc($pendaftaran['legalitas']) ?>
+                                    <?php endif; ?><span class="text-primary">(.pdf)</span></label>
+                                <div class="relative">
+                                    <input name="legalitas" value="<?= isset($pendaftaran['legalitas']) ? $pendaftaran['legalitas'] : ''; ?>"
+                                        id="legalitas" type="file" accept=".pdf"
+                                        class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-primary file:text-white">
+                                </div>
                             </div>
                             <p class="mt-8 font-semibold mb-2 text-md text-primary underline">Data Ketua Kelompok/ Komunitas</p>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Nama Ketua</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input type="text" name="nama_ketua" value="<?= isset($identitasc['nama']) ? $identitasc['nama'] : ''; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">NIK</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input type="text" name="nik" value="<?= isset($identitasc['nik']) ? $identitasc['nik'] : ''; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Tempat Lahir</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input type="text" name="tempat_lahir" value="<?= isset($identitasc['tempat_lahir']) ? $identitasc['tempat_lahir'] : ''; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Tanggal Lahir</label>
-                                <input type="date" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input type="date" name="tanggal_lahir" value="<?= isset($identitasc['tanggal_lahir']) ? $identitasc['tanggal_lahir'] : ''; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Usia</label>
-                                <input type="number" min="0" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input type="number" name="usia" value="<?= isset($identitasc['usia']) ? $identitasc['usia'] : ''; ?>" min="0" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
-                            <div class="w-full">
+                            <div class="w-full mb-4">
                                 <label class="block mb-2 text-sm text-black">Jenis Kelamin</label>
                                 <div class="lg:flex gap-6">
                                     <div class="flex items-center py-2 ">
-                                        <input name="jenis_kelamin" type="radio" class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-primary checked:bg-primary transition-all" id="perempuan">
+                                        <input name="jenis_kelamin" type="radio" class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-primary checked:bg-primary transition-all"
+                                            id="perempuan" value="Perempuan" <?= $identitasabd['jenis_kelamin'] == 'Perempuan' ? 'checked' : '' ?>>
                                         <label class="ml-2 text-black cursor-pointer text-sm" for="perempuan">Perempuan</label>
                                     </div>
                                     <div class="flex items-center py-2 ">
-                                        <input name="jenis_kelamin" type="radio" class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-primary checked:bg-primary transition-all" id="laki-laki">
+                                        <input name="jenis_kelamin" type="radio" class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-primary checked:bg-primary transition-all"
+                                            id="laki-laki" value="Laki-Laki" <?= $identitasabd['jenis_kelamin'] == 'Laki-Laki' ? 'checked' : '' ?>>
                                         <label class="ml-2 text-black cursor-pointer text-sm" for="laki-laki">Laki-Laki</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Pekerjaan</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input type="text" name="pekerjaan" value="<?= isset($identitasc['pekerjaan']) ? $identitasc['pekerjaan'] : ''; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Nomor Telepon</label>
-                                <input type="text" name="telepon" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input type="text" name="telepon" value="<?= isset($identitasc['telepon']) ? $identitasc['telepon'] : ''; ?>" name="telepon" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Email</label>
-                                <input type="email" name="email" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input type="email" name="email" value="<?= isset($identitasc['email']) ? $identitasc['email'] : ''; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Pendidikan Terakhir</label>
-                                <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <input type="text" name="pendidikan" value="<?= isset($identitasc['pendidikan']) ? $identitasc['pendidikan'] : ''; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
+                            <div class="w-full mb-4">
+                                <label class="block mb-2 text-sm text-black">KTP : <?php if (!empty($pendaftaran['ktp'])): ?>
+                                        <?= esc($pendaftaran['ktp']) ?>
+                                    <?php endif; ?><span class="text-primary">(.jpg/jpeg)</span>
+                                </label>
+                                <div class="relative">
+                                    <input name="ktp" value="<?= isset($pendaftaran['ktp']) ? $pendaftaran['ktp'] : ''; ?>"
+                                        id="ktp" type="file" accept="image/jpeg,image/jpg"
+                                        class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-primary file:text-white">
 
-                            <div class="w-full mb-2">
-                                <label class="block mb-2 text-sm text-black">Unggah KTP <span class="text-primary">(.jpg/jpeg)</span></label>
-                                <input id="ktp" type="file" accept="application/jpg,application/jpeg"
-                                    class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
+                                </div>
                             </div>
                             <div class="w-full mb-2">
-                                <label class="block mb-2 text-sm text-black">Unggah SKCK <span class="text-primary">(.pdf)</span></label>
-                                <input id="skck" type="file" accept="application/pdf"
-                                    class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
+                                <label class="block mb-2 text-sm text-black">SKCK : <?php if (!empty($pendaftaran['skck'])): ?>
+                                        <?= esc($pendaftaran['skck']) ?>
+                                    <?php endif; ?><span class="text-primary">(.pdf)</span></label>
+                                <div class="relative">
+                                    <input name="skck" value="<?= isset($pendaftaran['skck']) ? $pendaftaran['skck'] : ''; ?>"
+                                        id="skck" type="file" accept=".pdf"
+                                        class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-primary file:text-white">
+                                </div>
+                            </div>
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">Tanggal SKCK</label>
+                                <input name="tanggal_skck" value="<?= isset($identitasabd['tanggal_skck']) ? $identitasabd['tanggal_skck'] : ''; ?>" type="date" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                             </div>
 
                             <div class="flex justify-end mt-4">
@@ -268,7 +290,6 @@
 
                                 </div>
                             </div>
-
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">SKCK : <?php if (!empty($pendaftaran['skck'])): ?>
                                         <?= esc($pendaftaran['skck']) ?>
@@ -386,7 +407,7 @@
                         </div>
 
                         <div class="flex justify-end mt-4">
-                            <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="submit">Simpan</button>
+                            <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="submit" data-target="kegiatan">Simpan</button>
                         </div>
                     </form>
                 </div>
@@ -970,9 +991,6 @@
                     // Tambahkan logika error
                 });
         }
-
-
-
 
         // Tambah Foto Kegiatan dan Tambah Tautan Video
         // Maksimal input yang diperbolehkan
