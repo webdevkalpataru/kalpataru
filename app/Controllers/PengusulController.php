@@ -701,14 +701,26 @@ class PengusulController extends BaseController
     {
         $Model = new PendaftaranModel();
         $provinsi = session()->get('provinsi');
-        
-        $usulan = $Model->where('provinsi', $provinsi)->findAll();
-        
-        $data = [
-            'title' => 'Usulan DLHK',
-            'usulan' => $usulan
-        ];
-        
+
+        $perPage = 5;
+        $currentPage = $this->request->getVar('page_usulan') ? $this->request->getVar('page_usulan') : 1;
+
+        $keyword = $this->request->getGet('search');
+
+        if ($keyword) {
+            $usulan = $Model->where('provinsi', $provinsi)
+                ->like('nama', $keyword)
+                ->paginate($perPage, 'usulan');
+        } else {
+            $usulan = $Model->where('provinsi', $provinsi)
+                ->paginate($perPage, 'usulan');
+        }
+
+        $data['usulan'] = $usulan;
+        $data['pager'] = $Model->pager;
+        $data['title'] = "Usulan DLHK";
+        $data['keyword'] = $keyword;
+
         return view('pengusul/usulandlhk', $data);
     }
 
@@ -1030,6 +1042,8 @@ class PengusulController extends BaseController
     public function generatePDF($kode_registrasi)
     {
         $id_pengusul = session()->get('id_pengusul');
+        $role_akun = session()->get('role_akun');
+        $provinsi = session()->get('provinsi');
 
         if (!$id_pengusul) {
             return redirect()->back()->with('error', '');
@@ -1040,11 +1054,11 @@ class PengusulController extends BaseController
 
         $pendaftaranData = $pendaftaranModel->where('kode_registrasi', $kode_registrasi)->first();
 
-        if (!$pendaftaranData || $pendaftaranData['id_pengusul'] != $id_pengusul) {
+        if (!$pendaftaranData || ($pendaftaranData['id_pengusul'] != $id_pengusul && !($role_akun == 'DLHK' && $pendaftaranData['provinsi'] == $provinsi))) {
             return redirect()->back()->with('error', 'Error');
         }
 
-        $pengusulData = $pengusulModel->where('id_pengusul', $id_pengusul)->first();
+        $pengusulData = $pengusulModel->where('id_pengusul', $pendaftaranData['id_pengusul'])->first();
 
         $kegiatan = $pendaftaranModel->getKegiatanByPendaftaranId($pendaftaranData['id_pendaftaran']);
         $pendaftaranData['kegiatan'] = $kegiatan;
