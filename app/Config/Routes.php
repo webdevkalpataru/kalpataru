@@ -98,16 +98,6 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('akunpengusul', 'AdminController::akunpengusul');
     $routes->get('akundlhk', 'AdminController::akundlhk');
     $routes->get('akuntimteknis', 'AdminController::akuntimteknis');
-    $routes->get('daftartimteknis', 'AuthController::registerTimTeknis');
-    $routes->post('daftartimteknis', 'AuthController::createRegisterTimTeknis');
-    $routes->get('tambahartikeladmin', 'AdminController::tambahartikeladmin');
-    $routes->get('beritaadmin', 'AdminController::beritaadmin');
-    $routes->get('daftarakundlhk', 'AuthController::registerDLHK');
-    $routes->post('daftarakundlhk', 'AuthController::createRegisterDLHK');
-    $routes->get('daftardppk', 'AuthController::registerDPPK');
-    $routes->post('daftardppk', 'AuthController::createRegisterDPPK');
-    $routes->get('daftarakunpengguna', 'AuthController::registerPenerima');
-    $routes->post('daftarakunpengguna', 'AuthController::createRegisterPenerima');
     $routes->get('daftartimteknis', 'AdminController::daftartimteknis');
     $routes->get('akundppk', 'AdminController::akundppk');
     $routes->get('daftardppk', 'AdminController::daftardppk');
@@ -121,6 +111,9 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('buku', 'AdminController::buku');
     $routes->get('tambahbuku', 'AdminController::tambahbuku');
     $routes->get('kebijakan', 'AdminController::kebijakan');
+    $routes->get('datacalon', 'AdminController::datacalon');
+    $routes->get('arsippenerima', 'AdminController::arsippenerima');
+    $routes->get('tambaharsip', 'AdminController::tambaharsip');
 
     // Manajemen Artikel
     $routes->get('artikel', 'AdminController::artikeladmin');
@@ -133,12 +126,15 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->post('artikel/hapus/(:num)', 'AdminController::hapusArtikel/$1');
     $routes->post('updatestatus', 'AdminController::updateStatus');
 
-    // Manajemen Artikel
+    // Manajemen Berita
     $routes->get('berita', 'AdminController::beritAadmin');
     $routes->get('tambah-berita', 'AdminController::tambahberitaadmin');
     $routes->post('tambah-berita', 'AdminController::tambahBeritaAction');
-    $routes->post('updatestatusberita', 'AdminController::updateStatusBerita');
+    $routes->get('berita/edit/(:any)', 'AdminController::editBerita/$1');
+    $routes->post('berita/edit/(:any)', 'AdminController::updateBeritaAction/$1');
+    $routes->get('berita/(:any)', 'AdminController::detailberita/$1');
     $routes->post('berita/hapus/(:num)', 'AdminController::hapusBerita/$1');
+    $routes->post('updatestatusberita', 'AdminController::updateStatusBerita');
 });
 
 /* Tim Teknis */

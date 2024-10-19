@@ -5,7 +5,6 @@ namespace App\Controllers;
 use App\Models\ArtikelModel;
 use App\Models\BeritaModel;
 
-
 class AdminController extends BaseController
 {
     public function dashboard()
@@ -18,6 +17,24 @@ class AdminController extends BaseController
     {
         $data['title'] = "Akun Pengusul";
         return view('admin/akunpengusul', ['title' => 'Akun Pengusul']);
+    }
+
+    public function datacalon()
+    {
+        $data['title'] = "Data Calon";
+        return view('admin/datacalon', ['title' => 'Data Calon']);
+    }
+
+    public function arsippenerima()
+    {
+        $data['title'] = "Arsip Penerima";
+        return view('admin/arsippenerima', ['title' => 'Arsip Penerima']);
+    }
+
+    public function tambaharsip()
+    {
+        $data['title'] = "Tambah Arsip Penerima";
+        return view('admin/tambaharsip', ['title' => 'Tambah Arsip Penerima']);
     }
 
     public function artikeladmin()
@@ -303,7 +320,7 @@ class AdminController extends BaseController
     public function tambahartikeladmin()
     {
         $data['title'] = "Tambah Artikel Admin";
-        return view('admin/tambahartikeladmin', ['title' => 'Tambah Artikel Admin']);
+        return view('admin/tambahartikeladmin', $data);
     }
 
     public function beritaAdmin()
@@ -400,6 +417,135 @@ class AdminController extends BaseController
         } else {
             // Tampilkan pesan umum untuk kesalahan penyimpanan
             return $this->response->setJSON(['success' => false, 'message' => 'Gagal menambahkan artikel.']);
+        }
+    }
+
+    public function detailberita($slug)
+    {
+        $model = new BeritaModel();
+        $berita = $model->getDetailBeritaBySlug($slug);
+
+        if (!$berita) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        // Ambil ID admin yang sedang login
+        $id_admin = session()->get('id_admin');
+
+        // Cek apakah yang mengakses adalah admin
+        if (!$id_admin) {
+            // Jika bukan admin, tampilkan 404
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+
+        $data = [
+            'title' => $berita['judul'],
+            'berita' => $berita,
+        ];
+        return view('admin/detailberita', $data);
+    }
+
+    public function editBerita($id_berita)
+    {
+        $model = new BeritaModel();
+        $berita = $model->find($id_berita); // Mengambil berita berdasarkan id_berita
+
+        if (!$berita) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        // Ambil ID admin yang sedang login
+        $id_admin = session()->get('id_admin');
+
+        // Cek apakah yang mengakses adalah admin
+        if (!$id_admin) {
+            // Jika bukan admin, tampilkan 404
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        $data = [
+            'title' => 'Edit Berita - ' . $berita['judul'],
+            'berita' => $berita,
+        ];
+        return view('admin/editberita', $data);
+    }
+
+    public function updateBeritaAction($id)
+    {
+        $model = new BeritaModel();
+
+        // Ambil input dari formulir
+        $judul = $this->request->getPost('judul');
+        $konten = $this->request->getPost('konten');
+
+        // Memproses foto yang diupload
+        $foto = $this->request->getFile('foto');
+
+        // Validasi input
+        $validation = \Config\Services::validation();
+        $validation->setRules([
+            'judul' => [
+                'label' => 'Judul',
+                'rules' => 'required|min_length[5]|max_length[100]|is_unique[berita.judul,id_berita,' . $id . ']' // Judul harus unik kecuali untuk artikel yang sedang diedit
+            ],
+            'konten' => [
+                'label' => 'Konten',
+                'rules' => 'required|min_length[20]' // Konten harus ada dan panjang minimum 20 karakter
+            ],
+            'foto' => [
+                'label' => 'Foto',
+                'rules' => 'permit_empty|is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/gif,image/png]|max_size[foto,1024]'
+            ]
+        ]);
+
+        if (!$this->validate($validation->getRules())) {
+            return $this->response->setJSON([
+                'success' => false,
+                'messages' => $validation->getErrors(),
+            ]);
+        }
+
+        // Menangani upload file foto
+        $fotoPath = '';
+        if ($foto && $foto->isValid() && !$foto->hasMoved()) {
+            // Memastikan tipe file dan membuat nama file acak
+            $fotoName = $foto->getRandomName();
+
+            // Memindahkan file ke folder public/images/artikel
+            if ($foto->move('public/images/berita', $fotoName)) {
+                // Jika berhasil, simpan path foto
+                $fotoPath = 'images/berita/' . $fotoName;
+            } else {
+                return $this->response->setJSON(['success' => false, 'errors' => 'Gagal menyimpan file foto.']);
+            }
+        }
+
+        // Cek apakah slug perlu diupdate
+        $slug = url_title($judul, '-', true);
+        $existingArticle = $model->where('slug', $slug)->where('id_berita !=', $id)->first(); // Cek apakah slug sudah ada
+        if ($existingArticle) {
+            return $this->response->setJSON(['success' => false, 'errors' => 'Judul sudah digunakan.']);
+        }
+
+        // Siapkan data untuk diupdate
+        $data = [
+            'judul' => htmlspecialchars($judul, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+            'slug' => $slug,
+            'konten' => htmlspecialchars($konten, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+        ];
+
+        // Jika ada foto baru yang diupload, masukkan ke dalam data
+        if (!empty($fotoPath)) {
+            $data['foto'] = $fotoPath;
+        }
+
+        // Simpan artikel yang sudah diperbarui
+        if ($model->update($id, $data)) {
+            return $this->response->setJSON(['success' => true, 'message' => 'Berita berhasil diperbarui.']);
+        } else {
+            // Tampilkan pesan umum untuk kesalahan penyimpanan
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui berita.']);
         }
     }
 
