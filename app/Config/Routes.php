@@ -124,6 +124,16 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
 
 
 
+
+    // Manajemen Akun Pengusul
+    $routes->get('pengusul', 'AdminController::akunpengusul');
+    $routes->post('pengusul/hapus/(:num)', 'AdminController::hapusPengusul/$1');
+    $routes->post('updatepengusul', 'AdminController::updatePengusul');
+    $routes->get('pengusul/detail/(:any)', 'AdminController::detailPengusul/$1');
+    $routes->get('download/suratpengantar/(:segment)', 'AdminController::downloadSuratPengantar/$1');
+
+
+
     // Manajemen Artikel
     $routes->get('artikel', 'AdminController::artikeladmin');
     $routes->get('tambah-artikel', 'AdminController::tambahartikeladmin');
