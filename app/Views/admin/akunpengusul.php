@@ -123,7 +123,7 @@
                                     </td>
                                     <td class="p-4 border-b border-slate-200">
                                         <div>
-                                            <a href="/admin/pengusul/<?= $p['id_pengusul']; ?>" class="mt-4 w-3/2 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover">Lihat</a>
+                                            <a href="/admin/pengusul/detail/<?= $p['id_pengusul']; ?>" class="mt-4 w-3/2 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover">Lihat</a>
                                         </div>
                                     </td>
                                     <td class="p-4 border-b border-slate-200 text-center">

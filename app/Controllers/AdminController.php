@@ -324,6 +324,37 @@ class AdminController extends BaseController
         return redirect()->to('/admin/pengusul'); // Sesuaikan dengan URL yang diinginkan
     }
 
+    public function detailPengusul($id_pengusul)
+    {
+        $model = new PengusulModel();
+        $pengusul = $model->getDetailById($id_pengusul);
+
+        if (!$pengusul) {
+            return redirect()->to('/admin/pengusul')->with('error', 'Data tidak ditemukan.');
+        }
+
+        $data = [
+            'title' => 'Detail Akun Pengusul',
+            'pengusul' => $pengusul,
+        ];
+
+        return view('admin/detailpengusul', $data);
+    }
+
+    public function downloadSuratPengantar($filename)
+    {
+        $path = WRITEPATH . 'uploads/suratpengantar/' . $filename;
+
+        if (!file_exists($path)) {
+            // File tidak ditemukan, Anda bisa mengarahkan ke halaman error atau menampilkan pesan
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('File tidak ditemukan.');
+        }
+
+        // Menyajikan file dengan header download
+        return $this->response->download($path, null);
+    }
+
+
     public function akundlhk()
     {
         $data['title'] = "Akun DLHK";
