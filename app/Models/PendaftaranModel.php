@@ -52,6 +52,149 @@ class PendaftaranModel extends Model
         'tanggal_legalitas'
     ];
 
+    public function simpanCalonIdentitas()
+    {
+        $Model = new PendaftaranModel();
+
+        // Ambil data pendaftaran dari session
+        $pendaftaranData = session()->get('pendaftaran_data');
+
+        if (!$pendaftaranData || !isset($pendaftaranData['kategori'])) {
+            return redirect()->back()->with('error', 'Data kategori atau pendaftaran tidak ditemukan.');
+        }
+
+        // Validasi file upload untuk KTP (JPG/JPEG) dan SKCK (PDF)
+        $validationRule = [
+            'ktp' => [
+                'uploaded[ktp]',
+                'mime_in[ktp,image/jpg,image/jpeg]',
+                'max_size[ktp,1024]',
+            ],
+            'skck' => [
+                'uploaded[skck]',
+                'mime_in[skck,application/pdf]',
+                'max_size[skck,1024]',
+            ]
+        ];
+
+        if (!$this->validate($validationRule)) {
+            return redirect()->back()->withInput()->with('error', 'Validasi file gagal. Pastikan format dan ukuran file benar.');
+        }
+
+        $legalitasFile = $this->request->getFile('legalitas');
+        if ($legalitasFile->isValid() && !$legalitasFile->hasMoved()) {
+            if ($legalitasFile->getExtension() === 'pdf' && $legalitasFile->getSize() <= 1024 * 1024) {
+                $originalName = pathinfo($legalitasFile->getClientName(), PATHINFO_FILENAME);
+                $extension = $legalitasFile->getExtension();
+                $legalitasFileName = $originalName . '_' . bin2hex(random_bytes(5)) . '.' . $extension;
+                $legalitasFile->store('legalitas', $legalitasFileName);
+            } else {
+                return redirect()->back()->with('error', 'File harus berupa PDF dan ukuran maksimal 1MB.');
+            }
+        }
+
+
+        $ktpFile = $this->request->getFile('ktp');
+        if ($ktpFile->isValid() && !$ktpFile->hasMoved()) {
+            $allowedExtensions = ['jpg', 'jpeg'];
+            if (in_array($ktpFile->getExtension(), $allowedExtensions) && $ktpFile->getSize() <= 1024 * 1024) {
+                // Ambil nama asli file tanpa ekstensi
+                $originalName = pathinfo($ktpFile->getClientName(), PATHINFO_FILENAME);
+                // Dapatkan ekstensi file
+                $extension = $ktpFile->getExtension();
+                // Buat nama file baru dengan format "originalName_randomString.extension"
+                $ktpFileName = $originalName . '_' . bin2hex(random_bytes(5)) . '.' . $extension;
+                // Simpan file dengan nama yang baru
+                $ktpFile->store('ktp', $ktpFileName);
+            } else {
+                // Tampilkan pesan kesalahan jika bukan JPG/JPEG atau melebihi 1MB
+                return redirect()->back()->with('error', 'File harus berupa JPG atau JPEG dan ukuran maksimal 1MB.');
+            }
+        }
+
+
+        $skckFile = $this->request->getFile('skck');
+        if ($skckFile->isValid() && !$skckFile->hasMoved()) {
+            if ($skckFile->getExtension() === 'pdf' && $skckFile->getSize() <= 1024 * 1024) {
+                $originalName = pathinfo($skckFile->getClientName(), PATHINFO_FILENAME);
+                $extension = $skckFile->getExtension();
+                $skckFileName = $originalName . '_' . bin2hex(random_bytes(5)) . '.' . $extension;
+                $skckFile->store('skck', $skckFileName);
+            } else {
+                return redirect()->back()->with('error', 'File harus berupa PDF dan ukuran maksimal 1MB.');
+            }
+        }
+
+        // Simpan data lainnya tergantung kategori
+        if ($pendaftaranData['kategori'] == 'Penyelamat Lingkungan') {
+            $data = [
+                'nama' => $this->request->getPost('nama_ketua'),
+                'tahun_pembentukan' => $this->request->getPost('tahun_pembentukan'),
+                'jumlah_anggota' => $this->request->getPost('jumlah_anggota'),
+                'jalan' => $this->request->getPost('jalan'),
+                'rt_rw' => $this->request->getPost('rt_rw'),
+                'desa' => $this->request->getPost('desa'),
+                'kecamatan' => $this->request->getPost('kecamatan'),
+                'kab_kota' => $this->request->getPost('kab_kota'),
+                'provinsi' => $this->request->getPost('provinsi'),
+                'kode_pos' => $this->request->getPost('kode_pos'),
+                'sosial_media' => $this->request->getPost('media_sosial'),
+                'nama_kelompok' => $this->request->getPost('nama_kelompok'),
+                'nik' => $this->request->getPost('nik'),
+                'tempat_lahir' => $this->request->getPost('tempat_lahir'),
+                'tanggal_lahir' => $this->request->getPost('tanggal_lahir'),
+                'usia' => $this->request->getPost('usia'),
+                'jenis_kelamin' => $this->request->getPost('jenis_kelamin'),
+                'pekerjaan' => $this->request->getPost('pekerjaan'),
+                'telepon' => $this->request->getPost('telepon'),
+                'email' => $this->request->getPost('email'),
+                'pendidikan' => $this->request->getPost('pendidikan'),
+                'tanggal_skck' => $this->request->getPost('tanggal_skck'),
+                'tanggal_legalitas' => $this->request->getPost('tanggal_legalitas'),
+                'legalitas' => $legalitasFileName,
+                'ktp' => $ktpFileName,
+                'skck' => $skckFileName
+            ];
+        } else {
+            $data = [
+                'nama' => $this->request->getPost('nama_individu'),
+                'nik' => $this->request->getPost('nik_individu'),
+                'tempat_lahir' => $this->request->getPost('tempat_lahir'),
+                'tanggal_lahir' => $this->request->getPost('tanggal_lahir'),
+                'usia' => $this->request->getPost('usia'),
+                'jenis_kelamin' => $this->request->getPost('jenis_kelamin'),
+                'pekerjaan' => $this->request->getPost('pekerjaan'),
+                'telepon' => $this->request->getPost('telepon'),
+                'email' => $this->request->getPost('email'),
+                'pendidikan' => $this->request->getPost('pendidikan'),
+                'jalan' => $this->request->getPost('jalan'),
+                'rt_rw' => $this->request->getPost('rt_rw'),
+                'desa' => $this->request->getPost('desa'),
+                'kecamatan' => $this->request->getPost('kecamatan'),
+                'kab_kota' => $this->request->getPost('kab_kota'),
+                'provinsi' => $this->request->getPost('provinsi'),
+                'kode_pos' => $this->request->getPost('kode_pos'),
+                'sosial_media' => $this->request->getPost('media_sosial'),
+                'tanggal_skck' => $this->request->getPost('tanggal_skck'),
+                'ktp' => $ktpFileName,
+                'skck' => $skckFileName
+            ];
+        }
+
+        // Gabungkan data identitas dengan data pendaftaran sebelumnya dari session
+        $finalData = array_merge($pendaftaranData, $data);
+
+        // Simpan data ke database
+        if ($Model->insert($finalData)) {
+            // Hapus session setelah data disimpan
+            session()->remove('pendaftaran_data');
+
+            return redirect()->to('pengusul/usulansaya')->with('success', 'Identitas berhasil disimpan.');
+        } else {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data.');
+        }
+    }
+
     public function getDetailById($id)
     {
         return $this->select('
@@ -178,6 +321,7 @@ class PendaftaranModel extends Model
     {
         return $this->db->table('keistimewaan')->where($where)->update($data);
     }
+
 
     // -------------------------------------------------------------------------
 

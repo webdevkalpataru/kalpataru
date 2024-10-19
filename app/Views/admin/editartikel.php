@@ -31,7 +31,7 @@
       <!-- Main Content -->
       <div>
         <!-- Cards Summary -->
-        <form id="isiArtikelForm" class="mt-4 mb-2 w-full" action="" method="POST" enctype="multipart/form-data">
+        <form id="isiArtikelForm" class="mt-4 mb-2 w-full" action="/admin/artikel/edit/<?= esc($artikel['id_artikel']); ?>" method="POST" enctype="multipart/form-data">
           <div class="grid grid-cols-1 gap-4" id="formContainer">
             <div>
               <label class="block mb-2 text-sm text-black">Judul Artikel</label>
@@ -114,7 +114,6 @@
         .then(data => {
           if (data.success) {
             // Jika berhasil, tampilkan modal sukses
-            const successModal = document.getElementById('successModal');
             successModal.classList.remove('hidden');
 
             // Arahkan ke halaman artikel admin ketika tombol "Oke" diklik

@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use App\Models\ArtikelModel;
 use App\Models\BeritaModel;
+use App\Models\PengusulModel;
+use App\Models\VideoModel;
 
 
 class AdminController extends BaseController
@@ -12,12 +14,6 @@ class AdminController extends BaseController
     {
         $data['title'] = "Dashboard Admin";
         return view('admin/dashboard', ['title' => 'Dashboard Admin']);
-    }
-
-    public function akunpengusul()
-    {
-        $data['title'] = "Akun Pengusul";
-        return view('admin/akunpengusul', ['title' => 'Akun Pengusul']);
     }
 
     public function artikeladmin()
@@ -280,13 +276,84 @@ class AdminController extends BaseController
         return redirect()->to('/admin/artikel'); // Sesuaikan dengan URL yang diinginkan
     }
 
-
-
-    public function artikelpengguna()
+    public function akunpengusul()
     {
-        $data['title'] = "Artikel Pengguna";
-        return view('admin/artikelpengguna', ['title' => 'Artikel Pengguna']);
+        $model = new PengusulModel();
+        $pengusul = $model->where('role_akun', 'Pengusul')->findAll();
+
+        $data['pengusul'] = $pengusul;
+        $data['countAllPengusul'] = count($data['pengusul']); // Menghitung semua akun pengusul
+        $data['title'] = "Akun Pengusul";
+
+        return view('admin/akunpengusul', $data);
     }
+
+    public function updatePengusul()
+    {
+        // Inisialisasi model
+        $model = new PengusulModel();
+
+        // Ambil data dari POST request
+        $id_pengusul = $this->request->getPost('id_pengusul');
+        $status_akun = $this->request->getPost('status_akun');
+
+        // Validasi data (opsional, misalnya cek apakah ID dan status valid)
+        if ($id_pengusul && $status_akun) {
+            // Update status di database
+            $model->update($id_pengusul, ['status_akun' => $status_akun]);
+            // Mengembalikan respons untuk merefresh halaman
+            return $this->response->setJSON(['success' => true, 'message' => 'Status Pengusul berhasil diperbarui']);
+        } else {
+            // Mengembalikan respons untuk merefresh halaman
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui staus pengusul']);
+        }
+    }
+
+    public function hapusPengusul($id_pengusul)
+    {
+        $model = new PengusulModel();
+
+        // Hapus artikel berdasarkan ID
+        if ($model->delete($id_pengusul)) {
+            // Set flash message atau lakukan redirect setelah menghapus
+            session()->setFlashdata('success', 'Pengusul berhasil dihapus.');
+        } else {
+            session()->setFlashdata('error', 'Gagal menghapus pengusul.');
+        }
+
+        return redirect()->to('/admin/pengusul'); // Sesuaikan dengan URL yang diinginkan
+    }
+
+    public function detailPengusul($id_pengusul)
+    {
+        $model = new PengusulModel();
+        $pengusul = $model->getDetailById($id_pengusul);
+
+        if (!$pengusul) {
+            return redirect()->to('/admin/pengusul')->with('error', 'Data tidak ditemukan.');
+        }
+
+        $data = [
+            'title' => 'Detail Akun Pengusul',
+            'pengusul' => $pengusul,
+        ];
+
+        return view('admin/detailpengusul', $data);
+    }
+
+    public function downloadSuratPengantar($filename)
+    {
+        $path = WRITEPATH . 'uploads/suratpengantar/' . $filename;
+
+        if (!file_exists($path)) {
+            // File tidak ditemukan, Anda bisa mengarahkan ke halaman error atau menampilkan pesan
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('File tidak ditemukan.');
+        }
+
+        // Menyajikan file dengan header download
+        return $this->response->download($path, null);
+    }
+
 
     public function akundlhk()
     {
@@ -303,7 +370,7 @@ class AdminController extends BaseController
     public function tambahartikeladmin()
     {
         $data['title'] = "Tambah Artikel Admin";
-        return view('admin/tambahartikeladmin', ['title' => 'Tambah Artikel Admin']);
+        return view('admin/tambahartikeladmin', $data);
     }
 
     public function beritaAdmin()
@@ -403,6 +470,135 @@ class AdminController extends BaseController
         }
     }
 
+    public function detailberita($slug)
+    {
+        $model = new BeritaModel();
+        $berita = $model->getDetailBeritaBySlug($slug);
+
+        if (!$berita) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        // Ambil ID admin yang sedang login
+        $id_admin = session()->get('id_admin');
+
+        // Cek apakah yang mengakses adalah admin
+        if (!$id_admin) {
+            // Jika bukan admin, tampilkan 404
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+
+        $data = [
+            'title' => $berita['judul'],
+            'berita' => $berita,
+        ];
+        return view('admin/detailberita', $data);
+    }
+
+    public function editBerita($id_berita)
+    {
+        $model = new BeritaModel();
+        $berita = $model->find($id_berita); // Mengambil berita berdasarkan id_berita
+
+        if (!$berita) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        // Ambil ID admin yang sedang login
+        $id_admin = session()->get('id_admin');
+
+        // Cek apakah yang mengakses adalah admin
+        if (!$id_admin) {
+            // Jika bukan admin, tampilkan 404
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        $data = [
+            'title' => 'Edit Berita - ' . $berita['judul'],
+            'berita' => $berita,
+        ];
+        return view('admin/editberita', $data);
+    }
+
+    public function updateBeritaAction($id)
+    {
+        $model = new BeritaModel();
+
+        // Ambil input dari formulir
+        $judul = $this->request->getPost('judul');
+        $konten = $this->request->getPost('konten');
+
+        // Memproses foto yang diupload
+        $foto = $this->request->getFile('foto');
+
+        // Validasi input
+        $validation = \Config\Services::validation();
+        $validation->setRules([
+            'judul' => [
+                'label' => 'Judul',
+                'rules' => 'required|min_length[5]|max_length[100]|is_unique[berita.judul,id_berita,' . $id . ']' // Judul harus unik kecuali untuk artikel yang sedang diedit
+            ],
+            'konten' => [
+                'label' => 'Konten',
+                'rules' => 'required|min_length[20]' // Konten harus ada dan panjang minimum 20 karakter
+            ],
+            'foto' => [
+                'label' => 'Foto',
+                'rules' => 'permit_empty|is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/gif,image/png]|max_size[foto,1024]'
+            ]
+        ]);
+
+        if (!$this->validate($validation->getRules())) {
+            return $this->response->setJSON([
+                'success' => false,
+                'messages' => $validation->getErrors(),
+            ]);
+        }
+
+        // Menangani upload file foto
+        $fotoPath = '';
+        if ($foto && $foto->isValid() && !$foto->hasMoved()) {
+            // Memastikan tipe file dan membuat nama file acak
+            $fotoName = $foto->getRandomName();
+
+            // Memindahkan file ke folder public/images/artikel
+            if ($foto->move('public/images/berita', $fotoName)) {
+                // Jika berhasil, simpan path foto
+                $fotoPath = 'images/berita/' . $fotoName;
+            } else {
+                return $this->response->setJSON(['success' => false, 'errors' => 'Gagal menyimpan file foto.']);
+            }
+        }
+
+        // Cek apakah slug perlu diupdate
+        $slug = url_title($judul, '-', true);
+        $existingArticle = $model->where('slug', $slug)->where('id_berita !=', $id)->first(); // Cek apakah slug sudah ada
+        if ($existingArticle) {
+            return $this->response->setJSON(['success' => false, 'errors' => 'Judul sudah digunakan.']);
+        }
+
+        // Siapkan data untuk diupdate
+        $data = [
+            'judul' => htmlspecialchars($judul, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+            'slug' => $slug,
+            'konten' => htmlspecialchars($konten, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+        ];
+
+        // Jika ada foto baru yang diupload, masukkan ke dalam data
+        if (!empty($fotoPath)) {
+            $data['foto'] = $fotoPath;
+        }
+
+        // Simpan artikel yang sudah diperbarui
+        if ($model->update($id, $data)) {
+            return $this->response->setJSON(['success' => true, 'message' => 'Berita berhasil diperbarui.']);
+        } else {
+            // Tampilkan pesan umum untuk kesalahan penyimpanan
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui berita.']);
+        }
+    }
+
     public function updateStatusBerita()
     {
         // Inisialisasi model
@@ -488,16 +684,199 @@ class AdminController extends BaseController
         return view('admin/daftarakundlhk', ['title' => 'Daftar Akun DLHK']);
     }
 
-    public function video()
+    public function videoAdmin()
     {
-        $data['title'] = "Video";
-        return view('admin/video', ['title' => 'Video']);
+        $model = new VideoModel();
+
+        // Mengambil semua data video tanpa filter status
+        $video = $model->findAll();
+
+        $data['video'] = $video;
+        $data['countAllVideos'] = count($data['video']); // Menghitung semua video
+        $data['title'] = "Video Admin";
+
+        return view('admin/video', $data);
     }
 
     public function tambahvideo()
     {
         $data['title'] = "Tambah Video";
-        return view('admin/tambahvideo', ['title' => 'Tambah Video']);
+        return view('admin/tambahvideo', $data);
+    }
+
+    public function tambahVideoAction()
+    {
+        $model = new VideoModel();
+
+        // Ambil input dari formulir
+        $judulVideo = $this->request->getPost('judul');
+        $link = $this->request->getPost('link');
+
+        // Validasi input
+        $validation = \Config\Services::validation();
+        $validation->setRules([
+            'judul' => [
+                'label' => 'Judul',
+                'rules' => 'required|min_length[5]|max_length[100]|is_unique[video.judul_video]'
+            ],
+            'link' => [
+                'label' => 'Link',
+                'rules' => 'required'
+            ],
+        ]);
+
+        if (!$this->validate($validation->getRules())) {
+            return $this->response->setJSON([
+                'success' => false,
+                'messages' => $validation->getErrors(),
+            ]);
+        }
+
+        // Simpan data artikel ke dalam database
+        $data = [
+            'judul_video' => htmlspecialchars($judulVideo, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+            'link_video' => htmlspecialchars($link, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+            'tanggal' => date('Y-m-d H:i:s'),
+        ];
+
+        // Simpan artikel
+        if ($model->insert($data)) {
+            return $this->response->setJSON(['success' => true, 'message' => 'Artikel berhasil ditambahkan.']);
+        } else {
+            // Tampilkan pesan umum untuk kesalahan penyimpanan
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal menambahkan artikel.']);
+        }
+    }
+
+    public function detailvideo($id_video)
+    {
+        $model = new VideoModel();
+        $video = $model->find($id_video);
+
+        if (!$video) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        // Ambil ID admin yang sedang login
+        $id_admin = session()->get('id_admin');
+
+        // Cek apakah yang mengakses adalah admin
+        if (!$id_admin) {
+            // Jika bukan admin, tampilkan 404
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        $data = [
+            'title' => $video['judul_video'],
+            'video' => $video,
+        ];
+        return view('admin/detailvideo', $data);
+    }
+
+    public function editVideo($id_video)
+    {
+        $model = new VideoModel();
+        $video = $model->find($id_video); // Mengambil artikel berdasarkan id_artikel
+
+        if (!$video) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        // Ambil ID admin yang sedang login
+        $id_admin = session()->get('id_admin');
+
+        // Cek apakah yang mengakses adalah admin
+        if (!$id_admin) {
+            // Jika bukan admin, tampilkan 404
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        $data = [
+            'title' => 'Edit Video - ' . $video['judul_video'],
+            'video' => $video,
+        ];
+        return view('admin/editvideo', $data);
+    }
+
+    public function updateVideoAction($id)
+    {
+        $model = new VideoModel();
+
+        // Ambil input dari formulir
+        $judulVideo = $this->request->getPost('judul');
+        $link = $this->request->getPost('link');
+
+        // Validasi input
+        $validation = \Config\Services::validation();
+        $validation->setRules([
+            'judul' => [
+                'label' => 'Judul',
+                'rules' => 'required|min_length[5]|max_length[100]|is_unique[video.judul_video,id_video,' . $id . ']'
+            ],
+            'link' => [
+                'label' => 'Link',
+                'rules' => 'required'
+            ],
+        ]);
+
+        if (!$this->validate($validation->getRules())) {
+            return $this->response->setJSON([
+                'success' => false,
+                'messages' => $validation->getErrors(),
+            ]);
+        }
+
+        // Simpan data artikel ke dalam database
+        $data = [
+            'judul_video' => htmlspecialchars($judulVideo, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+            'link_video' => htmlspecialchars($link, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+            'tanggal' => date('Y-m-d H:i:s'),
+        ];
+
+        // Simpan artikel yang sudah diperbarui
+        if ($model->update($id, $data)) {
+            return $this->response->setJSON(['success' => true, 'message' => 'Video berhasil diperbarui']);
+        } else {
+            // Tampilkan pesan umum untuk kesalahan penyimpanan
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui video']);
+        }
+    }
+
+    public function updateStatusVideo()
+    {
+        // Inisialisasi model
+        $model = new VideoModel();
+
+        // Ambil data dari POST request
+        $id_video = $this->request->getPost('id_video');
+        $status = $this->request->getPost('status');
+
+        // Validasi data (opsional, misalnya cek apakah ID dan status valid)
+        if ($id_video && $status) {
+            // Update status di database
+            $model->update($id_video, ['status' => $status]);
+
+            // Mengembalikan respons untuk merefresh halaman
+            return $this->response->setJSON(['success' => true, 'message' => 'Data berhasil diperbarui']);
+        } else {
+            // Mengembalikan respons untuk merefresh halaman
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui data']);
+        }
+    }
+
+    public function hapusVideo($id_video)
+    {
+        $model = new VideoModel();
+
+        // Hapus artikel berdasarkan ID
+        if ($model->delete($id_video)) {
+            // Set flash message atau lakukan redirect setelah menghapus
+            session()->setFlashdata('success', 'Video berhasil dihapus');
+        } else {
+            session()->setFlashdata('error', 'Gagal menghapus video');
+        }
+
+        return redirect()->to('/admin/video'); // Sesuaikan dengan URL yang diinginkan
     }
 
     public function buku()

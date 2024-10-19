@@ -29,11 +29,15 @@
                 </h3>
             </div>
             <div class="lg:flex justify-between items-center mt-6">
-                <a href="./tambahcalon">
-                    <button id="tambahCalon" class="w-48 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button"> <span>&#10010</span> Tambah Calon Usulan</button>
-                </a>
+                <button id="tambahCalon"
+                    class="mb-4 w-48 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none <?= !$isComplete ? 'bg-slate-400' : '' ?>"
+                    type="button"
+                    onclick="window.location.href='./tambahcalon';"
+                    <?= !$isComplete ? 'disabled' : '' ?>>
+                    <span>&#10010;</span> Tambah Calon Usulan
+                </button>
                 <form method="get">
-                    <div class="relative w-56 transition-all focus-within:w-64 lg:mt-0 mt-4">
+                    <div class="mb-4 relative w-56 transition-all focus-within:w-64 lg:mt-0 mt-4">
                         <input
                             placeholder="Masukan kata kunci"
                             class="input shadow-lg focus:border-2 border-2 text-primary border-primary px-5 py-1 pr-10 rounded-md w-full outline-none"
@@ -89,8 +93,10 @@
                         <tbody>
                             <?php if (empty($usulan)): ?>
                                 <tr>
-                                    <td colspan="8" class="p-4 text-center text-sm text-red-600">
-                                        Belum ada data
+                                    <td colspan="11" class="p-4 border-b border-slate-200 text-center">
+                                        <p class="block text-xs text-slate-800">
+                                            Belum ada data usulan
+                                        </p>
                                     </td>
                                 </tr>
                             <?php else: ?>
@@ -122,7 +128,7 @@
                                         <td class="p-4 border-b border-slate-200 text-center">
                                             <button class="lihatButton w-20 rounded-md py-2 px-2 text-center font-semibold text-xs text-primary bg-secondary" type="button">Lihat</button>
                                         </td>
-                                        <td class="px-2 pt-1 border-b border-slate-200 text-center viewCell">
+                                        <td class="border-b border-slate-200 text-center viewCell">
                                             <a href="./detailusulansaya/<?= $u['id_pendaftaran']; ?>">
                                                 <!-- Ikon Lihat -->
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
@@ -130,7 +136,7 @@
                                                 </svg>
                                             </a>
                                         </td>
-                                        <td class="px-2 border-b border-slate-200 text-center editCell">
+                                        <td class="border-b border-slate-200 text-center editCell">
                                             <?php if (in_array($u['status_pendaftaran'], ['Draft', 'Perlu Perbaikan'])): ?>
                                                 <a href="./detailusulansayaedit/<?= $u['id_pendaftaran']; ?>">
                                                     <!-- Ikon Edit -->
@@ -140,7 +146,7 @@
                                                 </a>
                                             <?php endif; ?>
                                         </td>
-                                        <td class="px-2 border-b border-slate-200 text-center downloadCell">
+                                        <td class="border-b border-slate-200 text-center downloadCell">
                                             <?php if (!in_array($u['status_pendaftaran'], ['Draft', 'Perlu Perbaikan'])): ?>
                                                 <a href="./pdf/<?= $u['kode_registrasi']; ?>">
                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
@@ -149,7 +155,7 @@
                                                 </a>
                                             <?php endif; ?>
                                         </td>
-                                        <td class="px-2 border-b border-slate-200 text-center deleteCell">
+                                        <td class="border-b border-slate-200 text-center deleteCell">
                                             <?php if ($u['status_pendaftaran'] === 'Perlu Perbaikan'): ?>
                                                 <a href="./detailusulansayadelete">
                                                     <!-- Ikon Hapus -->

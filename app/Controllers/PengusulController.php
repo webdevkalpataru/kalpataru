@@ -195,37 +195,68 @@ class PengusulController extends BaseController
             return redirect()->back()->with('error', 'Data kategori atau pendaftaran tidak ditemukan.');
         }
 
-        // Validasi file upload untuk KTP (JPG/JPEG) dan SKCK (PDF)
-        $validationRule = [
-            'ktp' => [
-                'uploaded[ktp]',
-                'mime_in[ktp,image/jpg,image/jpeg]',
-                'max_size[ktp,1024]',
-            ],
-            'skck' => [
-                'uploaded[skck]',
-                'mime_in[skck,application/pdf]',
-                'max_size[skck,1024]',
-            ]
-        ];
+        /* $validation = \Config\Services::validation();
+        $validation->setRules([
+            'nama_individu' => 'required|alpha_space',
+            'nama_ketua' => 'required|alpha_space',
+            'nama_kelompok' => 'required',
+            'jumlah_anggota' => 'required|numeric',
+            'tahun_pembentukan' => 'required|valid_date',
+            'nik' => 'required|numeric|exact_length[16]|is_unique[pendaftaran.nik]',
+            'nik_individu' => 'required|numeric|exact_length[16]|is_unique[pendaftaran.nik]',
+            'tempat_lahir' => 'required|alpha_space',
+            'tanggal_lahir' => 'required|valid_date',
+            'usia' => 'required|numeric',
+            'jenis_kelamin' => 'required',
+            'pekerjaan' => 'required',
+            'telepon' => 'required|numeric',
+            'email' => 'required|valid_email',
+            'pendidikan' => 'required',
+            'jalan' => 'required',
+            'rt_rw' => 'required',
+            'desa' => 'required',
+            'kecamatan' => 'required',
+            'kab_kota' => 'required',
+            'provinsi' => 'required',
+            'kode_pos' => 'required|numeric',
+            'media_sosial' => 'required',
+            'legalitas' => 'uploaded[legalitas]|mime_in[legalitas,application/pdf]|max_size[legalitas,1024]',
+            'ktp' => 'uploaded[ktp]|mime_in[ktp,image/jpg,image/jpeg]|max_size[ktp,1024]',
+            'skck' => 'uploaded[skck]|mime_in[skck,application/pdf]|max_size[skck,1024]',
+            'tanggal_skck' => 'required|valid_date',
+            'tanggal_legalitas' => 'required|valid_date'
+        ], [
+            'required' => '{field} harus diisi.',
+            'numeric' => '{field} hanya boleh berisi angka.',
+            'valid_date' => '{field} harus berisi tanggal yang valid.',
+            'valid_email' => '{field} harus berisi email yang valid.',
+            'exact_length' => '{field} harus terdiri dari tepat {param} digit.',
+            'uploaded' => '{field} harus diunggah.',
+            'mime_in' => '{field} harus berformat {param}.',
+        ]); */
 
-        if (!$this->validate($validationRule)) {
-            return redirect()->back()->withInput()->with('error', 'Validasi file gagal. Pastikan format dan ukuran file benar.');
-        }
 
-        $legalitasFileName = null;
+        // Cek apakah validasi gagal
+        /* if (!$this->validate($validation->getRules())) {
+            // Kembalikan ke halaman sebelumnya dengan input dan pesan error
+            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+        } */
 
-        // Pengecekan apakah file legalitas diunggah
         $legalitasFile = $this->request->getFile('legalitas');
+
+        // Cek apakah ada file yang diunggah untuk legalitas
         if ($legalitasFile && $legalitasFile->isValid() && !$legalitasFile->hasMoved()) {
             if ($legalitasFile->getExtension() === 'pdf' && $legalitasFile->getSize() <= 1024 * 1024) {
                 $originalName = pathinfo($legalitasFile->getClientName(), PATHINFO_FILENAME);
                 $extension = $legalitasFile->getExtension();
-                $legalitasFileName = $originalName . '' . bin2hex(random_bytes(5)) . '.' . $extension;
+                $legalitasFileName = $originalName . '_' . bin2hex(random_bytes(5)) . '.' . $extension;
                 $legalitasFile->store('legalitas', $legalitasFileName);
             } else {
-                return redirect()->back()->with('error', 'File legalitas harus berupa PDF dan ukuran maksimal 1MB.');
+                return redirect()->back()->with('error', 'File harus berupa PDF dan ukuran maksimal 1MB.');
             }
+        } else {
+            // Jika tidak ada file legalitas yang diunggah, Anda dapat mengatur nilai default atau mengabaikannya
+            $legalitasFileName = null;
         }
 
 
@@ -233,16 +264,11 @@ class PengusulController extends BaseController
         if ($ktpFile->isValid() && !$ktpFile->hasMoved()) {
             $allowedExtensions = ['jpg', 'jpeg'];
             if (in_array($ktpFile->getExtension(), $allowedExtensions) && $ktpFile->getSize() <= 1024 * 1024) {
-                // Ambil nama asli file tanpa ekstensi
                 $originalName = pathinfo($ktpFile->getClientName(), PATHINFO_FILENAME);
-                // Dapatkan ekstensi file
                 $extension = $ktpFile->getExtension();
-                // Buat nama file baru dengan format "originalName_randomString.extension"
                 $ktpFileName = $originalName . '_' . bin2hex(random_bytes(5)) . '.' . $extension;
-                // Simpan file dengan nama yang baru
                 $ktpFile->store('ktp', $ktpFileName);
             } else {
-                // Tampilkan pesan kesalahan jika bukan JPG/JPEG atau melebihi 1MB
                 return redirect()->back()->with('error', 'File harus berupa JPG atau JPEG dan ukuran maksimal 1MB.');
             }
         }
@@ -331,6 +357,7 @@ class PengusulController extends BaseController
     }
 
 
+
     // -------------------------------------------------------------------------------------------------------------------
 
     public function simpanForm($formType)
@@ -346,7 +373,7 @@ class PengusulController extends BaseController
             case 'identitasc':
                 $identitas = $model->getIdentitasByIdPendaftaran($id_pendaftaran);
                 $data = [
-                    'nama' => $this->request->getPost('nama'),
+                    'nama' => $this->request->getPost('nama_ketua'),
                     'tahun_pembentukan' => $this->request->getPost('tahun_pembentukan'),
                     'jumlah_anggota' => $this->request->getPost('jumlah_anggota'),
                     'jalan' => $this->request->getPost('jalan'),
@@ -356,7 +383,8 @@ class PengusulController extends BaseController
                     'kab_kota' => $this->request->getPost('kab_kota'),
                     'provinsi' => $this->request->getPost('provinsi'),
                     'kode_pos' => $this->request->getPost('kode_pos'),
-                    'sosial_media' => $this->request->getPost('media_sosial'),
+                    'sosial_media' => $this->request->getPost('sosial_media'),
+                    'nama_kelompok' => $this->request->getPost('nama_kelompok'),
                     'nik' => $this->request->getPost('nik'),
                     'tempat_lahir' => $this->request->getPost('tempat_lahir'),
                     'tanggal_lahir' => $this->request->getPost('tanggal_lahir'),
@@ -368,6 +396,18 @@ class PengusulController extends BaseController
                     'pendidikan' => $this->request->getPost('pendidikan'),
                     'tanggal_skck' => $this->request->getPost('tanggal_skck'),
                 ];
+
+                // Logika untuk upload file SKCK
+                $legalitasFile = $this->request->getFile('legalitas');
+                if ($legalitasFile && $legalitasFile->isValid() && !$legalitasFile->hasMoved()) {
+                    // Validasi file legalitas (PDF)
+                    if ($legalitasFile->isValid() && $legalitasFile->getMimeType() === 'application/pdf' && $legalitasFile->getSize() <= 1024 * 1024) {
+                        $legalitasFileName = $legalitasFile->getRandomName();
+                        $legalitasFile->store('legalitas', $legalitasFileName);
+                        $data['legalitas'] = $legalitasFileName;
+                    }
+                }
+
 
                 // Logika untuk upload file KTP
                 $ktpFile = $this->request->getFile('ktp');
@@ -636,11 +676,10 @@ class PengusulController extends BaseController
     public function usulansaya()
     {
         $Model = new PendaftaranModel();
+        $PengusulModel = new PengusulModel();
 
         // Ambil data dengan pagination, limit 5 per halaman
         $perPage = 5;
-        // Ambil halaman saat ini dari request, default ke halaman 1 jika tidak ada
-        $currentPage = $this->request->getVar('page_usulan') ? $this->request->getVar('page_usulan') : 1;
 
         // Ambil ID pengusul dari session
         $id_pengusul = session()->get('id_pengusul');
@@ -659,11 +698,20 @@ class PengusulController extends BaseController
                 ->paginate($perPage, 'usulan');
         }
 
+        // Ambil data pengusul dari tabel pengusul
+        $pengusul = $PengusulModel->where('id_pengusul', $id_pengusul)->first();
+
+        // Cek kelengkapan data pengusul
+        $isComplete = !empty($pengusul['jabatan_pekerjaan']) && !empty($pengusul['jenis_kelamin']) && !empty($pengusul['jalan']) && !empty($pengusul['rt_rw']) && !empty($pengusul['desa']) && !empty($pengusul['kecamatan']) && !empty($pengusul['kab_kota']) && !empty($pengusul['kode_pos']) && !empty($pengusul['surat_pengantar']);
+
         // Persiapkan data untuk dikirim ke view
-        $data['usulan'] = $usulan;
-        $data['pager'] = $Model->pager;
-        $data['title'] = "Usulan Saya";
-        $data['keyword'] = $keyword; // Tambahkan keyword ke data untuk dikirim ke view
+        $data = [
+            'usulan' => $usulan,
+            'pager' => $Model->pager,
+            'title' => "Usulan Saya",
+            'keyword' => $keyword,
+            'isComplete' => $isComplete,
+        ];
 
         // Load view untuk menampilkan data calon
         return view('pengusul/usulansaya', $data);
@@ -699,16 +747,58 @@ class PengusulController extends BaseController
 
     public function usulandlhk()
     {
-        $Model = new PendaftaranModel();
+        $model = new PendaftaranModel();
+
+        // Ambil data dengan pagination, limit 5 per halaman
+        $perPage = 5;
+
+        // Ambil kategori dari filter
+        $kategori = $this->request->getVar('kategori');
+
+        // Ambil kata kunci dari request untuk pencarian
+        $keyword = $this->request->getGet('search');
+
+        // Ambil ID pengusul dan provinsi dari session
+        $id_pengusul = session()->get('id_pengusul');
         $provinsi = session()->get('provinsi');
-        
-        $usulan = $Model->where('provinsi', $provinsi)->findAll();
-        
+
+        // Filter query berdasarkan id_pengusul
+        $model->where('id_pengusul', $id_pengusul);
+
+        // Filter query berdasarkan provinsi
+        if ($provinsi) {
+            $model->where('provinsi', $provinsi);
+        }
+
+        // Tambahkan filter untuk status pendaftaran
+        $validStatuses = ['Sesuai', 'Verifikasi Administrasi', 'Lolos Administrasi', 'Tidak Lolos Administrasi'];
+        $model->whereIn('status_pendaftaran', $validStatuses);
+
+        // Jika kategori dipilih, tambahkan filter kategori
+        if ($kategori) {
+            $model->where('kategori', $kategori);
+        }
+
+        // Jika ada kata kunci, tambahkan kondisi pencarian berdasarkan nama
+        if ($keyword) {
+            $model->like('nama', $keyword);
+        }
+
+        // Dapatkan data dengan pagination
+        $usulan = $model->paginate($perPage, 'usulan');
+
+        // Ambil pager untuk pagination
+        $pager = $model->pager;
+
+        // Persiapkan data untuk dikirim ke view
         $data = [
             'title' => 'Usulan DLHK',
-            'usulan' => $usulan
+            'usulan' => $usulan,
+            'pager' => $pager,
+            'kategori' => $kategori,
+            'keyword' => $keyword,
         ];
-        
+
         return view('pengusul/usulandlhk', $data);
     }
 
@@ -930,11 +1020,27 @@ class PengusulController extends BaseController
         $model = new ArtikelModel();
         $id_pengusul = session()->get('id_pengusul'); // Mengambil id_pengusul dari session
 
-        // Mengambil artikel berdasarkan id_pengusul
-        $data['artikels'] = $model->where('id_pengusul', $id_pengusul)->findAll();
+        // Ambil data dengan pagination, limit 5 per halaman
+        $perPage = 5;
+
+        // Ambil kata kunci dari request untuk pencarian
+        $keyword = $this->request->getGet('search');
+
+        // Jika ada keyword, tambahkan kondisi pencarian
+        if ($keyword) {
+            $artikels = $model->where('id_pengusul', $id_pengusul)
+                ->like('judul', $keyword)
+                ->paginate($perPage, 'artikel');
+        } else {
+            $artikels = $model->where('id_pengusul', $id_pengusul)
+                ->paginate($perPage, 'artikel');
+        }
 
         // Menyiapkan data untuk view
         $data['title'] = 'Artikel Saya';
+        $data['artikels'] = $artikels;
+        $data['pager'] = $model->pager;
+        $data['keyword'] = $keyword;
 
         // Menampilkan view dengan data artikel
         return view('pengusul/artikelsaya', $data);
@@ -973,12 +1079,12 @@ class PengusulController extends BaseController
     {
         $pendaftaranModel = new PendaftaranModel();
         $pengusulModel = new PengusulModel();
-    
+
         $id_pengusul = session()->get('id_pengusul');
         $pengusul = $pengusulModel->find($id_pengusul);
-    
+
         $pendaftaran = [];
-    
+
         if ($pengusul) {
             if ($pengusul['role_akun'] == 'DLHK') {
                 $provinsi = session()->get('provinsi');
@@ -987,13 +1093,13 @@ class PengusulController extends BaseController
                 $pendaftaran = $pendaftaranModel->where('id_pengusul', $id_pengusul)->findAll();
             }
         }
-    
+
         $data = [
             'title' => 'Pemberitahuan',
             'pendaftaran' => $pendaftaran,
             'pengusul' => $pengusul
         ];
-    
+
         return view('pengusul/pemberitahuan', $data);
     }
 
@@ -1055,7 +1161,7 @@ class PengusulController extends BaseController
         $keistimewaan = $pendaftaranModel->db->table('keistimewaan')->where('id_pendaftaran', $pendaftaranData['id_pendaftaran'])->get()->getRowArray();
 
         $data = [
-            'pendaftaran' => $pendaftaranData, 
+            'pendaftaran' => $pendaftaranData,
             'pengusul' => $pengusulData,
             'kegiatan' => $kegiatan,
             'dampak' => $dampak,
