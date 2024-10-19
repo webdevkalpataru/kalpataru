@@ -25,9 +25,9 @@
             <tbody>
                 <?php if (!empty($pendaftaran)): ?>
                     <?php foreach ($pendaftaran as $item): ?>
-                        <tr class="hover:bg-slate-50">
-                            <td class="p-4 border-b border-slate-200 flex justify-center">
-                                <img src="/images/logoklhk.png" alt="logoklhk" class="w-8 h-8 rounded-full">
+                        <tr class="hover:bg-slate-100">
+                            <td class="p-4 border-b border-slate-200">
+                                <img src="/images/penghargaankalpatarucircle.png" alt="penghargaankalpatarucircle" class="w-8 h-8 rounded-full ms-8">
                             </td>
                             <td class="p-4 border-b border-slate-200">
                                 <p class="text-sm text-slate-800 text-start">
@@ -45,7 +45,7 @@
                     <tr>
                         <td colspan="2" class="p-4 border-b border-slate-200 text-center">
                             <p class="text-sm text-slate-800">
-                                Tidak ada pemberitahuan.
+                                Tidak ada pemberitahuan
                             </p>
                         </td>
                     </tr>
