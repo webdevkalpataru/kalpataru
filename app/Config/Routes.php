@@ -137,7 +137,7 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->post('updatestatus', 'AdminController::updateStatus');
 
     // Manajemen Berita
-    $routes->get('berita', 'AdminController::beritAadmin');
+    $routes->get('berita', 'AdminController::beritaAdmin');
     $routes->get('tambah-berita', 'AdminController::tambahberitaadmin');
     $routes->post('tambah-berita', 'AdminController::tambahBeritaAction');
     $routes->get('berita/edit/(:any)', 'AdminController::editBerita/$1');
@@ -145,6 +145,16 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('berita/(:any)', 'AdminController::detailberita/$1');
     $routes->post('berita/hapus/(:num)', 'AdminController::hapusBerita/$1');
     $routes->post('updatestatusberita', 'AdminController::updateStatusBerita');
+
+    // Manajemen Video
+    $routes->get('video', 'AdminController::videoAdmin');
+    $routes->get('tambah-video', 'AdminController::tambahvideo');
+    $routes->post('tambah-video', 'AdminController::tambahVideoAction');
+    $routes->get('video/edit/(:any)', 'AdminController::editVideo/$1');
+    $routes->post('video/edit/(:any)', 'AdminController::updateVideoAction/$1');
+    $routes->get('video/(:any)', 'AdminController::detailvideo/$1');
+    $routes->post('video/hapus/(:num)', 'AdminController::hapusVideo/$1');
+    $routes->post('updatestatusvideo', 'AdminController::updateStatusVideo');
 });
 
 /* Tim Teknis */

@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use App\Models\ArtikelModel;
 use App\Models\BeritaModel;
+use App\Models\VideoModel;
+
 
 class AdminController extends BaseController
 {
@@ -616,16 +618,199 @@ class AdminController extends BaseController
         return view('admin/daftarakundlhk', ['title' => 'Daftar Akun DLHK']);
     }
 
-    public function video()
+    public function videoAdmin()
     {
-        $data['title'] = "Video";
-        return view('admin/video', ['title' => 'Video']);
+        $model = new VideoModel();
+
+        // Mengambil semua data video tanpa filter status
+        $video = $model->findAll();
+
+        $data['video'] = $video;
+        $data['countAllVideos'] = count($data['video']); // Menghitung semua video
+        $data['title'] = "Video Admin";
+
+        return view('admin/video', $data);
     }
 
     public function tambahvideo()
     {
         $data['title'] = "Tambah Video";
-        return view('admin/tambahvideo', ['title' => 'Tambah Video']);
+        return view('admin/tambahvideo', $data);
+    }
+
+    public function tambahVideoAction()
+    {
+        $model = new VideoModel();
+
+        // Ambil input dari formulir
+        $judulVideo = $this->request->getPost('judul');
+        $link = $this->request->getPost('link');
+
+        // Validasi input
+        $validation = \Config\Services::validation();
+        $validation->setRules([
+            'judul' => [
+                'label' => 'Judul',
+                'rules' => 'required|min_length[5]|max_length[100]|is_unique[video.judul_video]'
+            ],
+            'link' => [
+                'label' => 'Link',
+                'rules' => 'required'
+            ],
+        ]);
+
+        if (!$this->validate($validation->getRules())) {
+            return $this->response->setJSON([
+                'success' => false,
+                'messages' => $validation->getErrors(),
+            ]);
+        }
+
+        // Simpan data artikel ke dalam database
+        $data = [
+            'judul_video' => htmlspecialchars($judulVideo, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+            'link_video' => htmlspecialchars($link, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+            'tanggal' => date('Y-m-d H:i:s'),
+        ];
+
+        // Simpan artikel
+        if ($model->insert($data)) {
+            return $this->response->setJSON(['success' => true, 'message' => 'Artikel berhasil ditambahkan.']);
+        } else {
+            // Tampilkan pesan umum untuk kesalahan penyimpanan
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal menambahkan artikel.']);
+        }
+    }
+
+    public function detailvideo($id_video)
+    {
+        $model = new VideoModel();
+        $video = $model->find($id_video);
+
+        if (!$video) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        // Ambil ID admin yang sedang login
+        $id_admin = session()->get('id_admin');
+
+        // Cek apakah yang mengakses adalah admin
+        if (!$id_admin) {
+            // Jika bukan admin, tampilkan 404
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        $data = [
+            'title' => $video['judul_video'],
+            'video' => $video,
+        ];
+        return view('admin/detailvideo', $data);
+    }
+
+    public function editVideo($id_video)
+    {
+        $model = new VideoModel();
+        $video = $model->find($id_video); // Mengambil artikel berdasarkan id_artikel
+
+        if (!$video) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        // Ambil ID admin yang sedang login
+        $id_admin = session()->get('id_admin');
+
+        // Cek apakah yang mengakses adalah admin
+        if (!$id_admin) {
+            // Jika bukan admin, tampilkan 404
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        $data = [
+            'title' => 'Edit Video - ' . $video['judul_video'],
+            'video' => $video,
+        ];
+        return view('admin/editvideo', $data);
+    }
+
+    public function updateVideoAction($id)
+    {
+        $model = new VideoModel();
+
+        // Ambil input dari formulir
+        $judulVideo = $this->request->getPost('judul');
+        $link = $this->request->getPost('link');
+
+        // Validasi input
+        $validation = \Config\Services::validation();
+        $validation->setRules([
+            'judul' => [
+                'label' => 'Judul',
+                'rules' => 'required|min_length[5]|max_length[100]|is_unique[video.judul_video,id_video,' . $id . ']'
+            ],
+            'link' => [
+                'label' => 'Link',
+                'rules' => 'required'
+            ],
+        ]);
+
+        if (!$this->validate($validation->getRules())) {
+            return $this->response->setJSON([
+                'success' => false,
+                'messages' => $validation->getErrors(),
+            ]);
+        }
+
+        // Simpan data artikel ke dalam database
+        $data = [
+            'judul_video' => htmlspecialchars($judulVideo, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+            'link_video' => htmlspecialchars($link, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+            'tanggal' => date('Y-m-d H:i:s'),
+        ];
+
+        // Simpan artikel yang sudah diperbarui
+        if ($model->update($id, $data)) {
+            return $this->response->setJSON(['success' => true, 'message' => 'Video berhasil diperbarui']);
+        } else {
+            // Tampilkan pesan umum untuk kesalahan penyimpanan
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui video']);
+        }
+    }
+
+    public function updateStatusVideo()
+    {
+        // Inisialisasi model
+        $model = new VideoModel();
+
+        // Ambil data dari POST request
+        $id_video = $this->request->getPost('id_video');
+        $status = $this->request->getPost('status');
+
+        // Validasi data (opsional, misalnya cek apakah ID dan status valid)
+        if ($id_video && $status) {
+            // Update status di database
+            $model->update($id_video, ['status' => $status]);
+
+            // Mengembalikan respons untuk merefresh halaman
+            return $this->response->setJSON(['success' => true, 'message' => 'Data berhasil diperbarui']);
+        } else {
+            // Mengembalikan respons untuk merefresh halaman
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui data']);
+        }
+    }
+
+    public function hapusVideo($id_video)
+    {
+        $model = new VideoModel();
+
+        // Hapus artikel berdasarkan ID
+        if ($model->delete($id_video)) {
+            // Set flash message atau lakukan redirect setelah menghapus
+            session()->setFlashdata('success', 'Video berhasil dihapus');
+        } else {
+            session()->setFlashdata('error', 'Gagal menghapus video');
+        }
+
+        return redirect()->to('/admin/video'); // Sesuaikan dengan URL yang diinginkan
     }
 
     public function buku()
