@@ -36,6 +36,11 @@
                     <?= nl2br(htmlspecialchars($artikel['konten'])); ?><br><br>
                 </p>
             </div>
+
+            <button onclick="window.history.back()"
+                class="text-sm font-bold text-gray-600 no-underline focus:outline-none text-start">
+                <span class="font-bold text-lg items-center">←</span> Kembali
+            </button>
         </div>
 
     </div>

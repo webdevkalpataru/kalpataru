@@ -163,7 +163,7 @@
                 </form>
 
                 <div class="mt-4">
-                    <button onclick="window.location.href='./login'"
+                    <button onclick="window.history.back()"
                         class="text-sm font-bold text-gray-400 no-underline focus:outline-none">
                         <span class="font-bold text-lg items-center">←</span> Kembali
                     </button>
@@ -177,7 +177,7 @@
         <div class="bg-green-700 text-center text-white p-6 rounded-lg max-w-md w-full">
             <h3 class="text-xl font-bold mb-4">Terima kasih telah mendaftar!</h3>
             <p class="text-sm">Akun Anda sedang dalam proses verifikasi oleh admin. Anda akan menerima email konfirmasi setelah akun diaktifkan.</p>
-            <button onclick="window.location.href='/'"
+            <button onclick="window.history.back()"
                 class="mt-4 px-4 py-2 bg-green-300 text-green-900 rounded-md hover:bg-green-400 transition">
                 ← Beranda
             </button>

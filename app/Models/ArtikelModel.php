@@ -63,7 +63,9 @@ class ArtikelModel extends Model
 
     public function getArtikelTerbit()
     {
-        return $this->where('status', 'Terbit')->findAll();
+        return $this->where('status', 'Terbit')
+            ->orderBy('tanggal', 'DESC')
+            ->findAll();
     }
 
     public function countArtikelTerbit()
@@ -75,6 +77,7 @@ class ArtikelModel extends Model
     {
         return $this->like('judul', $keyword)
             ->where('status', 'Terbit')
+            ->orderBy('tanggal', 'DESC')
             ->findAll();
     }
 

@@ -39,4 +39,9 @@ class PengusulModel extends Model
     {
         return $this->insert($data);
     }
+
+    public function getDetailById($id_pengusul)
+    {
+        return $this->where('id_pengusul', $id_pengusul)->first();
+    }
 }

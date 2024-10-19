@@ -51,7 +51,7 @@
 
                 <div class="flex justify-between mt-4 items-center">
                     <div class="mt-4">
-                        <button onclick="window.location.href='./usulansaya'"
+                        <button onclick="window.history.back()"
                             class="text-sm font-bold text-gray-600 no-underline focus:outline-none">
                             <span class="font-bold text-lg items-center">←</span> Kembali
                         </button>
@@ -61,10 +61,6 @@
                 </div>
 
             </form>
-
-            <div id="validationMessage" class="hidden text-red-600 text-center mt-4">
-                Silahkan pilih kategori sebelum melanjutkan!
-            </div>
 
         </div>
 

@@ -286,7 +286,7 @@
                             </div>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <p>Tidak ada berita yang terbit saat ini.</p>
+                        <p>Tidak ada berita yang terbit saat ini</p>
                     <?php endif; ?>
                 </div>
 
@@ -317,21 +317,25 @@
                     &#9664;
                 </button>
                 <div id="videoContainer" class="flex overflow-x-auto space-x-4 scrollbar-hide">
-                    <?php foreach ($videos['data_video'] as $item): ?>
-                        <div class="flex-none w-full bg-white rounded-lg shadow-md my-2">
-                            <?php
-                            preg_match("/(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/", $item->link_video, $matches);
-                            $youtube_id = $matches[1];
-                            ?>
-                            <iframe width="380" height="200" src="https://www.youtube.com/embed/<?= $youtube_id; ?>"
-                                title="<?= esc($item->judul_video); ?>" frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <?php if (!empty($video) && is_array($video)): ?>
+                        <?php foreach ($video as $item): ?>
+                            <div class="flex-none bg-white rounded-lg shadow-md my-2">
+                                <?php
+                                preg_match("/(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/", $item['link_video'], $matches);
+                                $youtube_id = $matches[1];
+                                ?>
+                                <iframe width="380" height="200" src="https://www.youtube.com/embed/<?= $youtube_id; ?>"
+                                    title="<?= esc($item['judul_video']); ?>" frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-                            <div class="p-2">
-                                <h5 class="font-bold text-sm mb-2"><?= word_limiter(esc($item->judul_video), 6); ?></h5>
+                                <div class="p-2">
+                                    <h5 class="font-bold text-sm mb-2"><?= word_limiter(esc($item['judul_video']), 6); ?></h5>
+                                </div>
                             </div>
-                        </div>
-                    <?php endforeach; ?>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>Tidak ada video saat ini</p>
+                    <?php endif; ?>
                 </div>
 
                 <!-- arrow kanan -->

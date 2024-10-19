@@ -224,7 +224,7 @@ class PengusulController extends BaseController
 
         if (!$this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $validation->getErrors());
-        }
+        } */
 
         // Pengelolaan file KTP, SKCK, dan legalitas
         $ktpFile = $this->request->getFile('ktp');
@@ -655,11 +655,10 @@ class PengusulController extends BaseController
     public function usulansaya()
     {
         $Model = new PendaftaranModel();
+        $PengusulModel = new PengusulModel();
 
         // Ambil data dengan pagination, limit 5 per halaman
         $perPage = 5;
-        // Ambil halaman saat ini dari request, default ke halaman 1 jika tidak ada
-        $currentPage = $this->request->getVar('page_usulan') ? $this->request->getVar('page_usulan') : 1;
 
         // Ambil ID pengusul dari session
         $id_pengusul = session()->get('id_pengusul');
@@ -678,11 +677,20 @@ class PengusulController extends BaseController
                 ->paginate($perPage, 'usulan');
         }
 
+        // Ambil data pengusul dari tabel pengusul
+        $pengusul = $PengusulModel->where('id_pengusul', $id_pengusul)->first();
+
+        // Cek kelengkapan data pengusul
+        $isComplete = !empty($pengusul['jabatan_pekerjaan']) && !empty($pengusul['jenis_kelamin']) && !empty($pengusul['jalan']) && !empty($pengusul['rt_rw']) && !empty($pengusul['desa']) && !empty($pengusul['kecamatan']) && !empty($pengusul['kab_kota']) && !empty($pengusul['kode_pos']) && !empty($pengusul['surat_pengantar']);
+
         // Persiapkan data untuk dikirim ke view
-        $data['usulan'] = $usulan;
-        $data['pager'] = $Model->pager;
-        $data['title'] = "Usulan Saya";
-        $data['keyword'] = $keyword; // Tambahkan keyword ke data untuk dikirim ke view
+        $data = [
+            'usulan' => $usulan,
+            'pager' => $Model->pager,
+            'title' => "Usulan Saya",
+            'keyword' => $keyword,
+            'isComplete' => $isComplete,
+        ];
 
         // Load view untuk menampilkan data calon
         return view('pengusul/usulansaya', $data);
@@ -718,14 +726,56 @@ class PengusulController extends BaseController
 
     public function usulandlhk()
     {
-        $Model = new PendaftaranModel();
+        $model = new PendaftaranModel();
+
+        // Ambil data dengan pagination, limit 5 per halaman
+        $perPage = 5;
+
+        // Ambil kategori dari filter
+        $kategori = $this->request->getVar('kategori');
+
+        // Ambil kata kunci dari request untuk pencarian
+        $keyword = $this->request->getGet('search');
+
+        // Ambil ID pengusul dan provinsi dari session
+        $id_pengusul = session()->get('id_pengusul');
         $provinsi = session()->get('provinsi');
 
-        $usulan = $Model->where('provinsi', $provinsi)->findAll();
+        // Filter query berdasarkan id_pengusul
+        $model->where('id_pengusul', $id_pengusul);
 
+        // Filter query berdasarkan provinsi
+        if ($provinsi) {
+            $model->where('provinsi', $provinsi);
+        }
+
+        // Tambahkan filter untuk status pendaftaran
+        $validStatuses = ['Sesuai', 'Verifikasi Administrasi', 'Lolos Administrasi', 'Tidak Lolos Administrasi'];
+        $model->whereIn('status_pendaftaran', $validStatuses);
+
+        // Jika kategori dipilih, tambahkan filter kategori
+        if ($kategori) {
+            $model->where('kategori', $kategori);
+        }
+
+        // Jika ada kata kunci, tambahkan kondisi pencarian berdasarkan nama
+        if ($keyword) {
+            $model->like('nama', $keyword);
+        }
+
+        // Dapatkan data dengan pagination
+        $usulan = $model->paginate($perPage, 'usulan');
+
+        // Ambil pager untuk pagination
+        $pager = $model->pager;
+
+        // Persiapkan data untuk dikirim ke view
         $data = [
             'title' => 'Usulan DLHK',
-            'usulan' => $usulan
+            'usulan' => $usulan,
+            'pager' => $pager,
+            'kategori' => $kategori,
+            'keyword' => $keyword,
         ];
 
         return view('pengusul/usulandlhk', $data);
@@ -949,11 +999,27 @@ class PengusulController extends BaseController
         $model = new ArtikelModel();
         $id_pengusul = session()->get('id_pengusul'); // Mengambil id_pengusul dari session
 
-        // Mengambil artikel berdasarkan id_pengusul
-        $data['artikels'] = $model->where('id_pengusul', $id_pengusul)->findAll();
+        // Ambil data dengan pagination, limit 5 per halaman
+        $perPage = 5;
+
+        // Ambil kata kunci dari request untuk pencarian
+        $keyword = $this->request->getGet('search');
+
+        // Jika ada keyword, tambahkan kondisi pencarian
+        if ($keyword) {
+            $artikels = $model->where('id_pengusul', $id_pengusul)
+                ->like('judul', $keyword)
+                ->paginate($perPage, 'artikel');
+        } else {
+            $artikels = $model->where('id_pengusul', $id_pengusul)
+                ->paginate($perPage, 'artikel');
+        }
 
         // Menyiapkan data untuk view
         $data['title'] = 'Artikel Saya';
+        $data['artikels'] = $artikels;
+        $data['pager'] = $model->pager;
+        $data['keyword'] = $keyword;
 
         // Menampilkan view dengan data artikel
         return view('pengusul/artikelsaya', $data);

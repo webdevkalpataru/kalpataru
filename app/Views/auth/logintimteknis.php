@@ -119,7 +119,7 @@
                 .then(data => {
                     if (data.success) {
                         // Redirect ke halaman yang diinginkan
-                        window.location.href = '/admin/dashboard'; // Sesuaikan dengan URL tujuan setelah login
+                        window.location.href = '/timteknis/datacalonusulan'; // Sesuaikan dengan URL tujuan setelah login
                     } else {
                         showToast(data.errors.email || data.errors.kata_sandi || 'Login gagal.'); // Tampilkan pesan kesalahan
                     }

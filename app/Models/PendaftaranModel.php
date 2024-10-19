@@ -322,6 +322,7 @@ class PendaftaranModel extends Model
         return $this->db->table('keistimewaan')->where($where)->update($data);
     }
 
+
     // -------------------------------------------------------------------------
 
 

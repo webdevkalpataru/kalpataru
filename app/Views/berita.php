@@ -21,11 +21,10 @@
     </section>
 
     <section id="beritacontent">
-        <div class="container mx-auto">
+        <div class="container mx-auto max-w-screen-lg">
             <!-- Search Bar -->
             <div class="flex justify-between items-center my-6">
                 <h1 class="text-xs:lg:text-md ml-4 lg:ml-0 font-semibold">
-                    Hasil: <?= esc($countTerbit) ?> Berita
                     Hasil: <?= esc($countTerbit) ?> Berita
                 </h1>
                 <div class="relative mr-4 lg:mr-0">
@@ -33,7 +32,6 @@
                         placeholder="Masukan kata kunci"
                         class="input shadow-lg focus:border-2 border-2 border-primary 0 px-5 py-3 rounded-xl w-56 transition-all focus:w-64 outline-none"
                         name="search" />
-                    name="search" />
                     <svg
                         class="size-6 absolute top-3 right-3 text-primary"
                         stroke="currentColor"
