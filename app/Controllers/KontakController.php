@@ -2,14 +2,12 @@
 
 namespace App\Controllers;
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+use Config\Services;
 
 class KontakController extends BaseController
 {
     public function sendEmail()
     {
-        // Ambil data dari permintaan POST (JSON body)
         $data = $this->request->getJSON();
 
         $nama = $data->nama;
@@ -17,45 +15,48 @@ class KontakController extends BaseController
         $telepon = $data->telepon;
         $pesan = $data->pesan;
 
-        // Validasi input form (optional)
         if (!$nama || !$email || !$telepon || !$pesan) {
             return $this->response->setJSON(['success' => false, 'message' => 'Semua field harus diisi!']);
         }
 
-        // Inisialisasi PHPMailer
-        $mail = new PHPMailer(true);
+        $emailService = Services::email();
 
-        try {
-            // Set konfigurasi SMTP
-            $mail->isSMTP();                                            
-            $mail->Host       = 'smtp.gmail.com';                       // SMTP server Gmail
-            $mail->SMTPAuth   = true;                                   // Aktifkan autentikasi SMTP
-            $mail->Username   = 'kalpataru.klhk@gmail.com';                   // Email Gmail Anda
-            $mail->Password   = 'lrll nozp cluf naiq';                  // App Password from Gmail
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enkripsi TLS
-            $mail->Port       = 587;                                    // Port SMTP Gmail
+        $emailService->setFrom($email, $nama);
+        $emailService->setTo('sulthanizza11@gmail.com');
+        $emailService->setReplyTo($email, $nama);
 
-            // Set detail pengirim dan penerima
-            $mail->setFrom($email, $nama);                              // Email pengirim
-            $mail->addAddress('kalpataru.klhk@gmail.com');                    // Email tujuan
+        $emailService->setSubject('Pesan dari Form Kontak Website Sistem Informasi Penghargaan Kalpataru');
+        $emailService->setMessage("
+            <h2>Pesan dari Form Kontak Website Sistem Informasi Penghargaan Kalpataru</h2>
+            <p><strong>Nama:</strong> $nama</p>
+            <p><strong>Email:</strong> $email</p>
+            <p><strong>Telepon:</strong> $telepon</p>
+            <p><strong>Pesan:</strong> $pesan</p>
+        ");
+        $emailService->setAltMessage("Nama: $nama\nEmail: $email\nTelepon: $telepon\nPesan: $pesan");
 
-            // Konten email
-            $mail->isHTML(true);                                       
-            $mail->Subject = 'Pesan dari Form Kontak Website Sistem Informasi Penghargaan Kalpataru'; 
-            $mail->Body    = "
-                <h2>Pesan dari Form Kontak Website Sistem Informasi Penghargaan Kalpataru</h2>
-                <p><strong>Nama:</strong> $nama</p>
-                <p><strong>Email:</strong> $email</p>
-                <p><strong>Telepon:</strong> $telepon</p>
-                <p><strong>Pesan:</strong> $pesan</p>
-            ";                                                          
-            $mail->AltBody = "Nama: $nama\nEmail: $email\nTelepon: $telepon\nPesan: $pesan";
+        $emailService->send();
 
-            // Kirim email
-            $mail->send();
+        $emailService->clear();
+        $emailService->setFrom('sulthanizza11@gmail.com', 'kalpataru');
+        $emailService->setTo($email);
+        $emailService->setSubject('Terima kasih telah mengirim kontak kami');
+        $emailService->setMessage("
+            <h2>Terima kasih telah menghubungi kami pada Website Sistem Informasi Penghargaan Kalpataru</h2>
+            <p>Halo $nama,</p>
+            <p>Terima kasih telah menghubungi kami. Berikut adalah salinan pesan yang Anda kirimkan:</p>
+            <p><strong>Nama:</strong> $nama</p>
+            <p><strong>Email:</strong> $email</p>
+            <p><strong>Telepon:</strong> $telepon</p>
+            <p><strong>Pesan:</strong> $pesan</p>
+            <p>Kami akan segera menanggapi pesan Anda.</p>
+        ");
+        $emailService->setAltMessage("Halo $nama,\n\nTerima kasih telah menghubungi kami. Berikut adalah salinan pesan yang Anda kirimkan:\n\nNama: $nama\nEmail: $email\nTelepon: $telepon\nPesan: $pesan\n\nKami akan segera menanggapi pesan Anda.");
+
+        if ($emailService->send()) {
             return $this->response->setJSON(['success' => true, 'message' => 'Pesan berhasil dikirim!']);
-        } catch (Exception $e) {
-            return $this->response->setJSON(['success' => false, 'message' => 'Pesan gagal dikirim. Error: ' . $mail->ErrorInfo]);
+        } else {
+            return $this->response->setJSON(['success' => false, 'message' => 'Pesan gagal dikirim.']);
         }
     }
 }

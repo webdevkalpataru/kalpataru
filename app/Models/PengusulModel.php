@@ -16,6 +16,7 @@ class PengusulModel extends Model
         'telepon',
         'email',
         'kata_sandi',
+        'reset_token',
         'jabatan_pekerjaan',
         'jenis_kelamin',
         'status_akun',

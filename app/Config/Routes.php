@@ -44,6 +44,10 @@ $routes->get('auth/loginadmin', 'AuthController::loginadmin');
 $routes->get('auth/logintimteknis', 'AuthController::logintimteknis');
 $routes->get('auth/loginddpk', 'AuthController::loginddpk');
 
+$routes->get('auth/forgot-password', 'AuthController::forgotPassword');
+$routes->post('auth/forgot-password', 'AuthController::sendResetLink');
+$routes->get('auth/reset-password/(:any)', 'AuthController::resetPassword/$1');
+$routes->post('auth/reset-password', 'AuthController::processResetPassword');
 
 /* Pengusul */
 $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
