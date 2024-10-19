@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\PublikasiModel;
 use App\Models\ArtikelModel;
 use App\Models\BeritaModel;
+use App\Models\VideoModel;
 
 helper('text');
 
@@ -103,14 +104,14 @@ class PublikasiController extends BaseController
 
     public function video()
     {
-        $PublikasiModel = new PublikasiModel();
-        $VideoData = $PublikasiModel->TampilVideo();
+        $model = new VideoModel();
+        $video = $model->where('status', 'terbit')->findAll();
 
-        $data['video'] = $VideoData['data_video'];
-        $data['total_video'] = $VideoData['total_video'];
+        $data['video'] = $video;
+        $data['countTerbit'] = count($data['video']);
+        $data['title'] = "Video Admin";
 
-        $data['title'] = "Video";
-        return view('video', $data, ['title' => 'Video']);
+        return view('video', $data);
     }
 
     public function buku()
