@@ -29,9 +29,13 @@
                 </h3>
             </div>
             <div class="lg:flex justify-between items-center mt-6">
-                <a href="./tambahcalon">
-                    <button id="tambahCalon" class="mb-4 w-48 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button"> <span>&#10010</span> Tambah Calon Usulan</button>
-                </a>
+                <button id="tambahCalon"
+                    class="mb-4 w-48 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none <?= !$isComplete ? 'bg-slate-400' : '' ?>"
+                    type="button"
+                    onclick="window.location.href='./tambahcalon';"
+                    <?= !$isComplete ? 'disabled' : '' ?>>
+                    <span>&#10010;</span> Tambah Calon Usulan
+                </button>
                 <form method="get">
                     <div class="mb-4 relative w-56 transition-all focus-within:w-64 lg:mt-0 mt-4">
                         <input
@@ -89,8 +93,10 @@
                         <tbody>
                             <?php if (empty($usulan)): ?>
                                 <tr>
-                                    <td colspan="8" class="p-4 text-center block text-xs text-slate-800">
-                                        Belum ada data usulan
+                                    <td colspan="11" class="p-4 border-b border-slate-200 text-center">
+                                        <p class="block text-xs text-slate-800">
+                                            Belum ada data usulan
+                                        </p>
                                     </td>
                                 </tr>
                             <?php else: ?>

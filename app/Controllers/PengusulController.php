@@ -676,6 +676,7 @@ class PengusulController extends BaseController
     public function usulansaya()
     {
         $Model = new PendaftaranModel();
+        $PengusulModel = new PengusulModel();
 
         // Ambil data dengan pagination, limit 5 per halaman
         $perPage = 5;
@@ -697,11 +698,20 @@ class PengusulController extends BaseController
                 ->paginate($perPage, 'usulan');
         }
 
+        // Ambil data pengusul dari tabel pengusul
+        $pengusul = $PengusulModel->where('id_pengusul', $id_pengusul)->first();
+
+        // Cek kelengkapan data pengusul
+        $isComplete = !empty($pengusul['jabatan_pekerjaan']) && !empty($pengusul['jenis_kelamin']) && !empty($pengusul['jalan']) && !empty($pengusul['rt_rw']) && !empty($pengusul['rt_rw']) && !empty($pengusul['desa']) && !empty($pengusul['kecamatan']) && !empty($pengusul['kab_kota']) && !empty($pengusul['kode_pos']) && !empty($pengusul['surat_pengantar']);
+
         // Persiapkan data untuk dikirim ke view
-        $data['usulan'] = $usulan;
-        $data['pager'] = $Model->pager;
-        $data['title'] = "Usulan Saya";
-        $data['keyword'] = $keyword; // Tambahkan keyword ke data untuk dikirim ke view
+        $data = [
+            'usulan' => $usulan,
+            'pager' => $Model->pager,
+            'title' => "Usulan Saya",
+            'keyword' => $keyword,
+            'isComplete' => $isComplete,
+        ];
 
         // Load view untuk menampilkan data calon
         return view('pengusul/usulansaya', $data);

@@ -73,25 +73,37 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php
-                            $no = 0;
-                            foreach ($artikels as $index => $artikel):
-                                $no++;
+                            <?php if (empty($artikels)): // Ganti $artikel dengan $artikels agar sesuai dengan array yang digunakan 
                             ?>
-                                <tr class="hover:bg-slate-50">
-                                    <td class="p-4 border-b border-slate-200 text-xs text-slate-800 text-center"><?= $no ?></td>
-                                    <td class="p-4 border-b border-slate-200 text-xs text-slate-800 text-center"><?= esc($artikel['judul']) ?></td>
-                                    <td class="p-4 border-b border-slate-200 text-xs text-slate-800 text-center"><?= esc($artikel['status']) ?></td>
-                                    <td class="p-4 border-b border-slate-200 text-xs text-slate-800 text-center">
-                                        <button
-                                            class="lihatButton w-20 rounded-md py-2 px-2 text-center font-semibold text-xs text-primary bg-secondary"
-                                            type="button"
-                                            onclick="window.location.href='/pengusul/artikel/<?= $artikel['slug']; ?>'">
-                                            Lihat
-                                        </button>
+                                <tr>
+                                    <td colspan="4" class="p-4 border-b border-slate-200 text-center">
+                                        <p class="block text-xs text-slate-800">
+                                            Belum ada data artikel
+                                        </p>
                                     </td>
                                 </tr>
-                            <?php endforeach; ?>
+                            <?php else:
+                            ?>
+                                <?php
+                                $no = 0;
+                                foreach ($artikels as $index => $artikel):
+                                    $no++;
+                                ?>
+                                    <tr class="hover:bg-slate-50">
+                                        <td class="p-4 border-b border-slate-200 text-xs text-slate-800 text-center"><?= $no ?></td>
+                                        <td class="p-4 border-b border-slate-200 text-xs text-slate-800 text-center"><?= esc($artikel['judul']) ?></td>
+                                        <td class="p-4 border-b border-slate-200 text-xs text-slate-800 text-center"><?= esc($artikel['status']) ?></td>
+                                        <td class="p-4 border-b border-slate-200 text-xs text-slate-800 text-center">
+                                            <button
+                                                class="lihatButton w-20 rounded-md py-2 px-2 text-center font-semibold text-xs text-primary bg-secondary"
+                                                type="button"
+                                                onclick="window.location.href='/pengusul/artikel/<?= esc($artikel['slug']); ?>'">
+                                                Lihat
+                                            </button>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                         </tbody>
                     </table>
                 </div>
