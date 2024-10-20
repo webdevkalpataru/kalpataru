@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\InformasiModel;
 use App\Models\PengumumanModel;
+use App\Models\PeraturanModel;
 
 helper('text');
 
@@ -58,6 +59,23 @@ class InformasiController extends BaseController
             'pengumuman' => $pengumuman,
         ];
         return view('detailpengumuman', $data);
+    }
+
+    public function peraturan()
+    {
+        $model = new PeraturanModel();
+        $keyword = $this->request->getGet('search');
+
+        if ($keyword) {
+            $data['peraturan'] = $model->searchPeraturanTerbit($keyword);
+            $data['countTerbit'] = count($data['peraturan']);
+        } else {
+            $data['peraturan'] = $model->getPeraturanTerbit();
+            $data['countTerbit'] = $model->countPeraturanTerbit();
+        }
+
+        $data['title'] = "Peraturan dan Kebijakan";
+        return view('peraturankebijakan', $data);
     }
 
     public function peraturankebijakan()

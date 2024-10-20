@@ -14,7 +14,7 @@ $routes->post('kontak/sendEmail', 'KontakController::sendEmail');
 
 /* Informasi */
 $routes->get('informasi/pengumuman', 'InformasiController::pengumuman');
-$routes->get('informasi/peraturankebijakan', 'InformasiController::peraturankebijakan');
+$routes->get('informasi/peraturan-kebijakan', 'InformasiController::peraturan');
 $routes->get('informasi/datastatistik', 'InformasiController::datastatistik');
 $routes->get('pengumuman/(:any)', 'InformasiController::detailpengumuman/$1');
 
@@ -164,9 +164,6 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->post('pengumuman/hapus/(:num)', 'AdminController::hapusPengumuman/$1');
     $routes->post('updatestatuspengumuman', 'AdminController::updateStatusPengumuman');
 
-
-
-
     // Manajemen Video
     $routes->get('video', 'AdminController::videoAdmin');
     $routes->get('tambah-video', 'AdminController::tambahvideo');
@@ -176,6 +173,16 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('video/(:any)', 'AdminController::detailvideo/$1');
     $routes->post('video/hapus/(:num)', 'AdminController::hapusVideo/$1');
     $routes->post('updatestatusvideo', 'AdminController::updateStatusVideo');
+
+    // Manajemen Artikel
+    $routes->get('peraturan-kebijakan', 'AdminController::peraturanadmin');
+    $routes->get('peraturan-kebijakan/tambah', 'AdminController::tambahperaturan');
+    $routes->post('peraturan-kebijakan/tambah', 'AdminController::tambahPeraturanAction');
+    $routes->get('peraturan-kebijakan/edit/(:any)', 'AdminController::editPeraturan/$1');
+    $routes->post('peraturan-kebijakan/edit/(:any)', 'AdminController::updatePeraturanAction/$1');
+    $routes->get('peraturan-kebijakan/(:any)', 'AdminController::detailperaturan/$1');
+    $routes->post('peraturan-kebijakan/hapus/(:num)', 'AdminController::hapusPeraturan/$1');
+    $routes->post('updatestatusperaturan', 'AdminController::updateStatusPeraturan');
 });
 
 /* Tim Teknis */
