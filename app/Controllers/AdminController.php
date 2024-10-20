@@ -279,11 +279,42 @@ class AdminController extends BaseController
     public function akunpengusul()
     {
         $model = new PengusulModel();
-        $pengusul = $model->where('role_akun', 'Pengusul')->findAll();
 
+        // Ambil data dengan pagination, limit 5 per halaman
+        $perPage = 5;
+
+        // Ambil statusAkun dari filter
+        $statusAkun = $this->request->getVar('statusAkun');
+
+        // Ambil kata kunci dari request untuk pencarian
+        $keyword = $this->request->getGet('search');
+
+        // Ambil pengusul dengan role_akun 'Pengusul'
+        $builder = $model->where('role_akun', 'Pengusul');
+
+        // Jika statusAkun dipilih, tambahkan filter statusAkun
+        if ($statusAkun) {
+            $builder->where('status_akun', $statusAkun);
+        }
+
+        // Jika ada kata kunci, tambahkan kondisi pencarian berdasarkan nama_instansi_pribadi
+        if ($keyword) {
+            $builder->like('nama_instansi_pribadi', $keyword);
+        }
+
+        // Hitung total pengusul yang sesuai dengan filter dan pencarian
+        $totalFilteredPengusul = $builder->countAllResults(false); // False untuk tidak reset query builder
+
+        // Dapatkan data dengan pagination setelah semua filter
+        $pengusul = $builder->paginate($perPage, 'pengusul');
+
+        // Data untuk view
         $data['pengusul'] = $pengusul;
-        $data['countAllPengusul'] = count($data['pengusul']); // Menghitung semua akun pengusul
+        $data['countAllPengusul'] = $totalFilteredPengusul; // Total pengusul setelah filter dan pencarian
         $data['title'] = "Akun Pengusul";
+        $data['pager'] = $model->pager;
+        $data['keyword'] = $keyword;
+        $data['statusAkun'] = $statusAkun;
 
         return view('admin/akunpengusul', $data);
     }
