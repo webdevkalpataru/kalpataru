@@ -15,4 +15,24 @@ class VideoModel extends Model
         'status',
         'tanggal',
     ];
+
+    public function getVideoTerbit()
+    {
+        return $this->where('status', 'Terbit')
+            ->orderBy('tanggal', 'DESC')
+            ->findAll();
+    }
+
+    public function countVideoTerbit()
+    {
+        return $this->where('status', 'Terbit')->countAllResults();
+    }
+
+    public function searchVideoTerbit($keyword)
+    {
+        return $this->like('judul', $keyword)
+            ->where('status', 'Terbit')
+            ->orderBy('tanggal', 'DESC')
+            ->findAll();
+    }
 }

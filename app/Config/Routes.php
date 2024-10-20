@@ -25,8 +25,6 @@ $routes->get('publikasi/buku', 'PublikasiController::buku');
 $routes->get('artikel/(:any)', 'PublikasiController::detailartikel/$1');
 $routes->get('berita/(:any)', 'PublikasiController::detailberita/$1');
 
-
-
 /* Auth Pengusul */
 $routes->get('auth/login', 'AuthController::login');
 $routes->post('auth/login', 'AuthController::loginAction');
@@ -99,22 +97,36 @@ $routes->group('penerima', ['filter' => 'auth'], function ($routes) {
 /* Admin */
 $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('dashboard', 'AdminController::dashboard');
+    //pengusul
+    $routes->get('akunpengusul', 'AdminController::akunpengusul');
+    //dlhk
     $routes->get('akundlhk', 'AdminController::akundlhk');
+    $routes->get('daftarakundlhk', 'AuthController::registerDLHK');
+    $routes->post('daftarakundlhk', 'AuthController::createRegisterDLHK');
+    //timteknis
     $routes->get('akuntimteknis', 'AdminController::akuntimteknis');
-    $routes->get('daftartimteknis', 'AdminController::daftartimteknis');
+    $routes->get('daftartimteknis', 'AuthController::registerTimTeknis');
+    $routes->post('daftartimteknis', 'AuthController::createRegisterTimTeknis');
+    //dppk
     $routes->get('akundppk', 'AdminController::akundppk');
-    $routes->get('daftardppk', 'AdminController::daftardppk');
+    $routes->get('daftardppk', 'AuthController::registerDPPK');
+    $routes->post('daftardppk', 'AuthController::createRegisterDPPK');
+    //penerima
+    $routes->get('daftarakunpengguna', 'AuthController::registerPenerima');
+    $routes->post('daftarakunpengguna', 'AuthController::createRegisterPenerima');
+    $routes->get('akunpengguna', 'AdminController::akunpengguna');
+
+    //Pengumuman
     $routes->get('pengumumanadmin', 'AdminController::pengumumanadmin');
     $routes->get('tambahpengumumanadmin', 'AdminController::tambahpengumumanadmin');
-    $routes->get('akunpengguna', 'AdminController::akunpengguna');
-    $routes->get('daftarakunpengguna', 'AdminController::daftarakunpengguna');
-    $routes->get('daftarakundlhk', 'AdminController::daftarakundlhk');
     
+    // Manajemen Buku
     $routes->get('buku', 'AdminController::buku');
     $routes->get('tambahbuku', 'AdminController::tambahbuku');
+
+    // Manajemen Kebijakan
     $routes->get('kebijakan', 'AdminController::kebijakan');
 
-
     // Manajemen Akun Pengusul
     $routes->get('pengusul', 'AdminController::akunpengusul');
     $routes->post('pengusul/hapus/(:num)', 'AdminController::hapusPengusul/$1');
@@ -122,17 +134,12 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('pengusul/detail/(:any)', 'AdminController::detailPengusul/$1');
     $routes->get('download/suratpengantar/(:segment)', 'AdminController::downloadSuratPengantar/$1');
 
-
-
-
     // Manajemen Akun Pengusul
     $routes->get('pengusul', 'AdminController::akunpengusul');
     $routes->post('pengusul/hapus/(:num)', 'AdminController::hapusPengusul/$1');
     $routes->post('updatepengusul', 'AdminController::updatePengusul');
     $routes->get('pengusul/detail/(:any)', 'AdminController::detailPengusul/$1');
     $routes->get('download/suratpengantar/(:segment)', 'AdminController::downloadSuratPengantar/$1');
-
-
 
     // Manajemen Artikel
     $routes->get('artikel', 'AdminController::artikeladmin');

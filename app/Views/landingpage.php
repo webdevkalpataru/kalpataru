@@ -309,7 +309,7 @@
                     </svg>
                 </a>
             </div>
-            <hr class="border-2 border-primary w-full mt-0 mb-5" />
+            <hr class="border-2 border-primary w-full mt-0 mb-10" />
 
             <div class="relative flex overflow-x-auto space-x-4 scrollbar-hide">
                 <!-- arrow kiri -->
@@ -324,7 +324,7 @@
                                 preg_match("/(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/", $item['link_video'], $matches);
                                 $youtube_id = $matches[1];
                                 ?>
-                                <iframe width="380" height="200" src="https://www.youtube.com/embed/<?= $youtube_id; ?>"
+                                <iframe class="w-full object-cover rounded-t-lg" height="200" src="https://www.youtube.com/embed/<?= $youtube_id; ?>"
                                     title="<?= esc($item['judul_video']); ?>" frameborder="0"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 

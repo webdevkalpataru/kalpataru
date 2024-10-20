@@ -132,10 +132,34 @@ class PublikasiController extends BaseController
     public function video()
     {
         $model = new VideoModel();
-        $video = $model->where('status', 'terbit')->findAll();
+        // Ambil data dengan pagination, limit 5 per halaman
+        $perPage = 6;
 
-        $data['video'] = $video;
-        $data['countTerbit'] = count($data['video']);
+        // Ambil keyword dari input search
+        $keyword = $this->request->getGet('search');
+
+        if ($keyword) {
+            // Jika ada pencarian, ambil video yang sesuai dengan judul_video dan statusnya "Terbit" dengan pagination
+            $data['videos'] = $model->where('status', 'Terbit')
+                ->like('judul_video', $keyword) // Cari berdasarkan judul_video
+                ->orderBy('tanggal', 'DESC')
+                ->paginate($perPage, 'videos'); // Paginate hasil pencarian
+            $countTerbit = $model->where('status', 'Terbit')
+                ->like('judul_video', $keyword) // Hitung hanya yang cocok dengan pencarian
+                ->countAllResults(); // Hitung jumlah video hasil pencarian
+            $data['pager'] = $model->pager; // Tidak ada pagination jika ada pencarian
+        } else {
+            // Jika tidak ada pencarian, ambil video yang statusnya "Terbit" dengan pagination
+            $data['videos'] = $model->where('status', 'Terbit')
+                ->orderBy('tanggal', 'DESC')
+                ->paginate($perPage, 'videos');
+            $countTerbit = $model->where('status', 'Terbit')->countAllResults(); // Hanya hitung video yang berstatus "Terbit"
+            $data['pager'] = $model->pager; // Hanya tetapkan pager jika menggunakan paginate
+        }
+
+        // Siapkan data untuk dikirim ke view
+        $data['keyword'] = $keyword;
+        $data['countTerbit'] = $countTerbit;
         $data['title'] = "Video Admin";
 
         return view('video', $data);
