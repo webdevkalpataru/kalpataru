@@ -4,7 +4,9 @@ namespace App\Controllers;
 
 use App\Models\ArtikelModel;
 use App\Models\BeritaModel;
+use App\Models\PengumumanModel;
 use App\Models\PengusulModel;
+use App\Models\PeraturanModel;
 use App\Models\VideoModel;
 
 
@@ -95,7 +97,7 @@ class AdminController extends BaseController
             'slug' => $slug,
             'konten' => htmlspecialchars($konten, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
             'foto' => $fotoPath,
-            'tanggal' => date('Y-m-d H:i:s'),
+            'tanggal' => date('Y-m-d'),
         ];
 
         // Simpan artikel
@@ -118,9 +120,12 @@ class AdminController extends BaseController
 
         // Validasi data (opsional, misalnya cek apakah ID dan status valid)
         if ($id_artikel && $status) {
-            // Update status di database
-            $model->update($id_artikel, ['status' => $status]);
+            $tanggal = date('Y-m-d');
 
+            $model->update($id_artikel, [
+                'status' => $status,
+                'tanggal' => $tanggal // Update tanggal saat status diubah
+            ]);
             // Mengembalikan respons untuk merefresh halaman
             return $this->response->setJSON(['success' => true, 'message' => 'Data berhasil diperbarui']);
         } else {
@@ -489,7 +494,7 @@ class AdminController extends BaseController
             'slug' => $slug,
             'konten' => htmlspecialchars($konten, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
             'foto' => $fotoPath,
-            'tanggal' => date('Y-m-d H:i:s'),
+            'tanggal' => date('Y-m-d'),
         ];
 
         // Simpan artikel
@@ -641,8 +646,14 @@ class AdminController extends BaseController
 
         // Validasi data (opsional, misalnya cek apakah ID dan status valid)
         if ($id_berita && $status) {
-            // Update status di database
-            $model->update($id_berita, ['status' => $status]);
+            // Dapatkan tanggal dan waktu saat ini
+            $tanggal = date('Y-m-d');
+
+            // Update status dan tanggal diubah di database
+            $model->update($id_berita, [
+                'status' => $status,
+                'tanggal' => $tanggal // Update tanggal saat status diubah
+            ]);
 
             // Mengembalikan respons untuk merefresh halaman
             return $this->response->setJSON(['success' => true, 'message' => 'Data berhasil diperbarui']);
@@ -651,6 +662,7 @@ class AdminController extends BaseController
             return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui data']);
         }
     }
+
 
     public function hapusBerita($id_berita)
     {
@@ -687,14 +699,530 @@ class AdminController extends BaseController
 
     public function pengumumanadmin()
     {
+        $model = new PengumumanModel();
+        $keyword = $this->request->getGet('search');
+
+        $data['pengumuman'] = $model->getAllPengumuman($keyword);
+        $data['countTerbit'] = count($data['pengumuman']);
         $data['title'] = "Pengumuman Admin";
-        return view('admin/pengumumanadmin', ['title' => 'Pengumuman Admin']);
+
+        return view('admin/pengumuman', $data);
     }
 
-    public function tambahpengumumanadmin()
+    public function tambahpengumuman()
     {
-        $data['title'] = "Tambah Pengumuman Admin";
-        return view('admin/tambahpengumumanadmin', ['title' => 'Tambah Pengumuman Admin']);
+        $data['title'] = "Tambah Pengumuman";
+        return view('admin/tambahpengumumanadmin', $data);
+    }
+
+    public function tambahPengumumanAction()
+    {
+        $model = new PengumumanModel();
+
+        // Ambil input dari formulir
+        $judulPengumuman = $this->request->getPost('judul');
+        $konten = $this->request->getPost('konten');
+
+        // Memproses foto yang diupload
+        $foto = $this->request->getFile('foto');
+
+        // Validasi input
+        $validation = \Config\Services::validation();
+        $validation->setRules([
+            'judul' => [
+                'label' => 'Judul',
+                'rules' => 'required|min_length[5]|max_length[100]|is_unique[pengumuman.judul]' // Judul harus unik dan panjang antara 5 dan 100 karakter
+            ],
+            'konten' => [
+                'label' => 'Konten',
+                'rules' => 'required|min_length[20]' // Konten harus ada dan panjang minimum 20 karakter
+            ],
+            'foto' => [
+                'label' => 'Foto',
+                'rules' => 'uploaded[foto]|is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/gif,image/png]|max_size[foto,1024]'
+            ]
+        ]);
+
+
+        if (!$this->validate($validation->getRules())) {
+            return $this->response->setJSON([
+                'success' => false,
+                'messages' => $validation->getErrors(),
+            ]);
+        }
+
+        // Menangani upload file foto
+        $fotoPath = '';
+        if ($foto && $foto->isValid() && !$foto->hasMoved()) {
+            // Memastikan tipe file dan membuat nama file acak
+            $fotoName = $foto->getRandomName();
+
+            // Memindahkan file ke folder public/images/pengumuman
+            if ($foto->move('public/images/pengumuman', $fotoName)) {
+                // Jika berhasil, simpan path foto ke database
+                $fotoPath = 'images/pengumuman/' . $fotoName;
+            } else {
+                return $this->response->setJSON(['success' => false, 'message' => 'Gagal menyimpan file foto.']);
+            }
+        } else {
+            return $this->response->setJSON(['success' => false, 'message' => 'File tidak valid atau belum diupload.']);
+        }
+
+        // Menghasilkan slug yang unik
+        $slug = url_title($judulPengumuman, '-', true);
+        $existingPengumuman = $model->where('slug', $slug)->first(); // Cek apakah slug sudah ada
+        if ($existingPengumuman) {
+            return $this->response->setJSON(['success' => false, 'message' => 'Judul sudah digunakan.']);
+        }
+
+        // Simpan data pengumuman ke dalam database
+        $data = [
+            'id_admin' => session()->get('id_admin'),
+            'judul' => htmlspecialchars($judulPengumuman, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+            'slug' => $slug,
+            'konten' => htmlspecialchars($konten, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+            'foto' => $fotoPath,
+            'tanggal' => date('Y-m-d'),
+        ];
+
+        // Simpan pengumuman
+        if ($model->insert($data)) {
+            return $this->response->setJSON(['success' => true, 'message' => 'Artikel berhasil ditambahkan.']);
+        } else {
+            // Tampilkan pesan umum untuk kesalahan penyimpanan
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal menambahkan artikel.']);
+        }
+    }
+
+    public function detailpengumuman($slug)
+    {
+        $model = new PengumumanModel();
+        $pengumuman = $model->getDetailPengumumanBySlug($slug);
+
+        if (!$pengumuman) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        // Ambil ID admin yang sedang login
+        $id_admin = session()->get('id_admin');
+
+        // Cek apakah yang mengakses adalah admin
+        if (!$id_admin) {
+            // Jika bukan admin, tampilkan 404
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+
+        $data = [
+            'title' => $pengumuman['judul'],
+            'pengumuman' => $pengumuman,
+        ];
+        return view('admin/detailpengumuman', $data);
+    }
+
+    public function editPengumuman($id_pengumuman)
+    {
+        $model = new PengumumanModel();
+        $pengumuman = $model->find($id_pengumuman); // Mengambil pengumuman berdasarkan id_pengumuman
+
+        if (!$pengumuman) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        // Ambil ID admin yang sedang login
+        $id_admin = session()->get('id_admin');
+
+        // Cek apakah yang mengakses adalah admin
+        if (!$id_admin) {
+            // Jika bukan admin, tampilkan 404
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        $data = [
+            'title' => 'Edit Pengumuman - ' . $pengumuman['judul'],
+            'pengumuman' => $pengumuman,
+        ];
+        return view('admin/editpengumuman', $data);
+    }
+
+    public function updatePengumumanAction($id)
+    {
+        $model = new PengumumanModel();
+
+        // Ambil input dari formulir
+        $judul = $this->request->getPost('judul');
+        $konten = $this->request->getPost('konten');
+
+        // Memproses foto yang diupload
+        $foto = $this->request->getFile('foto');
+
+        // Validasi input
+        $validation = \Config\Services::validation();
+        $validation->setRules([
+            'judul' => [
+                'label' => 'Judul',
+                'rules' => 'required|min_length[5]|max_length[100]|is_unique[pengumuman.judul,id_pengumuman,' . $id . ']' // Judul harus unik kecuali untuk artikel yang sedang diedit
+            ],
+            'konten' => [
+                'label' => 'Konten',
+                'rules' => 'required|min_length[20]' // Konten harus ada dan panjang minimum 20 karakter
+            ],
+            'foto' => [
+                'label' => 'Foto',
+                'rules' => 'permit_empty|is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/gif,image/png]|max_size[foto,1024]'
+            ]
+        ]);
+
+        if (!$this->validate($validation->getRules())) {
+            return $this->response->setJSON([
+                'success' => false,
+                'messages' => $validation->getErrors(),
+            ]);
+        }
+
+        // Menangani upload file foto
+        $fotoPath = '';
+        if ($foto && $foto->isValid() && !$foto->hasMoved()) {
+            // Memastikan tipe file dan membuat nama file acak
+            $fotoName = $foto->getRandomName();
+
+            // Memindahkan file ke folder public/images/artikel
+            if ($foto->move('public/images/pengumuman', $fotoName)) {
+                // Jika berhasil, simpan path foto
+                $fotoPath = 'images/pengumuman/' . $fotoName;
+            } else {
+                return $this->response->setJSON(['success' => false, 'errors' => 'Gagal menyimpan file foto.']);
+            }
+        }
+
+        // Cek apakah slug perlu diupdate
+        $slug = url_title($judul, '-', true);
+        $existingPengumuman = $model->where('slug', $slug)->where('id_pengumuman !=', $id)->first(); // Cek apakah slug sudah ada
+        if ($existingPengumuman) {
+            return $this->response->setJSON(['success' => false, 'errors' => 'Judul sudah digunakan.']);
+        }
+
+        // Siapkan data untuk diupdate
+        $data = [
+            'judul' => htmlspecialchars($judul, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+            'slug' => $slug,
+            'konten' => htmlspecialchars($konten, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+        ];
+
+        // Jika ada foto baru yang diupload, masukkan ke dalam data
+        if (!empty($fotoPath)) {
+            $data['foto'] = $fotoPath;
+        }
+
+        // Simpan artikel yang sudah diperbarui
+        if ($model->update($id, $data)) {
+            return $this->response->setJSON(['success' => true, 'message' => 'Pengumuman berhasil diperbarui.']);
+        } else {
+            // Tampilkan pesan umum untuk kesalahan penyimpanan
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui pengumuman.']);
+        }
+    }
+
+    public function updateStatusPengumuman()
+    {
+        // Inisialisasi model
+        $model = new PengumumanModel();
+
+        // Ambil data dari POST request
+        $id_pengumuman = $this->request->getPost('id_pengumuman');
+        $status = $this->request->getPost('status');
+
+        // Validasi data (opsional, misalnya cek apakah ID dan status valid)
+        if ($id_pengumuman && $status) {
+            // Dapatkan tanggal dan waktu saat ini
+            $tanggal = date('Y-m-d');
+
+            // Update status dan tanggal diubah di database
+            $model->update($id_pengumuman, [
+                'status' => $status,
+                'tanggal' => $tanggal // Update tanggal saat status diubah
+            ]);
+
+            // Mengembalikan respons untuk merefresh halaman
+            return $this->response->setJSON(['success' => true, 'message' => 'Data berhasil diperbarui']);
+        } else {
+            // Mengembalikan respons untuk merefresh halaman
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui data']);
+        }
+    }
+
+    public function hapusPengumuman($id_pengumuman)
+    {
+        $model = new PengumumanModel();
+
+        // Hapus artikel berdasarkan ID
+        if ($model->delete($id_pengumuman)) {
+            // Set flash message atau lakukan redirect setelah menghapus
+            session()->setFlashdata('success', 'Pengumuman berhasil dihapus.');
+        } else {
+            session()->setFlashdata('error', 'Gagal menghapus pengumuman.');
+        }
+
+        return redirect()->to('/admin/pengumuman'); // Sesuaikan dengan URL yang diinginkan
+    }
+
+    public function peraturanadmin()
+    {
+        $model = new PeraturanModel();
+        $keyword = $this->request->getGet('search');
+
+        $data['peraturan'] = $model->getAllPeraturan($keyword);
+        $data['countTerbit'] = count($data['peraturan']);
+        $data['title'] = "peraturan Admin";
+
+        return view('admin/peraturan', $data);
+    }
+
+    public function tambahperaturan()
+    {
+        $data['title'] = "Tambah Peraturan / Kebijakan";
+        return view('admin/tambahperaturan', $data);
+    }
+
+    public function tambahPeraturanAction()
+    {
+        $model = new PeraturanModel();
+
+        // Ambil input dari formulir
+        $judulPeraturan = $this->request->getPost('judul');
+        $tentang = $this->request->getPost('tentang');
+        $jenis = $this->request->getPost('jenis');
+
+        // Memproses foto yang diupload
+        $file = $this->request->getFile('file');
+
+        // Validasi input
+        $validation = \Config\Services::validation();
+        $validation->setRules([
+            'judul' => [
+                'label' => 'Judul',
+                'rules' => 'required|min_length[5]' // Judul harus unik dan panjang antara 5 dan 100 karakter
+            ],
+            'tentang' => [
+                'label' => 'Tentang',
+                'rules' => 'required|min_length[10]' // Konten harus ada dan panjang minimum 20 karakter
+            ],
+            'jenis' => [
+                'label' => 'Jenis',
+                'rules' => 'required'
+            ],
+            'file' => [
+                'label' => 'File',
+                'rules' => 'uploaded[file]|max_size[file,1024]|mime_in[file,application/pdf]'
+            ]
+        ]);
+
+
+        if (!$this->validate($validation->getRules())) {
+            return $this->response->setJSON([
+                'success' => false,
+                'messages' => $validation->getErrors(),
+            ]);
+        }
+
+        // Menangani upload file
+        $filePath = '';
+        if ($file && $file->isValid() && !$file->hasMoved()) {
+            // Memastikan tipe file dan membuat nama file acak
+            $fileName = $file->getRandomName();
+
+            // Memindahkan file ke folder public/doc/peraturan
+            if ($file->move('doc/peraturan', $fileName)) {
+                // Jika berhasil, simpan path file ke database
+                $filePath = 'doc/peraturan/' . $fileName;
+            } else {
+                return $this->response->setJSON(['success' => false, 'message' => 'Gagal menyimpan file.']);
+            }
+        } else {
+            return $this->response->setJSON(['success' => false, 'message' => 'File tidak valid atau belum diupload.']);
+        }
+
+        // Simpan data pengumuman ke dalam database
+        $data = [
+            'id_admin' => session()->get('id_admin'),
+            'judul' => htmlspecialchars($judulPeraturan, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+            'tentang' => htmlspecialchars($tentang, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+            'jenis' => htmlspecialchars($jenis, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+            'file' => $filePath,
+        ];
+
+        // Simpan pengumuman
+        if ($model->insert($data)) {
+            return $this->response->setJSON(['success' => true, 'message' => 'Artikel berhasil ditambahkan.']);
+        } else {
+            // Tampilkan pesan umum untuk kesalahan penyimpanan
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal menambahkan artikel.']);
+        }
+    }
+
+    public function detailperaturan($id_peraturan)
+    {
+        $model = new PeraturanModel();
+        $peraturan = $model->find($id_peraturan);
+
+        if (!$peraturan) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        // Ambil ID admin yang sedang login
+        $id_admin = session()->get('id_admin');
+
+        // Cek apakah yang mengakses adalah admin
+        if (!$id_admin) {
+            // Jika bukan admin, tampilkan 404
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        $data = [
+            'title' => $peraturan['judul'],
+            'peraturan' => $peraturan,
+        ];
+        return view('admin/detailperaturan', $data);
+    }
+
+    public function editPeraturan($id_peraturan)
+    {
+        $model = new PeraturanModel();
+        $peraturan = $model->find($id_peraturan); // Mengambil artikel berdasarkan id_artikel
+
+        if (!$peraturan) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound("Peraturan tidak ditemukan");
+        }
+
+        // Ambil ID admin yang sedang login
+        $id_admin = session()->get('id_admin');
+
+        // Cek apakah yang mengakses adalah admin
+        if (!$id_admin) {
+            // Jika bukan admin, tampilkan 404
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        $data = [
+            'title' => 'Edit peraturan - ' . $peraturan['judul'],
+            'peraturan' => $peraturan,
+        ];
+        return view('admin/editperaturan', $data);
+    }
+
+    public function updatePeraturanAction($id)
+    {
+        $model = new PeraturanModel();
+
+        // Ambil input dari formulir
+        $judulPeraturan = $this->request->getPost('judul');
+        $tentang = $this->request->getPost('tentang');
+        $jenis = $this->request->getPost('jenis');
+
+        // Memproses foto yang diupload
+        $file = $this->request->getFile('file');
+
+        // Validasi input
+        $validation = \Config\Services::validation();
+        $validation->setRules([
+            'judul' => [
+                'label' => 'Judul',
+                'rules' => 'required|min_length[5]' // Judul harus unik dan panjang antara 5 dan 100 karakter
+            ],
+            'tentang' => [
+                'label' => 'Tentang',
+                'rules' => 'required|min_length[10]' // Konten harus ada dan panjang minimum 20 karakter
+            ],
+            'jenis' => [
+                'label' => 'Jenis',
+                'rules' => 'required'
+            ],
+            'file' => [
+                'label' => 'File',
+                'rules' => 'permit_empty|uploaded[file]|mime_in[file,application/pdf]|max_size[file,1024]'
+            ]
+        ]);
+
+        if (!$this->validate($validation->getRules())) {
+            return $this->response->setJSON([
+                'success' => false,
+                'messages' => $validation->getErrors(),
+            ]);
+        }
+
+        // Menangani upload file file
+        $filePath = '';
+        if ($file && $file->isValid() && !$file->hasMoved()) {
+            // Memastikan tipe file dan membuat nama file acak
+            $fileName = $file->getRandomName();
+
+            // Memindahkan file ke folder public/images/artikel
+            if ($file->move('doc/peraturan', $fileName)) {
+                // Jika berhasil, simpan path file
+                $filePath = 'doc/peraturan/' . $fileName;
+            } else {
+                return $this->response->setJSON(['success' => false, 'errors' => 'Gagal menyimpan file file.']);
+            }
+        }
+
+        // Siapkan data untuk diupdate
+        $data = [
+            'judul' => htmlspecialchars($judulPeraturan, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+            'tentang' => htmlspecialchars($tentang, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+            'jenis' => htmlspecialchars($jenis, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+        ];
+
+        // Jika ada file baru yang diupload, masukkan ke dalam data
+        if (!empty($filePath)) {
+            $data['file'] = $filePath;
+        }
+
+        // Simpan artikel yang sudah diperbarui
+        if ($model->update($id, $data)) {
+            return $this->response->setJSON(['success' => true, 'message' => 'Peraturan / Kebijakan berhasil diperbarui.']);
+        } else {
+            // Tampilkan pesan umum untuk kesalahan penyimpanan
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui peraturan / kebijakan.']);
+        }
+    }
+
+    public function updatestatusperaturan()
+    {
+        // Inisialisasi model
+        $model = new PeraturanModel();
+
+        // Ambil data dari POST request
+        $id_peraturan = $this->request->getPost('id_peraturan');
+        $status = $this->request->getPost('status');
+
+        // Validasi data (opsional, misalnya cek apakah ID dan status valid)
+        if ($id_peraturan && $status) {
+
+            $model->update($id_peraturan, [
+                'status' => $status,
+            ]);
+
+            // Mengembalikan respons untuk merefresh halaman
+            return $this->response->setJSON(['success' => true, 'message' => 'Data berhasil diperbarui']);
+        } else {
+            // Mengembalikan respons untuk merefresh halaman
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui data']);
+        }
+    }
+
+    public function hapusPeraturan($id_peraturan)
+    {
+        $model = new PeraturanModel();
+
+        // Hapus artikel berdasarkan ID
+        if ($model->delete($id_peraturan)) {
+            // Set flash message atau lakukan redirect setelah menghapus
+            session()->setFlashdata('success', 'Pengumuman berhasil dihapus.');
+        } else {
+            session()->setFlashdata('error', 'Gagal menghapus pengumuman.');
+        }
+
+        return redirect()->to('/admin/pengumuman'); // Sesuaikan dengan URL yang diinginkan
     }
 
     public function akunpengguna()
@@ -767,7 +1295,7 @@ class AdminController extends BaseController
         $data = [
             'judul_video' => htmlspecialchars($judulVideo, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
             'link_video' => htmlspecialchars($link, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
-            'tanggal' => date('Y-m-d H:i:s'),
+            'tanggal' => date('Y-m-d'),
         ];
 
         // Simpan artikel
@@ -861,7 +1389,7 @@ class AdminController extends BaseController
         $data = [
             'judul_video' => htmlspecialchars($judulVideo, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
             'link_video' => htmlspecialchars($link, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
-            'tanggal' => date('Y-m-d H:i:s'),
+            'tanggal' => date('Y-m-d'),
         ];
 
         // Simpan artikel yang sudah diperbarui
@@ -884,8 +1412,13 @@ class AdminController extends BaseController
 
         // Validasi data (opsional, misalnya cek apakah ID dan status valid)
         if ($id_video && $status) {
-            // Update status di database
-            $model->update($id_video, ['status' => $status]);
+            // Dapatkan tanggal dan waktu saat ini
+            $tanggal = date('Y-m-d');
+
+            $model->update($id_video, [
+                'status' => $status,
+                'tanggal' => $tanggal // Update tanggal saat status diubah
+            ]);
 
             // Mengembalikan respons untuk merefresh halaman
             return $this->response->setJSON(['success' => true, 'message' => 'Data berhasil diperbarui']);

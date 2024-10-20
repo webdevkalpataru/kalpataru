@@ -232,7 +232,11 @@
                         </div>
                     </div>
 
-                    <div class="flex justify-end">
+                    <div class="flex justify-between">
+                        <button onclick="window.history.back()"
+                            class="text-sm font-bold text-gray-600 no-underline focus:outline-none text-start mt-6">
+                            <span class="font-bold text-lg items-center">←</span> Kembali
+                        </button>
                         <button class="mt-4 w-32 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="submit">Simpan</button>
                     </div>
                 </form>
@@ -412,7 +416,11 @@
                         </div>
                     </div>
 
-                    <div class="flex justify-end">
+                    <div class="flex justify-between">
+                        <button onclick="window.history.back()"
+                            class="text-sm font-bold text-gray-600 no-underline focus:outline-none text-start mt-6">
+                            <span class="font-bold text-lg items-center">←</span> Kembali
+                        </button>
                         <button class="mt-4 w-32 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="submit">Simpan</button>
                     </div>
                 </form>

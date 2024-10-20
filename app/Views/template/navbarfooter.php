@@ -116,7 +116,7 @@
                         </svg>
                         <ul class="absolute left-0 top-full opacity-0 invisible group-hover:visible group-hover:opacity-100 transition-all duration-300 transform bg-white shadow-lg border-opacity-5 border-2 mt-1 py-2 rounded-lg z-50">
                             <li><a href="<?= base_url('informasi/pengumuman') ?>" class="block px-4 py-2 text-primary hover:text-primaryhover hover:bg-secondary">Pengumuman</a></li>
-                            <li><a href="<?= base_url('informasi/peraturankebijakan') ?>" class="block px-4 py-2 text-primary hover:text-primaryhover hover:bg-secondary">Peraturan dan Kebijakan</a></li>
+                            <li><a href="<?= base_url('informasi/peraturan-kebijakan') ?>" class="block px-4 py-2 text-primary hover:text-primaryhover hover:bg-secondary">Peraturan dan Kebijakan</a></li>
                             <li><a href="<?= base_url('informasi/datastatistik') ?>" class="block px-4 py-2 text-primary hover:text-primaryhover hover:bg-secondary">Data dan Statistik</a></li>
                         </ul>
                     </li>
@@ -188,7 +188,7 @@
                     <div class="flex"></div>
                     <ul id="dropdown-informasi" class="hidden space-y-2 bg-white shadow-lg rounded-lg p-2">
                         <li><a href="<?= base_url('informasi/pengumuman') ?>" class="text-left block px-4 py-2 text-primary hover:text-primaryhover hover:bg-secondary">Pengumuman</a></li>
-                        <li><a href="<?= base_url('informasi/peraturankebijakan') ?>" class="text-left block px-4 py-2 text-primary hover:text-primaryhover hover:bg-secondary">Peraturan dan Kebijakan</a></li>
+                        <li><a href="<?= base_url('informasi/peraturan-kebijakan') ?>" class="text-left block px-4 py-2 text-primary hover:text-primaryhover hover:bg-secondary">Peraturan dan Kebijakan</a></li>
                         <li><a href="<?= base_url('informasi/datastatistik') ?>" class="text-left block px-4 py-2 text-primary hover:text-primaryhover hover:bg-secondary">Data dan Statistik</a></li>
                     </ul>
                 </li>

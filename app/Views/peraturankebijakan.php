@@ -25,7 +25,7 @@
                 <!-- Search Bar -->
                 <div class="flex justify-between items-center my-6">
                     <h1 class="text-xs:lg:text-md ml-4 lg:ml-0 font-semibold">
-                        Hasil: <?= esc($total_peraturankebijakan) ?> Peraturan dan Kebijakan
+                        Hasil: <?= esc($countTerbit) ?> Peraturan dan Kebijakan
                     </h1>
                     <div class="relative mr-4 lg:mr-0">
                         <input
@@ -49,21 +49,26 @@
 
                 <div class="lg:w-full w-64 mx-auto">
                     <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6">
-                        <?php foreach ($peraturankebijakan as $item): ?>
-                            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                                <div class="p-4">
-                                    <p class="text-xs font-normal text-gray-600 truncate mb-2"><?= esc($item->tentang) ?></p>
-                                    <h2 class="text-xs font-semibold truncate"><?= esc($item->judul) ?></h2>
-                                    <p class="text-xs font-semibold text-accent2 truncate mt-2">
-                                        &#183; Peraturan Menteri LHK</p>
+                        <?php if (!empty($peraturan) && is_array($peraturan)): ?>
+                            <?php foreach ($peraturan as $item): ?>
+                                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                                    <div class="p-4">
+                                        <p class="text-xs font-normal text-gray-600 truncate mb-2"><?= esc($item['tentang']); ?></p>
+                                        <h2 class="text-xs font-semibold truncate"><?= esc($item['judul']); ?></h2>
+                                        <p class="text-xs font-semibold text-accent2 truncate mt-2">
+                                            <?= esc($item['jenis']); ?>
+                                        </p>
+                                    </div>
+                                    <div class="p-4 text-start text-xs">
+                                        <a href="<?= base_url($item['file']); ?>" class="bg-primary text-white py-2 px-2 rounded hover:bg-primaryhover" download>
+                                            Unduh
+                                        </a>
+                                    </div>
                                 </div>
-                                <div class="p-4 text-start text-xs">
-                                    <a href="<?= base_url('file/' . esc($item->nama_file)) ?>" class="bg-primary text-white py-2 px-2 rounded hover:bg-primaryhover" download>
-                                        Unduh
-                                    </a>
-                                </div>
-                            </div>
-                        <?php endforeach; ?>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <p>Tidak ada Peraturan & Kebijakan saat ini</p>
+                        <?php endif; ?>
                     </div>
                 </div>
 

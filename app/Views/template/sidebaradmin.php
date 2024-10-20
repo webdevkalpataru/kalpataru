@@ -263,7 +263,7 @@
                                 Berita
                             </div>
                         </a>
-                        <a href="/admin/pengumumanadmin">
+                        <a href="/admin/pengumuman">
                             <div role="button"
                                 class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-primary focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-primary active:bg-blue-gray-50 active:bg-opacity-80 active:text-primary">
                                 <div class="grid mr-4 place-items-center">
@@ -288,13 +288,15 @@
                             </div>
                             Buku
                         </div>
-                        <div role="button"
-                            class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-primary focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-primary active:bg-blue-gray-50 active:bg-opacity-80 active:text-primary">
-                            <div class="grid mr-4 place-items-center">
+                        <a href="/admin/peraturan-kebijakan">
+                            <div role="button"
+                                class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-primary focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-primary active:bg-blue-gray-50 active:bg-opacity-80 active:text-primary">
+                                <div class="grid mr-4 place-items-center">
 
+                                </div>
+                                Peraturan / Kebijakan
                             </div>
-                            Kebijakan
-                        </div>
+                        </a>
                     </nav>
                 </div>
             </div>

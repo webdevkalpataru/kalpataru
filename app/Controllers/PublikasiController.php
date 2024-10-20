@@ -57,7 +57,6 @@ class PublikasiController extends BaseController
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('Berita tidak ditemukan');
         }
 
-        // Jika artikel masih ditangguhkan
         if ($berita['status'] !== 'Terbit') {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('Berita tidak ditemukan');
         }

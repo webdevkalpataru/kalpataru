@@ -25,7 +25,7 @@
             <!-- Search Bar -->
             <div class="flex justify-between items-center my-6">
                 <h1 class="text-xs:lg:text-md ml-4 lg:ml-0 font-semibold">
-                    Hasil: <?= esc($total_pengumuman) ?> Pengumuman
+                    Hasil: <?= esc($countTerbit) ?> Pengumuman
                 </h1>
                 <div class="relative mr-4 lg:mr-0">
                     <input
@@ -49,19 +49,23 @@
 
             <!-- Cards Section -->
             <div class="grid gap-4 px-4 lg:px-0">
-                <?php foreach ($pengumuman as $item): ?>
-                    <div class="bg-white rounded-lg shadow-md flex flex-col md:flex-row overflow-hidden">
-                        <img src="<?= base_url('images/pengumuman/' . esc($item->foto)) ?>" alt="<?= esc($item->judul) ?>" class="w-full md:w-48 h-32 md:h-auto object-cover">
-                        <div class="p-4">
-                            <h2 class="text-lg md:text-xl font-semibold mb-2"><?= esc($item->judul) ?></h2>
-                            <p class="text-gray-600 text-sm md:text-base mb-4"><?= esc($item->konten) ?></p>
-                            <a href="#" class="text-black font-medium flex justify-end items-center">
-                                Baca Selengkapnya
-                                <img src="/images/arrowkanan.svg" alt="arrowkanan" class="w-6 h-6 md:w-8 md:h-8 ml-2">
-                            </a>
+                <?php if (!empty($pengumuman) && is_array($pengumuman)): ?>
+                    <?php foreach ($pengumuman as $item): ?>
+                        <div class="bg-white rounded-lg shadow-md flex flex-col md:flex-row overflow-hidden">
+                            <img src="/public/<?= esc($item['foto']); ?>" alt="<?= esc($item['judul']); ?>" class="w-full md:w-48 h-32 md:h-auto object-cover">
+                            <div class="p-4">
+                                <h2 class="text-lg md:text-xl font-semibold mb-2"><?= esc($item['judul']) ?></h2>
+                                <p class="text-gray-600 text-sm md:text-base mb-4"><?= word_limiter(esc($item['konten']), 30); ?></p>
+                                <a href="/pengumuman/<?= esc($item['slug']); ?>" class="text-black font-medium flex justify-end items-center">
+                                    Baca Selengkapnya
+                                    <img src="/images/arrowkanan.svg" alt="arrowkanan" class="w-6 h-6 md:w-8 md:h-8 ml-2">
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                <?php endforeach; ?>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p>Tidak ada pengumuman saat ini</p>
+                <?php endif; ?>
             </div>
         </div>
 

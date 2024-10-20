@@ -473,10 +473,10 @@ class AuthController extends BaseController
         $data['title'] = "Login Tim Teknis";
         return view('auth/logintimteknis', $data);
     }
-    public function loginddpk()
+    public function logindppk()
     {
-        $data['title'] = "Login DDPK";
-        return view('auth/loginddpk', $data);
+        $data['title'] = "Login DPPK";
+        return view('auth/logindppk', $data);
     }
     public function registerTimTeknis()
     {
