@@ -16,6 +16,8 @@ $routes->post('kontak/sendEmail', 'KontakController::sendEmail');
 $routes->get('informasi/pengumuman', 'InformasiController::pengumuman');
 $routes->get('informasi/peraturankebijakan', 'InformasiController::peraturankebijakan');
 $routes->get('informasi/datastatistik', 'InformasiController::datastatistik');
+$routes->get('pengumuman/(:any)', 'InformasiController::detailpengumuman/$1');
+
 
 /* Publikasi */
 $routes->get('publikasi/berita', 'PublikasiController::berita');
@@ -118,8 +120,7 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('daftartimteknis', 'AdminController::daftartimteknis');
     $routes->get('akundppk', 'AdminController::akundppk');
     $routes->get('daftardppk', 'AdminController::daftardppk');
-    $routes->get('pengumumanadmin', 'AdminController::pengumumanadmin');
-    $routes->get('tambahpengumumanadmin', 'AdminController::tambahpengumumanadmin');
+
     $routes->get('akunpengguna', 'AdminController::akunpengguna');
     $routes->get('daftarakunpengguna', 'AdminController::daftarakunpengguna');
     $routes->get('daftarakundlhk', 'AdminController::daftarakundlhk');
@@ -152,6 +153,19 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('berita/(:any)', 'AdminController::detailberita/$1');
     $routes->post('berita/hapus/(:num)', 'AdminController::hapusBerita/$1');
     $routes->post('updatestatusberita', 'AdminController::updateStatusBerita');
+
+    // Manajemen Pengumuman
+    $routes->get('pengumuman', 'AdminController::pengumumanadmin');
+    $routes->get('tambah-pengumuman', 'AdminController::tambahpengumuman');
+    $routes->post('tambah-pengumuman', 'AdminController::tambahPengumumanAction');
+    $routes->get('pengumuman/edit/(:any)', 'AdminController::editPengumuman/$1');
+    $routes->post('pengumuman/edit/(:any)', 'AdminController::updatePengumumanAction/$1');
+    $routes->get('pengumuman/(:any)', 'AdminController::detailpengumuman/$1');
+    $routes->post('pengumuman/hapus/(:num)', 'AdminController::hapusPengumuman/$1');
+    $routes->post('updatestatuspengumuman', 'AdminController::updateStatusPengumuman');
+
+
+
 
     // Manajemen Video
     $routes->get('video', 'AdminController::videoAdmin');
