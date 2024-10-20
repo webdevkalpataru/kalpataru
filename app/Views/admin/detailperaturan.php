@@ -66,7 +66,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="flex flex-col md:flex-row justify-between mt-8 gap-4"> <!-- Flex kolom vertikal di layar kecil, horizontal di besar -->
+                    <div class="flex flex-col md:flex-row justify-between mt-8 gap-4"> 
                         <button onclick="window.history.back()"
                             class="text-sm font-bold text-gray-600 no-underline focus:outline-none text-start mt-6">
                             <span class="font-bold text-lg items-center">←</span> Kembali

@@ -21,11 +21,41 @@ class AdminController extends BaseController
     public function artikeladmin()
     {
         $model = new ArtikelModel();
-        $keyword = $this->request->getGet('search');
 
-        $data['artikels'] = $model->getAllArtikel($keyword);
-        $data['countTerbit'] = count($data['artikels']);
-        $data['title'] = "Artikel Admin";
+        $keyword = $this->request->getGet('search');
+        $status = $this->request->getGet('status');
+        
+        $perPage = 5;
+
+        // Ambil halaman saat ini dari parameter pagination
+        $currentPage = $this->request->getVar('page_artikel') ? $this->request->getVar('page_artikel') : 1;
+
+        // Filter dan pencarian berdasarkan keyword dan status
+        $query = $model->select('*');
+
+        if ($keyword) {
+            $query->like('judul', $keyword);
+        }
+
+        if ($status) {
+            $query->where('status', $status);
+        }
+
+        // Ambil semua artikel dengan pagination
+        $artikels = $query->paginate($perPage, 'artikel', $currentPage);
+
+        // Hitung total artikel yang terbit
+        $countTerbit = $model->where('status', 'Terbit')->countAllResults(false);
+
+        // Data yang akan dikirimkan ke view
+        $data = [
+            'artikels' => $artikels,
+            'countTerbit' => $countTerbit,
+            'title' => "Artikel Admin",
+            'pager' => $model->pager, // Untuk pagination
+            'keyword' => $keyword, // Simpan keyword pencarian untuk input field
+            'status' => $status, // Simpan status filter untuk select field
+        ];
 
         return view('admin/artikeladmin', $data);
     }

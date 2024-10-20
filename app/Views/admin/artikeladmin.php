@@ -10,55 +10,79 @@
 
 <body class="lg:flex">
 
-
-
     <!-- Sidebar -->
     <?= $this->include('template/sidebaradmin') ?>
 
-    <div class="lg:flex-1 p-6">
+    <!-- Konten utama -->
+    <div class="lg:flex-1 p-4 md:p-6">
         <div class="min-h-screen flex flex-col">
 
-            <div class="container mx-auto flex items-center justify-between p-4 md:p-6">
-                <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Artikel</h1>
-                <div class="flex items-center">
-                    <p class="text-gray-500 mr-2 md:mr-4">Hello, <?= session()->get('nama'); ?></p>
-                    <a href="/auth/logout" class="bg-rejected text-white px-3 py-2 md:px-4 md:py-2 rounded-lg inline-block">Keluar</a>
+            <!-- Header -->
+            <header class="bg-white shadow">
+                <div class="container mx-auto flex flex-wrap items-center justify-between p-4 md:p-6">
+                    <h1 class="text-lg md:text-2xl font-semibold text-gray-700">Artikel</h1>
+                    <div class="flex items-center">
+                        <p class="text-gray-500 mr-2 md:mr-4">Hello, <?= session()->get('nama'); ?></p>
+                        <a href="/auth/logout" class="bg-rejected text-white px-3 py-2 md:px-4 md:py-2 rounded-lg">Keluar</a>
+                    </div>
                 </div>
-            </div>
-            <a href="./tambah-artikel">
-                <div>
-                    <button id="tambahArtikel" class="w-48 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button"> <span>&#10010</span> Tambah Artikel</button>
-                </div>
-            </a>
-            <h4 class="text-xs:lg:text-md ml-4 lg:ml-0 font-semibold">
-                Hasil: <?= esc($countTerbit) ?> Artikel
-            </h4>
+            </header>
 
-            <div class="relative  flex flex-col w-full h-full overflow-scroll bg-white shadow-md rounded-lg bg-clip-border my-6">
+            <!-- Tombol Tambah Artikel dan hasil -->
+            <div class="my-4 flex flex-col md:flex-row justify-between md:items-center gap-4">
+                <a href="./tambah-artikel" class="w-full md:w-auto">
+                    <button id="tambahArtikel" class="w-full md:w-48 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover">
+                        <span>&#10010</span> Tambah Artikel
+                    </button>
+                </a>
+                <h4 class="text-sm font-semibold text-primary">Hasil: <?= esc($countTerbit) ?> Artikel</h4>
+            </div>
+
+            <div class="lg:flex lg:justify-between">
+                <!-- Dropdown Filter -->
+                <form id="filterForm" action="" method="get" class="flex items-center my-4 ms-4">
+                    <label for="status" class="text-sm font-bold text-primary">Filter Status Artikel:</label>
+                    <select name="status" id="status" class="ml-2 border-2 border-primary text-primary rounded-md shadow-sm" onchange="document.getElementById('filterForm').submit();">
+                        <option value="">Semua Status Artikel</option>
+                        <option value="Ditangguhkan" <?= ($status == 'Ditangguhkan') ? 'selected' : '' ?>>Ditangguhkan</option>
+                        <option value="Terbit" <?= ($status == 'Terbit') ? 'selected' : '' ?>>Terbit</option>
+                    </select>
+                </form>
+                <form method="get" class="flex items-center justify-end my-4">
+                    <div class="relative lg:w-56 w-80 transition-all focus-within:w-64 lg:mt-0 mt-4">
+                        <input
+                            placeholder="Masukan kata kunci"
+                            class="input shadow-lg focus:border-2 border-2 text-primary border-primary px-5 py-1 pr-10 rounded-md w-full outline-none"
+                            name="search"
+                            value="<?= esc($keyword) ?>" />
+                        <svg
+                            class="w-6 h-6 absolute top-1/2 right-3 transform -translate-y-1/2 text-primary"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                                stroke-linejoin="round"
+                                stroke-linecap="round"></path>
+                        </svg>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Tabel artikel -->
+            <div class="overflow-auto bg-white shadow-md rounded-lg">
                 <table class="w-full text-left table-auto min-w-max">
                     <thead>
-                        <tr>
-                            <th class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
-                                <p class="flex items-center justify-between gap-2 text-sm font-bold leading-none text-slate-800">No</p>
-                            </th>
-                            <th class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
-                                <p class="flex items-center justify-between gap-2 text-sm font-bold leading-none text-slate-800">Penulis</p>
-                            </th>
-                            <th class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
-                                <p class="flex items-center justify-between gap-2 text-sm font-bold leading-none text-slate-800">Judul</p>
-                            </th>
-                            <th class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
-                                <p class="flex items-center justify-between gap-2 text-sm font-bold leading-none text-slate-800">Tanggal</p>
-                            </th>
-                            <th class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
-                                <p class="flex items-center justify-between gap-2 text-sm font-bold leading-none text-slate-800">Status</p>
-                            </th>
-                            <th class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
-                                <p class="flex items-center ml-8 gap-2 text-sm font-bold leading-none text-slate-800">Detail</p>
-                            </th>
-                            <th class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
-                                <p class="flex items-left justify-left gap-2 text-sm font-bold leading-none text-slate-800">Hapus</p>
-                            </th>
+                        <tr class="text-sm font-semibold text-slate-700">
+                            <th class="p-2 border-b bg-slate-50">No</th>
+                            <th class="p-2 border-b bg-slate-50">Penulis</th>
+                            <th class="p-2 border-b bg-slate-50">Judul</th>
+                            <th class="p-2 border-b bg-slate-50">Tanggal</th>
+                            <th class="p-2 border-b bg-slate-50">Status</th>
+                            <th class="p-2 border-b bg-slate-50">Detail</th>
+                            <th class="p-2 border-b bg-slate-50">Hapus</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -68,23 +92,14 @@
                             foreach ($artikels as $index => $artikel):
                                 $no++;
                             ?>
-                                <tr class="hover:bg-slate-50">
-                                    <td class="p-4 border-b border-slate-200">
-                                        <p class="block text-sm text-slate-800"><?= $no ?></p>
-                                    </td>
-                                    <td class="p-4 border-b border-slate-200">
-                                        <p class="block text-sm text-slate-800"><?= esc($artikel['penulis']) ?></p>
-                                    </td>
-                                    <td class="p-4 border-b border-slate-200">
-                                        <p class="block text-sm text-slate-800"><?= esc($artikel['judul']) ?></p>
-                                    </td>
-                                    <td class="p-4 border-b border-slate-200">
-                                        <p class="block text-sm text-slate-800"><?= esc($artikel['tanggal']) ?></p>
-                                    </td>
-                                    <td class="p-4 border-b border-slate-200 text-center">
+                                <tr class="hover:bg-slate-50 text-sm text-slate-800">
+                                    <td class="p-2 border-b"><?= $no ?></td>
+                                    <td class="p-2 border-b"><?= esc($artikel['judul']) ?></td>
+                                    <td class="p-2 border-b"><?= esc($artikel['tanggal']) ?></td>
+                                    <td class="p-2 border-b text-center">
                                         <form method="POST" action="/admin/updatestatus">
                                             <input type="hidden" name="id_artikel" value="<?= $artikel['id_artikel'] ?>">
-                                            <select name="status" class="status-dropdown ml-2 border-2 border-primary text-primary rounded-md shadow-sm text-xs" data-id="<?= $artikel['id_artikel'] ?>">
+                                            <select name="status" class="status-dropdown border-2 border-primary text-primary rounded-md shadow-sm text-xs" data-id="<?= $artikel['id_artikel'] ?>">
                                                 <?php
                                                 $statuses = ['Ditangguhkan', 'Terbit', 'Ditolak'];
                                                 foreach ($statuses as $status) {
@@ -95,16 +110,14 @@
                                             </select>
                                         </form>
                                     </td>
-                                    <td class="p-4 border-b border-slate-200">
-                                        <div>
-                                            <a href="/admin/artikel/<?= $artikel['slug']; ?>" class="mt-4 w-3/2 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover">Selengkapnya</a>
-                                        </div>
+                                    <td class="p-2 border-b">
+                                        <a href="/admin/artikel/<?= $artikel['slug']; ?>" class="w-full inline-block py-1 px-2 bg-primary hover:bg-primaryhover text-white rounded-md text-sm">Selengkapnya</a>
                                     </td>
-                                    <td class="p-4 border-b border-slate-200">
+                                    <td class="p-2 border-b text-center">
                                         <form action="/admin/artikel/hapus/<?= $artikel['id_artikel'] ?>" method="POST">
                                             <button type="submit" class="text-red-600">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="red" class="size-6">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="1.5">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9L14.4 18m-4.8 0L9.26 9M18.23 6.83c.34.05.68.11 1.02.16m-1.02-.16L18.16 19.67a2.25 2.25 0 01-2.24 2.08H8.08a2.25 2.25 0 01-2.24-2.08L4.77 5.79m14.46 0a48.11 48.11 0 00-3.48-.4m-12 .56c.34-.06.68-.11 1.02-.16m0 0a48.11 48.11 0 013.48-.4m7.5 0v-.92c0-1.18-.91-2.16-2.09-2.2a51.96 51.96 0 00-3.32 0c-1.18.04-2.09 1.02-2.09 2.2v.92m7.5 0a48.67 48.67 0 00-7.5 0" />
                                                 </svg>
                                             </button>
                                         </form>
@@ -113,38 +126,15 @@
                             <?php endforeach; ?>
                         <?php else: ?>
                             <tr>
-                                <td colspan="6" class="p-4 text-center text-slate-800">Tidak ada artikel yang ditemukan.</td>
+                                <td colspan="7" class="p-4 text-center">Tidak ada artikel yang ditemukan</td>
                             </tr>
                         <?php endif; ?>
                     </tbody>
                 </table>
-
-                <div class="row flex lg:justify-end justify-center my-6 lg:mr-4">
-                    <button class="rounded-md rounded-r-none border border-r-0 border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-primary focus:border-primary active:border-primary active:text-white active:bg-primary disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
-                            <path fill-rule="evenodd" d="M11.03 3.97a.75.75 0 0 1 0 1.06l-6.22 6.22H21a.75.75 0 0 1 0 1.5H4.81l6.22 6.22a.75.75 0 1 1-1.06 1.06l-7.5-7.5a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd" />
-                        </svg>
-                    </button>
-                    <button class="rounded-md rounded-r-none rounded-l-none border border-r-0 border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-primary focus:border-primary active:border-primary active:text-white active:bg-primary disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                        1
-                    </button>
-                    <button class="rounded-md rounded-r-none rounded-l-none border border-r-0 border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-primary focus:border-primary active:border-primary active:text-white active:bg-primary disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                        2
-                    </button>
-                    <button class="rounded-md rounded-r-none rounded-l-none border border-r-0 border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-primary focus:border-primary active:border-primary active:text-white active:bg-primary disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                        3
-                    </button>
-                    <button class="rounded-md rounded-r-none rounded-l-none border border-r-0 border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-primary focus:border-primary active:border-primary active:text-white active:bg-primary disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                        4
-                    </button>
-                    <button class="rounded-md rounded-r-none rounded-l-none border border-r-0 border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-primary focus:border-primary active:border-primary active:text-white active:bg-primary disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                        5
-                    </button>
-                    <button class="rounded-md rounded-l-none border border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-primary focus:border-primary active:border-primary active:text-white active:bg-primary disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
-                            <path fill-rule="evenodd" d="M12.97 3.97a.75.75 0 0 1 1.06 0l7.5 7.5a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 1 1-1.06-1.06l6.22-6.22H3a.75.75 0 0 1 0-1.5h16.19l-6.22-6.22a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
-                        </svg>
-                    </button>
+            </div>
+            <div class="row flex lg:justify-end justify-center my-6 lg:me-2 me-0">
+                <div class="pagination">
+                    <?= $pager->links('artikel', 'template_pagination') ?>
                 </div>
             </div>
         </div>
@@ -153,11 +143,11 @@
     <!-- Modal Hapus -->
     <div id="deleteModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
         <div class="bg-white rounded-lg p-8 flex flex-col max-w-md">
-            <h2 class="text-left text-lg font-bold text-red-600 mb-2">Konfirmasi Hapus Artikel</h2>
-            <p class="text-justify text-sm text-slate-600 mb-4">Apakah Anda yakin ingin menghapus artikel ini? Tindakan ini tidak dapat dibatalkan.</p>
+            <h2 class="text-lg font-bold text-rejected mb-2">Konfirmasi Hapus Artikel</h2>
+            <p class="text-justify text-slate-600 mb-4">Apakah Anda yakin ingin menghapus artikel ini?</p>
             <div class="flex justify-end space-x-4">
-                <button id="cancelDeleteButton" class="px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-700 hover:text-white rounded-md">Batal</button>
-                <button id="confirmDeleteButton" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md">Ya, Hapus Artikel</button>
+                <button id="cancelDeleteButton" class="px-4 py-2 bg-gray-300 rounded-md">Batal</button>
+                <button id="confirmDeleteButton" class="px-4 py-2 bg-rejected rounded-md text-white">Ya, Hapus Artikel</button>
             </div>
         </div>
     </div>
@@ -286,8 +276,7 @@
             deleteModal.classList.add('hidden');
         });
     </script>
+
 </body>
-
-
 
 </html>
