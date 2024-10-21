@@ -9,6 +9,7 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'Home::index');
 $routes->get('/beranda', 'MainController::beranda');
 $routes->get('profil', 'MainController::profil');
+$routes->get('kategori', 'MainController::kategori');
 $routes->get('kontak', 'MainController::kontak');
 $routes->post('kontak/sendEmail', 'KontakController::sendEmail');
 

@@ -98,16 +98,16 @@
 
             <!-- Kontainer gambar kategori dengan properti flex untuk memusatkan gambar -->
             <div id="categoryContainer" class="flex gap-16 lg:justify-center lg:items-center overflow-x-auto sm:overflow-x-auto md:overflow-x-hidden scrollbar-show snap-x snap-mandatory scroll-smooth">
-                <a href="/profil/#kategoria" class="block flex-shrink-0 snap-center">
+                <a href="/kategori" class="block flex-shrink-0 snap-center">
                     <img src="/images/kategoria.jpg" alt="kategoria" class="w-56 h-auto rounded-2xl shadow-lg mx-auto">
                 </a>
-                <a href="/profil/#kategorib" class="block flex-shrink-0 snap-center">
+                <a href="/kategori" class="block flex-shrink-0 snap-center">
                     <img src="/images/kategorib.jpg" alt="kategorib" class="w-56 h-auto rounded-2xl shadow-lg mx-auto">
                 </a>
-                <a href="/profil/#kategoric" class="block flex-shrink-0 snap-center">
+                <a href="/kategori" class="block flex-shrink-0 snap-center">
                     <img src="/images/kategoric.jpg" alt="kategoric" class="w-56 h-auto rounded-2xl shadow-lg mx-auto">
                 </a>
-                <a href="/profil/#kategorid" class="block flex-shrink-0 snap-center">
+                <a href="/kategori" class="block flex-shrink-0 snap-center">
                     <img src="/images/kategorid.jpg" alt="kategorid" class="w-56 h-auto rounded-2xl shadow-lg mx-auto">
                 </a>
             </div>

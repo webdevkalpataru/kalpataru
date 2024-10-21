@@ -33,7 +33,7 @@
                     </svg>
                     <span class="ml-2 text-sm hidden lg:inline">Profil</span>
                 </a>
-            </li>
+            </li><!-- 
             <li class="flex items-center justify-center lg:justify-start">
                 <a href="/pengusul/pemberitahuan" class="flex items-center block text-md hover:bg-secondary hover:text-primaryhover p-2 w-full rounded">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -41,7 +41,7 @@
                     </svg>
                     <span class="ml-2 text-sm hidden lg:inline">Pemberitahuan</span>
                 </a>
-            </li>
+            </li> -->
             <li class="flex items-center justify-center lg:justify-start">
                 <a href="/pengusul/alurpendaftaran" class="flex items-center block text-md hover:bg-secondary hover:text-primaryhover p-2 w-full rounded">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
