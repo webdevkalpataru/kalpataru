@@ -64,15 +64,43 @@ class InformasiController extends BaseController
     public function peraturan()
     {
         $model = new PeraturanModel();
+        
+        // Ambil data dengan pagination, limit 5 per halaman
+        $perPage = 5;
+
+        // Ambil keyword dari input search
         $keyword = $this->request->getGet('search');
 
         if ($keyword) {
-            $data['peraturan'] = $model->searchPeraturanTerbit($keyword);
-            $data['countTerbit'] = count($data['peraturan']);
+            // Jika ada pencarian, ambil peraturan yang sesuai dengan judul, tentang, atau jenis dan statusnya "Terbit" dengan pagination
+            $data['peraturans'] = $model->where('status', 'Terbit')
+                ->groupStart() // Mulai grup kondisi pencarian
+                    ->like('judul', $keyword) // Cari berdasarkan judul
+                    ->orLike('tentang', $keyword) // Cari berdasarkan tentang
+                    ->orLike('jenis', $keyword) // Cari berdasarkan jenis
+                ->groupEnd() // Akhiri grup kondisi pencarian
+                ->paginate($perPage, 'peraturans'); // Paginate hasil pencarian
+        
+            $countTerbit = $model->where('status', 'Terbit')
+                ->groupStart() // Grup pencarian yang sama untuk menghitung jumlah hasil
+                    ->like('judul', $keyword) 
+                    ->orLike('tentang', $keyword)
+                    ->orLike('jenis', $keyword)
+                ->groupEnd()
+                ->countAllResults(); // Hitung jumlah peraturan hasil pencarian
+        
+            $data['pager'] = $model->pager; // Tidak ada pagination jika ada pencarian
         } else {
-            $data['peraturan'] = $model->getPeraturanTerbit();
-            $data['countTerbit'] = $model->countPeraturanTerbit();
-        }
+            // Jika tidak ada pencarian, ambil peraturan yang statusnya "Terbit" dengan pagination
+            $data['peraturans'] = $model->where('status', 'Terbit')
+                ->paginate($perPage, 'peraturans');
+            $countTerbit = $model->where('status', 'Terbit')->countAllResults(); // Hanya hitung peraturan yang berstatus "Terbit"
+            $data['pager'] = $model->pager; // Hanya tetapkan pager jika menggunakan paginate
+        }        
+
+        // Siapkan data untuk dikirim ke view
+        $data['keyword'] = $keyword;
+        $data['countTerbit'] = $countTerbit;
 
         $data['title'] = "Peraturan dan Kebijakan";
         return view('peraturankebijakan', $data);

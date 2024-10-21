@@ -677,6 +677,14 @@ video {
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
 }
+.mx-8 {
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+.mx-10 {
+  margin-left: 2.5rem;
+  margin-right: 2.5rem;
+}
 .mb-1 {
   margin-bottom: 0.25rem;
 }
@@ -925,6 +933,9 @@ video {
   width: -moz-max-content;
   width: max-content;
 }
+.w-1\/2 {
+  width: 50%;
+}
 .min-w-\[240px\] {
   min-width: 240px;
 }
@@ -1043,9 +1054,6 @@ video {
 .grid-rows-3 {
   grid-template-rows: repeat(3, minmax(0, 1fr));
 }
-.flex-row {
-  flex-direction: row;
-}
 .flex-col {
   flex-direction: column;
 }
@@ -1122,11 +1130,6 @@ video {
   --tw-space-y-reverse: 0;
   margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1rem * var(--tw-space-y-reverse));
-}
-.space-x-2 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 0;
-  margin-right: calc(0.5rem * var(--tw-space-x-reverse));
-  margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
 }
 .overflow-auto {
   overflow: auto;
@@ -1585,10 +1588,6 @@ video {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
 }
-.text-blue-500 {
-  --tw-text-opacity: 1;
-  color: rgb(33 150 243 / var(--tw-text-opacity));
-}
 .text-blue-gray-700 {
   --tw-text-opacity: 1;
   color: rgb(69 90 100 / var(--tw-text-opacity));
@@ -1966,10 +1965,6 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(248 250 252 / var(--tw-bg-opacity));
 }
-.hover\:bg-slate-500:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(100 116 139 / var(--tw-bg-opacity));
-}
 .hover\:bg-opacity-80:hover {
   --tw-bg-opacity: 0.8;
 }
@@ -2287,6 +2282,22 @@ video {
     margin-top: 0px;
   }
 
+  .md\:mr-10 {
+    margin-right: 2.5rem;
+  }
+
+  .md\:ms-32 {
+    margin-inline-start: 8rem;
+  }
+
+  .md\:ms-24 {
+    margin-inline-start: 6rem;
+  }
+
+  .md\:ms-10 {
+    margin-inline-start: 2.5rem;
+  }
+
   .md\:hidden {
     display: none;
   }
@@ -2398,10 +2409,6 @@ video {
 
   .md\:justify-start {
     justify-content: flex-start;
-  }
-
-  .md\:justify-end {
-    justify-content: flex-end;
   }
 
   .md\:space-x-4 > :not([hidden]) ~ :not([hidden]) {
@@ -2598,6 +2605,10 @@ video {
     margin-top: 1.75rem;
   }
 
+  .lg\:ms-24 {
+    margin-inline-start: 6rem;
+  }
+
   .lg\:block {
     display: block;
   }
@@ -2656,6 +2667,10 @@ video {
 
   .lg\:w-full {
     width: 100%;
+  }
+
+  .lg\:w-1\/3 {
+    width: 33.333333%;
   }
 
   .lg\:max-w-5xl {

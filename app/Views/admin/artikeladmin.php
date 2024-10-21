@@ -77,7 +77,7 @@
                     <thead>
                         <tr class="text-sm font-semibold text-slate-700">
                             <th class="p-2 border-b bg-slate-50">No</th>
-                            <th class="p-2 border-b bg-slate-50">Penulis</th>
+                            <!-- <th class="p-2 border-b bg-slate-50">Penulis</th> -->
                             <th class="p-2 border-b bg-slate-50">Judul</th>
                             <th class="p-2 border-b bg-slate-50">Tanggal</th>
                             <th class="p-2 border-b bg-slate-50">Status</th>
