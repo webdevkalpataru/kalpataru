@@ -22,7 +22,7 @@ class KontakController extends BaseController
         $emailService = Services::email();
 
         $emailService->setFrom($email, $nama);
-        $emailService->setTo('sulthanizza11@gmail.com');
+        $emailService->setTo('kalpataru.klhk@gmail.com');
         $emailService->setReplyTo($email, $nama);
 
         $emailService->setSubject('Pesan dari Form Kontak Website Sistem Informasi Penghargaan Kalpataru');
@@ -38,7 +38,7 @@ class KontakController extends BaseController
         $emailService->send();
 
         $emailService->clear();
-        $emailService->setFrom('sulthanizza11@gmail.com', 'kalpataru');
+        $emailService->setFrom('kalpataru.klhk@gmail.com', 'kalpataru');
         $emailService->setTo($email);
         $emailService->setSubject('Terima kasih telah mengirim kontak kami');
         $emailService->setMessage("

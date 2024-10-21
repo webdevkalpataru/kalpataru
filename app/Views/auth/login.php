@@ -113,7 +113,7 @@
                             Belum punya akun? <a href="./register" class="text-primary hover:underline font-bold">Daftar Sekarang</a>
                         </p>
                         <p class="text-gray-900 text-xs">
-                            Lupa Password? <a href="./forgot-password" class="text-primary hover:underline font-bold">Reset</a>
+                            <a href="./forgot-password" class="text-primary hover:underline font-bold">Lupa Kata Sandi?</a>
                         </p>
                     </div>
 
