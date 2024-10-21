@@ -33,7 +33,7 @@
                 </div>
                 <p class="text-slate-600 leading-normal font-light text-justify mt-4">
                     <?= nl2br(htmlspecialchars($artikel['konten'])); ?><br><br>
-                    Penulis: <?= htmlspecialchars($artikel['penulis']); ?>
+                    <strong>Penulis : <?= htmlspecialchars($artikel['penulis']); ?></strong>
                 </p>
             </div>
         </div>

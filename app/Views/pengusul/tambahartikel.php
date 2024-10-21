@@ -37,7 +37,7 @@
                     </div>
                     <div>
                         <label class="block mb-2 text-sm text-black">Unggah Foto Artikel (.jpg/jpeg/png)</label>
-                        <input required id="foto" name="foto" type="file" accept="image/*" class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2">
+                        <input id="foto" name="foto" type="file" accept="image/*" class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2">
                         <div class="text-red-500" id="fotoError"></div> <!-- Menampilkan pesan kesalahan foto -->
                     </div>
                 </div>

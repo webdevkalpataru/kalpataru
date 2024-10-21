@@ -31,12 +31,19 @@ class AdminController extends BaseController
         return view('admin/artikeladmin', $data);
     }
 
+    public function tambahartikeladmin()
+    {
+        $data['title'] = "Tambah Artikel Admin";
+        return view('admin/tambahartikeladmin', $data);
+    }
+
     public function tambahArtikelAction()
     {
         $model = new ArtikelModel();
 
         // Ambil input dari formulir
-        $judulArtikel = $this->request->getPost('judul');
+        $judul = $this->request->getPost('judul');
+        $slug = url_title($judul, '-', TRUE);
         $konten = $this->request->getPost('konten');
 
         // Memproses foto yang diupload
@@ -47,7 +54,7 @@ class AdminController extends BaseController
         $validation->setRules([
             'judul' => [
                 'label' => 'Judul',
-                'rules' => 'required|min_length[5]|max_length[100]|is_unique[artikel.judul]' // Judul harus unik dan panjang antara 5 dan 100 karakter
+                'rules' => 'required|min_length[5]|max_length[125]|is_unique[artikel.judul]' // Judul harus unik dan panjang antara 5 dan 125 karakter
             ],
             'konten' => [
                 'label' => 'Konten',
@@ -85,16 +92,20 @@ class AdminController extends BaseController
         }
 
         // Menghasilkan slug yang unik
-        $slug = url_title($judulArtikel, '-', true);
-        $existingArticle = $model->where('slug', $slug)->first(); // Cek apakah slug sudah ada
-        if ($existingArticle) {
-            return $this->response->setJSON(['success' => false, 'errors' => 'Judul sudah digunakan.']);
+        $slugExist = $model->where('slug', $slug)->first(); // Cek apakah slug sudah ada
+        if ($slugExist) {
+            return $this->response->setJSON([
+                'success' => false,
+                'messages' => [
+                    'judul' => 'Tautan dengan judul ini sudah tersedia. Silakan gunakan judul yang berbeda.'
+                ]
+            ]);
         }
 
         // Simpan data artikel ke dalam database
         $dataArtikel = [
             'id_admin' => session()->get('id_admin'),
-            'judul' => htmlspecialchars($judulArtikel, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+            'judul' => htmlspecialchars($judul, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
             'slug' => $slug,
             'konten' => htmlspecialchars($konten, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
             'foto' => $fotoPath,
@@ -192,7 +203,8 @@ class AdminController extends BaseController
         $model = new ArtikelModel();
 
         // Ambil input dari formulir
-        $judulArtikel = $this->request->getPost('judul');
+        $judul = $this->request->getPost('judul');
+        $slug = url_title($judul, '-', TRUE);
         $konten = $this->request->getPost('konten');
 
         // Memproses foto yang diupload
@@ -203,7 +215,7 @@ class AdminController extends BaseController
         $validation->setRules([
             'judul' => [
                 'label' => 'Judul',
-                'rules' => 'required|min_length[5]|max_length[100]|is_unique[artikel.judul,id_artikel,' . $id . ']' // Judul harus unik kecuali untuk artikel yang sedang diedit
+                'rules' => 'required|min_length[5]|max_length[125]|is_unique[artikel.judul,id_artikel,' . $id . ']' // Judul harus unik kecuali untuk artikel yang sedang diedit
             ],
             'konten' => [
                 'label' => 'Konten',
@@ -211,7 +223,7 @@ class AdminController extends BaseController
             ],
             'foto' => [
                 'label' => 'Foto',
-                'rules' => 'permit_empty|is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/gif,image/png]|max_size[foto,1024]'
+                'rules' => 'is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/png]|max_size[foto,1024]'
             ]
         ]);
 
@@ -237,16 +249,23 @@ class AdminController extends BaseController
             }
         }
 
-        // Cek apakah slug perlu diupdate
-        $slug = url_title($judulArtikel, '-', true);
-        $existingArticle = $model->where('slug', $slug)->where('id_artikel !=', $id)->first(); // Cek apakah slug sudah ada
-        if ($existingArticle) {
-            return $this->response->setJSON(['success' => false, 'errors' => 'Judul sudah digunakan.']);
+        $slugExists = $model->where('slug', $slug)
+            ->where('id_artikel !=', $id) // Abaikan artikel yang sedang diedit
+            ->first();
+
+        if ($slugExists) {
+            // Jika slug sudah ada pada artikel lain, kirim pesan kesalahan ke view
+            return $this->response->setJSON([
+                'success' => false,
+                'messages' => [
+                    'judul' => 'Judul artikel ini sudah digunakan. Silakan gunakan judul yang berbeda.'
+                ]
+            ]);
         }
 
         // Siapkan data untuk diupdate
         $dataArtikel = [
-            'judul' => htmlspecialchars($judulArtikel, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+            'judul' => htmlspecialchars($judul, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
             'slug' => $slug,
             'konten' => htmlspecialchars($konten, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
         ];
@@ -373,12 +392,6 @@ class AdminController extends BaseController
         return view('admin/akuntimteknis', ['title' => 'Akun Tim Teknis']);
     }
 
-    public function tambahartikeladmin()
-    {
-        $data['title'] = "Tambah Artikel Admin";
-        return view('admin/tambahartikeladmin', $data);
-    }
-
     public function beritaAdmin()
     {
         $model = new BeritaModel();
@@ -402,7 +415,8 @@ class AdminController extends BaseController
         $model = new BeritaModel();
 
         // Ambil input dari formulir
-        $judulBerita = $this->request->getPost('judul');
+        $judul = $this->request->getPost('judul');
+        $slug = url_title($judul, '-', TRUE);
         $konten = $this->request->getPost('konten');
 
         // Memproses foto yang diupload
@@ -413,7 +427,7 @@ class AdminController extends BaseController
         $validation->setRules([
             'judul' => [
                 'label' => 'Judul',
-                'rules' => 'required|min_length[5]|max_length[100]|is_unique[berita.judul]' // Judul harus unik dan panjang antara 5 dan 100 karakter
+                'rules' => 'required|min_length[5]|max_length[125]|is_unique[berita.judul]' // Judul harus unik dan panjang antara 5 dan 125 karakter
             ],
             'konten' => [
                 'label' => 'Konten',
@@ -421,7 +435,7 @@ class AdminController extends BaseController
             ],
             'foto' => [
                 'label' => 'Foto',
-                'rules' => 'required|uploaded[foto]|is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/gif,image/png]|max_size[foto,1024]'
+                'rules' => 'uploaded[foto]|is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/gif,image/png]|max_size[foto,1024]'
             ]
         ]);
 
@@ -451,16 +465,20 @@ class AdminController extends BaseController
         }
 
         // Menghasilkan slug yang unik
-        $slug = url_title($judulBerita, '-', true);
-        $existingBerita = $model->where('slug', $slug)->first(); // Cek apakah slug sudah ada
-        if ($existingBerita) {
-            return $this->response->setJSON(['success' => false, 'message' => 'Judul sudah digunakan.']);
+        $slugExist = $model->where('slug', $slug)->first(); // Cek apakah slug sudah ada
+        if ($slugExist) {
+            return $this->response->setJSON([
+                'success' => false,
+                'messages' => [
+                    'judul' => 'Tautan dengan judul ini sudah tersedia. Silakan gunakan judul yang berbeda.'
+                ]
+            ]);
         }
 
         // Simpan data artikel ke dalam database
         $data = [
             'id_admin' => session()->get('id_admin'),
-            'judul' => htmlspecialchars($judulBerita, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+            'judul' => htmlspecialchars($judul, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
             'slug' => $slug,
             'konten' => htmlspecialchars($konten, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
             'foto' => $fotoPath,
@@ -530,9 +548,15 @@ class AdminController extends BaseController
     public function updateBeritaAction($id)
     {
         $model = new BeritaModel();
+        $berita = $model->find($id);
+
+        if (!$berita) {
+            return $this->response->setJSON(['success' => false, 'message' => 'berita tidak ditemukan.']);
+        }
 
         // Ambil input dari formulir
         $judul = $this->request->getPost('judul');
+        $slug = url_title($judul, '-', TRUE);
         $konten = $this->request->getPost('konten');
 
         // Memproses foto yang diupload
@@ -543,7 +567,7 @@ class AdminController extends BaseController
         $validation->setRules([
             'judul' => [
                 'label' => 'Judul',
-                'rules' => 'required|min_length[5]|max_length[100]|is_unique[berita.judul,id_berita,' . $id . ']' // Judul harus unik kecuali untuk artikel yang sedang diedit
+                'rules' => 'required|min_length[5]|max_length[125]|is_unique[berita.judul,id_berita,' . $id . ']' // Judul harus unik kecuali untuk artikel yang sedang diedit
             ],
             'konten' => [
                 'label' => 'Konten',
@@ -551,7 +575,7 @@ class AdminController extends BaseController
             ],
             'foto' => [
                 'label' => 'Foto',
-                'rules' => 'permit_empty|is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/gif,image/png]|max_size[foto,1024]'
+                'rules' => 'is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/png]|max_size[foto,1024]'
             ]
         ]);
 
@@ -577,11 +601,19 @@ class AdminController extends BaseController
             }
         }
 
-        // Cek apakah slug perlu diupdate
-        $slug = url_title($judul, '-', true);
-        $existingArticle = $model->where('slug', $slug)->where('id_berita !=', $id)->first(); // Cek apakah slug sudah ada
-        if ($existingArticle) {
-            return $this->response->setJSON(['success' => false, 'errors' => 'Judul sudah digunakan.']);
+        // Cek apakah slug sudah digunakan oleh artikel lain (selain artikel ini)
+        $slugExists = $model->where('slug', $slug)
+            ->where('id_berita !=', $id) // Abaikan artikel yang sedang diedit
+            ->first();
+
+        if ($slugExists) {
+            // Jika slug sudah ada pada artikel lain, kirim pesan kesalahan ke view
+            return $this->response->setJSON([
+                'success' => false,
+                'messages' => [
+                    'judul' => 'Judul artikel ini sudah digunakan. Silakan gunakan judul yang berbeda.'
+                ]
+            ]);
         }
 
         // Siapkan data untuk diupdate
@@ -690,7 +722,8 @@ class AdminController extends BaseController
         $model = new PengumumanModel();
 
         // Ambil input dari formulir
-        $judulPengumuman = $this->request->getPost('judul');
+        $judul = $this->request->getPost('judul');
+        $slug = url_title($judul, '-', TRUE);
         $konten = $this->request->getPost('konten');
 
         // Memproses foto yang diupload
@@ -701,7 +734,7 @@ class AdminController extends BaseController
         $validation->setRules([
             'judul' => [
                 'label' => 'Judul',
-                'rules' => 'required|min_length[5]|max_length[100]|is_unique[pengumuman.judul]' // Judul harus unik dan panjang antara 5 dan 100 karakter
+                'rules' => 'required|min_length[5]|max_length[150]|is_unique[pengumuman.judul]' // Judul harus unik dan panjang antara 5 dan 125 karakter
             ],
             'konten' => [
                 'label' => 'Konten',
@@ -709,7 +742,7 @@ class AdminController extends BaseController
             ],
             'foto' => [
                 'label' => 'Foto',
-                'rules' => 'required|uploaded[foto]|is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/gif,image/png]|max_size[foto,1024]'
+                'rules' => 'is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/png]|max_size[foto,1024]'
             ]
         ]);
 
@@ -732,23 +765,27 @@ class AdminController extends BaseController
                 // Jika berhasil, simpan path foto ke database
                 $fotoPath = 'images/pengumuman/' . $fotoName;
             } else {
-                return $this->response->setJSON(['success' => false, 'message' => 'Gagal menyimpan file foto.']);
+                return $this->response->setJSON(['success' => false, 'messages' => 'Gagal menyimpan file foto.']);
             }
         } else {
-            return $this->response->setJSON(['success' => false, 'message' => 'File tidak valid atau belum diupload.']);
+            return $this->response->setJSON(['success' => false, 'messages' => 'File tidak valid atau belum diupload.']);
         }
 
         // Menghasilkan slug yang unik
-        $slug = url_title($judulPengumuman, '-', true);
-        $existingPengumuman = $model->where('slug', $slug)->first(); // Cek apakah slug sudah ada
-        if ($existingPengumuman) {
-            return $this->response->setJSON(['success' => false, 'message' => 'Judul sudah digunakan.']);
+        $slugExist = $model->where('slug', $slug)->first(); // Cek apakah slug sudah ada
+        if ($slugExist) {
+            return $this->response->setJSON([
+                'success' => false,
+                'messages' => [
+                    'judul' => 'Tautan dengan judul ini sudah tersedia. Silakan gunakan judul yang berbeda.'
+                ]
+            ]);
         }
 
         // Simpan data pengumuman ke dalam database
         $data = [
             'id_admin' => session()->get('id_admin'),
-            'judul' => htmlspecialchars($judulPengumuman, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+            'judul' => htmlspecialchars($judul, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
             'slug' => $slug,
             'konten' => htmlspecialchars($konten, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
             'foto' => $fotoPath,
@@ -821,17 +858,20 @@ class AdminController extends BaseController
 
         // Ambil input dari formulir
         $judul = $this->request->getPost('judul');
+        $slug = url_title($judul, '-', TRUE);
         $konten = $this->request->getPost('konten');
 
         // Memproses foto yang diupload
         $foto = $this->request->getFile('foto');
+
+
 
         // Validasi input
         $validation = \Config\Services::validation();
         $validation->setRules([
             'judul' => [
                 'label' => 'Judul',
-                'rules' => 'required|min_length[5]|max_length[100]|is_unique[pengumuman.judul,id_pengumuman,' . $id . ']' // Judul harus unik kecuali untuk artikel yang sedang diedit
+                'rules' => 'required|min_length[5]|max_length[150]|is_unique[pengumuman.judul,id_pengumuman,' . $id . ']' // Judul harus unik kecuali untuk artikel yang sedang diedit
             ],
             'konten' => [
                 'label' => 'Konten',
@@ -865,12 +905,21 @@ class AdminController extends BaseController
             }
         }
 
-        // Cek apakah slug perlu diupdate
-        $slug = url_title($judul, '-', true);
-        $existingPengumuman = $model->where('slug', $slug)->where('id_pengumuman !=', $id)->first(); // Cek apakah slug sudah ada
-        if ($existingPengumuman) {
-            return $this->response->setJSON(['success' => false, 'errors' => 'Judul sudah digunakan.']);
+        // Cek apakah slug sudah digunakan oleh artikel lain (selain artikel ini)
+        $slugExists = $model->where('slug', $slug)
+            ->where('id_pengumuman !=', $id) // Abaikan artikel yang sedang diedit
+            ->first();
+
+        if ($slugExists) {
+            // Jika slug sudah ada pada artikel lain, kirim pesan kesalahan ke view
+            return $this->response->setJSON([
+                'success' => false,
+                'messages' => [
+                    'judul' => 'Judul artikel ini sudah digunakan. Silakan gunakan judul yang berbeda.'
+                ]
+            ]);
         }
+
 
         // Siapkan data untuk diupdate
         $data = [
@@ -971,7 +1020,7 @@ class AdminController extends BaseController
         $validation->setRules([
             'judul' => [
                 'label' => 'Judul',
-                'rules' => 'required|min_length[5]' // Judul harus unik dan panjang antara 5 dan 100 karakter
+                'rules' => 'required|min_length[5]' // Judul harus unik dan panjang antara 5 dan 125 karakter
             ],
             'tentang' => [
                 'label' => 'Tentang',
@@ -1097,7 +1146,7 @@ class AdminController extends BaseController
         $validation->setRules([
             'judul' => [
                 'label' => 'Judul',
-                'rules' => 'required|min_length[5]' // Judul harus unik dan panjang antara 5 dan 100 karakter
+                'rules' => 'required|min_length[5]' // Judul harus unik dan panjang antara 5 dan 125 karakter
             ],
             'tentang' => [
                 'label' => 'Tentang',
@@ -1246,7 +1295,7 @@ class AdminController extends BaseController
         $validation->setRules([
             'judul' => [
                 'label' => 'Judul',
-                'rules' => 'required|min_length[5]|max_length[100]|is_unique[video.judul_video]'
+                'rules' => 'required|min_length[5]|max_length[125]|is_unique[video.judul_video]'
             ],
             'link' => [
                 'label' => 'Link',
@@ -1340,7 +1389,7 @@ class AdminController extends BaseController
         $validation->setRules([
             'judul' => [
                 'label' => 'Judul',
-                'rules' => 'required|min_length[5]|max_length[100]|is_unique[video.judul_video,id_video,' . $id . ']'
+                'rules' => 'required|min_length[5]|max_length[125]|is_unique[video.judul_video,id_video,' . $id . ']'
             ],
             'link' => [
                 'label' => 'Link',
@@ -1445,7 +1494,7 @@ class AdminController extends BaseController
         $validation->setRules([
             'judul' => [
                 'label' => 'Judul',
-                'rules' => 'required|min_length[5]|max_length[100]|is_unique[artikel.judul]' // Judul harus unik dan panjang antara 5 dan 100 karakter
+                'rules' => 'required|min_length[5]|max_length[125]|is_unique[artikel.judul]' // Judul harus unik dan panjang antara 5 dan 125 karakter
             ],
             'file' => [
                 'label' => 'File',
@@ -1581,7 +1630,7 @@ class AdminController extends BaseController
         $validation->setRules([
             'judul' => [
                 'label' => 'Judul',
-                'rules' => 'required|min_length[5]|max_length[100]|is_unique[buku_kalpataru.judul,id_buku,' . $id . ']' // Judul harus unik dan panjang antara 5 dan 100 karakter
+                'rules' => 'required|min_length[5]|max_length[125]|is_unique[buku_kalpataru.judul,id_buku,' . $id . ']' // Judul harus unik dan panjang antara 5 dan 125 karakter
             ],
             'file' => [
                 'label' => 'File',

@@ -701,14 +701,14 @@ class PengusulController extends BaseController
     {
         $Model = new PendaftaranModel();
         $provinsi = session()->get('provinsi');
-        
+
         $usulan = $Model->where('provinsi', $provinsi)->findAll();
-        
+
         $data = [
             'title' => 'Usulan DLHK',
             'usulan' => $usulan
         ];
-        
+
         return view('pengusul/usulandlhk', $data);
     }
 
@@ -860,7 +860,7 @@ class PengusulController extends BaseController
         $validation->setRules([
             'judul' => [
                 'label' => 'Judul',
-                'rules' => 'required|min_length[5]|max_length[100]|is_unique[artikel.judul]' // Judul harus unik dan panjang antara 5 dan 100 karakter
+                'rules' => 'required|min_length[5]|max_length[125]|is_unique[artikel.judul]' // Judul harus unik dan panjang antara 5 dan 125 karakter
             ],
             'konten' => [
                 'label' => 'Konten',
@@ -868,10 +868,9 @@ class PengusulController extends BaseController
             ],
             'foto' => [
                 'label' => 'Foto',
-                'rules' => 'uploaded[foto]|is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/gif,image/png]|max_size[foto,1024]'
+                'rules' => 'is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/png]|max_size[foto,1024]'
             ]
         ]);
-
 
         if (!$this->validate($validation->getRules())) {
             return $this->response->setJSON([
@@ -893,8 +892,6 @@ class PengusulController extends BaseController
             } else {
                 return $this->response->setJSON(['success' => false, 'errors' => 'Gagal menyimpan file foto.']);
             }
-        } else {
-            return $this->response->setJSON(['success' => false, 'errors' => 'File tidak valid atau belum diupload.']);
         }
 
         // Menghasilkan slug yang unik
@@ -910,9 +907,12 @@ class PengusulController extends BaseController
             'judul' => htmlspecialchars($judulArtikel, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
             'slug' => $slug,
             'konten' => htmlspecialchars($konten, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
-            'foto' => $fotoPath,
             'tanggal' => date('Y-m-d H:i:s'),
         ];
+
+        if (isset($fotoPath)) {
+            $dataArtikel['foto'] = $fotoPath;
+        }
 
         // Simpan artikel
         if ($model->insert($dataArtikel)) {
@@ -925,6 +925,7 @@ class PengusulController extends BaseController
 
 
 
+
     public function artikelsaya()
     {
         $model = new ArtikelModel();
@@ -932,8 +933,7 @@ class PengusulController extends BaseController
 
         // Mengambil artikel berdasarkan id_pengusul
         $data['artikels'] = $model->where('id_pengusul', $id_pengusul)->findAll();
-
-        // Menyiapkan data untuk view
+        $data['countTerbit'] = count($data['artikels']);
         $data['title'] = 'Artikel Saya';
 
         // Menampilkan view dengan data artikel
@@ -973,12 +973,12 @@ class PengusulController extends BaseController
     {
         $pendaftaranModel = new PendaftaranModel();
         $pengusulModel = new PengusulModel();
-    
+
         $id_pengusul = session()->get('id_pengusul');
         $pengusul = $pengusulModel->find($id_pengusul);
-    
+
         $pendaftaran = [];
-    
+
         if ($pengusul) {
             if ($pengusul['role_akun'] == 'DLHK') {
                 $provinsi = session()->get('provinsi');
@@ -987,13 +987,13 @@ class PengusulController extends BaseController
                 $pendaftaran = $pendaftaranModel->where('id_pengusul', $id_pengusul)->findAll();
             }
         }
-    
+
         $data = [
             'title' => 'Pemberitahuan',
             'pendaftaran' => $pendaftaran,
             'pengusul' => $pengusul
         ];
-    
+
         return view('pengusul/pemberitahuan', $data);
     }
 
@@ -1055,7 +1055,7 @@ class PengusulController extends BaseController
         $keistimewaan = $pendaftaranModel->db->table('keistimewaan')->where('id_pendaftaran', $pendaftaranData['id_pendaftaran'])->get()->getRowArray();
 
         $data = [
-            'pendaftaran' => $pendaftaranData, 
+            'pendaftaran' => $pendaftaranData,
             'pengusul' => $pengusulData,
             'kegiatan' => $kegiatan,
             'dampak' => $dampak,

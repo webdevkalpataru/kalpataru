@@ -132,8 +132,6 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('pengusul/detail/(:any)', 'AdminController::detailPengusul/$1');
     $routes->get('download/suratpengantar/(:segment)', 'AdminController::downloadSuratPengantar/$1');
 
-
-
     // Manajemen Artikel
     $routes->get('artikel', 'AdminController::artikeladmin');
     $routes->get('tambah-artikel', 'AdminController::tambahartikeladmin');
@@ -183,11 +181,6 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('buku-kalpataru/(:any)', 'AdminController::detailBuku/$1');
     $routes->post('buku-kalpataru/hapus/(:num)', 'AdminController::hapusBuku/$1');
     $routes->post('updatestatusbuku', 'AdminController::updateStatusBuku');
-
-
-
-
-
 
     // Manajemen Peraturan dan Kebijakan
     $routes->get('peraturan-kebijakan', 'AdminController::peraturanadmin');

@@ -51,20 +51,26 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php
-                            $no = 0;
-                            foreach ($artikels as $index => $artikel):
-                                $no++;
-                            ?>
-                                <tr class="hover:bg-slate-50">
-                                    <td class="p-4 border-b border-slate-200 text-center"><?= $no ?></td>
-                                    <td class="p-4 border-b border-slate-200 text-center"><?= esc($artikel['judul']) ?></td>
-                                    <td class="p-4 border-b border-slate-200 text-center"><?= esc($artikel['status']) ?></td>
-                                    <td class="p-4 border-b border-slate-200 text-center">
-                                        <a href="/pengusul/artikel/<?= $artikel['slug']; ?>">Lihat</a>
-                                    </td>
+                            <?php if (count($artikels) > 0): ?>
+                                <?php
+                                $no = 0;
+                                foreach ($artikels as $index => $artikel):
+                                    $no++;
+                                ?>
+                                    <tr class="hover:bg-slate-50">
+                                        <td class="p-4 border-b border-slate-200 text-center"><?= $no ?></td>
+                                        <td class="p-4 border-b border-slate-200 text-center"><?= esc($artikel['judul']) ?></td>
+                                        <td class="p-4 border-b border-slate-200 text-center"><?= esc($artikel['status']) ?></td>
+                                        <td class="p-4 border-b border-slate-200 text-center">
+                                            <a href="/pengusul/artikel/<?= $artikel['slug']; ?>">Lihat</a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <tr>
+                                    <td colspan="6" class="p-4 text-center text-slate-800">Tidak ada artikel yang ditemukan.</td>
                                 </tr>
-                            <?php endforeach; ?>
+                            <?php endif; ?>
                         </tbody>
                     </table>
                 </div>

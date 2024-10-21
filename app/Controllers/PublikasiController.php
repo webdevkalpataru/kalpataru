@@ -25,7 +25,7 @@ class PublikasiController extends BaseController
             $data['countTerbit'] = $model->countBeritaTerbit();
         }
 
-        $data['title'] = "Berita";
+        $data['title'] = "Berita – Kalpataru | Penghargaan Lingkungan Hidup Indonesia";
         return view('berita', $data);
     }
 
@@ -63,7 +63,7 @@ class PublikasiController extends BaseController
             $data['countTerbit'] = $model->countArtikelTerbit();
         }
 
-        $data['title'] = "Daftar Artikel Terbit";
+        $data['title'] = "Artikel – Kalpataru | Penghargaan Lingkungan Hidup Indonesia";
 
 
         return view('artikel', $data);
