@@ -35,6 +35,11 @@
                     <?= nl2br(htmlspecialchars($artikel['konten'])); ?><br><br>
                     Penulis: <?= htmlspecialchars($artikel['penulis']); ?>
                 </p>
+
+                <button onclick="window.history.back()"
+                    class="text-sm font-bold text-gray-600 no-underline focus:outline-none text-start mt-6">
+                    <span class="font-bold text-lg items-center">←</span> Kembali
+                </button>
             </div>
         </div>
 
