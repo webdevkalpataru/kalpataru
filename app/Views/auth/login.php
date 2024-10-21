@@ -112,6 +112,9 @@
                         <p class="text-gray-900 text-xs">
                             Belum punya akun? <a href="./register" class="text-primary hover:underline font-bold">Daftar Sekarang</a>
                         </p>
+                        <p class="text-gray-900 text-xs">
+                            Lupa Password? <a href="./forgot-password" class="text-primary hover:underline font-bold">Reset</a>
+                        </p>
                     </div>
 
                     <button type="submit"

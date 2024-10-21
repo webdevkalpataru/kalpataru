@@ -83,6 +83,69 @@ class AuthController extends BaseController
         }
     }
 
+        public function forgotPassword()
+    {
+        $data['title'] = "Lupa Kata Sandi";
+        return view('auth/forgot_password', $data);
+    }
+
+    public function sendResetLink()
+    {
+        $email = $this->request->getPost('email');
+        $model = new PengusulModel();
+        $user = $model->getUserByEmail($email);
+
+        if ($user) {
+            $token = bin2hex(random_bytes(15));
+            $resetLink = base_url("auth/reset-password/$token");
+
+            $model->update($user['id_pengusul'], ['reset_token' => $token]);
+
+            $emailService = \Config\Services::email();
+            $emailService->setTo($email);
+            $emailService->setSubject('Ubah Kata Sandi Akun Kalpataru');
+            $emailService->setMessage("Klik url berikut untuk mengatur ulang kata sandi Anda: $resetLink");
+            $emailService->send();
+
+            return $this->response->setJSON(['success' => true, 'message' => 'Link reset password telah dikirim ke email Anda.']);
+        } else {
+            return $this->response->setJSON(['success' => false, 'message' => 'Email tidak ditemukan.']);
+        }
+    }
+
+    public function resetPassword($token)
+    {
+        $model = new PengusulModel();
+        $user = $model->where('reset_token', $token)->first();
+
+        if ($user) {
+            $data['title'] = "Atur Ulang Kata Sandi";
+            $data['token'] = $token;
+            return view('auth/reset_password', $data);
+        } else {
+            return redirect()->to('/auth/forgot-password')->with('error', 'Token tidak valid.');
+        }
+    }
+
+    public function processResetPassword()
+    {
+        $token = $this->request->getPost('token');
+        $newPassword = $this->request->getPost('kata_sandi');
+        $model = new PengusulModel();
+        $user = $model->where('reset_token', $token)->first();
+
+        if ($user) {
+            $model->update($user['id_pengusul'], [
+                'kata_sandi' => password_hash($newPassword, PASSWORD_DEFAULT),
+                'reset_token' => null
+            ]);
+
+            return $this->response->setJSON(['success' => true, 'message' => 'Kata sandi berhasil diatur ulang.']);
+        } else {
+            return $this->response->setJSON(['success' => false, 'message' => 'Token tidak valid.']);
+        }
+    }
+
     public function logoutAction()
     {
         session()->destroy();
