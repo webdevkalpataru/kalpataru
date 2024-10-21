@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\ArtikelModel;
 use App\Models\BeritaModel;
+use App\Models\BukuModel;
 use App\Models\PengumumanModel;
 use App\Models\PengusulModel;
 use App\Models\PeraturanModel;
@@ -420,7 +421,7 @@ class AdminController extends BaseController
             ],
             'foto' => [
                 'label' => 'Foto',
-                'rules' => 'uploaded[foto]|is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/gif,image/png]|max_size[foto,1024]'
+                'rules' => 'required|uploaded[foto]|is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/gif,image/png]|max_size[foto,1024]'
             ]
         ]);
 
@@ -708,7 +709,7 @@ class AdminController extends BaseController
             ],
             'foto' => [
                 'label' => 'Foto',
-                'rules' => 'uploaded[foto]|is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/gif,image/png]|max_size[foto,1024]'
+                'rules' => 'required|uploaded[foto]|is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/gif,image/png]|max_size[foto,1024]'
             ]
         ]);
 
@@ -962,7 +963,7 @@ class AdminController extends BaseController
         $tentang = $this->request->getPost('tentang');
         $jenis = $this->request->getPost('jenis');
 
-        // Memproses foto yang diupload
+        // Memproses file yang diupload
         $file = $this->request->getFile('file');
 
         // Validasi input
@@ -982,7 +983,7 @@ class AdminController extends BaseController
             ],
             'file' => [
                 'label' => 'File',
-                'rules' => 'uploaded[file]|max_size[file,1024]|mime_in[file,application/pdf]'
+                'rules' => 'required|uploaded[file]|max_size[file,1024]|mime_in[file,application/pdf]'
             ]
         ]);
 
@@ -1412,21 +1413,282 @@ class AdminController extends BaseController
         return redirect()->to('/admin/video'); // Sesuaikan dengan URL yang diinginkan
     }
 
-    public function buku()
+    public function bukuAdmin()
     {
-        $data['title'] = "Buku";
-        return view('admin/buku', ['title' => 'Buku']);
+        $model = new BukuModel();
+        $keyword = $this->request->getGet('search');
+
+        $data['buku'] = $model->getAllBuku($keyword);
+        $data['countTerbit'] = count($data['buku']);
+        $data['title'] = "Buku Penghargaan Kalpataru";
+
+        return view('admin/buku', $data);
     }
 
     public function tambahbuku()
     {
-        $data['title'] = "Buku";
-        return view('admin/tambahbuku', ['title' => 'Tambah Buku']);
+        $data['title'] = "Tambah Buku";
+        return view('admin/tambahbuku', $data);
     }
 
-    public function kebijakan()
+    public function tambahBukuAction()
     {
-        $data['title'] = "Kebijakan";
-        return view('admin/kebijakan', ['title' => 'Kebijakan']);
+        $model = new BukuModel();
+
+        // Ambil input dari formulir
+        $judul = $this->request->getPost('judul');
+        $file = $this->request->getFile('file');
+        $cover = $this->request->getFile('cover');
+
+        // Validasi input
+        $validation = \Config\Services::validation();
+        $validation->setRules([
+            'judul' => [
+                'label' => 'Judul',
+                'rules' => 'required|min_length[5]|max_length[100]|is_unique[artikel.judul]' // Judul harus unik dan panjang antara 5 dan 100 karakter
+            ],
+            'file' => [
+                'label' => 'File',
+                'rules' => 'uploaded[file]|mime_in[file,application/pdf]'
+            ],
+            'cover' => [
+                'label' => 'Cover',
+                'rules' => 'uploaded[cover]|is_image[cover]|mime_in[cover,image/jpg,image/jpeg,image/gif,image/png]|max_size[cover,1024]'
+            ]
+        ]);
+
+
+        if (!$this->validate($validation->getRules())) {
+            return $this->response->setJSON([
+                'success' => false,
+                'messages' => $validation->getErrors(),
+            ]);
+        }
+
+        // Menangani upload file foto
+        $coverPath = '';
+        if ($cover && $cover->isValid() && !$cover->hasMoved()) {
+            // Memastikan tipe file dan membuat nama file acak
+            $coverName = $cover->getRandomName();
+
+            // Memindahkan file ke folder public/images/artikel
+            if ($cover->move('public/images/buku', $coverName)) {
+                // Jika berhasil, simpan path cover ke database
+                $coverPath = 'images/buku/' . $coverName;
+            } else {
+                return $this->response->setJSON(['success' => false, 'errors' => 'Gagal menyimpan file cover.']);
+            }
+        } else {
+            return $this->response->setJSON(['success' => false, 'errors' => 'File tidak valid atau belum diupload.']);
+        }
+
+        // Menangani upload file
+        $filePath = '';
+        if ($file && $file->isValid() && !$file->hasMoved()) {
+            // Memastikan tipe file dan membuat nama file acak
+            $fileName = $file->getRandomName();
+
+            // Memindahkan file ke folder public/doc/peraturan
+            if ($file->move('doc/buku', $fileName)) {
+                // Jika berhasil, simpan path file ke database
+                $filePath = 'doc/buku/' . $fileName;
+            } else {
+                return $this->response->setJSON(['success' => false, 'message' => 'Gagal menyimpan file.']);
+            }
+        } else {
+            return $this->response->setJSON(['success' => false, 'message' => 'File tidak valid atau belum diupload.']);
+        }
+
+        // Simpan data artikel ke dalam database
+        $data = [
+            'id_admin' => session()->get('id_admin'),
+            'judul' => htmlspecialchars($judul, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+            'cover' => $coverPath,
+            'file' => $filePath,
+            'tanggal' => date('Y-m-d'),
+        ];
+
+        // Simpan artikel
+        if ($model->insert($data)) {
+            return $this->response->setJSON(['success' => true, 'message' => 'Artikel berhasil ditambahkan.']);
+        } else {
+            // Tampilkan pesan umum untuk kesalahan penyimpanan
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal menambahkan artikel.']);
+        }
+    }
+
+    public function detailBuku($id_buku)
+    {
+        $model = new BukuModel();
+        $buku = $model->find($id_buku);
+
+        if (!$buku) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        // Ambil ID admin yang sedang login
+        $id_admin = session()->get('id_admin');
+
+        // Cek apakah yang mengakses adalah admin
+        if (!$id_admin) {
+            // Jika bukan admin, tampilkan 404
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        $data = [
+            'title' => $buku['judul'],
+            'buku' => $buku,
+        ];
+        return view('admin/detailbuku', $data);
+    }
+
+    public function editBuku($id_buku)
+    {
+        $model = new BukuModel();
+        $buku = $model->find($id_buku); // Mengambil buku berdasarkan id_buku
+
+        if (!$buku) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        // Ambil ID admin yang sedang login
+        $id_admin = session()->get('id_admin');
+
+        // Cek apakah yang mengakses adalah admin
+        if (!$id_admin) {
+            // Jika bukan admin, tampilkan 404
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        $data = [
+            'title' => 'Edit Buku - ' . $buku['judul'],
+            'buku' => $buku,
+        ];
+        return view('admin/editbuku', $data);
+    }
+
+    public function updateBukuAction($id)
+    {
+        $model = new BukuModel();
+
+        // Ambil input dari formulir
+        $judul = $this->request->getPost('judul');
+        $file = $this->request->getFile('file');
+        $cover = $this->request->getFile('cover');
+
+        // Validasi input
+        $validation = \Config\Services::validation();
+        $validation->setRules([
+            'judul' => [
+                'label' => 'Judul',
+                'rules' => 'required|min_length[5]|max_length[100]|is_unique[buku_kalpataru.judul,id_buku,' . $id . ']' // Judul harus unik dan panjang antara 5 dan 100 karakter
+            ],
+            'file' => [
+                'label' => 'File',
+                'rules' => 'permit_empty|uploaded[file]|mime_in[file,application/pdf]'
+            ],
+            'cover' => [
+                'label' => 'Cover',
+                'rules' => 'permit_empty|uploaded[cover]|is_image[cover]|mime_in[cover,image/jpg,image/jpeg,image/gif,image/png]|max_size[cover,1024]'
+            ]
+        ]);
+
+
+        if (!$this->validate($validation->getRules())) {
+            return $this->response->setJSON([
+                'success' => false,
+                'messages' => $validation->getErrors(),
+            ]);
+        }
+
+        // Menangani upload file foto
+        $coverPath = '';
+        if ($cover && $cover->isValid() && !$cover->hasMoved()) {
+            // Memastikan tipe file dan membuat nama file acak
+            $coverName = $cover->getRandomName();
+
+            // Memindahkan file ke folder public/images/artikel
+            if ($cover->move('public/images/buku', $coverName)) {
+                // Jika berhasil, simpan path cover
+                $coverPath = 'images/buku/' . $coverName;
+            } else {
+                return $this->response->setJSON(['success' => false, 'errors' => 'Gagal menyimpan cover.']);
+            }
+        }
+
+        // Menangani upload file
+        $filePath = '';
+        if ($file && $file->isValid() && !$file->hasMoved()) {
+            // Memastikan tipe file dan membuat nama file acak
+            $fileName = $file->getRandomName();
+
+            // Memindahkan file ke folder public/images/artikel
+            if ($file->move('doc/buku', $fileName)) {
+                // Jika berhasil, simpan path file
+                $filePath = 'doc/buku/' . $fileName;
+            } else {
+                return $this->response->setJSON(['success' => false, 'errors' => 'Gagal menyimpan file.']);
+            }
+        }
+
+        // Simpan data artikel ke dalam database
+        $data = [
+            'judul' => htmlspecialchars($judul, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+        ];
+
+        if (!empty($coverPath)) {
+            $data['cover'] = $coverPath;
+        }
+
+        if (!empty($filePath)) {
+            $data['file'] = $filePath;
+        }
+
+        // Simpan artikel yang sudah diperbarui
+        if ($model->update($id, $data)) {
+            return $this->response->setJSON(['success' => true, 'message' => 'Buku berhasil diperbarui.']);
+        } else {
+            // Tampilkan pesan umum untuk kesalahan penyimpanan
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui buku.']);
+        }
+    }
+
+    public function updateStatusBuku()
+    {
+        // Inisialisasi model
+        $model = new BukuModel();
+
+        // Ambil data dari POST request
+        $id_buku = $this->request->getPost('id_buku');
+        $status = $this->request->getPost('status');
+
+        // Validasi data (opsional, misalnya cek apakah ID dan status valid)
+        if ($id_buku && $status) {
+
+            $model->update($id_buku, [
+                'status' => $status,
+            ]);
+
+            // Mengembalikan respons untuk merefresh halaman
+            return $this->response->setJSON(['success' => true, 'message' => 'Data berhasil diperbarui']);
+        } else {
+            // Mengembalikan respons untuk merefresh halaman
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui data']);
+        }
+    }
+
+    public function hapusBuku($id_buku)
+    {
+        $model = new BukuModel();
+
+        // Hapus buku berdasarkan ID
+        if ($model->delete($id_buku)) {
+            // Set flash message atau lakukan redirect setelah menghapus
+            session()->setFlashdata('success', 'Buku berhasil dihapus.');
+        } else {
+            session()->setFlashdata('error', 'Gagal menghapus buku.');
+        }
+
+        return redirect()->to('/admin/buku-kalpataru'); // Sesuaikan dengan URL yang diinginkan
     }
 }

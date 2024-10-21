@@ -17,19 +17,19 @@
     <?= $this->include('template/sidebaradmin') ?>
     <div class="lg:flex-1 p-6">
 
-        <div class="container mx-auto flex items-center justify-between p-4 md:p-6">
-            <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Detail Artikel</h1>
-            <div class="flex items-center">
-                <p class="text-gray-500 mr-2 md:mr-4">Hello, <?= session()->get('nama'); ?></p>
-                <button class="bg-rejected text-white px-3 py-2 md:px-4 md:py-2 rounded-lg">Keluar</button>
+        <!-- Header -->
+        <header class="bg-white shadow">
+            <div class="container mx-auto flex items-center justify-between p-4 md:p-6">
+                <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Detail Artikel</h1>
+                <div class="flex items-center">
+                    <p class="text-gray-500 mr-2 md:mr-4">Hello, <?= session()->get('nama'); ?></p>
+                    <a href="/auth/logout" class="bg-rejected text-white px-3 py-2 md:px-4 md:py-2 rounded-lg inline-block">Keluar</a>
+                </div>
             </div>
-        </div>
+        </header>
 
 
-        <div class="relative flex flex-col w-full max-w-2xl mx-auto mb-4 rounded-xl border-2 border-primary bg-white shadow-md lg:p-8">
-            <!-- <h4 class="block text-xl font-bold text-slate-800 mb-2">
-                Joko Susilo
-            </h4> -->
+        <div class="mt-4 relative flex flex-col w-full  mx-auto mb-4 border-2 border-primary bg-white shadow-md lg:p-8">
 
             <div class="relative flex items-center justify-center h-full overflow-hidden text-white rounded-md">
                 <img src="/public/<?= $artikel['foto']; ?>" class="object-contain w-full h-full">

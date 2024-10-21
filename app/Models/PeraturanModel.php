@@ -21,7 +21,7 @@ class PeraturanModel extends Model
     public function getAllPeraturan($keyword = null)
     {
         $builder = $this->db->table('panduan_kebijakan')
-            ->select('panduan_kebijakan.id_peraturan, panduan_kebijakan.judul, panduan_kebijakan.tentang, panduan_kebijakan.status, panduan_kebijakan.status, panduan_kebijakan.jenis, 
+            ->select('panduan_kebijakan.id_peraturan, panduan_kebijakan.judul, panduan_kebijakan.tentang, panduan_kebijakan.status, panduan_kebijakan.file, panduan_kebijakan.jenis, 
                   COALESCE(admin.nama) as penulis')
             ->join('admin', 'admin.id_admin = panduan_kebijakan.id_admin', 'left');
 

@@ -58,8 +58,10 @@
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Dokumen</label>
-                                <a href="<?= base_url($peraturan['file']); ?>" class="text-blue-500 underline" download>
-                                    Unduh Dokumen Peraturan / Kebijakan
+                                <a href="<?= base_url($peraturan['file']); ?>" download>
+                                    <button id="editbuku" class="w-full lg:w-48 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-blue-500 hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
+                                        <i class="fas fa-edit"></i> Unduh Dokumen
+                                    </button>
                                 </a>
                             </div>
                         </div>

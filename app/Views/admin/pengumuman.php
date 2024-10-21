@@ -32,6 +32,9 @@
                     <button id="tambahPengumuman" class="mt-4 w-48 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button"> <span>&#10010</span> Tambah Pengumuman</button>
                 </div>
             </a>
+            <h4 class="text-xs:lg:text-md ml-4 lg:ml-0 font-semibold">
+                Hasil: <?= esc($countTerbit) ?> Pengumuman
+            </h4>
 
             <div class="relative  flex flex-col w-full h-full overflow-scroll bg-white shadow-md rounded-lg bg-clip-border my-6">
                 <table class="w-full text-left table-auto min-w-max">
@@ -285,27 +288,5 @@
         });
     </script>
 </body>
-
-<!-- <script>
-    // Function to toggle the button text
-    function toggleButtonText(button) {
-        const activeText = button.getAttribute("data-active");
-        const inactiveText = button.getAttribute("data-inactive");
-
-        if (button.innerText === inactiveText) {
-            button.innerText = activeText;
-        } else {
-            button.innerText = inactiveText;
-        }
-    }
-
-    // Select all buttons with the class 'toggleBtn'
-    const buttons = document.querySelectorAll(".toggleBtn");
-
-    // Attach the toggle function to each button's click event
-    buttons.forEach(button => {
-        button.addEventListener("click", () => toggleButtonText(button));
-    });
-</script> -->
 
 </html>

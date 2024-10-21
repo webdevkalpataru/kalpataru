@@ -21,11 +21,11 @@ $routes->get('pengumuman/(:any)', 'InformasiController::detailpengumuman/$1');
 
 /* Publikasi */
 $routes->get('publikasi/berita', 'PublikasiController::berita');
+$routes->get('berita/(:any)', 'PublikasiController::detailberita/$1');
 $routes->get('publikasi/artikel', 'PublikasiController::artikel');
+$routes->get('artikel/(:any)', 'PublikasiController::detailartikel/$1');
 $routes->get('publikasi/video', 'PublikasiController::video');
 $routes->get('publikasi/buku', 'PublikasiController::buku');
-$routes->get('artikel/(:any)', 'PublikasiController::detailartikel/$1');
-$routes->get('berita/(:any)', 'PublikasiController::detailberita/$1');
 
 
 
@@ -174,7 +174,22 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->post('video/hapus/(:num)', 'AdminController::hapusVideo/$1');
     $routes->post('updatestatusvideo', 'AdminController::updateStatusVideo');
 
-    // Manajemen Artikel
+    // Manajemen Buku Kalpataru
+    $routes->get('buku-kalpataru', 'AdminController::bukuAdmin');
+    $routes->get('tambah-buku', 'AdminController::tambahbuku');
+    $routes->post('tambah-buku', 'AdminController::tambahBukuAction');
+    $routes->get('buku-kalpataru/edit/(:any)', 'AdminController::editBuku/$1');
+    $routes->post('buku-kalpataru/edit/(:any)', 'AdminController::updateBukuAction/$1');
+    $routes->get('buku-kalpataru/(:any)', 'AdminController::detailBuku/$1');
+    $routes->post('buku-kalpataru/hapus/(:num)', 'AdminController::hapusBuku/$1');
+    $routes->post('updatestatusbuku', 'AdminController::updateStatusBuku');
+
+
+
+
+
+
+    // Manajemen Peraturan dan Kebijakan
     $routes->get('peraturan-kebijakan', 'AdminController::peraturanadmin');
     $routes->get('peraturan-kebijakan/tambah', 'AdminController::tambahperaturan');
     $routes->post('peraturan-kebijakan/tambah', 'AdminController::tambahPeraturanAction');
