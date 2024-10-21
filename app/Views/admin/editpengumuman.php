@@ -23,7 +23,7 @@
           <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Edit Pengumuman</h1>
           <div class="flex items-center">
             <p class="text-gray-500 mr-2 md:mr-4">Hello, <?= session()->get('nama'); ?></p>
-            <button class="bg-rejected text-white px-3 py-2 md:px-4 md:py-2 rounded-lg">Keluar</button>
+            <a href="/auth/logout" class="bg-rejected text-white px-3 py-2 md:px-4 md:py-2 rounded-lg inline-block">Keluar</a>
           </div>
         </div>
       </header>
@@ -57,7 +57,6 @@
             <button type="submit" class="w-40 rounded-md py-2 text-center text-sm text-white bg-primary hover:bg-primaryhover">Unggah</button>
           </div>
         </form>
-
       </div>
     </div>
   </div>
@@ -72,21 +71,6 @@
   </div>
 
   <script>
-    // Batasan Kata
-    function updateWordCount(textarea, countId, maxWords) {
-      const countElement = document.getElementById(countId);
-      const words = textarea.value.trim().split(/\s+/).filter(word => word.length > 0);
-      const currentLength = words.length;
-
-      countElement.textContent = `${currentLength}/${maxWords} kata`;
-
-      if (currentLength > maxWords) {
-        countElement.classList.add('text-rejected');
-      } else {
-        countElement.classList.remove('text-rejected');
-      }
-    }
-
     // Modal functionality
     const successModal = document.getElementById('successModal');
     const successBtn = document.getElementById('successBtn');

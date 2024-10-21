@@ -23,7 +23,7 @@
           <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Edit Peraturan / Kebijakan</h1>
           <div class="flex items-center">
             <p class="text-gray-500 mr-2 md:mr-4">Hello, <?= session()->get('nama'); ?></p>
-            <button class="bg-rejected text-white px-3 py-2 md:px-4 md:py-2 rounded-lg">Keluar</button>
+            <a href="/auth/logout" class="bg-rejected text-white px-3 py-2 md:px-4 md:py-2 rounded-lg inline-block">Keluar</a>
           </div>
         </div>
       </header>
@@ -106,7 +106,6 @@
         .then(data => {
           if (data.success) {
             // Jika berhasil, tampilkan modal sukses
-            const successModal = document.getElementById('successModal');
             successModal.classList.remove('hidden');
 
             // Arahkan ke halaman peratuan / kebijakan admin ketika tombol "Oke" diklik

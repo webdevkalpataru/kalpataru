@@ -20,7 +20,7 @@
       <!-- Header -->
       <header class="bg-white shadow">
         <div class="container mx-auto flex items-center justify-between p-4 md:p-6">
-          <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Tambah Berita</h1>
+          <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Edit Buku</h1>
           <div class="flex items-center">
             <p class="text-gray-500 mr-2 md:mr-4">Hello, <?= session()->get('nama'); ?></p>
             <a href="/auth/logout" class="bg-rejected text-white px-3 py-2 md:px-4 md:py-2 rounded-lg inline-block">Keluar</a>
@@ -30,22 +30,26 @@
 
       <!-- Main Content -->
       <div>
-        <!-- Cards Summary -->
-        <form id="isiBukuForm" class="mt-4 mb-2 w-full" action="/admin/tambah-buku" method="POST" enctype="multipart/form-data">
+        <!-- Form Edit Buku -->
+        <form id="isiBukuForm" class="mt-4 mb-2 w-full" action="/admin/buku-kalpataru/edit/<?= esc($buku['id_buku']); ?>" method="POST" enctype="multipart/form-data">
           <div class="grid grid-cols-1 gap-4" id="formContainer">
             <div>
               <label class="block mb-2 text-sm text-black">Judul Buku</label>
-              <input required id="judul" type="text" name="judul" class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2">
+              <input required id="judul" type="text" name="judul"
+                value="<?= esc($buku['judul']); ?>"
+                class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2">
               <div class="text-red-500" id="judulError"></div>
             </div>
             <div>
               <label class="block mb-2 text-sm text-black">Unggah Cover Buku <span class="text-primary">(.jpg/jpeg)</span></label>
-              <input required id="cover" name="cover" type="file" accept="image/*" class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2">
+              <input id="cover" name="cover" type="file" accept="image/*"
+                class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2">
               <div class="text-red-500" id="coverError"></div>
             </div>
             <div>
               <label class="block mb-2 text-sm text-black">Unggah File Buku <span class="text-primary">(.pdf)</span></label>
-              <input required id="file" name="file" type="file" accept="application/pdf" class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2">
+              <input id="file" name="file" type="file" accept="application/pdf"
+                class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2">
               <div class="text-red-500" id="fileError"></div> <!-- Menampilkan pesan kesalahan file -->
             </div>
           </div>
@@ -61,9 +65,8 @@
   <div id="successModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
     <div class="bg-white rounded-lg p-8 flex flex-col items-center max-w-md">
       <img src="/images/sukses.png" alt="Success Icon" class="w-16 h-16 mb-4">
-      <h2 class="text-center text-lg font-bold text-primary mb-2">Buku berhasil dibuat!</h2>
-      <p class="text-center text-sm text-slate-600 mb-4">Status buku Anda masih ditangguhkan, silahkan ubah status ke Terbit agar bisa muncul di website.</p>
-      <button id="successBtn" class="bg-primary text-white py-2 px-4 rounded-lg">Lihat Status</button>
+      <h2 class="text-center text-lg font-bold text-primary mb-2">Selamat, buku berhasil di edit!</h2>
+      <button id="successBtn" class="bg-primary text-white py-2 px-4 rounded-lg">Lihat Buku</button>
     </div>
   </div>
 
@@ -94,10 +97,8 @@
         .then(data => {
           if (data.success) {
             // Jika berhasil, tampilkan modal sukses
-            const successModal = document.getElementById('successModal');
             successModal.classList.remove('hidden');
 
-            // Arahkan ke halaman peratuan / kebijakan admin ketika tombol "Oke" diklik
             document.getElementById('successBtn').addEventListener('click', function() {
               window.location.href = '/admin/buku-kalpataru'; // Ganti dengan URL yang sesuai
             });

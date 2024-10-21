@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\PublikasiModel;
 use App\Models\ArtikelModel;
 use App\Models\BeritaModel;
+use App\Models\BukuModel;
 use App\Models\VideoModel;
 
 helper('text');
@@ -165,6 +166,23 @@ class PublikasiController extends BaseController
     }
 
     public function buku()
+    {
+        $model = new BukuModel();
+        $keyword = $this->request->getGet('search');
+
+        if ($keyword) {
+            $data['buku'] = $model->searchBukuTerbit($keyword);
+            $data['countTerbit'] = count($data['buku']);
+        } else {
+            $data['buku'] = $model->getBukuTerbit();
+            $data['countTerbit'] = $model->countBukuTerbit();
+        }
+
+        $data['title'] = "Buku";
+        return view('buku', $data);
+    }
+
+    public function da()
     {
         $PublikasiModel = new PublikasiModel();
         $BukuData = $PublikasiModel->TampilBuku();
