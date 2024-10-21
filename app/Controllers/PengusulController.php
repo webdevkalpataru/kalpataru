@@ -224,7 +224,7 @@ class PengusulController extends BaseController
 
         if (!$this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $validation->getErrors());
-        } */
+        }
 
         // Pengelolaan file KTP, SKCK, dan legalitas
         $ktpFile = $this->request->getFile('ktp');
