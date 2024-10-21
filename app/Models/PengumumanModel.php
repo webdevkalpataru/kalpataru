@@ -24,7 +24,8 @@ class PengumumanModel extends Model
         $builder = $this->db->table('pengumuman')
             ->select('pengumuman.id_pengumuman, pengumuman.judul, pengumuman.slug, pengumuman.status, pengumuman.tanggal, 
                   COALESCE(admin.nama) as penulis')
-            ->join('admin', 'admin.id_admin = pengumuman.id_admin', 'left');
+            ->join('admin', 'admin.id_admin = pengumuman.id_admin', 'left')
+            ->orderBy('pengumuman.tanggal', 'DESC');
 
         if ($keyword) {
             $builder->groupStart()
@@ -46,7 +47,9 @@ class PengumumanModel extends Model
 
     public function getPengumumanTerbit()
     {
-        return $this->where('status', 'Terbit')->findAll();
+        return $this->where('status', 'Terbit')
+        ->orderBy('tanggal', 'DESC')
+        ->findAll();
     }
 
     public function countPengumumanTerbit()
@@ -57,8 +60,9 @@ class PengumumanModel extends Model
     public function searchPengumumanTerbit($keyword)
     {
         return $this->like('judul', $keyword)
-            ->where('status', 'Terbit')
-            ->findAll();
+        ->where('status', 'Terbit')
+        ->orderBy('tanggal', 'DESC')
+        ->findAll();
     }
 
     public function getDetailById($id)
