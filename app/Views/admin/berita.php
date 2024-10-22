@@ -18,16 +18,18 @@
     <div class="lg:flex-1 p-6">
         <div class="min-h-screen flex flex-col">
 
-            <div class="container mx-auto flex items-center justify-between p-4 md:p-6">
-                <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Berita</h1>
-                <div class="flex items-center">
-                    <p class="text-gray-500 mr-2 md:mr-4">Hello, <?= session()->get('nama'); ?></p>
-                    <a href="/auth/logout" class="bg-rejected text-white px-3 py-2 md:px-4 md:py-2 rounded-lg inline-block">Keluar</a>
+            <header class="bg-white shadow">
+                <div class="container mx-auto flex items-center justify-between p-4 md:p-6">
+                    <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Berita</h1>
+                    <div class="flex items-center">
+                        <p class="text-gray-500 mr-2 md:mr-4">Hello, <?= session()->get('nama'); ?></p>
+                        <a href="/auth/logout" class="bg-rejected text-white px-3 py-2 md:px-4 md:py-2 rounded-lg inline-block">Keluar</a>
+                    </div>
                 </div>
-            </div>
+            </header>
             <a href="/admin/tambah-berita">
                 <div>
-                    <button id="tambahArtikel" class="w-48 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button"> <span>&#10010</span> Tambah Berita</button>
+                    <button id="tambahArtikel" class="mt-4 w-48 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button"> <span>&#10010</span> Tambah Berita</button>
                 </div>
             </a>
 

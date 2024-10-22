@@ -4,7 +4,10 @@ namespace App\Controllers;
 
 use App\Models\ArtikelModel;
 use App\Models\BeritaModel;
+use App\Models\BukuModel;
+use App\Models\PengumumanModel;
 use App\Models\PengusulModel;
+use App\Models\PeraturanModel;
 use App\Models\VideoModel;
 use App\Models\PendaftaranModel;
 
@@ -40,13 +43,49 @@ class AdminController extends BaseController
     public function artikeladmin()
     {
         $model = new ArtikelModel();
-        $keyword = $this->request->getGet('search');
+        $perPage = 5;
 
-        $data['artikels'] = $model->getAllArtikel($keyword);
-        $data['countTerbit'] = count($data['artikels']);
-        $data['title'] = "Artikel Admin";
+        // Ambil parameter search dan status dari query string
+        $keyword = $this->request->getGet('search');
+        $status = $this->request->getGet('status');
+        $currentPage = $this->request->getVar('page_artikel') ? $this->request->getVar('page_artikel') : 1;
+
+        // Query dasar untuk menampilkan artikel
+        $query = $model->select('*');
+
+        // Filter berdasarkan status jika ada
+        if ($status) {
+            $query->where('status', $status);
+        }
+
+        // Pencarian berdasarkan keyword pada judul
+        if ($keyword) {
+            $query->like('judul', $keyword);
+        }
+
+        // Dapatkan data artikel dengan pagination
+        $artikels = $query->orderBy('tanggal', 'DESC')
+            ->paginate($perPage, 'artikels');
+
+        // Data yang akan dikirimkan ke view
+        $data = [
+            'artikels' => $artikels,
+            'title' => "Artikel Admin",
+            'pager' => $model->pager,
+            'keyword' => $keyword,
+            'status' => $status,
+        ];
 
         return view('admin/artikeladmin', $data);
+    }
+
+
+
+
+    public function tambahartikeladmin()
+    {
+        $data['title'] = "Tambah Artikel Admin";
+        return view('admin/tambahartikeladmin', $data);
     }
 
     public function tambahArtikelAction()
@@ -54,7 +93,8 @@ class AdminController extends BaseController
         $model = new ArtikelModel();
 
         // Ambil input dari formulir
-        $judulArtikel = $this->request->getPost('judul');
+        $judul = $this->request->getPost('judul');
+        $slug = url_title($judul, '-', TRUE);
         $konten = $this->request->getPost('konten');
 
         // Memproses foto yang diupload
@@ -65,7 +105,7 @@ class AdminController extends BaseController
         $validation->setRules([
             'judul' => [
                 'label' => 'Judul',
-                'rules' => 'required|min_length[5]|max_length[100]|is_unique[artikel.judul]' // Judul harus unik dan panjang antara 5 dan 100 karakter
+                'rules' => 'required|min_length[5]|max_length[125]|is_unique[artikel.judul]' // Judul harus unik dan panjang antara 5 dan 125 karakter
             ],
             'konten' => [
                 'label' => 'Konten',
@@ -103,20 +143,24 @@ class AdminController extends BaseController
         }
 
         // Menghasilkan slug yang unik
-        $slug = url_title($judulArtikel, '-', true);
-        $existingArticle = $model->where('slug', $slug)->first(); // Cek apakah slug sudah ada
-        if ($existingArticle) {
-            return $this->response->setJSON(['success' => false, 'errors' => 'Judul sudah digunakan.']);
+        $slugExist = $model->where('slug', $slug)->first(); // Cek apakah slug sudah ada
+        if ($slugExist) {
+            return $this->response->setJSON([
+                'success' => false,
+                'messages' => [
+                    'judul' => 'Tautan dengan judul ini sudah tersedia. Silakan gunakan judul yang berbeda.'
+                ]
+            ]);
         }
 
         // Simpan data artikel ke dalam database
         $dataArtikel = [
             'id_admin' => session()->get('id_admin'),
-            'judul' => htmlspecialchars($judulArtikel, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+            'judul' => htmlspecialchars($judul, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
             'slug' => $slug,
             'konten' => htmlspecialchars($konten, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
             'foto' => $fotoPath,
-            'tanggal' => date('Y-m-d H:i:s'),
+            'tanggal' => date('Y-m-d'),
         ];
 
         // Simpan artikel
@@ -139,9 +183,12 @@ class AdminController extends BaseController
 
         // Validasi data (opsional, misalnya cek apakah ID dan status valid)
         if ($id_artikel && $status) {
-            // Update status di database
-            $model->update($id_artikel, ['status' => $status]);
+            $tanggal = date('Y-m-d');
 
+            $model->update($id_artikel, [
+                'status' => $status,
+                'tanggal' => $tanggal // Update tanggal saat status diubah
+            ]);
             // Mengembalikan respons untuk merefresh halaman
             return $this->response->setJSON(['success' => true, 'message' => 'Data berhasil diperbarui']);
         } else {
@@ -207,7 +254,8 @@ class AdminController extends BaseController
         $model = new ArtikelModel();
 
         // Ambil input dari formulir
-        $judulArtikel = $this->request->getPost('judul');
+        $judul = $this->request->getPost('judul');
+        $slug = url_title($judul, '-', TRUE);
         $konten = $this->request->getPost('konten');
 
         // Memproses foto yang diupload
@@ -218,7 +266,7 @@ class AdminController extends BaseController
         $validation->setRules([
             'judul' => [
                 'label' => 'Judul',
-                'rules' => 'required|min_length[5]|max_length[100]|is_unique[artikel.judul,id_artikel,' . $id . ']' // Judul harus unik kecuali untuk artikel yang sedang diedit
+                'rules' => 'required|min_length[5]|max_length[125]|is_unique[artikel.judul,id_artikel,' . $id . ']' // Judul harus unik kecuali untuk artikel yang sedang diedit
             ],
             'konten' => [
                 'label' => 'Konten',
@@ -226,7 +274,7 @@ class AdminController extends BaseController
             ],
             'foto' => [
                 'label' => 'Foto',
-                'rules' => 'permit_empty|is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/gif,image/png]|max_size[foto,1024]'
+                'rules' => 'is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/png]|max_size[foto,1024]'
             ]
         ]);
 
@@ -252,16 +300,23 @@ class AdminController extends BaseController
             }
         }
 
-        // Cek apakah slug perlu diupdate
-        $slug = url_title($judulArtikel, '-', true);
-        $existingArticle = $model->where('slug', $slug)->where('id_artikel !=', $id)->first(); // Cek apakah slug sudah ada
-        if ($existingArticle) {
-            return $this->response->setJSON(['success' => false, 'errors' => 'Judul sudah digunakan.']);
+        $slugExists = $model->where('slug', $slug)
+            ->where('id_artikel !=', $id) // Abaikan artikel yang sedang diedit
+            ->first();
+
+        if ($slugExists) {
+            // Jika slug sudah ada pada artikel lain, kirim pesan kesalahan ke view
+            return $this->response->setJSON([
+                'success' => false,
+                'messages' => [
+                    'judul' => 'Judul artikel ini sudah digunakan. Silakan gunakan judul yang berbeda.'
+                ]
+            ]);
         }
 
         // Siapkan data untuk diupdate
         $dataArtikel = [
-            'judul' => htmlspecialchars($judulArtikel, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+            'judul' => htmlspecialchars($judul, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
             'slug' => $slug,
             'konten' => htmlspecialchars($konten, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
         ];
@@ -300,11 +355,42 @@ class AdminController extends BaseController
     public function akunpengusul()
     {
         $model = new PengusulModel();
-        $pengusul = $model->where('role_akun', 'Pengusul')->findAll();
 
+        // Ambil data dengan pagination, limit 5 per halaman
+        $perPage = 5;
+
+        // Ambil statusAkun dari filter
+        $statusAkun = $this->request->getVar('statusAkun');
+
+        // Ambil kata kunci dari request untuk pencarian
+        $keyword = $this->request->getGet('search');
+
+        // Ambil pengusul dengan role_akun 'Pengusul'
+        $builder = $model->where('role_akun', 'Pengusul');
+
+        // Jika statusAkun dipilih, tambahkan filter statusAkun
+        if ($statusAkun) {
+            $builder->where('status_akun', $statusAkun);
+        }
+
+        // Jika ada kata kunci, tambahkan kondisi pencarian berdasarkan nama_instansi_pribadi
+        if ($keyword) {
+            $builder->like('nama_instansi_pribadi', $keyword);
+        }
+
+        // Hitung total pengusul yang sesuai dengan filter dan pencarian
+        $totalFilteredPengusul = $builder->countAllResults(false); // False untuk tidak reset query builder
+
+        // Dapatkan data dengan pagination setelah semua filter
+        $pengusul = $builder->paginate($perPage, 'pengusul');
+
+        // Data untuk view
         $data['pengusul'] = $pengusul;
-        $data['countAllPengusul'] = count($data['pengusul']); // Menghitung semua akun pengusul
+        $data['countAllPengusul'] = $totalFilteredPengusul; // Total pengusul setelah filter dan pencarian
         $data['title'] = "Akun Pengusul";
+        $data['pager'] = $model->pager;
+        $data['keyword'] = $keyword;
+        $data['statusAkun'] = $statusAkun;
 
         return view('admin/akunpengusul', $data);
     }
@@ -388,12 +474,6 @@ class AdminController extends BaseController
         return view('admin/akuntimteknis', ['title' => 'Akun Tim Teknis']);
     }
 
-    public function tambahartikeladmin()
-    {
-        $data['title'] = "Tambah Artikel Admin";
-        return view('admin/tambahartikeladmin', $data);
-    }
-
     public function beritaAdmin()
     {
         $model = new BeritaModel();
@@ -417,7 +497,8 @@ class AdminController extends BaseController
         $model = new BeritaModel();
 
         // Ambil input dari formulir
-        $judulBerita = $this->request->getPost('judul');
+        $judul = $this->request->getPost('judul');
+        $slug = url_title($judul, '-', TRUE);
         $konten = $this->request->getPost('konten');
 
         // Memproses foto yang diupload
@@ -428,7 +509,7 @@ class AdminController extends BaseController
         $validation->setRules([
             'judul' => [
                 'label' => 'Judul',
-                'rules' => 'required|min_length[5]|max_length[100]|is_unique[berita.judul]' // Judul harus unik dan panjang antara 5 dan 100 karakter
+                'rules' => 'required|min_length[5]|max_length[125]|is_unique[berita.judul]' // Judul harus unik dan panjang antara 5 dan 125 karakter
             ],
             'konten' => [
                 'label' => 'Konten',
@@ -466,20 +547,24 @@ class AdminController extends BaseController
         }
 
         // Menghasilkan slug yang unik
-        $slug = url_title($judulBerita, '-', true);
-        $existingBerita = $model->where('slug', $slug)->first(); // Cek apakah slug sudah ada
-        if ($existingBerita) {
-            return $this->response->setJSON(['success' => false, 'message' => 'Judul sudah digunakan.']);
+        $slugExist = $model->where('slug', $slug)->first(); // Cek apakah slug sudah ada
+        if ($slugExist) {
+            return $this->response->setJSON([
+                'success' => false,
+                'messages' => [
+                    'judul' => 'Tautan dengan judul ini sudah tersedia. Silakan gunakan judul yang berbeda.'
+                ]
+            ]);
         }
 
         // Simpan data artikel ke dalam database
         $data = [
             'id_admin' => session()->get('id_admin'),
-            'judul' => htmlspecialchars($judulBerita, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+            'judul' => htmlspecialchars($judul, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
             'slug' => $slug,
             'konten' => htmlspecialchars($konten, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
             'foto' => $fotoPath,
-            'tanggal' => date('Y-m-d H:i:s'),
+            'tanggal' => date('Y-m-d'),
         ];
 
         // Simpan artikel
@@ -545,9 +630,15 @@ class AdminController extends BaseController
     public function updateBeritaAction($id)
     {
         $model = new BeritaModel();
+        $berita = $model->find($id);
+
+        if (!$berita) {
+            return $this->response->setJSON(['success' => false, 'message' => 'berita tidak ditemukan.']);
+        }
 
         // Ambil input dari formulir
         $judul = $this->request->getPost('judul');
+        $slug = url_title($judul, '-', TRUE);
         $konten = $this->request->getPost('konten');
 
         // Memproses foto yang diupload
@@ -558,7 +649,7 @@ class AdminController extends BaseController
         $validation->setRules([
             'judul' => [
                 'label' => 'Judul',
-                'rules' => 'required|min_length[5]|max_length[100]|is_unique[berita.judul,id_berita,' . $id . ']' // Judul harus unik kecuali untuk artikel yang sedang diedit
+                'rules' => 'required|min_length[5]|max_length[125]|is_unique[berita.judul,id_berita,' . $id . ']' // Judul harus unik kecuali untuk artikel yang sedang diedit
             ],
             'konten' => [
                 'label' => 'Konten',
@@ -566,7 +657,7 @@ class AdminController extends BaseController
             ],
             'foto' => [
                 'label' => 'Foto',
-                'rules' => 'permit_empty|is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/gif,image/png]|max_size[foto,1024]'
+                'rules' => 'is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/png]|max_size[foto,1024]'
             ]
         ]);
 
@@ -592,11 +683,19 @@ class AdminController extends BaseController
             }
         }
 
-        // Cek apakah slug perlu diupdate
-        $slug = url_title($judul, '-', true);
-        $existingArticle = $model->where('slug', $slug)->where('id_berita !=', $id)->first(); // Cek apakah slug sudah ada
-        if ($existingArticle) {
-            return $this->response->setJSON(['success' => false, 'errors' => 'Judul sudah digunakan.']);
+        // Cek apakah slug sudah digunakan oleh artikel lain (selain artikel ini)
+        $slugExists = $model->where('slug', $slug)
+            ->where('id_berita !=', $id) // Abaikan artikel yang sedang diedit
+            ->first();
+
+        if ($slugExists) {
+            // Jika slug sudah ada pada artikel lain, kirim pesan kesalahan ke view
+            return $this->response->setJSON([
+                'success' => false,
+                'messages' => [
+                    'judul' => 'Judul artikel ini sudah digunakan. Silakan gunakan judul yang berbeda.'
+                ]
+            ]);
         }
 
         // Siapkan data untuk diupdate
@@ -631,8 +730,14 @@ class AdminController extends BaseController
 
         // Validasi data (opsional, misalnya cek apakah ID dan status valid)
         if ($id_berita && $status) {
-            // Update status di database
-            $model->update($id_berita, ['status' => $status]);
+            // Dapatkan tanggal dan waktu saat ini
+            $tanggal = date('Y-m-d');
+
+            // Update status dan tanggal diubah di database
+            $model->update($id_berita, [
+                'status' => $status,
+                'tanggal' => $tanggal // Update tanggal saat status diubah
+            ]);
 
             // Mengembalikan respons untuk merefresh halaman
             return $this->response->setJSON(['success' => true, 'message' => 'Data berhasil diperbarui']);
@@ -641,6 +746,7 @@ class AdminController extends BaseController
             return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui data']);
         }
     }
+
 
     public function hapusBerita($id_berita)
     {
@@ -677,14 +783,547 @@ class AdminController extends BaseController
 
     public function pengumumanadmin()
     {
+        $model = new PengumumanModel();
+        $keyword = $this->request->getGet('search');
+
+        $data['pengumuman'] = $model->getAllPengumuman($keyword);
+        $data['countTerbit'] = count($data['pengumuman']);
         $data['title'] = "Pengumuman Admin";
-        return view('admin/pengumumanadmin', ['title' => 'Pengumuman Admin']);
+
+        return view('admin/pengumuman', $data);
     }
 
-    public function tambahpengumumanadmin()
+    public function tambahpengumuman()
     {
-        $data['title'] = "Tambah Pengumuman Admin";
-        return view('admin/tambahpengumumanadmin', ['title' => 'Tambah Pengumuman Admin']);
+        $data['title'] = "Tambah Pengumuman";
+        return view('admin/tambahpengumumanadmin', $data);
+    }
+
+    public function tambahPengumumanAction()
+    {
+        $model = new PengumumanModel();
+
+        // Ambil input dari formulir
+        $judul = $this->request->getPost('judul');
+        $slug = url_title($judul, '-', TRUE);
+        $konten = $this->request->getPost('konten');
+
+        // Memproses foto yang diupload
+        $foto = $this->request->getFile('foto');
+
+        // Validasi input
+        $validation = \Config\Services::validation();
+        $validation->setRules([
+            'judul' => [
+                'label' => 'Judul',
+                'rules' => 'required|min_length[5]|max_length[150]|is_unique[pengumuman.judul]' // Judul harus unik dan panjang antara 5 dan 125 karakter
+            ],
+            'konten' => [
+                'label' => 'Konten',
+                'rules' => 'required|min_length[20]' // Konten harus ada dan panjang minimum 20 karakter
+            ],
+            'foto' => [
+                'label' => 'Foto',
+                'rules' => 'is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/png]|max_size[foto,1024]'
+            ]
+        ]);
+
+
+        if (!$this->validate($validation->getRules())) {
+            return $this->response->setJSON([
+                'success' => false,
+                'messages' => $validation->getErrors(),
+            ]);
+        }
+
+        // Menangani upload file foto
+        $fotoPath = '';
+        if ($foto && $foto->isValid() && !$foto->hasMoved()) {
+            // Memastikan tipe file dan membuat nama file acak
+            $fotoName = $foto->getRandomName();
+
+            // Memindahkan file ke folder public/images/pengumuman
+            if ($foto->move('public/images/pengumuman', $fotoName)) {
+                // Jika berhasil, simpan path foto ke database
+                $fotoPath = 'images/pengumuman/' . $fotoName;
+            } else {
+                return $this->response->setJSON(['success' => false, 'messages' => 'Gagal menyimpan file foto.']);
+            }
+        } else {
+            return $this->response->setJSON(['success' => false, 'messages' => 'File tidak valid atau belum diupload.']);
+        }
+
+        // Menghasilkan slug yang unik
+        $slugExist = $model->where('slug', $slug)->first(); // Cek apakah slug sudah ada
+        if ($slugExist) {
+            return $this->response->setJSON([
+                'success' => false,
+                'messages' => [
+                    'judul' => 'Tautan dengan judul ini sudah tersedia. Silakan gunakan judul yang berbeda.'
+                ]
+            ]);
+        }
+
+        // Simpan data pengumuman ke dalam database
+        $data = [
+            'id_admin' => session()->get('id_admin'),
+            'judul' => htmlspecialchars($judul, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+            'slug' => $slug,
+            'konten' => htmlspecialchars($konten, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+            'foto' => $fotoPath,
+            'tanggal' => date('Y-m-d'),
+        ];
+
+        // Simpan pengumuman
+        if ($model->insert($data)) {
+            return $this->response->setJSON(['success' => true, 'message' => 'Artikel berhasil ditambahkan.']);
+        } else {
+            // Tampilkan pesan umum untuk kesalahan penyimpanan
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal menambahkan artikel.']);
+        }
+    }
+
+    public function detailpengumuman($slug)
+    {
+        $model = new PengumumanModel();
+        $pengumuman = $model->getDetailPengumumanBySlug($slug);
+
+        if (!$pengumuman) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        // Ambil ID admin yang sedang login
+        $id_admin = session()->get('id_admin');
+
+        // Cek apakah yang mengakses adalah admin
+        if (!$id_admin) {
+            // Jika bukan admin, tampilkan 404
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+
+        $data = [
+            'title' => $pengumuman['judul'],
+            'pengumuman' => $pengumuman,
+        ];
+        return view('admin/detailpengumuman', $data);
+    }
+
+    public function editPengumuman($id_pengumuman)
+    {
+        $model = new PengumumanModel();
+        $pengumuman = $model->find($id_pengumuman); // Mengambil pengumuman berdasarkan id_pengumuman
+
+        if (!$pengumuman) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        // Ambil ID admin yang sedang login
+        $id_admin = session()->get('id_admin');
+
+        // Cek apakah yang mengakses adalah admin
+        if (!$id_admin) {
+            // Jika bukan admin, tampilkan 404
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        $data = [
+            'title' => 'Edit Pengumuman - ' . $pengumuman['judul'],
+            'pengumuman' => $pengumuman,
+        ];
+        return view('admin/editpengumuman', $data);
+    }
+
+    public function updatePengumumanAction($id)
+    {
+        $model = new PengumumanModel();
+
+        // Ambil input dari formulir
+        $judul = $this->request->getPost('judul');
+        $slug = url_title($judul, '-', TRUE);
+        $konten = $this->request->getPost('konten');
+
+        // Memproses foto yang diupload
+        $foto = $this->request->getFile('foto');
+
+
+
+        // Validasi input
+        $validation = \Config\Services::validation();
+        $validation->setRules([
+            'judul' => [
+                'label' => 'Judul',
+                'rules' => 'required|min_length[5]|max_length[150]|is_unique[pengumuman.judul,id_pengumuman,' . $id . ']' // Judul harus unik kecuali untuk artikel yang sedang diedit
+            ],
+            'konten' => [
+                'label' => 'Konten',
+                'rules' => 'required|min_length[20]' // Konten harus ada dan panjang minimum 20 karakter
+            ],
+            'foto' => [
+                'label' => 'Foto',
+                'rules' => 'permit_empty|is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/gif,image/png]|max_size[foto,1024]'
+            ]
+        ]);
+
+        if (!$this->validate($validation->getRules())) {
+            return $this->response->setJSON([
+                'success' => false,
+                'messages' => $validation->getErrors(),
+            ]);
+        }
+
+        // Menangani upload file foto
+        $fotoPath = '';
+        if ($foto && $foto->isValid() && !$foto->hasMoved()) {
+            // Memastikan tipe file dan membuat nama file acak
+            $fotoName = $foto->getRandomName();
+
+            // Memindahkan file ke folder public/images/artikel
+            if ($foto->move('public/images/pengumuman', $fotoName)) {
+                // Jika berhasil, simpan path foto
+                $fotoPath = 'images/pengumuman/' . $fotoName;
+            } else {
+                return $this->response->setJSON(['success' => false, 'errors' => 'Gagal menyimpan file foto.']);
+            }
+        }
+
+        // Cek apakah slug sudah digunakan oleh artikel lain (selain artikel ini)
+        $slugExists = $model->where('slug', $slug)
+            ->where('id_pengumuman !=', $id) // Abaikan artikel yang sedang diedit
+            ->first();
+
+        if ($slugExists) {
+            // Jika slug sudah ada pada artikel lain, kirim pesan kesalahan ke view
+            return $this->response->setJSON([
+                'success' => false,
+                'messages' => [
+                    'judul' => 'Judul artikel ini sudah digunakan. Silakan gunakan judul yang berbeda.'
+                ]
+            ]);
+        }
+
+
+        // Siapkan data untuk diupdate
+        $data = [
+            'judul' => htmlspecialchars($judul, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+            'slug' => $slug,
+            'konten' => htmlspecialchars($konten, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+        ];
+
+        // Jika ada foto baru yang diupload, masukkan ke dalam data
+        if (!empty($fotoPath)) {
+            $data['foto'] = $fotoPath;
+        }
+
+        // Simpan artikel yang sudah diperbarui
+        if ($model->update($id, $data)) {
+            return $this->response->setJSON(['success' => true, 'message' => 'Pengumuman berhasil diperbarui.']);
+        } else {
+            // Tampilkan pesan umum untuk kesalahan penyimpanan
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui pengumuman.']);
+        }
+    }
+
+    public function updateStatusPengumuman()
+    {
+        // Inisialisasi model
+        $model = new PengumumanModel();
+
+        // Ambil data dari POST request
+        $id_pengumuman = $this->request->getPost('id_pengumuman');
+        $status = $this->request->getPost('status');
+
+        // Validasi data (opsional, misalnya cek apakah ID dan status valid)
+        if ($id_pengumuman && $status) {
+            // Dapatkan tanggal dan waktu saat ini
+            $tanggal = date('Y-m-d');
+
+            // Update status dan tanggal diubah di database
+            $model->update($id_pengumuman, [
+                'status' => $status,
+                'tanggal' => $tanggal // Update tanggal saat status diubah
+            ]);
+
+            // Mengembalikan respons untuk merefresh halaman
+            return $this->response->setJSON(['success' => true, 'message' => 'Data berhasil diperbarui']);
+        } else {
+            // Mengembalikan respons untuk merefresh halaman
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui data']);
+        }
+    }
+
+    public function hapusPengumuman($id_pengumuman)
+    {
+        $model = new PengumumanModel();
+
+        // Hapus artikel berdasarkan ID
+        if ($model->delete($id_pengumuman)) {
+            // Set flash message atau lakukan redirect setelah menghapus
+            session()->setFlashdata('success', 'Pengumuman berhasil dihapus.');
+        } else {
+            session()->setFlashdata('error', 'Gagal menghapus pengumuman.');
+        }
+
+        return redirect()->to('/admin/pengumuman'); // Sesuaikan dengan URL yang diinginkan
+    }
+
+    public function peraturanadmin()
+    {
+        $model = new PeraturanModel();
+        $keyword = $this->request->getGet('search');
+
+        $data['peraturan'] = $model->getAllPeraturan($keyword);
+        $data['countTerbit'] = count($data['peraturan']);
+        $data['title'] = "peraturan Admin";
+
+        return view('admin/peraturan', $data);
+    }
+
+    public function tambahperaturan()
+    {
+        $data['title'] = "Tambah Peraturan / Kebijakan";
+        return view('admin/tambahperaturan', $data);
+    }
+
+    public function tambahPeraturanAction()
+    {
+        $model = new PeraturanModel();
+
+        // Ambil input dari formulir
+        $judulPeraturan = $this->request->getPost('judul');
+        $tentang = $this->request->getPost('tentang');
+        $jenis = $this->request->getPost('jenis');
+
+        // Memproses file yang diupload
+        $file = $this->request->getFile('file');
+
+        // Validasi input
+        $validation = \Config\Services::validation();
+        $validation->setRules([
+            'judul' => [
+                'label' => 'Judul',
+                'rules' => 'required|min_length[5]' // Judul harus unik dan panjang antara 5 dan 125 karakter
+            ],
+            'tentang' => [
+                'label' => 'Tentang',
+                'rules' => 'required|min_length[10]' // Konten harus ada dan panjang minimum 20 karakter
+            ],
+            'jenis' => [
+                'label' => 'Jenis',
+                'rules' => 'required'
+            ],
+            'file' => [
+                'label' => 'File',
+                'rules' => 'required|uploaded[file]|max_size[file,1024]|mime_in[file,application/pdf]'
+            ]
+        ]);
+
+
+        if (!$this->validate($validation->getRules())) {
+            return $this->response->setJSON([
+                'success' => false,
+                'messages' => $validation->getErrors(),
+            ]);
+        }
+
+        // Menangani upload file
+        $filePath = '';
+        if ($file && $file->isValid() && !$file->hasMoved()) {
+            // Memastikan tipe file dan membuat nama file acak
+            $fileName = $file->getRandomName();
+
+            // Memindahkan file ke folder public/doc/peraturan
+            if ($file->move('doc/peraturan', $fileName)) {
+                // Jika berhasil, simpan path file ke database
+                $filePath = 'doc/peraturan/' . $fileName;
+            } else {
+                return $this->response->setJSON(['success' => false, 'message' => 'Gagal menyimpan file.']);
+            }
+        } else {
+            return $this->response->setJSON(['success' => false, 'message' => 'File tidak valid atau belum diupload.']);
+        }
+
+        // Simpan data pengumuman ke dalam database
+        $data = [
+            'id_admin' => session()->get('id_admin'),
+            'judul' => htmlspecialchars($judulPeraturan, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+            'tentang' => htmlspecialchars($tentang, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+            'jenis' => htmlspecialchars($jenis, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+            'file' => $filePath,
+        ];
+
+        // Simpan pengumuman
+        if ($model->insert($data)) {
+            return $this->response->setJSON(['success' => true, 'message' => 'Artikel berhasil ditambahkan.']);
+        } else {
+            // Tampilkan pesan umum untuk kesalahan penyimpanan
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal menambahkan artikel.']);
+        }
+    }
+
+    public function detailperaturan($id_peraturan)
+    {
+        $model = new PeraturanModel();
+        $peraturan = $model->find($id_peraturan);
+
+        if (!$peraturan) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        // Ambil ID admin yang sedang login
+        $id_admin = session()->get('id_admin');
+
+        // Cek apakah yang mengakses adalah admin
+        if (!$id_admin) {
+            // Jika bukan admin, tampilkan 404
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        $data = [
+            'title' => $peraturan['judul'],
+            'peraturan' => $peraturan,
+        ];
+        return view('admin/detailperaturan', $data);
+    }
+
+    public function editPeraturan($id_peraturan)
+    {
+        $model = new PeraturanModel();
+        $peraturan = $model->find($id_peraturan); // Mengambil artikel berdasarkan id_artikel
+
+        if (!$peraturan) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound("Peraturan tidak ditemukan");
+        }
+
+        // Ambil ID admin yang sedang login
+        $id_admin = session()->get('id_admin');
+
+        // Cek apakah yang mengakses adalah admin
+        if (!$id_admin) {
+            // Jika bukan admin, tampilkan 404
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        $data = [
+            'title' => 'Edit peraturan - ' . $peraturan['judul'],
+            'peraturan' => $peraturan,
+        ];
+        return view('admin/editperaturan', $data);
+    }
+
+    public function updatePeraturanAction($id)
+    {
+        $model = new PeraturanModel();
+
+        // Ambil input dari formulir
+        $judulPeraturan = $this->request->getPost('judul');
+        $tentang = $this->request->getPost('tentang');
+        $jenis = $this->request->getPost('jenis');
+
+        // Memproses foto yang diupload
+        $file = $this->request->getFile('file');
+
+        // Validasi input
+        $validation = \Config\Services::validation();
+        $validation->setRules([
+            'judul' => [
+                'label' => 'Judul',
+                'rules' => 'required|min_length[5]' // Judul harus unik dan panjang antara 5 dan 125 karakter
+            ],
+            'tentang' => [
+                'label' => 'Tentang',
+                'rules' => 'required|min_length[10]' // Konten harus ada dan panjang minimum 20 karakter
+            ],
+            'jenis' => [
+                'label' => 'Jenis',
+                'rules' => 'required'
+            ],
+            'file' => [
+                'label' => 'File',
+                'rules' => 'permit_empty|uploaded[file]|mime_in[file,application/pdf]|max_size[file,1024]'
+            ]
+        ]);
+
+        if (!$this->validate($validation->getRules())) {
+            return $this->response->setJSON([
+                'success' => false,
+                'messages' => $validation->getErrors(),
+            ]);
+        }
+
+        // Menangani upload file file
+        $filePath = '';
+        if ($file && $file->isValid() && !$file->hasMoved()) {
+            // Memastikan tipe file dan membuat nama file acak
+            $fileName = $file->getRandomName();
+
+            // Memindahkan file ke folder public/images/artikel
+            if ($file->move('doc/peraturan', $fileName)) {
+                // Jika berhasil, simpan path file
+                $filePath = 'doc/peraturan/' . $fileName;
+            } else {
+                return $this->response->setJSON(['success' => false, 'errors' => 'Gagal menyimpan file file.']);
+            }
+        }
+
+        // Siapkan data untuk diupdate
+        $data = [
+            'judul' => htmlspecialchars($judulPeraturan, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+            'tentang' => htmlspecialchars($tentang, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+            'jenis' => htmlspecialchars($jenis, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+        ];
+
+        // Jika ada file baru yang diupload, masukkan ke dalam data
+        if (!empty($filePath)) {
+            $data['file'] = $filePath;
+        }
+
+        // Simpan artikel yang sudah diperbarui
+        if ($model->update($id, $data)) {
+            return $this->response->setJSON(['success' => true, 'message' => 'Peraturan / Kebijakan berhasil diperbarui.']);
+        } else {
+            // Tampilkan pesan umum untuk kesalahan penyimpanan
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui peraturan / kebijakan.']);
+        }
+    }
+
+    public function updatestatusperaturan()
+    {
+        // Inisialisasi model
+        $model = new PeraturanModel();
+
+        // Ambil data dari POST request
+        $id_peraturan = $this->request->getPost('id_peraturan');
+        $status = $this->request->getPost('status');
+
+        // Validasi data (opsional, misalnya cek apakah ID dan status valid)
+        if ($id_peraturan && $status) {
+
+            $model->update($id_peraturan, [
+                'status' => $status,
+            ]);
+
+            // Mengembalikan respons untuk merefresh halaman
+            return $this->response->setJSON(['success' => true, 'message' => 'Data berhasil diperbarui']);
+        } else {
+            // Mengembalikan respons untuk merefresh halaman
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui data']);
+        }
+    }
+
+    public function hapusPeraturan($id_peraturan)
+    {
+        $model = new PeraturanModel();
+
+        // Hapus artikel berdasarkan ID
+        if ($model->delete($id_peraturan)) {
+            // Set flash message atau lakukan redirect setelah menghapus
+            session()->setFlashdata('success', 'Pengumuman berhasil dihapus.');
+        } else {
+            session()->setFlashdata('error', 'Gagal menghapus pengumuman.');
+        }
+
+        return redirect()->to('/admin/pengumuman'); // Sesuaikan dengan URL yang diinginkan
     }
 
     public function akunpengguna()
@@ -738,7 +1377,7 @@ class AdminController extends BaseController
         $validation->setRules([
             'judul' => [
                 'label' => 'Judul',
-                'rules' => 'required|min_length[5]|max_length[100]|is_unique[video.judul_video]'
+                'rules' => 'required|min_length[5]|max_length[125]|is_unique[video.judul_video]'
             ],
             'link' => [
                 'label' => 'Link',
@@ -757,7 +1396,7 @@ class AdminController extends BaseController
         $data = [
             'judul_video' => htmlspecialchars($judulVideo, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
             'link_video' => htmlspecialchars($link, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
-            'tanggal' => date('Y-m-d H:i:s'),
+            'tanggal' => date('Y-m-d'),
         ];
 
         // Simpan artikel
@@ -832,7 +1471,7 @@ class AdminController extends BaseController
         $validation->setRules([
             'judul' => [
                 'label' => 'Judul',
-                'rules' => 'required|min_length[5]|max_length[100]|is_unique[video.judul_video,id_video,' . $id . ']'
+                'rules' => 'required|min_length[5]|max_length[125]|is_unique[video.judul_video,id_video,' . $id . ']'
             ],
             'link' => [
                 'label' => 'Link',
@@ -851,7 +1490,7 @@ class AdminController extends BaseController
         $data = [
             'judul_video' => htmlspecialchars($judulVideo, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
             'link_video' => htmlspecialchars($link, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
-            'tanggal' => date('Y-m-d H:i:s'),
+            'tanggal' => date('Y-m-d'),
         ];
 
         // Simpan artikel yang sudah diperbarui
@@ -874,8 +1513,13 @@ class AdminController extends BaseController
 
         // Validasi data (opsional, misalnya cek apakah ID dan status valid)
         if ($id_video && $status) {
-            // Update status di database
-            $model->update($id_video, ['status' => $status]);
+            // Dapatkan tanggal dan waktu saat ini
+            $tanggal = date('Y-m-d');
+
+            $model->update($id_video, [
+                'status' => $status,
+                'tanggal' => $tanggal // Update tanggal saat status diubah
+            ]);
 
             // Mengembalikan respons untuk merefresh halaman
             return $this->response->setJSON(['success' => true, 'message' => 'Data berhasil diperbarui']);
@@ -900,21 +1544,282 @@ class AdminController extends BaseController
         return redirect()->to('/admin/video'); // Sesuaikan dengan URL yang diinginkan
     }
 
-    public function buku()
+    public function bukuAdmin()
     {
-        $data['title'] = "Buku";
-        return view('admin/buku', ['title' => 'Buku']);
+        $model = new BukuModel();
+        $keyword = $this->request->getGet('search');
+
+        $data['buku'] = $model->getAllBuku($keyword);
+        $data['countTerbit'] = count($data['buku']);
+        $data['title'] = "Buku Penghargaan Kalpataru";
+
+        return view('admin/buku', $data);
     }
 
     public function tambahbuku()
     {
-        $data['title'] = "Buku";
-        return view('admin/tambahbuku', ['title' => 'Tambah Buku']);
+        $data['title'] = "Tambah Buku";
+        return view('admin/tambahbuku', $data);
     }
 
-    public function kebijakan()
+    public function tambahBukuAction()
     {
-        $data['title'] = "Kebijakan";
-        return view('admin/kebijakan', ['title' => 'Kebijakan']);
+        $model = new BukuModel();
+
+        // Ambil input dari formulir
+        $judul = $this->request->getPost('judul');
+        $file = $this->request->getFile('file');
+        $cover = $this->request->getFile('cover');
+
+        // Validasi input
+        $validation = \Config\Services::validation();
+        $validation->setRules([
+            'judul' => [
+                'label' => 'Judul',
+                'rules' => 'required|min_length[5]|max_length[125]|is_unique[artikel.judul]' // Judul harus unik dan panjang antara 5 dan 125 karakter
+            ],
+            'file' => [
+                'label' => 'File',
+                'rules' => 'uploaded[file]|mime_in[file,application/pdf]'
+            ],
+            'cover' => [
+                'label' => 'Cover',
+                'rules' => 'uploaded[cover]|is_image[cover]|mime_in[cover,image/jpg,image/jpeg,image/gif,image/png]|max_size[cover,1024]'
+            ]
+        ]);
+
+
+        if (!$this->validate($validation->getRules())) {
+            return $this->response->setJSON([
+                'success' => false,
+                'messages' => $validation->getErrors(),
+            ]);
+        }
+
+        // Menangani upload file foto
+        $coverPath = '';
+        if ($cover && $cover->isValid() && !$cover->hasMoved()) {
+            // Memastikan tipe file dan membuat nama file acak
+            $coverName = $cover->getRandomName();
+
+            // Memindahkan file ke folder public/images/artikel
+            if ($cover->move('public/images/buku', $coverName)) {
+                // Jika berhasil, simpan path cover ke database
+                $coverPath = 'images/buku/' . $coverName;
+            } else {
+                return $this->response->setJSON(['success' => false, 'errors' => 'Gagal menyimpan file cover.']);
+            }
+        } else {
+            return $this->response->setJSON(['success' => false, 'errors' => 'File tidak valid atau belum diupload.']);
+        }
+
+        // Menangani upload file
+        $filePath = '';
+        if ($file && $file->isValid() && !$file->hasMoved()) {
+            // Memastikan tipe file dan membuat nama file acak
+            $fileName = $file->getRandomName();
+
+            // Memindahkan file ke folder public/doc/peraturan
+            if ($file->move('doc/buku', $fileName)) {
+                // Jika berhasil, simpan path file ke database
+                $filePath = 'doc/buku/' . $fileName;
+            } else {
+                return $this->response->setJSON(['success' => false, 'message' => 'Gagal menyimpan file.']);
+            }
+        } else {
+            return $this->response->setJSON(['success' => false, 'message' => 'File tidak valid atau belum diupload.']);
+        }
+
+        // Simpan data artikel ke dalam database
+        $data = [
+            'id_admin' => session()->get('id_admin'),
+            'judul' => htmlspecialchars($judul, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+            'cover' => $coverPath,
+            'file' => $filePath,
+            'tanggal' => date('Y-m-d'),
+        ];
+
+        // Simpan artikel
+        if ($model->insert($data)) {
+            return $this->response->setJSON(['success' => true, 'message' => 'Artikel berhasil ditambahkan.']);
+        } else {
+            // Tampilkan pesan umum untuk kesalahan penyimpanan
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal menambahkan artikel.']);
+        }
+    }
+
+    public function detailBuku($id_buku)
+    {
+        $model = new BukuModel();
+        $buku = $model->find($id_buku);
+
+        if (!$buku) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        // Ambil ID admin yang sedang login
+        $id_admin = session()->get('id_admin');
+
+        // Cek apakah yang mengakses adalah admin
+        if (!$id_admin) {
+            // Jika bukan admin, tampilkan 404
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        $data = [
+            'title' => $buku['judul'],
+            'buku' => $buku,
+        ];
+        return view('admin/detailbuku', $data);
+    }
+
+    public function editBuku($id_buku)
+    {
+        $model = new BukuModel();
+        $buku = $model->find($id_buku); // Mengambil buku berdasarkan id_buku
+
+        if (!$buku) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        // Ambil ID admin yang sedang login
+        $id_admin = session()->get('id_admin');
+
+        // Cek apakah yang mengakses adalah admin
+        if (!$id_admin) {
+            // Jika bukan admin, tampilkan 404
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        $data = [
+            'title' => 'Edit Buku - ' . $buku['judul'],
+            'buku' => $buku,
+        ];
+        return view('admin/editbuku', $data);
+    }
+
+    public function updateBukuAction($id)
+    {
+        $model = new BukuModel();
+
+        // Ambil input dari formulir
+        $judul = $this->request->getPost('judul');
+        $file = $this->request->getFile('file');
+        $cover = $this->request->getFile('cover');
+
+        // Validasi input
+        $validation = \Config\Services::validation();
+        $validation->setRules([
+            'judul' => [
+                'label' => 'Judul',
+                'rules' => 'required|min_length[5]|max_length[125]|is_unique[buku_kalpataru.judul,id_buku,' . $id . ']' // Judul harus unik dan panjang antara 5 dan 125 karakter
+            ],
+            'file' => [
+                'label' => 'File',
+                'rules' => 'permit_empty|uploaded[file]|mime_in[file,application/pdf]'
+            ],
+            'cover' => [
+                'label' => 'Cover',
+                'rules' => 'permit_empty|uploaded[cover]|is_image[cover]|mime_in[cover,image/jpg,image/jpeg,image/gif,image/png]|max_size[cover,1024]'
+            ]
+        ]);
+
+
+        if (!$this->validate($validation->getRules())) {
+            return $this->response->setJSON([
+                'success' => false,
+                'messages' => $validation->getErrors(),
+            ]);
+        }
+
+        // Menangani upload file foto
+        $coverPath = '';
+        if ($cover && $cover->isValid() && !$cover->hasMoved()) {
+            // Memastikan tipe file dan membuat nama file acak
+            $coverName = $cover->getRandomName();
+
+            // Memindahkan file ke folder public/images/artikel
+            if ($cover->move('public/images/buku', $coverName)) {
+                // Jika berhasil, simpan path cover
+                $coverPath = 'images/buku/' . $coverName;
+            } else {
+                return $this->response->setJSON(['success' => false, 'errors' => 'Gagal menyimpan cover.']);
+            }
+        }
+
+        // Menangani upload file
+        $filePath = '';
+        if ($file && $file->isValid() && !$file->hasMoved()) {
+            // Memastikan tipe file dan membuat nama file acak
+            $fileName = $file->getRandomName();
+
+            // Memindahkan file ke folder public/images/artikel
+            if ($file->move('doc/buku', $fileName)) {
+                // Jika berhasil, simpan path file
+                $filePath = 'doc/buku/' . $fileName;
+            } else {
+                return $this->response->setJSON(['success' => false, 'errors' => 'Gagal menyimpan file.']);
+            }
+        }
+
+        // Simpan data artikel ke dalam database
+        $data = [
+            'judul' => htmlspecialchars($judul, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+        ];
+
+        if (!empty($coverPath)) {
+            $data['cover'] = $coverPath;
+        }
+
+        if (!empty($filePath)) {
+            $data['file'] = $filePath;
+        }
+
+        // Simpan artikel yang sudah diperbarui
+        if ($model->update($id, $data)) {
+            return $this->response->setJSON(['success' => true, 'message' => 'Buku berhasil diperbarui.']);
+        } else {
+            // Tampilkan pesan umum untuk kesalahan penyimpanan
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui buku.']);
+        }
+    }
+
+    public function updateStatusBuku()
+    {
+        // Inisialisasi model
+        $model = new BukuModel();
+
+        // Ambil data dari POST request
+        $id_buku = $this->request->getPost('id_buku');
+        $status = $this->request->getPost('status');
+
+        // Validasi data (opsional, misalnya cek apakah ID dan status valid)
+        if ($id_buku && $status) {
+
+            $model->update($id_buku, [
+                'status' => $status,
+            ]);
+
+            // Mengembalikan respons untuk merefresh halaman
+            return $this->response->setJSON(['success' => true, 'message' => 'Data berhasil diperbarui']);
+        } else {
+            // Mengembalikan respons untuk merefresh halaman
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui data']);
+        }
+    }
+
+    public function hapusBuku($id_buku)
+    {
+        $model = new BukuModel();
+
+        // Hapus buku berdasarkan ID
+        if ($model->delete($id_buku)) {
+            // Set flash message atau lakukan redirect setelah menghapus
+            session()->setFlashdata('success', 'Buku berhasil dihapus.');
+        } else {
+            session()->setFlashdata('error', 'Gagal menghapus buku.');
+        }
+
+        return redirect()->to('/admin/buku-kalpataru'); // Sesuaikan dengan URL yang diinginkan
     }
 }

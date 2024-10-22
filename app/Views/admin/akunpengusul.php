@@ -20,7 +20,7 @@
 
             <header class="bg-white shadow">
                 <div class="container mx-auto flex items-center justify-between p-4 md:p-6">
-                    <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Detail Video</h1>
+                    <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Akun Pengusul</h1>
                     <div class="flex items-center">
                         <p class="text-gray-500 mr-2 md:mr-4">Hello, <?= session()->get('nama'); ?></p>
                         <a href="/auth/logout" class="bg-rejected text-white px-3 py-2 md:px-4 md:py-2 rounded-lg inline-block">Keluar</a>
@@ -28,8 +28,42 @@
                 </div>
             </header>
 
-            <h4 class="mt-4 text-xs:lg:text-md ml-4 lg:ml-0 font-semibold">
-                Hasil: <?= esc($countAllPengusul) ?> Akun Pengusul
+            <div class="lg:flex lg:justify-between">
+                <!-- Dropdown Filter -->
+                <form id="filterForm" action="" method="get" class="flex items-center my-4 ms-4">
+                    <label for="statusAkun" class="text-sm font-bold text-primary">Filter Status Akun:</label>
+                    <select name="statusAkun" id="statusAkun" class="ml-2 border-2 border-primary text-primary rounded-md shadow-sm" onchange="document.getElementById('filterForm').submit();">
+                        <option value="">Semua Status Akun</option>
+                        <option value="Aktif" <?= ($statusAkun == 'Aktif') ? 'selected' : '' ?>>Aktif</option>
+                        <option value="Pending" <?= ($statusAkun == 'Pending') ? 'selected' : '' ?>>Pending</option>
+                    </select>
+                </form>
+                <form method="get" class="flex items-center justify-end my-4">
+                    <div class="relative lg:w-56 w-80 transition-all focus-within:w-64 lg:mt-0 mt-4">
+                        <input
+                            placeholder="Masukan kata kunci"
+                            class="input shadow-lg focus:border-2 border-2 text-primary border-primary px-5 py-1 pr-10 rounded-md w-full outline-none"
+                            name="search"
+                            value="<?= esc($keyword) ?>" />
+                        <svg
+                            class="w-6 h-6 absolute top-1/2 right-3 transform -translate-y-1/2 text-primary"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                                stroke-linejoin="round"
+                                stroke-linecap="round"></path>
+                        </svg>
+                    </div>
+                </form>
+            </div>
+
+
+            <h4 class="text-sm font-semibold text-primary ms-4">
+                Hasil: <?= esc($countAllPengusul) ?> Akun
             </h4>
 
             <div class="relative  flex flex-col w-full h-full bg-white shadow-md rounded-lg bg-clip-border my-6">
@@ -37,42 +71,42 @@
                     <thead>
                         <tr>
                             <th class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100 text-center">
-                                <p class="flex items-center justify-between gap-2 text-sm font-normal leading-none text-slate-800">
+                                <p class="flex items-center justify-center gap-2 text-sm font-normal leading-none text-slate-800">
                                     No
                                 </p>
                             </th>
                             <th class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100 text-center">
-                                <p class="flex items-center justify-between gap-2 text-sm font-normal leading-none text-slate-800">
+                                <p class="flex items-center justify-center gap-2 text-sm font-normal leading-none text-slate-800">
                                     Jenis Instansi
                                 </p>
                             </th>
                             <th class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100 text-center">
-                                <p class="flex items-center justify-between gap-2 text-sm font-normal leading-none text-slate-800">
+                                <p class="flex items-center justify-center gap-2 text-sm font-normal leading-none text-slate-800">
                                     Nama
                                 </p>
                             </th>
                             <th class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100 text-center">
-                                <p class="flex items-center justify-between gap-2 text-sm font-normal leading-none text-slate-800">
+                                <p class="flex items-center justify-center gap-2 text-sm font-normal leading-none text-slate-800">
                                     Email
                                 </p>
                             </th>
                             <th class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100 text-center">
-                                <p class="flex items-center justify-between gap-2 text-sm font-normal leading-none text-slate-800">
+                                <p class="flex items-center justify-center gap-2 text-sm font-normal leading-none text-slate-800">
                                     Provinsi
                                 </p>
                             </th>
                             <th class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100 text-center">
-                                <p class="flex items-center justify-between gap-2 text-sm font-normal leading-none text-slate-800">
+                                <p class="flex items-center justify-center gap-2 text-sm font-normal leading-none text-slate-800">
                                     Status
                                 </p>
                             </th>
                             <th class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100 text-center">
-                                <p class="flex items-center justify-between gap-2 text-sm font-normal leading-none text-slate-800">
+                                <p class="flex items-center justify-center gap-2 text-sm font-normal leading-none text-slate-800">
                                     Detail
                                 </p>
                             </th>
                             <th class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100 text-center">
-                                <p class="flex items-center justify-between gap-2 text-sm font-normal leading-none text-slate-800">
+                                <p class="flex items-center justify-center gap-2 text-sm font-normal leading-none text-slate-800">
                                     Hapus
                                 </p>
                             </th>
@@ -86,24 +120,24 @@
                                 $no++;
                             ?>
                                 <tr class="hover:bg-slate-50">
-                                    <td class="p-4 border-b border-slate-200">
+                                    <td class="p-4 border-b border-slate-200 text-center">
                                         <p class="block text-sm text-slate-800">
                                             <?= $no ?>
                                         </p>
                                     </td>
-                                    <td class="p-4 border-b border-slate-200">
+                                    <td class="p-4 border-b border-slate-200 text-center">
                                         <p class="block text-sm text-slate-800">
                                             <?= esc($p['jenis_instansi']); ?> </p>
                                     </td>
-                                    <td class="p-4 border-b border-slate-200">
+                                    <td class="p-4 border-b border-slate-200 text-center">
                                         <p class="block text-sm text-slate-800">
                                             <?= esc($p['nama_instansi_pribadi']); ?> </p>
                                     </td>
-                                    <td class="p-4 border-b border-slate-200">
+                                    <td class="p-4 border-b border-slate-200 text-center">
                                         <p class="block text-sm text-slate-800">
                                             <?= esc($p['email']); ?> </p>
                                     </td>
-                                    <td class="p-4 border-b border-slate-200">
+                                    <td class="p-4 border-b border-slate-200 text-center">
                                         <p class="block text-sm text-slate-800">
                                             <?= esc($p['provinsi']); ?> </p>
                                     </td>
@@ -121,7 +155,7 @@
                                             </select>
                                         </form>
                                     </td>
-                                    <td class="p-4 border-b border-slate-200">
+                                    <td class="p-4 border-b border-slate-200 text-center">
                                         <div>
                                             <a href="/admin/pengusul/detail/<?= $p['id_pengusul']; ?>" class="mt-4 w-3/2 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover">Lihat</a>
                                         </div>
@@ -139,37 +173,15 @@
                             <?php endforeach; ?>
                         <?php else: ?>
                             <tr>
-                                <td colspan="6" class="p-4 text-center text-slate-800">Belum ada video</td>
+                                <td colspan="8" class="p-4 text-center text-slate-800">Tidak ada akun</td>
                             </tr>
                         <?php endif; ?>
                     </tbody>
                 </table>
-                <div class="row flex lg:justify-end justify-center my-6 lg:mr-4">
-                    <button class="rounded-md rounded-r-none border border-r-0 border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-primary focus:border-primary active:border-primary active:text-white active:bg-primary disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
-                            <path fill-rule="evenodd" d="M11.03 3.97a.75.75 0 0 1 0 1.06l-6.22 6.22H21a.75.75 0 0 1 0 1.5H4.81l6.22 6.22a.75.75 0 1 1-1.06 1.06l-7.5-7.5a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd" />
-                        </svg>
-                    </button>
-                    <button class="rounded-md rounded-r-none rounded-l-none border border-r-0 border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-primary focus:border-primary active:border-primary active:text-white active:bg-primary disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                        1
-                    </button>
-                    <button class="rounded-md rounded-r-none rounded-l-none border border-r-0 border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-primary focus:border-primary active:border-primary active:text-white active:bg-primary disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                        2
-                    </button>
-                    <button class="rounded-md rounded-r-none rounded-l-none border border-r-0 border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-primary focus:border-primary active:border-primary active:text-white active:bg-primary disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                        3
-                    </button>
-                    <button class="rounded-md rounded-r-none rounded-l-none border border-r-0 border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-primary focus:border-primary active:border-primary active:text-white active:bg-primary disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                        4
-                    </button>
-                    <button class="rounded-md rounded-r-none rounded-l-none border border-r-0 border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-primary focus:border-primary active:border-primary active:text-white active:bg-primary disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                        5
-                    </button>
-                    <button class="rounded-md rounded-l-none border border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-primary focus:border-primary active:border-primary active:text-white active:bg-primary disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
-                            <path fill-rule="evenodd" d="M12.97 3.97a.75.75 0 0 1 1.06 0l7.5 7.5a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 1 1-1.06-1.06l6.22-6.22H3a.75.75 0 0 1 0-1.5h16.19l-6.22-6.22a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
-                        </svg>
-                    </button>
+                <div class="row flex lg:justify-end justify-center my-6 lg:me-2 me-0">
+                    <div class="pagination">
+                        <?= $pager->links('pengusul', 'template_pagination') ?>
+                    </div>
                 </div>
             </div>
         </div>

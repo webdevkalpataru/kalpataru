@@ -33,8 +33,13 @@
                 </div>
                 <p class="text-slate-600 leading-normal font-light text-justify mt-4">
                     <?= nl2br(htmlspecialchars($artikel['konten'])); ?><br><br>
-                    Penulis: <?= htmlspecialchars($artikel['penulis']); ?>
+                    <strong>Penulis : <?= htmlspecialchars($artikel['penulis']); ?></strong>
                 </p>
+
+                <button onclick="window.history.back()"
+                    class="text-sm font-bold text-gray-600 no-underline focus:outline-none text-start mt-6">
+                    <span class="font-bold text-lg items-center">←</span> Kembali
+                </button>
             </div>
         </div>
 

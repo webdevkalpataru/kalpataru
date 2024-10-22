@@ -65,7 +65,7 @@
                         </div>
                     <?php endforeach; ?>
                 <?php else: ?>
-                    <p>Tidak ada artikel yang terbit saat ini dengan kata kunci "<strong><?= esc($keyword) ?></strong>"</p>
+                    <p>Tidak ada artikel yang terbit saat ini</p>
                 <?php endif; ?>
             </div>
             <div class="row flex lg:justify-end justify-center my-6">

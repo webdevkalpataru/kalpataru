@@ -9,21 +9,24 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'Home::index');
 $routes->get('/beranda', 'MainController::beranda');
 $routes->get('profil', 'MainController::profil');
+$routes->get('kategori', 'MainController::kategori');
 $routes->get('kontak', 'MainController::kontak');
 $routes->post('kontak/sendEmail', 'KontakController::sendEmail');
 
 /* Informasi */
 $routes->get('informasi/pengumuman', 'InformasiController::pengumuman');
-$routes->get('informasi/peraturankebijakan', 'InformasiController::peraturankebijakan');
+$routes->get('informasi/peraturan-kebijakan', 'InformasiController::peraturan');
 $routes->get('informasi/datastatistik', 'InformasiController::datastatistik');
+$routes->get('pengumuman/(:any)', 'InformasiController::detailpengumuman/$1');
+
 
 /* Publikasi */
 $routes->get('publikasi/berita', 'PublikasiController::berita');
+$routes->get('berita/(:any)', 'PublikasiController::detailberita/$1');
 $routes->get('publikasi/artikel', 'PublikasiController::artikel');
+$routes->get('artikel/(:any)', 'PublikasiController::detailartikel/$1');
 $routes->get('publikasi/video', 'PublikasiController::video');
 $routes->get('publikasi/buku', 'PublikasiController::buku');
-$routes->get('artikel/(:any)', 'PublikasiController::detailartikel/$1');
-$routes->get('berita/(:any)', 'PublikasiController::detailberita/$1');
 
 
 
@@ -42,8 +45,12 @@ $routes->get('auth/registerinternal', 'AuthController::registerinternal');
 $routes->post('auth/registerinternal', 'AuthController::createRegisterinternal');
 $routes->get('auth/loginadmin', 'AuthController::loginadmin');
 $routes->get('auth/logintimteknis', 'AuthController::logintimteknis');
-$routes->get('auth/loginddpk', 'AuthController::loginddpk');
+$routes->get('auth/logindppk', 'AuthController::logindppk');
 
+$routes->get('auth/forgot-password', 'AuthController::forgotPassword');
+$routes->post('auth/forgot-password', 'AuthController::sendResetLink');
+$routes->get('auth/reset-password/(:any)', 'AuthController::resetPassword/$1');
+$routes->post('auth/reset-password', 'AuthController::processResetPassword');
 
 /* Pengusul */
 $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
@@ -102,31 +109,43 @@ $routes->group('penerima', ['filter' => 'auth'], function ($routes) {
 /* Admin */
 $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('dashboard', 'AdminController::dashboard');
+
+    //pengusul
+    $routes->get('akunpengusul', 'AdminController::akunpengusul');
+
+    //dlhk
     $routes->get('akundlhk', 'AdminController::akundlhk');
+    $routes->get('daftarakundlhk', 'AdminController::daftarakundlhk');
+    $routes->get('daftarakundlhk', 'AuthController::registerDLHK');
+    $routes->post('daftarakundlhk', 'AuthController::createRegisterDLHK');
+
+    //timteknis
     $routes->get('akuntimteknis', 'AdminController::akuntimteknis');
-    $routes->get('daftartimteknis', 'AdminController::daftartimteknis');
+    $routes->get('daftartimteknis', 'AuthController::registerTimTeknis');
+    $routes->post('daftartimteknis', 'AuthController::createRegisterTimTeknis');
+
+    //dppk
     $routes->get('akundppk', 'AdminController::akundppk');
     $routes->get('daftardppk', 'AdminController::daftardppk');
-    $routes->get('pengumumanadmin', 'AdminController::pengumumanadmin');
-    $routes->get('tambahpengumumanadmin', 'AdminController::tambahpengumumanadmin');
+    $routes->get('daftardppk', 'AuthController::registerDPPK');
+    $routes->post('daftardppk', 'AuthController::createRegisterDPPK');
+
+    //pengguna
     $routes->get('akunpengguna', 'AdminController::akunpengguna');
     $routes->get('daftarakunpengguna', 'AdminController::daftarakunpengguna');
-    $routes->get('daftarakundlhk', 'AdminController::daftarakundlhk');
+    $routes->get('daftarakunpengguna', 'AuthController::registerPenerima');
+    $routes->post('daftarakunpengguna', 'AuthController::createRegisterPenerima');
+
+    //Pengumuman
+    $routes->get('pengumumanadmin', 'AdminController::pengumumanadmin');
+    $routes->get('tambahpengumumanadmin', 'AdminController::tambahpengumumanadmin');
     
+    // Manajemen Buku
     $routes->get('buku', 'AdminController::buku');
     $routes->get('tambahbuku', 'AdminController::tambahbuku');
+
+    // Manajemen Kebijakan
     $routes->get('kebijakan', 'AdminController::kebijakan');
-
-
-    // Manajemen Akun Pengusul
-    $routes->get('pengusul', 'AdminController::akunpengusul');
-    $routes->post('pengusul/hapus/(:num)', 'AdminController::hapusPengusul/$1');
-    $routes->post('updatepengusul', 'AdminController::updatePengusul');
-    $routes->get('pengusul/detail/(:any)', 'AdminController::detailPengusul/$1');
-    $routes->get('download/suratpengantar/(:segment)', 'AdminController::downloadSuratPengantar/$1');
-
-
-
 
     // Manajemen Akun Pengusul
     $routes->get('pengusul', 'AdminController::akunpengusul');
@@ -157,6 +176,16 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->post('berita/hapus/(:num)', 'AdminController::hapusBerita/$1');
     $routes->post('updatestatusberita', 'AdminController::updateStatusBerita');
 
+    // Manajemen Pengumuman
+    $routes->get('pengumuman', 'AdminController::pengumumanadmin');
+    $routes->get('tambah-pengumuman', 'AdminController::tambahpengumuman');
+    $routes->post('tambah-pengumuman', 'AdminController::tambahPengumumanAction');
+    $routes->get('pengumuman/edit/(:any)', 'AdminController::editPengumuman/$1');
+    $routes->post('pengumuman/edit/(:any)', 'AdminController::updatePengumumanAction/$1');
+    $routes->get('pengumuman/(:any)', 'AdminController::detailpengumuman/$1');
+    $routes->post('pengumuman/hapus/(:num)', 'AdminController::hapusPengumuman/$1');
+    $routes->post('updatestatuspengumuman', 'AdminController::updateStatusPengumuman');
+
     // Manajemen Video
     $routes->get('video', 'AdminController::videoAdmin');
     $routes->get('tambah-video', 'AdminController::tambahvideo');
@@ -166,10 +195,30 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('video/(:any)', 'AdminController::detailvideo/$1');
     $routes->post('video/hapus/(:num)', 'AdminController::hapusVideo/$1');
     $routes->post('updatestatusvideo', 'AdminController::updateStatusVideo');
+
+    // Manajemen Buku Kalpataru
+    $routes->get('buku-kalpataru', 'AdminController::bukuAdmin');
+    $routes->get('tambah-buku', 'AdminController::tambahbuku');
+    $routes->post('tambah-buku', 'AdminController::tambahBukuAction');
+    $routes->get('buku-kalpataru/edit/(:any)', 'AdminController::editBuku/$1');
+    $routes->post('buku-kalpataru/edit/(:any)', 'AdminController::updateBukuAction/$1');
+    $routes->get('buku-kalpataru/(:any)', 'AdminController::detailBuku/$1');
+    $routes->post('buku-kalpataru/hapus/(:num)', 'AdminController::hapusBuku/$1');
+    $routes->post('updatestatusbuku', 'AdminController::updateStatusBuku');
+
+    // Manajemen Peraturan dan Kebijakan
+    $routes->get('peraturan-kebijakan', 'AdminController::peraturanadmin');
+    $routes->get('peraturan-kebijakan/tambah', 'AdminController::tambahperaturan');
+    $routes->post('peraturan-kebijakan/tambah', 'AdminController::tambahPeraturanAction');
+    $routes->get('peraturan-kebijakan/edit/(:any)', 'AdminController::editPeraturan/$1');
+    $routes->post('peraturan-kebijakan/edit/(:any)', 'AdminController::updatePeraturanAction/$1');
+    $routes->get('peraturan-kebijakan/(:any)', 'AdminController::detailperaturan/$1');
+    $routes->post('peraturan-kebijakan/hapus/(:num)', 'AdminController::hapusPeraturan/$1');
+    $routes->post('updatestatusperaturan', 'AdminController::updateStatusPeraturan');
 });
 
 /* Tim Teknis */
-$routes->group('timteknis', function ($routes) {
+$routes->group('timteknis', ['filter' => 'auth'], function ($routes) {
     $routes->get('datacalonusulan', 'TimteknisController::datacalonusulan');
     $routes->get('detaildatacalonusulan', 'TimteknisController::detaildatacalonusulan');
 
@@ -192,7 +241,7 @@ $routes->group('timteknis', function ($routes) {
 });
 
 /* DPPK */
-$routes->group('dppk', function ($routes) {
+$routes->group('dppk', ['filter' => 'auth'], function ($routes) {
     $routes->get('datacalonusulan', 'DppkController::datacalonusulan');
     $routes->get('detaildatacalonusulan', 'DppkController::detaildatacalonusulan');
 

@@ -15,6 +15,11 @@ class MainController extends BaseController
         $data['title'] = "Profil";
         return view('profil', ['title' => 'Profil']);
     }
+    public function kategori()
+    {
+        $data['title'] = "Kategori";
+        return view('Kategori', ['title' => 'Kategori']);
+    }
 
     public function kontak()
     {

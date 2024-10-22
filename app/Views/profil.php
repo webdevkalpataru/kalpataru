@@ -25,7 +25,7 @@
     <!-- Quote Section -->
     <section id="quotes" class="lg:px-0 px-4 py-8 lg:py-12 container mx-auto">
         <div class="w-full flex flex-col lg:flex-row items-center justify-between">
-            <div class="w-full lg:w-1/2 lg:pr-10 relative">
+            <div class="w-full lg:w-1/2 lg:ms-24 relative">
                 <p class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium text-black relative before:content-['\201C'] before:absolute before:-left-6 before:top-0 before:text-5xl before:text-indigo-200">
                     Pembangunan dan pelestarian lingkungan hidup tidak harus saling bertentangan, keduanya bisa berjalan seiring demi kelanggengan sumber daya alam.
                     <br><br>

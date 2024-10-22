@@ -98,16 +98,16 @@
 
             <!-- Kontainer gambar kategori dengan properti flex untuk memusatkan gambar -->
             <div id="categoryContainer" class="flex gap-16 lg:justify-center lg:items-center overflow-x-auto sm:overflow-x-auto md:overflow-x-hidden scrollbar-show snap-x snap-mandatory scroll-smooth">
-                <a href="/profil/#kategoria" class="block flex-shrink-0 snap-center">
+                <a href="/kategori" class="block flex-shrink-0 snap-center">
                     <img src="/images/kategoria.jpg" alt="kategoria" class="w-56 h-auto rounded-2xl shadow-lg mx-auto">
                 </a>
-                <a href="/profil/#kategorib" class="block flex-shrink-0 snap-center">
+                <a href="/kategori" class="block flex-shrink-0 snap-center">
                     <img src="/images/kategorib.jpg" alt="kategorib" class="w-56 h-auto rounded-2xl shadow-lg mx-auto">
                 </a>
-                <a href="/profil/#kategoric" class="block flex-shrink-0 snap-center">
+                <a href="/kategori" class="block flex-shrink-0 snap-center">
                     <img src="/images/kategoric.jpg" alt="kategoric" class="w-56 h-auto rounded-2xl shadow-lg mx-auto">
                 </a>
-                <a href="/profil/#kategorid" class="block flex-shrink-0 snap-center">
+                <a href="/kategori" class="block flex-shrink-0 snap-center">
                     <img src="/images/kategorid.jpg" alt="kategorid" class="w-56 h-auto rounded-2xl shadow-lg mx-auto">
                 </a>
             </div>
@@ -309,7 +309,7 @@
                     </svg>
                 </a>
             </div>
-            <hr class="border-2 border-primary w-full mt-0 mb-5" />
+            <hr class="border-2 border-primary w-full mt-0 mb-10" />
 
             <div class="relative flex overflow-x-auto space-x-4 scrollbar-hide">
                 <!-- arrow kiri -->
@@ -324,7 +324,7 @@
                                 preg_match("/(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/", $item['link_video'], $matches);
                                 $youtube_id = $matches[1];
                                 ?>
-                                <iframe width="380" height="200" src="https://www.youtube.com/embed/<?= $youtube_id; ?>"
+                                <iframe class="w-full object-cover rounded-t-lg" height="200" src="https://www.youtube.com/embed/<?= $youtube_id; ?>"
                                     title="<?= esc($item['judul_video']); ?>" frameborder="0"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 

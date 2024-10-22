@@ -23,7 +23,7 @@
           <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Edit Artikel</h1>
           <div class="flex items-center">
             <p class="text-gray-500 mr-2 md:mr-4">Hello, <?= session()->get('nama'); ?></p>
-            <button class="bg-rejected text-white px-3 py-2 md:px-4 md:py-2 rounded-lg">Keluar</button>
+            <a href="/auth/logout" class="bg-rejected text-white px-3 py-2 md:px-4 md:py-2 rounded-lg inline-block">Keluar</a>
           </div>
         </div>
       </header>
@@ -38,25 +38,30 @@
               <input required id="judul" type="text" name="judul"
                 value="<?= esc($artikel['judul']); ?>"
                 class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2">
-              <div class="text-red-500" id="judulError"></div> <!-- Menampilkan pesan kesalahan judul -->
+              <div class="text-rejected" id="judulError"></div>
             </div>
             <div>
               <label class="block mb-2 text-sm text-black">Isi Artikel</label>
               <textarea required id="konten" name="konten"
                 class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2" rows="4"><?= esc($artikel['konten']); ?></textarea>
-              <div class="text-red-500" id="kontenError"></div> <!-- Menampilkan pesan kesalahan konten -->
+              <div class="text-rejected" id="kontenError"></div>
             </div>
             <div>
               <label class="block mb-2 text-sm text-black">Unggah Foto Artikel (.jpg/jpeg/png)</label>
               <input id="foto" name="foto" type="file" accept="image/*"
                 class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2">
-              <div class="text-red-500" id="fotoError"></div> <!-- Menampilkan pesan kesalahan foto -->
+              <div class="text-rejected" id="fotoError"></div>
             </div>
           </div>
           <div class="flex justify-end mt-4">
             <button type="submit" class="w-40 rounded-md py-2 text-center text-sm text-white bg-primary hover:bg-primaryhover">Unggah</button>
           </div>
         </form>
+
+        <button onclick="window.history.back()"
+          class="text-sm font-bold text-gray-600 no-underline focus:outline-none text-start">
+          <span class="font-bold text-lg items-center">←</span> Kembali
+        </button>
 
       </div>
     </div>

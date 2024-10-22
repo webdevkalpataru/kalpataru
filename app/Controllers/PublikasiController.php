@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\PublikasiModel;
 use App\Models\ArtikelModel;
 use App\Models\BeritaModel;
+use App\Models\BukuModel;
 use App\Models\VideoModel;
 
 helper('text');
@@ -42,7 +43,7 @@ class PublikasiController extends BaseController
         // Siapkan data untuk dikirim ke view
         $data['keyword'] = $keyword;
         $data['countTerbit'] = $countTerbit;
-        $data['title'] = "Daftar Artikel Terbit";
+        $data['title'] = "Berita – Kalpataru | Penghargaan Lingkungan Hidup Indonesia";
 
         return view('berita', $data);
     }
@@ -57,7 +58,6 @@ class PublikasiController extends BaseController
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('Berita tidak ditemukan');
         }
 
-        // Jika artikel masih ditangguhkan
         if ($berita['status'] !== 'Terbit') {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('Berita tidak ditemukan');
         }
@@ -102,7 +102,7 @@ class PublikasiController extends BaseController
         // Siapkan data untuk dikirim ke view
         $data['keyword'] = $keyword;
         $data['countTerbit'] = $countTerbit;
-        $data['title'] = "Daftar Artikel Terbit";
+        $data['title'] = "Artikel – Kalpataru | Penghargaan Lingkungan Hidup Indonesia";
 
         return view('artikel', $data);
     }
@@ -132,16 +132,57 @@ class PublikasiController extends BaseController
     public function video()
     {
         $model = new VideoModel();
-        $video = $model->where('status', 'terbit')->findAll();
+        // Ambil data dengan pagination, limit 5 per halaman
+        $perPage = 6;
 
-        $data['video'] = $video;
-        $data['countTerbit'] = count($data['video']);
+        // Ambil keyword dari input search
+        $keyword = $this->request->getGet('search');
+
+        if ($keyword) {
+            // Jika ada pencarian, ambil video yang sesuai dengan judul_video dan statusnya "Terbit" dengan pagination
+            $data['videos'] = $model->where('status', 'Terbit')
+                ->like('judul_video', $keyword) // Cari berdasarkan judul_video
+                ->orderBy('tanggal', 'DESC')
+                ->paginate($perPage, 'videos'); // Paginate hasil pencarian
+            $countTerbit = $model->where('status', 'Terbit')
+                ->like('judul_video', $keyword) // Hitung hanya yang cocok dengan pencarian
+                ->countAllResults(); // Hitung jumlah video hasil pencarian
+            $data['pager'] = $model->pager; // Tidak ada pagination jika ada pencarian
+        } else {
+            // Jika tidak ada pencarian, ambil video yang statusnya "Terbit" dengan pagination
+            $data['videos'] = $model->where('status', 'Terbit')
+                ->orderBy('tanggal', 'DESC')
+                ->paginate($perPage, 'videos');
+            $countTerbit = $model->where('status', 'Terbit')->countAllResults(); // Hanya hitung video yang berstatus "Terbit"
+            $data['pager'] = $model->pager; // Hanya tetapkan pager jika menggunakan paginate
+        }
+
+        // Siapkan data untuk dikirim ke view
+        $data['keyword'] = $keyword;
+        $data['countTerbit'] = $countTerbit;
         $data['title'] = "Video Admin";
 
         return view('video', $data);
     }
 
     public function buku()
+    {
+        $model = new BukuModel();
+        $keyword = $this->request->getGet('search');
+
+        if ($keyword) {
+            $data['buku'] = $model->searchBukuTerbit($keyword);
+            $data['countTerbit'] = count($data['buku']);
+        } else {
+            $data['buku'] = $model->getBukuTerbit();
+            $data['countTerbit'] = $model->countBukuTerbit();
+        }
+
+        $data['title'] = "Buku";
+        return view('buku', $data);
+    }
+
+    public function da()
     {
         $PublikasiModel = new PublikasiModel();
         $BukuData = $PublikasiModel->TampilBuku();

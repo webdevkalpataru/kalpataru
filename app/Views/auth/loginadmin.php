@@ -69,15 +69,20 @@
                         </span>
                     </div>
 
-                    <div class="flex items-center justify-between flex-wrap">
+                    <!--  <div class="flex items-center justify-between flex-wrap">
                         <p class="text-gray-900 text-xs">
                             Belum punya akun? <a href="./registerinternal" class="text-primary hover:underline font-bold">Daftar Sekarang</a>
                         </p>
-                    </div>
+                    </div> -->
 
                     <button type="submit"
                         class="bg-secondary text-primary font-bold py-2 px-4 rounded-md mt-4 hover:bg-primary hover:text-white transition ease-in-out duration-150">
                         Masuk
+                    </button>
+
+                    <button onclick="window.history.back()"
+                        class="text-sm font-bold text-gray-600 no-underline focus:outline-none text-start mt-6">
+                        <span class="font-bold text-lg items-center">←</span> Kembali
                     </button>
                 </form>
             </div>
