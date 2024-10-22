@@ -653,7 +653,7 @@ class AdminController extends BaseController
         $validation->setRules([
             'judul' => [
                 'label' => 'Judul',
-                'rules' => 'required|min_length[5]|max_length[125]|is_unique[berita.judul,id_berita,' . $id . ']' // Judul harus unik kecuali untuk artikel yang sedang diedit
+                'rules' => 'required|min_length[5]|max_length[125]|is_unique[berita.judul,id_berita,' . $id . ']' // Judul harus unik kecuali untuk berita yang sedang diedit
             ],
             'konten' => [
                 'label' => 'Konten',
@@ -678,7 +678,7 @@ class AdminController extends BaseController
             // Memastikan tipe file dan membuat nama file acak
             $fotoName = $foto->getRandomName();
 
-            // Memindahkan file ke folder public/images/artikel
+            // Memindahkan file ke folder public/images/berita
             if ($foto->move('public/images/berita', $fotoName)) {
                 // Jika berhasil, simpan path foto
                 $fotoPath = 'images/berita/' . $fotoName;
@@ -687,17 +687,17 @@ class AdminController extends BaseController
             }
         }
 
-        // Cek apakah slug sudah digunakan oleh artikel lain (selain artikel ini)
+        // Cek apakah slug sudah digunakan oleh berita lain (selain berita ini)
         $slugExists = $model->where('slug', $slug)
-            ->where('id_berita !=', $id) // Abaikan artikel yang sedang diedit
+            ->where('id_berita !=', $id) // Abaikan berita yang sedang diedit
             ->first();
 
         if ($slugExists) {
-            // Jika slug sudah ada pada artikel lain, kirim pesan kesalahan ke view
+            // Jika slug sudah ada pada berita lain, kirim pesan kesalahan ke view
             return $this->response->setJSON([
                 'success' => false,
                 'messages' => [
-                    'judul' => 'Judul artikel ini sudah digunakan. Silakan gunakan judul yang berbeda.'
+                    'judul' => 'Judul berita ini sudah digunakan. Silakan gunakan judul yang berbeda.'
                 ]
             ]);
         }
@@ -714,7 +714,7 @@ class AdminController extends BaseController
             $data['foto'] = $fotoPath;
         }
 
-        // Simpan artikel yang sudah diperbarui
+        // Simpan berita yang sudah diperbarui
         if ($model->update($id, $data)) {
             return $this->response->setJSON(['success' => true, 'message' => 'Berita berhasil diperbarui.']);
         } else {

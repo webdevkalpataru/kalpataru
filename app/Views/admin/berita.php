@@ -27,7 +27,7 @@
                 </div>
             </header>
 
-            <!-- Tombol Tambah Buku dan hasil -->
+            <!-- Tombol Tambah Berita dan hasil -->
             <div class="my-4 flex flex-col md:flex-row justify-between md:items-center gap-4">
                 <a href="/admin/tambah-berita" class="w-full md:w-auto">
                     <button id="tambahBerita" class="w-full md:w-48 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover">
@@ -39,9 +39,9 @@
             <div class="lg:flex lg:justify-between">
                 <!-- Dropdown Filter -->
                 <form id="filterForm" action="" method="get" class="flex items-center my-4 ms-4">
-                    <label for="status" class="text-sm font-bold text-primary">Filter Status Buku:</label>
+                    <label for="status" class="text-sm font-bold text-primary">Filter Status Berita:</label>
                     <select name="status" id="status" class="ml-2 border-2 border-primary text-primary rounded-md shadow-sm" onchange="document.getElementById('filterForm').submit();">
-                        <option value="">Semua Status Buku</option>
+                        <option value="">Semua Status Berita</option>
                         <option value="Ditangguhkan" <?= ($status == 'Ditangguhkan') ? 'selected' : '' ?>>Ditangguhkan</option>
                         <option value="Terbit" <?= ($status == 'Terbit') ? 'selected' : '' ?>>Terbit</option>
                     </select>

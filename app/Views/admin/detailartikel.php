@@ -56,7 +56,7 @@
                 </button>
                 <a href="/admin/artikel/edit/<?= esc($artikel['id_artikel']); ?>">
                     <div class="mt-4">
-                        <button id="editperaturan" class="w-full md:w-48 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
+                        <button id="editArtikel" class="w-full md:w-48 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
                             <i class="fas fa-edit"></i> Edit Artikel
                         </button>
                     </div>

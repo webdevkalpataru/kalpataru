@@ -29,7 +29,7 @@
       </header>
 
       <!-- Main Content -->
-      <div>
+      <div class="mt-4 relative flex flex-col w-full  mx-auto mb-4 border-2 border-primary bg-white shadow-md lg:p-8">
         <!-- Cards Summary -->
         <form id="isiVideoForm" action="/admin/video/edit/<?= esc($video['id_video']); ?>" method="POST" class="mt-4 mb-2 w-full">
           <div class="grid grid-cols-1 gap-4" id="formContainer">
@@ -46,10 +46,16 @@
 
           </div>
 
-          <div class="flex  mt-4">
+          <div class="flex justify-end mt-4">
             <button id="uploadBtn" class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="submit">Unggah</button>
           </div>
         </form>
+
+        <button onclick="window.history.back()"
+          class="text-sm font-bold text-gray-600 no-underline focus:outline-none text-start">
+          <span class="font-bold text-lg items-center">←</span> Kembali
+        </button>
+
       </div>
     </div>
   </div>

@@ -46,8 +46,11 @@
                 <!-- Dokumen Buku -->
                 <div class="my-4">
                     <a href="<?= base_url($buku['file']); ?>" download>
-                        <button id="editbuku" class="w-full lg:w-48 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-blue-500 hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                            <i class="fas fa-edit"></i> Unduh Buku
+                        <button id="editbuku" class="w-full flex justify-center gap-1 items-center lg:w-48 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-blue-500 hover:bg-blue-600 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="white" class="size-4">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                            </svg>
+                            Unduh Buku
                         </button>
                     </a>
                 </div>
@@ -60,6 +63,14 @@
                         </button>
                     </a>
                 </div>
+
+                <div class="mt-4">
+                    <button onclick="window.history.back()"
+                        class="text-sm font-bold text-gray-600 no-underline focus:outline-none text-start">
+                        <span class="font-bold text-lg items-center">←</span> Kembali
+                    </button>
+                </div>
+                
             </div>
         </div>
     </div>

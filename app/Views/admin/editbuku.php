@@ -29,7 +29,7 @@
       </header>
 
       <!-- Main Content -->
-      <div>
+      <div class="mt-4 relative flex flex-col w-full  mx-auto mb-4 border-2 border-primary bg-white shadow-md lg:p-8">
         <!-- Form Edit Buku -->
         <form id="isiBukuForm" class="mt-4 mb-2 w-full" action="/admin/buku-kalpataru/edit/<?= esc($buku['id_buku']); ?>" method="POST" enctype="multipart/form-data">
           <div class="grid grid-cols-1 gap-4" id="formContainer">
@@ -57,6 +57,12 @@
             <button type="submit" class="w-40 rounded-md py-2 text-center text-sm text-white bg-primary hover:bg-primaryhover">Unggah</button>
           </div>
         </form>
+
+        <button onclick="window.history.back()"
+          class="text-sm font-bold text-gray-600 no-underline focus:outline-none text-start">
+          <span class="font-bold text-lg items-center">←</span> Kembali
+        </button>
+
       </div>
     </div>
   </div>

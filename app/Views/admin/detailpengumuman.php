@@ -48,10 +48,14 @@
                     <strong> Penulis: <?= esc($pengumuman['penulis']); ?> </strong>
                 </p>
             </div>
-            <div class="flex space-x-4">
+            <div class="flex flex-col md:flex-row justify-between mt-8 gap-4">
+                <button onclick="window.history.back()"
+                    class="text-sm font-bold text-gray-600 no-underline focus:outline-none text-start mt-6">
+                    <span class="font-bold text-lg items-center">←</span> Kembali
+                </button>
                 <a href="/admin/pengumuman/edit/<?= esc($pengumuman['id_pengumuman']); ?>">
                     <div class="mt-4">
-                        <button id="editpengumuman" class="w-48 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
+                        <button id="editPengumuman" class="w-full md:w-48 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
                             <i class="fas fa-edit"></i> Edit Pengumuman
                         </button>
                     </div>
