@@ -849,10 +849,9 @@ class PengusulController extends BaseController
         $model = new ArtikelModel();
 
         // Ambil input dari formulir
-        $judulArtikel = $this->request->getPost('judul');
+        $judul = $this->request->getPost('judul');
+        $slug = url_title($judul, '-', TRUE);
         $konten = $this->request->getPost('konten');
-
-        // Memproses foto yang diupload
         $foto = $this->request->getFile('foto');
 
         // Validasi input
@@ -895,16 +894,20 @@ class PengusulController extends BaseController
         }
 
         // Menghasilkan slug yang unik
-        $slug = url_title($judulArtikel, '-', true);
-        $existingArticle = $model->where('slug', $slug)->first(); // Cek apakah slug sudah ada
-        if ($existingArticle) {
-            return $this->response->setJSON(['success' => false, 'errors' => 'Judul sudah digunakan.']);
+        $slugExist = $model->where('slug', $slug)->first(); // Cek apakah slug sudah ada
+        if ($slugExist) {
+            return $this->response->setJSON([
+                'success' => false,
+                'messages' => [
+                    'judul' => 'Tautan dengan judul ini sudah tersedia. Silakan gunakan judul yang berbeda.'
+                ]
+            ]);
         }
 
         // Simpan data artikel ke dalam database
         $dataArtikel = [
             'id_pengusul' => session()->get('id_pengusul'),
-            'judul' => htmlspecialchars($judulArtikel, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+            'judul' => htmlspecialchars($judul, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
             'slug' => $slug,
             'konten' => htmlspecialchars($konten, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
             'tanggal' => date('Y-m-d H:i:s'),
