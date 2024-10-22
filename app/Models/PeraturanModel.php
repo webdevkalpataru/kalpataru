@@ -15,13 +15,14 @@ class PeraturanModel extends Model
         'file',
         'judul',
         'jenis',
+        'tanggal',
         'status'
     ];
 
     public function getAllPeraturan($keyword = null)
     {
         $builder = $this->db->table('panduan_kebijakan')
-            ->select('panduan_kebijakan.id_peraturan, panduan_kebijakan.judul, panduan_kebijakan.tentang, panduan_kebijakan.status, panduan_kebijakan.file, panduan_kebijakan.jenis, 
+            ->select('panduan_kebijakan.id_peraturan, panduan_kebijakan.judul, panduan_kebijakan.tentang, panduan_kebijakan.status, panduan_kebijakan.file, panduan_kebijakan.jenis, panduan_kebijakan.tanggal, 
                   COALESCE(admin.nama) as penulis')
             ->join('admin', 'admin.id_admin = panduan_kebijakan.id_admin', 'left');
 
@@ -37,7 +38,9 @@ class PeraturanModel extends Model
 
     public function getPeraturanTerbit()
     {
-        return $this->where('status', 'Terbit')->findAll();
+        return $this->where('status', 'Terbit')
+            ->orderBy('tanggal', 'DESC')
+            ->findAll();
     }
 
     public function countPeraturanTerbit()
@@ -49,6 +52,7 @@ class PeraturanModel extends Model
     {
         return $this->like('judul', $keyword)
             ->where('status', 'Terbit')
+            ->orderBy('tanggal', 'DESC')
             ->findAll();
     }
 

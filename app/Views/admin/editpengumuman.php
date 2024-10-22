@@ -38,19 +38,19 @@
               <input required id="judul" type="text" name="judul"
                 value="<?= esc($pengumuman['judul']); ?>"
                 class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2">
-              <div class="text-red-500" id="judulError"></div> <!-- Menampilkan pesan kesalahan judul -->
+              <div class="text-rejected" id="judulError"></div> <!-- Menampilkan pesan kesalahan judul -->
             </div>
             <div>
               <label class="block mb-2 text-sm text-black">Isi Pengumuman</label>
               <textarea required id="konten" name="konten"
                 class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2" rows="4"><?= esc($pengumuman['konten']); ?></textarea>
-              <div class="text-red-500" id="kontenError"></div> <!-- Menampilkan pesan kesalahan konten -->
+              <div class="text-rejected" id="kontenError"></div> <!-- Menampilkan pesan kesalahan konten -->
             </div>
             <div>
               <label class="block mb-2 text-sm text-black">Unggah Foto Pengumuman (.jpg/jpeg/png)</label>
               <input id="foto" name="foto" type="file" accept="image/*"
                 class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2">
-              <div class="text-red-500" id="fotoError"></div> <!-- Menampilkan pesan kesalahan foto -->
+              <div class="text-rejected" id="fotoError"></div>
             </div>
           </div>
           <div class="flex justify-end mt-4">

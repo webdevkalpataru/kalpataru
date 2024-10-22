@@ -27,7 +27,6 @@ class AdminController extends BaseController
         // Ambil parameter search dan status dari query string
         $keyword = $this->request->getGet('search');
         $status = $this->request->getGet('status');
-        $currentPage = $this->request->getVar('page_artikel') ? $this->request->getVar('page_artikel') : 1;
 
         // Query dasar untuk menampilkan artikel
         $query = $model->select('*');
@@ -456,11 +455,37 @@ class AdminController extends BaseController
     public function beritaAdmin()
     {
         $model = new BeritaModel();
-        $keyword = $this->request->getGet('search');
+        $perPage = 5;
 
-        $data['berita'] = $model->getAllBerita($keyword);
-        $data['countTerbit'] = count($data['berita']);
-        $data['title'] = "Berita Admin";
+        // Ambil parameter search dan status dari query string
+        $keyword = $this->request->getGet('search');
+        $status = $this->request->getGet('status');
+
+        // Query dasar untuk menampilkan berita
+        $query = $model->select('*');
+
+        // Filter berdasarkan status jika ada
+        if ($status) {
+            $query->where('status', $status);
+        }
+
+        // Pencarian berdasarkan keyword pada judul
+        if ($keyword) {
+            $query->like('judul', $keyword);
+        }
+
+        // Dapatkan data berita dengan pagination
+        $beritas = $query->orderBy('tanggal', 'DESC')
+            ->paginate($perPage, 'beritas');
+
+        // Data yang akan dikirimkan ke view
+        $data = [
+            'beritas' => $beritas,
+            'title' => "Berita Admin",
+            'pager' => $model->pager,
+            'keyword' => $keyword,
+            'status' => $status,
+        ];
 
         return view('admin/berita', $data);
     }
@@ -763,11 +788,37 @@ class AdminController extends BaseController
     public function pengumumanadmin()
     {
         $model = new PengumumanModel();
-        $keyword = $this->request->getGet('search');
+        $perPage = 5;
 
-        $data['pengumuman'] = $model->getAllPengumuman($keyword);
-        $data['countTerbit'] = count($data['pengumuman']);
-        $data['title'] = "Pengumuman Admin";
+        // Ambil parameter search dan status dari query string
+        $keyword = $this->request->getGet('search');
+        $status = $this->request->getGet('status');
+
+        // Query dasar untuk menampilkan pengumuman
+        $query = $model->select('*');
+
+        // Filter berdasarkan status jika ada
+        if ($status) {
+            $query->where('status', $status);
+        }
+
+        // Pencarian berdasarkan keyword pada judul
+        if ($keyword) {
+            $query->like('judul', $keyword);
+        }
+
+        // Dapatkan data pengumuman dengan pagination
+        $pengumumans = $query->orderBy('tanggal', 'DESC')
+            ->paginate($perPage, 'pengumumans');
+
+        // Data yang akan dikirimkan ke view
+        $data = [
+            'pengumumans' => $pengumumans,
+            'title' => "Pengumuman Admin",
+            'pager' => $model->pager,
+            'keyword' => $keyword,
+            'status' => $status,
+        ];
 
         return view('admin/pengumuman', $data);
     }
@@ -1049,11 +1100,37 @@ class AdminController extends BaseController
     public function peraturanadmin()
     {
         $model = new PeraturanModel();
-        $keyword = $this->request->getGet('search');
+        $perPage = 5;
 
-        $data['peraturan'] = $model->getAllPeraturan($keyword);
-        $data['countTerbit'] = count($data['peraturan']);
-        $data['title'] = "peraturan Admin";
+        // Ambil parameter search dan status dari query string
+        $keyword = $this->request->getGet('search');
+        $status = $this->request->getGet('status');
+
+        // Query dasar untuk menampilkan peraturan
+        $query = $model->select('*');
+
+        // Filter berdasarkan status jika ada
+        if ($status) {
+            $query->where('status', $status);
+        }
+
+        // Pencarian berdasarkan keyword pada judul
+        if ($keyword) {
+            $query->like('judul', $keyword);
+        }
+
+        // Dapatkan data peraturan dengan pagination
+        $peraturans = $query->orderBy('tanggal', 'DESC')
+            ->paginate($perPage, 'peraturans');
+
+        // Data yang akan dikirimkan ke view
+        $data = [
+            'peraturans' => $peraturans,
+            'title' => "Peraturan dan Kebijakan",
+            'pager' => $model->pager,
+            'keyword' => $keyword,
+            'status' => $status,
+        ];
 
         return view('admin/peraturan', $data);
     }
@@ -1081,23 +1158,23 @@ class AdminController extends BaseController
         $validation->setRules([
             'judul' => [
                 'label' => 'Judul',
-                'rules' => 'required|min_length[5]' // Judul harus unik dan panjang antara 5 dan 125 karakter
+                'rules' => 'required|min_length[5]' // Judul harus minimal 5 karakter
             ],
             'tentang' => [
                 'label' => 'Tentang',
-                'rules' => 'required|min_length[10]' // Konten harus ada dan panjang minimum 20 karakter
+                'rules' => 'required|min_length[10]' // Tentang harus minimal 10 karakter
             ],
             'jenis' => [
                 'label' => 'Jenis',
-                'rules' => 'required'
+                'rules' => 'required' // Jenis harus diisi
             ],
             'file' => [
                 'label' => 'File',
-                'rules' => 'required|uploaded[file]|max_size[file,1024]|mime_in[file,application/pdf]'
+                'rules' => 'uploaded[file]|max_size[file,1024]|mime_in[file,application/pdf]' // File harus diupload, ukurannya maksimal 1MB, dan harus PDF
             ]
         ]);
 
-
+        // Validasi
         if (!$this->validate($validation->getRules())) {
             return $this->response->setJSON([
                 'success' => false,
@@ -1107,7 +1184,7 @@ class AdminController extends BaseController
 
         // Menangani upload file
         $filePath = '';
-        if ($file && $file->isValid() && !$file->hasMoved()) {
+        if ($file->isValid() && !$file->hasMoved()) {
             // Memastikan tipe file dan membuat nama file acak
             $fileName = $file->getRandomName();
 
@@ -1122,23 +1199,25 @@ class AdminController extends BaseController
             return $this->response->setJSON(['success' => false, 'message' => 'File tidak valid atau belum diupload.']);
         }
 
-        // Simpan data pengumuman ke dalam database
+        // Simpan data peraturan ke dalam database
         $data = [
             'id_admin' => session()->get('id_admin'),
             'judul' => htmlspecialchars($judulPeraturan, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
             'tentang' => htmlspecialchars($tentang, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
             'jenis' => htmlspecialchars($jenis, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
             'file' => $filePath,
+            'tanggal' => date('Y-m-d'),
         ];
 
-        // Simpan pengumuman
+        // Simpan peraturan
         if ($model->insert($data)) {
-            return $this->response->setJSON(['success' => true, 'message' => 'Artikel berhasil ditambahkan.']);
+            return $this->response->setJSON(['success' => true, 'message' => 'Peraturan berhasil ditambahkan.']);
         } else {
             // Tampilkan pesan umum untuk kesalahan penyimpanan
-            return $this->response->setJSON(['success' => false, 'message' => 'Gagal menambahkan artikel.']);
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal menambahkan peraturan.']);
         }
     }
+
 
     public function detailperaturan($id_peraturan)
     {
@@ -1327,12 +1406,37 @@ class AdminController extends BaseController
     {
         $model = new VideoModel();
 
-        // Mengambil semua data video tanpa filter status
-        $video = $model->findAll();
+        $perPage = 5;
 
-        $data['video'] = $video;
-        $data['countAllVideos'] = count($data['video']); // Menghitung semua video
-        $data['title'] = "Video Admin";
+        // Ambil parameter search dan status dari query string
+        $keyword = $this->request->getGet('search');
+        $status = $this->request->getGet('status');
+
+        // Query dasar untuk menampilkan video
+        $query = $model->select('*');
+
+        // Filter berdasarkan status jika ada
+        if ($status) {
+            $query->where('status', $status);
+        }
+
+        // Pencarian berdasarkan keyword pada judul
+        if ($keyword) {
+            $query->like('judul_video', $keyword);
+        }
+
+        // Dapatkan data video dengan pagination
+        $videos = $query->orderBy('tanggal', 'DESC')
+            ->paginate($perPage, 'videos');
+
+        // Data yang akan dikirimkan ke view
+        $data = [
+            'videos' => $videos,
+            'title' => "Video Kalpataru",
+            'pager' => $model->pager,
+            'keyword' => $keyword,
+            'status' => $status,
+        ];
 
         return view('admin/video', $data);
     }
@@ -1469,7 +1573,6 @@ class AdminController extends BaseController
         $data = [
             'judul_video' => htmlspecialchars($judulVideo, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
             'link_video' => htmlspecialchars($link, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
-            'tanggal' => date('Y-m-d'),
         ];
 
         // Simpan artikel yang sudah diperbarui
@@ -1526,11 +1629,37 @@ class AdminController extends BaseController
     public function bukuAdmin()
     {
         $model = new BukuModel();
-        $keyword = $this->request->getGet('search');
+        $perPage = 5;
 
-        $data['buku'] = $model->getAllBuku($keyword);
-        $data['countTerbit'] = count($data['buku']);
-        $data['title'] = "Buku Penghargaan Kalpataru";
+        // Ambil parameter search dan status dari query string
+        $keyword = $this->request->getGet('search');
+        $status = $this->request->getGet('status');
+
+        // Query dasar untuk menampilkan buku
+        $query = $model->select('*');
+
+        // Filter berdasarkan status jika ada
+        if ($status) {
+            $query->where('status', $status);
+        }
+
+        // Pencarian berdasarkan keyword pada judul
+        if ($keyword) {
+            $query->like('judul', $keyword);
+        }
+
+        // Dapatkan data buku dengan pagination
+        $bukus = $query->orderBy('tanggal', 'DESC')
+            ->paginate($perPage, 'bukus');
+
+        // Data yang akan dikirimkan ke view
+        $data = [
+            'bukus' => $bukus,
+            'title' => "Buku Penghargaan Kalpataru",
+            'pager' => $model->pager,
+            'keyword' => $keyword,
+            'status' => $status,
+        ];
 
         return view('admin/buku', $data);
     }

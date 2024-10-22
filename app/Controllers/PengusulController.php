@@ -83,7 +83,11 @@ class PengusulController extends BaseController
             return redirect()->to('/login');
         }
 
-        return view('pengusul/tambahcalon', ['id_pengusul' => $id_pengusul]);
+        $data = [
+            'title' => 'Tambah Calon Usulan',
+            'id_pengusul' => $id_pengusul,
+        ];
+        return view('pengusul/tambahcalon', $data);
     }
 
     public function inputKategori()
@@ -177,11 +181,14 @@ class PengusulController extends BaseController
             'Sumatera Utara'
         ];
 
-        return view('pengusul/tambahcalonidentitas', [
+        $data = [
+            'title' => 'Tambah Identitas Calon Usulan',
             'id_pengusul' => $pendaftaranData['id_pengusul'],
             'kategori' => $pendaftaranData['kategori'],
-            'provinsi_list' => $provinsi_list
-        ]);
+            'provinsi_list' => $provinsi_list,
+        ];
+
+        return view('pengusul/tambahcalonidentitas', $data);
     }
 
     public function simpanCalonIdentitas()
@@ -656,6 +663,7 @@ class PengusulController extends BaseController
         session()->set('id_pendaftaran', $id_pendaftaran);
 
         $data = [
+            'title' => 'Edit Detail Usulan Saya - Pengusul',
             'pendaftaran' => $pendaftaran,
             'identitasc' => $identitas,
             'identitasabd' => $identitas,

@@ -36,23 +36,23 @@
             <div>
               <label class="block mb-2 text-sm text-black">Judul Peraturan / Kebijakan</label>
               <input required id="judul" type="text" name="judul" class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2">
-              <div class="text-red-500" id="judulError"></div> <!-- Menampilkan pesan kesalahan judul -->
+              <div class="text-rejected" id="judulError"></div>
             </div>
             <div>
               <label class="block mb-2 text-sm text-black">Jenis</label>
               <input required id="jenis" type="text" name="jenis" class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2">
-              <div class="text-red-500" id="jenisError"></div> <!-- Menampilkan pesan kesalahan judul -->
+              <div class="text-rejected" id="jenisError"></div>
             </div>
             <div>
               <label class="block mb-2 text-sm text-black">Tentang</label>
               <textarea required id="tentang" name="tentang" class="w-full bg-transparent text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2" rows="4"></textarea>
-              <div class="text-red-500" id="tentangError"></div> <!-- Menampilkan pesan kesalahan tentang -->
+              <div class="text-rejected" id="tentangError"></div>
             </div>
 
             <div>
               <label class="block mb-2 text-sm text-black">Unggah Dokumen Peraturan / Kebijakan <span class="text-primary">(.pdf)</span></label>
               <input required id="file" name="file" type="file" accept="aplication/pdf" class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2">
-              <div class="text-red-500" id="fileError"></div> <!-- Menampilkan pesan kesalahan file -->
+              <div class="text-rejected" id="fileError"></div>
             </div>
           </div>
           <div class="flex justify-end mt-4">

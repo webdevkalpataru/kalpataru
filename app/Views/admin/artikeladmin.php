@@ -30,7 +30,7 @@
 
             <!-- Tombol Tambah Artikel dan hasil -->
             <div class="my-4 flex flex-col md:flex-row justify-between md:items-center gap-4">
-                <a href="./tambah-artikel" class="w-full md:w-auto">
+                <a href="/admin/tambah-artikel" class="w-full md:w-auto">
                     <button id="tambahArtikel" class="w-full md:w-48 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover">
                         <span>&#10010</span> Tambah Artikel
                     </button>
@@ -45,6 +45,7 @@
                         <option value="">Semua Status Artikel</option>
                         <option value="Ditangguhkan" <?= ($status == 'Ditangguhkan') ? 'selected' : '' ?>>Ditangguhkan</option>
                         <option value="Terbit" <?= ($status == 'Terbit') ? 'selected' : '' ?>>Terbit</option>
+                        <option value="Ditolak" <?= ($status == 'Ditolak') ? 'selected' : '' ?>>Ditolak</option>
                     </select>
                 </form>
                 <form method="get" class="flex items-center justify-end my-4">
@@ -115,7 +116,7 @@
                                     </td>
                                     <td class="p-2 border-b text-center">
                                         <form action="/admin/artikel/hapus/<?= $artikel['id_artikel'] ?>" method="POST">
-                                            <button type="submit" class="text-red-600">
+                                            <button type="submit" class="text-rejected">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="1.5">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9L14.4 18m-4.8 0L9.26 9M18.23 6.83c.34.05.68.11 1.02.16m-1.02-.16L18.16 19.67a2.25 2.25 0 01-2.24 2.08H8.08a2.25 2.25 0 01-2.24-2.08L4.77 5.79m14.46 0a48.11 48.11 0 00-3.48-.4m-12 .56c.34-.06.68-.11 1.02-.16m0 0a48.11 48.11 0 013.48-.4m7.5 0v-.92c0-1.18-.91-2.16-2.09-2.2a51.96 51.96 0 00-3.32 0c-1.18.04-2.09 1.02-2.09 2.2v.92m7.5 0a48.67 48.67 0 00-7.5 0" />
                                                 </svg>
@@ -126,7 +127,7 @@
                             <?php endforeach; ?>
                         <?php else: ?>
                             <tr>
-                                <td colspan="7" class="p-4 text-center">Tidak ada artikel yang ditemukan</td>
+                                <td colspan="6" class="p-4 text-center">Tidak ada artikel yang ditemukan</td>
                             </tr>
                         <?php endif; ?>
                     </tbody>
@@ -228,27 +229,7 @@
             }
         });
 
-        // Function to toggle the button text
-        function toggleButtonText(button) {
-            const activeText = button.getAttribute("data-active");
-            const inactiveText = button.getAttribute("data-inactive");
-
-            if (button.innerText === inactiveText) {
-                button.innerText = activeText;
-            } else {
-                button.innerText = inactiveText;
-            }
-        }
-
-        // Select all buttons with the class 'toggleBtn'
-        const buttons = document.querySelectorAll(".toggleBtn");
-
-        // Attach the toggle function to each button's click event
-        buttons.forEach(button => {
-            button.addEventListener("click", () => toggleButtonText(button));
-        });
-    </script>
-    <script>
+        
         // POPUP MODAL HAPUS
         const deleteModal = document.getElementById('deleteModal');
         const confirmDeleteButton = document.getElementById('confirmDeleteButton');
