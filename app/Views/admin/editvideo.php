@@ -20,7 +20,7 @@
       <!-- Header -->
       <header class="bg-white shadow">
         <div class="container mx-auto flex items-center justify-between p-4 md:p-6">
-          <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Tambah Video</h1>
+          <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Edit Video</h1>
           <div class="flex items-center">
             <p class="text-gray-500 mr-2 md:mr-4">Hello, <?= session()->get('nama'); ?></p>
             <a href="/auth/logout" class="bg-rejected text-white px-3 py-2 md:px-4 md:py-2 rounded-lg inline-block">Keluar</a>
@@ -31,16 +31,16 @@
       <!-- Main Content -->
       <div>
         <!-- Cards Summary -->
-        <form id="isiVideoForm" action="/admin/tambah-video" method="POST" class="mt-4 mb-2 w-full">
+        <form id="isiVideoForm" action="/admin/video/edit/<?= esc($video['id_video']); ?>" method="POST" class="mt-4 mb-2 w-full">
           <div class="grid grid-cols-1 gap-4" id="formContainer">
             <div>
               <label class="block mb-2 text-sm text-black">Judul Video</label>
-              <input type="text" name="judul" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+              <input type="text" name="judul" value="<?= esc($video['judul_video']); ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
               <div class="text-red-500" id="judulError"></div> <!-- Menampilkan pesan kesalahan judul -->
             </div>
             <div>
               <label class="block mb-2 text-sm text-black">Tautan</label>
-              <input type="text" name="link" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+              <input type="text" name="link" value="<?= esc($video['link_video']); ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
               <div class="text-red-500" id="linkError"></div> <!-- Menampilkan pesan kesalahan tautan -->
             </div>
 
@@ -58,9 +58,8 @@
   <div id="successModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
     <div class="bg-white rounded-lg p-8 flex flex-col items-center max-w-md">
       <img src="/images/sukses.png" alt="Success Icon" class="w-16 h-16 mb-4">
-      <h2 class="text-center text-lg font-bold text-primary mb-2">Video berhasil ditambahkan!</h2>
-      <p class="text-center text-sm text-slate-600 mb-4">Status video Anda masih ditangguhkan, silahkan ubah status ke Terbit agar video bisa muncul di website.</p>
-      <button id="successBtn" class="bg-primary text-white py-2 px-4 rounded-lg">Lihat Status</button>
+      <h2 class="text-center text-lg font-bold text-primary mb-2">Video berhasil diedit</h2>
+      <button id="successBtn" class="bg-primary text-white py-2 px-4 rounded-lg">Oke</button>
     </div>
   </div>
 

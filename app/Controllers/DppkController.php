@@ -12,8 +12,6 @@ class DppkController extends BaseController
 
         // Ambil data dengan pagination, limit 5 per halaman
         $perPage = 5;
-        // Ambil halaman saat ini dari request, default ke halaman 1 jika tidak ada
-        $currentPage = $this->request->getVar('page_usulan') ? $this->request->getVar('page_usulan') : 1;
 
         // Ambil kategori dari filter
         $kategori = $this->request->getVar('kategori');

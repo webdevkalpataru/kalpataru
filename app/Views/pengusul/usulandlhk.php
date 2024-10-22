@@ -20,10 +20,21 @@
             <h4 class="block text-xl font-bold text-slate-800 mb-2">
                 Usulan: Provinsi <?= session()->get('provinsi'); ?>
             </h4>
-            <div class="lg:flex justify-between items-center">
-                <div></div>
-                <form method="get">
-                    <div class="relative w-56 transition-all focus-within:w-64 lg:mt-0 mt-4">
+
+            <div class="lg:flex justify-between items-center my-2">
+                <!-- Dropdown Filter -->
+                <form id="filterForm" action="" method="get" class="flex items-center">
+                    <label for="kategori" class="text-sm font-bold text-primary">Filter Kategori:</label>
+                    <select name="kategori" id="kategori" class="ml-2 py-1 border-2 border-primary text-primary rounded-md shadow-sm" onchange="document.getElementById('filterForm').submit();">
+                        <option value="">Semua Kategori</option>
+                        <option value="Perintis Lingkungan" <?= ($kategori == 'Perintis Lingkungan') ? 'selected' : '' ?>>Perintis Lingkungan</option>
+                        <option value="Pengabdi Lingkungan" <?= ($kategori == 'Pengabdi Lingkungan') ? 'selected' : '' ?>>Pengabdi Lingkungan</option>
+                        <option value="Penyelamat Lingkungan" <?= ($kategori == 'Penyelamat Lingkungan') ? 'selected' : '' ?>>Penyelamat Lingkungan</option>
+                        <option value="Pembina Lingkungan" <?= ($kategori == 'Pembina Lingkungan') ? 'selected' : '' ?>>Pembina Lingkungan</option>
+                    </select>
+                </form>
+                <form method="get" class="flex items-center justify-end my-4">
+                    <div class="relative lg:w-56 w-80 transition-all focus-within:w-64 lg:mt-0 mt-4">
                         <input
                             placeholder="Masukan kata kunci"
                             class="input shadow-lg focus:border-2 border-2 text-primary border-primary px-5 py-1 pr-10 rounded-md w-full outline-none"
@@ -43,9 +54,9 @@
                         </svg>
                     </div>
                 </form>
-
             </div>
-            <div class="relative flex flex-col w-full h-full mt-2 overflow-hidden text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
+
+            <div class="relative flex flex-col w-full h-full overflow-hidden text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
                 <div class="overflow-x-auto">
                     <table class="w-full text-left table-auto min-w-max">
                         <thead>
@@ -107,21 +118,27 @@
                                             </p>
                                         </td>
                                         <td class="p-4 border-b border-slate-200 text-center">
-                                            <p id="<?= $item['status_pendaftaran']; ?>" class="block text-xs font-bold text-accepted w-24"><?= $item['status_pendaftaran']; ?></p>
+                                            <p id="<?= $item['status_pendaftaran']; ?>" class="block text-xs font-bold text-accepted"><?= $item['status_pendaftaran']; ?></p>
                                         </td>
-                                        <td class="p-2 border-b border-slate-200 text-center">
-                                            <a href="./detailusulansaya/<?= $item['id_pendaftaran']; ?>">
+                                        <td class="border-b border-slate-200 text-center">
+                                            <button
+                                                onclick="window.location.href='detailusulansaya/<?= $item['id_pendaftaran']; ?>'"
+                                                class="size-6"
+                                                style="background: none; border: none; cursor: pointer;">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v16.5c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Zm3.75 11.625a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
                                                 </svg>
-                                            </a>
+                                            </button>
                                         </td>
-                                        <td class="p-2 border-b border-slate-200 text-center">
-                                                <a href="./pdf/<?= $item['kode_registrasi']; ?>">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
-                                                    </svg>
-                                                </a>
+                                        <td class="border-b border-slate-200 text-center">
+                                            <button
+                                                onclick="window.location.href='pdf/<?= $item['kode_registrasi']; ?>'"
+                                                class="size-6"
+                                                style="background: none; border: none; cursor: pointer;">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                                                </svg>
+                                            </button>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -129,7 +146,7 @@
                                 <tr>
                                     <td colspan="7" class="p-4 border-b border-slate-200 text-center">
                                         <p class="block text-xs text-slate-800">
-                                            Tidak ada data usulan.
+                                            Tidak ada data usulan
                                         </p>
                                     </td>
                                 </tr>

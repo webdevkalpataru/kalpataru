@@ -248,9 +248,9 @@ class PendaftaranModel extends Model
         return $this->db->table('kegiatan')->insert($data);
     }
 
-    public function getKegiatanByIdPendaftaran($id_pendaftaran)
+        public function getKegiatanByPendaftaranId($id_pendaftaran)
     {
-        return $this->db->table('kegiatan')->where('id_pendaftaran', $id_pendaftaran)->get()->getRowArray();
+        return $this->db->table('kegiatan')->where('id_pendaftaran', $id_pendaftaran)->get()->getResultArray();
     }
 
     public function updateKegiatan($data, $where)
@@ -322,6 +322,7 @@ class PendaftaranModel extends Model
         return $this->db->table('keistimewaan')->where($where)->update($data);
     }
 
+
     // -------------------------------------------------------------------------
 
 
@@ -353,14 +354,6 @@ class PendaftaranModel extends Model
     public function deletePendaftaran($id_pendaftaran)
     {
         return $this->delete($id_pendaftaran);
-    }
-
-    public function getKegiatanByPendaftaranId($id_pendaftaran)
-    {
-        return $this->db->table('kegiatan')
-            ->where('id_pendaftaran', $id_pendaftaran)
-            ->get()
-            ->getResultArray();
     }
 
     public function updateStatusAndEdit($id_pendaftaran)
