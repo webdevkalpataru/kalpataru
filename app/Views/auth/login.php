@@ -86,12 +86,12 @@
                     </div>
 
                     <!-- CAPTCHA -->
-                    <label for="captcha" class="text-xs">Masukkan CAPTCHA</label>
+                    <label for="captcha" class="text-xs mb-2">Masukkan CAPTCHA</label>
                     <div class="captcha-box">
                         <div id="captchaText" class="captcha-image"></div>
                         <button type="button" onclick="generateCaptcha()" class="text-xs text-primary hover:underline">Ganti CAPTCHA</button>
                     </div>
-                    <input id="captchaInput" type="text" name="captcha" required class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none" placeholder="Masukkan CAPTCHA">
+                    <input id="captchaInput" type="text" name="captcha" required class="border-2 border-gray-300 text-primary mt-2 text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none" placeholder="Masukkan CAPTCHA">
                     
                     <div class="flex items-center justify-between flex-wrap">
                         <p class="text-gray-900 text-xs">Belum punya akun? <a href="./register" class="text-primary hover:underline font-bold">Daftar Sekarang</a></p>
@@ -131,68 +131,69 @@
                 `<img src="/images/hide.svg" alt="hide" class="w-4 h-4 mb-4">`;
         });
 
-        // Simple CAPTCHA generator
-        function generateCaptcha() {
-            const charsArray = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            const lengthOtp = 6;
-            let captcha = [];
-            for (let i = 0; i < lengthOtp; i++) {
-                const index = Math.floor(Math.random() * charsArray.length + 1);
-                captcha.push(charsArray[index]);
-            }
-            document.getElementById("captchaText").textContent = captcha.join("");
+        
+    // Simple CAPTCHA generator (only numbers and 4 characters)
+    function generateCaptcha() {
+        const charsArray = "0123456789"; // Only numbers
+        const lengthOtp = 4; // 4 characters long
+        let captcha = [];
+        for (let i = 0; i < lengthOtp; i++) {
+            const index = Math.floor(Math.random() * charsArray.length);
+            captcha.push(charsArray[index]);
+        }
+        document.getElementById("captchaText").textContent = captcha.join("");
+    }
+
+    // Validate form
+    function validateForm(event) {
+        event.preventDefault();
+        const captchaInput = document.getElementById('captchaInput').value;
+        const captchaText = document.getElementById('captchaText').textContent;
+
+        if (captchaInput !== captchaText) {
+            showToast("CAPTCHA tidak sesuai");
+            return;
         }
 
-        // Validate form
-        function validateForm(event) {
-            event.preventDefault();
-            const captchaInput = document.getElementById('captchaInput').value;
-            const captchaText = document.getElementById('captchaText').textContent;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
 
-            if (captchaInput !== captchaText) {
-                showToast("CAPTCHA tidak sesuai");
-                return;
-            }
+        const form = event.target;
+        const formData = new FormData(form);
 
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+        fetch(form.action, {
+                method: form.method,
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = data.redirectUrl;
+                } else {
+                    showToast(data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showToast('Terjadi kesalahan. Silakan coba lagi');
+            });
+    }
 
-            const form = event.target;
-            const formData = new FormData(form);
+    // Show toast with custom message
+    function showToast(message) {
+        const toast = document.getElementById('toast');
+        toast.textContent = message;
+        toast.classList.add('show-toast');
+        setTimeout(() => {
+            toast.classList.remove('show-toast');
+        }, 3000);
+    }
 
-            fetch(form.action, {
-                    method: form.method,
-                    body: formData,
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        window.location.href = data.redirectUrl;
-                    } else {
-                        showToast(data.message);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    showToast('Terjadi kesalahan. Silakan coba lagi');
-                });
-        }
-
-        // Show toast with custom message
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.classList.add('show-toast');
-            setTimeout(() => {
-                toast.classList.remove('show-toast');
-            }, 3000);
-        }
-
-        // Generate CAPTCHA on page load
-        window.onload = function () {
-            generateCaptcha();
-        }
-    </script>
+    // Generate CAPTCHA on page load
+    window.onload = function () {
+        generateCaptcha();
+    }
+</script>
 </body>
 
 </html>
