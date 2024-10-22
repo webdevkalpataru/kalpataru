@@ -195,101 +195,58 @@ class PengusulController extends BaseController
             return redirect()->back()->with('error', 'Data kategori atau pendaftaran tidak ditemukan.');
         }
 
-        /* $validation = \Config\Services::validation();
-        $validation->setRules([
-            'nama_individu' => 'required|alpha_space',
-            'nama_ketua' => 'required|alpha_space',
-            'nama_kelompok' => 'required',
-            'jumlah_anggota' => 'required|numeric',
-            'tahun_pembentukan' => 'required|valid_date',
-            'nik' => 'required|numeric|exact_length[16]|is_unique[pendaftaran.nik]',
-            'nik_individu' => 'required|numeric|exact_length[16]|is_unique[pendaftaran.nik]',
-            'tempat_lahir' => 'required|alpha_space',
-            'tanggal_lahir' => 'required|valid_date',
-            'usia' => 'required|numeric',
-            'jenis_kelamin' => 'required',
-            'pekerjaan' => 'required',
-            'telepon' => 'required|numeric',
-            'email' => 'required|valid_email',
-            'pendidikan' => 'required',
-            'jalan' => 'required',
-            'rt_rw' => 'required',
-            'desa' => 'required',
-            'kecamatan' => 'required',
-            'kab_kota' => 'required',
-            'provinsi' => 'required',
-            'kode_pos' => 'required|numeric',
-            'media_sosial' => 'required',
-            'legalitas' => 'uploaded[legalitas]|mime_in[legalitas,application/pdf]|max_size[legalitas,1024]',
-            'ktp' => 'uploaded[ktp]|mime_in[ktp,image/jpg,image/jpeg]|max_size[ktp,1024]',
-            'skck' => 'uploaded[skck]|mime_in[skck,application/pdf]|max_size[skck,1024]',
-            'tanggal_skck' => 'required|valid_date',
-            'tanggal_legalitas' => 'required|valid_date'
-        ], [
-            'required' => '{field} harus diisi.',
-            'numeric' => '{field} hanya boleh berisi angka.',
-            'valid_date' => '{field} harus berisi tanggal yang valid.',
-            'valid_email' => '{field} harus berisi email yang valid.',
-            'exact_length' => '{field} harus terdiri dari tepat {param} digit.',
-            'uploaded' => '{field} harus diunggah.',
-            'mime_in' => '{field} harus berformat {param}.',
-        ]); */
+        $validation = \Config\Services::validation();
 
+        // Aturan validasi
+        $rules = [
+            'nama'     => 'required|min_length[3]|max_length[100]',
+            'nik'      => 'required|exact_length[16]|numeric|is_unique[pendaftaran.nik]',
+            'tempat_lahir'      => 'required|min_length[2]|max_length[50]',
+            'tanggal_lahir'     => 'required|valid_date',
+            'usia'              => 'required|numeric|min_length[1]|max_length[3]',
+            'jenis_kelamin'     => 'required',
+            'pekerjaan'         => 'required|min_length[3]|max_length[100]',
+            'telepon'           => 'required|numeric|min_length[10]|max_length[15]',
+            'email'             => 'required|valid_email',
+            'pendidikan'        => 'required|min_length[2]|max_length[50]',
+            'jalan'             => 'required|min_length[3]|max_length[255]',
+            'rt_rw'             => 'required|max_length[10]',
+            'desa'              => 'required|min_length[3]|max_length[100]',
+            'kecamatan'         => 'required|min_length[3]|max_length[100]',
+            'kab_kota'          => 'required|min_length[3]|max_length[100]',
+            'provinsi'          => 'required',
+            'kode_pos'          => 'required|numeric|exact_length[5]',
+            'media_sosial'      => 'permit_empty|min_length[3]|max_length[100]',
+            'ktp'               => 'uploaded[ktp]|mime_in[ktp,image/jpg,image/jpeg]|max_size[ktp,1024]',
+            'skck'              => 'uploaded[skck]|mime_in[skck,application/pdf]|max_size[skck,1024]',
+            'tanggal_skck'      => 'required|valid_date',
+        ];
 
-        // Cek apakah validasi gagal
-        /* if (!$this->validate($validation->getRules())) {
-            // Kembalikan ke halaman sebelumnya dengan input dan pesan error
+        if (!$this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $validation->getErrors());
-        } */
+        }
 
+        // Pengelolaan file KTP, SKCK, dan legalitas
+        $ktpFile = $this->request->getFile('ktp');
+        $skckFile = $this->request->getFile('skck');
         $legalitasFile = $this->request->getFile('legalitas');
 
-        // Cek apakah ada file yang diunggah untuk legalitas
-        if ($legalitasFile && $legalitasFile->isValid() && !$legalitasFile->hasMoved()) {
-            if ($legalitasFile->getExtension() === 'pdf' && $legalitasFile->getSize() <= 1024 * 1024) {
-                $originalName = pathinfo($legalitasFile->getClientName(), PATHINFO_FILENAME);
-                $extension = $legalitasFile->getExtension();
-                $legalitasFileName = $originalName . '_' . bin2hex(random_bytes(5)) . '.' . $extension;
-                $legalitasFile->store('legalitas', $legalitasFileName);
-            } else {
-                return redirect()->back()->with('error', 'File harus berupa PDF dan ukuran maksimal 1MB.');
-            }
-        } else {
-            // Jika tidak ada file legalitas yang diunggah, Anda dapat mengatur nilai default atau mengabaikannya
-            $legalitasFileName = null;
-        }
+        // Proses file KTP
+        $ktpFileName = $this->handleFileUpload($ktpFile, ['jpg', 'jpeg'], 'ktp');
 
+        // Proses file SKCK
+        $skckFileName = $this->handleFileUpload($skckFile, ['pdf'], 'skck');
 
-        $ktpFile = $this->request->getFile('ktp');
-        if ($ktpFile->isValid() && !$ktpFile->hasMoved()) {
-            $allowedExtensions = ['jpg', 'jpeg'];
-            if (in_array($ktpFile->getExtension(), $allowedExtensions) && $ktpFile->getSize() <= 1024 * 1024) {
-                $originalName = pathinfo($ktpFile->getClientName(), PATHINFO_FILENAME);
-                $extension = $ktpFile->getExtension();
-                $ktpFileName = $originalName . '_' . bin2hex(random_bytes(5)) . '.' . $extension;
-                $ktpFile->store('ktp', $ktpFileName);
-            } else {
-                return redirect()->back()->with('error', 'File harus berupa JPG atau JPEG dan ukuran maksimal 1MB.');
-            }
-        }
-
-
-        $skckFile = $this->request->getFile('skck');
-        if ($skckFile->isValid() && !$skckFile->hasMoved()) {
-            if ($skckFile->getExtension() === 'pdf' && $skckFile->getSize() <= 1024 * 1024) {
-                $originalName = pathinfo($skckFile->getClientName(), PATHINFO_FILENAME);
-                $extension = $skckFile->getExtension();
-                $skckFileName = $originalName . '_' . bin2hex(random_bytes(5)) . '.' . $extension;
-                $skckFile->store('skck', $skckFileName);
-            } else {
-                return redirect()->back()->with('error', 'File harus berupa PDF dan ukuran maksimal 1MB.');
-            }
+        // Proses file legalitas (opsional)
+        $legalitasFileName = null;
+        if ($legalitasFile && $legalitasFile->isValid()) {
+            $legalitasFileName = $this->handleFileUpload($legalitasFile, ['pdf'], 'legalitas');
         }
 
         // Simpan data lainnya tergantung kategori
         if ($pendaftaranData['kategori'] == 'Penyelamat Lingkungan') {
             $data = [
-                'nama' => $this->request->getPost('nama_ketua'),
+                'nama' => $this->request->getPost('nama'),
                 'tahun_pembentukan' => $this->request->getPost('tahun_pembentukan'),
                 'jumlah_anggota' => $this->request->getPost('jumlah_anggota'),
                 'jalan' => $this->request->getPost('jalan'),
@@ -318,8 +275,8 @@ class PengusulController extends BaseController
             ];
         } else {
             $data = [
-                'nama' => $this->request->getPost('nama_individu'),
-                'nik' => $this->request->getPost('nik_individu'),
+                'nama' => $this->request->getPost('nama'),
+                'nik' => $this->request->getPost('nik'),
                 'tempat_lahir' => $this->request->getPost('tempat_lahir'),
                 'tanggal_lahir' => $this->request->getPost('tanggal_lahir'),
                 'usia' => $this->request->getPost('usia'),
@@ -354,6 +311,28 @@ class PengusulController extends BaseController
         } else {
             return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data.');
         }
+    }
+
+    /**
+     * Fungsi untuk menangani upload file.
+     * 
+     * @param \CodeIgniter\HTTP\Files\UploadedFile $file
+     * @param array $allowedExtensions
+     * @param string $directory
+     * @return string|null Nama file yang telah diunggah atau null
+     */
+    private function handleFileUpload($file, $allowedExtensions, $directory)
+    {
+        if ($file instanceof \CodeIgniter\HTTP\Files\UploadedFile && $file->isValid() && !$file->hasMoved()) {
+            if (in_array($file->getExtension(), $allowedExtensions) && $file->getSize() <= 1024 * 1024) {
+                $originalName = pathinfo($file->getClientName(), PATHINFO_FILENAME);
+                $extension = $file->getExtension();
+                $fileName = $originalName . '_' . bin2hex(random_bytes(5)) . '.' . $extension;
+                $file->move(WRITEPATH . 'uploads/' . $directory, $fileName);
+                return $fileName;
+            }
+        }
+        return null;
     }
 
     public function showKTP($filename)
@@ -718,7 +697,6 @@ class PengusulController extends BaseController
             return redirect()->to('pengusul/detailusulansayaedit/' . $id_pendaftaran . '?section=' . $nextFormTarget)
                     ->with('success', ucfirst($formType) . ' berhasil disimpan.');
     }
-
 
     public function detailUsulanSayaEdit($id_pendaftaran)
     {
