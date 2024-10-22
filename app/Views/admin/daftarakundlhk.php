@@ -67,14 +67,45 @@
                             </div>
 
                             <div class="space-y-2">
-                            <label class="block text-sm text-black">Pilih Provinsi</label>
+    <label class="block text-sm text-black">Pilih Provinsi</label>
+    <select class="block w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-primary">
+        <option value="" disabled selected>Pilih Provinsi</option>
+        <option value="Aceh">Aceh</option>
+        <option value="Bali">Bali</option>
+        <option value="Banten">Banten</option>
+        <option value="Bengkulu">Bengkulu</option>
+        <option value="Gorontalo">Gorontalo</option>
+        <option value="Jambi">Jambi</option>
+        <option value="Jawa Barat">Jawa Barat</option>
+        <option value="Jawa Tengah">Jawa Tengah</option>
+        <option value="Jawa Timur">Jawa Timur</option>
+        <option value="Kalimantan Barat">Kalimantan Barat</option>
+        <option value="Kalimantan Tengah">Kalimantan Tengah</option>
+        <option value="Kalimantan Selatan">Kalimantan Selatan</option>
+        <option value="Kalimantan Timur">Kalimantan Timur</option>
+        <option value="Kepulauan Bangka Belitung">Kepulauan Bangka Belitung</option>
+        <option value="Kepulauan Riau">Kepulauan Riau</option>
+        <option value="Lampung">Lampung</option>
+        <option value="Maluku">Maluku</option>
+        <option value="Maluku Utara">Maluku Utara</option>
+        <option value="Nusa Tenggara Barat">Nusa Tenggara Barat</option>
+        <option value="Nusa Tenggara Timur">Nusa Tenggara Timur</option>
+        <option value="Papua">Papua</option>
+        <option value="Papua Barat">Papua Barat</option>
+        <option value="Riau">Riau</option>
+        <option value="Sulawesi Barat">Sulawesi Barat</option>
+        <option value="Sulawesi Tengah">Sulawesi Tengah</option>
+        <option value="Sulawesi Selatan">Sulawesi Selatan</option>
+        <option value="Sulawesi Utara">Sulawesi Utara</option>
+        <option value="Sumatera Barat">Sumatera Barat</option>
+        <option value="Sumatera Selatan">Sumatera Selatan</option>
+        <option value="Sumatera Utara">Sumatera Utara</option>
+        <option value="Yogyakarta">Yogyakarta</option>
+    </select>
+</div>
+
                             
-                            <select name="provinsi" id="provinsi" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required>
-                            <option value="" disabled selected>Pilih Provinsi</option>
-                                <?php foreach ($provinsi_list as $provinsi) { ?>
-                                    <option value="<?php echo $provinsi; ?>"><?php echo $provinsi; ?></option>
-                                <?php } ?>
-                            </select>
+                           
                         </div>
                         <div class="grid gap-1 mb-2">
                         <label for="surat_pengantar" class="text-xs">Surat Pengantar <span class="text-primary">(.pdf)</span></label>

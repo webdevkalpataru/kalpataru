@@ -2574,6 +2574,10 @@ video {
     margin-top: 1.75rem;
   }
 
+  .lg\:mt-20 {
+    margin-top: 5rem;
+  }
+
   .lg\:block {
     display: block;
   }

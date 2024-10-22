@@ -14,27 +14,36 @@ class PublikasiController extends BaseController
     public function berita()
     {
         $model = new BeritaModel();
+
+        // Ambil data dengan pagination, limit 5 per halaman
+        $perPage = 5;
+
         $keyword = $this->request->getGet('search');
 
         if ($keyword) {
-            $data['berita'] = $model->searchBeritaTerbit($keyword);
-            $data['countTerbit'] = count($data['berita']);
+            // Jika ada pencarian, ambil berita yang sesuai dengan judul dan statusnya "Terbit" dengan pagination
+            $data['beritas'] = $model->where('status', 'Terbit')
+                ->like('judul', $keyword) // Cari berdasarkan judul
+                ->orderBy('tanggal', 'DESC')
+                ->paginate($perPage, 'beritas'); // Paginate hasil pencarian
+            $countTerbit = $model->where('status', 'Terbit')
+                ->like('judul', $keyword) // Hitung hanya yang cocok dengan pencarian
+                ->countAllResults(); // Hitung jumlah berita hasil pencarian
+            $data['pager'] = $model->pager; // Tidak ada pagination jika ada pencarian
         } else {
-            $data['berita'] = $model->getBeritaTerbit();
-            $data['countTerbit'] = $model->countBeritaTerbit();
-        }
-        $model = new BeritaModel();
-        $keyword = $this->request->getGet('search');
-
-        if ($keyword) {
-            $data['berita'] = $model->searchBeritaTerbit($keyword);
-            $data['countTerbit'] = count($data['berita']);
-        } else {
-            $data['berita'] = $model->getBeritaTerbit();
-            $data['countTerbit'] = $model->countBeritaTerbit();
+            // Jika tidak ada pencarian, ambil berita yang statusnya "Terbit" dengan pagination
+            $data['beritas'] = $model->where('status', 'Terbit')
+                ->orderBy('tanggal', 'DESC')
+                ->paginate($perPage, 'beritas');
+            $countTerbit = $model->where('status', 'Terbit')->countAllResults(); // Hanya hitung artikel yang berstatus "Terbit"
+            $data['pager'] = $model->pager; // Hanya tetapkan pager jika menggunakan paginate
         }
 
-        $data['title'] = "Berita";
+        // Siapkan data untuk dikirim ke view
+        $data['keyword'] = $keyword;
+        $data['countTerbit'] = $countTerbit;
+        $data['title'] = "Daftar Artikel Terbit";
+
         return view('berita', $data);
     }
 

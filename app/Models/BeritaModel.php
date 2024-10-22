@@ -46,7 +46,9 @@ class BeritaModel extends Model
 
     public function getBeritaTerbit()
     {
-        return $this->where('status', 'Terbit')->findAll();
+        return $this->where('status', 'Terbit')
+            ->orderBy('tanggal', 'DESC')
+            ->findAll();
     }
 
     public function countBeritaTerbit()
@@ -58,6 +60,7 @@ class BeritaModel extends Model
     {
         return $this->like('judul', $keyword)
             ->where('status', 'Terbit')
+            ->orderBy('tanggal', 'DESC')
             ->findAll();
     }
 

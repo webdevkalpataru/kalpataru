@@ -361,6 +361,55 @@ class AdminController extends BaseController
         return view('admin/akundlhk', ['title' => 'Akun DLHK']);
     }
 
+    public function arsippenerima()
+    {
+        $data['title'] = "Arsip Penerima";
+        return view('admin/arsippenerima', ['title' => 'Arsip Penerima']);
+    }
+
+    public function datacalon()
+    {
+        $data['title'] = "Data Calon";
+        return view('admin/datacalon', ['title' => 'Data Calon']);
+    }
+
+    public function sidang1()
+    {
+        $data['title'] = "Sidang 1";
+        return view('admin/sidang1', ['title' => 'Sidang 1']);
+    }
+
+    public function editpamflet()
+    {
+        $data['title'] = "Edit Pamflet";
+        return view('admin/editpamflet', ['title' => 'Edit Pamflet']);
+    }
+
+    public function sidang2()
+    {
+        $data['title'] = "Sidang 2";
+        return view('admin/sidang2', ['title' => 'Sidang 2']);
+    }
+
+    public function arsipselengkapnya()
+    {
+        $data['title'] = "Arsip Selengkapnya";
+        return view('admin/arsipselengkapnya', ['title' => 'Arsip Selengkapnya']);
+    }
+
+    public function nominasi()
+    {
+        $data['title'] = "Nominasi";
+        return view('admin/nominasi', ['title' => 'Nominasi']);
+    }
+
+    public function tambaharsip()
+    {
+        $data['title'] = "Arsip Penerima";
+        return view('admin/tambaharsip', ['title' => 'Tambah Arsip']);
+    }
+
+
     public function akuntimteknis()
     {
         $data['title'] = "Akun Tim Teknis";
