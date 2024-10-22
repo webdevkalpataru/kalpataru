@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\PublikasiModel;
 use App\Models\ArtikelModel;
 use App\Models\BeritaModel;
+use App\Models\VideoModel;
 
 helper('text');
 
@@ -13,17 +14,36 @@ class PublikasiController extends BaseController
     public function berita()
     {
         $model = new BeritaModel();
+
+        // Ambil data dengan pagination, limit 5 per halaman
+        $perPage = 5;
+
         $keyword = $this->request->getGet('search');
 
         if ($keyword) {
-            $data['berita'] = $model->searchBeritaTerbit($keyword);
-            $data['countTerbit'] = count($data['berita']);
+            // Jika ada pencarian, ambil berita yang sesuai dengan judul dan statusnya "Terbit" dengan pagination
+            $data['beritas'] = $model->where('status', 'Terbit')
+                ->like('judul', $keyword) // Cari berdasarkan judul
+                ->orderBy('tanggal', 'DESC')
+                ->paginate($perPage, 'beritas'); // Paginate hasil pencarian
+            $countTerbit = $model->where('status', 'Terbit')
+                ->like('judul', $keyword) // Hitung hanya yang cocok dengan pencarian
+                ->countAllResults(); // Hitung jumlah berita hasil pencarian
+            $data['pager'] = $model->pager; // Tidak ada pagination jika ada pencarian
         } else {
-            $data['berita'] = $model->getBeritaTerbit();
-            $data['countTerbit'] = $model->countBeritaTerbit();
+            // Jika tidak ada pencarian, ambil berita yang statusnya "Terbit" dengan pagination
+            $data['beritas'] = $model->where('status', 'Terbit')
+                ->orderBy('tanggal', 'DESC')
+                ->paginate($perPage, 'beritas');
+            $countTerbit = $model->where('status', 'Terbit')->countAllResults(); // Hanya hitung artikel yang berstatus "Terbit"
+            $data['pager'] = $model->pager; // Hanya tetapkan pager jika menggunakan paginate
         }
 
-        $data['title'] = "Berita";
+        // Siapkan data untuk dikirim ke view
+        $data['keyword'] = $keyword;
+        $data['countTerbit'] = $countTerbit;
+        $data['title'] = "Daftar Artikel Terbit";
+
         return view('berita', $data);
     }
 
@@ -47,23 +67,42 @@ class PublikasiController extends BaseController
             'berita' => $berita,
         ];
         return view('detailberita', $data);
+        return view('berita', $data);
     }
 
     public function artikel()
     {
         $model = new ArtikelModel();
+
+        // Ambil data dengan pagination, limit 5 per halaman
+        $perPage = 5;
+
+        // Ambil keyword dari input search
         $keyword = $this->request->getGet('search');
 
         if ($keyword) {
-            $data['artikels'] = $model->searchArtikelTerbit($keyword);
-            $data['countTerbit'] = count($data['artikels']);
+            // Jika ada pencarian, ambil artikel yang sesuai dengan judul dan statusnya "Terbit" dengan pagination
+            $data['artikels'] = $model->where('status', 'Terbit')
+                ->like('judul', $keyword) // Cari berdasarkan judul
+                ->orderBy('tanggal', 'DESC')
+                ->paginate($perPage, 'artikels'); // Paginate hasil pencarian
+            $countTerbit = $model->where('status', 'Terbit')
+                ->like('judul', $keyword) // Hitung hanya yang cocok dengan pencarian
+                ->countAllResults(); // Hitung jumlah artikel hasil pencarian
+            $data['pager'] = $model->pager; // Tidak ada pagination jika ada pencarian
         } else {
-            $data['artikels'] = $model->getArtikelTerbit();
-            $data['countTerbit'] = $model->countArtikelTerbit();
+            // Jika tidak ada pencarian, ambil artikel yang statusnya "Terbit" dengan pagination
+            $data['artikels'] = $model->where('status', 'Terbit')
+                ->orderBy('tanggal', 'DESC')
+                ->paginate($perPage, 'artikels');
+            $countTerbit = $model->where('status', 'Terbit')->countAllResults(); // Hanya hitung artikel yang berstatus "Terbit"
+            $data['pager'] = $model->pager; // Hanya tetapkan pager jika menggunakan paginate
         }
 
+        // Siapkan data untuk dikirim ke view
+        $data['keyword'] = $keyword;
+        $data['countTerbit'] = $countTerbit;
         $data['title'] = "Daftar Artikel Terbit";
-
 
         return view('artikel', $data);
     }
@@ -92,14 +131,14 @@ class PublikasiController extends BaseController
 
     public function video()
     {
-        $PublikasiModel = new PublikasiModel();
-        $VideoData = $PublikasiModel->TampilVideo();
+        $model = new VideoModel();
+        $video = $model->where('status', 'terbit')->findAll();
 
-        $data['video'] = $VideoData['data_video'];
-        $data['total_video'] = $VideoData['total_video'];
+        $data['video'] = $video;
+        $data['countTerbit'] = count($data['video']);
+        $data['title'] = "Video Admin";
 
-        $data['title'] = "Video";
-        return view('video', $data, ['title' => 'Video']);
+        return view('video', $data);
     }
 
     public function buku()

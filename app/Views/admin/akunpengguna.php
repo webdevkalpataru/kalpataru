@@ -28,7 +28,10 @@
         <a href="../admin/daftarakunpengguna">
           <button id="tambahCalon" class="w-48 rounded-md py-2 ml-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button"> <span>&#10010</span> Tambah Akun Penerima</button>
         </a>
+        
       </div>
+
+      
 
       <div class="relative flex flex-col w-full h-full bg-white shadow-md rounded-lg bg-clip-border my-6">
         <table class="w-full text-left table-auto min-w-max mx-auto">
@@ -65,6 +68,9 @@
                 </p>
               </th>
               <th class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
+                  <p class="flex items-center font-bold justify-center gap-2 text-sm  leading-none text-slate-800">Kata Sandi</p>
+                </th>
+              <th class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
                 <p class="flex items-center justify-center gap-2 text-sm font-bold leading-none text-slate-800">
                   Hapus
                 </p>
@@ -85,6 +91,7 @@
               <td class="p-4 border-b border-slate-200 text-center">
                 <p class="block text-sm text-slate-800">Jawa Barat</p>
               </td>
+              
               <td class="p-4 border-b border-slate-200 text-center">
                 <div>
                   <button id="uploadBtn" class="mt-4 w-3/2 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="submit">Selengkapnya</button>
@@ -93,6 +100,9 @@
               <td class="p-4 border-b border-slate-200 text-center">
                 <p>Perintis Lingkungan</p>
               </td>
+              <td class="p-4 border-b border-slate-200 text-center">
+                  <button id="sandi" class="mt-4 w-3/2 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-rejected hover:bg-rejected active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Lupa Sandi</button>
+                </td>
               <td class="p-4 border-b border-slate-200 text-center">
                 <button>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="red" class="size-6">
@@ -111,6 +121,40 @@
             </svg>
           </button>
         </div>
+        <div id="modalLupaSandi" class="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50 hidden">
+    <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+      <h2 class="text-xl font-semibold mb-4">Reset Kata Sandi</h2>
+      <form>
+        <label for="newPassword" class="block text-sm font-medium text-gray-700">Kata Sandi Baru</label>
+        <input id="newPassword" type="password" class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary" placeholder="Masukkan kata sandi baru">
+        
+        <div class="mt-6 flex justify-end">
+          <button type="button" id="cancelButton" class="bg-rejected text-white px-4 py-2 rounded-lg mr-2">Batal</button>
+          <button type="submit" class="bg-primary text-white px-4 py-2 rounded-lg">Simpan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- JavaScript for Modal -->
+  <script>
+    const lupaSandiButton = document.getElementById('sandi');
+    const modal = document.getElementById('modalLupaSandi');
+    const cancelButton = document.getElementById('cancelButton');
+    const sidebar = document.getElementById('sidebar');
+
+    // Ketika tombol "Lupa Sandi" diklik
+    lupaSandiButton.addEventListener('click', () => {
+      modal.classList.remove('hidden'); // Tampilkan modal
+      sidebar.classList.add('hidden'); // Sembunyikan sidebar
+    });
+
+    // Ketika tombol "Batal" diklik
+    cancelButton.addEventListener('click', () => {
+      modal.classList.add('hidden'); // Sembunyikan modal
+      sidebar.classList.remove('hidden'); // Tampilkan sidebar lagi
+    });
+  </script>
       </div>
     </div>
   </div>

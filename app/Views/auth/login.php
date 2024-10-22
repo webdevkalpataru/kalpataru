@@ -103,7 +103,8 @@
                 </form>
 
                 <div class="mt-4">
-                    <button onclick="window.location.href='/'" class="text-sm font-bold text-gray-400 no-underline focus:outline-none">
+                    <button onclick="window.history.back()"
+                        class="text-sm font-bold text-gray-400 no-underline focus:outline-none">
                         <span class="font-bold text-lg items-center">←</span> Kembali
                     </button>
                 </div>

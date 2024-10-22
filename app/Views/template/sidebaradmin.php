@@ -100,7 +100,7 @@
                             Penerima
                         </div>
                     </a>
-                    <a href="../admin/akunpengusul">
+                    <a href="/admin/pengusul">
                         <div role="button"
                             class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-primary focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-primary active:bg-blue-gray-50 active:bg-opacity-80 active:text-primary">
                             <div class="grid mr-4 place-items-center">
@@ -120,23 +120,25 @@
             </div>
         </div>
 
-        <div class="relative block w-full">
-            <div role="button"
-                class="flex items-center mt-2 w-full p-0 leading-tight transition-all rounded-lg outline-none bg-blue-gray-50/50 text-start text-blue-gray-700 hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-primary focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-primary active:bg-blue-gray-50 active:bg-opacity-80 active:text-primary">
-                <button id="dropdownBtn1" type="button"
-                    class="flex items-center justify-between w-full p-3 font-sans text-xl antialiased font-semibold leading-snug text-left transition-colors border-b-0 select-none border-b-blue-gray-100 text-primary hover:text-primary">
-                    <div class="grid mr-4 place-items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Zm6-10.125a1.875 1.875 0 1 1-3.75 0 1.875 1.875 0 0 1 3.75 0Zm1.294 6.336a6.721 6.721 0 0 1-3.17.789 6.721 6.721 0 0 1-3.168-.789 3.376 3.376 0 0 1 6.338 0Z" />
-                        </svg>
-                    </div>
-                    <p class="block mr-auto font-sans text-base antialiased font-normal leading-relaxed text-primary">
-                        Data Calon
-                    </p>
-                </button>
-            </div>
+                <div class="relative block w-full">
+            <a href="/admin/datacalon" class="flex items-center w-full">
+                <div role="button" class="flex items-center mt-2 w-full p-0 leading-tight transition-all rounded-lg outline-none bg-blue-gray-50/50 text-start text-blue-gray-700 hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-primary focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-primary active:bg-blue-gray-50 active:bg-opacity-80 active:text-primary">
+                    <button id="dropdownBtn1" type="button" class="flex items-center justify-between w-full p-3 font-sans text-xl antialiased font-semibold leading-snug text-left transition-colors border-b-0 select-none border-b-blue-gray-100 text-primary hover:text-primary">
+                        <div class="grid mr-4 place-items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Zm6-10.125a1.875 1.875 0 1 1-3.75 0 1.875 1.875 0 0 1 3.75 0Zm1.294 6.336a6.721 6.721 0 0 1-3.17.789 6.721 6.721 0 0 1-3.168-.789 3.376 3.376 0 0 1 6.338 0Z" />
+                            </svg>
+                        </div>
+                        <p class="block mr-auto font-sans text-base antialiased font-normal leading-relaxed text-primary">
+                            Data Calon
+                        </p>
+                    </button>
+                </div>
+            </a>
         </div>
+
         <div class="relative block w-full">
+            <a href="nominasi">
             <div role="button"
                 class="flex items-center mt-2 w-full p-0 leading-tight transition-all rounded-lg outline-none bg-blue-gray-50/50 text-start text-blue-gray-700 hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-primary focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-primary active:bg-blue-gray-50 active:bg-opacity-80 active:text-primary">
                 <button id="dropdownBtn1" type="button"
@@ -152,6 +154,7 @@
                     </p>
                 </button>
             </div>
+            </a>
         </div>
         <div class="relative block w-full">
             <div role="button"
@@ -181,6 +184,7 @@
             <div class="block w-full py-1 font-sans text-sm antialiased font-light leading-normal text-gray-700">
                 <nav
                     class="flex min-w-[240px] flex-col gap-1 p-0 font-sans text-base font-normal text-blue-gray-700">
+                    <a href="sidang1">
                     <div role="button"
                         class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-primary focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-primary active:bg-blue-gray-50 active:bg-opacity-80 active:text-primary">
                         <div class="grid mr-4 place-items-center">
@@ -188,6 +192,8 @@
                         </div>
                         Sidang 1
                     </div>
+                    </a>
+                    <a href="sidang2">
                     <div role="button"
                         class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-primary focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-primary active:bg-blue-gray-50 active:bg-opacity-80 active:text-primary">
                         <div class="grid mr-4 place-items-center">
@@ -195,10 +201,12 @@
                         </div>
                         Sidang 2
                     </div>
+                    </a>
                 </nav>
             </div>
         </div>
         <div class="relative block w-full">
+        <a href="arsippenerima">
             <div role="button"
                 class="flex items-center mt-2 w-full p-0 leading-tight transition-all rounded-lg outline-none bg-blue-gray-50/50 text-start text-blue-gray-700 hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-primary focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-primary active:bg-blue-gray-50 active:bg-opacity-80 active:text-primary">
                 <button id="dropdownBtn1" type="button"
@@ -213,6 +221,7 @@
                     </p>
                 </button>
             </div>
+            </a>
         </div>
 
         <!-- Dropdown Dashboard 2 -->
@@ -261,7 +270,7 @@
                                 Berita
                             </div>
                         </a>
-                        <a href="../admin/pengumumanadmin">
+                        <a href="/admin/pengumumanadmin">
                             <div role="button"
                                 class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-primary focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-primary active:bg-blue-gray-50 active:bg-opacity-80 active:text-primary">
                                 <div class="grid mr-4 place-items-center">
@@ -270,13 +279,15 @@
                                 Pengumuman
                             </div>
                         </a>
-                        <div role="button"
-                            class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-primary focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-primary active:bg-blue-gray-50 active:bg-opacity-80 active:text-primary">
-                            <div class="grid mr-4 place-items-center">
+                        <a href="/admin/video">
+                            <div role="button"
+                                class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-primary focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-primary active:bg-blue-gray-50 active:bg-opacity-80 active:text-primary">
+                                <div class="grid mr-4 place-items-center">
 
+                                </div>
+                                Video
                             </div>
-                            Video
-                        </div>
+                        </a>
                         <div role="button"
                             class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-primary focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-primary active:bg-blue-gray-50 active:bg-opacity-80 active:text-primary">
                             <div class="grid mr-4 place-items-center">

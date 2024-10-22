@@ -73,7 +73,21 @@
         <img class="h-full" src="../images/popup.png">
       </div>
     </div>
+    <div class="relative my-6 bg-white shadow-sm border border-slate-200 rounded-lg w-full ">
+  <div class="p-4">
+    <h5 class="mb-2 flex flex-col text-slate-800 text-xl items-center font-semibold">
+      Edit Pamflet
+    </h5>
+    <a href="editpamflet">
+    <button class="rounded-md bg-primary py-2 px-4 mt-6 border border-transparent text-center text-sm text-white w-full transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
+      Edit
+    </button>
+    </a>
   </div>
+</div>
+  </div>
+
+  
 
   <!-- Recent Orders Section with larger width (2/3 of the grid) -->
   <div class="lg:col-span-2 bg-white shadow rounded-lg p-4 md:p-6">

@@ -6,7 +6,7 @@ use App\Models\AdminModel;
 use App\Models\PengusulModel;
 use App\Models\TimteknisModel;
 use App\Models\DppkModel;
-use App\Models\PenerimaModel; // Pastikan model user sudah ada
+use App\Models\PenerimaModel;
 
 class AuthController extends BaseController
 {
@@ -482,11 +482,11 @@ class AuthController extends BaseController
     {
         return view('admin/daftartimteknis', ['title' => 'Register Tim Teknis']);
     }
-    
+
     public function createRegisterTimTeknis()
     {
         $model = new TimTeknisModel();
-        
+
         $data = [
             'nama' => $this->request->getPost('nama'),
             'nip' => $this->request->getPost('nip'),
@@ -508,11 +508,11 @@ class AuthController extends BaseController
     {
         return view('admin/daftardppk', ['title' => 'Register DPPK']);
     }
-    
+
     public function createRegisterDPPK()
     {
         $model = new DppkModel();
-        
+
         $data = [
             'nama' => $this->request->getPost('nama'),
             'nip' => $this->request->getPost('nip'),
@@ -538,9 +538,9 @@ class AuthController extends BaseController
     public function createRegisterPenerima()
     {
         $model = new PenerimaModel();
-        
+
         $kategoriValue = $this->request->getPost('kategori');
-        
+
         switch ($kategoriValue) {
             case 'A':
                 $kategori = 'Perintis Lingkungan';

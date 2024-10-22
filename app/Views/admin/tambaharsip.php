@@ -37,7 +37,7 @@
                         <!-- Kolom kiri -->
                         <div class="space-y-4">
                             <div>
-                                <label class="block mb-2 text-sm text-black">Penerima</label>
+                                <label class="block mb-2 text-sm text-black">Nama Penerima</label>
                                 <input type="text" name="penerima" id="penerima" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
                             </div>
                             <div>
@@ -46,8 +46,8 @@
                                     <option value="" disabled selected>Pilih Kategori</option>
                                     <option value="kategori1">Perintis Lingkungan</option>
                                     <option value="kategori2">Pengabdi Lingkungan</option>
-                                    <option value="kategori3">Kategori 3</option>
-                                    <option value="kategori4">Kategori 4</option>
+                                    <option value="kategori3">Penyelamat Lingkungan</option>
+                                    <option value="kategori4">Pembina Lingkungan</option>
                                 </select>
                             </div>
                             <div>
@@ -67,30 +67,72 @@
                                     <option value="" disabled selected>Pilih Subtema</option>
                                 </select>
                             </div>
+                            <div>
+                                <label class="block mb-2 text-sm text-black">Tahun</label>
+                                <input type="number" name="tahun" id="tahun" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
+                            </div>
+                            <div>
+                                <label class="block mb-2 text-sm text-black">Usia</label>
+                                <input type="number" name="usia" id="usia" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
+                            </div>
+                            <div>
+                                <label class="block mb-2 text-sm text-black">Jenis Kelamin</label>
+                                <select name="jenis_kelamin" id="jenis_kelamin" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required>
+                                    <option value="" disabled selected>Pilih Jenis Kelamin</option>
+                                    <option value="laki-laki">Laki-laki</option>
+                                    <option value="perempuan">Perempuan</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block mb-2 text-sm text-black">Provinsi</label>
+                                <input type="text" name="penerima" id="penerima" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
+                            </div>
+                            <div>
+                                <label class="block mb-2 text-sm text-black">Kab/Kota (saat menerima)</label>
+                                <input type="text" name="penerima" id="penerima" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
+                            </div>
+                            <div>
+                                <label class="block mb-2 text-sm text-black">Kecamatan (saat menerima)</label>
+                                <input type="text" name="penerima" id="penerima" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
+                            </div>
+                            <div>
+                                <label class="block mb-2 text-sm text-black">Desa (saat menerima)</label>
+                                <input type="text" name="penerima" id="penerima" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
+                            </div>
+                            <div>
+                            <label class="block mb-2 text-sm text-black">Status</label>
+                            <select name="status" id="status" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required>
+                                <option value="" disabled selected>Pilih Status</option>
+                                <option value="aktif">Aktif</option>
+                                <option value="tidak_aktif">Tidak Aktif</option>
+                                <option value="meninggal">Meninggal</option>
+                            </select>
+                        </div>
 
-                            <div>
-                                <label class="block mb-2 text-sm text-black">Telpon HP 2</label>
-                                <input type="number" name="hp2" id="hp2" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
-                            </div>
-                            <div>
-                                <label class="block mb-2 text-sm text-black">Status</label>
-                                <input type="text" name="status" id="status" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
-                            </div>
+                            
                         </div>
 
                         <!-- Kolom kanan -->
                         <div class="space-y-4">
                             <div>
-                                <label class="block mb-2 text-sm text-black">Pengelompokan Tema</label>
-                                <input type="text" name="nip" id="nip" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
+                                <label class="block mb-2 text-sm text-black">Kegiatan</label>
+                                <input type="text" name="status" id="status" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
                             </div>
                             <div>
-                                <label class="block mb-2 text-sm text-black">Kelompok ISU</label>
-                                <input type="text" name="no_sk" id="sk" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
+                                <label class="block mb-2 text-sm text-black">Dokumentasi (link drive)</label>
+                                <input type="text" name="status" id="status" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
                             </div>
                             <div>
-                                <label class="block mb-2 text-sm text-black">Kontak Pengusul</label>
-                                <input type="text" name="kontakpengusul" id="kontakpengusul" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
+                                <label class="block mb-2 text-sm text-black">Nama Pengusul/DLH Terkait</label>
+                                <input type="text" name="status" id="status" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
+                            </div>
+                            <div>
+                                <label class="block mb-2 text-sm text-black">Jabatan Pengusul/DLH Terkait</label>
+                                <input type="text" name="status" id="status" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
+                            </div>
+                            <div>
+                                <label class="block mb-2 text-sm text-black">No HP Pengusul/DLH Terkait</label>
+                                <input type="number" name="HP" id="HP" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
                             </div>
                         </div>
 
@@ -107,7 +149,7 @@
                 <div class="bg-white rounded-lg p-8 flex flex-col items-center max-w-md">
                     <img src="/images/sukses.png" alt="Success Icon" class="w-16 h-16 mb-4">
                     <h2 class="text-center text-lg font-bold text-primary mb-2">Arsip Berhasil Didaftaran</h2>
-                    <a href="./akundppk">
+                    <a href="./arsippenerima">
                         <button id="closeModalBtn" class="bg-primary text-white py-2 px-4 rounded-lg">OK</button>
                     </a>
                 </div>
@@ -127,24 +169,24 @@
                 // Sub tema options for each tema
                 const subTemaOptions = {
                     keanekaragaman_hayati: [
-                        'Flora dan Fauna',
-                        'Ekosistem',
-                        'Konservasi',
+                        'Pelestarian Keanekaragaman Hayati dan Kawasan Dilindungi yang Meliputi Pelestarian Sumber Daya Genetik, Jenis, dan Ekosistem',
+                        'Pemanfaatan Keanekaragaman Hayati Secara Berkelanjutan',
+                        'Jasa Lingkungan',
                     ],
                     perubahan_iklim: [
-                        'Pemanasan Global',
-                        'Dampak Perubahan Iklim',
-                        'Adaptasi dan Mitigasi',
+                        'Adaptasi Perubahan Iklim',
+                        'Mitigasi Perubahan Iklim',
+                        'Penerapan Ekonomi Hijau dan Ekonomi Biru',
                     ],
                     pencemaran_kerusakan_lingkungan: [
-                        'Pencemaran Air',
-                        'Pencemaran Udara',
-                        'Dampak Kerusakan Lingkungan',
+                        'Penanganan Pencemaran Air, Tanah, Udara Dari Industri, Pertanian, Domestik Terutama Plastik',
+                        'Pencegahan dan Penanggulangan Kerusakan Lingkungan',
+                        'Ekonomi Sirkular ',
                     ],
                     hukum_budaya: [
-                        'Hak Asasi Manusia',
-                        'Tradisi dan Budaya',
-                        'Perlindungan Hukum',
+                        'Keadilan Terhadap Pemanfaatan Sumber Daya Alam dan Lingkungan',
+                        'Kearifan Tradisional Dalam Pengelolaan Sumber Daya Alam',
+                        'Komunikasi dan Pendidikan Lingkungan Hidup',
                     ],
                 };
 

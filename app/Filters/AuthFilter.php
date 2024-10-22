@@ -32,7 +32,7 @@ class AuthFilter implements FilterInterface
         if ($uri->getSegment(1) == 'pengusul') {
             // Pastikan pengguna yang login adalah pengusul atau DLHK
             $roleAkun = session()->get('role_akun');
-            if ($roleAkun != 'pengusul' && $roleAkun != 'DLHK') {
+            if ($roleAkun != 'Pengusul' && $roleAkun != 'DLHK') {
                 throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // Halaman 404 jika bukan pengusul atau DLHK
             }
         }
