@@ -104,6 +104,7 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('arsipselengkapnya', 'AdminController::arsipselengkapnya');
     $routes->get('sidang1', 'AdminController::sidang1');
     $routes->get('sidang2', 'AdminController::sidang2');
+    $routes->get('editpamflet', 'AdminController::editpamflet');
 
     //pengusul
     $routes->get('akunpengusul', 'AdminController::akunpengusul');
