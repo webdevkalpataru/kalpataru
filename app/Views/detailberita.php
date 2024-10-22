@@ -33,7 +33,7 @@
                 </div>
                 <p class="text-slate-600 leading-normal font-light text-justify mt-4">
                     <?= nl2br(htmlspecialchars($berita['konten'])); ?><br><br>
-                    Penulis: <?= htmlspecialchars($berita['penulis']); ?>
+                    <strong>Penulis : <?= htmlspecialchars($berita['penulis']); ?></strong>
                 </p>
 
                 <button onclick="window.history.back()"

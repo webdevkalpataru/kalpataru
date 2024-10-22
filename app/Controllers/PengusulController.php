@@ -939,10 +939,9 @@ class PengusulController extends BaseController
         $model = new ArtikelModel();
 
         // Ambil input dari formulir
-        $judulArtikel = $this->request->getPost('judul');
+        $judul = $this->request->getPost('judul');
+        $slug = url_title($judul, '-', TRUE);
         $konten = $this->request->getPost('konten');
-
-        // Memproses foto yang diupload
         $foto = $this->request->getFile('foto');
 
         // Validasi input
@@ -950,7 +949,7 @@ class PengusulController extends BaseController
         $validation->setRules([
             'judul' => [
                 'label' => 'Judul',
-                'rules' => 'required|min_length[5]|max_length[100]|is_unique[artikel.judul]' // Judul harus unik dan panjang antara 5 dan 100 karakter
+                'rules' => 'required|min_length[5]|max_length[125]|is_unique[artikel.judul]' // Judul harus unik dan panjang antara 5 dan 125 karakter
             ],
             'konten' => [
                 'label' => 'Konten',
@@ -958,10 +957,9 @@ class PengusulController extends BaseController
             ],
             'foto' => [
                 'label' => 'Foto',
-                'rules' => 'uploaded[foto]|is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/gif,image/png]|max_size[foto,1024]'
+                'rules' => 'is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/png]|max_size[foto,1024]'
             ]
         ]);
-
 
         if (!$this->validate($validation->getRules())) {
             return $this->response->setJSON([
@@ -983,26 +981,31 @@ class PengusulController extends BaseController
             } else {
                 return $this->response->setJSON(['success' => false, 'errors' => 'Gagal menyimpan file foto.']);
             }
-        } else {
-            return $this->response->setJSON(['success' => false, 'errors' => 'File tidak valid atau belum diupload.']);
         }
 
         // Menghasilkan slug yang unik
-        $slug = url_title($judulArtikel, '-', true);
-        $existingArticle = $model->where('slug', $slug)->first(); // Cek apakah slug sudah ada
-        if ($existingArticle) {
-            return $this->response->setJSON(['success' => false, 'errors' => 'Judul sudah digunakan.']);
+        $slugExist = $model->where('slug', $slug)->first(); // Cek apakah slug sudah ada
+        if ($slugExist) {
+            return $this->response->setJSON([
+                'success' => false,
+                'messages' => [
+                    'judul' => 'Tautan dengan judul ini sudah tersedia. Silakan gunakan judul yang berbeda.'
+                ]
+            ]);
         }
 
         // Simpan data artikel ke dalam database
         $dataArtikel = [
             'id_pengusul' => session()->get('id_pengusul'),
-            'judul' => htmlspecialchars($judulArtikel, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
+            'judul' => htmlspecialchars($judul, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
             'slug' => $slug,
             'konten' => htmlspecialchars($konten, ENT_QUOTES, 'UTF-8'), // Sanitasi untuk menghindari XSS
-            'foto' => $fotoPath,
             'tanggal' => date('Y-m-d H:i:s'),
         ];
+
+        if (isset($fotoPath)) {
+            $dataArtikel['foto'] = $fotoPath;
+        }
 
         // Simpan artikel
         if ($model->insert($dataArtikel)) {

@@ -23,7 +23,7 @@ class Home extends BaseController
         $data['video'] = $video;
         $data['berita'] = $berita;
         $data['peta'] = $publikasiModel->tampilPetaPenerima();
-        $data['title'] = "Penghargaan Kalpataru";
+        $data['title'] = "Kalpataru – Penghargaan Lingkungan Hidup Indonesia";
 
         return view('landingpage', $data);
     }

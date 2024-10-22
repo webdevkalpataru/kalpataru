@@ -131,7 +131,7 @@
         })
         .catch(error => {
           console.error('Error:', error);
-          alert('Terjadi kesalahan. Silakan coba lagi.');
+          alert('URL sudah digunakan, silahkan ganti judul.');
         });
     }
 

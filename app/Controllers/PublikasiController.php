@@ -43,7 +43,7 @@ class PublikasiController extends BaseController
         // Siapkan data untuk dikirim ke view
         $data['keyword'] = $keyword;
         $data['countTerbit'] = $countTerbit;
-        $data['title'] = "Daftar Artikel Terbit";
+        $data['title'] = "Berita – Kalpataru | Penghargaan Lingkungan Hidup Indonesia";
 
         return view('berita', $data);
     }
@@ -102,7 +102,7 @@ class PublikasiController extends BaseController
         // Siapkan data untuk dikirim ke view
         $data['keyword'] = $keyword;
         $data['countTerbit'] = $countTerbit;
-        $data['title'] = "Daftar Artikel Terbit";
+        $data['title'] = "Artikel – Kalpataru | Penghargaan Lingkungan Hidup Indonesia";
 
         return view('artikel', $data);
     }
