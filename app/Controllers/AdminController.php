@@ -1506,7 +1506,7 @@ class AdminController extends BaseController
         $validation->setRules([
             'judul' => [
                 'label' => 'Judul',
-                'rules' => 'required|min_length[5]|max_length[100]|is_unique[artikel.judul]' // Judul harus unik dan panjang antara 5 dan 100 karakter
+                'rules' => 'required|min_length[5]|max_length[100]|is_unique[buku_kalpataru.judul]' // Judul harus unik dan panjang antara 5 dan 100 karakter
             ],
             'file' => [
                 'label' => 'File',

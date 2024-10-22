@@ -351,15 +351,13 @@
                                         <option value="komunikasi-pendidikan-lingkungan-hidup" <?= isset($kegiatan['sub_tema']) && $kegiatan['sub_tema'] == 'komunikasi-pendidikan-lingkungan-hidup' ? 'selected' : ''; ?>>Komunikasi dan pendidikan lingkungan hidup</option>
                                     </select>
                                 </div>
-
-
                                 <div>
                                     <label class="block mb-2 text-sm text-black">Bentuk Kegiatan</label>
                                     <input name="bentuk_kegiatan" type="text" value="<?= isset($kegiatan['bentuk_kegiatan']) ? $kegiatan['bentuk_kegiatan'] : ''; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" />
                                 </div>
                                 <div>
                                     <label class="block mb-2 text-sm text-black">Tahun Mulai Kegiatan</label>
-                                    <input type="date" name="tahun_mulai" value="<?= isset($kegiatan['tahun_mulai']) ? $kegiatan['tahun_mulai'] : ''; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                    <input type="date" id="tahun_mulai" name="tahun_mulai" value="<?= isset($kegiatan['tahun_mulai']) ? $kegiatan['tahun_mulai'] : ''; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                                 </div>
                                 <div>
                                     <label class="block mb-2 text-sm text-black">Penjelasan Kegiatan</label>
@@ -380,14 +378,6 @@
                                 <div>
                                     <label class="block mb-2 text-sm text-black">Koordinat Lokasi Kegiatan</label>
                                     <input type="text" name="koordinat" value="<?= isset($kegiatan['koordinat']) ? $kegiatan['koordinat'] : ''; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-                                </div>
-                                <div>
-                                    <label class="block mb-2 text-sm text-black">Para Pihak dan Perannya</label>
-                                    <textarea name="pihak_dan_peran" id="pihakPeran" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                        oninput="updateWordCount(this, 'pihakPeranCount', 1000)"><?= isset($kegiatan['pihak_dan_peran']) ? $kegiatan['pihak_dan_peran'] : ''; ?></textarea>
-                                    <p id="pihakPeranCount" class="text-xs text-slate-400 flex justify-end ">
-                                        <?= (isset($kegiatan['pihak_dan_peran']) && strlen(trim($kegiatan['pihak_dan_peran'])) > 0) ? str_word_count($kegiatan['pihak_dan_peran']) : 0 ?>/1000 Kata
-                                    </p>
                                 </div>
                                 <div>
                                     <label class="block mb-2 text-sm text-black">Keberhasilan yang Dicapai</label>
@@ -640,17 +630,32 @@
             });
         });
 
+        document.addEventListener('DOMContentLoaded', function() {
+            const dateInput = document.getElementById('tahun_mulai');
+            const currentDate = new Date();
+            const currentYear = currentDate.getFullYear();
 
-        // Jenis Kegiatan Lainnya
-        /* function toggleJenisLainnya() {
-            const jenisKegiatan = document.getElementById('jenisKegiatan');
-            const jenisLainnya = document.getElementById('jenisLainnya');
-            if (jenisKegiatan.value === 'jenis-kegiatan-lainnya') {
-                jenisLainnya.classList.remove('hidden');
-            } else {
-                jenisLainnya.classList.add('hidden');
+            // Fungsi untuk mengaktifkan / menonaktifkan date input berdasarkan perbedaan tahun
+            function checkYear() {
+                const selectedDate = new Date(dateInput.value);
+                const selectedYear = selectedDate.getFullYear();
+
+                // Jika selisih tahun kurang dari 5, disable input
+                if (selectedYear && (currentYear - selectedYear) < 5) {
+                    dateInput.disabled = true;
+                } else {
+                    dateInput.disabled = false;
+                }
             }
-        } */
+
+            // Cek saat input berubah
+            dateInput.addEventListener('change', checkYear);
+
+            // Jika value sudah ada (dari backend), cek langsung
+            if (dateInput.value) {
+                checkYear();
+            }
+        });
 
         // Tema Sub Tema Kegiatan
         const subTemaOptions = {
