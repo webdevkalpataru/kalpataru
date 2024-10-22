@@ -22,44 +22,44 @@ class AdminController extends BaseController
     public function artikeladmin()
     {
         $model = new ArtikelModel();
-
-        $keyword = $this->request->getGet('search');
-        $status = $this->request->getGet('status');
-        
         $perPage = 5;
 
-        // Ambil halaman saat ini dari parameter pagination
+        // Ambil parameter search dan status dari query string
+        $keyword = $this->request->getGet('search');
+        $status = $this->request->getGet('status');
         $currentPage = $this->request->getVar('page_artikel') ? $this->request->getVar('page_artikel') : 1;
 
-        // Filter dan pencarian berdasarkan keyword dan status
+        // Query dasar untuk menampilkan artikel
         $query = $model->select('*');
 
-        if ($keyword) {
-            $query->like('judul', $keyword);
-        }
-
+        // Filter berdasarkan status jika ada
         if ($status) {
             $query->where('status', $status);
         }
 
-        // Ambil semua artikel dengan pagination
-        $artikels = $query->paginate($perPage, 'artikel', $currentPage);
+        // Pencarian berdasarkan keyword pada judul
+        if ($keyword) {
+            $query->like('judul', $keyword);
+        }
 
-        // Hitung total artikel yang terbit
-        $countTerbit = $model->where('status', 'Terbit')->countAllResults(false);
+        // Dapatkan data artikel dengan pagination
+        $artikels = $query->orderBy('tanggal', 'DESC')
+            ->paginate($perPage, 'artikels');
 
         // Data yang akan dikirimkan ke view
         $data = [
             'artikels' => $artikels,
-            'countTerbit' => $countTerbit,
             'title' => "Artikel Admin",
-            'pager' => $model->pager, // Untuk pagination
-            'keyword' => $keyword, // Simpan keyword pencarian untuk input field
-            'status' => $status, // Simpan status filter untuk select field
+            'pager' => $model->pager,
+            'keyword' => $keyword,
+            'status' => $status,
         ];
 
         return view('admin/artikeladmin', $data);
     }
+
+
+
 
     public function tambahartikeladmin()
     {

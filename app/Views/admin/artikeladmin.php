@@ -35,7 +35,6 @@
                         <span>&#10010</span> Tambah Artikel
                     </button>
                 </a>
-                <h4 class="text-sm font-semibold text-primary">Hasil: <?= esc($countTerbit) ?> Artikel</h4>
             </div>
 
             <div class="lg:flex lg:justify-between">
@@ -76,13 +75,12 @@
                 <table class="w-full text-left table-auto min-w-max">
                     <thead>
                         <tr class="text-sm font-semibold text-slate-700">
-                            <th class="p-2 border-b bg-slate-50">No</th>
-                            <!-- <th class="p-2 border-b bg-slate-50">Penulis</th> -->
-                            <th class="p-2 border-b bg-slate-50">Judul</th>
-                            <th class="p-2 border-b bg-slate-50">Tanggal</th>
-                            <th class="p-2 border-b bg-slate-50">Status</th>
-                            <th class="p-2 border-b bg-slate-50">Detail</th>
-                            <th class="p-2 border-b bg-slate-50">Hapus</th>
+                            <th class="p-2 border-b  text-center">No</th>
+                            <th class="p-2 border-b">Judul</th>
+                            <th class="p-2 border-b  text-center">Tanggal</th>
+                            <th class="p-2 border-b  text-center">Status</th>
+                            <th class="p-2 border-b  text-center">Detail</th>
+                            <th class="p-2 border-b  text-center">Hapus</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -93,9 +91,11 @@
                                 $no++;
                             ?>
                                 <tr class="hover:bg-slate-50 text-sm text-slate-800">
-                                    <td class="p-2 border-b"><?= $no ?></td>
-                                    <td class="p-2 border-b"><?= esc($artikel['judul']) ?></td>
-                                    <td class="p-2 border-b"><?= esc($artikel['tanggal']) ?></td>
+                                    <td class="p-2 border-b text-center"><?= $no ?></td>
+                                    <td class="p-2 border-b">
+                                        <?= strlen(esc($artikel['judul'])) > 0 ? implode(' ', array_slice(explode(' ', esc($artikel['judul'])), 0, 5)) . (count(explode(' ', esc($artikel['judul']))) > 5 ? '...' : '') : '' ?>
+                                    </td>
+                                    <td class="p-2 border-b text-center"><?= esc($artikel['tanggal']) ?></td>
                                     <td class="p-2 border-b text-center">
                                         <form method="POST" action="/admin/updatestatus">
                                             <input type="hidden" name="id_artikel" value="<?= $artikel['id_artikel'] ?>">
@@ -111,7 +111,7 @@
                                         </form>
                                     </td>
                                     <td class="p-2 border-b">
-                                        <a href="/admin/artikel/<?= $artikel['slug']; ?>" class="w-full inline-block py-1 px-2 bg-primary hover:bg-primaryhover text-white rounded-md text-sm">Selengkapnya</a>
+                                        <a href="/admin/artikel/<?= $artikel['slug']; ?>" class="w-full inline-block py-1 px-2 bg-primary hover:bg-primaryhover text-white rounded-md text-sm text-center">Selengkapnya</a>
                                     </td>
                                     <td class="p-2 border-b text-center">
                                         <form action="/admin/artikel/hapus/<?= $artikel['id_artikel'] ?>" method="POST">
@@ -134,7 +134,7 @@
             </div>
             <div class="row flex lg:justify-end justify-center my-6 lg:me-2 me-0">
                 <div class="pagination">
-                    <?= $pager->links('artikel', 'template_pagination') ?>
+                    <?= $pager->links('artikels', 'template_pagination') ?>
                 </div>
             </div>
         </div>

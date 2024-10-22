@@ -75,7 +75,7 @@
             <div class="block w-full py-1 font-sans text-sm antialiased font-light leading-normal text-gray-700">
                 <nav
                     class="flex min-w-[240px] flex-col gap-1 p-0 font-sans text-base font-normal text-blue-gray-700">
-                    <a href="../admin/akundppk">
+                    <a href="/admin/akundppk">
                         <div role="button"
                             class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-primary focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-primary active:bg-blue-gray-50 active:bg-opacity-80 active:text-primary">
                             <div class="grid mr-4 place-items-center">
@@ -84,7 +84,7 @@
                             DPPK
                         </div>
                     </a>
-                    <a href="../admin/akuntimteknis">
+                    <a href="/admin/akuntimteknis">
                         <div role="button"
                             class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-primary focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-primary active:bg-blue-gray-50 active:bg-opacity-80 active:text-primary">
                             <div class="grid mr-4 place-items-center">
@@ -93,7 +93,7 @@
                             Tim Teknis
                         </div>
                     </a>
-                    <a href="../admin/akunpengguna">
+                    <a href="/admin/akunpengguna">
                         <div role="button"
                             class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-primary focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-primary active:bg-blue-gray-50 active:bg-opacity-80 active:text-primary">
                             <div class="grid mr-4 place-items-center">
@@ -110,7 +110,7 @@
                             Pengusul
                         </div>
                     </a>
-                    <a href="../admin/akundlhk">
+                    <a href="/admin/akundlhk">
                         <div role="button"
                             class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-primary focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-primary active:bg-blue-gray-50 active:bg-opacity-80 active:text-primary">
                             <div class="grid mr-4 place-items-center">
