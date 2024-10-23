@@ -5,125 +5,121 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?= $title; ?></title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
-<body>
+<body class="bg-gray-100">
 
+  <!-- Navbar and Footer -->
   <?= $this->extend('template/navbarfooter') ?>
 
+  <!-- Main Content Section -->
   <?= $this->section('content') ?>
 
-  <div class="flex flex-col lg:flex-row justify-center m-4">
-    <?= $this->include('template/sidebarpenerima') ?>
+  <div class="container mx-auto p-4">
+    <div class="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-4"> <!-- Menggunakan grid untuk layout -->
 
-    <div class="relative flex flex-col w-full max-w-5xl mb-4 rounded-xl border-2 border-primary bg-white shadow-md lg:p-8 p-4">
-      <h4 class="block text-xl font-bold text-slate-800 mb-2">
-        Profil
-      </h4>
-      <div class="flex bg-yellow-400 items-center justify-center rounded-md px-2">
+      <!-- Sidebar -->
+      <div> <!-- Sidebar mengambil 1 bagian -->
+        <?= $this->include('template/sidebarpenerima') ?>
       </div>
 
-      <form class="mt-4 mb-2 w-full">
-        <div class="grid grid-cols-2 gap-4">
+      <!-- Konten Profil dan Artikel -->
+      <div class="space-y-4"> <!-- Menggunakan dua kolom untuk profil dan artikel -->
 
-          <!-- Kolom kiri -->
-          <div class="space-y-4">
+        <!-- Profile Card -->
+        <div class="relative w-full max-w-5xl bg-white border-2 border-primary rounded-xl shadow-md p-4 lg:p-8">
+          <h4 class="text-xl font-bold text-slate-800 mb-4">Profil</h4>
+
+          <!-- User Information -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <!-- Nama Individu -->
             <div>
               <label class="block mb-2 text-sm text-black">Nama Individu</label>
               <input type="text" value="Joko Susilo" readonly class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
             </div>
-            <div>
-              <label class="block mb-2 text-sm text-black">NIK</label>
-              <input type="text" value="3124577990898" readonly class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-            </div>
-            <div>
-              <label class="block mb-2 text-sm text-black">Tempat Lahir</label>
-              <input type="text" value="Jakarta" readonly class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-            </div>
-            <div>
-              <label class="block mb-2 text-sm text-black">Tanggal Lahir</label>
-              <input type="text" value="01-12-2000" readonly class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-            </div>
-            <div>
-              <label class="block mb-2 text-sm text-black">Usia</label>
-              <input type="text" value="20" readonly class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-            </div>
-            <div class="w-full">
-              <label class="block mb-2 text-sm text-black">Jenis Kelamin</label>
-              <div class="lg:flex gap-6">
-                <div class="flex items-center py-2">
-                  <input name="jenis_kelamin" type="radio" checked readonly class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-primary checked:bg-primary transition-all" id="laki-laki">
-                  <label class="ml-2 text-black cursor-pointer text-sm" for="laki-laki">Perempuan</label>
-                </div>
-                <div class="flex items-center py-2">
-                  <input name="jenis_kelamin" type="radio" checked readonly class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-primary checked:bg-primary transition-all" id="laki-laki">
-                  <label class="ml-2 text-black cursor-pointer text-sm" for="laki-laki">Laki-Laki</label>
-                </div>
-              </div>
-            </div>
-            <div>
-              <label class="block mb-2 text-sm text-black">Pekerjaan</label>
-              <input type="text" value="Staff Administrasi" readonly class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-            </div>
-            <div>
-              <label class="block mb-2 text-sm text-black">No Hp</label>
-              <input type="text" value="08123456789" readonly class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-            </div>
+
+            <!-- Email -->
             <div>
               <label class="block mb-2 text-sm text-black">Email</label>
               <input type="text" value="jokosusilo@gmail.com" readonly class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
             </div>
-
-          </div>
-
-          <!-- Kolom kanan -->
-          <div class="space-y-4">
-            <div>
-              <label class="block mb-2 text-sm text-black">Jalan</label>
-              <input type="text" value="Anggrek Raya" readonly class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-            </div>
-            <div>
-              <label class="block mb-2 text-sm text-black">RT/RW</label>
-              <input type="text" value="001/002" readonly class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-            </div>
-            <div>
-              <label class="block mb-2 text-sm text-black">Desa/Kelurahan</label>
-              <input type="text" value="Karang Tengah" readonly class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-            </div>
-            <div>
-              <label class="block mb-2 text-sm text-black">Kecamatan</label>
-              <input type="text" value="Setiabudi" readonly class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-            </div>
-            <div>
-              <label class="block mb-2 text-sm text-black">Kab/Kota</label>
-              <input type="text" value="Bogor" readonly class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-            </div>
-            <div>
-              <label class="block mb-2 text-sm text-black">Provinsi</label>
-              <input type="text" value="Jawa Barat" readonly class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-            </div>
-            <div>
-              <label class="block mb-2 text-sm text-black">Kode Pos</label>
-              <input type="text" value="12345" readonly class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-            </div>
-            <div>
-              <label class="block mb-2 text-sm text-black">Pendidikan Terakhir</label>
-              <input type="text" value="S1" readonly class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-            </div>
-            <div>
-              <label class="block mb-2 text-sm text-black">Media Sosial</label>
-              <input type="text" value="@jksusilo" readonly class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-            </div>
-
           </div>
         </div>
-      </form>
-    </div>
 
+        <!-- Artikel Saya Section -->
+        <div class="relative w-full max-w-5xl mb-4 rounded-xl border-2 border-primary bg-white shadow-md lg:p-8 p-4">
+          <h4 class="block text-xl font-bold text-slate-800 mb-2">Artikel Saya</h4>
+          <!-- Tombol Tambah Artikel-->
+          <div class="my-4 flex flex-col md:flex-row justify-between md:items-center gap-4">
+            <a href="/admin/tambah-artikel" class="w-full md:w-auto">
+              <button id="tambahArtikel" class="w-full md:w-48 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover">
+                <span>&#10010</span> Tambah Artikel
+              </button>
+            </a>
+          </div>
+          <div class="relative flex flex-col w-full h-full overflow-hidden text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left table-auto min-w-max">
+                <thead>
+                  <tr>
+                    <th class="p-4 border-b border-accent2 bg-accent1 text-center">
+                      <p class="block text-xs md:text-sm font-bold leading-none text-accent2">Judul Artikel</p>
+                    </th>
+                    <th class="p-4 border-b border-accent2 bg-accent1 text-center">
+                      <p class="block text-xs md:text-sm font-bold leading-none text-accent2">Isi Artikel</p>
+                    </th>
+                    <th class="p-4 border-b border-accent2 bg-accent1 text-center">
+                      <p class="block text-xs md:text-sm font-bold leading-none text-accent2">Status</p>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="hover:bg-slate-50">
+                    <td class="p-4 border-b border-slate-200 text-center">
+                      <p class="block text-xs text-slate-800">Surga Tersembunyi di Maros</p>
+                    </td>
+                    <td class="p-4 border-b border-slate-200 text-center">
+                      <a href="./detailartikelsaya">
+                        <button class="w-24 rounded-md py-2 px-2 text-center text-xs text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover" type="button">Lihat Rincian</button>
+                      </a>
+                    </td>
+                    <td class="p-4 border-b border-slate-200 text-center">
+                      <p class="block text-xs font-bold text-accepted">Terbit</p>
+                    </td>
+                  </tr>
+                  <!-- Rows lainnya -->
+                </tbody>
+              </table>
+            </div>
+            <!-- Pagination -->
+            <div class="row flex lg:justify-end justify-center my-6 lg:me-2 me-0">
+              <!-- Tombol Pagination -->
+              <button class="rounded-md border border-r-0 border-slate-300 py-2 px-3 text-sm transition-all hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary focus:text-white focus:bg-primary" type="button">
+                <!-- SVG Icon for Previous -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                  <path fill-rule="evenodd" d="M11.03 3.97a.75.75 0 0 1 0 1.06l-6.22 6.22H21a.75.75 0 0 1 0 1.5H4.81l6.22 6.22a.75.75 0 1 1-1.06 1.06l-7.5-7.5a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd" />
+                </svg>
+              </button>
+              <!-- Pagination Buttons -->
+              <!-- Tombol lainnya untuk paginasi -->
+              <button class="rounded-md border border-slate-300 py-2 px-3 text-sm transition-all hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary focus:text-white focus:bg-primary" type="button">
+                <!-- SVG Icon for Next -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                  <path fill-rule="evenodd" d="M12.97 3.97a.75.75 0 0 1 1.06 0l7.5 7.5a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 1 1-1.06-1.06l6.22-6.22H3a.75.75 0 0 1 0-1.5h16.19l-6.22-6.22a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
 
+      </div> <!-- End Konten Profil dan Artikel -->
+
+    </div> <!-- End Grid Layout -->
   </div>
 
   <?= $this->endSection() ?>
+
 </body>
 
 </html>

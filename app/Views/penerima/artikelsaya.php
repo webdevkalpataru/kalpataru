@@ -20,7 +20,15 @@
             <h4 class="block text-xl font-bold text-slate-800 mb-2">
                 Artikel Saya
             </h4>
-            <div class="relative flex flex-col w-full h-full mt-8 overflow-hidden text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
+            <!-- Tombol Tambah Artikel-->
+            <div class="my-4 flex flex-col md:flex-row justify-between md:items-center gap-4">
+                <a href="/admin/tambah-artikel" class="w-full md:w-auto">
+                    <button id="tambahArtikel" class="w-full md:w-48 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover">
+                        <span>&#10010</span> Tambah Artikel
+                    </button>
+                </a>
+            </div>
+            <div class="relative flex flex-col w-full h-full overflow-hidden text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
                 <div class="overflow-x-auto">
                     <table class="w-full text-left table-auto min-w-max">
                         <thead>
