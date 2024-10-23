@@ -52,7 +52,7 @@
             <div class="w-full max-w-md p-6 fade-in-left">
 
                 <h2 class="text-2xl font-bold text-gray-900 mb-4">Masuk</h2>
-                <form class="flex flex-col" onsubmit="validateForm(event)" action="/auth/logininternal" method="POST">
+                <form class="flex flex-col" onsubmit="validateForm(event)" action="/auth/logindppk" method="POST">
                     <?= csrf_field() ?>
                     <label for="email" class="text-xs">Email</label>
                     <input id="email" type="text" name="email" required
@@ -119,7 +119,7 @@
                 .then(data => {
                     if (data.success) {
                         // Redirect ke halaman yang diinginkan
-                        window.location.href = '/admin/dashboard'; // Sesuaikan dengan URL tujuan setelah login
+                        window.location.href = '/dppk/datacalonusulan'; // Sesuaikan dengan URL tujuan setelah login
                     } else {
                         showToast(data.errors.email || data.errors.kata_sandi || 'Login gagal.'); // Tampilkan pesan kesalahan
                     }

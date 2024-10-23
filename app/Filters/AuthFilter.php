@@ -28,6 +28,30 @@ class AuthFilter implements FilterInterface
             }
         }
 
+        // Cek apakah halaman yang diakses adalah halaman tim teknis
+        if ($uri->getSegment(1) == 'timteknis') {
+            // Pastikan pengguna yang login adalah tim teknis
+            if (session()->get('role') != 'Tim Teknis') {
+                throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+            }
+        }
+
+        // Cek apakah halaman yang diakses adalah halaman tim teknis
+        if ($uri->getSegment(1) == 'dppk') {
+            // Pastikan pengguna yang login adalah dppk
+            if (session()->get('role') != 'DPPK') {
+                throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+            }
+        }
+
+        // Cek apakah halaman yang diakses adalah halaman tim teknis
+        if ($uri->getSegment(1) == 'penerima') {
+            // Pastikan pengguna yang login adalah dppk
+            if (session()->get('role') != 'Penerima') {
+                throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+            }
+        }
+
         // Cek apakah halaman yang diakses adalah halaman pengusul
         if ($uri->getSegment(1) == 'pengusul') {
             // Pastikan pengguna yang login adalah pengusul atau DLHK

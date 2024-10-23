@@ -27,7 +27,9 @@ $routes->get('artikel/(:any)', 'PublikasiController::detailartikel/$1');
 $routes->get('publikasi/video', 'PublikasiController::video');
 $routes->get('publikasi/buku', 'PublikasiController::buku');
 
-
+/* Auth Penerima */
+$routes->get('auth/loginpenerima', 'AuthController::loginPenerima');
+$routes->post('auth/loginpenerima', 'AuthController::loginPenerimaAction');
 
 /* Auth Pengusul */
 $routes->get('auth/login', 'AuthController::login');
@@ -43,7 +45,9 @@ $routes->get('auth/registerinternal', 'AuthController::registerinternal');
 $routes->post('auth/registerinternal', 'AuthController::createRegisterinternal');
 $routes->get('auth/loginadmin', 'AuthController::loginadmin');
 $routes->get('auth/logintimteknis', 'AuthController::logintimteknis');
-$routes->get('auth/loginddpk', 'AuthController::loginddpk');
+$routes->post('auth/logintimteknis', 'AuthController::logintimteknisAction');
+$routes->get('auth/logindppk', 'AuthController::logindppk');
+$routes->post('auth/logindppk', 'AuthController::logindppkAction');
 
 
 /* Pengusul */
@@ -213,7 +217,7 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
 });
 
 /* Tim Teknis */
-$routes->group('timteknis', function ($routes) {
+$routes->group('timteknis', ['filter' => 'auth'], function ($routes) {
     $routes->get('datacalonusulan', 'TimteknisController::datacalonusulan');
     $routes->get('detaildatacalonusulan', 'TimteknisController::detaildatacalonusulan');
 
@@ -236,7 +240,7 @@ $routes->group('timteknis', function ($routes) {
 });
 
 /* DPPK */
-$routes->group('dppk', function ($routes) {
+$routes->group('dppk', ['filter' => 'auth'], function ($routes) {
     $routes->get('datacalonusulan', 'DppkController::datacalonusulan');
     $routes->get('detaildatacalonusulan', 'DppkController::detaildatacalonusulan');
 

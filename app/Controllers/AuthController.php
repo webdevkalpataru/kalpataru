@@ -501,16 +501,227 @@ class AuthController extends BaseController
         $data['title'] = "Login Admin";
         return view('auth/loginadmin', $data);
     }
+
     public function logintimteknis()
     {
         $data['title'] = "Login Tim Teknis";
         return view('auth/logintimteknis', $data);
     }
-    public function loginddpk()
+
+    public function logintimteknisAction()
     {
-        $data['title'] = "Login DDPK";
-        return view('auth/loginddpk', $data);
+        // Load validation service
+        $validation = \Config\Services::validation();
+
+        // Aturan validasi untuk form login
+        $validation->setRules([
+            'email' => 'required|valid_email',
+            'kata_sandi' => 'required',
+        ]);
+
+        // Lakukan validasi input
+        if (!$this->validate($validation->getRules())) {
+            return $this->response->setJSON([
+                'success' => false,
+                'errors' => $validation->getErrors()
+            ]);
+        }
+
+        // Ambil data dari form
+        $email = $this->request->getPost('email');
+        $kata_sandi = $this->request->getPost('kata_sandi');
+
+        // Load model
+        $model = new TimteknisModel();
+
+        // Cek apakah email ada di database
+        $timteknis = $model->where('email', $email)->first();
+
+        // Jika timteknis tidak ditemukan
+        if (!$timteknis) {
+            return $this->response->setJSON([
+                'success' => false,
+                'errors' => ['email' => 'Pengguna tidak ditemukan.']
+            ]);
+        }
+
+        // Jika kata sandi tidak sesuai
+        if (!password_verify($kata_sandi, $timteknis['kata_sandi'])) {
+            return $this->response->setJSON([
+                'success' => false,
+                'errors' => ['kata_sandi' => 'Kata sandi salah.']
+            ]);
+        }
+
+
+        // Jika admin tidak ditemukan
+        if ($timteknis['status_akun'] === 'Pending') {
+            return $this->response->setJSON([
+                'success' => false,
+                'errors' => ['email' => 'Akun Anda belum aktif']
+            ]);
+        }
+
+        // Simpan data timteknis ke session
+        session()->set('id_tim_teknis', $timteknis['id_tim_teknis']);
+        session()->set('email', $timteknis['email']);
+        session()->set('nama', $timteknis['nama']);
+        session()->set('role', 'Tim Teknis');
+        session()->set('logged_in', true);
+
+
+        return $this->response->setJSON([
+            'success' => true,
+            'message' => 'Login berhasil!'
+        ]);
     }
+
+    public function logindppk()
+    {
+        $data['title'] = "Login DPPK";
+        return view('auth/logindppk', $data);
+    }
+
+    public function logindppkAction()
+    {
+        // Load validation service
+        $validation = \Config\Services::validation();
+
+        // Aturan validasi untuk form login
+        $validation->setRules([
+            'email' => 'required|valid_email',
+            'kata_sandi' => 'required',
+        ]);
+
+        // Lakukan validasi input
+        if (!$this->validate($validation->getRules())) {
+            return $this->response->setJSON([
+                'success' => false,
+                'errors' => $validation->getErrors()
+            ]);
+        }
+
+        // Ambil data dari form
+        $email = $this->request->getPost('email');
+        $kata_sandi = $this->request->getPost('kata_sandi');
+
+        // Load model
+        $model = new DppkModel();
+
+        // Cek apakah email ada di database
+        $dppk = $model->where('email', $email)->first();
+
+        // Jika dppk tidak ditemukan
+        if (!$dppk) {
+            return $this->response->setJSON([
+                'success' => false,
+                'errors' => ['email' => 'Pengguna tidak ditemukan.']
+            ]);
+        }
+
+        // Jika kata sandi tidak sesuai
+        if (!password_verify($kata_sandi, $dppk['kata_sandi'])) {
+            return $this->response->setJSON([
+                'success' => false,
+                'errors' => ['kata_sandi' => 'Kata sandi salah.']
+            ]);
+        }
+
+        // Jika admin tidak ditemukan
+        if ($dppk['status_akun'] === 'Pending') {
+            return $this->response->setJSON([
+                'success' => false,
+                'errors' => ['email' => 'Akun Anda belum aktif']
+            ]);
+        }
+
+        // Simpan data dppk ke session
+        session()->set('id_dppk', $dppk['id_dppk']);
+        session()->set('email', $dppk['email']);
+        session()->set('nama', $dppk['nama']);
+        session()->set('role', 'DPPK');
+        session()->set('logged_in', true);
+
+
+        return $this->response->setJSON([
+            'success' => true,
+            'message' => 'Login berhasil!'
+        ]);
+    }
+
+    public function loginPenerima()
+    {
+        $data['title'] = "Login Penerima Penghargaan Kalpataru";
+        return view('auth/loginpenerima', $data);
+    }
+
+    public function loginPenerimaAction()
+    {
+        // Load validation service
+        $validation = \Config\Services::validation();
+
+        // Aturan validasi untuk form login
+        $validation->setRules([
+            'email' => 'required|valid_email',
+            'kata_sandi' => 'required',
+        ]);
+
+        // Lakukan validasi input
+        if (!$this->validate($validation->getRules())) {
+            return $this->response->setJSON([
+                'success' => false,
+                'errors' => $validation->getErrors()
+            ]);
+        }
+
+        // Ambil data dari form
+        $email = $this->request->getPost('email');
+        $kata_sandi = $this->request->getPost('kata_sandi');
+
+        // Load model
+        $model = new PenerimaModel();
+
+        // Cek apakah email ada di database
+        $penerima = $model->where('email', $email)->first();
+
+        // Jika penerima tidak ditemukan
+        if (!$penerima) {
+            return $this->response->setJSON([
+                'success' => false,
+                'errors' => ['email' => 'Pengguna tidak ditemukan.']
+            ]);
+        }
+
+        // Jika kata sandi tidak sesuai
+        if (!password_verify($kata_sandi, $penerima['kata_sandi'])) {
+            return $this->response->setJSON([
+                'success' => false,
+                'errors' => ['kata_sandi' => 'Kata sandi salah.']
+            ]);
+        }
+
+        // Jika admin tidak ditemukan
+        if ($penerima['status_akun'] === 'Pending') {
+            return $this->response->setJSON([
+                'success' => false,
+                'errors' => ['email' => 'Akun Anda belum aktif']
+            ]);
+        }
+
+        // Simpan data penerima ke session
+        session()->set('id_penerima', $penerima['id_penerima']);
+        session()->set('email', $penerima['email']);
+        session()->set('nama', $penerima['nama']);
+        session()->set('role', 'Penerima');
+        session()->set('logged_in', true);
+
+
+        return $this->response->setJSON([
+            'success' => true,
+            'message' => 'Login berhasil!'
+        ]);
+    }
+
     public function registerTimTeknis()
     {
         $data['title'] = "Daftar Akun Tim Teknis";

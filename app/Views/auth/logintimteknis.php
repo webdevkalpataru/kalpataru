@@ -52,7 +52,7 @@
             <div class="w-full max-w-md p-6 fade-in-left">
 
                 <h2 class="text-2xl font-bold text-gray-900 mb-4">Masuk</h2>
-                <form class="flex flex-col" onsubmit="validateForm(event)" action="/auth/logininternal" method="POST">
+                <form class="flex flex-col" onsubmit="validateForm(event)" action="/auth/logintimteknis" method="POST">
                     <?= csrf_field() ?>
                     <label for="email" class="text-xs">Email</label>
                     <input id="email" type="text" name="email" required
@@ -68,13 +68,6 @@
                             <img src="/images/hide.svg" alt="hide" class="w-4 h-4 mb-4">
                         </span>
                     </div>
-
-                    <div class="flex items-center justify-between flex-wrap">
-                        <p class="text-gray-900 text-xs">
-                            Belum punya akun? <a href="./registerinternal" class="text-primary hover:underline font-bold">Daftar Sekarang</a>
-                        </p>
-                    </div>
-
                     <button type="submit"
                         class="bg-secondary text-primary font-bold py-2 px-4 rounded-md mt-4 hover:bg-primary hover:text-white transition ease-in-out duration-150">
                         Masuk

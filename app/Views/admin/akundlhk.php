@@ -103,7 +103,7 @@
                                     </td>
                                     <td class="p-4 border-b border-slate-200">
                                         <p class="block text-sm text-slate-800">
-                                            <?= esc($p['nama_instansi_pribadi']); ?> </p>
+                                            <?= esc($p['instansi']); ?> </p>
                                     </td>
                                     <td class="p-4 border-b border-slate-200">
                                         <p class="block text-sm text-slate-800">
