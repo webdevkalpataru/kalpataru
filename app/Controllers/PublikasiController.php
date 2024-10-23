@@ -168,16 +168,35 @@ class PublikasiController extends BaseController
     public function buku()
     {
         $model = new BukuModel();
+        
+        // Ambil data dengan pagination, limit 5 per halaman
+        $perPage = 5;
+
+        // Ambil keyword dari input search
         $keyword = $this->request->getGet('search');
 
         if ($keyword) {
-            $data['buku'] = $model->searchBukuTerbit($keyword);
-            $data['countTerbit'] = count($data['buku']);
+            // Jika ada pencarian, ambil buku yang sesuai dengan judul dan statusnya "Terbit" dengan pagination
+            $data['bukus'] = $model->where('status', 'Terbit')
+                ->like('judul', $keyword) // Cari berdasarkan judul
+                ->orderBy('tanggal', 'DESC')
+                ->paginate($perPage, 'bukus'); // Paginate hasil pencarian
+            $countTerbit = $model->where('status', 'Terbit')
+                ->like('judul', $keyword) // Hitung hanya yang cocok dengan pencarian
+                ->countAllResults(); // Hitung jumlah buku hasil pencarian
+            $data['pager'] = $model->pager; // Tidak ada pagination jika ada pencarian
         } else {
-            $data['buku'] = $model->getBukuTerbit();
-            $data['countTerbit'] = $model->countBukuTerbit();
+            // Jika tidak ada pencarian, ambil buku yang statusnya "Terbit" dengan pagination
+            $data['bukus'] = $model->where('status', 'Terbit')
+                ->orderBy('tanggal', 'DESC')
+                ->paginate($perPage, 'bukus');
+            $countTerbit = $model->where('status', 'Terbit')->countAllResults(); // Hanya hitung artikel yang berstatus "Terbit"
+            $data['pager'] = $model->pager; // Hanya tetapkan pager jika menggunakan paginate
         }
 
+        // Siapkan data untuk dikirim ke view
+        $data['keyword'] = $keyword;
+        $data['countTerbit'] = $countTerbit;
         $data['title'] = "Buku";
         return view('buku', $data);
     }
