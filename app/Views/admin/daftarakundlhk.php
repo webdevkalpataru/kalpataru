@@ -35,11 +35,11 @@
                         <!-- Kolom kiri -->
                         <div class="space-y-4">
                             <div>
-                                <label class="block mb-2 text-sm text-black">Nama</label>
-                                <input type="text" name="nama_instansi_pribadi" id="nama_instansi_pribadi" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
+                                <label class="block mb-2 text-sm text-black">Nama Instansi</label>
+                                <input type="text" name="instansi" id="instansi" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
                             </div>
                             <div>
-                                <label class="block mb-2 text-sm text-black">Email</label>
+                                <label class="block mb-2 text-sm text-black">Email Instansi</label>
                                 <input type="email" name="email" id="email" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
                                 <p id="email-hint" class="text-red-500 text-xs hidden">Email harus menggunakan @gmail.com</p>
                             </div>

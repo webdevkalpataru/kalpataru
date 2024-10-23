@@ -50,6 +50,7 @@ class PengusulController extends BaseController
         }
 
         $data = [
+            'nama_instansi_pribadi' => $this->request->getPost('nama_instansi_pribadi'),
             'instansi' => $this->request->getPost('instansi'),
             'jabatan_pekerjaan' => $this->request->getPost('jabatan_pekerjaan'),
             'jenis_kelamin' => $this->request->getPost('jenis_kelamin'),

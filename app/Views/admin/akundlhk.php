@@ -54,7 +54,7 @@
                                 class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
                                 <p
                                     class="flex items-center justify-between gap-2 text-sm font-normal leading-none text-slate-800">
-                                    Nama
+                                    Nama Instansi
                                 </p>
                             </th>
                             <th
@@ -75,14 +75,14 @@
                                 class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
                                 <p
                                     class="flex items-center justify-between gap-2 text-sm font-normal leading-none text-slate-800">
-                                    Detail
+                                    Status
                                 </p>
                             </th>
                             <th
                                 class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
                                 <p
                                     class="flex items-center justify-between gap-2 text-sm font-normal leading-none text-slate-800">
-                                    Status
+                                    Detail
                                 </p>
                             </th>
 

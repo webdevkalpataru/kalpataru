@@ -284,7 +284,7 @@ class AuthController extends BaseController
 
         // Aturan validasi untuk form pendaftaran pengusul
         $validation->setRules([
-            'nama_instansi_pribadi' => [
+            'instansi' => [
                 'label' => 'Nama Instansi atau Pribadi',
                 'rules' => 'required|alpha_space'
             ],
@@ -332,7 +332,7 @@ class AuthController extends BaseController
         $data = [
             'id_admin' => session()->get('id_admin'),
             'jenis_instansi' => 'Pemerintah',
-            'nama_instansi_pribadi' => $this->request->getPost('nama_instansi_pribadi'),
+            'instansi' => $this->request->getPost('instansi'),
             'provinsi' => $this->request->getPost('provinsi'),
             'telepon' => $this->request->getPost('telepon'),
             'email' => $email,

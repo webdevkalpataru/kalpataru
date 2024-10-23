@@ -69,81 +69,162 @@
         </h3>
       </div>
 
-      <form class="mt-4 mb-2 w-full" action="/pengusul/profil" method="post" id="profil-form" onsubmit="validateForm(event)">
-        <div class="grid grid-cols-2 gap-4">
+      <?php if (session()->get('role_akun') === 'Pengusul'): ?>
+        <form class="mt-4 mb-2 w-full" action="/pengusul/profil" method="post" id="profil-form" onsubmit="validateForm(event)">
+          <div class="grid grid-cols-2 gap-4">
 
-          <!-- Kolom kiri -->
-          <div class="space-y-4">
-            <div>
-              <label class="block mb-2 text-sm text-black">Jenis Akun</label>
-              <input type="text" name="jenis_instansi" readonly value="<?= $pengusul['jenis_instansi']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-            </div>
-            <div>
-              <label class="block mb-2 text-sm text-black">Nama Lengkap</label>
-              <input type="text" name="nama_instansi_pribadi" readonly value="<?= $pengusul['nama_instansi_pribadi']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-            </div>
-            <div>
-              <label class="block mb-2 text-sm text-black">Provinsi</label>
-              <input type="text" name="provinsi" readonly value="<?= $pengusul['provinsi']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-            </div>
-            <div>
-              <label class="block mb-2 text-sm text-black">Nomor Telepon</label>
-              <input type="text" name="telepon" readonly value="<?= $pengusul['telepon']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-            </div>
-            <div>
-              <label class="block mb-2 text-sm text-black">Email</label>
-              <input type="email" name="email" readonly value="<?= $pengusul['email']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-            </div>
-            <div>
-              <label class="block mb-2 text-sm text-black">Instansi Pengusul</label>
-              <input type="text" name="instansi" value="<?= $pengusul['instansi']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-            </div>
-            <div>
-              <label class="block mb-2 text-sm text-black">Jabatan/Pekerjaan</label>
-              <input type="text" name="jabatan_pekerjaan" value="<?= $pengusul['jabatan_pekerjaan']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-            </div>
-            <div class="w-full">
-              <label class="block mb-2 text-sm text-black">Jenis Kelamin</label>
-              <div class="lg:flex gap-6">
-                <div class="flex items-center py-2">
-                  <input name="jenis_kelamin" type="radio" value="Perempuan" class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-primary checked:bg-primary transition-all" id="perempuan" <?= ($pengusul['jenis_kelamin'] == 'Perempuan') ? 'checked' : ''; ?>>
-                  <label class="ml-2 text-black cursor-pointer text-sm" for="perempuan">Perempuan</label>
-                </div>
-                <div class="flex items-center py-2">
-                  <input name="jenis_kelamin" type="radio" value="Laki-Laki" class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-primary checked:bg-primary transition-all" id="laki-laki" <?= ($pengusul['jenis_kelamin'] == 'Laki-Laki') ? 'checked' : ''; ?>>
-                  <label class="ml-2 text-black cursor-pointer text-sm" for="laki-laki">Laki-Laki</label>
+            <!-- Kolom kiri -->
+            <div class="space-y-4">
+              <div>
+                <label class="block mb-2 text-sm text-black">Jenis Akun</label>
+                <input type="text" name="jenis_instansi" readonly value="<?= $pengusul['jenis_instansi']; ?>" class="w-full bg-gray-200 placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:shadow" />
+              </div>
+
+              <div>
+                <label class="block mb-2 text-sm text-black">Nama Lengkap</label>
+                <input type="text" name="nama_instansi_pribadi" readonly value="<?= $pengusul['nama_instansi_pribadi']; ?>" class="w-full bg-gray-200 placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:shadow" />
+              </div>
+              <div>
+                <label class="block mb-2 text-sm text-black">Provinsi</label>
+                <input type="text" name="provinsi" readonly value="<?= $pengusul['provinsi']; ?>" class="w-full bg-gray-200 placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:shadow" />
+              </div>
+              <div>
+                <label class="block mb-2 text-sm text-black">Nomor Telepon</label>
+                <input type="text" name="telepon" readonly value="<?= $pengusul['telepon']; ?>" class="w-full bg-gray-200 placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:shadow" />
+              </div>
+              <div>
+                <label class="block mb-2 text-sm text-black">Email</label>
+                <input type="email" name="email" readonly value="<?= $pengusul['email']; ?>" class="w-full bg-gray-200 placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:shadow" />
+              </div>
+              <div>
+                <label class="block mb-2 text-sm text-black">Instansi Pengusul</label>
+                <input type="text" name="instansi" value="<?= $pengusul['instansi']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+              </div>
+              <div>
+                <label class="block mb-2 text-sm text-black">Jabatan/Pekerjaan</label>
+                <input type="text" name="jabatan_pekerjaan" value="<?= $pengusul['jabatan_pekerjaan']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+              </div>
+              <div class="w-full">
+                <label class="block mb-2 text-sm text-black">Jenis Kelamin</label>
+                <div class="lg:flex gap-6">
+                  <div class="flex items-center py-2">
+                    <input name="jenis_kelamin" type="radio" value="Perempuan" class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-primary checked:bg-primary transition-all" id="perempuan" <?= ($pengusul['jenis_kelamin'] == 'Perempuan') ? 'checked' : ''; ?>>
+                    <label class="ml-2 text-black cursor-pointer text-sm" for="perempuan">Perempuan</label>
+                  </div>
+                  <div class="flex items-center py-2">
+                    <input name="jenis_kelamin" type="radio" value="Laki-Laki" class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-primary checked:bg-primary transition-all" id="laki-laki" <?= ($pengusul['jenis_kelamin'] == 'Laki-Laki') ? 'checked' : ''; ?>>
+                    <label class="ml-2 text-black cursor-pointer text-sm" for="laki-laki">Laki-Laki</label>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <!-- Kolom kanan -->
-          <div class="space-y-4">
-            <div>
-              <label class="block mb-2 text-sm text-black">Alamat</label>
-              <input type="text" name="jalan" value="<?= $pengusul['jalan']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+            <!-- Kolom kanan -->
+            <div class="space-y-4">
+              <div>
+                <label class="block mb-2 text-sm text-black">Alamat</label>
+                <input type="text" name="jalan" value="<?= $pengusul['jalan']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+              </div>
+              <div>
+                <label class="block mb-2 text-sm text-black">RT/RW</label>
+                <input type="text" name="rt_rw" value="<?= $pengusul['rt_rw']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+              </div>
+              <div>
+                <label class="block mb-2 text-sm text-black">Desa/Kelurahan</label>
+                <input type="text" name="desa" value="<?= $pengusul['desa']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+              </div>
+              <div>
+                <label class="block mb-2 text-sm text-black">Kecamatan</label>
+                <input type="text" name="kecamatan" value="<?= $pengusul['kecamatan']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+              </div>
+              <div>
+                <label class="block mb-2 text-sm text-black">Kab/Kota</label>
+                <input type="text" name="kab_kota" value="<?= $pengusul['kab_kota']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+              </div>
+              <div>
+                <label class="block mb-2 text-sm text-black">Kode Pos</label>
+                <input type="text" name="kode_pos" value="<?= $pengusul['kode_pos']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+              </div>
             </div>
-            <div>
-              <label class="block mb-2 text-sm text-black">RT/RW</label>
-              <input type="text" name="rt_rw" value="<?= $pengusul['rt_rw']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+          </div>
+          <div class="flex justify-end">
+            <button id="uploadBtn" class="mt-4 w-32 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="submit">Simpan</button>
+          </div>
+        </form>
+      <?php elseif (session()->get('role_akun') === 'DLHK'): ?>
+        <form class="mt-4 mb-2 w-full" action="/pengusul/profil" method="post" id="profil-form" onsubmit="validateForm(event)">
+          <div class="grid grid-cols-2 gap-4">
+            <!-- Kolom kiri -->
+            <div class="space-y-4">
+              <div>
+                <label class="block mb-2 text-sm text-black">Jenis Akun</label>
+                <input type="text" name="jenis_instansi" readonly value="<?= $pengusul['jenis_instansi']; ?>" class="w-full bg-gray-200 placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:shadow" />
+              </div>
+              <div>
+                <label class="block mb-2 text-sm text-black">Instansi Pengusul</label>
+                <input type="text" name="instansi" readonly value="<?= $pengusul['instansi']; ?>" class="w-full bg-gray-200 placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:shadow" />
+              </div>
+              <div>
+                <label class="block mb-2 text-sm text-black">Provinsi</label>
+                <input type="text" name="provinsi" readonly value="<?= $pengusul['provinsi']; ?>" class="w-full bg-gray-200 placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:shadow" />
+              </div>
+              <div>
+                <label class="block mb-2 text-sm text-black">Nomor Telepon</label>
+                <input type="text" name="telepon" readonly value="<?= $pengusul['telepon']; ?>" class="w-full bg-gray-200 placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:shadow" />
+              </div>
+              <div>
+                <label class="block mb-2 text-sm text-black">Email</label>
+                <input type="email" name="email" readonly value="<?= $pengusul['email']; ?>" class="w-full bg-gray-200 placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:shadow" />
+              </div>
+              <div>
+                <label class="block mb-2 text-sm text-black">Nama Lengkap</label>
+                <input type="text" name="nama_instansi_pribadi" value="<?= $pengusul['nama_instansi_pribadi']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+              </div>
+              <div>
+                <label class="block mb-2 text-sm text-black">Jabatan/Pekerjaan</label>
+                <input type="text" name="jabatan_pekerjaan" value="<?= $pengusul['jabatan_pekerjaan']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+              </div>
+              <div class="w-full">
+                <label class="block mb-2 text-sm text-black">Jenis Kelamin</label>
+                <div class="lg:flex gap-6">
+                  <div class="flex items-center py-2">
+                    <input name="jenis_kelamin" type="radio" value="Perempuan" class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-primary checked:bg-primary transition-all" id="perempuan" <?= ($pengusul['jenis_kelamin'] == 'Perempuan') ? 'checked' : ''; ?>>
+                    <label class="ml-2 text-black cursor-pointer text-sm" for="perempuan">Perempuan</label>
+                  </div>
+                  <div class="flex items-center py-2">
+                    <input name="jenis_kelamin" type="radio" value="Laki-Laki" class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-primary checked:bg-primary transition-all" id="laki-laki" <?= ($pengusul['jenis_kelamin'] == 'Laki-Laki') ? 'checked' : ''; ?>>
+                    <label class="ml-2 text-black cursor-pointer text-sm" for="laki-laki">Laki-Laki</label>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div>
-              <label class="block mb-2 text-sm text-black">Desa/Kelurahan</label>
-              <input type="text" name="desa" value="<?= $pengusul['desa']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-            </div>
-            <div>
-              <label class="block mb-2 text-sm text-black">Kecamatan</label>
-              <input type="text" name="kecamatan" value="<?= $pengusul['kecamatan']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-            </div>
-            <div>
-              <label class="block mb-2 text-sm text-black">Kab/Kota</label>
-              <input type="text" name="kab_kota" value="<?= $pengusul['kab_kota']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-            </div>
-            <div>
-              <label class="block mb-2 text-sm text-black">Kode Pos</label>
-              <input type="text" name="kode_pos" value="<?= $pengusul['kode_pos']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-            </div>
-            <?php if ($pengusul['role_akun'] === 'DLHK'): ?>
+
+            <!-- Kolom kanan -->
+            <div class="space-y-4">
+              <div>
+                <label class="block mb-2 text-sm text-black">Alamat</label>
+                <input type="text" name="jalan" value="<?= $pengusul['jalan']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+              </div>
+              <div>
+                <label class="block mb-2 text-sm text-black">RT/RW</label>
+                <input type="text" name="rt_rw" value="<?= $pengusul['rt_rw']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+              </div>
+              <div>
+                <label class="block mb-2 text-sm text-black">Desa/Kelurahan</label>
+                <input type="text" name="desa" value="<?= $pengusul['desa']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+              </div>
+              <div>
+                <label class="block mb-2 text-sm text-black">Kecamatan</label>
+                <input type="text" name="kecamatan" value="<?= $pengusul['kecamatan']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+              </div>
+              <div>
+                <label class="block mb-2 text-sm text-black">Kab/Kota</label>
+                <input type="text" name="kab_kota" value="<?= $pengusul['kab_kota']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+              </div>
+              <div>
+                <label class="block mb-2 text-sm text-black">Kode Pos</label>
+                <input type="text" name="kode_pos" value="<?= $pengusul['kode_pos']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+              </div>
               <div>
                 <?php
                 $suratPengantar = $pengusul['surat_pengantar'];;
@@ -153,15 +234,15 @@
                 <input id="suratpengantar" name="surat_pengantar" type="file" accept="application/pdf"
                   class="w-full border-2 border-gray-300 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
               </div>
-            <?php endif; ?>
 
+            </div>
           </div>
-        </div>
 
-        <div class="flex justify-end">
-          <button id="uploadBtn" class="mt-4 w-32 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="submit">Simpan</button>
-        </div>
-      </form>
+          <div class="flex justify-end">
+            <button id="uploadBtn" class="mt-4 w-32 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="submit">Simpan</button>
+          </div>
+        </form>
+      <?php endif; ?>
     </div>
 
     <!-- Modal -->
