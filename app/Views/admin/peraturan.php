@@ -76,14 +76,14 @@
                 <table class="w-full text-left table-auto min-w-max">
                     <thead>
                         <tr class="text-sm font-semibold text-slate-700">
-                            <th class="p-2 border-b  text-center">No</th>
-                            <th class="p-2 border-b">Judul</th>
-                            <th class="p-2 border-b">Tentang</th>
-                            <th class="p-2 border-b  text-center">Jenis</th>
-                            <th class="p-2 border-b  text-center">Tanggal</th>
-                            <th class="p-2 border-b  text-center">Status</th>
-                            <th class="p-2 border-b  text-center">Detail</th>
-                            <th class="p-2 border-b  text-center">Hapus</th>
+                            <th class="p-2 border-b bg-slate-50 hover:bg-slate-100  text-center">No</th>
+                            <th class="p-2 border-b bg-slate-50 hover:bg-slate-100">Judul</th>
+                            <th class="p-2 border-b bg-slate-50 hover:bg-slate-100">Tentang</th>
+                            <th class="p-2 border-b bg-slate-50 hover:bg-slate-100  text-center">Jenis</th>
+                            <th class="p-2 border-b bg-slate-50 hover:bg-slate-100  text-center">Tanggal</th>
+                            <th class="p-2 border-b bg-slate-50 hover:bg-slate-100  text-center">Status</th>
+                            <th class="p-2 border-b bg-slate-50 hover:bg-slate-100  text-center">Detail</th>
+                            <th class="p-2 border-b bg-slate-50 hover:bg-slate-100  text-center">Hapus</th>
                         </tr>
                     </thead>
                     <tbody>
