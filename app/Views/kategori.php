@@ -50,7 +50,7 @@
                 <p class="text-sm leading-relaxed text-justify mb-4"> Pengabdi Lingkungan adalah individu baik petugas lapangan dan/atau pegawai negeri atau
                     Aparatur Sipil Negara yang mendedikasikan hidupnya dalam upaya perlindungan dan
                     pengelolaan lingkungan hidup dan kehutanan yang melampaui kewajiban dan tugas pokok
-                    profesi dalam jangka waktu lama secara berurutan</p>
+                    profesi dalam jangka waktu lama secara berurutan paling sedikit 5 (lima) tahun.</p>
                 <button class="bg-primary text-white px-4 py-2 mb-6 lg:mb-0 rounded-md hover:bg-primaryhover">Lihat Daftar Penerima</button>
             </div>
         </div>

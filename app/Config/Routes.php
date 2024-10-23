@@ -10,6 +10,10 @@ $routes->get('/', 'Home::index');
 $routes->get('/beranda', 'MainController::beranda');
 $routes->get('profil', 'MainController::profil');
 $routes->get('kategori', 'MainController::kategori');
+$routes->get('kategoria', 'MainController::kategoria');
+$routes->get('kategorib', 'MainController::kategorib');
+$routes->get('kategoric', 'MainController::kategoric');
+$routes->get('kategorid', 'MainController::kategorid');
 $routes->get('kontak', 'MainController::kontak');
 $routes->post('kontak/sendEmail', 'KontakController::sendEmail');
 

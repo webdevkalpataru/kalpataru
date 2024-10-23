@@ -112,6 +112,22 @@
                 </a>
             </div>
 
+            <!-- backup permintaan gambar jadi text -->
+            <!-- <div id="categoryContainer" class="flex gap-16 lg:justify-center lg:items-center overflow-x-auto sm:overflow-x-auto md:overflow-x-hidden scrollbar-show snap-x snap-mandatory scroll-smooth">
+                <a href="/kategoria" class="block flex-shrink-0 snap-center">
+                    <img src="/images/perintis.jpg" alt="perintis" class="w-56 h-auto rounded-2xl shadow-lg mx-auto">
+                </a>
+                <a href="/kategorib" class="block flex-shrink-0 snap-center">
+                    <img src="/images/pengabdi.jpg" alt="pengabdi" class="w-56 h-auto rounded-2xl shadow-lg mx-auto">
+                </a>
+                <a href="/kategorib" class="block flex-shrink-0 snap-center">
+                    <img src="/images/penyelamat.jpg" alt="penyelamat" class="w-56 h-auto rounded-2xl shadow-lg mx-auto">
+                </a>
+                <a href="/kategorid" class="block flex-shrink-0 snap-center">
+                    <img src="/images/pembina.jpg" alt="pembina" class="w-56 h-auto rounded-2xl shadow-lg mx-auto">
+                </a>
+            </div> -->
+
             <!-- arrow kanan -->
             <button id="categoryScrollRight" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-footer text-white p-2 rounded-full shadow-md z-10 focus:outline-none sm:block md:hidden">
                 &#9654;
