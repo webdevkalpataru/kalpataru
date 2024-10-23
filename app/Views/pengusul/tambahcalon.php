@@ -51,10 +51,10 @@
 
                 <div class="flex justify-between mt-4 items-center">
                     <div class="mt-4">
-                        <button onclick="window.history.back()"
+                        <a href="/pengusul/usulansaya"
                             class="text-sm font-bold text-gray-600 no-underline focus:outline-none">
                             <span class="font-bold text-lg items-center">←</span> Kembali
-                        </button>
+                        </a>
                     </div>
                     <!-- <p id="validationMessage" class="text-sm text-red-500 mr-4 hidden">Silahkan pilih kategori terlebih dahulu</p> -->
                     <button id="selanjutnyaBtn" class="mt-4 w-32 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:bg-gray-400 disabled:shadow-none" type="submit" disabled onclick="checkSelection()">Selanjutnya</button>
