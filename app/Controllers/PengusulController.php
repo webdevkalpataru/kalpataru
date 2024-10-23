@@ -409,6 +409,8 @@ class PengusulController extends BaseController
         switch ($formType) {
             case 'identitasc':
                 $identitas = $model->getIdentitasByIdPendaftaran($id_pendaftaran);
+
+                
                 $data = [
                     'nama' => $this->request->getPost('nama_ketua'),
                     'tahun_pembentukan' => $this->request->getPost('tahun_pembentukan'),
@@ -433,6 +435,17 @@ class PengusulController extends BaseController
                     'pendidikan' => $this->request->getPost('pendidikan'),
                     'tanggal_skck' => $this->request->getPost('tanggal_skck'),
                 ];
+
+                $validation = \Config\Services::validation();
+                $rules = [
+                    'nik' => 'required|exact_length[16]|numeric|is_unique[pendaftaran.nik]',
+                ];
+
+                $validation->setRules($rules);
+
+                if (!$validation->withRequest($this->request)->run()) {
+                    return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+                }
 
                 // Logika untuk upload file SKCK
                 $legalitasFile = $this->request->getFile('legalitas');
@@ -478,9 +491,10 @@ class PengusulController extends BaseController
 
             case 'identitasabd':
                 $identitas = $model->getIdentitasByIdPendaftaran($id_pendaftaran);
+
                 $data = [
                     'nama' => $this->request->getPost('nama_individu'),
-                    'nik' => $this->request->getPost('nik_individu'),
+                    'nik' => $this->request->getPost('nik'),
                     'tempat_lahir' => $this->request->getPost('tempat_lahir'),
                     'tanggal_lahir' => $this->request->getPost('tanggal_lahir'),
                     'usia' => $this->request->getPost('usia'),
@@ -499,6 +513,17 @@ class PengusulController extends BaseController
                     'sosial_media' => $this->request->getPost('sosial_media'),
                     'tanggal_skck' => $this->request->getPost('tanggal_skck'),
                 ];
+
+                $validation = \Config\Services::validation();
+                $rules = [
+                    'nik' => 'required|exact_length[16]|numeric|is_unique[pendaftaran.nik]',
+                ];
+
+                $validation->setRules($rules);
+
+                if (!$validation->withRequest($this->request)->run()) {
+                    return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+                }
 
                 // Logika untuk upload file KTP dan SKCK sama seperti di atas
                 // Upload KTP

@@ -113,6 +113,9 @@
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">NIK</label>
                                 <input type="text" name="nik" value="<?= isset($identitasc['nik']) ? $identitasc['nik'] : ''; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <?php if (session('errors.nik')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.nik') ?></p>
+                                <?php endif; ?>
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Tempat Lahir</label>
@@ -201,7 +204,10 @@
                             </div>
                             <div class="w-full mb-4">
                                 <label class="mb-2 text-sm text-slate-600">NIK</label>
-                                <input name="nik_individu" value="<?= isset($identitasabd['nik']) ? $identitasabd['nik'] : ''; ?>" type="text" class="w-full bg-transparent text-primary placeholder:text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary shadow-sm focus:shadow" />
+                                <input name="nik" value="<?= isset($identitasabd['nik']) ? $identitasabd['nik'] : ''; ?>" type="text" class="w-full bg-transparent text-primary placeholder:text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary shadow-sm focus:shadow" />
+                                <?php if (session('errors.nik')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.nik') ?></p>
+                                <?php endif; ?>
                             </div>
                             <div class="w-full mb-4">
                                 <label class="mb-2 text-sm text-slate-600">Tempat Lahir</label>
@@ -287,7 +293,6 @@
                                     <input name="ktp" value="<?= isset($pendaftaran['ktp']) ? $pendaftaran['ktp'] : ''; ?>"
                                         id="ktp" type="file" accept="image/jpeg,image/jpg"
                                         class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-primary file:text-white">
-
                                 </div>
                             </div>
                             <div class="w-full mb-2">
@@ -646,9 +651,12 @@
                                                 <?php if (!empty($keistimewaan["foto_kegiatan$i"])): ?>
                                                 <label class="block mb-2 text-sm text-black">Foto Kegiatan <?= $i ?> : <?php if (!empty($keistimewaan["foto_kegiatan$i"])): ?>
                                                                     <?= esc($keistimewaan["foto_kegiatan$i"]) ?>
-                                                                <?php endif; ?><span class="text-primary">(.jpg/.jpeg)</span></label>
+                                                                <?php endif; ?><span class="text-primary">(.JPG/JPEG, , max 1MB)</span></label>
                                                 <?php endif; ?>
                                                 <input name="foto_kegiatan<?= $i ?>" type="file" accept=".jpg, .jpeg" class="mb-2 w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                                <?php if (session('errors.foto_kegiatan' . $i)): ?>
+                                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.foto_kegiatan' . $i) ?></p>
+                                                <?php endif; ?>
                                                 <label class="block mb-2 text-sm text-black">Deskripsi Foto <?= $i ?> : </label>
                                                 <input name="deskripsi_foto_kegiatan<?= $i ?>" type="text" placeholder="Keterangan Foto" value="<?= isset($keistimewaan["deskripsi_foto_kegiatan$i"]) ? $keistimewaan["deskripsi_foto_kegiatan$i"] : ''; ?>" class="mb-4 w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                                             </div>
@@ -656,7 +664,7 @@
 
                                     <?php if ($fotoCount === 0): ?>
                                         <div class="mb-4">
-                                            <label class="block mb-2 text-sm text-black">Foto Kegiatan <span class="text-primary"> (.jpg/jpeg)</span></label>
+                                            <label class="block mb-2 text-sm text-black">Foto Kegiatan <span class="text-primary"> (.JPG/JPEG, , max 1MB)</span></label>
                                             <input name="foto_kegiatan1" type="file" accept=".jpg, .jpeg" class="mb-2 w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                                             
                                             <label class="block mb-2 text-sm text-black">Deskripsi Foto </label>
@@ -1135,18 +1143,49 @@
         }
 
 
-     // Tambah Foto Kegiatan dan Tambah Tautan Video
+        // Tambah Foto Kegiatan dan Tambah Tautan Video
         const maxFotoInput = 5;
         const fotoContainer = document.getElementById('fotoContainer');
         const tambahFotoButton = document.getElementById('tambahFotoButton');
         let fotoInputCount = document.querySelectorAll('#fotoInputs > div').length || 1;
 
-        tambahFotoButton.addEventListener('click', function() {
+        function showErrorMessage(inputElement, message) {
+            const errorMessage = document.createElement('p');
+            errorMessage.classList.add('text-red-500', 'text-sm', 'mt-2');
+            errorMessage.innerText = message;
+            inputElement.parentElement.appendChild(errorMessage);
+        }
+
+        function validateFile(fileInput) {
+            const file = fileInput.files[0];
+            if (file) {
+                const allowedTypes = ['image/jpeg', 'image/jpg'];
+                const maxSize = 1024 * 1024; // 1MB
+
+                const previousError = fileInput.parentElement.querySelector('.text-red-500');
+                if (previousError) {
+                    previousError.remove();
+                }
+
+                if (!allowedTypes.includes(file.type)) {
+                    showErrorMessage(fileInput, 'Tipe file tidak valid. Hanya JPG/JPEG yang diizinkan.');
+                    return false;
+                }
+
+                if (file.size > maxSize) {
+                    showErrorMessage(fileInput, 'Ukuran file melebihi batas 1MB.');
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        tambahFotoButton.addEventListener('click', function () {
             if (fotoInputCount < maxFotoInput) {
                 const newFotoDiv = document.createElement('div');
                 newFotoDiv.classList.add('mb-4');
                 newFotoDiv.innerHTML = `
-                    <label class="block mb-2 text-sm text-black">Foto Kegiatan <span class="text-primary"> (.jpg/jpeg)</span></label>
+                    <label class="block mb-2 text-sm text-black">Foto Kegiatan <span class="text-primary">(.JPG/JPEG, max 1MB)</span></label>
                     <input name="foto_kegiatan${fotoInputCount + 1}" type="file" accept=".jpg, .jpeg" class="mb-2 w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                     <label class="block mb-2 text-sm text-black">Deskripsi Foto </label>
                     <input name="deskripsi_foto_kegiatan${fotoInputCount + 1}" type="text" placeholder="Keterangan Foto" class="mb-4 w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
@@ -1154,11 +1193,23 @@
                 fotoContainer.insertBefore(newFotoDiv, tambahFotoButton);
                 fotoInputCount++;
 
+                const newFileInput = newFotoDiv.querySelector('input[type="file"]');
+                newFileInput.addEventListener('change', function () {
+                    validateFile(newFileInput);
+                });
+
                 if (fotoInputCount === maxFotoInput) {
                     tambahFotoButton.style.display = 'none';
                 }
             }
         });
+
+        document.querySelectorAll('input[type="file"]').forEach(fileInput => {
+            fileInput.addEventListener('change', function () {
+                validateFile(fileInput);
+            });
+        });
+
 
     </script>
     <?= $this->endSection() ?>
