@@ -12,8 +12,14 @@ class AuthController extends BaseController
 {
     public function login()
     {
+        // Periksa apakah pengguna sudah login
+        if (session()->get('logged_in')) {
+            // Jika sudah login, arahkan ke halaman utama
+            return redirect()->to('/');
+        }
+
         $data['title'] = "Masuk Akun";
-        return view('auth/login', ['title' => 'Login']);
+        return view('auth/login', $data);
     }
 
     public function loginAction()
@@ -75,8 +81,20 @@ class AuthController extends BaseController
         return redirect()->to('/');
     }
 
+    public function logoutInternal()
+    {
+        session()->destroy();
+        return redirect()->to('/auth/logininternal');
+    }
+
     public function register()
     {
+        // Periksa apakah pengguna sudah login
+        if (session()->get('logged_in')) {
+            // Jika sudah login, arahkan ke halaman utama
+            return redirect()->to('/');
+        }
+
         $provinsi_list = [
             'Aceh',
             'Bali',
@@ -355,6 +373,12 @@ class AuthController extends BaseController
     // BAGIAN AUTH ADMIN DPPK SEKRE
     public function logininternal()
     {
+        // Periksa apakah pengguna sudah login
+        if (session()->get('logged_in')) {
+            // Jika sudah login, arahkan ke halaman utama
+            return redirect()->to('/');
+        }
+
         $data['title'] = "Masuk Akun Internal";
         return view('auth/logininternal', $data);
     }
@@ -498,12 +522,25 @@ class AuthController extends BaseController
     }
     public function loginadmin()
     {
+        // Periksa apakah pengguna sudah login
+        if (session()->get('logged_in')) {
+            // Jika sudah login, arahkan ke halaman utama
+            return redirect()->to('/');
+        }
+
         $data['title'] = "Login Admin";
         return view('auth/loginadmin', $data);
     }
 
     public function logintimteknis()
     {
+
+        // Periksa apakah pengguna sudah login
+        if (session()->get('logged_in')) {
+            // Jika sudah login, arahkan ke halaman utama
+            return redirect()->to('/');
+        }
+
         $data['title'] = "Login Tim Teknis";
         return view('auth/logintimteknis', $data);
     }
@@ -578,6 +615,12 @@ class AuthController extends BaseController
 
     public function logindppk()
     {
+        // Periksa apakah pengguna sudah login
+        if (session()->get('logged_in')) {
+            // Jika sudah login, arahkan ke halaman utama
+            return redirect()->to('/');
+        }
+
         $data['title'] = "Login DPPK";
         return view('auth/logindppk', $data);
     }
@@ -651,6 +694,12 @@ class AuthController extends BaseController
 
     public function loginPenerima()
     {
+        // Periksa apakah pengguna sudah login
+        if (session()->get('logged_in')) {
+            // Jika sudah login, arahkan ke halaman utama
+            return redirect()->to('/');
+        }
+
         $data['title'] = "Login Penerima Penghargaan Kalpataru";
         return view('auth/loginpenerima', $data);
     }

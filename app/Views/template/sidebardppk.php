@@ -28,7 +28,7 @@
             border-radius: 10px;
             border: 3px solid #f1f1f1;
         }
-        
+
         /* selection */
         ::selection {
             background-color: #2C7865;
@@ -60,7 +60,7 @@
         <div class="relative block w-full">
             <div role="button"
                 class="flex items-center w-full p-0 leading-tight transition-all rounded-lg outline-none bg-blue-gray-50/50 text-start text-blue-gray-700 hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-primaryhover focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-primary active:bg-blue-gray-50 active:bg-opacity-80 active:text-primary">
-                <button id="dropdownBtn1" type="button"  onclick="window.location.href='/dppk/datacalonusulan'"
+                <button id="dropdownBtn1" type="button" onclick="window.location.href='/dppk/datacalonusulan'"
                     class="flex items-center justify-between w-full p-3 font-sans text-xl antialiased font-semibold leading-snug text-left transition-colors border-b-0 select-none border-b-blue-gray-100 text-primary hover:text-primaryhover">
                     <div class="grid mr-4 place-items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -102,7 +102,7 @@
         <div class="relative block w-full">
             <div role="button"
                 class="flex items-center mt-2 w-full p-0 leading-tight transition-all rounded-lg outline-none bg-red-50/50 text-start text-rejected hover:bg-red-100 hover:bg-opacity-80 hover:text-primaryhover focus:bg-red-100 focus:bg-opacity-80 focus:text-primary active:bg-red-100 active:bg-opacity-80 active:text-primary">
-                <button id="dropdownBtn1" type="button" onclick="window.location.href='/auth/logininternal'"
+                <button id="dropdownBtn1" type="button" onclick="window.location.href='/auth/logoutinternal'"
                     class="flex items-center justify-between w-full p-3 font-sans text-xl antialiased font-semibold leading-snug text-left transition-colors border-b-0 select-none border-b-blue-gray-100 text-rejected hover:font-semibold">
                     <div class="grid mr-4 place-items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">

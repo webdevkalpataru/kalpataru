@@ -37,6 +37,8 @@ $routes->post('auth/login', 'AuthController::loginAction');
 $routes->get('auth/register', 'AuthController::register');
 $routes->post('auth/register', 'AuthController::createRegister');
 $routes->get('auth/logout', 'AuthController::logoutAction');
+$routes->get('auth/logoutinternal', 'AuthController::logoutInternal');
+
 
 /* Auth Internal */
 $routes->get('auth/logininternal', 'AuthController::logininternal');

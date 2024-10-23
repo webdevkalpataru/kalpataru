@@ -16,15 +16,13 @@
         <div class="min-h-screen flex flex-col">
 
             <!-- Header -->
-            <header class="bg-white shadow">
-                <div class="container mx-auto flex items-center justify-between p-4 md:p-6">
-                    <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Registrasi Akun Penerima</h1>
-                    <div class="flex items-center">
-                        <p class="text-gray-500 mr-2 md:mr-4">Hello, Admin</p>
-                        <button class="bg-rejected text-white px-3 py-2 md:px-4 md:py-2 rounded-lg">Keluar</button>
-                    </div>
+            <div class="container mx-auto flex items-center justify-between p-4 md:p-6">
+                <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Daftar Akun Penerima Kalpataru</h1>
+                <div class="flex items-center">
+                    <p class="text-gray-500 mr-2 md:mr-4">Hello, <?= session()->get('nama'); ?></p>
+                    <a href="/auth/logoutinternal" class="bg-rejected text-white px-3 py-2 md:px-4 md:py-2 rounded-lg inline-block">Keluar</a>
                 </div>
-            </header>
+            </div>
 
             <!-- Main Content -->
             <div class="relative flex flex-col w-full lg:max-w-5xl mb-4 rounded-xl border-2 border-primary mt-4 bg-white shadow-md lg:p-8 p-4">
