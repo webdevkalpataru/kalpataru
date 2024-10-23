@@ -51,21 +51,7 @@ class AuthController extends BaseController
                 if ($user['status_akun'] === 'Aktif') {
                     $sessionData = [
                         'id_pengusul' => $user['id_pengusul'],
-                        'nama' => $user['nama_instansi_pribadi'],
-                        'email' => $user['email'],
                         'role_akun' => $user['role_akun'],
-                        'provinsi' => $user['provinsi'],
-                        'jenis_instansi' => $user['jenis_instansi'],
-                        'telepon' => $user['telepon'],
-                        'jabatan_pekerjaan' => $user['jabatan_pekerjaan'],
-                        'jenis_kelamin' => $user['jenis_kelamin'],
-                        'jalan' => $user['jalan'],
-                        'rt_rw' => $user['rt_rw'],
-                        'desa' => $user['desa'],
-                        'kecamatan' => $user['kecamatan'],
-                        'kab_kota' => $user['kab_kota'],
-                        'kode_pos' => $user['kode_pos'],
-                        'surat_pengantar' => $user['surat_pengantar'],
                         'logged_in' => true,
                     ];
                     session()->set($sessionData);

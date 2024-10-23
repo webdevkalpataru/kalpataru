@@ -15,9 +15,9 @@
             </svg>
 
             <div>
-                <h2 class="text-md font-bold"><?= session()->get('nama'); ?></h2>
-                <p class="text-sm text-secondary font-semibold"><?= session()->get('role_akun'); ?></p>
-                <p class="text-sm text-secondary font-semibold"><?= session()->get('provinsi'); ?></p>
+                <h2 class="text-md font-bold"><?= $pengusul['nama_instansi_pribadi'];; ?></h2>
+                <p class="text-sm text-secondary font-semibold"><?= $pengusul['role_akun']; ?></p>
+                <p class="text-sm text-secondary font-semibold"><?= $pengusul['provinsi']; ?></p>
             </div>
         </div>
 

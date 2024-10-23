@@ -347,16 +347,21 @@ class AdminController extends BaseController
         // Ambil data dari POST request
         $id_pengusul = $this->request->getPost('id_pengusul');
         $status_akun = $this->request->getPost('status_akun');
+        $id_admin = session()->get('id_admin');
 
         // Validasi data (opsional, misalnya cek apakah ID dan status valid)
-        if ($id_pengusul && $status_akun) {
-            // Update status di database
-            $model->update($id_pengusul, ['status_akun' => $status_akun]);
+        if ($id_pengusul && $status_akun && $id_admin) {
+            // Update status dan id_admin di database
+            $model->update($id_pengusul, [
+                'status_akun' => $status_akun,
+                'id_admin' => $id_admin
+            ]);
+
             // Mengembalikan respons untuk merefresh halaman
             return $this->response->setJSON(['success' => true, 'message' => 'Status Pengusul berhasil diperbarui']);
         } else {
-            // Mengembalikan respons untuk merefresh halaman
-            return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui staus pengusul']);
+            // Mengembalikan respons untuk merefresh halaman jika ada kesalahan
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui status pengusul']);
         }
     }
 
