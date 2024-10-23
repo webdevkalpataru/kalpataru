@@ -20,10 +20,10 @@
             <!-- Header -->
             <header class="bg-white shadow">
                 <div class="container mx-auto flex items-center justify-between p-4 md:p-6">
-                    <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Registrasi Akun DPPK</h1>
+                    <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Akun Pengusul</h1>
                     <div class="flex items-center">
-                        <p class="text-gray-500 mr-2 md:mr-4">Hello, Admin</p>
-                        <button class="bg-rejected text-white px-3 py-2 md:px-4 md:py-2 rounded-lg">Keluar</button>
+                        <p class="text-gray-500 mr-2 md:mr-4">Hello, <?= session()->get('nama'); ?></p>
+                        <a href="/auth/logout" class="bg-rejected text-white px-3 py-2 md:px-4 md:py-2 rounded-lg inline-block">Keluar</a>
                     </div>
                 </div>
             </header>
@@ -60,7 +60,7 @@
                         <!-- Kolom kanan -->
                         <div class="space-y-4">
                             <div>
-                                <label class="block mb-2 text-sm text-black">NIP</label>
+                                <label class="block mb-2 text-sm text-black">NIK</label>
                                 <input type="text" name="nip" id="nip" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
                             </div>
                             <div>
@@ -83,7 +83,7 @@
                     <img src="/images/sukses.png" alt="Success Icon" class="w-16 h-16 mb-4">
                     <h2 class="text-center text-lg font-bold text-primary mb-2">Akun Berhasil Didaftaran</h2>
                     <a href="./akundppk">
-                    <button id="closeModalBtn" class="bg-primary text-white py-2 px-4 rounded-lg">OK</button>
+                        <button id="closeModalBtn" class="bg-primary text-white py-2 px-4 rounded-lg">OK</button>
                     </a>
                 </div>
             </div>

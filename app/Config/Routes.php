@@ -115,15 +115,34 @@ $routes->group('penerima', ['filter' => 'auth'], function ($routes) {
 /* Admin */
 $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('dashboard', 'AdminController::dashboard');
-    $routes->get('akundlhk', 'AdminController::akundlhk');
-    $routes->get('akuntimteknis', 'AdminController::akuntimteknis');
-    $routes->get('daftartimteknis', 'AdminController::daftartimteknis');
-    $routes->get('akundppk', 'AdminController::akundppk');
-    $routes->get('daftardppk', 'AdminController::daftardppk');
 
-    $routes->get('akunpengguna', 'AdminController::akunpengguna');
-    $routes->get('daftarakunpengguna', 'AdminController::daftarakunpengguna');
-    $routes->get('daftarakundlhk', 'AdminController::daftarakundlhk');
+    $routes->get('daftarakunpenerima', 'AdminController::daftarakunpenerima');
+
+    // Manajemen Akun Penerima Penghargaan Kalpataru
+    $routes->get('akunpenerima', 'AdminController::akunpenerima');
+    $routes->post('akunpenerima/hapus/(:num)', 'AdminController::hapusPenerima/$1');
+    $routes->post('updatepenerima', 'AdminController::updatePenerima');
+    $routes->get('daftarpenerima', 'AuthController::registerPenerima');
+    $routes->post('daftarpenerima', 'AuthController::createregisterPenerima');
+
+    // Manajemen Akun Tim Teknis
+    $routes->get('akuntimteknis', 'AdminController::akuntimteknis');
+    $routes->post('akuntimteknis/hapus/(:num)', 'AdminController::hapusTimTeknis/$1');
+    $routes->post('updatetimteknis', 'AdminController::updateTimTeknis');
+    $routes->get('daftartimteknis', 'AuthController::registerTimTeknis');
+    $routes->post('daftartimteknis', 'AuthController::createRegisterTimTeknis');
+
+    // Manajemen Akun DPPK
+    $routes->get('akundppk', 'AdminController::akundppk');
+    $routes->post('akundppk/hapus/(:num)', 'AdminController::hapusDppk/$1');
+    $routes->post('updatedppk', 'AdminController::updateDppk');
+    $routes->get('daftardppk', 'AuthController::registerDPPK');
+    $routes->post('daftardppk', 'AuthController::createRegisterDPPK');
+
+    // Manajemen Akun DLHK
+    $routes->get('akundlhk', 'AdminController::akundlhk');
+    $routes->get('daftarakundlhk', 'AuthController::registerDLHK');
+    $routes->post('daftarakundlhk', 'AuthController::createRegisterDLHK');
 
     // Manajemen Akun Pengusul
     $routes->get('pengusul', 'AdminController::akunpengusul');

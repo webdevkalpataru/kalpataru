@@ -2,35 +2,41 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./css/app.css">
-  <title><?= $title; ?></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/app.css">
+    <title><?= $title; ?></title>
 </head>
 
 <body class="lg:flex">
 
 
 
-  <!-- Sidebar -->
-  <?= $this->include('template/sidebaradmin') ?>
+    <!-- Sidebar -->
+    <?= $this->include('template/sidebaradmin') ?>
 
-  <div class="lg:flex-1 p-6">
-    <div class="min-h-screen flex flex-col">
+    <div class="lg:flex-1 p-6">
+        <div class="min-h-screen flex flex-col">
 
-  <div class="container mx-auto flex items-center justify-between p-4 md:p-6">
-          <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Akun DLHK</h1>
-         
-          <div class="flex items-center">
-            <p class="text-gray-500 mr-2 md:mr-4">Hello, Admin</p>
-            <button class="bg-rejected text-white px-3 py-2 md:px-4 md:py-2 rounded-lg">Keluar</button>
-          </div>
-        </div>
-        <div>
-        <a href="../admin/daftarakundlhk">
-                    <button id="tambahCalon" class="w-48 rounded-md py-2 ml-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button"> <span>&#10010</span> Tambah Akun DLHK</button>
+
+            <header class="bg-white shadow">
+                <div class="container mx-auto flex items-center justify-between p-4 md:p-6">
+                    <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Akun DLHK</h1>
+                    <div class="flex items-center">
+                        <p class="text-gray-500 mr-2 md:mr-4">Hello, <?= session()->get('nama'); ?></p>
+                        <a href="/auth/logout" class="bg-rejected text-white px-3 py-2 md:px-4 md:py-2 rounded-lg inline-block">Keluar</a>
+                    </div>
+                </div>
+            </header>
+            <div>
+                <a href="../admin/daftarakundlhk">
+                    <button id="tambahCalon" class="mt-4 w-48 rounded-md py-2 ml-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button"> <span>&#10010</span> Tambah Akun DLHK</button>
                 </a>
             </div>
+
+            <h4 class="mt-4 text-xs:lg:text-md ml-4 lg:ml-0 font-semibold">
+                Hasil: <?= esc($countAllPengusul) ?> Akun DLHK
+            </h4>
 
             <div class="relative  flex flex-col w-full h-full overflow-scroll bg-white shadow-md rounded-lg bg-clip-border my-6">
                 <table class="w-full text-left table-auto min-w-max">
@@ -55,7 +61,7 @@
                                 class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
                                 <p
                                     class="flex items-center justify-between gap-2 text-sm font-normal leading-none text-slate-800">
-                                    Akun
+                                    Email
                                 </p>
                             </th>
                             <th
@@ -76,240 +82,64 @@
                                 class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
                                 <p
                                     class="flex items-center justify-between gap-2 text-sm font-normal leading-none text-slate-800">
-                                   Status
+                                    Status
                                 </p>
                             </th>
-                            <th
-                                class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
-                                <p
-                                    class="flex items-center justify-between gap-2 text-sm font-normal leading-none text-slate-800">
-                                   Hapus
-                                </p>
-                            </th>
+
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="hover:bg-slate-50">
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    01
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    Dinas Lingkuhan Hidup Bogor
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    example@gmail.com
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    Jawa Barat
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                            <div>
-                                <button id="uploadBtn" class="mt-4 w-3/2 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="submit">Selengkapnya</button>
-                                </div>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                            <button
-                                    class="toggleBtn mt-4 w-3/2 rounded-md py-2 px-2 text-center text-sm text-white shadow-md hover:shadow-lg bg-footer active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                                    type="button"
-                                    data-active="Aktif"
-                                    data-inactive="Aktifkan"
-                                    >
-                                    Aktifkan
-                            </button>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                            <button>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-                                </svg>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr class="hover:bg-slate-50">
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    02
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                Dinas Lingkuhan Hidup Bogor
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    example@gmail.com
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    Jawa Barat
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                            <div>
-                                <button id="uploadBtn" class="mt-4 w-3/2 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="submit">Selengkapnya</button>
-                                </div>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                            <button
-                                    class="toggleBtn mt-4 w-3/2 rounded-md py-2 px-2 text-center text-sm text-white shadow-md hover:shadow-lg bg-footer active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                                    type="button"
-                                    data-active="Aktif"
-                                    data-inactive="Aktifkan"
-                                    >
-                                    Aktifkan
-                            </button>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                            <button>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-                                </svg>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr class="hover:bg-slate-50">
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    03
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                Dinas Lingkuhan Hidup Bogor
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    example@gmail.com
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    Jawa Barat
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                            <div>
-                                <button id="uploadBtn" class="mt-4 w-3/2 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="submit">Selengkapnya</button>
-                                </div>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                            <button
-                                    class="toggleBtn mt-4 w-3/2 rounded-md py-2 px-2 text-center text-sm text-white shadow-md hover:shadow-lg bg-footer active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                                    type="button"
-                                    data-active="Aktif"
-                                    data-inactive="Aktifkan"
-                                    >
-                                    Aktifkan
-                            </button>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                            <button>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-                                </svg>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr class="hover:bg-slate-50">
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    04
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                Dinas Lingkuhan Hidup Bogor
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    example@gmail.com
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    Jawa Barat
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                            <div>
-                                <button id="uploadBtn" class="mt-4 w-3/2 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="submit">Selengkapnya</button>
-                                </div>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                            <button
-                                    class="toggleBtn mt-4 w-3/2 rounded-md py-2 px-2 text-center text-sm text-white shadow-md hover:shadow-lg bg-footer active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                                    type="button"
-                                    data-active="Aktif"
-                                    data-inactive="Aktifkan"
-                                    >
-                                    Aktifkan
-                            </button>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                            <button>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-                                </svg>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr class="hover:bg-slate-50">
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    05
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                Dinas Lingkuhan Hidup Bogor
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    example@gmail.com
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    Jawa Barat
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                            <div>
-                                <button id="uploadBtn" class="mt-4 w-3/2 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="submit">Selengkapnya</button>
-                                </div>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                            <button
-                                    class="toggleBtn mt-4 w-3/2 rounded-md py-2 px-2 text-center text-sm text-white shadow-md hover:shadow-lg bg-footer active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                                    type="button"
-                                    data-active="Aktif"
-                                    data-inactive="Aktifkan"
-                                    >
-                                    Aktifkan
-                            </button>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                            <button>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-                                </svg>
-                                </button>
-                            </td>
-                        </tr>
+                        <?php if (count($pengusul) > 0): ?>
+                            <?php
+                            $no = 0;
+                            foreach ($pengusul as $index => $p):
+                                $no++;
+                            ?>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-4 border-b border-slate-200">
+                                        <p class="block text-sm text-slate-800">
+                                            <?= $no ?>
+                                        </p>
+                                    </td>
+                                    <td class="p-4 border-b border-slate-200">
+                                        <p class="block text-sm text-slate-800">
+                                            <?= esc($p['nama_instansi_pribadi']); ?> </p>
+                                    </td>
+                                    <td class="p-4 border-b border-slate-200">
+                                        <p class="block text-sm text-slate-800">
+                                            <?= esc($p['email']); ?> </p>
+                                    </td>
+                                    <td class="p-4 border-b border-slate-200">
+                                        <p class="block text-sm text-slate-800">
+                                            <?= esc($p['provinsi']); ?> </p>
+                                    </td>
+                                    <td class="p-4 border-b border-slate-200 text-center">
+                                        <form method="POST" action="/admin/updatepengusul">
+                                            <input type="hidden" name="id_pengusul" value="<?= esc($p['id_pengusul']); ?>">
+                                            <select name="status_akun" class="status-dropdown ml-2 border-2 border-primary text-primary rounded-md shadow-sm text-xs" data-id="<?= $p['id_pengusul'] ?>">
+                                                <?php
+                                                $statuses = ['Pending', 'Aktif'];
+                                                foreach ($statuses as $status) {
+                                                    $selected = ($status == $p['status_akun']) ? 'selected' : '';
+                                                    echo "<option value='$status' $selected>$status</option>";
+                                                }
+                                                ?>
+                                            </select>
+                                        </form>
+                                    </td>
+                                    <td class="p-4 border-b border-slate-200">
+                                        <div>
+                                            <a href="/admin/pengusul/detail/<?= $p['id_pengusul']; ?>" class="mt-4 w-3/2 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover">Lihat</a>
+                                        </div>
+                                    </td>
 
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="6" class="p-4 text-center text-slate-800">Belum ada akun</td>
+                            </tr>
+                        <?php endif; ?>
                     </tbody>
                 </table>
                 <div class="row flex lg:justify-end justify-center my-6 lg:mr-4">
@@ -340,30 +170,107 @@
                     </button>
                 </div>
             </div>
-</div>
-</div>
+        </div>
+    </div>
+
+    <!-- Modal Status -->
+    <div id="statusModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+        <div class="bg-white rounded-lg p-8 flex flex-col max-w-md">
+            <h2 class="text-left text-lg font-bold text-primary mb-2">Konfirmasi Perubahan Status</h2>
+            <p class="text-justify text-sm text-slate-600 mb-4">Apakah Anda yakin ingin mengubah status akun pengusul ini?</p>
+            <div class="flex justify-end space-x-4">
+                <button id="cancelStatusButton" class="px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-700 hover:text-white rounded-md">Batal</button>
+                <button id="confirmStatusButton" class="px-4 py-2 bg-primary hover:bg-primaryhover text-white rounded-md">Ya, Ubah Status</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        // POPUP MODAL STATUS
+        const statusModal = document.getElementById('statusModal');
+        const confirmStatusButton = document.getElementById('confirmStatusButton');
+        const cancelStatusButton = document.getElementById('cancelStatusButton');
+        let selectedDropdown = null;
+        let initialValue = ''; // Menyimpan nilai awal dropdown
+
+        // Event listener untuk setiap dropdown status
+        document.querySelectorAll('.status-dropdown').forEach(dropdown => {
+            dropdown.addEventListener('change', function() {
+                selectedDropdown = this;
+                initialValue = this.value; // Simpan nilai awal
+                statusModal.classList.remove('hidden'); // Tampilkan modal
+            });
+        });
+
+        // Ketika tombol "Ya, Ubah Status" ditekan
+        confirmStatusButton.addEventListener('click', function() {
+            if (selectedDropdown) {
+                // Ambil data dari dropdown
+                const formData = new FormData(selectedDropdown.form);
+
+                // Kirim request ke server
+                fetch(selectedDropdown.form.action, {
+                        method: 'POST',
+                        body: formData,
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            location.reload(); // Refresh halaman jika berhasil
+                        } else {
+                            alert(data.message); // Menampilkan pesan gagal
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Terjadi kesalahan, silakan coba lagi.');
+                    });
+
+                statusModal.classList.add('hidden'); // Sembunyikan modal
+            }
+        });
+
+        // Ketika tombol "Batal" ditekan
+        cancelStatusButton.addEventListener('click', function() {
+            if (selectedDropdown) {
+                selectedDropdown.value = initialValue; // Kembalikan ke nilai awal
+            }
+            statusModal.classList.add('hidden'); // Sembunyikan modal
+            location.reload(); // Refresh halaman
+        });
+
+        // Tutup modal jika klik di luar modal
+        window.addEventListener('click', function(event) {
+            if (event.target === statusModal) {
+                statusModal.classList.add('hidden');
+                if (selectedDropdown) {
+                    selectedDropdown.value = initialValue; // Kembalikan ke nilai awal jika modal ditutup
+                }
+            }
+        });
+
+        // Function to toggle the button text
+        function toggleButtonText(button) {
+            const activeText = button.getAttribute("data-active");
+            const inactiveText = button.getAttribute("data-inactive");
+
+            if (button.innerText === inactiveText) {
+                button.innerText = activeText;
+            } else {
+                button.innerText = inactiveText;
+            }
+        }
+
+        // Select all buttons with the class 'toggleBtn'
+        const buttons = document.querySelectorAll(".toggleBtn");
+
+        // Attach the toggle function to each button's click event
+        buttons.forEach(button => {
+            button.addEventListener("click", () => toggleButtonText(button));
+        });
+    </script>
 </body>
 
-<script>
-  // Function to toggle the button text
-  function toggleButtonText(button) {
-    const activeText = button.getAttribute("data-active");
-    const inactiveText = button.getAttribute("data-inactive");
-
-    if (button.innerText === inactiveText) {
-      button.innerText = activeText;
-    } else {
-      button.innerText = inactiveText;
-    }
-  }
-
-  // Select all buttons with the class 'toggleBtn'
-  const buttons = document.querySelectorAll(".toggleBtn");
-
-  // Attach the toggle function to each button's click event
-  buttons.forEach(button => {
-    button.addEventListener("click", () => toggleButtonText(button));
-  });
-</script>
+</html>
+</body>
 
 </html>

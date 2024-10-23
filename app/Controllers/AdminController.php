@@ -5,9 +5,12 @@ namespace App\Controllers;
 use App\Models\ArtikelModel;
 use App\Models\BeritaModel;
 use App\Models\BukuModel;
+use App\Models\DppkModel;
+use App\Models\PenerimaModel;
 use App\Models\PengumumanModel;
 use App\Models\PengusulModel;
 use App\Models\PeraturanModel;
+use App\Models\TimteknisModel;
 use App\Models\VideoModel;
 
 
@@ -71,6 +74,17 @@ class AdminController extends BaseController
             return $this->response->setJSON([
                 'success' => false,
                 'messages' => $validation->getErrors(),
+            ]);
+        }
+
+        // Menghasilkan slug yang unik
+        $slugExist = $model->where('slug', $slug)->first(); // Cek apakah slug sudah ada
+        if ($slugExist) {
+            return $this->response->setJSON([
+                'success' => false,
+                'messages' => [
+                    'judul' => 'Tautan dengan judul ini sudah tersedia. Silakan gunakan judul yang berbeda.'
+                ]
             ]);
         }
 
@@ -234,6 +248,20 @@ class AdminController extends BaseController
             ]);
         }
 
+        $slugExists = $model->where('slug', $slug)
+            ->where('id_artikel !=', $id) // Abaikan artikel yang sedang diedit
+            ->first();
+
+        if ($slugExists) {
+            // Jika slug sudah ada pada artikel lain, kirim pesan kesalahan ke view
+            return $this->response->setJSON([
+                'success' => false,
+                'messages' => [
+                    'judul' => 'Judul artikel ini sudah digunakan. Silakan gunakan judul yang berbeda.'
+                ]
+            ]);
+        }
+
         // Menangani upload file foto
         $fotoPath = '';
         if ($foto && $foto->isValid() && !$foto->hasMoved()) {
@@ -249,19 +277,7 @@ class AdminController extends BaseController
             }
         }
 
-        $slugExists = $model->where('slug', $slug)
-            ->where('id_artikel !=', $id) // Abaikan artikel yang sedang diedit
-            ->first();
 
-        if ($slugExists) {
-            // Jika slug sudah ada pada artikel lain, kirim pesan kesalahan ke view
-            return $this->response->setJSON([
-                'success' => false,
-                'messages' => [
-                    'judul' => 'Judul artikel ini sudah digunakan. Silakan gunakan judul yang berbeda.'
-                ]
-            ]);
-        }
 
         // Siapkan data untuk diupdate
         $dataArtikel = [
@@ -284,8 +300,6 @@ class AdminController extends BaseController
         }
     }
 
-
-
     public function hapusArtikel($id_artikel)
     {
         $model = new ArtikelModel();
@@ -299,6 +313,18 @@ class AdminController extends BaseController
         }
 
         return redirect()->to('/admin/artikel'); // Sesuaikan dengan URL yang diinginkan
+    }
+
+    public function akundlhk()
+    {
+        $model = new PengusulModel();
+        $pengusul = $model->where('role_akun', 'DLHK')->findAll();
+
+        $data['pengusul'] = $pengusul;
+        $data['countAllPengusul'] = count($data['pengusul']); // Menghitung semua akun pengusul
+        $data['title'] = "Akun DLHK";
+
+        return view('admin/akundlhk', $data);
     }
 
     public function akunpengusul()
@@ -379,17 +405,144 @@ class AdminController extends BaseController
         return $this->response->download($path, null);
     }
 
-
-    public function akundlhk()
+    public function akundppk()
     {
-        $data['title'] = "Akun DLHK";
-        return view('admin/akundlhk', ['title' => 'Akun DLHK']);
+        $model = new DppkModel();
+        $dppk = $model->findAll(); // Menampilkan semua data dari tabel dppk tanpa filter
+
+        $data['dppk'] = $dppk;
+        $data['countAlldppk'] = count($data['dppk']); // Menghitung semua data di tabel dppk
+        $data['title'] = "Akun DPPK";
+
+        return view('admin/akundppk', $data);
+    }
+
+    public function updateDppk()
+    {
+        // Inisialisasi model
+        $model = new DppkModel();
+
+        // Ambil data dari POST request
+        $id_dppk = $this->request->getPost('id_dppk');
+        $status_akun = $this->request->getPost('status_akun');
+
+        // Validasi data (opsional, misalnya cek apakah ID dan status valid)
+        if ($id_dppk && $status_akun) {
+            // Update status di database
+            $model->update($id_dppk, ['status_akun' => $status_akun]);
+            // Mengembalikan respons untuk merefresh halaman
+            return $this->response->setJSON(['success' => true, 'message' => 'Status DPPK berhasil diperbarui']);
+        } else {
+            // Mengembalikan respons untuk merefresh halaman
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui status DPPK']);
+        }
+    }
+
+    public function hapusDppk($id_dppk)
+    {
+        $model = new DppkModel();
+
+        if ($model->delete($id_dppk)) {
+            // Set flash message atau lakukan redirect setelah menghapus
+            session()->setFlashdata('success', 'DPPK berhasil dihapus.');
+        } else {
+            session()->setFlashdata('error', 'Gagal menghapus DPPK.');
+        }
+
+        return redirect()->to('/admin/akundppk'); // Sesuaikan dengan URL yang diinginkan
     }
 
     public function akuntimteknis()
     {
+        $model = new TimteknisModel();
+        $timteknis = $model->findAll(); // Menampilkan semua data dari tabel timteknis tanpa filter
+
+        $data['timteknis'] = $timteknis;
+        $data['countAlltimteknis'] = count($data['timteknis']); // Menghitung semua data di tabel timteknis
         $data['title'] = "Akun Tim Teknis";
-        return view('admin/akuntimteknis', ['title' => 'Akun Tim Teknis']);
+
+        return view('admin/akuntimteknis', $data);
+    }
+
+    public function updateTimTeknis()
+    {
+        // Inisialisasi model
+        $model = new TimteknisModel();
+
+        // Ambil data dari POST request
+        $id_tim_teknis = $this->request->getPost('id_tim_teknis');
+        $status_akun = $this->request->getPost('status_akun');
+
+        // Validasi data (opsional, misalnya cek apakah ID dan status valid)
+        if ($id_tim_teknis && $status_akun) {
+            // Update status di database
+            $model->update($id_tim_teknis, ['status_akun' => $status_akun]);
+            // Mengembalikan respons untuk merefresh halaman
+            return $this->response->setJSON(['success' => true, 'message' => 'Status DPPK berhasil diperbarui']);
+        } else {
+            // Mengembalikan respons untuk merefresh halaman
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui status DPPK']);
+        }
+    }
+
+    public function hapusTimTeknis($id_tim_teknis)
+    {
+        $model = new TimteknisModel();
+
+        if ($model->delete($id_tim_teknis)) {
+            // Set flash message atau lakukan redirect setelah menghapus
+            session()->setFlashdata('success', 'Tim Teknis berhasil dihapus.');
+        } else {
+            session()->setFlashdata('error', 'Gagal menghapus Tim Teknis.');
+        }
+
+        return redirect()->to('/admin/akuntimteknis'); // Sesuaikan dengan URL yang diinginkan
+    }
+
+    public function akunpenerima()
+    {
+        $model = new PenerimaModel();
+        $penerima = $model->findAll(); // Menampilkan semua data dari tabel penerima tanpa filter
+
+        $data['penerima'] = $penerima;
+        $data['countAllpenerima'] = count($data['penerima']); // Menghitung semua data di tabel penerima
+        $data['title'] = "Akun Penerima Penghargaan Kalpataru";
+        return view('admin/akunpengguna', $data);
+    }
+
+    public function updatePenerima()
+    {
+        // Inisialisasi model
+        $model = new PenerimaModel();
+
+        // Ambil data dari POST request
+        $id_penerima = $this->request->getPost('id_penerima');
+        $status_akun = $this->request->getPost('status_akun');
+
+        // Validasi data (opsional, misalnya cek apakah ID dan status valid)
+        if ($id_penerima && $status_akun) {
+            // Update status di database
+            $model->update($id_penerima, ['status_akun' => $status_akun]);
+            // Mengembalikan respons untuk merefresh halaman
+            return $this->response->setJSON(['success' => true, 'message' => 'Status berhasil diperbarui']);
+        } else {
+            // Mengembalikan respons untuk merefresh halaman
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui status']);
+        }
+    }
+
+    public function hapusPenerima($id_penerima)
+    {
+        $model = new PenerimaModel();
+
+        if ($model->delete($id_penerima)) {
+            // Set flash message atau lakukan redirect setelah menghapus
+            session()->setFlashdata('success', 'Akun berhasil dihapus.');
+        } else {
+            session()->setFlashdata('error', 'Gagal menghapus Akun.');
+        }
+
+        return redirect()->to('/admin/akunpenerima'); // Sesuaikan dengan URL yang diinginkan
     }
 
     public function beritaAdmin()
@@ -447,6 +600,17 @@ class AdminController extends BaseController
             ]);
         }
 
+        // Menghasilkan slug yang unik
+        $slugExist = $model->where('slug', $slug)->first(); // Cek apakah slug sudah ada
+        if ($slugExist) {
+            return $this->response->setJSON([
+                'success' => false,
+                'messages' => [
+                    'judul' => 'Tautan dengan judul ini sudah tersedia. Silakan gunakan judul yang berbeda.'
+                ]
+            ]);
+        }
+
         // Menangani upload file foto
         $fotoPath = '';
         if ($foto && $foto->isValid() && !$foto->hasMoved()) {
@@ -462,17 +626,6 @@ class AdminController extends BaseController
             }
         } else {
             return $this->response->setJSON(['success' => false, 'message' => 'File tidak valid atau belum diupload.']);
-        }
-
-        // Menghasilkan slug yang unik
-        $slugExist = $model->where('slug', $slug)->first(); // Cek apakah slug sudah ada
-        if ($slugExist) {
-            return $this->response->setJSON([
-                'success' => false,
-                'messages' => [
-                    'judul' => 'Tautan dengan judul ini sudah tersedia. Silakan gunakan judul yang berbeda.'
-                ]
-            ]);
         }
 
         // Simpan data artikel ke dalam database
@@ -586,21 +739,6 @@ class AdminController extends BaseController
             ]);
         }
 
-        // Menangani upload file foto
-        $fotoPath = '';
-        if ($foto && $foto->isValid() && !$foto->hasMoved()) {
-            // Memastikan tipe file dan membuat nama file acak
-            $fotoName = $foto->getRandomName();
-
-            // Memindahkan file ke folder public/images/artikel
-            if ($foto->move('public/images/berita', $fotoName)) {
-                // Jika berhasil, simpan path foto
-                $fotoPath = 'images/berita/' . $fotoName;
-            } else {
-                return $this->response->setJSON(['success' => false, 'errors' => 'Gagal menyimpan file foto.']);
-            }
-        }
-
         // Cek apakah slug sudah digunakan oleh artikel lain (selain artikel ini)
         $slugExists = $model->where('slug', $slug)
             ->where('id_berita !=', $id) // Abaikan artikel yang sedang diedit
@@ -614,6 +752,21 @@ class AdminController extends BaseController
                     'judul' => 'Judul artikel ini sudah digunakan. Silakan gunakan judul yang berbeda.'
                 ]
             ]);
+        }
+
+        // Menangani upload file foto
+        $fotoPath = '';
+        if ($foto && $foto->isValid() && !$foto->hasMoved()) {
+            // Memastikan tipe file dan membuat nama file acak
+            $fotoName = $foto->getRandomName();
+
+            // Memindahkan file ke folder public/images/artikel
+            if ($foto->move('public/images/berita', $fotoName)) {
+                // Jika berhasil, simpan path foto
+                $fotoPath = 'images/berita/' . $fotoName;
+            } else {
+                return $this->response->setJSON(['success' => false, 'errors' => 'Gagal menyimpan file foto.']);
+            }
         }
 
         // Siapkan data untuk diupdate
@@ -665,7 +818,6 @@ class AdminController extends BaseController
         }
     }
 
-
     public function hapusBerita($id_berita)
     {
         $model = new BeritaModel();
@@ -679,24 +831,6 @@ class AdminController extends BaseController
         }
 
         return redirect()->to('/admin/berita'); // Sesuaikan dengan URL yang diinginkan
-    }
-
-    public function daftartimteknis()
-    {
-        $data['title'] = "Daftar Tim Teknis";
-        return view('admin/daftartimteknis', ['title' => 'Daftar Tim Teknis']);
-    }
-
-    public function akundppk()
-    {
-        $data['title'] = "Akun DPPK";
-        return view('admin/akundppk', ['title' => 'Akun DPPK']);
-    }
-
-    public function daftardppk()
-    {
-        $data['title'] = "Daftar DPPK";
-        return view('admin/daftardppk', ['title' => 'Daftar DPPK']);
     }
 
     public function pengumumanadmin()
@@ -754,6 +888,17 @@ class AdminController extends BaseController
             ]);
         }
 
+        // Menghasilkan slug yang unik
+        $slugExist = $model->where('slug', $slug)->first(); // Cek apakah slug sudah ada
+        if ($slugExist) {
+            return $this->response->setJSON([
+                'success' => false,
+                'messages' => [
+                    'judul' => 'Tautan dengan judul ini sudah tersedia. Silakan gunakan judul yang berbeda.'
+                ]
+            ]);
+        }
+
         // Menangani upload file foto
         $fotoPath = '';
         if ($foto && $foto->isValid() && !$foto->hasMoved()) {
@@ -769,17 +914,6 @@ class AdminController extends BaseController
             }
         } else {
             return $this->response->setJSON(['success' => false, 'messages' => 'File tidak valid atau belum diupload.']);
-        }
-
-        // Menghasilkan slug yang unik
-        $slugExist = $model->where('slug', $slug)->first(); // Cek apakah slug sudah ada
-        if ($slugExist) {
-            return $this->response->setJSON([
-                'success' => false,
-                'messages' => [
-                    'judul' => 'Tautan dengan judul ini sudah tersedia. Silakan gunakan judul yang berbeda.'
-                ]
-            ]);
         }
 
         // Simpan data pengumuman ke dalam database
@@ -890,21 +1024,6 @@ class AdminController extends BaseController
             ]);
         }
 
-        // Menangani upload file foto
-        $fotoPath = '';
-        if ($foto && $foto->isValid() && !$foto->hasMoved()) {
-            // Memastikan tipe file dan membuat nama file acak
-            $fotoName = $foto->getRandomName();
-
-            // Memindahkan file ke folder public/images/artikel
-            if ($foto->move('public/images/pengumuman', $fotoName)) {
-                // Jika berhasil, simpan path foto
-                $fotoPath = 'images/pengumuman/' . $fotoName;
-            } else {
-                return $this->response->setJSON(['success' => false, 'errors' => 'Gagal menyimpan file foto.']);
-            }
-        }
-
         // Cek apakah slug sudah digunakan oleh artikel lain (selain artikel ini)
         $slugExists = $model->where('slug', $slug)
             ->where('id_pengumuman !=', $id) // Abaikan artikel yang sedang diedit
@@ -920,6 +1039,20 @@ class AdminController extends BaseController
             ]);
         }
 
+        // Menangani upload file foto
+        $fotoPath = '';
+        if ($foto && $foto->isValid() && !$foto->hasMoved()) {
+            // Memastikan tipe file dan membuat nama file acak
+            $fotoName = $foto->getRandomName();
+
+            // Memindahkan file ke folder public/images/artikel
+            if ($foto->move('public/images/pengumuman', $fotoName)) {
+                // Jika berhasil, simpan path foto
+                $fotoPath = 'images/pengumuman/' . $fotoName;
+            } else {
+                return $this->response->setJSON(['success' => false, 'errors' => 'Gagal menyimpan file foto.']);
+            }
+        }
 
         // Siapkan data untuk diupdate
         $data = [
@@ -1242,24 +1375,6 @@ class AdminController extends BaseController
         }
 
         return redirect()->to('/admin/pengumuman'); // Sesuaikan dengan URL yang diinginkan
-    }
-
-    public function akunpengguna()
-    {
-        $data['title'] = "Akun Pengguna";
-        return view('admin/akunpengguna', ['title' => 'Akun Pengguna']);
-    }
-
-    public function daftarakunpengguna()
-    {
-        $data['title'] = "Daftar Akun Pengguna";
-        return view('admin/daftarakunpengguna', ['title' => 'Daftar Akun Pengguna']);
-    }
-
-    public function daftarakundlhk()
-    {
-        $data['title'] = "Daftar Akun DLHK";
-        return view('admin/daftarakundlhk', ['title' => 'Daftar Akun DLHK']);
     }
 
     public function videoAdmin()
