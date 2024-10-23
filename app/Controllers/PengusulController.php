@@ -83,7 +83,12 @@ class PengusulController extends BaseController
             return redirect()->to('/login');
         }
 
-        return view('pengusul/tambahcalon', ['id_pengusul' => $id_pengusul]);
+        $data = [
+            'id_pengusul' => $id_pengusul,
+            'title' => 'Tambah Calon'
+        ];
+
+        return view('pengusul/tambahcalon', $data);
     }
 
     public function inputKategori()
@@ -117,7 +122,8 @@ class PengusulController extends BaseController
             'id_pengusul' => $id_pengusul,
             'kategori' => $kategori,
             'tanggal_pendaftaran' => date('Y-m-d H:i:s'),
-            'kode_registrasi' => $kode_registrasi
+            'kode_registrasi' => $kode_registrasi,
+            'title' => 'Input Kategori'
         ];
 
         session()->set('pendaftaran_data', $data);
@@ -177,10 +183,13 @@ class PengusulController extends BaseController
             'Sumatera Utara'
         ];
 
+        $title = "Tambah Calon Identitas";
+
         return view('pengusul/tambahcalonidentitas', [
             'id_pengusul' => $pendaftaranData['id_pengusul'],
             'kategori' => $pendaftaranData['kategori'],
-            'provinsi_list' => $provinsi_list
+            'provinsi_list' => $provinsi_list,
+            'title' => $title
         ]);
     }
 
@@ -715,6 +724,8 @@ class PengusulController extends BaseController
             return redirect()->to('pengusul/usulansaya')->with('error', 'Data tidak ditemukan.');
         }
 
+        $title = "Edit Calon Usulan";
+
         session()->set('id_pendaftaran', $id_pendaftaran);
 
         $data = [
@@ -727,7 +738,8 @@ class PengusulController extends BaseController
             'keswadayaan' => $keswadayaan,
             'keistimewaan' => $keistimewaan,
             'kegiatanUtama' => $kegiatanUtama,
-            'kegiatanLainnya' => $kegiatanLainnya
+            'kegiatanLainnya' => $kegiatanLainnya,
+            'title' => $title
         ];
         
         return view('pengusul/detailusulansayaedit', $data);
@@ -746,7 +758,7 @@ class PengusulController extends BaseController
         }
 
         $data = [
-            'title' => 'Usulan Saya',
+            'title' => 'Detail Usulan Calon',
             'pendaftaran' => $pendaftaran,
             'kegiatan' => $kegiatan,
         ];

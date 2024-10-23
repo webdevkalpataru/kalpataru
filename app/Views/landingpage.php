@@ -546,49 +546,67 @@
                             return penerima.provinsi === provinsi;
                         });
 
-                        if (penerimaDiProvinsi.length > 0) {
-                            var geojsonLayer = L.geoJSON(data, {
-                                style: function() {
-                                    return {
-                                        color: colorAbuMuda,
+                        var geojsonLayer = L.geoJSON(data, {
+                            style: function() {
+                                return penerimaDiProvinsi.length > 0
+                                    ? {
+                                        color: 'none',
                                         fillColor: colorAbuMuda,
                                         fillOpacity: 1,
-                                        weight: 1
+                                        weight: 0 
+                                    }
+                                    : {
+                                        color: 'none',
+                                        fillOpacity: 0
                                     };
-                                },
-                                onEachFeature: function(feature, layer) {
-                                    var popupContent = '<strong>' + provinsi + '</strong><br>Jumlah Penerima: ' + penerimaDiProvinsi.length;
+                            },
+                            onEachFeature: function(feature, layer) {
+                                var center = layer.getBounds().getCenter();
+                                var label = L.marker(center, {
+                                    icon: L.divIcon({
+                                        className: 'province-label',
+                                        html: '<div style="font-weight: bold; cursor: pointer;">' + provinsi + '</div>',
+                                        iconSize: [100, 40],
+                                        iconAnchor: [50, 20]
+                                    })
+                                }).addTo(map);
 
-                                    var center = layer.getBounds().getCenter();
-                                    var label = L.marker(center, {
-                                        icon: L.divIcon({
-                                            className: 'province-label',
-                                            html: '<div style="font-weight: bold; cursor: pointer;">' + provinsi + '</div>',
-                                            iconSize: [100, 40],
-                                            iconAnchor: [50, 20]
-                                        })
-                                    }).addTo(map);
-
-                                    layer.on('click', function() {
-                                        var popup = L.popup()
-                                            .setLatLng(center)
-                                            .setContent(popupContent)
-                                            .openOn(map);
-                                    });
-
-                                    label.on('click', function() {
-                                        var popup = L.popup()
-                                            .setLatLng(center)
-                                            .setContent(popupContent)
-                                            .openOn(map);
-                                    });
+                                var popupContent = '<strong>' + provinsi + '</strong>';
+                                if (penerimaDiProvinsi.length > 0) {
+                                    popupContent += '<br>Jumlah Penerima: ' + penerimaDiProvinsi.length;
+                                } else {
+                                    popupContent += '<br>Tidak ada penerima.';
                                 }
-                            }).addTo(map);
-                        }
+
+                                label.on('click', function() {
+                                    var popup = L.popup()
+                                        .setLatLng(center)
+                                        .setContent(popupContent)
+                                        .openOn(map);
+                                });
+                            }
+                        }).addTo(map);
                     })
                     .catch(error => console.error('Error loading GeoJSON for ' + provinsi + ':', error));
             }
-            });
+
+            var legend = L.control({ position: 'bottomright' });
+
+            legend.onAdd = function(map) {
+                var div = L.DomUtil.create('div', 'info legend');
+                var labels = ['<strong>Keterangan</strong>'];
+                var colors = [colorAbuMuda];
+
+                labels.push(
+                    '<i style="background:' + colors[0] + '"></i> Penerima Kalpataru'
+                );
+
+                div.innerHTML = labels.join('<br>');
+                return div;
+            };
+
+            legend.addTo(map);
+        });
     </script>
 
     <script>

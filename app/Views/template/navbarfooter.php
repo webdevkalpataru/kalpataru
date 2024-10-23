@@ -85,6 +85,21 @@
         .leaflet-control-attribution {
             display: none !important;
         }
+
+        .info.legend {
+        background: rgba(255, 255, 255, 0.8);
+        padding: 10px;
+        font-size: 14px;
+        border-radius: 5px;
+        }
+
+        .info.legend i {
+            width: 18px;
+            height: 18px;
+            float: left;
+            margin-right: 8px;
+            opacity: 1;
+        }
     </style>
 </head>
 
