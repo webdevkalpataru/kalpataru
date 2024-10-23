@@ -46,7 +46,11 @@
 
           </div>
 
-          <div class="flex  mt-4">
+          <div class="flex justify-between mt-4">
+            <a href="/admin/video"
+              class="text-sm font-bold text-gray-600 no-underline focus:outline-none text-start">
+              <span class="font-bold text-lg items-center">←</span> Kembali
+            </a>
             <button id="uploadBtn" class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="submit">Unggah</button>
           </div>
         </form>

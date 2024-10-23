@@ -20,7 +20,7 @@
       <!-- Header -->
       <header class="bg-white shadow">
         <div class="container mx-auto flex items-center justify-between p-4 md:p-6">
-          <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Tambah Berita</h1>
+          <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Tambah Buku</h1>
           <div class="flex items-center">
             <p class="text-gray-500 mr-2 md:mr-4">Hello, <?= session()->get('nama'); ?></p>
             <a href="/auth/logout" class="bg-rejected text-white px-3 py-2 md:px-4 md:py-2 rounded-lg inline-block">Keluar</a>
@@ -49,7 +49,11 @@
               <div class="text-red-500" id="fileError"></div> <!-- Menampilkan pesan kesalahan file -->
             </div>
           </div>
-          <div class="flex justify-end mt-4">
+          <div class="flex justify-between mt-4">
+          <a href="/admin/buku-kalpataru"
+              class="text-sm font-bold text-gray-600 no-underline focus:outline-none text-start">
+              <span class="font-bold text-lg items-center">←</span> Kembali
+            </a>
             <button type="submit" class="w-40 rounded-md py-2 text-center text-sm text-white bg-primary hover:bg-primaryhover">Unggah</button>
           </div>
         </form>
@@ -85,6 +89,27 @@
       document.getElementById('coverError').textContent = '';
       document.getElementById('fileError').textContent = '';
 
+      // Validasi ukuran file (maksimal 13MB)
+      const cover = document.getElementById('cover').files[0];
+      const file = document.getElementById('file').files[0];
+      const maxSize = 13 * 1024 * 1024; // 13 MB dalam byte
+
+      let hasError = false;
+
+      if (cover && cover.size > maxSize) {
+        document.getElementById('coverError').textContent = 'Ukuran file cover tidak boleh lebih dari 13 MB.';
+        hasError = true;
+      }
+
+      if (file && file.size > maxSize) {
+        document.getElementById('fileError').textContent = 'Ukuran file buku tidak boleh lebih dari 13 MB.';
+        hasError = true;
+      }
+
+      if (hasError) {
+        return; // Jangan lanjutkan submit jika ada error
+      }
+
       // Mengirim request POST menggunakan Fetch API
       fetch(form.action, {
           method: form.method,
@@ -97,7 +122,7 @@
             const successModal = document.getElementById('successModal');
             successModal.classList.remove('hidden');
 
-            // Arahkan ke halaman peratuan / kebijakan admin ketika tombol "Oke" diklik
+            // Arahkan ke halaman peraturan / kebijakan admin ketika tombol "Oke" diklik
             document.getElementById('successBtn').addEventListener('click', function() {
               window.location.href = '/admin/buku-kalpataru'; // Ganti dengan URL yang sesuai
             });
@@ -127,6 +152,7 @@
       successModal.classList.add('hidden');
     });
   </script>
+
 </body>
 
 </html>

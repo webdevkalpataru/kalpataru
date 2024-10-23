@@ -55,7 +55,11 @@
               <div class="text-rejected" id="fileError"></div>
             </div>
           </div>
-          <div class="flex justify-end mt-4">
+          <div class="flex justify-between mt-4">
+            <a href="/admin/peraturan-kebijakan"
+              class="text-sm font-bold text-gray-600 no-underline focus:outline-none text-start">
+              <span class="font-bold text-lg items-center">←</span> Kembali
+            </a>
             <button type="submit" class="w-40 rounded-md py-2 text-center text-sm text-white bg-primary hover:bg-primaryhover">Unggah</button>
           </div>
         </form>

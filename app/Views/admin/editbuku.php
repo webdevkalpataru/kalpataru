@@ -94,6 +94,27 @@
       document.getElementById('coverError').textContent = '';
       document.getElementById('fileError').textContent = '';
 
+      // Validasi ukuran file (maksimal 13MB)
+      const cover = document.getElementById('cover').files[0];
+      const file = document.getElementById('file').files[0];
+      const maxSize = 13 * 1024 * 1024; // 13 MB dalam byte
+
+      let hasError = false;
+
+      if (cover && cover.size > maxSize) {
+        document.getElementById('coverError').textContent = 'Ukuran file cover tidak boleh lebih dari 13 MB.';
+        hasError = true;
+      }
+
+      if (file && file.size > maxSize) {
+        document.getElementById('fileError').textContent = 'Ukuran file buku tidak boleh lebih dari 13 MB.';
+        hasError = true;
+      }
+
+      if (hasError) {
+        return; // Jangan lanjutkan submit jika ada error
+      }
+
       // Mengirim request POST menggunakan Fetch API
       fetch(form.action, {
           method: form.method,
@@ -134,6 +155,7 @@
       successModal.classList.add('hidden');
     });
   </script>
+
 </body>
 
 </html>
