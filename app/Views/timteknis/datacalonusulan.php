@@ -94,44 +94,25 @@
                             <thead>
                                 <tr>
                                     <th class="p-4 border-b border-accent2 bg-accent1 text-center">
-                                        <p class="block text-xs md:text-sm font-bold leading-none text-accent2">
-                                            No
-                                        </p>
+                                        <p class="block text-xs md:text-sm font-bold leading-none text-accent2">No</p>
                                     </th>
                                     <th class="p-4 border-b border-accent2 bg-accent1 text-center">
-                                        <p class="block text-xs md:text-sm font-bold leading-none text-accent2">
-                                            Kode Registrasi
-                                        </p>
+                                        <p class="block text-xs md:text-sm font-bold leading-none text-accent2">Kode Registrasi</p>
                                     </th>
                                     <th class="p-4 border-b border-accent2 bg-accent1 text-center">
-                                        <p class="block text-xs md:text-sm font-bold leading-none text-accent2">
-                                            Nama
-                                        </p>
+                                        <p class="block text-xs md:text-sm font-bold leading-none text-accent2">Nama</p>
                                     </th>
                                     <th class="p-4 border-b border-accent2 bg-accent1 text-center">
-                                        <p class="block text-xs md:text-sm font-bold leading-none text-accent2">
-                                            Kategori
-                                        </p>
+                                        <p class="block text-xs md:text-sm font-bold leading-none text-accent2">Kategori</p>
                                     </th>
                                     <th class="p-4 border-b border-accent2 bg-accent1 text-center">
-                                        <p class="block text-xs md:text-sm font-bold leading-none text-accent2">
-                                            Provinsi
-                                        </p>
+                                        <p class="block text-xs md:text-sm font-bold leading-none text-accent2">Provinsi</p>
                                     </th>
                                     <th class="p-4 border-b border-accent2 bg-accent1 text-center">
-                                        <p class="block text-xs md:text-sm font-bold leading-none text-accent2">
-                                            Status
-                                        </p>
+                                        <p class="block text-xs md:text-sm font-bold leading-none text-accent2">Status</p>
                                     </th>
                                     <th class="p-4 border-b border-accent2 bg-accent1 text-center">
-                                        <p class="block text-xs md:text-sm font-bold leading-none text-accent2">
-                                            Catatan
-                                        </p>
-                                    </th>
-                                    <th class="p-4 border-b border-accent2 bg-accent1 text-center">
-                                        <p class="block text-xs md:text-sm font-bold leading-none text-accent2">
-                                            Detail
-                                        </p>
+                                        <p class="block text-xs md:text-sm font-bold leading-none text-accent2">Detail</p>
                                     </th>
                                 </tr>
                             </thead>
@@ -168,12 +149,7 @@
                                                 <p class="block text-xs font-bold <?= $statusClass ?>"><?= $item['status_pendaftaran'] ?></p>
                                             </td>
                                             <td class="p-4 border-b border-slate-200 text-center">
-                                                <button class="lihatButton w-20 rounded-md py-2 px-2 text-center font-semibold text-xs text-primary bg-secondary hover:shadow-md" type="button">Lihat</button>
-                                            </td>
-                                            <td class="p-4 border-b border-slate-200 text-center">
-                                                <a href="<?= base_url('timteknis/detaildatacalonusulan') ?>">
-                                                    <button class="w-20 rounded-md py-2 px-2 text-center font-semibold text-xs text-primary bg-secondary hover:shadow-md" type="button">Lihat</button>
-                                                </a>
+                                                <a href="<?= base_url('timteknis/detaildatacalonusulan/' . $item['id_pendaftaran']); ?>" class="mt-4 w-full rounded-md py-2 mb-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover">Selengkapnya</a>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>

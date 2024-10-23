@@ -376,4 +376,11 @@ class PendaftaranModel extends Model
             ->where('id_pendaftaran', $id_pendaftaran)
             ->update($this->table, $data);
     }
+
+    public function getDataCalonNonDraft()
+    {
+        // Mengambil semua data calon kecuali yang berstatus 'Draft'
+        return $this->where('status_pendaftaran !=', 'Draft')
+            ->findAll();
+    }
 }

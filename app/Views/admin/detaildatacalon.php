@@ -10,7 +10,7 @@
 <body class="lg:flex">
 
     <!-- Sidebar -->
-    <?= $this->include('template/sidebartimteknis') ?>
+    <?= $this->include('template/sidebaradmin') ?>
 
     <div class="lg:flex-1 p-6">
         <div class="min-h-screen flex flex-col">
@@ -27,8 +27,8 @@
                 <div class="flex flex-col md:flex-row items-start space-x-0 md:space-x-4 space-y-4 md:space-y-0 mt-8">
                     <!-- Left side: Buttons -->
                     <div class="flex flex-col w-full md:w-auto">
-                        <button id="profilButton" class="w-full btn-section md:w-40 rounded-md py-2 px-4 text-center text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none text-sm" type="button"
-                            data-target="identitas-calon">Profil Pengusul</button>
+                        <button id="profil-pengusulButton" class="mt-2 w-full btn-section md:w-40 rounded-md py-2 px-4 text-center text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none text-sm" type="button"
+                            data-target="profil-pengusul">Identitas Calon</button>
                         <button id="identitasButton" class="mt-2 w-full btn-section md:w-40 rounded-md py-2 px-4 text-center text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none text-sm" type="button"
                             data-target="identitas-calon">Identitas Calon</button>
                         <button id="kegiatanButton" class="mt-2 w-full btn-section md:w-40 rounded-md py-2 px-4 text-center text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none text-sm" type="button"
@@ -49,9 +49,88 @@
                     </div>
 
                     <!-- Right side: Form inside a card -->
+                    <div id="profil-pengusul" class="form-section flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
+                        <form id="profil-pengusulForm" class="mb-2 w-full">
+                            <div class="grid grid-cols-2 gap-4">
+                                <!-- Kolom kiri -->
+                                <div class="space-y-4">
+                                    <div class="w-full mb-4">
+                                        <label class="block mb-2 text-sm text-black">Jenis Instansi</label>
+                                        <input disabled type="text" value="<?= $pengusul['jenis_instansi']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none" />
+                                    </div>
+                                    <div class="w-full mb-4">
+                                        <label class="block mb-2 text-sm text-black">Nama Instansi / Pribadi</label>
+                                        <input disabled type="text" value="<?= $pengusul['nama_instansi_pribadi']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none " />
+                                    </div>
+                                    <div class="w-full mb-4">
+                                        <label class="block mb-2 text-sm text-black">Provinsi</label>
+                                        <input disabled type="text" value="<?= $pengusul['provinsi']; ?>" min="1" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none " />
+                                    </div>
+                                    <div class="w-full mb-4">
+                                        <label class="block mb-2 text-sm text-black">Nomor Telepon</label>
+                                        <input disabled type="text" value="<?= $pengusul['telepon']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none " />
+                                    </div>
+                                    <div class="w-full mb-4">
+                                        <label class="block mb-2 text-sm text-black">Email</label>
+                                        <input disabled type="text" value="<?= $pengusul['email']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none " />
+                                    </div>
+                                    <div class="w-full mb-4">
+                                        <label class="block mb-2 text-sm text-black">Jabatan/Pekerjaan</label>
+                                        <input disabled type="text" value="<?= $pengusul['jabatan_pekerjaan']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none " />
+                                    </div>
+                                    <div class="w-full mb-4">
+                                        <label class="block mb-2 text-sm text-black">Jenis Kelamin</label>
+                                        <input disabled type="text" value="<?= $pengusul['jenis_kelamin'] ?>" min="0" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none " />
+                                    </div>
+                                </div>
+
+                                <!-- Kolom kanan -->
+                                <div class="space-y-4">
+                                    <div class="w-full mb-4">
+                                        <label class="block mb-2 text-sm text-black">Jalan</label>
+                                        <input disabled type="text" value="<?= $pendaftaran['jalan'] ?>" min="0" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none " />
+                                    </div>
+                                    <div class="w-full mb-4">
+                                        <label class="block mb-2 text-sm text-black">RT/RW</label>
+                                        <input disabled type="text" value="<?= $pendaftaran['rt_rw'] ?>" min="0" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none " />
+                                    </div>
+                                    <div class="w-full mb-4">
+                                        <label class="block mb-2 text-sm text-black">Desa/Kelurahan</label>
+                                        <input disabled type="text" value="<?= $pendaftaran['desa'] ?>" min="0" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none " />
+                                    </div>
+                                    <div class="w-full mb-4">
+                                        <label class="block mb-2 text-sm text-black">Kecamatan</label>
+                                        <input disabled type="text" value="<?= $pendaftaran['kecamatan'] ?>" min="0" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none " />
+                                    </div>
+                                    <div class="w-full mb-4">
+                                        <label class="block mb-2 text-sm text-black">Kab/Kota</label>
+                                        <input disabled type="text" value="<?= $pendaftaran['kab_kota'] ?>" min="0" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none " />
+                                    </div>
+                                    <div class="w-full mb-4">
+                                        <label class="block mb-2 text-sm text-black">Kode Pos</label>
+                                        <input disabled type="text" value="<?= $pendaftaran['kode_pos'] ?>" min="0" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none " />
+                                    </div>
+                                    <div class="w-full mb-4">
+                                        <label class="block mb-2 text-sm text-black">Surat Pengantar</label>
+                                        <p class="text-sm text-slate-400 mb-4">
+                                            <?= $pengusul['surat_pengantar']; ?> <!-- Tampilkan nama file surat pengantar -->
+                                        </p>
+                                        <button onclick="window.location.href='<?= base_url('/admin/download/' . esc($pengusul['surat_pengantar'])) ?>'"
+                                            class="w-full rounded-md py-2 px-2 text-center font-semibold text-xs text-primary bg-secondary hover:shadow-md flex items-center justify-center gap-4" type="button">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                                            </svg>
+                                            Unduh Surat Pengantar
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
 
                     <?php if ($pendaftaran['kategori'] === 'Penyelamat Lingkungan'): ?>
-                        <div id="identitas-calon" class="form-section flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
+                        <div id="identitas-calon" class="form-section hidden flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
                             <form id="identitasabd" class="mb-2 w-full">
                                 <p class="font-semibold mb-2 text-md text-primary underline">Data Kelompok/ Komunitas</p>
                                 <div class="w-full mb-4">
@@ -193,7 +272,7 @@
                         </div>
 
                     <?php else: ?>
-                        <div id="identitas-calon" class="form-section flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
+                        <div id="identitas-calon" class="form-section hidden flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
                             <form id="identitasabd" class="mb-2 w-full">
                                 <div class="w-full mb-4">
                                     <label class="mb-2 text-sm text-slate-600">Nama Lengkap</label>
@@ -581,8 +660,6 @@
                                     </p>
                                 </div>
                             </div>
-
-
                         </form>
                     </div>
 
@@ -689,18 +766,6 @@
                     document.getElementById(target).classList.remove('hidden');
                 });
             });
-
-
-            // Jenis Kegiatan Lainnya
-            /* function toggleJenisLainnya() {
-                const jenisKegiatan = document.getElementById('jenisKegiatan');
-                const jenisLainnya = document.getElementById('jenisLainnya');
-                if (jenisKegiatan.value === 'jenis-kegiatan-lainnya') {
-                    jenisLainnya.classList.remove('hidden');
-                } else {
-                    jenisLainnya.classList.add('hidden');
-                }
-            } */
 
             // Tema Sub Tema Kegiatan
             const subTemaOptions = {
@@ -993,61 +1058,6 @@
                     }
                 }
             }
-
-
-            // Tambah Foto Kegiatan dan Tambah Tautan Video
-            // Maksimal input yang diperbolehkan
-            const maxFotoInput = 5;
-            const maxVideoInput = 5;
-
-            // Container foto dan video
-            const fotoContainer = document.getElementById('fotoContainer');
-            const videoContainer = document.getElementById('videoContainer');
-
-            // Tombol tambah foto dan video
-            const tambahFotoButton = document.getElementById('tambahFotoButton');
-            const tambahVideoButton = document.getElementById('tambahVideoButton');
-
-            // Counter untuk input
-            let fotoInputCount = 1;
-            let videoInputCount = 1;
-
-            // Fungsi untuk menambah input foto kegiatan
-            tambahFotoButton.addEventListener('click', function() {
-                if (fotoInputCount < maxFotoInput) {
-                    const newFotoDiv = document.createElement('div');
-                    newFotoDiv.classList.add('mb-4');
-                    newFotoDiv.innerHTML = `
-                    <input disabled type="file" accept=".jpg, .jpeg" class="mb-2 w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none " />
-                    <input disabled type="text" placeholder="Keterangan Foto" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none " />
-                `;
-                    fotoContainer.insertBefore(newFotoDiv, tambahFotoButton);
-                    fotoInputCount++;
-
-                    // Jika sudah mencapai maksimal, sembunyikan tombol tambah foto
-                    if (fotoInputCount === maxFotoInput) {
-                        tambahFotoButton.style.display = 'none';
-                    }
-                }
-            });
-
-            // Fungsi untuk menambah input tautan video
-            tambahVideoButton.addEventListener('click', function() {
-                if (videoInputCount < maxVideoInput) {
-                    const newVideoDiv = document.createElement('div');
-                    newVideoDiv.classList.add('mb-4');
-                    newVideoDiv.innerHTML = `
-                    <input disabled type="text" placeholder="Tautan Video" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none " />
-                `;
-                    videoContainer.insertBefore(newVideoDiv, tambahVideoButton);
-                    videoInputCount++;
-
-                    // Jika sudah mencapai maksimal, sembunyikan tombol tambah video
-                    if (videoInputCount === maxVideoInput) {
-                        tambahVideoButton.style.display = 'none';
-                    }
-                }
-            });
         </script>
 
 </body>

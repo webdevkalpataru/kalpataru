@@ -89,11 +89,6 @@
                                     </th>
                                     <th class="p-4 border-b border-accent2 bg-accent1 text-center">
                                         <p class="block text-xs md:text-sm font-bold leading-none text-accent2">
-                                            Catatan
-                                        </p>
-                                    </th>
-                                    <th class="p-4 border-b border-accent2 bg-accent1 text-center">
-                                        <p class="block text-xs md:text-sm font-bold leading-none text-accent2">
                                             Detail
                                         </p>
                                     </th>
@@ -128,8 +123,9 @@
                                                 <p class="block text-xs text-slate-800"><?= $item['provinsi'] ?></p>
                                             </td>
                                             <td class="p-4 border-b border-slate-200 text-center">
-                                                <form method="POST" action="<?= base_url('timteknis/updatestatus') ?>">
+                                                <form method="POST" action="<?= base_url('timteknis/updatestatus') ?>" id="statusForm-<?= $item['id_pendaftaran'] ?>">
                                                     <input type="hidden" name="id_pendaftaran" value="<?= $item['id_pendaftaran'] ?>">
+                                                    <input type="hidden" name="catatan_verifikasi" id="catatanVerifikasi-<?= $item['id_pendaftaran'] ?>"> <!-- Input hidden untuk catatan -->
                                                     <select name="status_pendaftaran" class="status-dropdown ml-2 border-2 border-primary text-primary rounded-md shadow-sm text-xs" data-id="<?= $item['id_pendaftaran'] ?>">
                                                         <?php
                                                         $statuses = ['Verifikasi Administrasi', 'Lolos Administrasi', 'Tidak Lolos Administrasi'];
@@ -142,26 +138,17 @@
                                                     </select>
                                                 </form>
                                             </td>
-                                            <td class="p-4 border-b border-slate-200 text-center flex justify-center ">
-                                                <button class="catatanButton  rounded-md py-2 px-2 text-center font-semibold text-xs text-primary"
-                                                    type="button" data-id="<?= $item['id_pendaftaran']; ?>">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                                                    </svg>
-                                                </button>
+                                            <td class="p-4 border-b border-slate-200 text-center">
+                                                <a href="<?= base_url('timteknis/detaildatacalonusulan/' . $item['id_pendaftaran']); ?>" class="mt-4 w-full rounded-md py-2 mb-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover">Selengkapnya</a>
                                             </td>
                                             <td class="p-4 border-b border-slate-200 text-center">
-                                                <a href="<?= base_url('timteknis/detaildatacalonusulan') ?>">
-                                                    <button class="w-20 rounded-md py-2 px-2 text-center font-semibold text-xs text-primary bg-secondary hover:shadow-md" type="button">Lihat</button>
-                                                </a>
-                                            </td>
-                                            <td class="p-4 border-b border-slate-200 text-center">
-                                                <a href="./pdf/<?= $item['kode_registrasi']; ?>">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
+                                                <a href="./pdf/<?= $item['kode_registrasi']; ?>" class="flex justify-center items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="h-6 w-6">
                                                         <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
                                                     </svg>
                                                 </a>
                                             </td>
+
                                         </tr>
                                     <?php endforeach; ?>
                                 <?php endif; ?>
@@ -179,25 +166,6 @@
         </div>
     </div>
 
-    <!-- Modal Catatan-->
-    <div id="catatanModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
-        <div class="bg-white rounded-lg p-8 flex flex-col max-w-md w-full">
-            <h2 class="text-left text-lg font-bold text-primary mb-2">Tambah Catatan:</h2>
-            <form id="catatanForm" method="POST" action="<?= base_url('timteknis/updatecatatan') ?>">
-                <input type="hidden" name="id_pendaftaran" value="<?= $item['id_pendaftaran']; ?>">
-                <textarea name="catatan_verifikasi" rows="4" class="border-2 border-gray-300 rounded-md p-2 w-full mb-4 focus:outline-none focus:border-primary hover:border-primary" placeholder="Tulis catatan di sini..." data-id="<?= $item['id_pendaftaran'] ?>"></textarea>
-                <div class="flex justify-between">
-                    <button type="button" onclick="closeModal()" class="text-left text-sm font-bold text-gray-600 no-underline focus:outline-none">
-                        <span class="font-bold text-lg items-center">←</span> Kembali
-                    </button>
-                    <button type="submit" class="bg-primary text-white rounded-md py-2 px-4 font-semibold text-sm">Unggah</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-
-    <!-- Modal Status -->
     <div id="statusModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
         <div class="bg-white rounded-lg p-8 flex flex-col max-w-md">
             <h2 class="text-left text-lg font-bold text-primary mb-2">Konfirmasi Perubahan Status</h2>
@@ -209,34 +177,28 @@
         </div>
     </div>
 
+    <div id="popupModal" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 hidden">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+            <h2 class="text-xl font-semibold mb-4">Tambah Catatan</h2>
+            <textarea id="catatanPerbaikan" rows="4" class="w-full p-2 border border-slate-300 rounded-md" placeholder="Masukan catatan verifikasi..."></textarea>
+            <div class="flex justify-end mt-4">
+                <button id="kirimCatatanBtn" class="px-4 py-2 bg-primary text-white rounded-md hover:bg-blue-600 transition">Kirim Catatan</button>
+                <button id="batalBtn" class="ml-2 px-4 py-2 bg-gray-300 text-black rounded-md hover:bg-gray-400 transition">Batal</button>
+            </div>
+        </div>
+    </div>
+
 
     <script>
-        // POPUP MODAL CATATAN
-        const modal = document.getElementById('catatanModal');
-        const catatanButtons = document.querySelectorAll('.catatanButton');
-
-        catatanButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const idPendaftaran = this.getAttribute('data-id'); // Ambil id dari atribut data-id
-                document.querySelector('input[name="id_pendaftaran"]').value = idPendaftaran; // Set id_pendaftaran ke input hidden
-                modal.classList.remove('hidden');
-            });
-        });
-
-        function closeModal() {
-            modal.classList.add('hidden');
-        }
-
-        window.addEventListener('click', function(event) {
-            if (event.target === modal) {
-                closeModal();
-            }
-        });
-
         // POPUP MODAL STATUS
         const statusModal = document.getElementById('statusModal');
         const confirmStatusButton = document.getElementById('confirmStatusButton');
         const cancelStatusButton = document.getElementById('cancelStatusButton');
+
+        const popupModal = document.getElementById('popupModal');
+        const kirimCatatanBtn = document.getElementById('kirimCatatanBtn');
+        const batalBtn = document.getElementById('batalBtn');
+
         let selectedDropdown = null;
         let initialValue = ''; // Menyimpan nilai awal dropdown
 
@@ -245,7 +207,32 @@
             dropdown.addEventListener('change', function() {
                 selectedDropdown = this;
                 initialValue = this.value; // Simpan nilai awal
-                statusModal.classList.remove('hidden'); // Tampilkan modal
+
+                if (this.value === "Tidak Lolos Administrasi") {
+                    // Jika pilih "Tidak Lolos Administrasi", tampilkan modal catatan terlebih dahulu
+                    popupModal.classList.remove('hidden'); // Tampilkan modal catatan
+
+                    kirimCatatanBtn.onclick = function() {
+                        const catatan = document.getElementById('catatanPerbaikan').value;
+                        const catatanInput = document.getElementById(`catatanVerifikasi-${selectedDropdown.dataset.id}`);
+
+                        // Set nilai catatan ke input hidden
+                        catatanInput.value = catatan;
+
+                        // Sembunyikan modal catatan dan tampilkan modal konfirmasi setelah catatan diisi
+                        popupModal.classList.add('hidden');
+                        statusModal.classList.remove('hidden'); // Tampilkan modal konfirmasi
+                    };
+
+                    // Jika tombol batal pada modal catatan ditekan
+                    batalBtn.onclick = function() {
+                        popupModal.classList.add('hidden'); // Sembunyikan modal catatan
+                        selectedDropdown.value = initialValue; // Kembalikan ke nilai awal
+                    };
+                } else if (this.value === "Lolos Administrasi") {
+                    // Jika pilih "Lolos Administrasi", langsung tampilkan modal konfirmasi
+                    statusModal.classList.remove('hidden'); // Tampilkan modal konfirmasi
+                }
             });
         });
 
@@ -273,11 +260,11 @@
                         alert('Terjadi kesalahan, silakan coba lagi.');
                     });
 
-                statusModal.classList.add('hidden'); // Sembunyikan modal
+                statusModal.classList.add('hidden'); // Sembunyikan modal setelah perubahan
             }
         });
 
-        // Ketika tombol "Batal" ditekan
+        // Ketika tombol "Batal" pada modal konfirmasi ditekan
         cancelStatusButton.addEventListener('click', function() {
             if (selectedDropdown) {
                 selectedDropdown.value = initialValue; // Kembalikan ke nilai awal
@@ -286,7 +273,7 @@
             location.reload(); // Refresh halaman
         });
 
-        // Tutup modal jika klik di luar modal
+        // Tutup modal konfirmasi jika klik di luar modal
         window.addEventListener('click', function(event) {
             if (event.target === statusModal) {
                 statusModal.classList.add('hidden');
@@ -296,6 +283,7 @@
             }
         });
     </script>
+
 
 </body>
 

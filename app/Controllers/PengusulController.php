@@ -621,6 +621,28 @@ class PengusulController extends BaseController
     {
         $model = new PendaftaranModel();
         $pendaftaran = $model->getPendaftaranById($id_pendaftaran);
+
+        // Ambil ID pengusul yang sedang login dari session
+        $id_pengusul_session = session()->get('id_pengusul');
+
+        // Cek apakah pendaftaran ditemukan
+        if (!$pendaftaran) {
+            return redirect()->to('pengusul/usulansaya')->with('error', 'Data tidak ditemukan.');
+        }
+
+        // Cek apakah pengusul yang sedang login adalah pemilik pendaftaran
+        if ($pendaftaran['id_pengusul'] != $id_pengusul_session) {
+            return redirect()->to('pengusul/usulansaya')->with('error', 'Anda tidak memiliki akses ke data ini.');
+        }
+
+        // Cek apakah status_pendaftaran bukan "Draft" atau "Perlu Perbaikan"
+        if (!in_array($pendaftaran['status_pendaftaran'], ['Draft', 'Perlu Perbaikan'])) {
+            // Set session flash data untuk pesan error
+            session()->setFlashdata('error', 'Anda tidak dapat mengedit usulan ini karena data sudah Terkirim.');
+            return redirect()->to('pengusul/usulansaya');
+        }
+
+        // Ambil data terkait pendaftaran lainnya
         $identitas = $model->getIdentitasByIdPendaftaran($id_pendaftaran);
         $kegiatan = $model->getKegiatanByIdPendaftaran($id_pendaftaran);
         $dampak = $model->getDampakByIdPendaftaran($id_pendaftaran);
@@ -628,12 +650,10 @@ class PengusulController extends BaseController
         $keswadayaan = $model->getKeswadayaanByIdPendaftaran($id_pendaftaran);
         $keistimewaan = $model->getKeistimewaanByIdPendaftaran($id_pendaftaran);
 
-        if (!$pendaftaran) {
-            return redirect()->to('pengusul/usulansaya')->with('error', 'Data tidak ditemukan.');
-        }
-
+        // Set session untuk id_pendaftaran
         session()->set('id_pendaftaran', $id_pendaftaran);
 
+        // Data yang akan dikirimkan ke view
         $data = [
             'pendaftaran' => $pendaftaran,
             'identitasc' => $identitas,
@@ -647,6 +667,9 @@ class PengusulController extends BaseController
 
         return view('pengusul/detailusulansayaedit', $data);
     }
+
+
+
 
 
     // -------------------------------------------------------------------------------------------------------------------
@@ -786,9 +809,17 @@ class PengusulController extends BaseController
         $model = new PendaftaranModel();
         $pendaftaran = $model->getDetailById($id);
 
+        // Ambil ID pengusul yang sedang login dari session
+        $id_pengusul_session = session()->get('id_pengusul');  // Asumsikan id_pengusul disimpan dalam session
+
         // Validasi jika data ditemukan atau tidak
         if (!$pendaftaran) {
             return redirect()->to('/pengusul/usulansaya')->with('error', 'Data tidak ditemukan.');
+        }
+
+        // Cek apakah pengusul yang sedang login adalah pemilik pendaftaran
+        if ($pendaftaran['id_pengusul'] != $id_pengusul_session) {
+            return redirect()->to('/pengusul/usulansaya')->with('error', 'Anda tidak memiliki akses ke data ini.');
         }
 
         // Ambil data dari semua tabel terkait menggunakan join
@@ -799,6 +830,7 @@ class PengusulController extends BaseController
 
         return view('pengusul/detailusulansaya', $data);
     }
+
 
 
     public function editUsulan($id)

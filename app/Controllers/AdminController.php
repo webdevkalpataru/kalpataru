@@ -6,10 +6,18 @@ use App\Models\ArtikelModel;
 use App\Models\BeritaModel;
 use App\Models\PengusulModel;
 use App\Models\VideoModel;
+use App\Models\PendaftaranModel;
 
 
 class AdminController extends BaseController
 {
+    protected $pendaftaranModel;
+
+    public function __construct()
+    {
+        $this->pendaftaranModel = new PendaftaranModel();
+    }
+
     public function dashboard()
     {
         $data['title'] = "Dashboard Admin";
@@ -367,11 +375,129 @@ class AdminController extends BaseController
         return view('admin/arsippenerima', ['title' => 'Arsip Penerima']);
     }
 
-    public function datacalon()
+    public function dataCalon()
     {
-        $data['title'] = "Data Calon";
-        return view('admin/datacalon', ['title' => 'Data Calon']);
+        $pendaftaranModel = new PendaftaranModel();
+
+        // Ambil data dengan pagination, limit 8 per halaman
+        $perPage = 5;
+
+        // Ambil kategori dari filter
+        $kategori = $this->request->getVar('kategori');
+
+        // Ambil kata kunci dari request untuk pencarian
+        $keyword = $this->request->getGet('search');
+
+        $role = session()->get('role');
+
+        // Jika role adalah pengusul, filter data berdasarkan id_pengusul
+        if ($role === 'pengusul') {
+            $id_pengusul = session()->get('id_pengusul');
+            $pendaftaranModel->where('id_pengusul', $id_pengusul);
+        }
+
+        // Tambahkan filter untuk status pendaftaran
+        $validStatuses = ['Terkirim', 'Perlu Perbaikan', 'Sesuai', 'Verifikasi Administrasi', 'Lolos Administrasi', 'Tidak Lolos Administrasi'];
+        $pendaftaranModel->whereIn('status_pendaftaran', $validStatuses);
+
+        // Jika kategori dipilih, tambahkan filter kategori
+        if ($kategori) {
+            $pendaftaranModel->where('kategori', $kategori);
+        }
+
+        // Jika ada kata kunci, tambahkan kondisi pencarian berdasarkan nama
+        if ($keyword) {
+            $pendaftaranModel->like('nama', $keyword);
+        }
+
+        // Dapatkan data dengan pagination
+        $usulan = $pendaftaranModel->paginate($perPage, 'usulan');
+
+        // Siapkan data untuk view
+        $data = [
+            'usulan' => $usulan,
+            'pager' => $pendaftaranModel->pager,
+            'kategori' => $kategori,
+            'keyword' => $keyword,
+            'title' => "Data Calon Usulan"
+        ];
+
+        return view('admin/datacalon', $data);
     }
+
+
+
+    public function updateStatusPendaftaran()
+    {
+        // Inisialisasi model
+        $pendaftaranModel = new PendaftaranModel();
+
+        // Ambil data dari POST request
+        $id_pendaftaran = $this->request->getPost('id_pendaftaran');
+        $status_pendaftaran = $this->request->getPost('status_pendaftaran');
+        $catatan_verifikasi = $this->request->getPost('catatan_verifikasi'); // Ambil catatan verifikasi
+
+        // Validasi data
+        if ($id_pendaftaran && $status_pendaftaran) {
+            // Siapkan data untuk update
+            $updateData = [
+                'status_pendaftaran' => $status_pendaftaran,
+            ];
+
+            // Jika ada catatan, tambahkan ke data yang akan di-update
+            if ($status_pendaftaran == 'Perlu Perbaikan' && $catatan_verifikasi) {
+                $updateData['catatan_verifikasi'] = $catatan_verifikasi;
+            }
+
+            // Update status dan catatan di database
+            $pendaftaranModel->update($id_pendaftaran, $updateData);
+
+            // Mengembalikan respons untuk merefresh halaman
+            return $this->response->setJSON(['success' => true, 'message' => 'Data berhasil diperbarui']);
+        } else {
+            // Mengembalikan respons gagal
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui data']);
+        }
+    }
+
+    public function detailDataCalon($id)
+    {
+        $model = new PendaftaranModel();
+        $userModel = new PengusulModel();  // Asumsikan Anda memiliki model Pengusul untuk mengambil data profil
+
+        // Ambil detail pendaftaran berdasarkan ID
+        $pendaftaran = $model->getDetailById($id);
+
+        // Validasi jika data ditemukan atau tidak
+        if (!$pendaftaran) {
+            return redirect()->to('admin/datacalon')->with('error', 'Data tidak ditemukan.');
+        }
+
+        // Cek status pendaftaran, jika "Draft" redirect dengan pesan error
+        if ($pendaftaran['status_pendaftaran'] === 'Draft') {
+            return redirect()->to('admin/datacalon')->with('error', 'Data ini masih berstatus Draft dan tidak dapat diakses.');
+        }
+
+        // Ambil data profil pengusul berdasarkan id_pengusul dari pendaftaran
+        $pengusul = $userModel->find($pendaftaran['id_pengusul']);  // Mengambil data pengusul berdasarkan ID
+
+        // Validasi jika data pengusul ditemukan atau tidak
+        if (!$pengusul) {
+            return redirect()->to('admin/datacalon')->with('error', 'Data pengusul tidak ditemukan.');
+        }
+
+        // Ambil data dari semua tabel terkait menggunakan join
+        $data = [
+            'title' => 'Detail Usulan',
+            'pendaftaran' => $pendaftaran,
+            'pengusul' => $pengusul,  // Tambahkan data pengusul
+        ];
+
+        return view('admin/detaildatacalon', $data);
+    }
+
+
+
 
     public function sidang1()
     {

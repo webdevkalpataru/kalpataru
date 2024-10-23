@@ -100,6 +100,9 @@ $routes->group('penerima', ['filter' => 'auth'], function ($routes) {
 $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('dashboard', 'AdminController::dashboard');
     $routes->get('datacalon', 'AdminController::datacalon');
+    $routes->get('datacalon', 'AdminController::datacalon');
+    $routes->post('updatestatuspendaftaran', 'AdminController::updateStatusPendaftaran');
+    $routes->get('detaildatacalon/(:num)', 'AdminController::detailDataCalon/$1');
     $routes->get('nominasi', 'AdminController::nominasi');
     $routes->get('arsipselengkapnya', 'AdminController::arsipselengkapnya');
     $routes->get('sidang1', 'AdminController::sidang1');
@@ -125,7 +128,7 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('akunpengguna', 'AdminController::akunpengguna');
     $routes->get('arsippenerima', 'AdminController::arsippenerima');
     $routes->get('tambaharsip', 'AdminController::tambaharsip');
-    
+
 
     $routes->get('buku', 'AdminController::buku');
     $routes->get('tambahbuku', 'AdminController::tambahbuku');
@@ -138,7 +141,7 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->post('updatepengusul', 'AdminController::updatePengusul');
     $routes->get('pengusul/detail/(:any)', 'AdminController::detailPengusul/$1');
     $routes->get('download/suratpengantar/(:segment)', 'AdminController::downloadSuratPengantar/$1');
-    
+
 
 
 
@@ -186,14 +189,14 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
 /* Tim Teknis */
 $routes->group('timteknis', function ($routes) {
     $routes->get('datacalonusulan', 'TimteknisController::datacalonusulan');
-    $routes->get('detaildatacalonusulan', 'TimteknisController::detaildatacalonusulan');
+    $routes->get('detaildatacalonusulan/(:num)', 'TimteknisController::detaildatacalonusulan/$1');
 
     $routes->get('verifadminkategoria', 'TimteknisController::verifadminkategoria');
     $routes->get('verifadminkategorib', 'TimteknisController::verifadminkategorib');
     $routes->get('verifadminkategoric', 'TimteknisController::verifadminkategoric');
     $routes->get('verifadminkategorid', 'TimteknisController::verifadminkategorid');
     $routes->post('updatestatus', 'TimteknisController::updateStatus');
-    $routes->post('updatecatatan', 'TimteknisController::updateCatatan');
+
 
     $routes->get('bahansidang1/kategoria', 'TimteknisController::bahansidang1kategoria');
     $routes->get('bahansidang1/kategorib', 'TimteknisController::bahansidang1kategorib');

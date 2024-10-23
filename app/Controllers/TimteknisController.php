@@ -19,11 +19,13 @@ class TimteknisController extends BaseController
         // Ambil kata kunci dari request untuk pencarian
         $keyword = $this->request->getGet('search');
 
-        // Ambil ID pengusul dari session
-        $id_pengusul = session()->get('id_pengusul');
+        $role = session()->get('role');
 
-        // Filter query berdasarkan id_pengusul
-        $pendaftaranModel->where('id_pengusul', $id_pengusul);
+        // Jika role adalah pengusul, filter data berdasarkan id_pengusul
+        if ($role === 'pengusul') {
+            $id_pengusul = session()->get('id_pengusul');
+            $pendaftaranModel->where('id_pengusul', $id_pengusul);
+        }
 
         // Tambahkan filter untuk status pendaftaran
         $validStatuses = ['Verifikasi Administrasi', 'Lolos Administrasi', 'Tidak Lolos Administrasi'];
@@ -54,11 +56,28 @@ class TimteknisController extends BaseController
         return view('timteknis/datacalonusulan', $data);
     }
 
-    public function detaildatacalonusulan()
+    public function detaildatacalonusulan($id)
     {
+        $model = new PendaftaranModel();
+        $pendaftaran = $model->getDetailById($id);
 
-        $data['title'] = "Detail Data Calon Usulan";
-        return view('timteknis/detaildatacalonusulan', ['title' => 'Detail Data Calon Usulan']);
+        // Validasi jika data ditemukan atau tidak
+        if (!$pendaftaran) {
+            return redirect()->to('timteknis/datacalonusulan')->with('error', 'Data tidak ditemukan.');
+        }
+
+        // Cek status pendaftaran, jika "Draft" redirect dengan pesan error
+        if ($pendaftaran['status_pendaftaran'] === 'Draft') {
+            return redirect()->to('timteknis/datacalonusulan')->with('error', 'Data ini masih berstatus Draft dan tidak dapat diakses.');
+        }
+
+        // Ambil data dari semua tabel terkait menggunakan join
+        $data = [
+            'title' => 'Detail Usulan',
+            'pendaftaran' => $pendaftaran,
+        ];
+
+        return view('timteknis/detaildatacalonusulan', $data);
     }
 
     public function verifadminkategoria()
@@ -245,38 +264,28 @@ class TimteknisController extends BaseController
         // Ambil data dari POST request
         $id_pendaftaran = $this->request->getPost('id_pendaftaran');
         $status_pendaftaran = $this->request->getPost('status_pendaftaran');
+        $catatan_verifikasi = $this->request->getPost('catatan_verifikasi'); // Ambil catatan verifikasi
 
-        // Validasi data (opsional, misalnya cek apakah ID dan status valid)
+        // Validasi data
         if ($id_pendaftaran && $status_pendaftaran) {
-            // Update status di database
-            $pendaftaranModel->update($id_pendaftaran, ['status_pendaftaran' => $status_pendaftaran]);
+            // Siapkan data untuk update
+            $updateData = [
+                'status_pendaftaran' => $status_pendaftaran,
+            ];
+
+            // Jika ada catatan, tambahkan ke data yang akan di-update
+            if ($status_pendaftaran == 'Tidak Lolos Administrasi' && $catatan_verifikasi) {
+                $updateData['catatan_verifikasi'] = $catatan_verifikasi;
+            }
+
+            // Update status dan catatan di database
+            $pendaftaranModel->update($id_pendaftaran, $updateData);
 
             // Mengembalikan respons untuk merefresh halaman
             return $this->response->setJSON(['success' => true, 'message' => 'Data berhasil diperbarui']);
         } else {
-            // Mengembalikan respons untuk merefresh halaman
+            // Mengembalikan respons gagal
             return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui data']);
-        }
-    }
-
-    public function updateCatatan()
-    {
-        $pendaftaranModel = new PendaftaranModel();
-
-        // Ambil data dari request
-        $id_pendaftaran = $this->request->getPost('id_pendaftaran');
-        $catatan_verifikasi = $this->request->getPost('catatan_verifikasi');
-
-        // Validasi data (opsional, misalnya cek apakah ID dan status valid)
-        if ($id_pendaftaran && $catatan_verifikasi) {
-            // Update status di database
-            $pendaftaranModel->update($id_pendaftaran, ['catatan_verifikasi' => $catatan_verifikasi]);
-
-            // Mengembalikan respons untuk merefresh halaman
-            return $this->response->setJSON(['success' => true, 'message' => 'Catatan berhasil diperbarui']);
-        } else {
-            // Mengembalikan respons untuk merefresh halaman
-            return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui Catatan']);
         }
     }
 
@@ -489,7 +498,7 @@ class TimteknisController extends BaseController
         return view('timteknis/bahansidang2/kategorib', $data);
     }
 
-    public function bahansidang2kategoric() 
+    public function bahansidang2kategoric()
     {
         $data['title'] = 'Bahan Sidang 2 Kategori C';
         return view('timteknis/bahansidang2/kategoric', $data);
