@@ -44,6 +44,12 @@
                     <button id="uploadBtn" class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Unggah</button>
                 </div>
             </form>
+
+            <button onclick="window.history.back()"
+                class="text-sm font-bold text-gray-600 no-underline focus:outline-none text-start w-1/12">
+                <span class="font-bold text-lg items-center">←</span> Kembali
+            </button>
+
         </div>
     </div>
 
@@ -53,7 +59,7 @@
             <img src="/images/sukses.png" alt="Success Icon" class="w-16 h-16 mb-4">
             <h2 class="text-center text-lg font-bold text-primary mb-2">Terima kasih telah mengunggah artikel!</h2>
             <p class="text-center text-sm text-slate-600 mb-4">Artikel anda sedang dalam proses validasi. Anda dapat mengecek status artikel anda pada menu “Artikel Saya”.</p>
-            <a href="./artikelpenerima">
+            <a href="/penerima/dashboard">
                 <button id="closeModalBtn" class="bg-primary text-white py-2 px-4 rounded-lg">Lihat Status</button>
             </a>
         </div>

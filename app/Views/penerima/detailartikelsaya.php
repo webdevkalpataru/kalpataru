@@ -25,7 +25,7 @@
                 <img src="/images/hero.png" class="object-contain w-full h-full">
             </div>
 
-            <div>
+            <div class="pb-8">
                 <div class="my-4">
                     <h6 class="text-slate-800 text-md font-semibold">
                         Surga Tersembunyi di Maros
@@ -42,6 +42,11 @@
                     Lokasi: Desa Salenrang, Kabupaten Maros, Sulawesi Selatan
                 </p>
             </div>
+
+            <button onclick="window.history.back()"
+                class="text-sm font-bold text-gray-600 no-underline focus:outline-none text-start w-1/12">
+                <span class="font-bold text-lg items-center">←</span> Kembali
+            </button>
         </div>
 
     </div>
