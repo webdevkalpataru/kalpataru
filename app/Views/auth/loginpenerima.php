@@ -110,9 +110,6 @@
 
                     <div class="flex items-center justify-between flex-wrap">
                         <p class="text-gray-900 text-xs">
-                            Belum punya akun? <a href="./register" class="text-primary hover:underline font-bold">Daftar Sekarang</a>
-                        </p>
-                        <p class="text-gray-900 text-xs">
                             <a href="./forgot-password" class="text-primary hover:underline font-bold">Lupa Kata Sandi?</a>
                         </p>
                     </div>
@@ -128,14 +125,6 @@
                         class="text-sm font-bold text-gray-400 no-underline focus:outline-none">
                         <span class="font-bold text-lg items-center">←</span> Kembali
                     </button>
-                    
-                    <div>
-                        <p class="text-gray-900 text-xs">
-                            <a href="/auth/loginpenerima" class="text-primary hover:underline font-bold">
-                            Masuk Sebagai Penerima <span class="font-bold text-lg items-center">→</span></a>
-                        </p>
-                    </div>
-
                 </div>
             </div>
         </div>
@@ -144,18 +133,6 @@
     <div id="toast" class="toast">Email atau password salah!</div>
 
     <script>
-        /* const imageArray = ['/images/loginregist1.jpeg', '/images/loginregist2.jpeg', '/images/loginregist3.jpeg'];
-        let currentImageIndex = 0;
-        const backgroundImage = document.getElementById('backgroundImage');
-
-        setInterval(() => {
-            currentImageIndex = (currentImageIndex + 1) % imageArray.length;
-            backgroundImage.src = imageArray[currentImageIndex];
-            backgroundImage.classList.remove('fade-in-right');
-            void backgroundImage.offsetWidth;
-            backgroundImage.classList.add('fade-in-right');
-        }, 10000); */
-
         // Toggle password visibility
         const passwordInput = document.getElementById('password');
         const togglePassword = document.getElementById('togglePassword');

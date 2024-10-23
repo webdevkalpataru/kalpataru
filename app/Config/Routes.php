@@ -100,6 +100,7 @@ $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
 
 
 /* Penerima */
+$routes->get('auth/loginpenerima', 'AuthController::loginPenerima');
 $routes->group('penerima', ['filter' => 'auth'], function ($routes) {
     $routes->get('dashboard', 'PenerimaController::dashboard');
     $routes->get('tambahartikel', 'PenerimaController::tambahartikel');

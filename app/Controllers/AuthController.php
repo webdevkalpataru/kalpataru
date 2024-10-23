@@ -593,6 +593,10 @@ class AuthController extends BaseController
         }
     }
 
+    public function loginpenerima()
+    {
+        return view('auth/loginpenerima', ['title' => 'Login Penerima']);
+    }
     public function registerPenerima()
     {
         return view('admin/daftarakunpengguna', ['title' => 'Register Penerima']);
