@@ -2,7 +2,7 @@
 
 // Pesan validasi dalam bahasa Indonesia
 return [
-    'required' => '{field} wajib diisi.',
+    'required' => 'Data ini wajib diisi',
     'valid_email' => '{field} harus berisi alamat email yang valid.',
     'min_length' => '{field} harus memiliki minimal {param} karakter.',
     'min_length_ktp' => '{field} harus terdiri dari tepat {param} digit.',
@@ -15,5 +15,6 @@ return [
     'uploaded' => '{field} harus diunggah.',
     'max_size' => 'Ukuran file tidak boleh lebih dari {param} KB.',
     'ext_in' => '{field} harus berupa file dengan ekstensi {param}.',
-    'exact_length1' => '{field} harus terdiri dari tepat {param} digit.'
+    'exact_length1' => '{field} harus terdiri dari tepat {param} digit.',
+    'mime_in' => '{field} harus berformat {param}.'
 ];

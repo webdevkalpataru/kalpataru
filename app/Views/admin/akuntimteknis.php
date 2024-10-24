@@ -9,11 +9,11 @@
 
 <body class="lg:flex">
 
-
-
     <!-- Sidebar -->
     <?= $this->include('template/sidebaradmin') ?>
 
+    <div class="lg:flex-1 p-6">
+        <div class="min-h-screen flex flex-col">
     <div class="lg:flex-1 p-6">
         <div class="min-h-screen flex flex-col">
 

@@ -5,6 +5,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $title; ?></title>
+    <style>
+        /* Modal Styling */
+        #errorModal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Semi-transparent background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #closeModal,
+        #closeModalButton {
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
@@ -101,11 +121,28 @@
                                 </tr>
                             <?php else: ?>
                                 <?php $no = 1 + ($pager->getCurrentPage() - 1) * $pager->getPerPage(); ?>
-                                <?php
-                                $no = 0;
-                                foreach ($usulan as $index => $u) :
+                                <?php $no = 0; ?>
+                                <?php foreach ($usulan as $index => $u): ?>
+                                    <?php
                                     $no++;
-                                ?>
+                                    $catatan = !empty($u['catatan_verifikasi']) ? $u['catatan_verifikasi'] : '';
+
+                                    if ($u['status_pendaftaran'] === 'Draft') {
+                                        $catatan = 'Usulan masih dalam draft, harap lengkapi sebelum dikirim.';
+                                    } elseif ($u['status_pendaftaran'] === 'Terkirim') {
+                                        $catatan = 'Usulan telah diterima, menunggu proses pengecekan kelengkapan Data oleh Sekretariat.';
+                                    } elseif ($u['status_pendaftaran'] === 'Perlu Perbaikan') {
+                                        $catatan = $u['catatan_verifikasi'];
+                                    } elseif ($u['status_pendaftaran'] === 'Sesuai') {
+                                        $catatan = 'Data usulan telah sesuai dan lengkap.';
+                                    } elseif ($u['status_pendaftaran'] === 'Verifikasi Administrasi') {
+                                        $catatan = 'Usulan sedang dalam proses verifikasi administrasi.';
+                                    } elseif ($u['status_pendaftaran'] === 'Lolos Administrasi') {
+                                        $catatan = 'Usulan anda masuk pada tahapan Sidang DPPK 1.';
+                                    } elseif ($u['status_pendaftaran'] === 'Tidak Lolos Administrasi') {
+                                        $catatan = $u['catatan_verifikasi'];
+                                    }
+                                    ?>
                                     <tr class="hover:bg-slate-100">
                                         <td class="p-4 border-b border-slate-200 text-center">
                                             <p class="block text-xs text-slate-800"><?= $no ?></p>
@@ -120,13 +157,11 @@
                                             <p class="block text-xs text-slate-800"><?= $u['provinsi']; ?></p>
                                         </td>
                                         <td class="p-4 border-b border-slate-200 text-center">
-                                            <?php
-                                            $statusClass = ($u['status_pendaftaran'] === 'Tidak Lolos Administrasi') ? 'text-rejected' : 'text-accepted';
-                                            ?>
+                                            <?php $statusClass = ($u['status_pendaftaran'] === 'Tidak Lolos Administrasi') ? 'text-rejected' : 'text-accepted'; ?>
                                             <p class="block text-xs font-bold w-24 <?= $statusClass ?>"><?= $u['status_pendaftaran'] ?></p>
                                         </td>
                                         <td class="p-4 border-b border-slate-200 text-center">
-                                            <button class="lihatButton w-20 rounded-md py-2 px-2 text-center font-semibold text-xs text-primary bg-secondary" type="button">Lihat</button>
+                                            <button class="lihatButton w-20 rounded-md py-2 px-2 text-center font-semibold text-xs text-primary bg-secondary" type="button" onclick="showCatatanModal('catatanModal<?= $no; ?>')">Lihat</button>
                                         </td>
                                         <td class="border-b border-slate-200 text-center viewCell">
                                             <a href="./detailusulansaya/<?= $u['id_pendaftaran']; ?>">
@@ -176,6 +211,16 @@
                                             <?php endif; ?>
                                         </td>
                                     </tr>
+                                    <!-- Modal -->
+                                    <div id="catatanModal<?= $no; ?>" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+                                        <div class="bg-white rounded-lg p-8 flex flex-col max-w-md">
+                                            <h2 class="text-left text-lg font-bold text-primary mb-2">Catatan:</h2>
+                                            <p class="text-justify text-sm text-slate-600 mb-4"><?= $catatan; ?></p>
+                                            <button onclick="closeModal('catatanModal<?= $no; ?>')" class="text-left text-sm font-bold text-gray-600 no-underline focus:outline-none">
+                                                <span class="font-bold text-lg items-center">←</span> Kembali
+                                            </button>
+                                        </div>
+                                    </div>
                                 <?php endforeach; ?>
                             <?php endif; ?>
                         </tbody>
@@ -186,21 +231,34 @@
                         <?= $pager->links('usulan', 'template_pagination') ?>
                     </div>
                 </div>
+                <?php if (session()->getFlashdata('error')): ?>
+                    <!-- Modal -->
+                    <div id="errorModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+                        <div class="bg-white rounded-lg shadow-lg p-6 w-96">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="text-lg font-bold text-rejected">Error</h3>
+                                <button id="closeModal" class="text-gray-500 hover:text-gray-700">&times;</button>
+                            </div>
+                            <div>
+                                <p class="text-gray-700">
+                                    <?= session()->getFlashdata('error'); ?>
+                                </p>
+                            </div>
+                            <div class="mt-4 flex justify-end">
+                                <button id="closeModalButton" class="bg-rejected text-white px-4 py-2 rounded hover:bg-red-700">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                <?php endif; ?>
+
+
             </div>
         </div>
     </div>
 
-    <!-- Modal -->
-    <div id="catatanModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
-        <div class="bg-white rounded-lg p-8 flex flex-col max-w-md">
-            <h2 class="text-left text-lg font-bold text-primary mb-2">Catatan:</h2>
-            <p class="text-justify text-sm text-slate-600 mb-4">Ini merupakan contoh catatan Ini merupakan contoh catatan Ini merupakan contoh catatan Ini merupakan contoh catatan</p>
-            <button onclick="closeModal()"
-                class="text-left text-sm font-bold text-gray-600 no-underline focus:outline-none">
-                <span class="font-bold text-lg items-center">←</span> Kembali
-            </button>
-        </div>
-    </div>
+
 
     <!-- Modal -->
     <div id="modalPopup" class="fixed inset-0 z-50 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden">
@@ -288,23 +346,37 @@
         });
 
         // POPUP MODAL CATATAN
-        const modal = document.getElementById('catatanModal');
-        const lihatButtons = document.querySelectorAll('.lihatButton');
-
-        lihatButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                modal.classList.remove('hidden');
-            });
-        });
-
-        function closeModal() {
-            modal.classList.add('hidden');
+        function showCatatanModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
         }
 
-        window.addEventListener('click', function(event) {
-            if (event.target === modal) {
-                closeModal();
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const closeModal = document.getElementById('closeModal');
+            const closeModalButton = document.getElementById('closeModalButton');
+            const errorModal = document.getElementById('errorModal');
+
+            if (closeModal) {
+                closeModal.addEventListener('click', function() {
+                    errorModal.style.display = 'none';
+                });
             }
+
+            if (closeModalButton) {
+                closeModalButton.addEventListener('click', function() {
+                    errorModal.style.display = 'none';
+                });
+            }
+
+            // Optional: Close the modal if the user clicks outside of it
+            window.addEventListener('click', function(event) {
+                if (event.target === errorModal) {
+                    errorModal.style.display = 'none';
+                }
+            });
         });
     </script>
 

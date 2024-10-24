@@ -12,11 +12,11 @@
 
 
 
-    <!-- Sidebar -->
-    <?= $this->include('template/sidebaradmin') ?>
+  <!-- Sidebar -->
+  <?= $this->include('template/sidebaradmin') ?>
 
-    <div class="lg:flex-1 p-6">
-        <div class="min-h-screen flex flex-col">
+  <div class="lg:flex-1 p-6">
+    <div class="min-h-screen flex flex-col">
 
             <header class="bg-white shadow">
                 <div class="container mx-auto flex items-center justify-between p-4 md:p-6">
@@ -184,110 +184,25 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+</div>
+</div>
+</body>
 
-    <!-- Modal Hapus -->
-    <div id="deleteModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
-        <div class="bg-white rounded-lg p-8 flex flex-col max-w-md">
-            <h2 class="text-left text-lg font-bold text-red-600 mb-2">Konfirmasi Hapus Akun Pengusul</h2>
-            <p class="text-justify text-sm text-slate-600 mb-4">Apakah Anda yakin ingin menghapus akun pengusul ini? Akun pengusul yang sudah dihapus tidak dapat dipulihkan kembali!</p>
-            <div class="flex justify-end space-x-4">
-                <button id="cancelDeleteButton" class="px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-700 hover:text-white rounded-md">Batal</button>
-                <button id="confirmDeleteButton" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md">Ya, Hapus Akun</button>
-            </div>
-        </div>
-    </div>
+<script>
+  // Function to toggle the button text
+  function toggleButtonText(button) {
+    const activeText = button.getAttribute("data-active");
+    const inactiveText = button.getAttribute("data-inactive");
 
-    <!-- Modal Status -->
-    <div id="statusModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
-        <div class="bg-white rounded-lg p-8 flex flex-col max-w-md">
-            <h2 class="text-left text-lg font-bold text-primary mb-2">Konfirmasi Perubahan Status</h2>
-            <p class="text-justify text-sm text-slate-600 mb-4">Apakah Anda yakin ingin mengubah status akun pengusul ini?</p>
-            <div class="flex justify-end space-x-4">
-                <button id="cancelStatusButton" class="px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-700 hover:text-white rounded-md">Batal</button>
-                <button id="confirmStatusButton" class="px-4 py-2 bg-primary hover:bg-primaryhover text-white rounded-md">Ya, Ubah Status</button>
-            </div>
-        </div>
-    </div>
-    <script>
-        // POPUP MODAL STATUS
-        const statusModal = document.getElementById('statusModal');
-        const confirmStatusButton = document.getElementById('confirmStatusButton');
-        const cancelStatusButton = document.getElementById('cancelStatusButton');
-        let selectedDropdown = null;
-        let initialValue = ''; // Menyimpan nilai awal dropdown
+    if (button.innerText === inactiveText) {
+      button.innerText = activeText;
+    } else {
+      button.innerText = inactiveText;
+    }
+  }
 
-        // Event listener untuk setiap dropdown status
-        document.querySelectorAll('.status-dropdown').forEach(dropdown => {
-            dropdown.addEventListener('change', function() {
-                selectedDropdown = this;
-                initialValue = this.value; // Simpan nilai awal
-                statusModal.classList.remove('hidden'); // Tampilkan modal
-            });
-        });
-
-        // Ketika tombol "Ya, Ubah Status" ditekan
-        confirmStatusButton.addEventListener('click', function() {
-            if (selectedDropdown) {
-                // Ambil data dari dropdown
-                const formData = new FormData(selectedDropdown.form);
-
-                // Kirim request ke server
-                fetch(selectedDropdown.form.action, {
-                        method: 'POST',
-                        body: formData,
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            location.reload(); // Refresh halaman jika berhasil
-                        } else {
-                            alert(data.message); // Menampilkan pesan gagal
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('Terjadi kesalahan, silakan coba lagi.');
-                    });
-
-                statusModal.classList.add('hidden'); // Sembunyikan modal
-            }
-        });
-
-        // Ketika tombol "Batal" ditekan
-        cancelStatusButton.addEventListener('click', function() {
-            if (selectedDropdown) {
-                selectedDropdown.value = initialValue; // Kembalikan ke nilai awal
-            }
-            statusModal.classList.add('hidden'); // Sembunyikan modal
-            location.reload(); // Refresh halaman
-        });
-
-        // Tutup modal jika klik di luar modal
-        window.addEventListener('click', function(event) {
-            if (event.target === statusModal) {
-                statusModal.classList.add('hidden');
-                if (selectedDropdown) {
-                    selectedDropdown.value = initialValue; // Kembalikan ke nilai awal jika modal ditutup
-                }
-            }
-        });
-
-        // Function to toggle the button text
-        function toggleButtonText(button) {
-            const activeText = button.getAttribute("data-active");
-            const inactiveText = button.getAttribute("data-inactive");
-
-            if (button.innerText === inactiveText) {
-                button.innerText = activeText;
-            } else {
-                button.innerText = inactiveText;
-            }
-        }
-
-        // Select all buttons with the class 'toggleBtn'
-        const buttons = document.querySelectorAll(".toggleBtn");
+  // Select all buttons with the class 'toggleBtn'
+  const buttons = document.querySelectorAll(".toggleBtn");
 
         // Attach the toggle function to each button's click event
         buttons.forEach(button => {

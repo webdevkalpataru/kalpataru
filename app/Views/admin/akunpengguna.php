@@ -9,8 +9,6 @@
 
 <body class="lg:flex">
 
-
-
     <!-- Sidebar -->
     <?= $this->include('template/sidebaradmin') ?>
 
