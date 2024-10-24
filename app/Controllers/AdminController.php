@@ -26,8 +26,29 @@ class AdminController extends BaseController
 
     public function dashboard()
     {
+        $Model = new PendaftaranModel();
+
+        $perPage = 5;
+        $currentPage = $this->request->getVar('page_calon') ? $this->request->getVar('page_calon') : 1;
+
+        $keyword = $this->request->getGet('search');
+
+        if ($keyword) {
+            $calon = $Model->like('nama', $keyword)
+                ->orLike('kode_registrasi', $keyword)
+                ->orLike('kategori', $keyword)
+                ->orLike('provinsi', $keyword)
+                ->paginate($perPage, 'calon');
+        } else {
+            $calon = $Model->paginate($perPage, 'calon');
+        }
+
+        $data['calon'] = $calon;
+        $data['pager'] = $Model->pager;
         $data['title'] = "Dashboard Admin";
-        return view('admin/dashboard', ['title' => 'Dashboard Admin']);
+        $data['keyword'] = $keyword;
+
+        return view('admin/dashboard', $data);
     }
 
     public function artikeladmin()

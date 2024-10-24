@@ -552,66 +552,31 @@
                 'Riau': 'https://kalpatarujson.vercel.app/json/riau.json',
             };
 
-            var colors = {
-                'DKI Jakarta': '#FF0000',
-                'Jawa Barat': '#0000FF',
-                'Jawa Tengah': '#00FF00',
-                'Jawa Timur': '#FFFF00',
-                'Banten': '#800080',
-                'DI Yogyakarta': '#FFA500',
-                'Bali': '#FFC0CB',
-                'Aceh': '#00FFFF',
-                'Papua Barat Daya': '#808000',
-                'Papua Barat': '#FF1493',
-                'Papua Tengah': '#008080',
-                'Papua Selatan': '#006400',
-                'Papua Pegunungan': '#4B0082',
-                'Papua': '#FF4500',
-                'Maluku Utara': '#4682B4',
-                'Maluku': '#00008B',
-                'Sulawesi Barat': '#008B8B',
-                'Gorontalo': '#8B4513',
-                'Sulawesi Tenggara': '#556B2F',
-                'Sulawesi Selatan': '#FF8C00',
-                'Sulawesi Tengah': '#9932CC',
-                'Sulawesi Utara': '#FF00FF',
-                'Kalimantan Utara': '#00FF7F',
-                'Kalimantan Timur': '#8B0000',
-                'Kalimantan Selatan': '#D2691E',
-                'Kalimantan Tengah': '#FFD700',
-                'Kalimantan Barat': '#00BFFF',
-                'Nusa Tenggara Timur': '#7B68EE',
-                'Nusa Tenggara Barat': '#FF6347',
-                'Kepulauan Riau': '#FFE4B5',
-                'Kepulauan Bangka Belitung': '#FF1493',
-                'Lampung': '#00FA9A',
-                'Bengkulu': '#FF4500',
-                'Sumatera Selatan': '#FF69B4',
-                'Sumatera Barat': '#00FFFF',
-                'Sumatera Utara': '#FFB6C1',
-                'Jambi': '#FFA07A',
-                'Riau': '#20B2AA'
-            };
+            var colorAbuMuda = '#D3D3D3';
 
             for (let provinsi in geojsonUrls) {
                 fetch(geojsonUrls[provinsi])
                     .then(response => response.json())
                     .then(data => {
+                        var penerimaDiProvinsi = penerimaData.filter(function(penerima) {
+                            return penerima.provinsi === provinsi;
+                        });
+
                         var geojsonLayer = L.geoJSON(data, {
                             style: function() {
-                                return {
-                                    color: colors[provinsi],
-                                    fillColor: colors[provinsi],
-                                    fillOpacity: 1,
-                                    weight: 1
-                                };
+                                return penerimaDiProvinsi.length > 0
+                                    ? {
+                                        color: 'none',
+                                        fillColor: colorAbuMuda,
+                                        fillOpacity: 1,
+                                        weight: 0 
+                                    }
+                                    : {
+                                        color: 'none',
+                                        fillOpacity: 0
+                                    };
                             },
                             onEachFeature: function(feature, layer) {
-                                var penerimaDiProvinsi = penerimaData.filter(function(penerima) {
-                                    return penerima.provinsi === provinsi;
-                                });
-                                var popupContent = '<strong>' + provinsi + '</strong><br>Jumlah Penerima: ' + penerimaDiProvinsi.length;
-
                                 var center = layer.getBounds().getCenter();
                                 var label = L.marker(center, {
                                     icon: L.divIcon({
@@ -622,12 +587,12 @@
                                     })
                                 }).addTo(map);
 
-                                layer.on('click', function() {
-                                    var popup = L.popup()
-                                        .setLatLng(center)
-                                        .setContent(popupContent)
-                                        .openOn(map);
-                                });
+                                var popupContent = '<strong>' + provinsi + '</strong>';
+                                if (penerimaDiProvinsi.length > 0) {
+                                    popupContent += '<br>Jumlah Penerima: ' + penerimaDiProvinsi.length;
+                                } else {
+                                    popupContent += '<br>Tidak ada penerima.';
+                                }
 
                                 label.on('click', function() {
                                     var popup = L.popup()
@@ -640,6 +605,23 @@
                     })
                     .catch(error => console.error('Error loading GeoJSON for ' + provinsi + ':', error));
             }
+
+            var legend = L.control({ position: 'bottomright' });
+
+            legend.onAdd = function(map) {
+                var div = L.DomUtil.create('div', 'info legend');
+                var labels = ['<strong>Keterangan</strong>'];
+                var colors = [colorAbuMuda];
+
+                labels.push(
+                    '<i style="background:' + colors[0] + '"></i> Penerima Kalpataru'
+                );
+
+                div.innerHTML = labels.join('<br>');
+                return div;
+            };
+
+            legend.addTo(map);
         });
     </script>
 

@@ -49,13 +49,18 @@
                 </h3>
             </div>
             <div class="lg:flex justify-between items-center mt-6">
-                <button id="tambahCalon"
-                    class="mb-4 w-48 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none <?= !$isComplete ? 'bg-slate-400' : '' ?>"
-                    type="button"
-                    onclick="window.location.href='./tambahcalon';"
-                    <?= !$isComplete ? 'disabled' : '' ?>>
-                    <span>&#10010;</span> Tambah Calon Usulan
-                </button>
+            <div class="lg:flex justify-between">
+            <button id="tambahCalon"
+                class="mb-4 w-48 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none <?= !$isComplete ? 'bg-slate-400' : '' ?>"
+                type="button"
+                onclick="window.location.href='./tambahcalon';"
+                <?= !$isComplete ? 'disabled' : '' ?>>
+                <span>&#10010;</span> Tambah Calon Usulan
+            </button>
+            <?php if (!$isComplete): ?>
+                <p class="text-red-500 text-sm mt-2 ml-4">Segera lengkapi profil agar dapat menambah calon usulan!</p>
+            <?php endif; ?>
+            </div>
                 <form method="get">
                     <div class="mb-4 relative w-56 transition-all focus-within:w-64 lg:mt-0 mt-4">
                         <input

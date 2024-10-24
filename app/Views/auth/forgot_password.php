@@ -7,39 +7,6 @@
     <link rel="stylesheet" href="/css/app.css">
     <title><?= $title; ?></title>
     <style>
-        /* images */
-        /*  @keyframes fadeInRight {
-            from {
-                opacity: 0;
-                transform: translateX(100%);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes fadeInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-100%);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .fade-in-right {
-            animation: fadeInRight 0.5s forwards;
-        }
-
-        .fade-in-left {
-            animation: fadeInLeft 0.5s forwards;
-        } */
-
         /* toast error */
         .toast {
             position: fixed;
@@ -56,18 +23,6 @@
             display: block;
         }
 
-        /* Show/hide password */
-        .password-icon {
-            cursor: pointer;
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-
         /* Responsive style */
         @media (max-width: 640px) {
             .max-w-md {
@@ -77,6 +32,16 @@
 
         .toasthidden {
             display: none;
+        }
+
+        .toastshow {
+            display: block;
+        }
+
+        #successPopup {
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     </style>
 </head>
@@ -108,6 +73,32 @@
             </div>
         </div>
     </div>
+
+    <?php if (session()->getFlashdata('reset_link_sent')) : ?>
+        <div id="successPopup" class="toastshow fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
+            <div class="bg-green-700 text-center text-white p-6 rounded-lg max-w-md w-full">
+                <h3 class="text-xl font-bold mb-4">Link Reset Password Terkirim!</h3>
+                <p class="text-sm">Silakan cek email atau spam email Anda untuk melakukan reset kata sandi</p>
+                <button id="closeTab" class="mt-4 px-4 py-2 bg-green-300 text-green-900 rounded-md hover:bg-green-400 transition">
+                    OK
+                </button>
+            </div>
+        </div>
+    <?php endif; ?>
+
+    <?php if (session()->getFlashdata('email_not_found')) : ?>
+        <div class="toast show-toast">
+            Email tidak ditemukan.
+        </div>
+    <?php endif; ?>
+
+    <script>
+        document.getElementById('closeTab').addEventListener('click', function () {
+            window.close();
+        });
+    </script>
+
+
 </body>
 
 </html>

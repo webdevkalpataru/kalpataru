@@ -89,22 +89,26 @@ class AuthController extends BaseController
         $email = $this->request->getPost('email');
         $model = new PengusulModel();
         $user = $model->getUserByEmail($email);
-
+    
         if ($user) {
             $token = bin2hex(random_bytes(15));
             $resetLink = base_url("auth/reset-password/$token");
-
+    
             $model->update($user['id_pengusul'], ['reset_token' => $token]);
-
+    
             $emailService = \Config\Services::email();
             $emailService->setTo($email);
             $emailService->setSubject('Ubah Kata Sandi Akun Kalpataru');
             $emailService->setMessage("Klik url berikut untuk mengatur ulang kata sandi Anda: $resetLink");
             $emailService->send();
-
-            return $this->response->setJSON(['success' => true, 'message' => 'Link reset password telah dikirim ke email Anda.']);
+    
+            session()->setFlashdata('reset_link_sent', true);
+    
+            return redirect()->to('/auth/forgot-password');
         } else {
-            return $this->response->setJSON(['success' => false, 'message' => 'Email tidak ditemukan.']);
+            session()->setFlashdata('email_not_found', true);
+    
+            return redirect()->to('/auth/forgot-password');
         }
     }
 
@@ -128,16 +132,16 @@ class AuthController extends BaseController
         $newPassword = $this->request->getPost('kata_sandi');
         $model = new PengusulModel();
         $user = $model->where('reset_token', $token)->first();
-
+    
         if ($user) {
             $model->update($user['id_pengusul'], [
                 'kata_sandi' => password_hash($newPassword, PASSWORD_DEFAULT),
                 'reset_token' => null
             ]);
-
-            return $this->response->setJSON(['success' => true, 'message' => 'Kata sandi berhasil diatur ulang.']);
+        return redirect()->to('/auth/login');
         } else {
-            return $this->response->setJSON(['success' => false, 'message' => 'Token tidak valid.']);
+            session()->setFlashdata('invalid_token', true);
+            return redirect()->to('/auth/reset-password/' . $token);
         }
     }
 
