@@ -197,26 +197,29 @@ class PendaftaranModel extends Model
 
     public function getDetailById($id)
     {
-        return $this->select('
+        // Mengambil detail pendaftaran
+        $pendaftaran = $this->select('
                 pendaftaran.*,
-                kegiatan.id_kegiatan AS kegiatan_id, 
-                kegiatan.*,
-                dampak.id_dampak AS dampak_id, 
-                dampak.*,
+                dampak.id_dampak AS dampak_id,
+                dampak.*, 
                 pmik.id_pmik AS pmik_id, 
-                pmik.*,
+                pmik.*, 
                 keswadayaan.id_keswadayaan AS keswadayaan_id, 
-                keswadayaan.*,
+                keswadayaan.*, 
                 keistimewaan.id_keistimewaan AS keistimewaan_id,
-                keistimewaan.*,
+                keistimewaan.*
             ')
-            ->join('kegiatan', 'kegiatan.id_pendaftaran = pendaftaran.id_pendaftaran', 'left')
             ->join('dampak', 'dampak.id_pendaftaran = pendaftaran.id_pendaftaran', 'left')
             ->join('pmik', 'pmik.id_pendaftaran = pendaftaran.id_pendaftaran', 'left')
             ->join('keswadayaan', 'keswadayaan.id_pendaftaran = pendaftaran.id_pendaftaran', 'left')
             ->join('keistimewaan', 'keistimewaan.id_pendaftaran = pendaftaran.id_pendaftaran', 'left')
             ->where('pendaftaran.id_pendaftaran', $id)
             ->first();
+
+        // Mengambil kegiatan berdasarkan id_pendaftaran
+        $pendaftaran['kegiatan'] = $this->getKegiatanByPendaftaranId($id);
+
+        return $pendaftaran;
     }
 
     // -------------------------------------------------------------------------
@@ -248,10 +251,23 @@ class PendaftaranModel extends Model
         return $this->db->table('kegiatan')->insert($data);
     }
 
-    public function getKegiatanByIdPendaftaran($id_pendaftaran)
+    public function getKegiatanByPendaftaranId($id)
     {
-        return $this->db->table('kegiatan')->where('id_pendaftaran', $id_pendaftaran)->get()->getRowArray();
+        return $this->db->table('kegiatan') // Ganti dengan nama tabel yang sesuai
+            ->where('id_pendaftaran', $id) // Ganti dengan kolom yang sesuai
+            ->get()
+            ->getResultArray(); // Sesuaikan dengan cara Anda mengambil data
     }
+
+    public function getKegiatanByTipe($id, $tipe)
+    {
+        return $this->db->table('kegiatan')
+            ->where('id_pendaftaran', $id)
+            ->where('tipe_kegiatan', $tipe)
+            ->get()
+            ->getResultArray();
+    }
+
 
     public function updateKegiatan($data, $where)
     {
@@ -356,13 +372,17 @@ class PendaftaranModel extends Model
         return $this->delete($id_pendaftaran);
     }
 
-    public function getKegiatanByPendaftaranId($id_pendaftaran)
+
+
+    // Ambil semua kegiatan berdasarkan id_pendaftaran
+    public function getAllKegiatanByPendaftaranId($id_pendaftaran)
     {
         return $this->db->table('kegiatan')
             ->where('id_pendaftaran', $id_pendaftaran)
             ->get()
             ->getResultArray();
     }
+
 
     public function updateStatusAndEdit($id_pendaftaran)
     {

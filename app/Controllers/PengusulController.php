@@ -12,10 +12,12 @@ use Dompdf\Options;
 class PengusulController extends BaseController
 {
     protected $PendaftaranModel;
+    protected $pengusulModel;
 
     public function __construct()
     {
         $this->PendaftaranModel = new PendaftaranModel();
+        $this->pengusulModel = new PengusulModel();
     }
 
     public function index(): string
@@ -351,6 +353,8 @@ class PengusulController extends BaseController
         switch ($formType) {
             case 'identitasc':
                 $identitas = $model->getIdentitasByIdPendaftaran($id_pendaftaran);
+
+
                 $data = [
                     'nama' => $this->request->getPost('nama_ketua'),
                     'tahun_pembentukan' => $this->request->getPost('tahun_pembentukan'),
@@ -375,6 +379,18 @@ class PengusulController extends BaseController
                     'pendidikan' => $this->request->getPost('pendidikan'),
                     'tanggal_skck' => $this->request->getPost('tanggal_skck'),
                 ];
+
+                $validation = \Config\Services::validation();
+                $rules = [
+                    'nik' => 'required|exact_length[16]|numeric|is_unique[pendaftaran.nik]',
+                    'email' => 'required|valid_email|is_unique[pendaftaran.email]',
+                ];
+
+                $validation->setRules($rules);
+
+                if (!$validation->withRequest($this->request)->run()) {
+                    return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+                }
 
                 // Logika untuk upload file SKCK
                 $legalitasFile = $this->request->getFile('legalitas');
@@ -420,9 +436,10 @@ class PengusulController extends BaseController
 
             case 'identitasabd':
                 $identitas = $model->getIdentitasByIdPendaftaran($id_pendaftaran);
+
                 $data = [
                     'nama' => $this->request->getPost('nama_individu'),
-                    'nik' => $this->request->getPost('nik_individu'),
+                    'nik' => $this->request->getPost('nik'),
                     'tempat_lahir' => $this->request->getPost('tempat_lahir'),
                     'tanggal_lahir' => $this->request->getPost('tanggal_lahir'),
                     'usia' => $this->request->getPost('usia'),
@@ -441,6 +458,18 @@ class PengusulController extends BaseController
                     'sosial_media' => $this->request->getPost('sosial_media'),
                     'tanggal_skck' => $this->request->getPost('tanggal_skck'),
                 ];
+
+                $validation = \Config\Services::validation();
+                $rules = [
+                    'nik' => 'required|exact_length[16]|numeric|is_unique[pendaftaran.nik]',
+                    'email' => 'required|valid_email|is_unique[pendaftaran.email]',
+                ];
+
+                $validation->setRules($rules);
+
+                if (!$validation->withRequest($this->request)->run()) {
+                    return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+                }
 
                 // Logika untuk upload file KTP dan SKCK sama seperti di atas
                 // Upload KTP
@@ -470,51 +499,63 @@ class PengusulController extends BaseController
                     $model->insertIdentitas($data);
                 }
                 break;
+
             case 'kegiatan':
-                // Ambil data dari request
+                // Ambil data dari request untuk kegiatan utama
                 $data = [
                     'id_pendaftaran' => $id_pendaftaran,
                     'tema' => $this->request->getPost('tema'),
                     'sub_tema' => $this->request->getPost('sub_tema'),
                     'bentuk_kegiatan' => $this->request->getPost('bentuk_kegiatan'),
-                    'tahun_mulai' => $this->request->getPost('tahun_mulai'),
+                    'tahun_mulai' => $this->request->getPost('tahun_mulai') ?: null,
                     'deskripsi_kegiatan' => $this->request->getPost('deskripsi_kegiatan'),
                     'lokasi_kegiatan' => $this->request->getPost('lokasi_kegiatan'),
                     'koordinat' => $this->request->getPost('koordinat'),
                     'pihak_dan_peran' => $this->request->getPost('pihak_dan_peran'),
                     'keberhasilan' => $this->request->getPost('keberhasilan'),
+                    'tipe_kegiatan' => 'kegiatan_utama',
                 ];
 
-                // Ambil semua kegiatan terkait ID pendaftaran
-                $existingKegiatan = $model->getKegiatanByIdPendaftaran($id_pendaftaran);
-
-                // Jika sudah ada kegiatan, perbarui atau tambahkan yang baru
-                if ($existingKegiatan) {
-                    // Update kegiatan yang sudah ada (misalnya kegiatan utama)
-                    $model->updateKegiatan($data, ['id_kegiatan' => $existingKegiatan['id_kegiatan']]);
+                // Cek apakah kegiatan utama sudah ada
+                $existingKegiatan = $model->getKegiatanByPendaftaranId($id_pendaftaran);
+                if (!empty($existingKegiatan)) {
+                    // Update kegiatan utama
+                    $model->updateKegiatan($data, ['id_kegiatan' => $existingKegiatan[0]['id_kegiatan']]);
                 } else {
-                    // Insert kegiatan baru
+                    // Insert kegiatan utama sebagai entri baru
                     $model->insertKegiatan($data);
                 }
 
-                // Cek apakah ada kegiatan tambahan yang ingin ditambahkan
+                // Cek apakah ada kegiatan tambahan yang akan ditambahkan atau diperbarui
                 $kegiatanLainnya = $this->request->getPost('kegiatan_lainnya');
                 if (!empty($kegiatanLainnya)) {
                     foreach ($kegiatanLainnya as $kegiatan) {
+                        // Persiapkan data untuk kegiatan tambahan
                         $dataLain = [
                             'id_pendaftaran' => $id_pendaftaran,
-                            'tema' => $kegiatan['tema'],
-                            'sub_tema' => $kegiatan['sub_tema'],
-                            'bentuk_kegiatan' => $kegiatan['bentuk_kegiatan'],
-                            'tahun_mulai' => $kegiatan['tahun_mulai'],
-                            'deskripsi_kegiatan' => $kegiatan['deskripsi_kegiatan'],
-                            'lokasi_kegiatan' => $kegiatan['lokasi_kegiatan'],
-                            'koordinat' => $kegiatan['koordinat'],
-                            'pihak_dan_peran' => $kegiatan['pihak_dan_peran'],
-                            'keberhasilan' => $kegiatan['keberhasilan'],
+                            'tema' => $kegiatan['tema'] ?? '',
+                            'sub_tema' => $kegiatan['sub_tema'] ?? '',
+                            'bentuk_kegiatan' => $kegiatan['bentuk_kegiatan'] ?? '',
+                            'tahun_mulai' => !empty($kegiatan['tahun_mulai']) ? $kegiatan['tahun_mulai'] : null,
+                            'deskripsi_kegiatan' => $kegiatan['deskripsi_kegiatan'] ?? '',
+                            'lokasi_kegiatan' => $kegiatan['lokasi_kegiatan'] ?? '',
+                            'koordinat' => $kegiatan['koordinat'] ?? '',
+                            'pihak_dan_peran' => $kegiatan['pihak_dan_peran'] ?? '',
+                            'keberhasilan' => $kegiatan['keberhasilan'] ?? '',
+                            'tipe_kegiatan' => 'kegiatan_tambahan',
                         ];
-                        // Insert kegiatan tambahan
-                        $model->insertKegiatan($dataLain);
+
+                        // Validasi: Cek apakah deskripsi_kegiatan atau tema terisi
+                        if (!empty($dataLain['deskripsi_kegiatan']) || !empty($dataLain['tema'])) {
+                            // Cek ID dari kegiatan tambahan jika ada
+                            if (isset($kegiatan['id_kegiatan']) && !empty($kegiatan['id_kegiatan'])) {
+                                // Jika ID ada, update kegiatan tambahan
+                                $model->updateKegiatan($dataLain, ['id_kegiatan' => $kegiatan['id_kegiatan']]);
+                            } else {
+                                // Insert kegiatan tambahan sebagai entri baru
+                                $model->insertKegiatan($dataLain);
+                            }
+                        }
                     }
                 }
 
@@ -577,30 +618,28 @@ class PengusulController extends BaseController
                     'tautan_dokumen_pendukung' => $this->request->getPost('tautan_dokumen_pendukung'),
                 ];
 
-                // Loop untuk menangani hingga 5 foto_kegiatan
                 for ($i = 1; $i <= 5; $i++) {
                     $fotoField = 'foto_kegiatan' . $i;
                     $deskripsiField = 'deskripsi_foto_kegiatan' . $i;
                     $fotoFile = $this->request->getFile($fotoField);
 
-                    // Hanya proses jika file diunggah
                     if ($fotoFile && $fotoFile->isValid() && !$fotoFile->hasMoved()) {
                         if ($fotoFile->getMimeType() === 'image/jpeg' && $fotoFile->getSize() <= 1024 * 1024) {
-                            $randomName = $fotoFile->getRandomName();
-                            $fotoFileName = $fotoField . '_' . $randomName;
-                            $fotoFile->store($fotoField, $fotoFileName);
-                            $data[$fotoField] = $fotoFileName; // Update data array untuk setiap foto
+                            $originalName = pathinfo($fotoFile->getClientName(), PATHINFO_FILENAME);
+                            $extension = $fotoFile->getExtension();
+                            $randomNamePart = bin2hex(random_bytes(4));
+                            $fotoFileName = $originalName . '_' . $randomNamePart . '.' . $extension;
+                            $fotoFile->move(WRITEPATH . 'uploads/foto_kegiatan' . $i, $fotoFileName);
+                            $data[$fotoField] = $fotoFileName;
                         }
                     }
 
-                    // Tambahkan deskripsi ke data array jika ada
                     $deskripsiFoto = $this->request->getPost($deskripsiField);
                     if (!empty($deskripsiFoto)) {
                         $data[$deskripsiField] = $deskripsiFoto;
                     }
                 }
 
-                // Update atau insert data ke database
                 if ($keistimewaan) {
                     $model->updateKeistimewaan($data, ['id_pendaftaran' => $id_pendaftaran]);
                 } else {
@@ -608,52 +647,60 @@ class PengusulController extends BaseController
                 }
                 break;
 
-
             default:
                 return redirect()->back()->with('error', 'Form tidak ditemukan.');
         }
 
-        return redirect()->to('pengusul/detailusulansayaedit/' . $id_pendaftaran)->with('success', ucfirst($formType) . ' berhasil disimpan.');
-    }
+        // Tentukan target section berikutnya berdasarkan form yang disimpan
+        $nextFormTarget = '';
+        switch ($formType) {
+            case 'identitasc':
+            case 'identitasabd':
+                $nextFormTarget = 'kegiatan';
+                break;
+            case 'kegiatan':
+                $nextFormTarget = 'dampak';
+                break;
+            case 'dampak':
+                $nextFormTarget = 'pmik';
+                break;
+            case 'pmik':
+                $nextFormTarget = 'keswadayaan';
+                break;
+            case 'keswadayaan':
+                $nextFormTarget = 'keistimewaan';
+                break;
+            case 'keistimewaan':
+                return redirect()->to('/pengusul/usulansaya')->with('success', '');
+            default:
+                $nextFormTarget = 'identitas-calon';
+        }
 
+        return redirect()->to('pengusul/detailusulansayaedit/' . $id_pendaftaran . '?section=' . $nextFormTarget)
+            ->with('success', ucfirst($formType) . ' berhasil disimpan.');
+    }
 
     public function detailUsulanSayaEdit($id_pendaftaran)
     {
         $model = new PendaftaranModel();
         $pendaftaran = $model->getPendaftaranById($id_pendaftaran);
-
-        // Ambil ID pengusul yang sedang login dari session
-        $id_pengusul_session = session()->get('id_pengusul');
-
-        // Cek apakah pendaftaran ditemukan
-        if (!$pendaftaran) {
-            return redirect()->to('pengusul/usulansaya')->with('error', 'Data tidak ditemukan.');
-        }
-
-        // Cek apakah pengusul yang sedang login adalah pemilik pendaftaran
-        if ($pendaftaran['id_pengusul'] != $id_pengusul_session) {
-            return redirect()->to('pengusul/usulansaya')->with('error', 'Anda tidak memiliki akses ke data ini.');
-        }
-
-        // Cek apakah status_pendaftaran bukan "Draft" atau "Perlu Perbaikan"
-        if (!in_array($pendaftaran['status_pendaftaran'], ['Draft', 'Perlu Perbaikan'])) {
-            // Set session flash data untuk pesan error
-            session()->setFlashdata('error', 'Anda tidak dapat mengedit usulan ini karena data sudah Terkirim.');
-            return redirect()->to('pengusul/usulansaya');
-        }
-
-        // Ambil data terkait pendaftaran lainnya
         $identitas = $model->getIdentitasByIdPendaftaran($id_pendaftaran);
-        $kegiatan = $model->getKegiatanByIdPendaftaran($id_pendaftaran);
+        $kegiatan = $model->getKegiatanByPendaftaranId($id_pendaftaran);
         $dampak = $model->getDampakByIdPendaftaran($id_pendaftaran);
         $pmik = $model->getPMIKByIdPendaftaran($id_pendaftaran);
         $keswadayaan = $model->getKeswadayaanByIdPendaftaran($id_pendaftaran);
         $keistimewaan = $model->getKeistimewaanByIdPendaftaran($id_pendaftaran);
+        $kegiatanUtama = isset($kegiatan[0]) ? $kegiatan[0] : null;
+        $kegiatanLainnya = array_slice($kegiatan, 1);
 
-        // Set session untuk id_pendaftaran
+        if (!$pendaftaran) {
+            return redirect()->to('pengusul/usulansaya')->with('error', 'Data tidak ditemukan.');
+        }
+
+        $title = "Edit Calon Usulan";
+
         session()->set('id_pendaftaran', $id_pendaftaran);
 
-        // Data yang akan dikirimkan ke view
         $data = [
             'pendaftaran' => $pendaftaran,
             'identitasc' => $identitas,
@@ -663,6 +710,9 @@ class PengusulController extends BaseController
             'pmik' => $pmik,
             'keswadayaan' => $keswadayaan,
             'keistimewaan' => $keistimewaan,
+            'kegiatanUtama' => $kegiatanUtama,
+            'kegiatanLainnya' => $kegiatanLainnya,
+            'title' => $title
         ];
 
         return view('pengusul/detailusulansayaedit', $data);
@@ -810,7 +860,7 @@ class PengusulController extends BaseController
         $pendaftaran = $model->getDetailById($id);
 
         // Ambil ID pengusul yang sedang login dari session
-        $id_pengusul_session = session()->get('id_pengusul');  // Asumsikan id_pengusul disimpan dalam session
+        $id_pengusul_session = session()->get('id_pengusul'); // Asumsikan id_pengusul disimpan dalam session
 
         // Validasi jika data ditemukan atau tidak
         if (!$pendaftaran) {
@@ -822,15 +872,20 @@ class PengusulController extends BaseController
             return redirect()->to('/pengusul/usulansaya')->with('error', 'Anda tidak memiliki akses ke data ini.');
         }
 
-        // Ambil data dari semua tabel terkait menggunakan join
+        // Ambil data kegiatan utama dan kegiatan tambahan
+        $kegiatan_utama = $model->getKegiatanByTipe($id, 'kegiatan_utama');
+        $kegiatan_tambahan = $model->getKegiatanByTipe($id, 'kegiatan_tambahan');
+
+        // Siapkan data untuk dikirim ke view
         $data = [
             'title' => 'Usulan Saya',
             'pendaftaran' => $pendaftaran,
+            'kegiatan_utama' => $kegiatan_utama,
+            'kegiatan_tambahan' => $kegiatan_tambahan,
         ];
 
         return view('pengusul/detailusulansaya', $data);
     }
-
 
 
     public function editUsulan($id)
@@ -918,6 +973,53 @@ class PengusulController extends BaseController
             'provinsi_list' => $provinsi_list
         ];
         return view('pengusul/detailusulansayaedit', $data);
+    }
+
+    public function showKTP($filename)
+    {
+        // Cek dengan ekstensi .jpg
+        $filePathJpg = WRITEPATH . 'uploads/ktp/' . $filename;
+        if (file_exists($filePathJpg)) {
+            return $this->response
+                ->setHeader('Content-Type', 'image/jpeg')
+                ->setBody(file_get_contents($filePathJpg));
+        }
+
+        // Cek dengan ekstensi .jpeg
+        $filePathJpeg = WRITEPATH . 'uploads/ktp/' . $filename;
+        if (file_exists($filePathJpeg)) {
+            return $this->response
+                ->setHeader('Content-Type', 'image/jpeg')
+                ->setBody(file_get_contents($filePathJpeg));
+        }
+
+        // Jika tidak ada file yang ditemukan, lempar pengecualian
+        throw new \CodeIgniter\Exceptions\PageNotFoundException('File tidak ditemukan.');
+    }
+
+    public function showFotoKegiatan($folder, $filename)
+    {
+        $filePath = WRITEPATH . "uploads/foto_kegiatan$folder/" . $filename;
+        if (file_exists($filePath)) {
+            return $this->response
+                ->setHeader('Content-Type', 'image/jpeg')
+                ->setBody(file_get_contents($filePath));
+        }
+
+        throw new \CodeIgniter\Exceptions\PageNotFoundException('File tidak ditemukan.');
+    }
+
+    public function downloadSKCK($filename)
+    {
+        $path = WRITEPATH . 'uploads/skck/' . $filename;
+
+        if (!file_exists($path)) {
+            // File tidak ditemukan, Anda bisa mengarahkan ke halaman error atau menampilkan pesan
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('File tidak ditemukan.');
+        }
+
+        // Menyajikan file dengan header download
+        return $this->response->download($path, null);
     }
 
 
