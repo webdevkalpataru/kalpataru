@@ -76,6 +76,11 @@ class PengusulController extends BaseController
     {
         $id_pengusul = session()->get('id_pengusul');
 
+        $data = [
+            'title' => 'Alur Pendaftaran',
+            'id_pengusul' => $id_pengusul
+        ];
+
         if (!$id_pengusul) {
             return redirect()->to('/login');
         }
@@ -1113,18 +1118,26 @@ class PengusulController extends BaseController
 
     public function alurpendaftaran()
     {
-        $data['title'] = 'Alur Pendaftaran';
-        return view('pengusul/alurpendaftaran', ['title' => 'Alur Pendaftaran']);
+        $data = [
+            'title' => 'Alur Pendaftaran',
+        ];
+
+        return view('pengusul/alurpendaftaran', $data);
     }
     public function videopanduan()
     {
-        $data['title'] = 'Video Panduan';
-        return view('pengusul/videopanduan', ['title' => 'Video Panduan']);
+        $data = [
+            'title' => 'Video Panduan',
+        ];
+
+        return view('pengusul/videopanduan', $data);
     }
     public function panduanpendaftaran()
     {
-        $data['title'] = 'Panduan Pendaftaran';
-        return view('pengusul/panduanpendaftaran', ['title' => 'Panduan Pendaftaran']);
+        $data = [
+            'title' => 'Panduan Pendaftaran',
+        ];
+        return view('pengusul/panduanpendaftaran', $data);
     }
 
     public function halamanLainnya()

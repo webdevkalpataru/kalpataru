@@ -77,24 +77,24 @@
             <div class="space-y-4">
               <div>
                 <label class="block mb-2 text-sm text-black">Jenis Akun</label>
-                <input type="text" name="jenis_instansi" readonly value="<?= $pengusul['jenis_instansi']; ?>" class="w-full bg-gray-200 placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:shadow" />
+                <input type="text" name="jenis_instansi" readonly value="<?= $pengusul['jenis_instansi']; ?>" class="w-full bg-gray-200 placeholder:text-slate-400 text-gray-800 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:shadow" />
               </div>
 
               <div>
                 <label class="block mb-2 text-sm text-black">Nama Lengkap</label>
-                <input type="text" name="nama_instansi_pribadi" readonly value="<?= $pengusul['nama_instansi_pribadi']; ?>" class="w-full bg-gray-200 placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:shadow" />
+                <input type="text" name="nama_instansi_pribadi" readonly value="<?= $pengusul['nama_instansi_pribadi']; ?>" class="w-full bg-gray-200 placeholder:text-slate-400 text-gray-800 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:shadow" />
               </div>
               <div>
                 <label class="block mb-2 text-sm text-black">Provinsi</label>
-                <input type="text" name="provinsi" readonly value="<?= $pengusul['provinsi']; ?>" class="w-full bg-gray-200 placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:shadow" />
+                <input type="text" name="provinsi" readonly value="<?= $pengusul['provinsi']; ?>" class="w-full bg-gray-200 placeholder:text-slate-400 text-gray-800 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:shadow" />
               </div>
               <div>
                 <label class="block mb-2 text-sm text-black">Nomor Telepon</label>
-                <input type="text" name="telepon" readonly value="<?= $pengusul['telepon']; ?>" class="w-full bg-gray-200 placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:shadow" />
+                <input type="text" name="telepon" readonly value="<?= $pengusul['telepon']; ?>" class="w-full bg-gray-200 placeholder:text-slate-400 text-gray-800 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:shadow" />
               </div>
               <div>
                 <label class="block mb-2 text-sm text-black">Email</label>
-                <input type="email" name="email" readonly value="<?= $pengusul['email']; ?>" class="w-full bg-gray-200 placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:shadow" />
+                <input type="email" name="email" readonly value="<?= $pengusul['email']; ?>" class="w-full bg-gray-200 placeholder:text-slate-400 text-gray-800 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:shadow" />
               </div>
               <div>
                 <label class="block mb-2 text-sm text-black">Instansi Pengusul</label>
@@ -158,23 +158,23 @@
             <div class="space-y-4">
               <div>
                 <label class="block mb-2 text-sm text-black">Jenis Akun</label>
-                <input type="text" name="jenis_instansi" readonly value="<?= $pengusul['jenis_instansi']; ?>" class="w-full bg-gray-200 placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:shadow" />
+                <input type="text" name="jenis_instansi" readonly value="<?= $pengusul['jenis_instansi']; ?>" class="w-full bg-gray-200 placeholder:text-slate-400 text-gray-800 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:shadow" />
               </div>
               <div>
                 <label class="block mb-2 text-sm text-black">Instansi Pengusul</label>
-                <input type="text" name="instansi" readonly value="<?= $pengusul['instansi']; ?>" class="w-full bg-gray-200 placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:shadow" />
+                <input type="text" name="instansi" readonly value="<?= $pengusul['instansi']; ?>" class="w-full bg-gray-200 placeholder:text-slate-400 text-gray-800 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:shadow" />
               </div>
               <div>
                 <label class="block mb-2 text-sm text-black">Provinsi</label>
-                <input type="text" name="provinsi" readonly value="<?= $pengusul['provinsi']; ?>" class="w-full bg-gray-200 placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:shadow" />
+                <input type="text" name="provinsi" readonly value="<?= $pengusul['provinsi']; ?>" class="w-full bg-gray-200 placeholder:text-slate-400 text-gray-800 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:shadow" />
               </div>
               <div>
                 <label class="block mb-2 text-sm text-black">Nomor Telepon</label>
-                <input type="text" name="telepon" readonly value="<?= $pengusul['telepon']; ?>" class="w-full bg-gray-200 placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:shadow" />
+                <input type="text" name="telepon" readonly value="<?= $pengusul['telepon']; ?>" class="w-full bg-gray-200 placeholder:text-slate-400 text-gray-800 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:shadow" />
               </div>
               <div>
                 <label class="block mb-2 text-sm text-black">Email</label>
-                <input type="email" name="email" readonly value="<?= $pengusul['email']; ?>" class="w-full bg-gray-200 placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:shadow" />
+                <input type="email" name="email" readonly value="<?= $pengusul['email']; ?>" class="w-full bg-gray-200 placeholder:text-slate-400 text-gray-800 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:shadow" />
               </div>
               <div>
                 <label class="block mb-2 text-sm text-black">Nama Lengkap</label>
