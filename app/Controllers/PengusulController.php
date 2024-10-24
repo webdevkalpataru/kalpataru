@@ -216,7 +216,7 @@ class PengusulController extends BaseController
             'jenis_kelamin'     => 'required',
             'pekerjaan'         => 'required|min_length[3]|max_length[100]',
             'telepon'           => 'required|numeric|min_length[10]|max_length[15]',
-            'email'             => 'required|valid_email',
+            'email'             => 'required|valid_email|is_unique[pendaftaran.email]',
             'pendidikan'        => 'required|min_length[2]|max_length[50]',
             'jalan'             => 'required|min_length[3]|max_length[255]',
             'rt_rw'             => 'required|max_length[10]',
@@ -231,6 +231,13 @@ class PengusulController extends BaseController
             'tanggal_skck'      => 'required|valid_date',
         ];
 
+        if ($pendaftaranData['kategori'] == 'Penyelamat Lingkungan') {
+            $rules['tahun_pembentukan'] = 'required|valid_date';
+            $rules['jumlah_anggota'] = 'required|numeric|min_length[1]|max_length[5]';
+            $rules['nama_kelompok'] = 'required|min_length[3]|max_length[100]';
+            $rules['tanggal_legalitas'] = 'required|valid_date';
+        }
+    
         if (!$this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $validation->getErrors());
         }
@@ -439,6 +446,7 @@ class PengusulController extends BaseController
                 $validation = \Config\Services::validation();
                 $rules = [
                     'nik' => 'required|exact_length[16]|numeric|is_unique[pendaftaran.nik]',
+                    'email' => 'required|valid_email|is_unique[pendaftaran.email]',
                 ];
 
                 $validation->setRules($rules);
@@ -517,6 +525,7 @@ class PengusulController extends BaseController
                 $validation = \Config\Services::validation();
                 $rules = [
                     'nik' => 'required|exact_length[16]|numeric|is_unique[pendaftaran.nik]',
+                    'email' => 'required|valid_email|is_unique[pendaftaran.email]',
                 ];
 
                 $validation->setRules($rules);
