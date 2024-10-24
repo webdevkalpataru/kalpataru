@@ -15,9 +15,6 @@ class PenerimaModel extends Model
         'tahun',
         'email',
         'kata_sandi',
-        'instagram',
-        'facebook',
-        'youtube',
         'status_akun'
     ];
 }

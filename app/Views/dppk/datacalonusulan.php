@@ -27,7 +27,7 @@
             border-radius: 10px;
             border: 3px solid #f1f1f1;
         }
-        
+
         /* selection */
         ::selection {
             background-color: #2C7865;
@@ -48,7 +48,11 @@
             <!-- Header -->
             <header class="bg-white shadow">
                 <div class="container mx-auto flex items-center justify-between p-4 md:p-6">
-                    <h1 class="text-xl font-bold text-slate-800 mb-2">Data Calon Usulan</h1>
+                    <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Data Calon Usulan</h1>
+                    <div class="flex items-center">
+                        <p class="text-gray-500 mr-2 md:mr-4">Hello, <?= session()->get('nama'); ?></p>
+                        <a href="/auth/logoutinternal" class="bg-rejected text-white px-3 py-2 md:px-4 md:py-2 rounded-lg inline-block">Keluar</a>
+                    </div>
                 </div>
             </header>
 

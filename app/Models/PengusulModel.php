@@ -13,6 +13,7 @@ class PengusulModel extends Model
         'role_akun',
         'jenis_instansi',
         'nama_instansi_pribadi',
+        'instansi',
         'telepon',
         'email',
         'kata_sandi',

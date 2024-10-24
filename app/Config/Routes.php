@@ -32,7 +32,9 @@ $routes->get('artikel/(:any)', 'PublikasiController::detailartikel/$1');
 $routes->get('publikasi/video', 'PublikasiController::video');
 $routes->get('publikasi/buku', 'PublikasiController::buku');
 
-
+/* Auth Penerima */
+$routes->get('auth/loginpenerima', 'AuthController::loginPenerima');
+$routes->post('auth/loginpenerima', 'AuthController::loginPenerimaAction');
 
 /* Auth Pengusul */
 $routes->get('auth/login', 'AuthController::login');
@@ -40,7 +42,8 @@ $routes->post('auth/login', 'AuthController::loginAction');
 $routes->get('auth/register', 'AuthController::register');
 $routes->post('auth/register', 'AuthController::createRegister');
 $routes->get('auth/logout', 'AuthController::logoutAction');
-$routes->get('logout', 'AuthController::logoutAction');
+$routes->get('auth/logoutinternal', 'AuthController::logoutInternal');
+
 
 /* Auth Internal */
 $routes->get('auth/logininternal', 'AuthController::logininternal');
@@ -49,7 +52,9 @@ $routes->get('auth/registerinternal', 'AuthController::registerinternal');
 $routes->post('auth/registerinternal', 'AuthController::createRegisterinternal');
 $routes->get('auth/loginadmin', 'AuthController::loginadmin');
 $routes->get('auth/logintimteknis', 'AuthController::logintimteknis');
+$routes->post('auth/logintimteknis', 'AuthController::logintimteknisAction');
 $routes->get('auth/logindppk', 'AuthController::logindppk');
+$routes->post('auth/logindppk', 'AuthController::logindppkAction');
 
 $routes->get('auth/forgot-password', 'AuthController::forgotPassword');
 $routes->post('auth/forgot-password', 'AuthController::sendResetLink');
@@ -111,42 +116,33 @@ $routes->group('penerima', ['filter' => 'auth'], function ($routes) {
 $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('dashboard', 'AdminController::dashboard');
 
-    //pengusul
-    $routes->get('akunpengusul', 'AdminController::akunpengusul');
+    $routes->get('daftarakunpenerima', 'AdminController::daftarakunpenerima');
 
-    //dlhk
-    $routes->get('akundlhk', 'AdminController::akundlhk');
-    $routes->get('daftarakundlhk', 'AdminController::daftarakundlhk');
-    $routes->get('daftarakundlhk', 'AuthController::registerDLHK');
-    $routes->post('daftarakundlhk', 'AuthController::createRegisterDLHK');
+    // Manajemen Akun Penerima Penghargaan Kalpataru
+    $routes->get('akunpenerima', 'AdminController::akunpenerima');
+    $routes->post('akunpenerima/hapus/(:num)', 'AdminController::hapusPenerima/$1');
+    $routes->post('updatepenerima', 'AdminController::updatePenerima');
+    $routes->get('daftarpenerima', 'AuthController::registerPenerima');
+    $routes->post('daftarpenerima', 'AuthController::createregisterPenerima');
 
-    //timteknis
+    // Manajemen Akun Tim Teknis
     $routes->get('akuntimteknis', 'AdminController::akuntimteknis');
+    $routes->post('akuntimteknis/hapus/(:num)', 'AdminController::hapusTimTeknis/$1');
+    $routes->post('updatetimteknis', 'AdminController::updateTimTeknis');
     $routes->get('daftartimteknis', 'AuthController::registerTimTeknis');
     $routes->post('daftartimteknis', 'AuthController::createRegisterTimTeknis');
 
-    //dppk
+    // Manajemen Akun DPPK
     $routes->get('akundppk', 'AdminController::akundppk');
-    $routes->get('daftardppk', 'AdminController::daftardppk');
+    $routes->post('akundppk/hapus/(:num)', 'AdminController::hapusDppk/$1');
+    $routes->post('updatedppk', 'AdminController::updateDppk');
     $routes->get('daftardppk', 'AuthController::registerDPPK');
     $routes->post('daftardppk', 'AuthController::createRegisterDPPK');
 
-    //pengguna
-    $routes->get('akunpengguna', 'AdminController::akunpengguna');
-    $routes->get('daftarakunpengguna', 'AdminController::daftarakunpengguna');
-    $routes->get('daftarakunpengguna', 'AuthController::registerPenerima');
-    $routes->post('daftarakunpengguna', 'AuthController::createRegisterPenerima');
-
-    //Pengumuman
-    $routes->get('pengumumanadmin', 'AdminController::pengumumanadmin');
-    $routes->get('tambahpengumumanadmin', 'AdminController::tambahpengumumanadmin');
-    
-    // Manajemen Buku
-    $routes->get('buku', 'AdminController::buku');
-    $routes->get('tambahbuku', 'AdminController::tambahbuku');
-
-    // Manajemen Kebijakan
-    $routes->get('kebijakan', 'AdminController::kebijakan');
+    // Manajemen Akun DLHK
+    $routes->get('akundlhk', 'AdminController::akundlhk');
+    $routes->get('daftarakundlhk', 'AuthController::registerDLHK');
+    $routes->post('daftarakundlhk', 'AuthController::createRegisterDLHK');
 
     // Manajemen Akun Pengusul
     $routes->get('pengusul', 'AdminController::akunpengusul');

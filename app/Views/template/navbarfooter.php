@@ -145,7 +145,7 @@
                     <li class="flex items-center p-1 text-sm gap-x-2 text-primary hover:text-primaryhover">
                         <a href="<?= base_url('kontak') ?>" class="flex items-center">Kontak</a>
                     </li>
-                    <?php if (session()->has('logged_in') && (session()->get('role_akun') === 'pengusul' || session()->get('role_akun') === 'DLHK')): ?>
+                    <?php if (session()->has('logged_in') && (session()->get('role_akun') === 'Pengusul' || session()->get('role_akun') === 'DLHK')): ?>
                         <li class="flex items-center p-1 text-sm gap-x-2 text-primary hover:text-primaryhover">
                             <a href="/pengusul/profil">
                                 <button class="rounded-md bg-primary py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-primaryhover focus:shadow-none active:bg-primaryhover hover:bg-primaryhover active:shadow-none">

@@ -80,15 +80,15 @@
                 <h2 class="text-2xl font-bold text-gray-900 mb-4">Daftar</h2>
                 <form action="/auth/register" method="post" onsubmit="validateForm(event)" class="flex flex-col" enctype="multipart/form-data">
                     <?= csrf_field() ?>
-                    <label for="jenis_instansi" class="text-xs">Jenis Instansi</label>
+                    <label for="jenis_instansi" class="text-xs">Jenis Akun</label>
                     <select id="jenis_instansi" name="jenis_instansi"
                         class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
-                        <option value="" disabled selected>Pilih Jenis Instansi</option>
+                        <option value="" disabled selected>Pilih Jenis Akun Anda</option>
                         <option value="Pemerintah">Pemerintah</option>
                         <option value="Non Pemerintah">Non Pemerintah</option>
                     </select>
 
-                    <label for="nama_instansi_pribadi" class="text-xs">Nama Instansi/ Nama Pribadi</label>
+                    <label for="nama_instansi_pribadi" class="text-xs">Nama Lengkap</label>
                     <input id="nama_instansi_pribadi" name="nama_instansi_pribadi" type="text"
                         class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none"
                         placeholder="contoh: Kemitraan Lingkungan">

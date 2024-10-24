@@ -22,7 +22,7 @@
                     <h1 class="text-lg md:text-2xl font-semibold text-gray-700">Berita</h1>
                     <div class="flex items-center">
                         <p class="text-gray-500 mr-2 md:mr-4">Hello, <?= session()->get('nama'); ?></p>
-                        <a href="/auth/logout" class="bg-rejected text-white px-3 py-2 md:px-4 md:py-2 rounded-lg">Keluar</a>
+                        <a href="/auth/logoutinternal" class="bg-rejected text-white px-3 py-2 md:px-4 md:py-2 rounded-lg">Keluar</a>
                     </div>
                 </div>
             </header>

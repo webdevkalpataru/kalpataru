@@ -12,8 +12,14 @@ class AuthController extends BaseController
 {
     public function login()
     {
+        // Periksa apakah pengguna sudah login
+        if (session()->get('logged_in')) {
+            // Jika sudah login, arahkan ke halaman utama
+            return redirect()->to('/');
+        }
+
         $data['title'] = "Masuk Akun";
-        return view('auth/login', ['title' => 'Login']);
+        return view('auth/login', $data);
     }
 
     public function loginAction()
@@ -51,21 +57,7 @@ class AuthController extends BaseController
                 if ($user['status_akun'] === 'Aktif') {
                     $sessionData = [
                         'id_pengusul' => $user['id_pengusul'],
-                        'nama' => $user['nama_instansi_pribadi'],
-                        'email' => $user['email'],
                         'role_akun' => $user['role_akun'],
-                        'provinsi' => $user['provinsi'],
-                        'jenis_instansi' => $user['jenis_instansi'],
-                        'telepon' => $user['telepon'],
-                        'jabatan_pekerjaan' => $user['jabatan_pekerjaan'],
-                        'jenis_kelamin' => $user['jenis_kelamin'],
-                        'jalan' => $user['jalan'],
-                        'rt_rw' => $user['rt_rw'],
-                        'desa' => $user['desa'],
-                        'kecamatan' => $user['kecamatan'],
-                        'kab_kota' => $user['kab_kota'],
-                        'kode_pos' => $user['kode_pos'],
-                        'surat_pengantar' => $user['surat_pengantar'],
                         'logged_in' => true,
                     ];
                     session()->set($sessionData);
@@ -152,8 +144,20 @@ class AuthController extends BaseController
         return redirect()->to('/');
     }
 
+    public function logoutInternal()
+    {
+        session()->destroy();
+        return redirect()->to('/auth/logininternal');
+    }
+
     public function register()
     {
+        // Periksa apakah pengguna sudah login
+        if (session()->get('logged_in')) {
+            // Jika sudah login, arahkan ke halaman utama
+            return redirect()->to('/');
+        }
+
         $provinsi_list = [
             'Aceh',
             'Bali',
@@ -338,35 +342,82 @@ class AuthController extends BaseController
 
     public function createRegisterDLHK()
     {
-        $model = new PengusulModel();
+        // Load validation service
+        $validation = \Config\Services::validation();
 
+        // Aturan validasi untuk form pendaftaran pengusul
+        $validation->setRules([
+            'instansi' => [
+                'label' => 'Nama Instansi atau Pribadi',
+                'rules' => 'required|alpha_space'
+            ],
+            'provinsi' => [
+                'label' => 'Provinsi',
+                'rules' => 'required|alpha_space'
+            ],
+            'telepon' => [
+                'label' => 'Telepon',
+                'rules' => 'required|numeric|min_length[10]'
+            ],
+            'email' => [
+                'label' => 'Email',
+                'rules' => 'required|valid_email|is_unique[pengusul.email]'
+            ],
+            'kata_sandi' => [
+                'label' => 'Kata Sandi',
+                'rules' => 'required|min_length[8]|regex_match[/[a-z]/]|regex_match[/[A-Z]/]|regex_match[/[!@#$%^&*_-]/]'
+            ],
+            'surat_pengantar' => [
+                'label' => 'Surat Pengantar',
+                'rules' => 'uploaded[surat_pengantar]|max_size[surat_pengantar,1024]|mime_in[surat_pengantar,application/pdf]'
+            ]
+        ]);
+
+        // Lakukan validasi input
+        if (!$this->validate($validation->getRules())) {
+            return $this->response->setJSON([
+                'success' => false,
+                'errors' => $validation->getErrors()
+            ]);
+        }
+
+        // Ambil data input dari form
+        $email = $this->request->getPost('email');
         $file = $this->request->getFile('surat_pengantar');
         $filePath = '';
 
+        // Proses file surat pengantar
         if ($file && $file->isValid() && !$file->hasMoved()) {
-            if ($file->getClientMimeType() == 'application/pdf') {
-                $filePath = $file->store('suratpengantar', $file->getRandomName());
-            } else {
-                return $this->response->setJSON(['success' => false, 'errors' => 'Invalid file type. Only PDF files are allowed']);
-            }
+            $filePath = $file->store('suratpengantar', $file->getRandomName());
         }
 
+        // Data yang akan dimasukkan ke database
         $data = [
-            'nama_instansi_pribadi' => $this->request->getPost('nama_instansi_pribadi'),
+            'id_admin' => session()->get('id_admin'),
+            'jenis_instansi' => 'Pemerintah',
+            'instansi' => $this->request->getPost('instansi'),
             'provinsi' => $this->request->getPost('provinsi'),
             'telepon' => $this->request->getPost('telepon'),
-            'email' =>  $this->request->getPost('email'),
+            'email' => $email,
             'kata_sandi' => password_hash($this->request->getPost('kata_sandi'), PASSWORD_DEFAULT),
             'role_akun' => 'DLHK',
-            'status_akun'  => 'Pending',
+            'status_akun' => 'Pending',
             'surat_pengantar' => $filePath
         ];
 
+        // Simpan data ke database menggunakan model
+        $model = new PengusulModel();
+
         if ($model->insert($data)) {
+            // Jika pendaftaran berhasil
             return $this->response->setJSON(['success' => true]);
         } else {
-            log_message('error', 'Registration failed: ' . json_encode($model->errors()));
-            return $this->response->setJSON(['success' => false, 'errors' => $model->errors()]);
+            // Jika ada kesalahan saat menyimpan ke database
+            log_message('error', 'Pendaftaran pengusul gagal: ' . json_encode($model->errors()));
+            return $this->response->setJSON([
+                'success' => false,
+                'errors' => 'Terjadi kesalahan saat menyimpan data. Silakan coba lagi.'
+            ]);
         }
     }
 
@@ -385,6 +436,12 @@ class AuthController extends BaseController
     // BAGIAN AUTH ADMIN DPPK SEKRE
     public function logininternal()
     {
+        // Periksa apakah pengguna sudah login
+        if (session()->get('logged_in')) {
+            // Jika sudah login, arahkan ke halaman utama
+            return redirect()->to('/');
+        }
+
         $data['title'] = "Masuk Akun Internal";
         return view('auth/logininternal', $data);
     }
@@ -528,22 +585,259 @@ class AuthController extends BaseController
     }
     public function loginadmin()
     {
+        // Periksa apakah pengguna sudah login
+        if (session()->get('logged_in')) {
+            // Jika sudah login, arahkan ke halaman utama
+            return redirect()->to('/');
+        }
+
         $data['title'] = "Login Admin";
         return view('auth/loginadmin', $data);
     }
+
     public function logintimteknis()
     {
+
+        // Periksa apakah pengguna sudah login
+        if (session()->get('logged_in')) {
+            // Jika sudah login, arahkan ke halaman utama
+            return redirect()->to('/');
+        }
+
         $data['title'] = "Login Tim Teknis";
         return view('auth/logintimteknis', $data);
     }
+
+    public function logintimteknisAction()
+    {
+        // Load validation service
+        $validation = \Config\Services::validation();
+
+        // Aturan validasi untuk form login
+        $validation->setRules([
+            'email' => 'required|valid_email',
+            'kata_sandi' => 'required',
+        ]);
+
+        // Lakukan validasi input
+        if (!$this->validate($validation->getRules())) {
+            return $this->response->setJSON([
+                'success' => false,
+                'errors' => $validation->getErrors()
+            ]);
+        }
+
+        // Ambil data dari form
+        $email = $this->request->getPost('email');
+        $kata_sandi = $this->request->getPost('kata_sandi');
+
+        // Load model
+        $model = new TimteknisModel();
+
+        // Cek apakah email ada di database
+        $timteknis = $model->where('email', $email)->first();
+
+        // Jika timteknis tidak ditemukan
+        if (!$timteknis) {
+            return $this->response->setJSON([
+                'success' => false,
+                'errors' => ['email' => 'Pengguna tidak ditemukan.']
+            ]);
+        }
+
+        // Jika kata sandi tidak sesuai
+        if (!password_verify($kata_sandi, $timteknis['kata_sandi'])) {
+            return $this->response->setJSON([
+                'success' => false,
+                'errors' => ['kata_sandi' => 'Kata sandi salah.']
+            ]);
+        }
+
+
+        // Jika admin tidak ditemukan
+        if ($timteknis['status_akun'] === 'Pending') {
+            return $this->response->setJSON([
+                'success' => false,
+                'errors' => ['email' => 'Akun Anda belum aktif']
+            ]);
+        }
+
+        // Simpan data timteknis ke session
+        session()->set('id_tim_teknis', $timteknis['id_tim_teknis']);
+        session()->set('email', $timteknis['email']);
+        session()->set('nama', $timteknis['nama']);
+        session()->set('role', 'Tim Teknis');
+        session()->set('logged_in', true);
+
+
+        return $this->response->setJSON([
+            'success' => true,
+            'message' => 'Login berhasil!'
+        ]);
+    }
+
     public function logindppk()
     {
+        // Periksa apakah pengguna sudah login
+        if (session()->get('logged_in')) {
+            // Jika sudah login, arahkan ke halaman utama
+            return redirect()->to('/');
+        }
+
         $data['title'] = "Login DPPK";
         return view('auth/logindppk', $data);
     }
+
+    public function logindppkAction()
+    {
+        // Load validation service
+        $validation = \Config\Services::validation();
+
+        // Aturan validasi untuk form login
+        $validation->setRules([
+            'email' => 'required|valid_email',
+            'kata_sandi' => 'required',
+        ]);
+
+        // Lakukan validasi input
+        if (!$this->validate($validation->getRules())) {
+            return $this->response->setJSON([
+                'success' => false,
+                'errors' => $validation->getErrors()
+            ]);
+        }
+
+        // Ambil data dari form
+        $email = $this->request->getPost('email');
+        $kata_sandi = $this->request->getPost('kata_sandi');
+
+        // Load model
+        $model = new DppkModel();
+
+        // Cek apakah email ada di database
+        $dppk = $model->where('email', $email)->first();
+
+        // Jika dppk tidak ditemukan
+        if (!$dppk) {
+            return $this->response->setJSON([
+                'success' => false,
+                'errors' => ['email' => 'Pengguna tidak ditemukan.']
+            ]);
+        }
+
+        // Jika kata sandi tidak sesuai
+        if (!password_verify($kata_sandi, $dppk['kata_sandi'])) {
+            return $this->response->setJSON([
+                'success' => false,
+                'errors' => ['kata_sandi' => 'Kata sandi salah.']
+            ]);
+        }
+
+        // Jika admin tidak ditemukan
+        if ($dppk['status_akun'] === 'Pending') {
+            return $this->response->setJSON([
+                'success' => false,
+                'errors' => ['email' => 'Akun Anda belum aktif']
+            ]);
+        }
+
+        // Simpan data dppk ke session
+        session()->set('id_dppk', $dppk['id_dppk']);
+        session()->set('email', $dppk['email']);
+        session()->set('nama', $dppk['nama']);
+        session()->set('role', 'DPPK');
+        session()->set('logged_in', true);
+
+
+        return $this->response->setJSON([
+            'success' => true,
+            'message' => 'Login berhasil!'
+        ]);
+    }
+
+    public function loginPenerima()
+    {
+        // Periksa apakah pengguna sudah login
+        if (session()->get('logged_in')) {
+            // Jika sudah login, arahkan ke halaman utama
+            return redirect()->to('/');
+        }
+
+        $data['title'] = "Login Penerima Penghargaan Kalpataru";
+        return view('auth/loginpenerima', $data);
+    }
+
+    public function loginPenerimaAction()
+    {
+        // Load validation service
+        $validation = \Config\Services::validation();
+
+        // Aturan validasi untuk form login
+        $validation->setRules([
+            'email' => 'required|valid_email',
+            'kata_sandi' => 'required',
+        ]);
+
+        // Lakukan validasi input
+        if (!$this->validate($validation->getRules())) {
+            return $this->response->setJSON([
+                'success' => false,
+                'errors' => $validation->getErrors()
+            ]);
+        }
+
+        // Ambil data dari form
+        $email = $this->request->getPost('email');
+        $kata_sandi = $this->request->getPost('kata_sandi');
+
+        // Load model
+        $model = new PenerimaModel();
+
+        // Cek apakah email ada di database
+        $penerima = $model->where('email', $email)->first();
+
+        // Jika penerima tidak ditemukan
+        if (!$penerima) {
+            return $this->response->setJSON([
+                'success' => false,
+                'errors' => ['email' => 'Pengguna tidak ditemukan.']
+            ]);
+        }
+
+        // Jika kata sandi tidak sesuai
+        if (!password_verify($kata_sandi, $penerima['kata_sandi'])) {
+            return $this->response->setJSON([
+                'success' => false,
+                'errors' => ['kata_sandi' => 'Kata sandi salah.']
+            ]);
+        }
+
+        // Jika admin tidak ditemukan
+        if ($penerima['status_akun'] === 'Pending') {
+            return $this->response->setJSON([
+                'success' => false,
+                'errors' => ['email' => 'Akun Anda belum aktif']
+            ]);
+        }
+
+        // Simpan data penerima ke session
+        session()->set('id_penerima', $penerima['id_penerima']);
+        session()->set('email', $penerima['email']);
+        session()->set('nama', $penerima['nama']);
+        session()->set('role', 'Penerima');
+        session()->set('logged_in', true);
+
+
+        return $this->response->setJSON([
+            'success' => true,
+            'message' => 'Login berhasil!'
+        ]);
+    }
+
     public function registerTimTeknis()
     {
-        return view('admin/daftartimteknis', ['title' => 'Register Tim Teknis']);
+        $data['title'] = "Daftar Akun Tim Teknis";
+        return view('admin/daftartimteknis', $data);
     }
 
     public function createRegisterTimTeknis()
@@ -551,6 +845,7 @@ class AuthController extends BaseController
         $model = new TimTeknisModel();
 
         $data = [
+            'id_admin' => session()->get('id_admin'),
             'nama' => $this->request->getPost('nama'),
             'nip' => $this->request->getPost('nip'),
             'no_sk' => $this->request->getPost('no_sk'),
@@ -569,7 +864,8 @@ class AuthController extends BaseController
 
     public function registerDPPK()
     {
-        return view('admin/daftardppk', ['title' => 'Register DPPK']);
+        $data['title'] = "Register DPPK";
+        return view('admin/daftardppk', $data);
     }
 
     public function createRegisterDPPK()
@@ -577,6 +873,7 @@ class AuthController extends BaseController
         $model = new DppkModel();
 
         $data = [
+            'id_admin' => session()->get('id_admin'),
             'nama' => $this->request->getPost('nama'),
             'nip' => $this->request->getPost('nip'),
             'no_sk' => $this->request->getPost('no_sk'),
@@ -591,15 +888,6 @@ class AuthController extends BaseController
             log_message('error', 'Registration failed: ' . json_encode($model->errors()));
             return $this->response->setJSON(['success' => false, 'errors' => $model->errors()]);
         }
-    }
-
-    public function loginpenerima()
-    {
-        return view('auth/loginpenerima', ['title' => 'Login Penerima']);
-    }
-    public function registerPenerima()
-    {
-        return view('admin/daftarakunpengguna', ['title' => 'Register Penerima']);
     }
 
     public function createRegisterPenerima()
@@ -626,6 +914,7 @@ class AuthController extends BaseController
         }
 
         $data = [
+            'id_admin' => session()->get('id_admin'),
             'nama' => $this->request->getPost('nama'),
             'email' => $this->request->getPost('email'),
             'kategori' => $kategori,

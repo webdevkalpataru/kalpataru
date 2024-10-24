@@ -18,15 +18,13 @@
         <div class="min-h-screen flex flex-col">
 
             <!-- Header -->
-            <header class="bg-white shadow">
-                <div class="container mx-auto flex items-center justify-between p-4 md:p-6">
-                    <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Registrasi Akun DLHK</h1>
-                    <div class="flex items-center">
-                        <p class="text-gray-500 mr-2 md:mr-4">Hello, Admin</p>
-                        <button class="bg-rejected text-white px-3 py-2 md:px-4 md:py-2 rounded-lg">Keluar</button>
-                    </div>
+            <div class="container mx-auto flex items-center justify-between p-4 md:p-6">
+                <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Daftar Akun DLHK</h1>
+                <div class="flex items-center">
+                    <p class="text-gray-500 mr-2 md:mr-4">Hello, <?= session()->get('nama'); ?></p>
+                    <a href="/auth/logoutinternal" class="bg-rejected text-white px-3 py-2 md:px-4 md:py-2 rounded-lg inline-block">Keluar</a>
                 </div>
-            </header>
+            </div>
 
             <!-- Main Content -->
             <div class="relative flex flex-col w-full lg:max-w-5xl mb-4 rounded-xl border-2 border-primary mt-4 bg-white shadow-md lg:p-8 p-4">
@@ -37,11 +35,11 @@
                         <!-- Kolom kiri -->
                         <div class="space-y-4">
                             <div>
-                                <label class="block mb-2 text-sm text-black">Nama</label>
-                                <input type="text" name="nama_instansi_pribadi" id="nama" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
+                                <label class="block mb-2 text-sm text-black">Nama Instansi</label>
+                                <input type="text" name="instansi" id="instansi" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
                             </div>
                             <div>
-                                <label class="block mb-2 text-sm text-black">Email</label>
+                                <label class="block mb-2 text-sm text-black">Email Instansi</label>
                                 <input type="email" name="email" id="email" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
                                 <p id="email-hint" class="text-red-500 text-xs hidden">Email harus menggunakan @gmail.com</p>
                             </div>
@@ -55,7 +53,7 @@
                                 </div>
                                 <p id="password-hint" class="text-red-500 text-xs hidden">Password harus minimal 8 karakter, mengandung huruf besar, huruf kecil, angka, dan karakter spesial.</p>
                             </div>
-                            
+
 
                         </div>
 
@@ -63,28 +61,28 @@
                         <div class="space-y-4">
                             <div>
                                 <label class="block mb-2 text-sm text-black">No HP</label>
-                                <input type="number" name="telepon" id="no_hp" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
+                                <input type="number" name="telepon" id="telepon" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
                             </div>
 
                             <div class="space-y-2">
-                            <label class="block text-sm text-black">Pilih Provinsi</label>
-                            
-                            <select name="provinsi" id="provinsi" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required>
-                            <option value="" disabled selected>Pilih Provinsi</option>
-                                <?php foreach ($provinsi_list as $provinsi) { ?>
-                                    <option value="<?php echo $provinsi; ?>"><?php echo $provinsi; ?></option>
-                                <?php } ?>
-                            </select>
-                        </div>
-                        <div class="grid gap-1 mb-2">
-                        <label for="surat_pengantar" class="text-xs">Surat Pengantar <span class="text-primary">(.pdf)</span></label>
+                                <label class="block text-sm text-black">Pilih Provinsi</label>
 
-                        <div class="flex items-center">
-                        </div>
-                        <input id="surat_pengantar" type="file" accept="application/pdf" name="surat_pengantar"
-                            class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
+                                <select name="provinsi" id="provinsi" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required>
+                                    <option value="" disabled selected>Pilih Provinsi</option>
+                                    <?php foreach ($provinsi_list as $provinsi) { ?>
+                                        <option value="<?php echo $provinsi; ?>"><?php echo $provinsi; ?></option>
+                                    <?php } ?>
+                                </select>
                             </div>
-                            
+                            <div class="grid gap-1 mb-2">
+                                <label for="surat_pengantar" class="text-xs">Surat Pengantar <span class="text-primary">(.pdf)</span></label>
+
+                                <div class="flex items-center">
+                                </div>
+                                <input id="surat_pengantar" type="file" accept="application/pdf" name="surat_pengantar"
+                                    class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
+                            </div>
+
                         </div>
 
                         <!-- Tombol Paling Bawah di Mobile -->
@@ -100,22 +98,19 @@
                 <div class="bg-white rounded-lg p-8 flex flex-col items-center max-w-md">
                     <img src="/images/sukses.png" alt="Success Icon" class="w-16 h-16 mb-4">
                     <h2 class="text-center text-lg font-bold text-primary mb-2">Akun Berhasil Didaftaran</h2>
-                    <a href="./akundlhk">
-                    <button id="closeModalBtn" class="bg-primary text-white py-2 px-4 rounded-lg">OK</button>
+                    <a href="/admin/akundlhk">
+                        <button id="closeModalBtn" class="bg-primary text-white py-2 px-4 rounded-lg">OK</button>
                     </a>
                 </div>
             </div>
 
-            <!-- Toast Notification -->
-            <div id="toast" class="toast hidden fixed bottom-4 right-4 bg-gray-800 text-white p-2 rounded-md shadow-lg">Akun berhasil didaftarkan!</div>
 
             <script>
-                // Modal and Toast functionality
+                // Modal and functionality
                 const uploadBtn = document.getElementById('uploadBtn');
                 const uploadModal = document.getElementById('uploadModal');
                 const closeModalBtn = document.getElementById('closeModalBtn');
                 const form = document.getElementById('profil-form');
-                const toast = document.getElementById('toast');
 
                 // Handle form submission with fetch (AJAX)
                 form.addEventListener('submit', async (event) => {
@@ -138,14 +133,6 @@
                         if (response.ok) {
                             // Show success modal
                             uploadModal.classList.remove('hidden');
-
-                            // Show toast notification
-                            toast.classList.remove('hidden');
-
-                            // Hide toast after 3 seconds
-                            setTimeout(() => {
-                                toast.classList.add('hidden');
-                            }, 3000);
                         } else {
                             const errorText = await response.text();
                             alert('Error: ' + errorText); // Show error in case of failure

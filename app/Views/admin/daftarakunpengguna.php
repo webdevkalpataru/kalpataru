@@ -4,8 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/app.css">
-    <title>Registrasi Akun Penerima</title>
 </head>
 
 <body class="lg:flex">
@@ -18,20 +16,18 @@
         <div class="min-h-screen flex flex-col">
 
             <!-- Header -->
-            <header class="bg-white shadow">
-                <div class="container mx-auto flex items-center justify-between p-4 md:p-6">
-                    <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Registrasi Akun Penerima</h1>
-                    <div class="flex items-center">
-                        <p class="text-gray-500 mr-2 md:mr-4">Hello, Admin</p>
-                        <button class="bg-rejected text-white px-3 py-2 md:px-4 md:py-2 rounded-lg">Keluar</button>
-                    </div>
+            <div class="container mx-auto flex items-center justify-between p-4 md:p-6">
+                <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Daftar Akun Penerima Kalpataru</h1>
+                <div class="flex items-center">
+                    <p class="text-gray-500 mr-2 md:mr-4">Hello, <?= session()->get('nama'); ?></p>
+                    <a href="/auth/logoutinternal" class="bg-rejected text-white px-3 py-2 md:px-4 md:py-2 rounded-lg inline-block">Keluar</a>
                 </div>
-            </header>
+            </div>
 
             <!-- Main Content -->
             <div class="relative flex flex-col w-full lg:max-w-5xl mb-4 rounded-xl border-2 border-primary mt-4 bg-white shadow-md lg:p-8 p-4">
 
-                <form action="/admin/daftarakunpengguna" class="mt-4 mb-2 w-full" method="post" id="profil-form">
+                <form action="/admin/daftarpenerima" class="mt-4 mb-2 w-full" method="post" id="profil-form">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
                         <!-- Kolom kiri -->
@@ -88,8 +84,8 @@
                 <div class="bg-white rounded-lg p-8 flex flex-col items-center max-w-md">
                     <img src="/images/sukses.png" alt="Success Icon" class="w-16 h-16 mb-4">
                     <h2 class="text-center text-lg font-bold text-primary mb-2">Akun Berhasil Didaftaran</h2>
-                    <a href="./akunpengguna">
-                    <button id="closeModalBtn" class="bg-primary text-white py-2 px-4 rounded-lg">OK</button>
+                    <a href="/admin/akunpenerima">
+                        <button id="closeModalBtn" class="bg-primary text-white py-2 px-4 rounded-lg">OK</button>
                     </a>
                 </div>
             </div>
@@ -180,7 +176,7 @@
 
                 function validatePassword(password) {
                     const passwordHint = document.getElementById('password-hint');
-                    const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&./\-_])[A-Za-z\d@$!%*?&.,/\-_]{8,}$/;
+                    const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&/admin\-_])[A-Za-z\d@$!%*?&.,/\-_]{8,}$/;
                     const isValid = re.test(password);
 
                     if (!isValid) {
