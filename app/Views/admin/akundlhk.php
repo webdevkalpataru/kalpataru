@@ -11,11 +11,13 @@
 <body class="lg:flex">
 
     <!-- Sidebar -->
-    <?= $this->include('template/sidebaradmin') ?>
+    <div class="w-64 bg-white text-white">
+        <?= $this->include('template/sidebaradmin') ?>
+    </div>
+
 
     <div class="lg:flex-1 p-6">
         <div class="min-h-screen flex flex-col">
-
 
             <header class="bg-white shadow">
                 <div class="container mx-auto flex items-center justify-between p-4 md:p-6">
@@ -26,9 +28,13 @@
                     </div>
                 </div>
             </header>
+
+
             <div>
-                <a href="../admin/daftarakundlhk">
-                    <button id="tambahCalon" class="mt-4 w-48 rounded-md py-2 ml-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button"> <span>&#10010</span> Tambah Akun DLHK</button>
+                <a href="/admin/daftarakundlhk">
+                    <button id="tambahCalon" class="w-48 rounded-md py-2 ml-2 mt-4 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
+                        <span>&#10010</span> Tambah Akun DLHK
+                    </button>
                 </a>
             </div>
 
@@ -36,7 +42,7 @@
                 Hasil: <?= esc($countAllPengusul) ?> Akun DLHK
             </h4>
 
-            <div class="relative  flex flex-col w-full h-full overflow-scroll bg-white shadow-md rounded-lg bg-clip-border my-6">
+            <div class="relative flex flex-col w-full h-full bg-white shadow-md rounded-lg bg-clip-border my-6">
                 <table class="w-full text-left table-auto min-w-max">
                     <thead>
                         <tr>

@@ -11,7 +11,9 @@
 <body class="lg:flex">
 
   <!-- Sidebar -->
+  <div class="w-64 bg-white text-white">
   <?= $this->include('template/sidebaradmin') ?>
+  </div>
 
   <!-- Main Content -->
   <div class="lg:flex-1 p-6">
@@ -33,28 +35,28 @@
         <!-- Cards Summary -->
         <div class="grid gap-4 mb-8 sm:grid-cols-2 lg:grid-cols-4">
           <div class="flex items-center p-4 bg-white shadow rounded-lg">
-            <img src="../images/kategoria.jpg" class="w-1/4 mr-4">
+            <img src="/images/kategoria.jpg" class="w-1/4 mr-4">
             <div>
               <p class="mb-1 md:mb-2 text-sm font-medium text-gray-600">Perintis Lingkungan</p>
               <p class="text-lg font-semibold text-gray-700">1,245</p>
             </div>
           </div>
           <div class="flex items-center p-4 bg-white shadow rounded-lg">
-            <img src="../images/kategorib.jpg" class="w-1/4 mr-4">
+            <img src="/images/kategorib.jpg" class="w-1/4 mr-4">
             <div>
               <p class="mb-1 md:mb-2 text-sm font-medium text-gray-600">Pengabdi Lingkungan</p>
               <p class="text-lg font-semibold text-gray-700">2,432</p>
             </div>
           </div>
           <div class="flex items-center p-4 bg-white shadow rounded-lg">
-            <img src="../images/kategoric.jpg" class="w-1/4 mr-4">
+            <img src="/images/kategoric.jpg" class="w-1/4 mr-4">
             <div>
               <p class="mb-1 md:mb-2 text-sm font-medium text-gray-600">Penyelamat Lingkungan</p>
               <p class="text-lg font-semibold text-gray-700">157</p>
             </div>
           </div>
           <div class="flex items-center p-4 bg-white shadow rounded-lg">
-            <img src="../images/kategorid.jpg" class="w-1/4 mr-4">
+            <img src="/images/kategorid.jpg" class="w-1/4 mr-4">
             <div>
               <p class="mb-1 md:mb-2 text-sm font-medium text-gray-600">Pembina Lingkungan</p>
               <p class="text-lg font-semibold text-gray-700">420</p>
@@ -70,7 +72,7 @@
     <div>
       <!-- Placeholder for Chart -->
       <div class="w-full h-full md:h-64 flex items-center justify-center text-gray-500">
-        <img class="h-full" src="../images/popup.png">
+        <img class="h-full" src="/images/popup.png">
       </div>
     </div>
     <div class="relative my-6 bg-white shadow-sm border border-slate-200 rounded-lg w-full ">

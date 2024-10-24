@@ -11,7 +11,9 @@
 <body class="lg:flex">
 
     <!-- Sidebar -->
+    <div class="w-64 bg-white text-white">
     <?= $this->include('template/sidebaradmin') ?>
+  </div>
 
     <!-- Main Content -->
     <div class="lg:flex-1 p-6">
@@ -20,7 +22,7 @@
             <!-- Header -->
             <header class="bg-white shadow">
                 <div class="container mx-auto flex items-center justify-between p-4 md:p-6">
-                    <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Akun Pengusul</h1>
+                    <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Daftar Akun DPPK</h1>
                     <div class="flex items-center">
                         <p class="text-gray-500 mr-2 md:mr-4">Hello, <?= session()->get('nama'); ?></p>
                         <a href="/auth/logoutinternal" class="bg-rejected text-white px-3 py-2 md:px-4 md:py-2 rounded-lg inline-block">Keluar</a>
@@ -41,6 +43,15 @@
                                 <input type="text" name="nama" id="nama" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
                             </div>
                             <div>
+                                <label class="block mb-2 text-sm text-black">NO SK</label>
+                                <input type="text" name="no_sk" id="sk" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
+                            </div>
+
+                        </div>
+
+                        <!-- Kolom kanan -->
+                        <div class="space-y-4">
+                            <div>
                                 <label class="block mb-2 text-sm text-black">Email</label>
                                 <input type="email" name="email" id="email" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
                                 <p id="email-hint" class="text-red-500 text-xs hidden">Email harus menggunakan @gmail.com</p>
@@ -54,18 +65,6 @@
                                     </button>
                                 </div>
                                 <p id="password-hint" class="text-red-500 text-xs hidden">Password harus minimal 8 karakter, mengandung huruf besar, huruf kecil, angka, dan karakter spesial.</p>
-                            </div>
-                        </div>
-
-                        <!-- Kolom kanan -->
-                        <div class="space-y-4">
-                            <div>
-                                <label class="block mb-2 text-sm text-black">NIK</label>
-                                <input type="text" name="nip" id="nip" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
-                            </div>
-                            <div>
-                                <label class="block mb-2 text-sm text-black">NO SK</label>
-                                <input type="text" name="no_sk" id="sk" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
                             </div>
                         </div>
 

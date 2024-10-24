@@ -897,6 +897,12 @@ class AuthController extends BaseController
         }
     }
 
+    public function registerPenerima()
+    {
+        $data['title'] = "Daftar Akun Penerima";
+        return view('admin/daftarakunpengguna', $data);
+    }
+
     public function createRegisterPenerima()
     {
         $model = new PenerimaModel();

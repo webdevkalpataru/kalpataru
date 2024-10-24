@@ -125,6 +125,7 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('arsipselengkapnya', 'AdminController::arsipselengkapnya');
     $routes->get('sidang1', 'AdminController::sidang1');
     $routes->get('sidang2', 'AdminController::sidang2');
+    $routes->get('editpamflet', 'AdminController::editpamflet');
 
     //pengusul
     $routes->get('akunpengusul', 'AdminController::akunpengusul');
@@ -148,8 +149,8 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('daftardppk', 'AuthController::registerDPPK');
 
     //penerima
-    $routes->get('daftarakunpenerima', 'AuthController::registerPenerima');
-    $routes->post('daftarakunpenerima', 'AuthController::createRegisterPenerima');
+    $routes->get('daftarpenerima', 'AuthController::registerPenerima');
+    $routes->post('daftarpenerima', 'AuthController::createRegisterPenerima');
     $routes->get('akunpenerima', 'AdminController::akunpenerima');
     $routes->get('arsippenerima', 'AdminController::arsippenerima');
     $routes->get('tambaharsip', 'AdminController::tambaharsip');

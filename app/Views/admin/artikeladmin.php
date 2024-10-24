@@ -11,7 +11,9 @@
 <body class="lg:flex">
 
     <!-- Sidebar -->
+    <div class="w-64 bg-white text-white">
     <?= $this->include('template/sidebaradmin') ?>
+  </div>
 
     <!-- Konten utama -->
     <div class="lg:flex-1 p-4 md:p-6">

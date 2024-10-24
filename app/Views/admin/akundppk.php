@@ -8,25 +8,33 @@
     <title><?= $title; ?></title>
 </head>
 
-<body class="lg:flex">
+<body class="flex">
 
     <!-- Sidebar -->
-    <?= $this->include('template/sidebaradmin') ?>
+    <div class="w-64 bg-white text-white">
+        <!-- Sidebar -->
+        <?= $this->include('template/sidebaradmin') ?>
+    </div>
+
 
     <div class="lg:flex-1 p-6">
         <div class="min-h-screen flex flex-col">
+
             <header class="bg-white shadow">
                 <div class="container mx-auto flex items-center justify-between p-4 md:p-6">
-                    <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Akun Pengusul</h1>
+                    <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Akun DPPK</h1>
                     <div class="flex items-center">
                         <p class="text-gray-500 mr-2 md:mr-4">Hello, <?= session()->get('nama'); ?></p>
                         <a href="/auth/logoutinternal" class="bg-rejected text-white px-3 py-2 md:px-4 md:py-2 rounded-lg inline-block">Keluar</a>
                     </div>
                 </div>
             </header>
+
             <div>
                 <a href="/admin/daftardppk">
-                    <button id="tambahCalon" class="mt-4 w-48 rounded-md py-2 ml-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button"> <span>&#10010</span> Tambah Akun DPPK</button>
+                    <button id="tambahCalon" class="w-48 rounded-md py-2 ml-2 mt-4 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
+                        <span>&#10010</span> Tambah Akun DPPK
+                    </button>
                 </a>
             </div>
 
@@ -54,13 +62,6 @@
                                 <p
                                     class="flex items-center justify-between gap-2 text-sm font-normal leading-none text-slate-800">
                                     Akun
-                                </p>
-                            </th>
-                            <th
-                                class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
-                                <p
-                                    class="flex items-center  gap-2 text-sm font-normal leading-none text-slate-800">
-                                    NIK
                                 </p>
                             </th>
                             <th
@@ -104,10 +105,6 @@
                                     <td class="p-4 border-b border-slate-200">
                                         <p class="block text-sm text-slate-800">
                                             <?= esc($d['email']); ?> </p>
-                                    </td>
-                                    <td class="p-4 border-b border-slate-200">
-                                        <p class="block text-sm text-slate-800">
-                                            <?= esc($d['nip']); ?> </p>
                                     </td>
                                     <td class="p-4 border-b border-slate-200">
                                         <p class="block text-sm text-slate-800">
