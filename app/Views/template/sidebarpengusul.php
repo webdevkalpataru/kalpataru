@@ -17,13 +17,13 @@
             <div>
                 <h2 class="text-md font-bold">
                     <?php if (session()->get('role_akun') === 'Pengusul'): ?>
-                        <?= $pengusul['nama_instansi_pribadi']; ?>
+                        <?= session()->get('nama'); ?>
                     <?php elseif (session()->get('role_akun') === 'DLHK'): ?>
-                        <?= $pengusul['instansi']; ?>
+                        <?= session()->get('instansi'); ?>
                     <?php endif; ?>
                 </h2>
                 <p class="text-sm text-secondary font-semibold">Pengusul</p>
-                <p class="text-sm text-secondary font-semibold"><?= $pengusul['provinsi']; ?></p>
+                <p class="text-sm text-secondary font-semibold"><?= session()->get('provinsi'); ?></p>
             </div>
         </div>
 
@@ -79,7 +79,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                             <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
                         </svg>
-                        <span class="ml-2 text-sm hidden lg:inline">Usulan: <strong>Provinsi <?= $pengusul['provinsi']; ?></strong></span>
+                        <span class="ml-2 text-sm hidden lg:inline">Usulan: <strong>Provinsi <?= session()->get('provinsi'); ?></strong></span>
                     </a>
                 </li>
             <?php endif; ?>

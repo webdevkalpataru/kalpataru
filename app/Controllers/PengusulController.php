@@ -76,11 +76,16 @@ class PengusulController extends BaseController
     {
         $id_pengusul = session()->get('id_pengusul');
 
+        $data = [
+            'title' => 'Alur Pendaftaran',
+            'id_pengusul' => $id_pengusul
+        ];
+
         if (!$id_pengusul) {
             return redirect()->to('/login');
         }
 
-        return view('pengusul/tambahcalon', ['id_pengusul' => $id_pengusul]);
+        return view('pengusul/tambahcalon', $data);
     }
 
     public function inputKategori()
@@ -175,6 +180,7 @@ class PengusulController extends BaseController
         ];
 
         return view('pengusul/tambahcalonidentitas', [
+            'title' => 'Tambah Identitas Calon',
             'id_pengusul' => $pendaftaranData['id_pengusul'],
             'kategori' => $pendaftaranData['kategori'],
             'provinsi_list' => $provinsi_list
@@ -999,18 +1005,26 @@ class PengusulController extends BaseController
 
     public function alurpendaftaran()
     {
-        $data['title'] = 'Alur Pendaftaran';
-        return view('pengusul/alurpendaftaran', ['title' => 'Alur Pendaftaran']);
+        $data = [
+            'title' => 'Alur Pendaftaran',
+        ];
+
+        return view('pengusul/alurpendaftaran', $data);
     }
     public function videopanduan()
     {
-        $data['title'] = 'Video Panduan';
-        return view('pengusul/videopanduan', ['title' => 'Video Panduan']);
+        $data = [
+            'title' => 'Video Panduan',
+        ];
+
+        return view('pengusul/videopanduan', $data);
     }
     public function panduanpendaftaran()
     {
-        $data['title'] = 'Panduan Pendaftaran';
-        return view('pengusul/panduanpendaftaran', ['title' => 'Panduan Pendaftaran']);
+        $data = [
+            'title' => 'Panduan Pendaftaran',
+        ];
+        return view('pengusul/panduanpendaftaran', $data);
     }
 
     public function halamanLainnya()
