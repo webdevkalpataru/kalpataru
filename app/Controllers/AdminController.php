@@ -1170,7 +1170,7 @@ class AdminController extends BaseController
             ],
             'file' => [
                 'label' => 'File',
-                'rules' => 'required|uploaded[file]|max_size[file,1024]|mime_in[file,application/pdf]'
+                'rules' => 'required|uploaded[file]|mime_in[file,application/pdf]'
             ]
         ]);
 
@@ -1622,7 +1622,7 @@ class AdminController extends BaseController
             ],
             'cover' => [
                 'label' => 'Cover',
-                'rules' => 'uploaded[cover]|is_image[cover]|mime_in[cover,image/jpg,image/jpeg,image/gif,image/png]|max_size[cover,1024]'
+                'rules' => 'uploaded[cover]|is_image[cover]|mime_in[cover,image/jpg,image/jpeg,image/gif,image/png]'
             ]
         ]);
 
