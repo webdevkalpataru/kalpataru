@@ -14,7 +14,9 @@
 
 
     <!-- Sidebar -->
+    <div class="w-64 bg-white text-white">
     <?= $this->include('template/sidebaradmin') ?>
+  </div>
     <div class="lg:flex-1 p-6">
 
         <div class="container mx-auto flex items-center justify-between p-4 md:p-6">

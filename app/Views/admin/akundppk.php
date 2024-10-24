@@ -8,14 +8,14 @@
   <title><?= $title; ?></title>
 </head>
 
-<body class="lg:flex">
+<body class="flex">
 
   <!-- Sidebar -->
-  
+  <div class="w-64 bg-white text-white">
     <?= $this->include('template/sidebaradmin') ?>
-  
+  </div>
 
-  <div class="lg:flex-1 p-6">
+  <div class="flex-1 p-6 ml-4">
     <div class="min-h-screen flex flex-col">
 
       <div class="container mx-auto flex items-center justify-between p-4 md:p-6">
@@ -49,7 +49,6 @@
                 <th class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
                   <p class="flex items-center justify-center gap-2 text-sm font-bold leading-none text-slate-800">Akun</p>
                 </th>
-                
                 <th class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
                   <p class="flex items-center justify-center gap-2 text-sm font-bold leading-none text-slate-800">NIP</p>
                 </th>
@@ -65,7 +64,6 @@
               </tr>
             </thead>
             <tbody>
-              <!-- Example row -->
               <tr class="hover:bg-slate-50">
                 <td class="p-4 border-b border-slate-200 text-center"><p class="block text-sm text-slate-800">01</p></td>
                 <td class="p-4 border-b border-slate-200 text-center"><p class="block text-sm text-slate-800">Sumiyati</p></td>
