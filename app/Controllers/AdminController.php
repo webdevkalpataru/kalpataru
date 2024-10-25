@@ -13,6 +13,7 @@ use App\Models\PeraturanModel;
 use App\Models\TimteknisModel;
 use App\Models\VideoModel;
 use App\Models\PendaftaranModel;
+use App\Models\PamfletModel;
 
 
 class AdminController extends BaseController
@@ -27,6 +28,7 @@ class AdminController extends BaseController
     public function dashboard()
     {
         $Model = new PendaftaranModel();
+        $model = new PamfletModel();
 
         $perPage = 5;
         $currentPage = $this->request->getVar('page_calon') ? $this->request->getVar('page_calon') : 1;
@@ -47,6 +49,7 @@ class AdminController extends BaseController
         $data['pager'] = $Model->pager;
         $data['title'] = "Dashboard Admin";
         $data['keyword'] = $keyword;
+        $data['pamflet'] = $model->first();
 
         return view('admin/dashboard', $data);
     }
@@ -688,10 +691,47 @@ class AdminController extends BaseController
         return view('admin/sidang1', ['title' => 'Sidang 1']);
     }
 
-    public function editpamflet()
+    public function editpamflet($id = null)
     {
+        $model = new PamfletModel();
+        $data['pamflet'] = $model->find($id); // Ambil pamflet berdasarkan ID
         $data['title'] = "Edit Pamflet";
-        return view('admin/editpamflet', ['title' => 'Edit Pamflet']);
+
+        return view('admin/editpamflet', $data);
+    }
+
+    public function editpamfletAction($id)
+    {
+        $model = new PamfletModel();
+        $pamflet = $model->find($id); // Ambil pamflet berdasarkan ID
+
+        if ($this->request->getMethod() === 'post') {
+            $file = $this->request->getFile('foto');
+            $newPath = $pamflet['foto']; // Default to existing file path
+
+            // Proses file jika ada yang diunggah
+            if ($file && $file->isValid() && !$file->hasMoved()) {
+                // Jika ada file lama, hapus
+                if ($pamflet['foto'] && file_exists(WRITEPATH . 'uploads/pamflet/' . $pamflet['foto'])) {
+                    unlink(WRITEPATH . 'uploads/pamflet/' . $pamflet['foto']);
+                }
+                $newPath = $file->store('uploads/pamflet'); // Simpan file baru
+            }
+
+            // Data untuk update
+            $data = [
+                'id_flayer' => $id,
+                'status' => $this->request->getPost('status'),
+                'foto' => $newPath,
+            ];
+
+            // Simpan data ke database
+            if ($model->update($id, $data)) {
+                return redirect()->to("/admin/editpamflet/$id")->with('message', 'Pamflet berhasil diperbarui');
+            } else {
+                return redirect()->back()->with('error', 'Gagal memperbarui pamflet.');
+            }
+        }
     }
 
     public function sidang2()

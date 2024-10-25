@@ -4,120 +4,98 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./css/app.css">
   <title><?= $title; ?></title>
 </head>
 
-<body class="lg:flex">
+<body class="flex flex-col lg:flex-row">
 
   <!-- Sidebar -->
-  
-  <div class="w-64 bg-white text-white">
+  <div class="w-64">
     <?= $this->include('template/sidebaradmin') ?>
   </div>
-  
 
-  <div class="lg:flex-1 p-6">
+  <!-- Main Content -->
+  <div class="flex-1 p-4 lg:p-6">
     <div class="min-h-screen flex flex-col">
 
-      <div class="container mx-auto flex items-center justify-between p-4 md:p-6">
-        <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Edit Pamflet</h1>
-
-        <div class="flex items-center">
-          <p class="text-gray-500 mr-2 md:mr-4">Hello, Admin</p>
-          <button class="bg-rejected text-white px-3 py-2 md:px-4 md:py-2 rounded-lg">Keluar</button>
+      <!-- Header -->
+      <header class="bg-white shadow">
+        <div class="container mx-auto flex items-center justify-between p-4 md:p-6">
+          <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Edit Pamflet</h1>
+          <div class="flex items-center">
+            <p class="text-gray-500 mr-2 md:mr-4">Hello, <?= session()->get('nama'); ?></p>
+            <a href="/auth/logoutinternal" class="bg-rejected text-white px-3 py-2 md:px-4 md:py-2 rounded-lg inline-block">Keluar</a>
+          </div>
         </div>
-      </div>
+      </header>
 
-      <div class="relative flex flex-col w-full h-full bg-white shadow-md rounded-lg bg-clip-border my-6">
-        <div class="flex justify-center">
-          <table class="w-full text-left table-auto min-w-max">
+      <!-- Table -->
+      <div class="bg-white shadow-md rounded-lg overflow-x-auto mt-8">
+        <form id="pamfletForm" action="/admin/editpamflet/<?= esc($pamflet['id_flayer']) ?>" method="post" enctype="multipart/form-data" onsubmit="return false;">
+          <?= csrf_field() ?>
+          <table class="w-full text-left min-w-max">
             <thead>
               <tr>
-                <th class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
-                  <p class="flex items-center justify-center gap-2 text-sm font-bold leading-none text-slate-800">Judul Pamflet</p>
-                </th>
-                <th class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
-                  <p class="flex items-center justify-center gap-2 text-sm font-bold leading-none text-slate-800">Tanggal</p>
-                </th>
-                
-                <th class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
-                  <p class="flex items-center justify-center gap-2 text-sm font-bold leading-none text-slate-800">Upload Pamflet</p>
-                </th>
-                <th class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
-                  <p class="flex items-center justify-center gap-2 text-sm font-bold leading-none text-slate-800">Status</p>
-                </th>
+                <th class="p-4 border-b border-slate-300 bg-slate-50 hover:bg-slate-100 text-center text-sm font-bold text-gray-800">Upload Pamflet</th>
+                <th class="p-4 border-b border-slate-300 bg-slate-50 hover:bg-slate-100 text-center text-sm font-bold text-gray-800">Status</th>
+                <th class="p-4 border-b border-slate-300 bg-slate-50 hover:bg-slate-100 text-center text-sm font-bold text-gray-800">Tindakan</th>
               </tr>
             </thead>
             <tbody>
-              <!-- Example row -->
-              <tr class="hover:bg-slate-50">
-                <td class="p-4 border-b border-slate-200 text-center"><p class="block text-sm text-slate-800">Pamflet Pendaftaran Kalpataru 2024</p></td>
-                <td class="p-4 border-b border-slate-200 text-center"><p class="block text-sm text-slate-800">2024-10-22</p></td>
-                
-                <td class="p-4 border-b border-slate-200 text-center">
-                <div class="flex items-center">
-                        </div>
-                        <input id="surat_pengantar" type="file" accept="application/pdf" name="surat_pengantar"
-                            class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
-                            </div>
-                            
-                        </div>
+              <tr class="hover:bg-gray-50">
+                <td class="p-4 border-b border-gray-200 text-center">
+                  <input type="file" name="foto" accept="image/jpeg, image/jpg" class="border-2 border-primary text-primary rounded-md shadow-sm text-xs p-1">
                 </td>
-                <td class="p-4 text-center border-b border-slate-200">
-                <form id="filterForm2" action="" method="post" class="flex items-center justify-center">
-                  <select name="status" id="statusSelect" class="ml-2 border-2 border-primary text-primary rounded-md shadow-sm">
-                    <option value="Terkirim">Terbit</option>
-                    <option value="Administrasi">Ditangguhkan</option>
+                <td class="p-4 border-b border-gray-200 text-center">
+                  <select name="status" class="status-dropdown ml-2 border-2 border-primary text-primary rounded-md shadow-sm text-xs">
+                    <option value="Nonaktif" <?= $pamflet['status'] === 'Nonaktif' ? 'selected' : '' ?>>Nonaktif</option>
+                    <option value="Aktif" <?= $pamflet['status'] === 'Aktif' ? 'selected' : '' ?>>Aktif</option>
                   </select>
-                </form>
-              </td>
+                </td>
+                <td class="p-4 border-b border-gray-200 text-center">
+                  <button type="button" class="bg-primary text-white px-4 py-2 rounded-lg" onclick="showModal(event)">Simpan</button>
+                </td>
               </tr>
-              <!-- Repeat the above block for more rows -->
             </tbody>
           </table>
-        </div>
+        </form>
+      </div>
+      <button onclick="window.history.back()" class="text-sm font-bold text-gray-600 no-underline focus:outline-none text-start w-1/12 mt-8">
+        <span class="font-bold text-lg items-center">←</span> Kembali
+      </button>
 
-        
+    </div>
+
+  </div>
+
+  <!-- Modal Popup -->
+  <div id="modalPopup" class="fixed inset-0 z-50 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white rounded-lg p-8 flex flex-col items-center max-w-md">
+      <img src="/images/question.png" alt="Question Icon" class="w-16 h-16 mb-4">
+      <p class="text-center text-lg font-bold text-gray-700 mb-4">Apakah anda yakin ingin menyimpan data Pamflet?</p>
+      <div class="flex justify-end space-x-4">
+        <button id="cancelButton" class="px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-700 hover:text-white rounded-md" onclick="closeModal()">Periksa Kembali</button>
+        <button id="confirmButton" class="px-4 py-2 bg-primary hover:bg-primaryhover text-white rounded-md" onclick="confirmSubmit()">Ya, Kirim Data</button>
       </div>
     </div>
   </div>
 
-  <!-- Modal Pop-up -->
-  <div id="modalLupaSandi" class="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50 hidden">
-    <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
-      <h2 class="text-xl font-semibold mb-4">Reset Kata Sandi</h2>
-      <form>
-        <label for="newPassword" class="block text-sm font-medium text-gray-700">Kata Sandi Baru</label>
-        <input id="newPassword" type="password" class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary" placeholder="Masukkan kata sandi baru">
-        
-        <div class="mt-6 flex justify-end">
-          <button type="button" id="cancelButton" class="bg-rejected text-white px-4 py-2 rounded-lg mr-2">Batal</button>
-          <button type="submit" class="bg-primary text-white px-4 py-2 rounded-lg">Simpan</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- JavaScript for Modal -->
   <script>
-    const lupaSandiButton = document.getElementById('sandi');
-    const modal = document.getElementById('modalLupaSandi');
-    const cancelButton = document.getElementById('cancelButton');
-    const sidebar = document.getElementById('sidebar');
+    function showModal(event) {
+      event.preventDefault();
+      document.getElementById("modalPopup").classList.remove("hidden");
+    }
 
-    // Ketika tombol "Lupa Sandi" diklik
-    lupaSandiButton.addEventListener('click', () => {
-      modal.classList.remove('hidden'); // Tampilkan modal
-      sidebar.classList.add('hidden'); // Sembunyikan sidebar
-    });
+    function closeModal() {
+      document.getElementById("modalPopup").classList.add("hidden");
+    }
 
-    // Ketika tombol "Batal" diklik
-    cancelButton.addEventListener('click', () => {
-      modal.classList.add('hidden'); // Sembunyikan modal
-      sidebar.classList.remove('hidden'); // Tampilkan sidebar lagi
-    });
+    function confirmSubmit() {
+      document.getElementById("pamfletForm").submit();
+    }
   </script>
+
+
 </body>
 
 </html>

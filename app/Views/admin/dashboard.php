@@ -80,11 +80,15 @@
                 <h5 class="mb-2 flex flex-col text-slate-800 text-xl items-center font-semibold">
                   Edit Pamflet
                 </h5>
-                <a href="editpamflet">
-                  <button class="rounded-md bg-primary py-2 px-4 mt-6 border border-transparent text-center text-sm text-white w-full transition-all shadow-md hover:shadow-lg focus:bg-primaryhover focus:shadow-none active:bg-primaryhover hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                    Edit
-                  </button>
-                </a>
+                <?php if (!empty($pamflet)): ?>
+                  <a href="/admin/editpamflet/<?= esc($pamflet['id_flayer']) ?>">
+                    <button class="rounded-md bg-primary py-2 px-4 mt-6 border border-transparent text-center text-sm text-white w-full transition-all shadow-md hover:shadow-lg focus:bg-primaryhover focus:shadow-none active:bg-primaryhover hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
+                      Edit
+                    </button>
+                  </a>
+                <?php else: ?>
+                  <p>Data pamflet tidak tersedia.</p>
+                <?php endif; ?>
               </div>
             </div>
           </div>
