@@ -600,7 +600,7 @@
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Kelompok/Perorangan yang meniru</label>
-                                <input type="number" name="jumlah_kelompok_serupa" id="kelompokPeroranganMeniru" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" value="<?= $keswadayaan['jumlah_kelompok_serupa'] ?>"></input>
+                                <input type="number" name="jumlah_kelompok_serupa" id="kelompokPeroranganMeniru" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" value="<?= $keswadayaan['jumlah_kelompok_serupa'] ?? '' ?>"/>
                             </div>
                         </div>
 
@@ -968,7 +968,6 @@
         updateWordCount(document.getElementById('sumber'), 'sumberCount', 1000);
         updateWordCount(document.getElementById('teknologi'), 'teknologiCount', 1000);
         updateWordCount(document.getElementById('statusLahan'), 'statusLahanCount', 1000);
-        updateWordCount(document.getElementById('kelompokPeroranganMeniru'), 'kelompokPeroranganMeniruCount', 1000);
 
         updateWordCount(document.getElementById('keistimewaanCalon'), 'keistimewaanCalonCount', 1000);
         updateWordCount(document.getElementById('penghargaanRelevan'), 'penghargaanRelevanCount', 1000);

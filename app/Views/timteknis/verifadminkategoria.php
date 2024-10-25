@@ -231,7 +231,7 @@
                     // Jika tombol batal pada modal catatan ditekan
                     batalBtn.onclick = function() {
                         popupModal.classList.add('hidden'); // Sembunyikan modal catatan
-                        selectedDropdown.value = initialValue; // Kembalikan ke nilai awal
+                        location.reload();
                     };
                 } else if (this.value === "Lolos Administrasi") {
                     // Jika pilih "Lolos Administrasi", langsung tampilkan modal konfirmasi

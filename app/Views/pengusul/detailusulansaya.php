@@ -156,7 +156,7 @@
                                 </label>
                                 <?php if (!empty($pendaftaran['ktp'])): ?>
                                     <div class="mt-2">
-                                    <img src="<?= base_url('pengusul/preview/ktp/' . esc($pendaftaran['ktp'])) ?>" class="w-24">
+                                        <img src="<?= base_url('pengusul/preview/ktp/' . esc($pendaftaran['ktp'])) ?>" class="w-24">
                                     </div>
                                 <?php endif; ?>
                             </div>
@@ -256,7 +256,7 @@
                                 </label>
                                 <?php if (!empty($pendaftaran['ktp'])): ?>
                                     <div class="mt-2">
-                                    <img src="<?= base_url('pengusul/preview/ktp/' . esc($pendaftaran['ktp'])) ?>" class="w-24">
+                                        <img src="<?= base_url('pengusul/preview/ktp/' . esc($pendaftaran['ktp'])) ?>" class="w-24">
                                     </div>
                                 <?php endif; ?>
                             </div>
@@ -752,11 +752,11 @@
                             <div>
                                 <label class="block mb-2 text-sm text-black flex justify-between items-center">
                                     <span>Kelompok/Perorangan yang meniru</span>
-                                    <?php if (empty($pendaftaran['jumlah_kelompok_serupa'])): ?>
+                                    <?php if (is_null($pendaftaran['jumlah_kelompok_serupa'] ?? null)): ?>
                                         <span class="text-red-500 text-sm ml-2">Data belum ditambahkan, segera lengkapi data!</span>
                                     <?php endif; ?>
                                 </label>
-                                <input disabled type="number" name="jumlah_kelompok_serupa" id="kelompokPeroranganMeniru" class="w-full bg-transparent text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none transition duration-300 ease" value="<?= $pendaftaran['jumlah_kelompok_serupa'] ?>"></input>
+                                <input disabled type="number" name="jumlah_kelompok_serupa" id="kelompokPeroranganMeniru" class="w-full bg-transparent text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none transition duration-300 ease" value="<?= $pendaftaran['jumlah_kelompok_serupa'] ?? '' ?>" />
                             </div>
                         </div>
 
@@ -1062,7 +1062,6 @@
         updateWordCount(document.getElementById('sumber'), 'sumberCount', 1000);
         updateWordCount(document.getElementById('teknologi'), 'teknologiCount', 1000);
         updateWordCount(document.getElementById('statusLahan'), 'statusLahanCount', 1000);
-        updateWordCount(document.getElementById('kelompokPeroranganMeniru'), 'kelompokPeroranganMeniruCount', 1000);
 
         updateWordCount(document.getElementById('keistimewaanCalon'), 'keistimewaanCalonCount', 1000);
         updateWordCount(document.getElementById('penghargaanRelevan'), 'penghargaanRelevanCount', 1000);

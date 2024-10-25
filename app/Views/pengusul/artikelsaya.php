@@ -103,9 +103,6 @@
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
-                                <tr>
-                                    <td colspan="6" class="p-4 text-center text-slate-800">Tidak ada artikel yang ditemukan.</td>
-                                </tr>
                             <?php endif; ?>
                         </tbody>
                     </table>

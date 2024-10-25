@@ -92,7 +92,7 @@
             <div class="w-full max-w-md p-6 fade-in-left">
 
                 <h2 class="text-2xl font-bold text-gray-900 mb-4">Masuk</h2>
-                <form class="flex flex-col" onsubmit="validateForm(event)" action="/auth/login" method="POST">
+                <form class="flex flex-col" onsubmit="validateForm(event)" action="/auth/loginpenerima" method="POST">
                     <label for="email" class="text-xs">Email</label>
                     <input id="email" type="text" name="email" required
                         class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none"
@@ -164,10 +164,10 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        // Redirect ke URL yang diberikan oleh server
-                        window.location.href = data.redirectUrl;
+                        // Redirect ke halaman yang diinginkan
+                        window.location.href = '/penerima/dashboard'; // Sesuaikan dengan URL tujuan setelah login
                     } else {
-                        showToast(data.message); // Tampilkan pesan kesalahan
+                        showToast(data.errors.email || data.errors.kata_sandi || 'Login gagal.'); // Tampilkan pesan kesalahan
                     }
                 })
                 .catch(error => {
