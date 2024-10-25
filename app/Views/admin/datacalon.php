@@ -24,7 +24,7 @@
           <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Data Calon</h1>
           <div class="flex items-center">
             <p class="text-gray-500 mr-2 md:mr-4">Hello, <?= session()->get('nama'); ?></p>
-            <button class="bg-rejected text-white px-3 py-2 md:px-4 md:py-2 rounded-lg">Keluar</button>
+            <a href="/auth/logoutinternal" class="bg-rejected text-white px-3 py-2 md:px-4 md:py-2 rounded-lg inline-block">Keluar</a>
           </div>
         </div>
       </header>
@@ -93,6 +93,9 @@
                 <th class=" p-4 border-b border-slate-300 bg-slate-50 hover:bg-slate-100 text-center">
                   <p class="block text-xs md:text-sm font-bold leading-none text-slate-800">Detail</p>
                 </th>
+                <th class=" p-4 border-b border-slate-300 bg-slate-50 hover:bg-slate-100 text-center">
+                  <p class="block text-xs md:text-sm font-bold leading-none text-slate-800">Unduh</p>
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -149,6 +152,15 @@
                     <td class="p-4 border-b border-slate-200 text-center">
                       <a href="<?= base_url('admin/detaildatacalon/' . $item['id_pendaftaran']); ?>" class="mt-4 w-full rounded-md py-2 mb-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover">Selengkapnya</a>
                     </td>
+                    <td class="p-4 border-b border-slate-200 text-center">
+                      <div class="flex justify-center">
+                          <a href="./pdf/<?= $item['kode_registrasi']; ?>">
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                              </svg>
+                          </a>
+                      </div>
+                  </td>
                   </tr>
                 <?php endforeach; ?>
               <?php endif; ?>
