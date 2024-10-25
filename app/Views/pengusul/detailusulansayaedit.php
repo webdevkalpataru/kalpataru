@@ -401,7 +401,7 @@
                                 <?php foreach ($kegiatanLainnya as $index => $kegiatan): ?>
                                     <div class="grid grid-cols-1 gap-4 mt-4">
                                         <div class="space-y-4">
-                                            <p class="mt-8 font-semibold mb-2 text-md text-primary underline">Kegiatan Lain ( <?= $index + 1 ?> )</p>
+                                            <p class="mt-8 font-semibold mb-2 text-md text-primary underline">Kegiatan Lainnya (<?= $index + 1 ?>)</p>
                                             <div>
                                                 <input type="hidden" name="kegiatan_lainnya[<?= $index ?>][id_kegiatan]" value="<?= isset($kegiatan['id_kegiatan']) ? $kegiatan['id_kegiatan'] : ''; ?>">
                                                 <label class="block mb-2 text-sm text-black" for="tema">Tema Kegiatan</label>
@@ -600,7 +600,7 @@
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Kelompok/Perorangan yang meniru</label>
-                                <input type="number" name="jumlah_kelompok_serupa" id="kelompokPeroranganMeniru" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" value="<?= $keswadayaan['jumlah_kelompok_serupa'] ?? '' ?>"/>
+                                <input type="number" name="jumlah_kelompok_serupa" id="kelompokPeroranganMeniru" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" value="<?= $keswadayaan['jumlah_kelompok_serupa'] ?? '' ?>" />
                             </div>
                         </div>
 

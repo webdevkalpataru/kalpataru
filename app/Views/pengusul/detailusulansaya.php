@@ -287,7 +287,7 @@
                                                     <span class="text-red-500 text-sm ml-2">Data belum ditambahkan, segera lengkapi data!</span>
                                                 <?php endif; ?>
                                             </label>
-                                            <input id="temaKegiatan" type="text" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none"
+                                            <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none"
                                                 value="<?= esc($kegiatan['tema'] ?? '') ?>" disabled>
                                         </div>
                                         <div>
@@ -297,7 +297,7 @@
                                                     <span class="text-red-500 text-sm ml-2">Data belum ditambahkan, segera lengkapi data!</span>
                                                 <?php endif; ?>
                                             </label>
-                                            <input id="subTemaKegiatan" type="text" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none"
+                                            <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none"
                                                 value="<?= esc($kegiatan['sub_tema'] ?? '') ?>" disabled>
                                         </div>
                                         <div>
@@ -310,6 +310,17 @@
                                             <input type="text"
                                                 class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none  transition duration-300 ease"
                                                 value="<?= esc($kegiatan['bentuk_kegiatan'] ?? '') ?>" disabled />
+                                        </div>
+                                        <div>
+                                            <label class="block mb-2 text-sm text-black flex justify-between items-center">
+                                                <span>Tahun Mulai Kegiatan</span>
+                                                <?php if (empty($kegiatan['tahun_mulai'])): ?>
+                                                    <span class="text-red-500 text-sm ml-2">Data belum ditambahkan, segera lengkapi data!</span>
+                                                <?php endif; ?>
+                                            </label>
+                                            <input type="date"
+                                                class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none  transition duration-300 ease"
+                                                value="<?= esc($kegiatan['tahun_mulai'] ?? '') ?>" disabled />
                                         </div>
                                         <div>
                                             <label class="block mb-2 text-sm text-black flex justify-between items-center">
@@ -489,7 +500,7 @@
                                 <?php foreach ($kegiatan_tambahan as $index => $kegiatan_lain): ?>
                                     <div class="grid grid-cols-1 gap-4">
                                         <div class="space-y-4">
-                                            <p class="mt-8 font-semibold mb-2 text-md text-primary underline">Kegiatan Lain (<?= $index + 1 ?>)</p>
+                                            <p class="mt-8 font-semibold mb-2 text-md text-primary underline">Kegiatan Lainnya (<?= $index + 1 ?>)</p>
                                             <div>
                                                 <label class="block mb-2 text-sm text-black flex justify-between items-center">
                                                     <span>Tema Kegiatan</span>
@@ -519,6 +530,17 @@
                                                 </label>
                                                 <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none  transition duration-300 ease"
                                                     value="<?= esc($kegiatan_lain['bentuk_kegiatan'] ?? '') ?>" disabled />
+                                            </div>
+                                            <div>
+                                                <label class="block mb-2 text-sm text-black flex justify-between items-center">
+                                                    <span>Tahun Mulai Kegiatan</span>
+                                                    <?php if (empty($kegiatan_lain['tahun_mulai'])): ?>
+                                                        <span class="text-red-500 text-sm ml-2">Data belum ditambahkan, segera lengkapi data!</span>
+                                                    <?php endif; ?>
+                                                </label>
+                                                <input type="date"
+                                                    class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none  transition duration-300 ease"
+                                                    value="<?= esc($kegiatan_lain['tahun_mulai'] ?? '') ?>" disabled />
                                             </div>
                                             <div>
                                                 <label class="block mb-2 text-sm text-black flex justify-between items-center">
