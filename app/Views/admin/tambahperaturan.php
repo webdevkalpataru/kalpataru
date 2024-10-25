@@ -11,7 +11,9 @@
 <body class="lg:flex">
 
   <!-- Sidebar -->
-  <?= $this->include('template/sidebaradmin') ?>
+  <div class="w-64 bg-white text-white">
+    <?= $this->include('template/sidebaradmin') ?>
+  </div>
 
   <!-- Main Content -->
   <div class="lg:flex-1 p-6">
@@ -29,7 +31,7 @@
       </header>
 
       <!-- Main Content -->
-      <div>
+      <div class="mt-4 relative flex flex-col w-full  mx-auto mb-4 border-2 border-primary bg-white shadow-md lg:p-8">
         <!-- Cards Summary -->
         <form id="isiPeraturanForm" class="mt-4 mb-2 w-full" action="/admin/peraturan-kebijakan/tambah" method="POST" enctype="multipart/form-data">
           <div class="grid grid-cols-1 gap-4" id="formContainer">

@@ -11,7 +11,9 @@
 <body class="lg:flex">
 
     <!-- Sidebar -->
-    <?= $this->include('template/sidebaradmin') ?>
+    <div class="w-64 bg-white text-white">
+        <?= $this->include('template/sidebaradmin') ?>
+    </div>
 
     <div class="lg:flex-1 p-4 sm:p-6"> <!-- Menambah padding lebih kecil di HP -->
         <div class="min-h-screen flex flex-col">
@@ -66,7 +68,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="flex flex-col md:flex-row justify-between mt-8 gap-4"> 
+                    <div class="flex flex-col md:flex-row justify-between mt-8 gap-4">
                         <button onclick="window.history.back()"
                             class="text-sm font-bold text-gray-600 no-underline focus:outline-none text-start mt-6">
                             <span class="font-bold text-lg items-center">←</span> Kembali

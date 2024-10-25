@@ -19,7 +19,11 @@
             <!-- Header -->
             <header class="bg-white shadow">
                 <div class="container mx-auto flex items-center justify-between p-4 md:p-6">
-                    <h1 class="text-xl font-bold text-slate-800 mb-2">Bahan Sidang 1</h1>
+                    <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Bahan Sidang 1 Kategori Pengabdi Lingkungan</h1>
+                    <div class="flex items-center">
+                        <p class="text-gray-500 mr-2 md:mr-4">Hello, <?= session()->get('nama'); ?></p>
+                        <a href="/auth/logoutinternal" class="bg-rejected text-white px-3 py-2 md:px-4 md:py-2 rounded-lg inline-block">Keluar</a>
+                    </div>
                 </div>
             </header>
 
@@ -117,9 +121,7 @@
                                                 <p class="block text-xs text-slate-800"><?= $item['provinsi'] ?></p>
                                             </td>
                                             <td class="p-4 border-b border-slate-200 text-center">
-                                                <a href="<?= base_url('timteknis/detaildatacalonusulan') ?>">
-                                                    <button class="w-20 rounded-md py-2 px-2 text-center font-semibold text-xs text-primary bg-secondary hover:shadow-md" type="button">Lihat</button>
-                                                </a>
+                                                <a href="<?= base_url('timteknis/detaildatacalonusulan/' . $item['id_pendaftaran']); ?>" class="mt-4 w-full rounded-md py-2 mb-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover">Selengkapnya</a>
                                             </td>
                                             <td class="p-4 border-b border-slate-200 text-center flex justify-center">
                                                 <button class="bahanSidangButton w-20 rounded-md py-2 px-2 text-center font-semibold text-xs text-primary flex justify-center" type="button" data-id="<?= $item['id_pendaftaran']; ?>">

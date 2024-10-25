@@ -18,7 +18,11 @@
             <!-- Header -->
             <header class="bg-white shadow">
                 <div class="container mx-auto flex items-center justify-between p-4 md:p-6">
-                    <h1 class="text-xl font-bold text-slate-800 mb-2">Data Calon Usulan</h1>
+                    <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Detail Data Calon Usulan</h1>
+                    <div class="flex items-center">
+                        <p class="text-gray-500 mr-2 md:mr-4">Hello, <?= session()->get('nama'); ?></p>
+                        <a href="/auth/logoutinternal" class="bg-rejected text-white px-3 py-2 md:px-4 md:py-2 rounded-lg inline-block">Keluar</a>
+                    </div>
                 </div>
             </header>
 
@@ -27,8 +31,8 @@
                 <div class="flex flex-col md:flex-row items-start space-x-0 md:space-x-4 space-y-4 md:space-y-0 mt-8">
                     <!-- Left side: Buttons -->
                     <div class="flex flex-col w-full md:w-auto">
-                        <button id="profilButton" class="w-full btn-section md:w-40 rounded-md py-2 px-4 text-center text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none text-sm" type="button"
-                            data-target="identitas-calon">Profil Pengusul</button>
+                        <button id="profil-pengusulButton" class="mt-2 w-full btn-section md:w-40 rounded-md py-2 px-4 text-center text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none text-sm" type="button"
+                            data-target="profil-pengusul">Profil Pengusul</button>
                         <button id="identitasButton" class="mt-2 w-full btn-section md:w-40 rounded-md py-2 px-4 text-center text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none text-sm" type="button"
                             data-target="identitas-calon">Identitas Calon</button>
                         <button id="kegiatanButton" class="mt-2 w-full btn-section md:w-40 rounded-md py-2 px-4 text-center text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none text-sm" type="button"
@@ -49,9 +53,88 @@
                     </div>
 
                     <!-- Right side: Form inside a card -->
+                    <div id="profil-pengusul" class="form-section flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
+                        <form id="profil-pengusulForm" class="mb-2 w-full">
+                            <div class="grid grid-cols-2 gap-4">
+                                <!-- Kolom kiri -->
+                                <div class="space-y-4">
+                                    <div class="w-full mb-4">
+                                        <label class="block mb-2 text-sm text-black">Jenis Instansi</label>
+                                        <input disabled type="text" value="<?= $pengusul['jenis_instansi']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none" />
+                                    </div>
+                                    <div class="w-full mb-4">
+                                        <label class="block mb-2 text-sm text-black">Nama Instansi / Pribadi</label>
+                                        <input disabled type="text" value="<?= $pengusul['nama_instansi_pribadi']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none " />
+                                    </div>
+                                    <div class="w-full mb-4">
+                                        <label class="block mb-2 text-sm text-black">Provinsi</label>
+                                        <input disabled type="text" value="<?= $pengusul['provinsi']; ?>" min="1" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none " />
+                                    </div>
+                                    <div class="w-full mb-4">
+                                        <label class="block mb-2 text-sm text-black">Nomor Telepon</label>
+                                        <input disabled type="text" value="<?= $pengusul['telepon']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none " />
+                                    </div>
+                                    <div class="w-full mb-4">
+                                        <label class="block mb-2 text-sm text-black">Email</label>
+                                        <input disabled type="text" value="<?= $pengusul['email']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none " />
+                                    </div>
+                                    <div class="w-full mb-4">
+                                        <label class="block mb-2 text-sm text-black">Jabatan/Pekerjaan</label>
+                                        <input disabled type="text" value="<?= $pengusul['jabatan_pekerjaan']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none " />
+                                    </div>
+                                    <div class="w-full mb-4">
+                                        <label class="block mb-2 text-sm text-black">Jenis Kelamin</label>
+                                        <input disabled type="text" value="<?= $pengusul['jenis_kelamin'] ?>" min="0" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none " />
+                                    </div>
+                                </div>
+
+                                <!-- Kolom kanan -->
+                                <div class="space-y-4">
+                                    <div class="w-full mb-4">
+                                        <label class="block mb-2 text-sm text-black">Jalan</label>
+                                        <input disabled type="text" value="<?= $pendaftaran['jalan'] ?>" min="0" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none " />
+                                    </div>
+                                    <div class="w-full mb-4">
+                                        <label class="block mb-2 text-sm text-black">RT/RW</label>
+                                        <input disabled type="text" value="<?= $pendaftaran['rt_rw'] ?>" min="0" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none " />
+                                    </div>
+                                    <div class="w-full mb-4">
+                                        <label class="block mb-2 text-sm text-black">Desa/Kelurahan</label>
+                                        <input disabled type="text" value="<?= $pendaftaran['desa'] ?>" min="0" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none " />
+                                    </div>
+                                    <div class="w-full mb-4">
+                                        <label class="block mb-2 text-sm text-black">Kecamatan</label>
+                                        <input disabled type="text" value="<?= $pendaftaran['kecamatan'] ?>" min="0" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none " />
+                                    </div>
+                                    <div class="w-full mb-4">
+                                        <label class="block mb-2 text-sm text-black">Kab/Kota</label>
+                                        <input disabled type="text" value="<?= $pendaftaran['kab_kota'] ?>" min="0" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none " />
+                                    </div>
+                                    <div class="w-full mb-4">
+                                        <label class="block mb-2 text-sm text-black">Kode Pos</label>
+                                        <input disabled type="text" value="<?= $pendaftaran['kode_pos'] ?>" min="0" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none " />
+                                    </div>
+                                    <div class="w-full mb-4">
+                                        <label class="block mb-2 text-sm text-black">Surat Pengantar</label>
+                                        <p class="text-sm text-slate-400 mb-4">
+                                            <?= $pengusul['surat_pengantar']; ?> <!-- Tampilkan nama file surat pengantar -->
+                                        </p>
+                                        <button onclick="window.location.href='<?= base_url('/timteknis/download/' . esc($pengusul['surat_pengantar'])) ?>'"
+                                            class="w-full rounded-md py-2 px-2 text-center font-semibold text-xs text-primary bg-secondary hover:shadow-md flex items-center justify-center gap-4" type="button">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                                            </svg>
+                                            Unduh Surat Pengantar
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
 
                     <?php if ($pendaftaran['kategori'] === 'Penyelamat Lingkungan'): ?>
-                        <div id="identitas-calon" class="form-section flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
+                        <div id="identitas-calon" class="form-section hidden flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
                             <form id="identitasabd" class="mb-2 w-full">
                                 <p class="font-semibold mb-2 text-md text-primary underline">Data Kelompok/ Komunitas</p>
                                 <div class="w-full mb-4">
@@ -154,22 +237,13 @@
                                     <input disabled type="text" value="<?= $pendaftaran['pendidikan']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none " />
                                 </div>
                                 <div class="w-full mb-4">
-                                    <label class="block mb-2 text-sm text-black">KTP:
-                                        <?php if (!empty($pendaftaran['ktp'])): ?>
+                                    <label class="block mb-2 text-sm text-black">KTP : <?php if (!empty($pendaftaran['ktp'])): ?>
                                             <?= esc($pendaftaran['ktp']) ?>
-                                        <?php endif; ?>
-                                        <span class="text-primary">(.jpg/jpeg)</span>
+                                        <?php endif; ?><span class="text-slate-400">(.jpg/jpeg)</span>
                                     </label>
-                                    <div class="relative">
-                                        <input name="ktp" value="<?= isset($pendaftaran['ktp']) ? $pendaftaran['ktp'] : ''; ?>"
-                                            id="ktp" disabled type="file" accept="image/jpeg,image/jpg"
-                                            class="w-full border-2 border-slate-200 text-slate-400 text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-primary file:text-white">
-                                    </div>
-
-                                    <!-- Menampilkan gambar KTP jika tersedia -->
                                     <?php if (!empty($pendaftaran['ktp'])): ?>
-                                        <div class="mt-4">
-                                            <img src="<?= base_url('uploads/ktp/' . esc($pendaftaran['ktp'])) ?>" alt="KTP Image" class="w-full max-w-xs">
+                                        <div class="mt-2">
+                                            <img src="<?= base_url('timteknis/preview/ktp/' . esc($pendaftaran['ktp'])) ?>" class="w-24">
                                         </div>
                                     <?php endif; ?>
                                 </div>
@@ -179,11 +253,6 @@
                                     <label class="block mb-2 text-sm text-black">SKCK : <?php if (!empty($pendaftaran['skck'])): ?>
                                             <?= esc($pendaftaran['skck']) ?>
                                         <?php endif; ?><span class="text-slate-400">(.pdf)</span></label>
-                                    <div class="relative">
-                                        <input name="skck" value="<?= isset($pendaftaran['skck']) ? $pendaftaran['skck'] : ''; ?>"
-                                            id="skck" disabled type="file" accept=".pdf"
-                                            class="w-full border-2 border-slate-200 text-slate-400 text-xs rounded-lg p-2 transition ease-in-out duration-150  focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-primary file:text-white">
-                                    </div>
                                 </div>
                                 <div class="w-full mb-4">
                                     <label class="mb-2 text-sm text-slate-600">Tanggal SKCK</label>
@@ -193,7 +262,7 @@
                         </div>
 
                     <?php else: ?>
-                        <div id="identitas-calon" class="form-section flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
+                        <div id="identitas-calon" class="form-section hidden flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
                             <form id="identitasabd" class="mb-2 w-full">
                                 <div class="w-full mb-4">
                                     <label class="mb-2 text-sm text-slate-600">Nama Lengkap</label>
@@ -272,24 +341,18 @@
                                             <?= esc($pendaftaran['ktp']) ?>
                                         <?php endif; ?><span class="text-slate-400">(.jpg/jpeg)</span>
                                     </label>
-                                    <div class="relative">
-                                        <input name="ktp" value="<?= isset($pendaftaran['ktp']) ? $pendaftaran['ktp'] : ''; ?>"
-                                            id="ktp" disabled type="file" accept="image/jpeg,image/jpg"
-                                            class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-primary file:text-white">
-                                    </div>
                                     <?php if (!empty($pendaftaran['ktp'])): ?>
-                                        <img src="<?= base_url('uploads/ktp/' . esc($pendaftaran['ktp'])); ?>" alt="Preview KTP" class="mt-2 w-48 h-auto border rounded-md" />
+                                        <div class="mt-2">
+                                            <img src="<?= base_url('timteknis/preview/ktp/' . esc($pendaftaran['ktp'])) ?>" class="w-24">
+                                        </div>
                                     <?php endif; ?>
                                 </div>
+
+
                                 <div class="w-full mb-4">
                                     <label class="block mb-2 text-sm text-black">SKCK : <?php if (!empty($pendaftaran['skck'])): ?>
                                             <?= esc($pendaftaran['skck']) ?>
                                         <?php endif; ?><span class="text-slate-400">(.pdf)</span></label>
-                                    <div class="relative">
-                                        <input name="skck" value="<?= isset($pendaftaran['skck']) ? $pendaftaran['skck'] : ''; ?>"
-                                            id="skck" disabled type="file" accept=".pdf"
-                                            class="w-full border-2 border-slate-200 text-slate-400 text-xs rounded-lg p-2 transition ease-in-out duration-150  focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-primary file:text-white">
-                                    </div>
                                 </div>
                                 <div class="w-full mb-4">
                                     <label class="block mb-2 text-sm text-black">Tanggal SKCK</label>
@@ -302,9 +365,111 @@
                     <!-- Right side: Form inside a card -->
                     <div id="kegiatan-calon" class="form-section hidden flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
                         <form id="kegiatanForm" class="mb-2 w-full">
-
                             <div class="grid grid-cols-1 gap-4" id="formContainer">
+                                <div class="space-y-4">
+                                    <p class="font-semibold mb-2 text-md text-primary underline">Kegiatan Utama</p>
+                                    <?php if (!empty($kegiatan_utama)): ?>
+                                        <?php foreach ($kegiatan_utama as $kegiatan): ?>
+                                            <div>
+                                                <label class="block mb-2 text-sm text-black flex justify-between items-center">
+                                                    <span>Tema Kegiatan</span>
+                                                    <?php if (empty($kegiatan['tema'])): ?>
+                                                        <span class="text-red-500 text-sm ml-2">Data belum ditambahkan oleh Pengusul.</span>
+                                                    <?php endif; ?>
+                                                </label>
+                                                <input id="temaKegiatan" type="text" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none"
+                                                    value="<?= esc($kegiatan['tema'] ?? '') ?>" disabled>
+                                            </div>
+                                            <div>
+                                                <label class="block mb-2 text-sm text-black flex justify-between items-center">
+                                                    <span>Sub Tema Kegiatan</span>
+                                                    <?php if (empty($kegiatan['sub_tema'])): ?>
+                                                        <span class="text-red-500 text-sm ml-2">Data belum ditambahkan oleh Pengusul.</span>
+                                                    <?php endif; ?>
+                                                </label>
+                                                <input id="subTemaKegiatan" type="text" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none"
+                                                    value="<?= esc($kegiatan['sub_tema'] ?? '') ?>" disabled>
+                                            </div>
+                                            <div>
+                                                <label class="block mb-2 text-sm text-black flex justify-between items-center">
+                                                    <span>Bentuk Kegiatan</span>
+                                                    <?php if (empty($kegiatan['bentuk_kegiatan'])): ?>
+                                                        <span class="text-red-500 text-sm ml-2">Data belum ditambahkan oleh Pengusul.</span>
+                                                    <?php endif; ?>
+                                                </label>
+                                                <input type="text"
+                                                    class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none  transition duration-300 ease"
+                                                    value="<?= esc($kegiatan['bentuk_kegiatan'] ?? '') ?>" disabled />
+                                            </div>
+                                            <div>
+                                                <label class="block mb-2 text-sm text-black flex justify-between items-center">
+                                                    <span>Penjelasan Kegiatan</span>
+                                                    <?php if (empty($kegiatan['deskripsi_kegiatan'])): ?>
+                                                        <span class="text-red-500 text-sm ml-2">Data belum ditambahkan oleh Pengusul.</span>
+                                                    <?php endif; ?>
+                                                </label>
+                                                <textarea disabled id="penjelasan"
+                                                    class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none  transition duration-300 ease"
+                                                    rows="4"
+                                                    oninput="updateWordCount(this, 'penjelasanCount', 1000)"><?= esc($kegiatan['deskripsi_kegiatan'] ?? '') ?></textarea>
+                                                <p id="penjelasanCount" class="text-xs text-slate-400 flex justify-end">
+                                                    <?= (isset($kegiatan['deskripsi_kegiatan']) && strlen(trim($kegiatan['deskripsi_kegiatan'])) > 0) ? str_word_count($kegiatan['deskripsi_kegiatan']) : 0 ?>/1000 Kata
+                                                </p>
+                                            </div>
+                                </div>
 
+                                <!-- Kolom kanan -->
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="block mb-2 text-sm text-black flex justify-between items-center">
+                                            <span>Lokasi Kegiatan</span>
+                                            <?php if (empty($kegiatan['lokasi_kegiatan'])): ?>
+                                                <span class="text-red-500 text-sm ml-2">Data belum ditambahkan oleh Pengusul.</span>
+                                            <?php endif; ?>
+                                        </label>
+                                        <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none "
+                                            value="<?= esc($kegiatan['lokasi_kegiatan'] ?? '') ?>" disabled>
+                                    </div>
+                                    <div>
+                                        <label class="block mb-2 text-sm text-black flex justify-between items-center">
+                                            <span>Koordinat Lokasi Kegiatan</span>
+                                            <?php if (empty($kegiatan['koordinat'])): ?>
+                                                <span class="text-red-500 text-sm ml-2">Data belum ditambahkan oleh Pengusul.</span>
+                                            <?php endif; ?>
+                                        </label>
+                                        <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none "
+                                            value="<?= esc($kegiatan['koordinat'] ?? '') ?>" disabled>
+                                    </div>
+                                    <div>
+                                        <label class="block mb-2 text-sm text-black flex justify-between items-center">
+                                            <span>Para Pihak dan Perannya</span>
+                                            <?php if (empty($kegiatan['pihak_dan_peran'])): ?>
+                                                <span class="text-red-500 text-sm ml-2">Data belum ditambahkan oleh Pengusul.</span>
+                                            <?php endif; ?>
+                                        </label>
+                                        <textarea disabled id="pihakPeran" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none  transition duration-300 ease" rows="4"
+                                            oninput="updateWordCount(this, 'pihakPeranCount', 1000)"><?= esc($kegiatan['pihak_dan_peran'] ?? '') ?></textarea>
+                                        <p id="pihakPeranCount" class="text-xs text-slate-400 flex justify-end ">
+                                            <?= (isset($kegiatan['pihak_dan_peran']) && strlen(trim($kegiatan['pihak_dan_peran'])) > 0) ? str_word_count($kegiatan['pihak_dan_peran']) : 0 ?>/1000 Kata
+                                        </p>
+
+                                    </div>
+                                    <div>
+                                        <label class="block mb-2 text-sm text-black flex justify-between items-center">
+                                            <span>Keberhasilan yang Dicapai</span>
+                                            <?php if (empty($kegiatan['keberhasilan'])): ?>
+                                                <span class="text-red-500 text-sm ml-2">Data belum ditambahkan oleh Pengusul.</span>
+                                            <?php endif; ?>
+                                        </label>
+                                        <textarea disabled id="keberhasilan" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none  transition duration-300 ease" rows="4"
+                                            oninput="updateWordCount(this, 'keberhasilanCount', 1000)"><?= esc($kegiatan['keberhasilan'] ?? '') ?></textarea>
+                                        <p id="keberhasilanCount" class="text-xs text-slate-400 flex justify-end ">
+                                            <?= (isset($kegiatan['keberhasilan']) && strlen(trim($kegiatan['keberhasilan'])) > 0) ? str_word_count($kegiatan['keberhasilan']) : 0 ?>/1000 Kata
+                                        </p>
+
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php else: ?>
                                 <!-- Kolom kiri -->
                                 <div class="space-y-4">
                                     <div>
@@ -405,11 +570,116 @@
                                         </p>
 
                                     </div>
-
                                 </div>
+                            <?php endif; ?>
+                                </div>
+
+                                <!-- Kegiatan Tambahan -->
+                                <?php if (!empty($kegiatan_tambahan)): ?>
+                                    <?php foreach ($kegiatan_tambahan as $index => $kegiatan_lain): ?>
+                                        <div class="grid grid-cols-1 gap-4">
+                                            <div class="space-y-4">
+                                                <p class="mt-8 font-semibold mb-2 text-md text-primary underline">Kegiatan Lain (<?= $index + 1 ?>)</p>
+                                                <div>
+                                                    <label class="block mb-2 text-sm text-black flex justify-between items-center">
+                                                        <span>Tema Kegiatan</span>
+                                                        <?php if (empty($kegiatan_lain['tema'])): ?>
+                                                            <span class="text-red-500 text-sm ml-2">Data belum ditambahkan oleh Pengusul.</span>
+                                                        <?php endif; ?>
+                                                    </label>
+                                                    <input id="temaKegiatan_<?= $index ?>" type="text" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none"
+                                                        value="<?= esc($kegiatan_lain['tema'] ?? '') ?>" disabled>
+                                                </div>
+                                                <div>
+                                                    <label class="block mb-2 text-sm text-black flex justify-between items-center">
+                                                        <span>Sub Tema Kegiatan</span>
+                                                        <?php if (empty($kegiatan_lain['sub_tema'])): ?>
+                                                            <span class="text-red-500 text-sm ml-2">Data belum ditambahkan oleh Pengusul.</span>
+                                                        <?php endif; ?>
+                                                    </label>
+                                                    <input id="subTemaKegiatan_<?= $index ?>" type="text" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none"
+                                                        value="<?= esc($kegiatan_lain['sub_tema'] ?? '') ?>" disabled>
+                                                </div>
+                                                <div>
+                                                    <label class="block mb-2 text-sm text-black flex justify-between items-center">
+                                                        <span>Bentuk Kegiatan</span>
+                                                        <?php if (empty($kegiatan_lain['bentuk_kegiatan'])): ?>
+                                                            <span class="text-red-500 text-sm ml-2">Data belum ditambahkan oleh Pengusul.</span>
+                                                        <?php endif; ?>
+                                                    </label>
+                                                    <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none  transition duration-300 ease"
+                                                        value="<?= esc($kegiatan_lain['bentuk_kegiatan'] ?? '') ?>" disabled />
+                                                </div>
+                                                <div>
+                                                    <label class="block mb-2 text-sm text-black flex justify-between items-center">
+                                                        <span>Penjelasan Kegiatan</span>
+                                                        <?php if (empty($kegiatan_lain['deskripsi_kegiatan'])): ?>
+                                                            <span class="text-red-500 text-sm ml-2">Data belum ditambahkan oleh Pengusul.</span>
+                                                        <?php endif; ?>
+                                                    </label>
+                                                    <textarea disabled id="penjelasan"
+                                                        class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none  transition duration-300 ease"
+                                                        rows="4"
+                                                        oninput="updateWordCount(this, 'penjelasanCount', 1000)"><?= esc($kegiatan_lain['deskripsi_kegiatan'] ?? '') ?></textarea>
+                                                    <p id="penjelasanCount" class="text-xs text-slate-400 flex justify-end">
+                                                        <?= (isset($kegiatan_lain['deskripsi_kegiatan']) && strlen(trim($kegiatan_lain['deskripsi_kegiatan'])) > 0) ? str_word_count($kegiatan_lain['deskripsi_kegiatan']) : 0 ?>/1000 Kata
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="space-y-4">
+                                                <div>
+                                                    <label class="block mb-2 text-sm text-black flex justify-between items-center">
+                                                        <span>Lokasi Kegiatan</span>
+                                                        <?php if (empty($kegiatan_lain['lokasi_kegiatan'])): ?>
+                                                            <span class="text-red-500 text-sm ml-2">Data belum ditambahkan oleh Pengusul.</span>
+                                                        <?php endif; ?>
+                                                    </label>
+                                                    <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none "
+                                                        value="<?= esc($kegiatan_lain['lokasi_kegiatan'] ?? '') ?>" disabled>
+                                                </div>
+                                                <div>
+                                                    <label class="block mb-2 text-sm text-black flex justify-between items-center">
+                                                        <span>Koordinat Lokasi Kegiatan</span>
+                                                        <?php if (empty($kegiatan_lain['koordinat'])): ?>
+                                                            <span class="text-red-500 text-sm ml-2">Data belum ditambahkan oleh Pengusul.</span>
+                                                        <?php endif; ?>
+                                                    </label>
+                                                    <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none "
+                                                        value="<?= esc($kegiatan_lain['koordinat'] ?? '') ?>" disabled>
+                                                </div>
+                                                <div>
+                                                    <label class="block mb-2 text-sm text-black flex justify-between items-center">
+                                                        <span>Para Pihak dan Perannya</span>
+                                                        <?php if (empty($kegiatan_lain['pihak_dan_peran'])): ?>
+                                                            <span class="text-red-500 text-sm ml-2">Data belum ditambahkan oleh Pengusul.</span>
+                                                        <?php endif; ?>
+                                                    </label>
+                                                    <textarea disabled id="pihakPeran" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none  transition duration-300 ease" rows="4"
+                                                        oninput="updateWordCount(this, 'pihakPeranCount', 1000)"><?= esc($kegiatan_lain['pihak_dan_peran'] ?? '') ?></textarea>
+                                                    <p id="pihakPeranCount" class="text-xs text-slate-400 flex justify-end ">
+                                                        <?= (isset($kegiatan_lain['pihak_dan_peran']) && strlen(trim($kegiatan_lain['pihak_dan_peran'])) > 0) ? str_word_count($kegiatan_lain['pihak_dan_peran']) : 0 ?>/1000 Kata
+                                                    </p>
+
+                                                </div>
+                                                <div>
+                                                    <label class="block mb-2 text-sm text-black flex justify-between items-center">
+                                                        <span>Keberhasilan yang Dicapai</span>
+                                                        <?php if (empty($kegiatan_lain['keberhasilan'])): ?>
+                                                            <span class="text-red-500 text-sm ml-2">Data belum ditambahkan oleh Pengusul.</span>
+                                                        <?php endif; ?>
+                                                    </label>
+                                                    <textarea disabled id="keberhasilan" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none  transition duration-300 ease" rows="4"
+                                                        oninput="updateWordCount(this, 'keberhasilanCount', 1000)"><?= esc($kegiatan_lain['keberhasilan'] ?? '') ?></textarea>
+                                                    <p id="keberhasilanCount" class="text-xs text-slate-400 flex justify-end ">
+                                                        <?= (isset($kegiatan_lain['keberhasilan']) && strlen(trim($kegiatan_lain['keberhasilan'])) > 0) ? str_word_count($kegiatan_lain['keberhasilan']) : 0 ?>/1000 Kata
+                                                    </p>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
                             </div>
-
-
                         </form>
                     </div>
 
@@ -440,7 +710,7 @@
                                     <textarea disabled id="dampakEkonomi" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none  transition duration-300 ease" rows="4"
                                         oninput="updateWordCount(this, 'dampakEkonomiCount', 1000)"><?= esc($pendaftaran['dampak_ekonomi'] ?? '') ?></textarea>
                                     <p id="dampakEkonomiCount" class="text-xs text-slate-400 flex justify-end">
-                                        <?= (isset($pendaftaran['keberhasilan']) && strlen(trim($pendaftaran['dampak_ekonomi'])) > 0) ? str_word_count($pendaftaran['dampak_ekonomi']) : 0 ?>/1000 Kata
+                                        <?= (isset($pendaftaran['dampak_ekonomi']) && strlen(trim($pendaftaran['dampak_ekonomi'])) > 0) ? str_word_count($pendaftaran['dampak_ekonomi']) : 0 ?>/1000 Kata
                                     </p>
                                 </div>
                                 <div>
@@ -453,7 +723,7 @@
                                     <textarea disabled id="dampakSosial" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none  transition duration-300 ease" rows="4"
                                         oninput="updateWordCount(this, 'dampakSosialCount', 1000)"><?= esc($pendaftaran['dampak_sosial_budaya'] ?? '') ?></textarea>
                                     <p id="dampakSosialCount" class="text-xs text-slate-400 flex justify-end">
-                                        <?= (isset($pendaftaran['keberhasilan']) && strlen(trim($pendaftaran['dampak_sosial_budaya'])) > 0) ? str_word_count($pendaftaran['dampak_sosial_budaya']) : 0 ?>/1000 Kata
+                                        <?= (isset($pendaftaran['dampak_sosial_budaya']) && strlen(trim($pendaftaran['dampak_sosial_budaya'])) > 0) ? str_word_count($pendaftaran['dampak_sosial_budaya']) : 0 ?>/1000 Kata
                                     </p>
                                 </div>
                             </div>
@@ -574,15 +844,9 @@
                                             <span class="text-red-500 text-sm ml-2">Data belum ditambahkan oleh Pengusul.</span>
                                         <?php endif; ?>
                                     </label>
-                                    <textarea disabled id="kelompokPeroranganMeniru" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none  transition duration-300 ease" rows="4"
-                                        oninput="updateWordCount(this, 'kelompokPeroranganMeniruCount', 1000)"><?= esc($pendaftaran['jumlah_kelompok_serupa'] ?? '') ?></textarea>
-                                    <p id="kelompokPeroranganMeniruCount" class="text-xs text-slate-400 flex justify-end">
-                                        <?= (isset($pendaftaran['jumlah_kelompok_serupa']) && strlen(trim($pendaftaran['jumlah_kelompok_serupa'])) > 0) ? str_word_count($pendaftaran['jumlah_kelompok_serupa']) : 0 ?>/1000 Kata
-                                    </p>
+                                    <input disabled type="number" name="jumlah_kelompok_serupa" id="kelompokPeroranganMeniru" class="w-full bg-transparent text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none transition duration-300 ease" value="<?= $pendaftaran['jumlah_kelompok_serupa'] ?>"></input>
                                 </div>
                             </div>
-
-
                         </form>
                     </div>
 
@@ -630,41 +894,61 @@
                                 <div class="grid grid-cols-2 gap-4">
                                     <!-- Kolom 1 - Unggah Foto Kegiatan -->
                                     <div id="fotoContainer">
-                                        <label class="block mb-2 text-sm text-black flex justify-between items-center">
-                                            <span>Foto Kegiatan <span class="text-slate-400"> (.jpg/jpeg)</span></span>
-                                            <?php if (empty($pendaftaran['foto_kegiatan1'])): ?>
-                                                <span class="text-red-500 text-sm ml-2">Data belum ditambahkan oleh Pengusul.</span>
+                                        <?php
+                                        $dataTerisi = false;
+                                        for ($i = 1; $i <= 5; $i++): ?>
+                                            <?php if (!empty($pendaftaran["foto_kegiatan$i"]) || !empty($pendaftaran["deskripsi_foto_kegiatan$i"])):
+                                                $dataTerisi = true;
+                                            ?>
+                                                <div class="w-full mb-4">
+                                                    <label class="block mb-2 text-sm text-black flex justify-between items-center mt-4">
+                                                        <span>Foto Kegiatan <?= $i ?></span>
+                                                        <?php if (empty($pendaftaran["foto_kegiatan$i"])): ?>
+                                                            <span class="text-red-500 text-sm ml-2">Data belum ditambahkan oleh Pengusul.</span>
+                                                        <?php endif; ?>
+                                                    </label>
+                                                    <?php if (!empty($pendaftaran["foto_kegiatan$i"])): ?>
+                                                        <img src="<?= base_url('timteknis/preview/fotokegiatan/' . $i . '/' . esc($pendaftaran["foto_kegiatan$i"])) ?>" alt="Foto Kegiatan <?= $i ?>" class="w-24">
+                                                    <?php endif; ?>
+                                                    <label class="block mb-2 text-sm text-black mt-2">Deskripsi Foto <?= $i ?> </label>
+                                                    <input disabled type="text" placeholder="Keterangan Foto" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none "
+                                                        value="<?= esc($pendaftaran["deskripsi_foto_kegiatan$i"] ?? '') ?>">
+                                                </div>
                                             <?php endif; ?>
-                                        </label>
-                                        <div class="mb-4">
-                                            <input disabled type="file" accept=".jpg, .jpeg" class="mb-2 w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none " />
-                                            <input disabled type="text" placeholder="Keterangan Foto" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none "
-                                                value="<?= esc($pendaftaran['deskripsi_foto_kegiatan1'] ?? '') ?>">
-                                        </div>
+                                        <?php endfor; ?>
 
-
+                                        <?php if (!$dataTerisi): ?>
+                                            <div class="w-full mb-4">
+                                                <label class="block mb-2 text-sm text-black flex justify-between items-center mt-4">
+                                                    <span>Foto Kegiatan</span>
+                                                    <span class="text-red-500 text-sm ml-2">Data belum ditambahkan oleh Pengusul.</span>
+                                                </label>
+                                            </div>
+                                        <?php endif; ?>
                                     </div>
 
-                                    <!-- Kolom 2 - Tautan Video -->
-                                    <div id="videoContainer">
-                                        <label class="block mb-2 text-sm text-black flex justify-between items-center">
-                                            <span>Tautan Video</span>
-                                            <?php if (empty($pendaftaran['tautan_video'])): ?>
-                                                <span class="text-red-500 text-sm ml-2">Data belum ditambahkan oleh Pengusul.</span>
-                                            <?php endif; ?>
-                                        </label>
-                                        <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none  mb-3" placeholder="Tautan Video"
-                                            value="<?= esc($pendaftaran['tautan_video'] ?? '') ?>">
-                                    </div>
+
                                 </div>
 
+                                <!-- Kolom 2 - Tautan Video -->
+                                <div id="videoContainer">
+                                    <label class="block mb-2 text-sm text-black flex justify-between items-center">
+                                        <span>Tautan Video</span>
+                                        <?php if (empty($pendaftaran['tautan_video'])): ?>
+                                            <span class="text-red-500 text-sm ml-2">Data belum ditambahkan oleh Pengusul.</span>
+                                        <?php endif; ?>
+                                    </label>
+                                    <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none  mb-3" placeholder="Tautan Video"
+                                        value="<?= esc($pendaftaran['tautan_video'] ?? '') ?>">
+                                </div>
                             </div>
 
-
-                        </form>
                     </div>
 
+
+                    </form>
                 </div>
+
             </div>
         </div>
 
@@ -690,17 +974,66 @@
                 });
             });
 
+            /* Tampilan Form Kegiatan */
+            document.addEventListener('DOMContentLoaded', (event) => {
+                const kegiatanLain = <?= json_encode(array_slice($kegiatan_utama, 1)) ?>;
 
-            // Jenis Kegiatan Lainnya
-            /* function toggleJenisLainnya() {
-                const jenisKegiatan = document.getElementById('jenisKegiatan');
-                const jenisLainnya = document.getElementById('jenisLainnya');
-                if (jenisKegiatan.value === 'jenis-kegiatan-lainnya') {
-                    jenisLainnya.classList.remove('hidden');
+                kegiatanLain.forEach((kegiatan, index) => {
+                    const tema = kegiatan['tema'] ?? '';
+                    const subTema = kegiatan['sub_tema'] ?? '';
+
+                    if (subTemaOptions[tema]) {
+                        document.getElementById(`temaKegiatan_${index}`).value = subTemaOptions[tema].text;
+                        const subTemaText = subTemaOptions[tema].options.find(option => option.value === subTema)?.text || subTema;
+                        document.getElementById(`subTemaKegiatan_${index}`).value = subTemaText;
+                    } else {
+                        document.getElementById(`temaKegiatan_${index}`).value = tema;
+                        document.getElementById(`subTemaKegiatan_${index}`).value = subTema;
+                    }
+                });
+
+                const tema = "<?= esc($kegiatan['tema'] ?? '') ?>";
+                const subTema = "<?= esc($kegiatan['sub_tema'] ?? '') ?>";
+
+                if (subTemaOptions[tema]) {
+                    document.getElementById('temaKegiatan').value = subTemaOptions[tema].text;
+                    const subTemaText = subTemaOptions[tema].options.find(option => option.value === subTema)?.text || subTema;
+                    document.getElementById('subTemaKegiatan').value = subTemaText;
                 } else {
-                    jenisLainnya.classList.add('hidden');
+                    document.getElementById('temaKegiatan').value = tema;
+                    document.getElementById('subTemaKegiatan').value = subTema;
                 }
-            } */
+            });
+
+            document.addEventListener('DOMContentLoaded', (event) => {
+                const kegiatanLain = <?= json_encode($kegiatan_tambahan) ?>;
+
+                kegiatanLain.forEach((kegiatan, index) => {
+                    const tema = kegiatan['tema'] ?? '';
+                    const subTema = kegiatan['sub_tema'] ?? '';
+
+                    if (subTemaOptions[tema]) {
+                        document.getElementById(`temaKegiatan_${index}`).value = subTemaOptions[tema].text;
+                        const subTemaText = subTemaOptions[tema].options.find(option => option.value === subTema)?.text || subTema;
+                        document.getElementById(`subTemaKegiatan_${index}`).value = subTemaText;
+                    } else {
+                        document.getElementById(`temaKegiatan_${index}`).value = tema;
+                        document.getElementById(`subTemaKegiatan_${index}`).value = subTema;
+                    }
+                });
+
+                const tema = "<?= esc($kegiatan_lain['tema'] ?? '') ?>";
+                const subTema = "<?= esc($kegiatan_lain['sub_tema'] ?? '') ?>";
+
+                if (subTemaOptions[tema]) {
+                    document.getElementById('temaKegiatan').value = subTemaOptions[tema].text;
+                    const subTemaText = subTemaOptions[tema].options.find(option => option.value === subTema)?.text || subTema;
+                    document.getElementById('subTemaKegiatan').value = subTemaText;
+                } else {
+                    document.getElementById('temaKegiatan').value = tema;
+                    document.getElementById('subTemaKegiatan').value = subTema;
+                }
+            });
 
             // Tema Sub Tema Kegiatan
             const subTemaOptions = {

@@ -62,8 +62,11 @@ class PengusulController extends BaseController
             'kecamatan' => $this->request->getPost('kecamatan'),
             'kab_kota' => $this->request->getPost('kab_kota'),
             'kode_pos' => $this->request->getPost('kode_pos'),
-            'surat_pengantar' => $filePath
         ];
+
+        if (!empty($filePath)) {
+            $data['surat_pengantar'] = $filePath;
+        }
 
         if ($pengusulModel->update($id_pengusul, $data)) {
             session()->set($data);
@@ -449,7 +452,7 @@ class PengusulController extends BaseController
 
                 $validation = \Config\Services::validation();
                 $rules = [
-                    'nik' => 'required|exact_length[16]|numeric|is_unique[pendaftaran.nik]',
+                    'nik' => 'required|exact_length[16]|numeric|is_unique[pendaftaran.nik],id_pendaftaran,' . $formType . ']',
                     'email' => 'required|valid_email|is_unique[pendaftaran.email]',
                 ];
 
@@ -528,8 +531,8 @@ class PengusulController extends BaseController
 
                 $validation = \Config\Services::validation();
                 $rules = [
-                    'nik' => 'required|exact_length[16]|numeric|is_unique[pendaftaran.nik]',
-                    'email' => 'required|valid_email|is_unique[pendaftaran.email]',
+                    'nik' => 'required|exact_length[16]|numeric',
+                    'email' => 'required|valid_email|',
                 ];
 
                 $validation->setRules($rules);
@@ -819,7 +822,7 @@ class PengusulController extends BaseController
         $pengusul = $PengusulModel->where('id_pengusul', $id_pengusul)->first();
 
         // Cek kelengkapan data pengusul
-        $isComplete = !empty($pengusul['jabatan_pekerjaan']) && !empty($pengusul['jenis_kelamin']) && !empty($pengusul['jalan']) && !empty($pengusul['rt_rw']) && !empty($pengusul['desa']) && !empty($pengusul['kecamatan']) && !empty($pengusul['kab_kota']) && !empty($pengusul['kode_pos']) && !empty($pengusul['surat_pengantar']);
+        $isComplete = !empty($pengusul['nama_instansi_pribadi']) && !empty($pengusul['instansi']) && !empty($pengusul['jabatan_pekerjaan']) && !empty($pengusul['jenis_kelamin']) && !empty($pengusul['jalan']) && !empty($pengusul['rt_rw']) && !empty($pengusul['desa']) && !empty($pengusul['kecamatan']) && !empty($pengusul['kab_kota']) && !empty($pengusul['kode_pos']) && !empty($pengusul['surat_pengantar']);
 
         // Persiapkan data untuk dikirim ke view
         $data = [

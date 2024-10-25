@@ -12,7 +12,7 @@
 
   <!-- Sidebar -->
   <div class="w-64 bg-white text-white">
-  <?= $this->include('template/sidebaradmin') ?>
+    <?= $this->include('template/sidebaradmin') ?>
   </div>
 
   <!-- Main Content -->
@@ -65,74 +65,74 @@
         </div>
 
         <!-- Chart Section -->
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-  <!-- Sales Overview Section with smaller width (1/3 of the grid) -->
-  <div class="lg:col-span-1 bg-white shadow rounded-lg p-4 md:p-6">
-    <h2 class="text-lg md:text-xl font-semibold mb-4">Pamflet Aktif</h2>
-    <div>
-      <!-- Placeholder for Chart -->
-      <div class="w-full h-full md:h-64 flex items-center justify-center text-gray-500">
-        <img class="h-full" src="/images/popup.png">
-      </div>
-    </div>
-    <div class="relative my-6 bg-white shadow-sm border border-slate-200 rounded-lg w-full ">
-  <div class="p-4">
-    <h5 class="mb-2 flex flex-col text-slate-800 text-xl items-center font-semibold">
-      Edit Pamflet
-    </h5>
-    <a href="editpamflet">
-    <button class="rounded-md bg-primary py-2 px-4 mt-6 border border-transparent text-center text-sm text-white w-full transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-      Edit
-    </button>
-    </a>
-  </div>
-</div>
-  </div>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Sales Overview Section with smaller width (1/3 of the grid) -->
+          <div class="lg:col-span-1 bg-white shadow rounded-lg p-4 md:p-6">
+            <h2 class="text-lg md:text-xl font-semibold mb-4">Pamflet Aktif</h2>
+            <div>
+              <!-- Placeholder for Chart -->
+              <div class="w-full h-full md:h-64 flex items-center justify-center text-gray-500">
+                <img class="h-full" src="/images/popup.png">
+              </div>
+            </div>
+            <div class="relative my-6 bg-white shadow-sm border border-slate-200 rounded-lg w-full ">
+              <div class="p-4">
+                <h5 class="mb-2 flex flex-col text-slate-800 text-xl items-center font-semibold">
+                  Edit Pamflet
+                </h5>
+                <a href="editpamflet">
+                  <button class="rounded-md bg-primary py-2 px-4 mt-6 border border-transparent text-center text-sm text-white w-full transition-all shadow-md hover:shadow-lg focus:bg-primaryhover focus:shadow-none active:bg-primaryhover hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
+                    Edit
+                  </button>
+                </a>
+              </div>
+            </div>
+          </div>
 
-  
 
-  <!-- Recent Orders Section with larger width (2/3 of the grid) -->
-  <div class="lg:col-span-2 bg-white shadow rounded-lg p-4 md:p-6">
-    <h2 class="text-lg md:text-xl font-semibold mb-4">Data Calon</h2>
-    <!-- Responsive table wrapper -->
-    <div class="overflow-x-auto">
-      <table class="w-full">
-        <thead>
-          <tr class="text-gray-500 text-xs md:text-sm">
-            <th class="px-2 md:px-4 py-2 text-left">Kode Registrasi</th>
-            <th class="px-2 md:px-4 py-2 text-left">Nama</th>
-            <th class="px-2 md:px-4 py-2 text-left">Kategori</th>
-            <th class="px-2 md:px-4 py-2 text-left">Provinsi</th>
-            <th class="px-2 md:px-4 py-2 text-left">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-        <?php if (!empty($calon)): ?>
-          <?php foreach ($calon as $index => $item): ?>
-            <tr class="<?= $index % 2 == 0 ? 'bg-gray-50' : '' ?> text-xs md:text-sm">
-              <td class="px-2 md:px-4 py-2"><?= esc($item['kode_registrasi']) ?></td>
-              <td class="px-2 md:px-4 py-2"><?= esc($item['nama']) ?></td>
-              <td class="px-2 md:px-4 py-2"><?= esc($item['kategori']) ?></td>
-              <td class="px-2 md:px-4 py-2"><?= esc($item['provinsi']) ?></td>
-              <td class="px-2 md:px-4 py-2"><?= esc($item['status_pendaftaran']) ?></td>
-            </tr>
-          <?php endforeach; ?>
-        <?php else: ?>
-          <tr>
-            <td colspan="5" class="px-2 md:px-4 py-2 text-center">No data available</td>
-          </tr>
-        <?php endif; ?>
-      </tbody>
-      </table>
-    </div>
-      <div class="row flex lg:justify-end justify-center my-6 lg:me-2 me-0">
-        <div class="pagination">
-          <?= $pager->links('calon', 'template_pagination') ?>
+
+          <!-- Recent Orders Section with larger width (2/3 of the grid) -->
+          <div class="lg:col-span-2 bg-white shadow rounded-lg p-4 md:p-6">
+            <h2 class="text-lg md:text-xl font-semibold mb-4">Data Calon</h2>
+            <!-- Responsive table wrapper -->
+            <div class="overflow-x-auto">
+              <table class="w-full">
+                <thead>
+                  <tr class="text-gray-500 text-xs md:text-sm">
+                    <th class="px-2 md:px-4 py-2 text-left">Kode Registrasi</th>
+                    <th class="px-2 md:px-4 py-2 text-left">Nama</th>
+                    <th class="px-2 md:px-4 py-2 text-left">Kategori</th>
+                    <th class="px-2 md:px-4 py-2 text-left">Provinsi</th>
+                    <th class="px-2 md:px-4 py-2 text-left">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php if (!empty($calon)): ?>
+                    <?php foreach ($calon as $index => $item): ?>
+                      <tr class="<?= $index % 2 == 0 ? 'bg-gray-50' : '' ?> text-xs md:text-sm">
+                        <td class="px-2 md:px-4 py-2"><?= esc($item['kode_registrasi']) ?></td>
+                        <td class="px-2 md:px-4 py-2"><?= esc($item['nama']) ?></td>
+                        <td class="px-2 md:px-4 py-2"><?= esc($item['kategori']) ?></td>
+                        <td class="px-2 md:px-4 py-2"><?= esc($item['provinsi']) ?></td>
+                        <td class="px-2 md:px-4 py-2"><?= esc($item['status_pendaftaran']) ?></td>
+                      </tr>
+                    <?php endforeach; ?>
+                  <?php else: ?>
+                    <tr>
+                      <td colspan="5" class="px-2 md:px-4 py-2 text-center">No data available</td>
+                    </tr>
+                  <?php endif; ?>
+                </tbody>
+              </table>
+            </div>
+            <div class="row flex lg:justify-end justify-center my-6 lg:me-2 me-0">
+              <div class="pagination">
+                <?= $pager->links('calon', 'template_pagination') ?>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-  </div>
-</div>
-        </div>
 
     </div>
   </div>

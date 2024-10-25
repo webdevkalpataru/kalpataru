@@ -600,11 +600,7 @@
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Kelompok/Perorangan yang meniru</label>
-                                <textarea name="jumlah_kelompok_serupa" id="kelompokPeroranganMeniru" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                    oninput="updateWordCount(this, 'kelompokPeroranganMeniruCount', 1000)"><?= isset($keswadayaan['jumlah_kelompok_serupa']) ? htmlspecialchars($keswadayaan['jumlah_kelompok_serupa']) : '' ?></textarea>
-                                <p id="kelompokPeroranganMeniruCount" class="text-xs text-slate-400 flex justify-end">
-                                    <?= (isset($keswadayaan['jumlah_kelompok_serupa']) && strlen(trim($keswadayaan['jumlah_kelompok_serupa'])) > 0) ? str_word_count($keswadayaan['jumlah_kelompok_serupa']) : 0 ?>/1000 Kata
-                                </p>
+                                <input type="number" name="jumlah_kelompok_serupa" id="kelompokPeroranganMeniru" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" value="<?= $keswadayaan['jumlah_kelompok_serupa'] ?>"></input>
                             </div>
                         </div>
 

@@ -650,6 +650,10 @@ class AdminController extends BaseController
             return redirect()->to('admin/datacalon')->with('error', 'Data tidak ditemukan.');
         }
 
+        // Ambil data kegiatan utama dan kegiatan tambahan
+        $kegiatan_utama = $model->getKegiatanByTipe($id, 'kegiatan_utama');
+        $kegiatan_tambahan = $model->getKegiatanByTipe($id, 'kegiatan_tambahan');
+
         // Cek status pendaftaran, jika "Draft" redirect dengan pesan error
         if ($pendaftaran['status_pendaftaran'] === 'Draft') {
             return redirect()->to('admin/datacalon')->with('error', 'Data ini masih berstatus Draft dan tidak dapat diakses.');
@@ -668,6 +672,8 @@ class AdminController extends BaseController
             'title' => 'Detail Usulan',
             'pendaftaran' => $pendaftaran,
             'pengusul' => $pengusul,  // Tambahkan data pengusul
+            'kegiatan_utama' => $kegiatan_utama,
+            'kegiatan_tambahan' => $kegiatan_tambahan,
         ];
 
         return view('admin/detaildatacalon', $data);
@@ -709,7 +715,7 @@ class AdminController extends BaseController
     public function tambaharsip()
     {
         $data['title'] = "Arsip Penerima";
-        return view('admin/tambaharsip', ['title' => 'Tambah Arsip']);
+        return view('admin/tambaharsip', ['title' => 'Tambah Arsip Penerima']);
     }
 
 

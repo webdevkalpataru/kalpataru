@@ -150,22 +150,13 @@
                                 <input disabled type="text" value="<?= $pendaftaran['pendidikan']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none " />
                             </div>
                             <div class="w-full mb-4">
-                                <label class="block mb-2 text-sm text-black">KTP:
-                                    <?php if (!empty($pendaftaran['ktp'])): ?>
+                                <label class="block mb-2 text-sm text-black">KTP : <?php if (!empty($pendaftaran['ktp'])): ?>
                                         <?= esc($pendaftaran['ktp']) ?>
-                                    <?php endif; ?>
-                                    <span class="text-primary">(.jpg/jpeg)</span>
+                                    <?php endif; ?><span class="text-slate-400">(.jpg/jpeg)</span>
                                 </label>
-                                <div class="relative">
-                                    <input name="ktp" value="<?= isset($pendaftaran['ktp']) ? $pendaftaran['ktp'] : ''; ?>"
-                                        id="ktp" disabled type="file" accept="image/jpeg,image/jpg"
-                                        class="w-full border-2 border-slate-200 text-slate-400 text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-primary file:text-white">
-                                </div>
-
-                                <!-- Menampilkan gambar KTP jika tersedia -->
                                 <?php if (!empty($pendaftaran['ktp'])): ?>
-                                    <div class="mt-4">
-                                        <img src="<?= base_url('uploads/ktp/' . esc($pendaftaran['ktp'])) ?>" alt="KTP Image" class="w-full max-w-xs">
+                                    <div class="mt-2">
+                                    <img src="<?= base_url('pengusul/preview/ktp/' . esc($pendaftaran['ktp'])) ?>" class="w-24">
                                     </div>
                                 <?php endif; ?>
                             </div>
@@ -175,11 +166,6 @@
                                 <label class="block mb-2 text-sm text-black">SKCK : <?php if (!empty($pendaftaran['skck'])): ?>
                                         <?= esc($pendaftaran['skck']) ?>
                                     <?php endif; ?><span class="text-slate-400">(.pdf)</span></label>
-                                <div class="relative">
-                                    <input name="skck" value="<?= isset($pendaftaran['skck']) ? $pendaftaran['skck'] : ''; ?>"
-                                        id="skck" disabled type="file" accept=".pdf"
-                                        class="w-full border-2 border-slate-200 text-slate-400 text-xs rounded-lg p-2 transition ease-in-out duration-150  focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-primary file:text-white">
-                                </div>
                             </div>
                             <div class="w-full mb-4">
                                 <label class="mb-2 text-sm text-slate-600">Tanggal SKCK</label>
@@ -268,24 +254,16 @@
                                         <?= esc($pendaftaran['ktp']) ?>
                                     <?php endif; ?><span class="text-slate-400">(.jpg/jpeg)</span>
                                 </label>
-                                <div class="relative">
-                                    <input name="ktp" value="<?= isset($pendaftaran['ktp']) ? $pendaftaran['ktp'] : ''; ?>"
-                                        id="ktp" disabled type="file" accept="image/jpeg,image/jpg"
-                                        class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-primary file:text-white">
-                                </div>
                                 <?php if (!empty($pendaftaran['ktp'])): ?>
-                                    <img src="<?= base_url('uploads/ktp/' . esc($pendaftaran['ktp'])); ?>" alt="Preview KTP" class="mt-2 w-48 h-auto border rounded-md" />
+                                    <div class="mt-2">
+                                    <img src="<?= base_url('pengusul/preview/ktp/' . esc($pendaftaran['ktp'])) ?>" class="w-24">
+                                    </div>
                                 <?php endif; ?>
                             </div>
                             <div class="w-full mb-4">
                                 <label class="block mb-2 text-sm text-black">SKCK : <?php if (!empty($pendaftaran['skck'])): ?>
                                         <?= esc($pendaftaran['skck']) ?>
                                     <?php endif; ?><span class="text-slate-400">(.pdf)</span></label>
-                                <div class="relative">
-                                    <input name="skck" value="<?= isset($pendaftaran['skck']) ? $pendaftaran['skck'] : ''; ?>"
-                                        id="skck" disabled type="file" accept=".pdf"
-                                        class="w-full border-2 border-slate-200 text-slate-400 text-xs rounded-lg p-2 transition ease-in-out duration-150  focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-primary file:text-white">
-                                </div>
                             </div>
                             <div class="w-full mb-4">
                                 <label class="block mb-2 text-sm text-black">Tanggal SKCK</label>
@@ -644,7 +622,7 @@
                                 <textarea disabled id="dampakEkonomi" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none  transition duration-300 ease" rows="4"
                                     oninput="updateWordCount(this, 'dampakEkonomiCount', 1000)"><?= esc($pendaftaran['dampak_ekonomi'] ?? '') ?></textarea>
                                 <p id="dampakEkonomiCount" class="text-xs text-slate-400 flex justify-end">
-                                    <?= (isset($pendaftaran['keberhasilan']) && strlen(trim($pendaftaran['dampak_ekonomi'])) > 0) ? str_word_count($pendaftaran['dampak_ekonomi']) : 0 ?>/1000 Kata
+                                    <?= (isset($pendaftaran['dampak_ekonomi']) && strlen(trim($pendaftaran['dampak_ekonomi'])) > 0) ? str_word_count($pendaftaran['dampak_ekonomi']) : 0 ?>/1000 Kata
                                 </p>
                             </div>
                             <div>
@@ -657,7 +635,7 @@
                                 <textarea disabled id="dampakSosial" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none  transition duration-300 ease" rows="4"
                                     oninput="updateWordCount(this, 'dampakSosialCount', 1000)"><?= esc($pendaftaran['dampak_sosial_budaya'] ?? '') ?></textarea>
                                 <p id="dampakSosialCount" class="text-xs text-slate-400 flex justify-end">
-                                    <?= (isset($pendaftaran['keberhasilan']) && strlen(trim($pendaftaran['dampak_sosial_budaya'])) > 0) ? str_word_count($pendaftaran['dampak_sosial_budaya']) : 0 ?>/1000 Kata
+                                    <?= (isset($pendaftaran['dampak_sosial_budaya']) && strlen(trim($pendaftaran['dampak_sosial_budaya'])) > 0) ? str_word_count($pendaftaran['dampak_sosial_budaya']) : 0 ?>/1000 Kata
                                 </p>
                             </div>
                         </div>
@@ -778,11 +756,7 @@
                                         <span class="text-red-500 text-sm ml-2">Data belum ditambahkan, segera lengkapi data!</span>
                                     <?php endif; ?>
                                 </label>
-                                <textarea disabled id="kelompokPeroranganMeniru" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none  transition duration-300 ease" rows="4"
-                                    oninput="updateWordCount(this, 'kelompokPeroranganMeniruCount', 1000)"><?= esc($pendaftaran['jumlah_kelompok_serupa'] ?? '') ?></textarea>
-                                <p id="kelompokPeroranganMeniruCount" class="text-xs text-slate-400 flex justify-end">
-                                    <?= (isset($pendaftaran['jumlah_kelompok_serupa']) && strlen(trim($pendaftaran['jumlah_kelompok_serupa'])) > 0) ? str_word_count($pendaftaran['jumlah_kelompok_serupa']) : 0 ?>/1000 Kata
-                                </p>
+                                <input disabled type="number" name="jumlah_kelompok_serupa" id="kelompokPeroranganMeniru" class="w-full bg-transparent text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none transition duration-300 ease" value="<?= $pendaftaran['jumlah_kelompok_serupa'] ?>"></input>
                             </div>
                         </div>
 
@@ -870,7 +844,6 @@
                                             <span>Foto Kegiatan</span>
                                             <span class="text-red-500 text-sm ml-2">Data belum ditambahkan, segera lengkapi data!</span>
                                         </label>
-                                        <input type="file" name="foto_kegiatan1" class="w-full bg-white border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none" />
                                         <label class="block mb-2 text-sm text-black mt-2">Deskripsi Foto</label>
                                         <input type="text" name="deskripsi_foto_kegiatan1" placeholder="Keterangan Foto" class="w-full bg-white border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none" />
                                     </div>

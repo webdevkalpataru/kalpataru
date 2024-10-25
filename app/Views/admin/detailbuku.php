@@ -12,7 +12,10 @@
 <body class="lg:flex">
 
     <!-- Sidebar -->
-    <?= $this->include('template/sidebaradmin') ?>
+    <div class="w-64 bg-white text-white">
+        <?= $this->include('template/sidebaradmin') ?>
+    </div>
+    
     <div class="lg:flex-1 p-6">
 
         <!-- Header -->

@@ -48,7 +48,7 @@
 
     <!-- Sidebar -->
     <div id="sidebar"
-        class="fixed top-0 left-0 z-40 lg:mt-0 mt-4 h-full w-64 -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out flex flex-col rounded-xl bg-white bg-clip-border px-4 py-8 text-gray-700 shadow-xl shadow-blue-gray-900/5 md:relative md:w-1/5">
+        class="fixed top-0 left-0 lg:mt-0 mt-4 h-full w-64 -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out flex flex-col rounded-xl bg-white bg-clip-border px-4 py-8 text-gray-700 shadow-xl shadow-blue-gray-900/5 md:relative md:w-1/5">
 
         <img src="/images/logo.png">
         <hr class="border-primary border-2">

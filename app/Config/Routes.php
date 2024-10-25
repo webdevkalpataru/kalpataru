@@ -121,19 +121,24 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('datacalon', 'AdminController::datacalon');
     $routes->post('updatestatuspendaftaran', 'AdminController::updateStatusPendaftaran');
     $routes->get('detaildatacalon/(:num)', 'AdminController::detailDataCalon/$1');
+    $routes->get('preview/ktp/(:any)', 'PengusulController::showKTP/$1');
+    $routes->get('preview/fotokegiatan/(:num)/(:any)', 'PengusulController::showFotoKegiatan/$1/$2');
     $routes->get('nominasi', 'AdminController::nominasi');
+    $routes->get('arsippenerima', 'AdminController::arsippenerima');
+    $routes->get('tambaharsippenerima', 'AdminController::tambaharsip');
     $routes->get('arsipselengkapnya', 'AdminController::arsipselengkapnya');
     $routes->get('sidang1', 'AdminController::sidang1');
     $routes->get('sidang2', 'AdminController::sidang2');
     $routes->get('editpamflet', 'AdminController::editpamflet');
 
-    //pengusul
-    $routes->get('akunpengusul', 'AdminController::akunpengusul');
-    //dlhk
-    $routes->get('akundlhk', 'AdminController::akundlhk');
-    $routes->get('daftarakundlhk', 'AuthController::registerDLHK');
-    $routes->post('daftarakundlhk', 'AuthController::createRegisterDLHK');
-    //timteknis
+    // Manajemen Akun Penerima Penghargaan Kalpataru
+    $routes->get('akunpenerima', 'AdminController::akunpenerima');
+    $routes->post('akunpenerima/hapus/(:num)', 'AdminController::hapusPenerima/$1');
+    $routes->post('updatepenerima', 'AdminController::updatePenerima');
+    $routes->get('daftarpenerima', 'AuthController::registerPenerima');
+    $routes->post('daftarpenerima', 'AuthController::createregisterPenerima');
+
+    // Manajemen Akun Tim Teknis
     $routes->get('akuntimteknis', 'AdminController::akuntimteknis');
     $routes->post('akuntimteknis/hapus/(:num)', 'AdminController::hapusTimTeknis/$1');
     $routes->post('updatetimteknis', 'AdminController::updateTimTeknis');
@@ -146,20 +151,6 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->post('updatedppk', 'AdminController::updateDppk');
     $routes->get('daftardppk', 'AuthController::registerDPPK');
     $routes->post('daftardppk', 'AuthController::createRegisterDPPK');
-    $routes->get('daftardppk', 'AuthController::registerDPPK');
-
-    //penerima
-    $routes->get('daftarpenerima', 'AuthController::registerPenerima');
-    $routes->post('daftarpenerima', 'AuthController::createRegisterPenerima');
-    $routes->get('akunpenerima', 'AdminController::akunpenerima');
-    $routes->get('arsippenerima', 'AdminController::arsippenerima');
-    $routes->get('tambaharsip', 'AdminController::tambaharsip');
-
-
-    $routes->get('buku', 'AdminController::buku');
-    $routes->get('tambahbuku', 'AdminController::tambahbuku');
-    $routes->get('kebijakan', 'AdminController::kebijakan');
-
 
     // Manajemen Akun DLHK
     $routes->get('akundlhk', 'AdminController::akundlhk');
@@ -170,7 +161,7 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('pengusul', 'AdminController::akunpengusul');
     $routes->post('pengusul/hapus/(:num)', 'AdminController::hapusPengusul/$1');
     $routes->post('updatepengusul', 'AdminController::updatePengusul');
-    $routes->get('detailpengusul', 'AdminController::detailpengusul');
+    $routes->get('pengusul/detail/(:any)', 'AdminController::detailPengusul/$1');
     $routes->get('download/suratpengantar/(:segment)', 'AdminController::downloadSuratPengantar/$1');
 
 
@@ -240,6 +231,9 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
 $routes->group('timteknis', ['filter' => 'auth'], function ($routes) {
     $routes->get('datacalonusulan', 'TimteknisController::datacalonusulan');
     $routes->get('detaildatacalonusulan/(:num)', 'TimteknisController::detaildatacalonusulan/$1');
+    $routes->get('preview/ktp/(:any)', 'PengusulController::showKTP/$1');
+    $routes->get('preview/fotokegiatan/(:num)/(:any)', 'PengusulController::showFotoKegiatan/$1/$2');
+    $routes->get('pdf/(:any)', 'TimteknisController::generatePDF/$1');
 
     $routes->get('verifadminkategoria', 'TimteknisController::verifadminkategoria');
     $routes->get('verifadminkategorib', 'TimteknisController::verifadminkategorib');

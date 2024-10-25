@@ -6,6 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/app.css">
     <title><?= $title; ?></title>
+    <style>
+        /* scrollbar */
+        ::-webkit-scrollbar {
+            width: 20px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, rgb(230, 156, 59), rgba(217, 237, 191, 1));
+            border-radius: 10px;
+            border: 3px solid #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, rgb(207, 140, 53), rgba(195, 213, 172, 1));
+            opacity: 30%;
+            border-radius: 10px;
+            border: 3px solid #f1f1f1;
+        }
+
+        /* selection */
+        ::selection {
+            background-color: #2C7865;
+            color: white;
+        }
+    </style>
 </head>
 
 <body class="bg-gray-100">
@@ -19,7 +48,7 @@
     </button>
 
     <!-- Sidebar -->
-    <div id="sidebar" class="fixed top-0 left-0 h-full w-64 -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out flex flex-col rounded-xl bg-white bg-clip-border px-4 py-8 text-gray-700 shadow-xl shadow-blue-gray-900/5">
+    <div id="sidebar" class="fixed top-0 left-0 h-full w-64 overflow-hidden md:translate-x-0 transition-transform duration-300 ease-in-out flex flex-col rounded-xl bg-white bg-clip-border px-4 py-8 text-gray-700 shadow-xl shadow-blue-gray-900/5 overflow-y-auto overflow-x-hidden">
         <img src="/images/logo.png" alt="Logo" class="mb-4">
         <hr class="border-primary border-2 mb-4">
         <div class="p-4 mb-2">

@@ -30,7 +30,7 @@
       </header>
 
       <!-- Main Content -->
-      <div>
+      <div class="mt-4 relative flex flex-col w-full  mx-auto mb-4 border-2 border-primary bg-white shadow-md lg:p-8">
         <!-- Cards Summary -->
         <form id="isiArtikelForm" class="mt-4 mb-2 w-full" action="/admin/tambah-berita" method="POST" enctype="multipart/form-data">
           <div class="grid grid-cols-1 gap-4" id="formContainer">

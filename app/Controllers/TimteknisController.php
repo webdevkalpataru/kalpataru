@@ -3,6 +3,9 @@
 namespace App\Controllers;
 
 use App\Models\PendaftaranModel;
+use App\Models\PengusulModel;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class TimteknisController extends BaseController
 {
@@ -59,6 +62,7 @@ class TimteknisController extends BaseController
     public function detaildatacalonusulan($id)
     {
         $model = new PendaftaranModel();
+        $userModel = new PengusulModel();  // Asumsikan Anda memiliki model Pengusul untuk mengambil data profil
         $pendaftaran = $model->getDetailById($id);
 
         // Validasi jika data ditemukan atau tidak
@@ -66,15 +70,30 @@ class TimteknisController extends BaseController
             return redirect()->to('timteknis/datacalonusulan')->with('error', 'Data tidak ditemukan.');
         }
 
+        // Ambil data kegiatan utama dan kegiatan tambahan
+        $kegiatan_utama = $model->getKegiatanByTipe($id, 'kegiatan_utama');
+        $kegiatan_tambahan = $model->getKegiatanByTipe($id, 'kegiatan_tambahan');
+
         // Cek status pendaftaran, jika "Draft" redirect dengan pesan error
         if ($pendaftaran['status_pendaftaran'] === 'Draft') {
             return redirect()->to('timteknis/datacalonusulan')->with('error', 'Data ini masih berstatus Draft dan tidak dapat diakses.');
+        }
+
+        // Ambil data profil pengusul berdasarkan id_pengusul dari pendaftaran
+        $pengusul = $userModel->find($pendaftaran['id_pengusul']);  // Mengambil data pengusul berdasarkan ID
+
+        // Validasi jika data pengusul ditemukan atau tidak
+        if (!$pengusul) {
+            return redirect()->to('admin/datacalon')->with('error', 'Data pengusul tidak ditemukan.');
         }
 
         // Ambil data dari semua tabel terkait menggunakan join
         $data = [
             'title' => 'Detail Usulan',
             'pendaftaran' => $pendaftaran,
+            'pengusul' => $pengusul,  // Tambahkan data pengusul
+            'kegiatan_utama' => $kegiatan_utama,
+            'kegiatan_tambahan' => $kegiatan_tambahan,
         ];
 
         return view('timteknis/detaildatacalonusulan', $data);
@@ -484,6 +503,85 @@ class TimteknisController extends BaseController
 
         // Pass the $data array to the view
         return view('timteknis/bahansidang1/kategorid', $data);
+    }
+
+    public function generatePDF($kode_registrasi)
+    {
+        $id_pengusul = session()->get('id_pengusul');
+        $role_akun = session()->get('role_akun');
+        $provinsi = session()->get('provinsi');
+
+        if (!$id_pengusul) {
+            return redirect()->back()->with('error', '');
+        }
+
+        $pendaftaranModel = new PendaftaranModel();
+        $pengusulModel = new PengusulModel();
+
+        $pendaftaranData = $pendaftaranModel->where('kode_registrasi', $kode_registrasi)->first();
+
+        if (!$pendaftaranData || ($pendaftaranData['id_pengusul'] != $id_pengusul && !($role_akun == 'DLHK' && $pendaftaranData['provinsi'] == $provinsi))) {
+            return redirect()->back()->with('error', 'Error');
+        }
+
+        $pengusulData = $pengusulModel->where('id_pengusul', $pendaftaranData['id_pengusul'])->first();
+
+        $kegiatan = $pendaftaranModel->getKegiatanByPendaftaranId($pendaftaranData['id_pendaftaran']);
+        $pendaftaranData['kegiatan'] = $kegiatan;
+
+        $dampak = $pendaftaranModel->db->table('dampak')->where('id_pendaftaran', $pendaftaranData['id_pendaftaran'])->get()->getRowArray();
+        $pmik = $pendaftaranModel->db->table('pmik')->where('id_pendaftaran', $pendaftaranData['id_pendaftaran'])->get()->getRowArray();
+        $keswadayaan = $pendaftaranModel->db->table('keswadayaan')->where('id_pendaftaran', $pendaftaranData['id_pendaftaran'])->get()->getRowArray();
+        $keistimewaan = $pendaftaranModel->db->table('keistimewaan')->where('id_pendaftaran', $pendaftaranData['id_pendaftaran'])->get()->getRowArray();
+
+        $data = [
+            'pendaftaran' => $pendaftaranData,
+            'pengusul' => $pengusulData,
+            'kegiatan' => $kegiatan,
+            'dampak' => $dampak,
+            'pmik' => $pmik,
+            'keswadayaan' => $keswadayaan,
+            'keistimewaan' => $keistimewaan
+        ];
+
+        $kategori = $pendaftaranData['kategori'];
+        switch ($kategori) {
+            case 'Perintis Lingkungan':
+                $prefix = 'A';
+                break;
+            case 'Pengabdi Lingkungan':
+                $prefix = 'B';
+                break;
+            case 'Penyelamat Lingkungan':
+                $prefix = 'C';
+                break;
+            case 'Pembina Lingkungan':
+                $prefix = 'D';
+                break;
+            default:
+                $prefix = 'X';
+        }
+
+        session()->set('prefix', $prefix);
+
+        $html = view('pengusul/pdf', $data);
+
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isRemoteEnabled', true);
+        $options->set('defaultPaperSize', 'A4');
+        $options->set('defaultPaperOrientation', 'portrait');
+        $options->set('dpi', 150);
+        $options->set('enable_php', false);
+        $options->set('enable_javascript', true);
+        $options->set('enable_html5_parser', true);
+
+        $dompdf = new Dompdf($options);
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        $dompdf->stream('laporan_calon_usulan.pdf', ['Attachment' => false]);
     }
 
     public function bahansidang2kategoria()
