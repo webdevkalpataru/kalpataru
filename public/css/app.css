@@ -1533,6 +1533,9 @@ video {
 .text-start {
   text-align: start;
 }
+.text-end {
+  text-align: end;
+}
 .font-sans {
   font-family: Inter, ui-sans-serif, system-ui, Inter, ui-sans-serif, system-ui;
 }
