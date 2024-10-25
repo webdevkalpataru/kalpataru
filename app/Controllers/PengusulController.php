@@ -60,8 +60,11 @@ class PengusulController extends BaseController
             'kecamatan' => $this->request->getPost('kecamatan'),
             'kab_kota' => $this->request->getPost('kab_kota'),
             'kode_pos' => $this->request->getPost('kode_pos'),
-            'surat_pengantar' => $filePath
         ];
+
+        if (!empty($filePath)) {
+            $data['surat_pengantar'] = $filePath;
+        }
 
         if ($pengusulModel->update($id_pengusul, $data)) {
             session()->set($data);
