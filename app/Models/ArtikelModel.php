@@ -18,7 +18,8 @@ class ArtikelModel extends Model
         'foto',
         'status',
         'tanggal',
-        'slug'
+        'slug',
+        'catatan',
     ];
 
     public function getAllArtikel($keyword = null)
@@ -51,15 +52,6 @@ class ArtikelModel extends Model
             ->where('artikel.slug', $slug)
             ->first();
     }
-
-
-
-
-
-    // public function getAllArtikel()
-    // {
-    //     return $this->findAll();
-    // }
 
     public function getArtikelTerbit()
     {

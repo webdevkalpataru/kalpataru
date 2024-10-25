@@ -174,7 +174,9 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->post('artikel/edit/(:any)', 'AdminController::updateArtikelAction/$1');
     $routes->get('artikel/(:any)', 'AdminController::detailartikel/$1');
     $routes->post('artikel/hapus/(:num)', 'AdminController::hapusArtikel/$1');
-    $routes->post('updatestatus', 'AdminController::updateStatus');
+    // $routes->post('updatestatus', 'AdminController::updateStatus');
+    $routes->post('updatestatusartikel', 'AdminController::updateStatusArtikel');
+
 
     // Manajemen Berita
     $routes->get('berita', 'AdminController::beritaAdmin');

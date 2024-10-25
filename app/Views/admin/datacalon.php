@@ -229,7 +229,7 @@
           // Jika tombol batal pada modal catatan ditekan
           batalBtn.onclick = function() {
             popupModal.classList.add('hidden'); // Sembunyikan modal catatan
-            selectedDropdown.value = initialValue; // Kembalikan ke nilai awal
+            location.reload();
           };
         } else if (this.value !== "Perlu Perbaikan") {
           // Jika pilih selain "Perlu Perbaikan", langsung tampilkan modal konfirmasi
