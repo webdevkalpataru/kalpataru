@@ -244,7 +244,7 @@ class PengusulController extends BaseController
             $rules['nama_kelompok'] = 'required|min_length[3]|max_length[100]';
             $rules['tanggal_legalitas'] = 'required|valid_date';
         }
-    
+
         if (!$this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $validation->getErrors());
         }
@@ -404,8 +404,8 @@ class PengusulController extends BaseController
         // Menyajikan file dengan header download
         return $this->response->download($path, null);
     }
-    
-    
+
+
 
 
 
@@ -629,7 +629,7 @@ class PengusulController extends BaseController
                     }
                 }
 
-                    break;                                  
+                break;
 
             case 'dampak':
                 $dampak = $model->getDampakByIdPendaftaran($id_pendaftaran);
@@ -754,6 +754,16 @@ class PengusulController extends BaseController
     {
         $model = new PendaftaranModel();
         $pendaftaran = $model->getPendaftaranById($id_pendaftaran);
+
+        if (!$pendaftaran) {
+            return redirect()->to('pengusul/usulansaya')->with('error', 'Data tidak ditemukan.');
+        }
+
+        // Cek status_pendaftaran, jika tidak "Draft" atau "Perlu Perbaikan", arahkan ke usulansaya
+        if ($pendaftaran['status_pendaftaran'] !== 'Draft' && $pendaftaran['status_pendaftaran'] !== 'Perlu Perbaikan') {
+            return redirect()->to('pengusul/usulansaya')->with('error', 'Data calon usulan sudah tidak bisa diedit.');
+        }
+
         $identitas = $model->getIdentitasByIdPendaftaran($id_pendaftaran);
         $kegiatan = $model->getKegiatanByPendaftaranId($id_pendaftaran);
         $dampak = $model->getDampakByIdPendaftaran($id_pendaftaran);
@@ -785,13 +795,13 @@ class PengusulController extends BaseController
             'kegiatanLainnya' => $kegiatanLainnya,
             'title' => $title
         ];
-        
+
         return view('pengusul/detailusulansayaedit', $data);
     }
 
 
     // -------------------------------------------------------------------------------------------------------------------
-    
+
 
     public function usulansaya()
     {
@@ -1051,7 +1061,7 @@ class PengusulController extends BaseController
     public function detailusulandlhk()
     {
         $data['title'] = 'Detail Usulan DLHK';
-        return view('pengusul/detailusulandlhk', ['title' => 'Detail Usulan DLHK']);
+        return view('pengusul/detailusulandlhk', $data);
     }
 
     public function tambahartikel()
