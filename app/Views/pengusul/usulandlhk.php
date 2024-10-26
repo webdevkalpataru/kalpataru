@@ -118,7 +118,20 @@
                                             </p>
                                         </td>
                                         <td class="p-4 border-b border-slate-200 text-center">
-                                            <p id="<?= $item['status_pendaftaran']; ?>" class="block text-xs font-bold text-accepted"><?= $item['status_pendaftaran']; ?></p>
+                                            <?php
+                                            // Inisialisasi kelas status berdasarkan nilai status_pendaftaran
+                                            $statusClass = '';
+                                            if ($item['status_pendaftaran'] === 'Sesuai' || $item['status_pendaftaran'] === 'Lolos Administrasi') {
+                                                $statusClass = 'text-accepted';
+                                            } elseif ($item['status_pendaftaran'] === 'Tidak Lolos Administrasi') {
+                                                $statusClass = 'text-rejected';
+                                            } elseif ($item['status_pendaftaran'] === 'Verifikasi Administrasi') {
+                                                $statusClass = 'text-primary';
+                                            }
+                                            ?>
+                                            <p id="<?= $item['status_pendaftaran']; ?>" class="block text-xs font-bold <?= $statusClass; ?>">
+                                                <?= $item['status_pendaftaran']; ?>
+                                            </p>
                                         </td>
                                         <td class="border-b border-slate-200 text-center">
                                             <button

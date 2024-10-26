@@ -49,18 +49,18 @@
                 </h3>
             </div>
             <div class="lg:flex justify-between items-center mt-6">
-            <div class="lg:flex justify-between">
-            <button id="tambahCalon"
-                class="mb-4 w-48 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none <?= !$isComplete ? 'bg-slate-400' : '' ?>"
-                type="button"
-                onclick="window.location.href='./tambahcalon';"
-                <?= !$isComplete ? 'disabled' : '' ?>>
-                <span>&#10010;</span> Tambah Calon Usulan
-            </button>
-            <?php if (!$isComplete): ?>
-                <p class="text-red-500 text-sm mt-2 ml-4">Segera lengkapi profil agar dapat menambah calon usulan!</p>
-            <?php endif; ?>
-            </div>
+                <div class="lg:flex justify-between">
+                    <button id="tambahCalon"
+                        class="mb-4 w-48 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none <?= !$isComplete ? 'bg-slate-400' : '' ?>"
+                        type="button"
+                        onclick="window.location.href='./tambahcalon';"
+                        <?= !$isComplete ? 'disabled' : '' ?>>
+                        <span>&#10010;</span> Tambah Calon Usulan
+                    </button>
+                    <?php if (!$isComplete): ?>
+                        <p class="text-red-500 text-sm mt-2 ml-4">Segera lengkapi profil agar dapat menambah calon usulan!</p>
+                    <?php endif; ?>
+                </div>
                 <form method="get">
                     <div class="mb-4 relative w-56 transition-all focus-within:w-64 lg:mt-0 mt-4">
                         <input
@@ -162,7 +162,22 @@
                                             <p class="block text-xs text-slate-800"><?= $u['provinsi']; ?></p>
                                         </td>
                                         <td class="p-4 border-b border-slate-200 text-center">
-                                            <?php $statusClass = ($u['status_pendaftaran'] === 'Tidak Lolos Administrasi') ? 'text-rejected' : 'text-accepted'; ?>
+                                            <?php
+                                            // Inisialisasi kelas status berdasarkan nilai status_pendaftaran
+                                            if ($u['status_pendaftaran'] === 'Draft') {
+                                                $statusClass = 'text-yellow-800'; // Kuning
+                                            } elseif ($u['status_pendaftaran'] === 'Perlu Perbaikan') {
+                                                $statusClass = 'text-orange-800'; // Orange
+                                            } elseif (in_array($u['status_pendaftaran'], ['Terkirim', 'Sesuai', 'Lolos Administrasi'])) {
+                                                $statusClass = 'text-accepted'; // Text accepted
+                                            } elseif ($u['status_pendaftaran'] === 'Tidak Lolos Administrasi') {
+                                                $statusClass = 'text-rejected'; // Text rejected
+                                            } elseif ($u['status_pendaftaran'] === 'Verifikasi Administrasi') {
+                                                $statusClass = 'text-primary'; // Text primary
+                                            } else {
+                                                $statusClass = ''; // Default class jika tidak ada yang cocok
+                                            }
+                                            ?>
                                             <p class="block text-xs font-bold w-24 <?= $statusClass ?>"><?= $u['status_pendaftaran'] ?></p>
                                         </td>
                                         <td class="p-4 border-b border-slate-200 text-center">
@@ -349,6 +364,7 @@
         cancelButton.addEventListener('click', () => {
             modalPopup.classList.add('hidden');
         });
+
 
         // POPUP MODAL CATATAN
         function showCatatanModal(modalId) {

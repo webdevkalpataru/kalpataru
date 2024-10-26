@@ -148,7 +148,16 @@
                                             </td>
                                             <td class="p-4 border-b border-slate-200 text-center">
                                                 <?php
-                                                $statusClass = ($item['status_pendaftaran'] === 'Tidak Lolos Administrasi') ? 'text-rejected' : 'text-accepted';
+                                                // Inisialisasi kelas status berdasarkan nilai status_pendaftaran
+                                                if ($item['status_pendaftaran'] === 'Lolos Administrasi') {
+                                                    $statusClass = 'text-accepted'; // Text accepted
+                                                } elseif ($item['status_pendaftaran'] === 'Tidak Lolos Administrasi') {
+                                                    $statusClass = 'text-rejected'; // Text rejected
+                                                } elseif ($item['status_pendaftaran'] === 'Verifikasi Administrasi') {
+                                                    $statusClass = 'text-primary'; // Text primary
+                                                } else {
+                                                    $statusClass = ''; // Default class jika tidak ada yang cocok
+                                                }
                                                 ?>
                                                 <p class="block text-xs font-bold <?= $statusClass ?>"><?= $item['status_pendaftaran'] ?></p>
                                             </td>
