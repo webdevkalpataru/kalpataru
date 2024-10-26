@@ -376,11 +376,42 @@ class AdminController extends BaseController
     public function akundlhk()
     {
         $model = new PengusulModel();
-        $pengusul = $model->where('role_akun', 'DLHK')->findAll();
 
+        // Ambil data dengan pagination, limit 5 per halaman
+        $perPage = 5;
+
+        // Ambil statusAkun dari filter
+        $statusAkun = $this->request->getVar('statusAkun');
+
+        // Ambil kata kunci dari request untuk pencarian
+        $keyword = $this->request->getGet('search');
+
+        // Ambil pengusul dengan role_akun 'Pengusul'
+        $builder = $model->where('role_akun', 'DLHK');
+
+        // Jika statusAkun dipilih, tambahkan filter statusAkun
+        if ($statusAkun) {
+            $builder->where('status_akun', $statusAkun);
+        }
+
+        // Jika ada kata kunci, tambahkan kondisi pencarian berdasarkan nama_instansi_pribadi
+        if ($keyword) {
+            $builder->like('instansi', $keyword);
+        }
+
+        // Hitung total pengusul yang sesuai dengan filter dan pencarian
+        $totalFilteredPengusul = $builder->countAllResults(false); // False untuk tidak reset query builder
+
+        // Dapatkan data dengan pagination setelah semua filter
+        $pengusul = $builder->paginate($perPage, 'pengusul');
+
+        // Data untuk view
         $data['pengusul'] = $pengusul;
-        $data['countAllPengusul'] = count($data['pengusul']); // Menghitung semua akun pengusul
-        $data['title'] = "Akun DLHK";
+        $data['countAllPengusul'] = $totalFilteredPengusul; // Total pengusul setelah filter dan pencarian
+        $data['title'] = "Akun DLHK Provinsi";
+        $data['pager'] = $model->pager;
+        $data['keyword'] = $keyword;
+        $data['statusAkun'] = $statusAkun;
 
         return view('admin/akundlhk', $data);
     }
@@ -502,14 +533,45 @@ class AdminController extends BaseController
     public function akundppk()
     {
         $model = new DppkModel();
-        $dppk = $model->findAll(); // Menampilkan semua data dari tabel dppk tanpa filter
+
+        // Ambil data dengan pagination, limit 5 per halaman
+        $perPage = 5;
+
+        // Ambil statusAkun dari filter
+        $statusAkun = $this->request->getVar('statusAkun');
+
+        // Ambil kata kunci dari request untuk pencarian
+        $keyword = $this->request->getGet('search');
+
+        // Mulai query builder dari model
+        $builder = $model->table('dppk');
+
+        // Jika statusAkun dipilih, tambahkan filter statusAkun
+        if ($statusAkun) {
+            $builder->where('status_akun', $statusAkun);
+        }
+
+        // Jika ada kata kunci, tambahkan kondisi pencarian berdasarkan nama
+        if ($keyword) {
+            $builder->like('nama', $keyword);
+        }
+
+        // Hitung total dppk yang sesuai dengan filter dan pencarian
+        $totalFilteredDppk = $builder->countAllResults(false); // False untuk tidak reset query builder
+
+        // Dapatkan data dengan pagination setelah semua filter
+        $dppk = $builder->paginate($perPage, 'dppk');
 
         $data['dppk'] = $dppk;
-        $data['countAlldppk'] = count($data['dppk']); // Menghitung semua data di tabel dppk
+        $data['countAllDppk'] = $totalFilteredDppk; // Total dppk setelah filter dan pencarian
         $data['title'] = "Akun DPPK";
+        $data['pager'] = $model->pager;
+        $data['keyword'] = $keyword;
+        $data['statusAkun'] = $statusAkun;
 
         return view('admin/akundppk', $data);
     }
+
 
     public function updateDppk()
     {
@@ -722,11 +784,40 @@ class AdminController extends BaseController
     public function akuntimteknis()
     {
         $model = new TimteknisModel();
-        $timteknis = $model->findAll(); // Menampilkan semua data dari tabel timteknis tanpa filter
+        // Ambil data dengan pagination, limit 5 per halaman
+        $perPage = 5;
 
-        $data['timteknis'] = $timteknis;
-        $data['countAlltimteknis'] = count($data['timteknis']); // Menghitung semua data di tabel timteknis
+        // Ambil statusAkun dari filter
+        $statusAkun = $this->request->getVar('statusAkun');
+
+        // Ambil kata kunci dari request untuk pencarian
+        $keyword = $this->request->getGet('search');
+
+        // Mulai query builder dari tabel tim_teknis
+        $builder = $model->table('tim_teknis');
+
+        // Jika statusAkun dipilih, tambahkan filter statusAkun
+        if ($statusAkun) {
+            $builder->where('status_akun', $statusAkun);
+        }
+
+        // Jika ada kata kunci, tambahkan kondisi pencarian berdasarkan nama
+        if ($keyword) {
+            $builder->like('nama', $keyword);
+        }
+
+        // Hitung total tim teknis yang sesuai dengan filter dan pencarian
+        $totalFilteredTimTeknis = $builder->countAllResults(false); // False untuk tidak reset query builder
+
+        // Dapatkan data dengan pagination setelah semua filter
+        $timTeknis = $builder->paginate($perPage, 'tim_teknis');
+
+        $data['timTeknis'] = $timTeknis;
+        $data['countAllTimTeknis'] = $totalFilteredTimTeknis; // Total tim teknis setelah filter dan pencarian
         $data['title'] = "Akun Tim Teknis";
+        $data['pager'] = $model->pager;
+        $data['keyword'] = $keyword;
+        $data['statusAkun'] = $statusAkun;
 
         return view('admin/akuntimteknis', $data);
     }
@@ -769,11 +860,42 @@ class AdminController extends BaseController
     public function akunpenerima()
     {
         $model = new PenerimaModel();
-        $penerima = $model->findAll(); // Menampilkan semua data dari tabel penerima tanpa filter
+
+        // Ambil data dengan pagination, limit 5 per halaman
+        $perPage = 5;
+
+        // Ambil statusAkun dari filter
+        $statusAkun = $this->request->getVar('statusAkun');
+
+        // Ambil kata kunci dari request untuk pencarian
+        $keyword = $this->request->getGet('search');
+
+        // Mulai query builder dari model
+        $builder = $model->table('penerima');
+
+        // Jika statusAkun dipilih, tambahkan filter statusAkun
+        if ($statusAkun) {
+            $builder->where('status_akun', $statusAkun);
+        }
+
+        // Jika ada kata kunci, tambahkan kondisi pencarian berdasarkan nama
+        if ($keyword) {
+            $builder->like('nama', $keyword);
+        }
+
+        // Hitung total penerima yang sesuai dengan filter dan pencarian
+        $totalFilteredPenerima = $builder->countAllResults(false); // False untuk tidak reset query builder
+
+        // Dapatkan data dengan pagination setelah semua filter
+        $penerima = $builder->paginate($perPage, 'penerima');
 
         $data['penerima'] = $penerima;
-        $data['countAllpenerima'] = count($data['penerima']); // Menghitung semua data di tabel penerima
-        $data['title'] = "Akun Penerima Penghargaan Kalpataru";
+        $data['countAllPenerima'] = $totalFilteredPenerima; // Total penerima setelah filter dan pencarian
+        $data['title'] = "Akun Penerima";
+        $data['pager'] = $model->pager;
+        $data['keyword'] = $keyword;
+        $data['statusAkun'] = $statusAkun;
+
         return view('admin/akunpengguna', $data);
     }
 
