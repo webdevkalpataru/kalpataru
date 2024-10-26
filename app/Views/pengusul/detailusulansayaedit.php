@@ -191,7 +191,8 @@
                             </div>
 
                             <div class="flex justify-end mt-4">
-                                <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="submit">Simpan</button>
+                                <!-- <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="submit">Simpan</button> -->
+                                <button id="saveButton" class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Simpan</button>
                             </div>
                         </form>
                     </div>
@@ -317,7 +318,8 @@
                             </div>
 
                             <div class="flex justify-end mt-4">
-                                <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="submit">Simpan</button>
+                                <!-- <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="submit">Simpan</button> -->
+                                <button id="saveButton" class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Simpan</button>
                             </div>
                         </form>
                     </div>
@@ -476,7 +478,8 @@
                         </div>
 
                         <div class="flex justify-end mt-4">
-                            <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="submit" data-target="kegiatan">Simpan</button>
+                            <!-- <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="submit" data-target="kegiatan">Simpan</button> -->
+                            <button id="saveButton" class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Simpan</button>
                         </div>
                     </form>
 
@@ -515,7 +518,8 @@
                         </div>
 
                         <div class="flex justify-end mt-4">
-                            <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="submit">Simpan</button>
+                            <!-- <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="submit">Simpan</button> -->
+                            <button id="saveButton" class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Simpan</button>
                         </div>
                     </form>
                 </div>
@@ -563,7 +567,8 @@
                         </div>
 
                         <div class="flex justify-end mt-4">
-                            <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="submit">Simpan</button>
+                            <!-- <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="submit">Simpan</button> -->
+                            <button id="saveButton" class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Simpan</button>
                         </div>
                     </form>
                 </div>
@@ -605,7 +610,8 @@
                         </div>
 
                         <div class="flex justify-end mt-4">
-                            <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="submit">Simpan</button>
+                            <!-- <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="submit">Simpan</button> -->
+                            <button id="saveButton" class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Simpan</button>
                         </div>
                     </form>
                 </div>
@@ -684,7 +690,8 @@
                         </div>
 
                         <div class="flex justify-end mt-4">
-                            <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="submit">Simpan</button>
+                            <!-- <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="submit">Simpan</button> -->
+                            <button id="saveButton" class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="button">Simpan</button>
                         </div>
                     </form>
                 </div>
@@ -693,9 +700,78 @@
         </div>
     </div>
 
+    <!-- Modal -->
+    <div id="modalPopup" class="fixed inset-0 z-50 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white rounded-lg p-8 flex flex-col items-center max-w-md">
+            <img src="/images/question.png" alt="Question Icon" class="w-16 h-16 mb-4">
+            <p class="text-center text-lg font-bold text-gray-700 mb-4">Apakah anda yakin ingin menyimpan data?</p>
+            <div class="flex justify-end space-x-4">
+                <button id="cancelButton" class="px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-700 hover:text-white rounded-md">Periksa Kembali</button>
+                <button id="confirmButton" class="px-4 py-2 bg-primary hover:bg-primaryhover text-white rounded-md">Ya, Simpan</button>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const saveButton = document.getElementById('saveButton');
+            const modalPopup = document.getElementById('modalPopup');
+            const cancelButton = document.getElementById('cancelButton');
+            const confirmButton = document.getElementById('confirmButton');
+            const formc = document.getElementById('identitasc');
+            const formabd = document.getElementById('identitasabd');
+            const formkegiatan = document.getElementById('kegiatanForm');
+            const formpmik = document.getElementById('pmikForm');
+            const formdampak = document.getElementById('dampakForm');
+            const formkeswadayaan = document.getElementById('keswadayaanForm');
+            const formkeistimewaan = document.getElementById('keistimewaanForm');
+
+            saveButton.addEventListener('click', () => {
+                modalPopup.classList.remove('hidden');
+            });
+
+            cancelButton.addEventListener('click', () => {
+                modalPopup.classList.add('hidden');
+            });
+
+            confirmButton.addEventListener('click', () => {
+                modalPopup.classList.add('hidden');
+                formc.submit();
+            });
+
+            confirmButton.addEventListener('click', () => {
+                modalPopup.classList.add('hidden');
+                formabd.submit();
+            });
+
+            confirmButton.addEventListener('click', () => {
+                modalPopup.classList.add('hidden');
+                formkegiatan.submit();
+            });
+
+            confirmButton.addEventListener('click', () => {
+                modalPopup.classList.add('hidden');
+                formpmik.submit();
+            });
+
+            confirmButton.addEventListener('click', () => {
+                modalPopup.classList.add('hidden');
+                formdampak.submit();
+            });
+
+            confirmButton.addEventListener('click', () => {
+                modalPopup.classList.add('hidden');
+                formkeswadayaan.submit();
+            });
+
+            confirmButton.addEventListener('click', () => {
+                modalPopup.classList.add('hidden');
+                formkeistimewaan.submit();
+            });
+        });
+
         const buttons = document.querySelectorAll('.btn-section');
         const sections = document.querySelectorAll('.form-section');
         const forms = document.querySelectorAll('form');
@@ -781,18 +857,6 @@
 
             kegiatanCount++;
         }
-
-
-        // Jenis Kegiatan Lainnya
-        /* function toggleJenisLainnya() {
-            const jenisKegiatan = document.getElementById('jenisKegiatan');
-            const jenisLainnya = document.getElementById('jenisLainnya');
-            if (jenisKegiatan.value === 'jenis-kegiatan-lainnya') {
-                jenisLainnya.classList.remove('hidden');
-            } else {
-                jenisLainnya.classList.add('hidden');
-            }
-        } */
 
         const subTemaOptions = {
             "keanekaragaman-hayati": [{
