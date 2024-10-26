@@ -2,7 +2,7 @@
 
 // Pesan validasi dalam bahasa Indonesia
 return [
-    'required' => 'Data ini wajib diisi',
+    'required' => 'Data ini wajib diisi.',
     'valid_email' => '{field} harus berisi alamat email yang valid.',
     'min_length' => '{field} harus memiliki minimal {param} karakter.',
     'min_length_ktp' => '{field} harus terdiri dari tepat {param} digit.',

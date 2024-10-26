@@ -154,6 +154,13 @@
                                         <?= esc($pendaftaran['ktp']) ?>
                                     <?php endif; ?><span class="text-slate-400">(.jpg/jpeg)</span>
                                 </label>
+                                <button onclick="window.location.href='<?= base_url('/admin/download/' . esc($pendaftaran['ktp'])) ?>'"
+                                    class="w-full rounded-md py-2 px-2 text-center font-semibold text-xs text-primary bg-secondary hover:shadow-md flex items-center justify-center gap-4" type="button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                                    </svg>
+                                    Unduh Surat Pengantar
+                                </button>
                                 <?php if (!empty($pendaftaran['ktp'])): ?>
                                     <div class="mt-2">
                                         <img src="<?= base_url('pengusul/preview/ktp/' . esc($pendaftaran['ktp'])) ?>" class="w-24">
@@ -254,16 +261,25 @@
                                         <?= esc($pendaftaran['ktp']) ?>
                                     <?php endif; ?><span class="text-slate-400">(.jpg/jpeg)</span>
                                 </label>
-                                <?php if (!empty($pendaftaran['ktp'])): ?>
-                                    <div class="mt-2">
-                                        <img src="<?= base_url('pengusul/preview/ktp/' . esc($pendaftaran['ktp'])) ?>" class="w-24">
-                                    </div>
-                                <?php endif; ?>
+                                <button onclick="window.location.href='<?= base_url('pengusul/download/ktp/' . esc($pendaftaran['ktp'])) ?>'"
+                                    class="w-40 mb-6 rounded-md py-2 px-2 text-center font-semibold text-xs text-primary bg-secondary hover:shadow-md flex items-center justify-center gap-4" type="button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                                    </svg>
+                                    Unduh KTP
+                                </button>
                             </div>
                             <div class="w-full mb-4">
                                 <label class="block mb-2 text-sm text-black">SKCK : <?php if (!empty($pendaftaran['skck'])): ?>
                                         <?= esc($pendaftaran['skck']) ?>
                                     <?php endif; ?><span class="text-slate-400">(.pdf)</span></label>
+                                <button onclick="window.location.href='<?= base_url('pengusul/download/skck/' . esc($pendaftaran['skck'])) ?>'"
+                                    class="w-40 mb-6 rounded-md py-2 px-2 text-center font-semibold text-xs text-primary bg-secondary hover:shadow-md flex items-center justify-center gap-4" type="button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                                    </svg>
+                                    Unduh SKCK
+                                </button>
                             </div>
                             <div class="w-full mb-4">
                                 <label class="block mb-2 text-sm text-black">Tanggal SKCK</label>
@@ -287,7 +303,7 @@
                                                     <span class="text-red-500 text-sm ml-2">Data belum ditambahkan, segera lengkapi data!</span>
                                                 <?php endif; ?>
                                             </label>
-                                            <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none"
+                                            <input id="temaKegiatan" type="text" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none"
                                                 value="<?= esc($kegiatan['tema'] ?? '') ?>" disabled>
                                         </div>
                                         <div>
@@ -297,7 +313,7 @@
                                                     <span class="text-red-500 text-sm ml-2">Data belum ditambahkan, segera lengkapi data!</span>
                                                 <?php endif; ?>
                                             </label>
-                                            <input type="text" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none"
+                                            <input id="subTemaKegiatan" type="text" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none"
                                                 value="<?= esc($kegiatan['sub_tema'] ?? '') ?>" disabled>
                                         </div>
                                         <div>
@@ -508,7 +524,7 @@
                                                         <span class="text-red-500 text-sm ml-2">Data belum ditambahkan, segera lengkapi data!</span>
                                                     <?php endif; ?>
                                                 </label>
-                                                <input id="temaKegiatan_<?= $index ?>" type="text" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none"
+                                                <input id="temaKegiatan2_<?= $index ?>" type="text" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none"
                                                     value="<?= esc($kegiatan_lain['tema'] ?? '') ?>" disabled>
                                             </div>
                                             <div>
@@ -518,7 +534,7 @@
                                                         <span class="text-red-500 text-sm ml-2">Data belum ditambahkan, segera lengkapi data!</span>
                                                     <?php endif; ?>
                                                 </label>
-                                                <input id="subTemaKegiatan_<?= $index ?>" type="text" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none"
+                                                <input id="subTemaKegiatan2_<?= $index ?>" type="text" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none"
                                                     value="<?= esc($kegiatan_lain['sub_tema'] ?? '') ?>" disabled>
                                             </div>
                                             <div>
@@ -851,9 +867,9 @@
                                                 <?php endif; ?>
                                             </label>
                                             <?php if (!empty($pendaftaran["foto_kegiatan$i"])): ?>
-                                                <img src="<?= base_url('pengusul/preview/fotokegiatan/' . $i . '/' . esc($pendaftaran["foto_kegiatan$i"])) ?>" alt="Foto Kegiatan <?= $i ?>" class="w-24">
+                                                <img src="<?= base_url('pengusul/preview/fotokegiatan/' . $i . '/' . esc($pendaftaran["foto_kegiatan$i"])) ?>" alt="Foto Kegiatan <?= $i ?>" class="w-40 object-cover rounded-md shadow-md">
                                             <?php endif; ?>
-                                            <label class="block mb-2 text-sm text-black mt-2">Deskripsi Foto <?= $i ?> </label>
+                                            <label class="block mb-2 text-sm text-black mt-2">Deskripsi Foto Kegiatan <?= $i ?> </label>
                                             <input disabled type="text" placeholder="Keterangan Foto" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none "
                                                 value="<?= esc($pendaftaran["deskripsi_foto_kegiatan$i"] ?? '') ?>">
                                         </div>
@@ -866,7 +882,7 @@
                                             <span>Foto Kegiatan</span>
                                             <span class="text-red-500 text-sm ml-2">Data belum ditambahkan, segera lengkapi data!</span>
                                         </label>
-                                        <label class="block mb-2 text-sm text-black mt-2">Deskripsi Foto</label>
+                                        <label class="block mb-2 text-sm text-black mt-2">Deskripsi Foto Kegiatan</label>
                                         <input type="text" name="deskripsi_foto_kegiatan1" placeholder="Keterangan Foto" class="w-full bg-white border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none" />
                                     </div>
                                 <?php endif; ?>
@@ -1009,12 +1025,12 @@
                 const subTema = kegiatan['sub_tema'] ?? '';
 
                 if (subTemaOptions[tema]) {
-                    document.getElementById(`temaKegiatan_${index}`).value = subTemaOptions[tema].text;
+                    document.getElementById(`temaKegiatan2_${index}`).value = subTemaOptions[tema].text;
                     const subTemaText = subTemaOptions[tema].options.find(option => option.value === subTema)?.text || subTema;
-                    document.getElementById(`subTemaKegiatan_${index}`).value = subTemaText;
+                    document.getElementById(`subTemaKegiatan2_${index}`).value = subTemaText;
                 } else {
-                    document.getElementById(`temaKegiatan_${index}`).value = tema;
-                    document.getElementById(`subTemaKegiatan_${index}`).value = subTema;
+                    document.getElementById(`temaKegiatan2_${index}`).value = tema;
+                    document.getElementById(`subTemaKegiatan2_${index}`).value = subTema;
                 }
             });
 
@@ -1022,12 +1038,12 @@
             const subTema = "<?= esc($kegiatan_lain['sub_tema'] ?? '') ?>";
 
             if (subTemaOptions[tema]) {
-                document.getElementById('temaKegiatan').value = subTemaOptions[tema].text;
+                document.getElementById('temaKegiatan2').value = subTemaOptions[tema].text;
                 const subTemaText = subTemaOptions[tema].options.find(option => option.value === subTema)?.text || subTema;
-                document.getElementById('subTemaKegiatan').value = subTemaText;
+                document.getElementById('subTemaKegiatan2').value = subTemaText;
             } else {
-                document.getElementById('temaKegiatan').value = tema;
-                document.getElementById('subTemaKegiatan').value = subTema;
+                document.getElementById('temaKegiatan2').value = tema;
+                document.getElementById('subTemaKegiatan2').value = subTema;
             }
         });
 

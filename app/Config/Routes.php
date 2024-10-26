@@ -104,6 +104,7 @@ $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
     $routes->get('preview/ktp/(:any)', 'PengusulController::showKTP/$1');
     $routes->get('preview/fotokegiatan/(:num)/(:any)', 'PengusulController::showFotoKegiatan/$1/$2');
     $routes->get('download/skck/(:any)', 'PengusulController::downloadSKCK/$1');
+    $routes->get('download/ktp/(:any)', 'PengusulController::downloadktp/$1');
 });
 
 
