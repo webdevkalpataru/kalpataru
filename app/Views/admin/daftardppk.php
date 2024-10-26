@@ -12,8 +12,8 @@
 
     <!-- Sidebar -->
     <div class="w-64 bg-white text-white">
-    <?= $this->include('template/sidebaradmin') ?>
-  </div>
+        <?= $this->include('template/sidebaradmin') ?>
+    </div>
 
     <!-- Main Content -->
     <div class="lg:flex-1 p-6">
@@ -69,9 +69,19 @@
                         </div>
 
                         <!-- Tombol Paling Bawah di Mobile -->
-                        <div class="md:col-span-2 flex justify-center md:justify-start">
-                            <button id="uploadBtn" class="mt-4 w-full md:w-32 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="submit" disabled>Daftarkan Akun</button>
+                        <div class="md:col-span-2 flex justify-between items-center">
+                            <!-- Tombol Kembali -->
+                            <a href="/admin/akundppk"
+                                class="text-sm font-bold text-gray-600 no-underline focus:outline-none text-start">
+                                <span class="font-bold text-lg items-center">←</span> Kembali
+                            </a>
+
+                            <!-- Tombol Daftarkan Akun -->
+                            <button id="uploadBtn" class="mt-4 w-full md:w-32 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="submit" disabled>
+                                Daftarkan Akun
+                            </button>
                         </div>
+
                     </div>
                 </form>
             </div>
