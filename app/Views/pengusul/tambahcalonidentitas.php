@@ -235,11 +235,12 @@
                     </div>
 
                     <div class="flex justify-between">
-                        <button onclick="window.history.back()"
+                        <a href="/pengusul/tambahcalon"
                             class="text-sm font-bold text-gray-600 no-underline focus:outline-none text-start mt-6">
                             <span class="font-bold text-lg items-center">←</span> Kembali
-                        </button>
-                        <button class="mt-4 w-32 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="submit">Simpan</button>
+                        </a>
+                        <!-- <button class="mt-4 w-32 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="submit">Simpan</button> -->
+                        <button id="saveButton" class="mt-4 w-32 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Simpan</button>
                     </div>
                 </form>
 
@@ -419,16 +420,57 @@
                     </div>
 
                     <div class="flex justify-between">
-                        <button onclick="window.history.back()"
+                        <a href="/pengusul/tambahcalon"
                             class="text-sm font-bold text-gray-600 no-underline focus:outline-none text-start mt-6">
                             <span class="font-bold text-lg items-center">←</span> Kembali
-                        </button>
-                        <button class="mt-4 w-32 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="submit">Simpan</button>
+                        </a>
+                        <!-- <button class="mt-4 w-32 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="submit">Simpan</button> -->
+                        <button id="saveButton" class="mt-4 w-32 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">Simpan</button>
                     </div>
                 </form>
             <?php endif; ?>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div id="modalPopup" class="fixed inset-0 z-50 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white rounded-lg p-8 flex flex-col items-center max-w-md">
+            <img src="/images/question.png" alt="Question Icon" class="w-16 h-16 mb-4">
+            <p class="text-center text-lg font-bold text-gray-700 mb-4">Apakah anda yakin ingin menyimpan data kategori dan identitas calon?</p>
+            <div class="flex justify-end space-x-4">
+                <button id="cancelButton" class="px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-700 hover:text-white rounded-md">Periksa Kembali</button>
+                <button id="confirmButton" class="px-4 py-2 bg-primary hover:bg-primaryhover text-white rounded-md">Ya, Simpan</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const saveButton = document.getElementById('saveButton');
+            const modalPopup = document.getElementById('modalPopup');
+            const cancelButton = document.getElementById('cancelButton');
+            const confirmButton = document.getElementById('confirmButton');
+            const formc = document.getElementById('identitasc');
+            const formabd = document.getElementById('identitasabd');
+
+            saveButton.addEventListener('click', () => {
+                modalPopup.classList.remove('hidden');
+            });
+
+            cancelButton.addEventListener('click', () => {
+                modalPopup.classList.add('hidden');
+            });
+
+            confirmButton.addEventListener('click', () => {
+                modalPopup.classList.add('hidden');
+                formc.submit();
+            });
+            confirmButton.addEventListener('click', () => {
+                modalPopup.classList.add('hidden');
+                formabd.submit();
+            });
+        });
+    </script>
 
     <?= $this->endSection() ?>
 </body>
