@@ -21,37 +21,49 @@
                 Pemberitahuan
             </h4>
             <div class="relative flex flex-col w-full h-[28rem] bg-white overflow-y-auto text-gray-700 shadow-md rounded-lg mt-4">
-            <table class="w-full text-left table-auto min-w-max h-screen">
-            <tbody>
-                <?php if (!empty($pendaftaran)): ?>
-                    <?php foreach ($pendaftaran as $item): ?>
-                        <tr class="hover:bg-slate-100">
-                            <td class="p-4 border-b border-slate-200">
-                                <img src="/images/penghargaankalpatarucircle.png" alt="penghargaankalpatarucircle" class="w-8 h-8 rounded-full ms-8">
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="text-sm text-slate-800 text-start">
-                                    <?php if ($pengusul['role_akun'] == 'Pengusul'): ?>
-                                        Terimakasih, <b><?= $item['nama']; ?></b> telah mendaftar pada provinsi <b><?= $item['provinsi']; ?></b>.
-                                    <?php else: ?>
-                                        Selamat! Ada calon usulan baru atas nama <b><?= $item['nama']; ?></b> di provinsi <b><?= $item['provinsi']; ?></b>.
-                                    <?php endif; ?>
-                                </p>
-                                <p class="text-xs"><?= date('d F Y', strtotime($item['tanggal_pendaftaran'])); ?></p>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <tr>
-                        <td colspan="2" class="p-4 border-b border-slate-200 text-center">
-                            <p class="text-sm text-slate-800">
-                                Tidak ada pemberitahuan
-                            </p>
-                        </td>
-                    </tr>
-                <?php endif; ?>
-            </tbody>
-        </table>
+                <table class="w-full text-left table-auto min-w-max h-screen">
+                    <tbody>
+                        <?php if (!empty($pendaftaran)): ?>
+                            <?php foreach ($pendaftaran as $item): ?>
+                                <?php
+                                    $message = '';
+                                    if (in_array($item['status_pendaftaran'], ['Sesuai', 'Verifikasi Administrasi', 'Lolos Administrasi', 'Tidak Lolos Administrasi'])) {
+                                        switch ($item['status_pendaftaran']) {
+                                            case 'Sesuai':
+                                                $message = "Selamat, ada usulan calon baru bernama <b>{$item['nama']}</b> telah Sesuai!";
+                                                break;
+                                            case 'Verifikasi Administrasi':
+                                                $message = "Usulan <b>{$item['nama']}</b> sedang dalam tahap Verifikasi Administrasi.";
+                                                break;
+                                            case 'Lolos Administrasi':
+                                                $message = "Selamat! Usulan <b>{$item['nama']}</b> telah Lolos Administrasi.";
+                                                break;
+                                            case 'Tidak Lolos Administrasi':
+                                                $message = "Mohon maaf, usulan <b>{$item['nama']}</b> tidak Lolos Administrasi.";
+                                                break;
+                                        }
+                                    }
+                                ?>
+                                <?php if ($message): ?>
+                                    <tr class="hover:bg-slate-100">
+                                        <td class="p-4 border-b border-slate-200">
+                                            <img src="/images/penghargaankalpatarucircle.png" alt="penghargaankalpatarucircle" class="w-8 h-8 rounded-full ms-8">
+                                        </td>
+                                        <td class="p-4 border-b border-slate-200">
+                                            <p class="text-sm text-slate-800 text-start"><?= $message ?></p>
+                                        </td>
+                                    </tr>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="2" class="p-4 border-b border-slate-200 text-center">
+                                    <p class="text-sm text-slate-800">Tidak ada pemberitahuan</p>
+                                </td>
+                            </tr>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
