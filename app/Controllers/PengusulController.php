@@ -800,8 +800,16 @@ class PengusulController extends BaseController
         $kegiatanUtama = isset($kegiatan[0]) ? $kegiatan[0] : null;
         $kegiatanLainnya = array_slice($kegiatan, 1);
 
+        // Ambil ID pengusul yang sedang login dari session
+        $id_pengusul_session = session()->get('id_pengusul'); // Asumsikan id_pengusul disimpan dalam session
+
         if (!$pendaftaran) {
             return redirect()->to('pengusul/usulansaya')->with('error', 'Data tidak ditemukan.');
+        }
+
+        // Cek apakah pengusul yang sedang login adalah pemilik pendaftaran
+        if ($pendaftaran['id_pengusul'] != $id_pengusul_session) {
+            return redirect()->to('/pengusul/usulansaya')->with('error', 'Anda tidak memiliki akses ke data ini.');
         }
 
         $title = "Edit Calon Usulan";
@@ -916,11 +924,7 @@ class PengusulController extends BaseController
         $keyword = $this->request->getGet('search');
 
         // Ambil ID pengusul dan provinsi dari session
-        $id_pengusul = session()->get('id_pengusul');
         $provinsi = session()->get('provinsi');
-
-        // Filter query berdasarkan id_pengusul
-        $model->where('id_pengusul', $id_pengusul);
 
         // Filter query berdasarkan provinsi
         if ($provinsi) {

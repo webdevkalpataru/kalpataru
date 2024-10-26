@@ -16,6 +16,7 @@ $routes->get('kategoric', 'MainController::kategoric');
 $routes->get('kategorid', 'MainController::kategorid');
 $routes->get('kontak', 'MainController::kontak');
 $routes->post('kontak/sendEmail', 'KontakController::sendEmail');
+$routes->get('pamflet/(:any)', 'MainController::showPamflet/$1');
 
 /* Informasi */
 $routes->get('informasi/pengumuman', 'InformasiController::pengumuman');
@@ -130,7 +131,9 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('arsipselengkapnya', 'AdminController::arsipselengkapnya');
     $routes->get('sidang1', 'AdminController::sidang1');
     $routes->get('sidang2', 'AdminController::sidang2');
-    $routes->get('editpamflet', 'AdminController::editpamflet');
+    $routes->get('editpamflet/(:num)', 'AdminController::editpamflet/$1');
+    $routes->post('editpamflet/(:num)', 'AdminController::editpamfletAction/$1');
+    $routes->get('preview/pamflet/(:any)', 'AdminController::showPamflet/$1');
 
     // Manajemen Akun Penerima Penghargaan Kalpataru
     $routes->get('akunpenerima', 'AdminController::akunpenerima');
@@ -175,7 +178,9 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->post('artikel/edit/(:any)', 'AdminController::updateArtikelAction/$1');
     $routes->get('artikel/(:any)', 'AdminController::detailartikel/$1');
     $routes->post('artikel/hapus/(:num)', 'AdminController::hapusArtikel/$1');
-    $routes->post('updatestatus', 'AdminController::updateStatus');
+    // $routes->post('updatestatus', 'AdminController::updateStatus');
+    $routes->post('updatestatusartikel', 'AdminController::updateStatusArtikel');
+
 
     // Manajemen Berita
     $routes->get('berita', 'AdminController::beritaAdmin');

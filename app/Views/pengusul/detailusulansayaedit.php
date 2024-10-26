@@ -600,7 +600,7 @@
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Kelompok/Perorangan yang meniru</label>
-                                <input type="number" name="jumlah_kelompok_serupa" id="kelompokPeroranganMeniru" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" value="<?= $keswadayaan['jumlah_kelompok_serupa'] ?? '' ?>"/>
+                                <input type="number" name="jumlah_kelompok_serupa" id="kelompokPeroranganMeniru" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" value="<?= $keswadayaan['jumlah_kelompok_serupa'] ?? '' ?>" />
                             </div>
                         </div>
 
@@ -700,12 +700,11 @@
         const sections = document.querySelectorAll('.form-section');
         const forms = document.querySelectorAll('form');
 
-        let isFormDirty = false; // Flag untuk menandai apakah form sudah diubah
+        let isFormDirty = false;
 
-        // Tambahkan event listener ke setiap input dalam form untuk menandai jika ada perubahan
         forms.forEach(form => {
             form.addEventListener('input', () => {
-                isFormDirty = true; // Set flag menjadi true jika ada input yang berubah
+                isFormDirty = true;
             });
         });
 
@@ -715,24 +714,13 @@
                     event.preventDefault();
 
                     Swal.fire({
-                        title: 'Anda yakin ingin pindah form?',
-                        text: "Data yang belum disimpan akan hilang!",
+                        title: 'Anda Belum melakukan Simpan',
+                        text: "Mohon untuk melakukan Simpan Data Sebelum berpindah Form!",
                         icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Ya, pindah',
-                        cancelButtonText: 'Batal'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            // Jika user yakin, lanjutkan pindah form
-                            isFormDirty = false; // Reset flag
-                            const target = button.getAttribute('data-target');
-                            sections.forEach(section => {
-                                section.classList.add('hidden');
-                            });
-                            document.getElementById(target).classList.remove('hidden');
-                        }
+                        confirmButtonColor: '#2C7865',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+
                     });
                 } else {
                     // Jika form belum diubah, langsung pindah form

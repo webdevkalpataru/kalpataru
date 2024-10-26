@@ -15,6 +15,7 @@ use App\Models\VideoModel;
 use App\Models\PendaftaranModel;
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use App\Models\PamfletModel;
 
 
 class AdminController extends BaseController
@@ -29,6 +30,7 @@ class AdminController extends BaseController
     public function dashboard()
     {
         $Model = new PendaftaranModel();
+        $model = new PamfletModel();
 
         $perPage = 5;
         $currentPage = $this->request->getVar('page_calon') ? $this->request->getVar('page_calon') : 1;
@@ -49,6 +51,7 @@ class AdminController extends BaseController
         $data['pager'] = $Model->pager;
         $data['title'] = "Dashboard Admin";
         $data['keyword'] = $keyword;
+        $data['pamflet'] = $model->first();
 
         return view('admin/dashboard', $data);
     }
@@ -357,6 +360,39 @@ class AdminController extends BaseController
         } else {
             // Tampilkan pesan umum untuk kesalahan penyimpanan
             return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui artikel.']);
+        }
+    }
+
+    public function updateStatusArtikel()
+    {
+        // Inisialisasi model
+        $ArtikelModel = new ArtikelModel();
+
+        // Ambil data dari POST request
+        $id_Artikel = $this->request->getPost('id_artikel');
+        $status_Artikel = $this->request->getPost('status');
+        $catatan = $this->request->getPost('catatan'); // Ambil catatan verifikasi
+
+        // Validasi data
+        if ($id_Artikel && $status_Artikel) {
+            // Siapkan data untuk update
+            $updateData = [
+                'status' => $status_Artikel,
+            ];
+
+            // Jika ada catatan, tambahkan ke data yang akan di-update
+            if ($status_Artikel == 'Ditolak' && $catatan) {
+                $updateData['catatan'] = $catatan;
+            }
+
+            // Update status dan catatan di database
+            $ArtikelModel->update($id_Artikel, $updateData);
+
+            // Mengembalikan respons untuk merefresh halaman
+            return $this->response->setJSON(['success' => true, 'message' => 'Data berhasil diperbarui']);
+        } else {
+            // Mengembalikan respons gagal
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui data']);
         }
     }
 
@@ -690,10 +726,77 @@ class AdminController extends BaseController
         return view('admin/sidang1', ['title' => 'Sidang 1']);
     }
 
-    public function editpamflet()
+    public function editpamflet($id_pamflet)
     {
-        $data['title'] = "Edit Pamflet";
-        return view('admin/editpamflet', ['title' => 'Edit Pamflet']);
+        $model = new PamfletModel();
+        $pamflet = $model->find($id_pamflet);
+        if (!$pamflet) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        $id_admin = session()->get('id_admin');
+
+        if (!$id_admin) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+        
+        $data = [
+            'title' => 'Edit Pamflet',
+            'pamflet' => $pamflet,
+        ];
+        return view('admin/editpamflet', $data);
+    }
+
+    public function editpamfletAction($id)
+    {
+        $model = new PamfletModel();
+
+        $validation = \Config\Services::validation();
+        $validation->setRules([
+            'foto' => 'is_image[foto]',
+            'status' => 'required|in_list[Nonaktif,Aktif]'
+        ]);
+
+        if (!$this->validate($validation->getRules())) {
+            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+        }
+
+        $fotoFile = $this->request->getFile('foto');
+        $data = [
+            'status' => $this->request->getPost('status'),
+        ];
+
+        if ($fotoFile && $fotoFile->isValid()) {
+            $data['foto'] = $fotoFile->getName();
+            $fotoFile->move(WRITEPATH . 'uploads/pamflet');
+        } else {
+            $data['foto'] = $this->request->getPost('foto_lama');
+        }
+
+        if ($model->update($id, $data)) {
+            return redirect()->to("/admin/editpamflet/$id")->with('message', 'Pamflet berhasil diperbarui');
+        } else {
+            return redirect()->back()->with('error', 'Gagal memperbarui pamflet.');
+        }
+    }
+
+    public function showPamflet($filename)
+    {
+        $filePathJpg = WRITEPATH . 'uploads/pamflet/' . $filename;
+        if (file_exists($filePathJpg)) {
+            return $this->response
+                ->setHeader('Content-Type', 'image/jpeg')
+                ->setBody(file_get_contents($filePathJpg));
+        }
+
+        $filePathJpeg = WRITEPATH . 'uploads/pamflet/' . $filename;
+        if (file_exists($filePathJpeg)) {
+            return $this->response
+                ->setHeader('Content-Type', 'image/jpeg')
+                ->setBody(file_get_contents($filePathJpeg));
+        }
+
+        throw new \CodeIgniter\Exceptions\PageNotFoundException('File tidak ditemukan.');
     }
 
     public function sidang2()
