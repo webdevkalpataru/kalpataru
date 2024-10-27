@@ -394,6 +394,20 @@ class PengusulController extends BaseController
         throw new \CodeIgniter\Exceptions\PageNotFoundException('File tidak ditemukan.');
     }
 
+    public function downloadFotoKegiatan($folder, $filename)
+{
+    $filePath = WRITEPATH . "uploads/foto_kegiatan$folder/" . $filename;
+    if (file_exists($filePath)) {
+        return $this->response
+            ->setHeader('Content-Type', 'application/octet-stream')
+            ->setHeader('Content-Disposition', 'attachment; filename="' . basename($filePath) . '"')
+            ->setBody(file_get_contents($filePath));
+    }
+
+    throw new \CodeIgniter\Exceptions\PageNotFoundException('File tidak ditemukan.');
+}
+
+
     public function downloadSKCK($filename)
     {
         $path = WRITEPATH . 'uploads/skck/' . $filename;
@@ -407,9 +421,32 @@ class PengusulController extends BaseController
         return $this->response->download($path, null);
     }
 
+    public function downloadKTP($filename)
+    {
+        $path = WRITEPATH . 'uploads/ktp/' . $filename;
 
+        if (!file_exists($path)) {
+            // File tidak ditemukan, Anda bisa mengarahkan ke halaman error atau menampilkan pesan
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('File tidak ditemukan.');
+        }
 
+        // Menyajikan file dengan header download
+        return $this->response->download($path, null);
+    }
 
+    public function downloadLegalitas($filename)
+    {
+        $path = WRITEPATH . 'uploads/legalitas/' . $filename;
+
+        if (!file_exists($path)) {
+            // File tidak ditemukan, Anda bisa mengarahkan ke halaman error atau menampilkan pesan
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('File tidak ditemukan.');
+        }
+
+        // Menyajikan file dengan header download
+        return $this->response->download($path, null);
+    }
+    
 
     // -------------------------------------------------------------------------------------------------------------------
 

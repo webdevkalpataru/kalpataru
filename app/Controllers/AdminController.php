@@ -13,6 +13,8 @@ use App\Models\PeraturanModel;
 use App\Models\TimteknisModel;
 use App\Models\VideoModel;
 use App\Models\PendaftaranModel;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use App\Models\PamfletModel;
 
 
@@ -786,47 +788,77 @@ class AdminController extends BaseController
         return view('admin/sidang1', ['title' => 'Sidang 1']);
     }
 
-    public function editpamflet($id = null)
+    public function editpamflet($id_pamflet)
     {
         $model = new PamfletModel();
-        $data['pamflet'] = $model->find($id); // Ambil pamflet berdasarkan ID
-        $data['title'] = "Edit Pamflet";
+        $pamflet = $model->find($id_pamflet);
+        if (!$pamflet) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
 
+        $id_admin = session()->get('id_admin');
+
+        if (!$id_admin) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+        
+        $data = [
+            'title' => 'Edit Pamflet',
+            'pamflet' => $pamflet,
+        ];
         return view('admin/editpamflet', $data);
     }
 
     public function editpamfletAction($id)
     {
         $model = new PamfletModel();
-        $pamflet = $model->find($id); // Ambil pamflet berdasarkan ID
 
-        if ($this->request->getMethod() === 'post') {
-            $file = $this->request->getFile('foto');
-            $newPath = $pamflet['foto']; // Default to existing file path
+        $validation = \Config\Services::validation();
+        $validation->setRules([
+            'foto' => 'is_image[foto]',
+            'status' => 'required|in_list[Nonaktif,Aktif]'
+        ]);
 
-            // Proses file jika ada yang diunggah
-            if ($file && $file->isValid() && !$file->hasMoved()) {
-                // Jika ada file lama, hapus
-                if ($pamflet['foto'] && file_exists(WRITEPATH . 'uploads/pamflet/' . $pamflet['foto'])) {
-                    unlink(WRITEPATH . 'uploads/pamflet/' . $pamflet['foto']);
-                }
-                $newPath = $file->store('uploads/pamflet'); // Simpan file baru
-            }
-
-            // Data untuk update
-            $data = [
-                'id_flayer' => $id,
-                'status' => $this->request->getPost('status'),
-                'foto' => $newPath,
-            ];
-
-            // Simpan data ke database
-            if ($model->update($id, $data)) {
-                return redirect()->to("/admin/editpamflet/$id")->with('message', 'Pamflet berhasil diperbarui');
-            } else {
-                return redirect()->back()->with('error', 'Gagal memperbarui pamflet.');
-            }
+        if (!$this->validate($validation->getRules())) {
+            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
         }
+
+        $fotoFile = $this->request->getFile('foto');
+        $data = [
+            'status' => $this->request->getPost('status'),
+        ];
+
+        if ($fotoFile && $fotoFile->isValid()) {
+            $data['foto'] = $fotoFile->getName();
+            $fotoFile->move(WRITEPATH . 'uploads/pamflet');
+        } else {
+            $data['foto'] = $this->request->getPost('foto_lama');
+        }
+
+        if ($model->update($id, $data)) {
+            return redirect()->to("/admin/editpamflet/$id")->with('message', 'Pamflet berhasil diperbarui');
+        } else {
+            return redirect()->back()->with('error', 'Gagal memperbarui pamflet.');
+        }
+    }
+
+    public function showPamflet($filename)
+    {
+        $filePathJpg = WRITEPATH . 'uploads/pamflet/' . $filename;
+        if (file_exists($filePathJpg)) {
+            return $this->response
+                ->setHeader('Content-Type', 'image/jpeg')
+                ->setBody(file_get_contents($filePathJpg));
+        }
+
+        $filePathJpeg = WRITEPATH . 'uploads/pamflet/' . $filename;
+        if (file_exists($filePathJpeg)) {
+            return $this->response
+                ->setHeader('Content-Type', 'image/jpeg')
+                ->setBody(file_get_contents($filePathJpeg));
+        }
+
+        throw new \CodeIgniter\Exceptions\PageNotFoundException('File tidak ditemukan.');
     }
 
     public function sidang2()
@@ -2461,5 +2493,84 @@ class AdminController extends BaseController
         }
 
         return redirect()->to('/admin/buku-kalpataru'); // Sesuaikan dengan URL yang diinginkan
+    }
+
+    public function exportPDF($kode_registrasi)
+    {
+        $id_admin = session()->get('id_admin');
+    
+        if (!$id_admin) {
+            return redirect()->back()->with('error', 'Anda tidak memiliki akses.');
+        }
+    
+        $pendaftaranModel = new PendaftaranModel();
+        $pengusulModel = new PengusulModel();
+    
+        $pendaftaranData = $pendaftaranModel->where('kode_registrasi', $kode_registrasi)->first();
+    
+        if (!$pendaftaranData) {
+            return redirect()->back()->with('error', 'Data tidak ditemukan.');
+        }
+    
+        $pengusulData = $pengusulModel->where('id_pengusul', $pendaftaranData['id_pengusul'])->first();
+    
+        $kegiatan = $pendaftaranModel->getKegiatanByPendaftaranId($pendaftaranData['id_pendaftaran']);
+        $pendaftaranData['kegiatan'] = $kegiatan;
+    
+        $dampak = $pendaftaranModel->db->table('dampak')->where('id_pendaftaran', $pendaftaranData['id_pendaftaran'])->get()->getRowArray();
+        $pmik = $pendaftaranModel->db->table('pmik')->where('id_pendaftaran', $pendaftaranData['id_pendaftaran'])->get()->getRowArray();
+        $keswadayaan = $pendaftaranModel->db->table('keswadayaan')->where('id_pendaftaran', $pendaftaranData['id_pendaftaran'])->get()->getRowArray();
+        $keistimewaan = $pendaftaranModel->db->table('keistimewaan')->where('id_pendaftaran', $pendaftaranData['id_pendaftaran'])->get()->getRowArray();
+    
+        $data = [
+            'pendaftaran' => $pendaftaranData,
+            'pengusul' => $pengusulData,
+            'kegiatan' => $kegiatan,
+            'dampak' => $dampak,
+            'pmik' => $pmik,
+            'keswadayaan' => $keswadayaan,
+            'keistimewaan' => $keistimewaan
+        ];
+    
+        $kategori = $pendaftaranData['kategori'];
+        switch ($kategori) {
+            case 'Perintis Lingkungan':
+                $prefix = 'A';
+                break;
+            case 'Pengabdi Lingkungan':
+                $prefix = 'B';
+                break;
+            case 'Penyelamat Lingkungan':
+                $prefix = 'C';
+                break;
+            case 'Pembina Lingkungan':
+                $prefix = 'D';
+                break;
+            default:
+                $prefix = 'X';
+        }
+    
+        session()->set('prefix', $prefix);
+    
+        $html = view('admin/pdf', $data);
+    
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isRemoteEnabled', true);
+        $options->set('defaultPaperSize', 'A4');
+        $options->set('defaultPaperOrientation', 'portrait');
+        $options->set('dpi', 150);
+        $options->set('enable_php', false);
+        $options->set('enable_javascript', true);
+        $options->set('enable_html5_parser', true);
+    
+        $dompdf = new Dompdf($options);
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+    
+        $namaFile = 'Formulir_' . esc($pendaftaranData['nama']) . '_' . esc($pendaftaranData['kategori']) . '.pdf';
+    
+        $dompdf->stream($namaFile, ['Attachment' => false]);
     }
 }

@@ -32,36 +32,42 @@
 
       <!-- Table -->
       <div class="bg-white shadow-md rounded-lg overflow-x-auto mt-8">
-        <form id="pamfletForm" action="/admin/editpamflet/<?= esc($pamflet['id_flayer']) ?>" method="post" enctype="multipart/form-data" onsubmit="return false;">
-          <?= csrf_field() ?>
-          <table class="w-full text-left min-w-max">
-            <thead>
-              <tr>
-                <th class="p-4 border-b border-slate-300 bg-slate-50 hover:bg-slate-100 text-center text-sm font-bold text-gray-800">Upload Pamflet</th>
-                <th class="p-4 border-b border-slate-300 bg-slate-50 hover:bg-slate-100 text-center text-sm font-bold text-gray-800">Status</th>
-                <th class="p-4 border-b border-slate-300 bg-slate-50 hover:bg-slate-100 text-center text-sm font-bold text-gray-800">Tindakan</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="hover:bg-gray-50">
-                <td class="p-4 border-b border-gray-200 text-center">
-                  <input type="file" name="foto" accept="image/jpeg, image/jpg" class="border-2 border-primary text-primary rounded-md shadow-sm text-xs p-1">
-                </td>
-                <td class="p-4 border-b border-gray-200 text-center">
-                  <select name="status" class="status-dropdown ml-2 border-2 border-primary text-primary rounded-md shadow-sm text-xs">
-                    <option value="Nonaktif" <?= $pamflet['status'] === 'Nonaktif' ? 'selected' : '' ?>>Nonaktif</option>
-                    <option value="Aktif" <?= $pamflet['status'] === 'Aktif' ? 'selected' : '' ?>>Aktif</option>
-                  </select>
-                </td>
-                <td class="p-4 border-b border-gray-200 text-center">
-                  <button type="button" class="bg-primary text-white px-4 py-2 rounded-lg" onclick="showModal(event)">Simpan</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <form id="pamfletForm" action="/admin/editpamflet/<?= esc($pamflet['id_flayer']) ?>" method="post" enctype="multipart/form-data">
+            <?= csrf_field() ?>
+            <input type="hidden" name="id_flayer" value="<?= esc($pamflet['id_flayer']) ?>">
+            <table class="w-full text-left min-w-max">
+                <thead>
+                    <tr>
+                        <th class="p-4 border-b border-slate-300 bg-slate-50 hover:bg-slate-100 text-center text-sm font-bold text-gray-800">Upload Pamflet</th>
+                        <th class="p-4 border-b border-slate-300 bg-slate-50 hover:bg-slate-100 text-center text-sm font-bold text-gray-800">Status</th>
+                        <th class="p-4 border-b border-slate-300 bg-slate-50 hover:bg-slate-100 text-center text-sm font-bold text-gray-800">Tindakan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="hover:bg-gray-50">
+                        <td class="p-4 border-b border-gray-200 text-center">
+                                <label class="block mb-2 text-sm text-black">Pamflet : <?php if (!empty($pamflet['foto'])): ?>
+                                        <?= esc($pamflet['foto']) ?>
+                                    <?php endif; ?><span class="text-primary">(.jpg/jpeg)</span>
+                                </label>
+                            <input type="file" name="foto" accept="image/jpeg, image/jpg" class="border-2 border-primary text-primary rounded-md shadow-sm text-xs p-1">
+                            <input type="hidden" name="foto_lama" value="<?= esc($pamflet['foto']); ?>">
+                        </td>
+                        <td class="p-4 border-b border-gray-200 text-center">
+                            <select name="status" class="status-dropdown ml-2 border-2 border-primary text-primary rounded-md shadow-sm text-xs">
+                                <option value="Nonaktif" <?= $pamflet['status'] === 'Nonaktif' ? 'selected' : '' ?>>Nonaktif</option>
+                                <option value="Aktif" <?= $pamflet['status'] === 'Aktif' ? 'selected' : '' ?>>Aktif</option>
+                            </select>
+                        </td>
+                        <td class="p-4 border-b border-gray-200 text-center">
+                            <button type="button" class="bg-primary text-white px-4 py-2 rounded-lg" onclick="showModal(event)">Simpan</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </form>
       </div>
-      <button onclick="window.history.back()" class="text-sm font-bold text-gray-600 no-underline focus:outline-none text-start w-1/12 mt-8">
+      <button onclick="window.location.href='/admin/dashboard'" class="text-sm font-bold text-gray-600 no-underline focus:outline-none text-start w-1/12 mt-8">
         <span class="font-bold text-lg items-center">←</span> Kembali
       </button>
 
@@ -92,10 +98,10 @@
     }
 
     function confirmSubmit() {
+      closeModal();
       document.getElementById("pamfletForm").submit();
     }
   </script>
-
 
 </body>
 

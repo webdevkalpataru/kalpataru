@@ -1960,10 +1960,6 @@ video {
   --tw-border-opacity: 1;
   border-color: rgb(44 120 101 / var(--tw-border-opacity));
 }
-.hover\:border-slate-400:hover {
-  --tw-border-opacity: 1;
-  border-color: rgb(148 163 184 / var(--tw-border-opacity));
-}
 .hover\:bg-blue-600:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(30 136 229 / var(--tw-bg-opacity));

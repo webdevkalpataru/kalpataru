@@ -16,6 +16,7 @@ $routes->get('kategoric', 'MainController::kategoric');
 $routes->get('kategorid', 'MainController::kategorid');
 $routes->get('kontak', 'MainController::kontak');
 $routes->post('kontak/sendEmail', 'KontakController::sendEmail');
+$routes->get('pamflet/(:any)', 'MainController::showPamflet/$1');
 
 /* Informasi */
 $routes->get('informasi/pengumuman', 'InformasiController::pengumuman');
@@ -103,7 +104,10 @@ $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
     $routes->get('pdf/(:any)', 'PengusulController::generatePDF/$1');
     $routes->get('preview/ktp/(:any)', 'PengusulController::showKTP/$1');
     $routes->get('preview/fotokegiatan/(:num)/(:any)', 'PengusulController::showFotoKegiatan/$1/$2');
+    $routes->get('download/fotokegiatan/(:num)/(:any)', 'PengusulController::downloadFotoKegiatan/$1/$2');
     $routes->get('download/skck/(:any)', 'PengusulController::downloadSKCK/$1');
+    $routes->get('download/ktp/(:any)', 'PengusulController::downloadKTP/$1');
+    $routes->get('download/legalitas/(:any)', 'PengusulController::downloadLegalitas/$1');
 });
 
 
@@ -131,6 +135,7 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('sidang2', 'AdminController::sidang2');
     $routes->get('editpamflet/(:num)', 'AdminController::editpamflet/$1');
     $routes->post('editpamflet/(:num)', 'AdminController::editpamfletAction/$1');
+    $routes->get('preview/pamflet/(:any)', 'AdminController::showPamflet/$1');
 
     // Manajemen Akun Penerima Penghargaan Kalpataru
     $routes->get('akunpenerima', 'AdminController::akunpenerima');
@@ -228,6 +233,12 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('peraturan-kebijakan/(:any)', 'AdminController::detailperaturan/$1');
     $routes->post('peraturan-kebijakan/hapus/(:num)', 'AdminController::hapusPeraturan/$1');
     $routes->post('updatestatusperaturan', 'AdminController::updateStatusPeraturan');
+
+    $routes->get('pdf/(:any)', 'AdminController::exportPDF/$1');
+    $routes->get('download/ktp/(:any)', 'PengusulController::downloadKTP/$1');
+    $routes->get('download/skck/(:any)', 'PengusulController::downloadSKCK/$1');
+    $routes->get('download/legalitas/(:any)', 'PengusulController::downloadLegalitas/$1');
+    $routes->get('download/fotokegiatan/(:num)/(:any)', 'PengusulController::downloadFotoKegiatan/$1/$2');
 });
 
 /* Tim Teknis */
@@ -236,7 +247,7 @@ $routes->group('timteknis', ['filter' => 'auth'], function ($routes) {
     $routes->get('detaildatacalonusulan/(:num)', 'TimteknisController::detaildatacalonusulan/$1');
     $routes->get('preview/ktp/(:any)', 'PengusulController::showKTP/$1');
     $routes->get('preview/fotokegiatan/(:num)/(:any)', 'PengusulController::showFotoKegiatan/$1/$2');
-    $routes->get('pdf/(:any)', 'TimteknisController::generatePDF/$1');
+    $routes->get('pdf/(:any)', 'TimteknisController::exportPDF/$1');
 
     $routes->get('verifadminkategoria', 'TimteknisController::verifadminkategoria');
     $routes->get('verifadminkategorib', 'TimteknisController::verifadminkategorib');
@@ -254,6 +265,11 @@ $routes->group('timteknis', ['filter' => 'auth'], function ($routes) {
     $routes->get('bahansidang2/kategorib', 'TimteknisController::bahansidang2kategorib');
     $routes->get('bahansidang2/kategoric', 'TimteknisController::bahansidang2kategoric');
     $routes->get('bahansidang2/kategorid', 'TimteknisController::bahansidang2kategorid');
+
+    $routes->get('download/ktp/(:any)', 'PengusulController::downloadKTP/$1');
+    $routes->get('download/skck/(:any)', 'PengusulController::downloadSKCK/$1');
+    $routes->get('download/legalitas/(:any)', 'PengusulController::downloadLegalitas/$1');
+    $routes->get('download/fotokegiatan/(:num)/(:any)', 'PengusulController::downloadFotoKegiatan/$1/$2');
 });
 
 /* DPPK */
@@ -263,4 +279,7 @@ $routes->group('dppk', ['filter' => 'auth'], function ($routes) {
 
     $routes->get('bahansidang1', 'DppkController::bahansidang1');
     $routes->get('bahansidang2', 'DppkController::bahansidang2');
+
+    $routes->get('pdf/(:any)', 'DppkController::exportPDF/$1');
+
 });

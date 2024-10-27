@@ -49,4 +49,23 @@ class MainController extends BaseController
         $data['title'] = "Kontak";
         return view('kontak', ['title' => 'Kontak']);
     }
+
+    public function showPamflet($filename)
+    {
+        $filePathJpg = WRITEPATH . 'uploads/pamflet/' . $filename;
+        if (file_exists($filePathJpg)) {
+            return $this->response
+                ->setHeader('Content-Type', 'image/jpeg')
+                ->setBody(file_get_contents($filePathJpg));
+        }
+
+        $filePathJpeg = WRITEPATH . 'uploads/pamflet/' . $filename;
+        if (file_exists($filePathJpeg)) {
+            return $this->response
+                ->setHeader('Content-Type', 'image/jpeg')
+                ->setBody(file_get_contents($filePathJpeg));
+        }
+
+        throw new \CodeIgniter\Exceptions\PageNotFoundException('File tidak ditemukan.');
+    }
 }

@@ -10,16 +10,13 @@
 
 <body class="lg:flex">
 
-  <!-- Sidebar -->
   <div class="w-64 bg-white text-white">
     <?= $this->include('template/sidebaradmin') ?>
   </div>
 
-  <!-- Main Content -->
   <div class="lg:flex-1 p-6">
     <div class="min-h-screen flex flex-col">
 
-      <!-- Header -->
       <header class="bg-white shadow">
         <div class="container mx-auto flex items-center justify-between p-4 md:p-6">
           <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Dashboard</h1>
@@ -64,15 +61,19 @@
           </div>
         </div>
 
-        <!-- Chart Section -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <!-- Sales Overview Section with smaller width (1/3 of the grid) -->
           <div class="lg:col-span-1 bg-white shadow rounded-lg p-4 md:p-6">
-            <h2 class="text-lg md:text-xl font-semibold mb-4">Pamflet Aktif</h2>
+            <h2 class="text-lg md:text-xl font-semibold mb-4">Pamflet</h2>
             <div>
-              <!-- Placeholder for Chart -->
-              <div class="w-full h-full md:h-64 flex items-center justify-center text-gray-500">
-                <img class="h-full" src="/images/popup.png">
+                <div class="w-full h-full md:h-64 flex items-center justify-center relative text-gray-500">
+                  <?php if (!empty($pamflet)): ?>
+                      <img class="h-full" src="<?= base_url('admin/preview/pamflet/' . rawurlencode(esc($pamflet['foto']))) ?>">
+
+                      <?php if ($pamflet['status'] === 'Nonaktif'): ?>
+                          <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-white">
+                              <span class="text-lg font-semibold">Pamflet Nonaktif</span>
+                          </div>
+                  <?php endif; ?>
               </div>
             </div>
             <div class="relative my-6 bg-white shadow-sm border border-slate-200 rounded-lg w-full ">
@@ -80,8 +81,7 @@
                 <h5 class="mb-2 flex flex-col text-slate-800 text-xl items-center font-semibold">
                   Edit Pamflet
                 </h5>
-                <?php if (!empty($pamflet)): ?>
-                  <a href="/admin/editpamflet/<?= esc($pamflet['id_flayer']) ?>">
+                  <a href="/admin/editpamflet/<?= ($pamflet['id_flayer']) ?>">
                     <button class="rounded-md bg-primary py-2 px-4 mt-6 border border-transparent text-center text-sm text-white w-full transition-all shadow-md hover:shadow-lg focus:bg-primaryhover focus:shadow-none active:bg-primaryhover hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
                       Edit
                     </button>
@@ -93,12 +93,8 @@
             </div>
           </div>
 
-
-
-          <!-- Recent Orders Section with larger width (2/3 of the grid) -->
           <div class="lg:col-span-2 bg-white shadow rounded-lg p-4 md:p-6">
             <h2 class="text-lg md:text-xl font-semibold mb-4">Data Calon</h2>
-            <!-- Responsive table wrapper -->
             <div class="overflow-x-auto">
               <table class="w-full">
                 <thead>

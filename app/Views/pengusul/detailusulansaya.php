@@ -96,13 +96,10 @@
                             </div>
                             <div class="w-full mb-4">
                                 <label class="block mb-2 text-sm text-black">Surat Legalitas Kelompok : <?php if (!empty($pendaftaran['legalitas'])): ?>
-                                        <?= esc($pendaftaran['skck']) ?>
+                                    <a href="<?= base_url('pengusul/download/legalitas/' . rawurlencode(esc($pendaftaran['legalitas']))) ?>" class="text-green-900 underline">
+                                        <?= esc($pendaftaran['legalitas']) ?>
+                                    </a>
                                     <?php endif; ?><span class="text-slate-400">(.pdf)</span></label>
-                                <div class="relative">
-                                    <input name="skck" value="<?= isset($pendaftaran['skck']) ? $pendaftaran['skck'] : ''; ?>"
-                                        id="skck" disabled type="file" accept=".pdf"
-                                        class="w-full border-2 border-slate-200 text-slate-400 text-xs rounded-lg p-2 transition ease-in-out duration-150  focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-primary file:text-white">
-                                </div>
                             </div>
                             <div class="w-full mb-4">
                                 <label class="block mb-2 text-sm text-black">Tanggal Legalitas</label>
@@ -151,7 +148,9 @@
                             </div>
                             <div class="w-full mb-4">
                                 <label class="block mb-2 text-sm text-black">KTP : <?php if (!empty($pendaftaran['ktp'])): ?>
-                                        <?= esc($pendaftaran['ktp']) ?>
+                                    <a href="<?= base_url('pengusul/download/ktp/' . rawurlencode(esc($pendaftaran['ktp']))) ?>" class="text-green-900 underline">
+                                                <?= esc($pendaftaran['ktp']) ?>
+                                            </a>
                                     <?php endif; ?><span class="text-slate-400">(.jpg/jpeg)</span>
                                 </label>
                                 <?php if (!empty($pendaftaran['ktp'])): ?>
@@ -160,11 +159,11 @@
                                     </div>
                                 <?php endif; ?>
                             </div>
-
-
                             <div class="w-full mb-4">
                                 <label class="block mb-2 text-sm text-black">SKCK : <?php if (!empty($pendaftaran['skck'])): ?>
+                                    <a href="<?= base_url('pengusul/download/skck/' . rawurlencode(esc($pendaftaran['skck']))) ?>" class="text-green-900 underline">
                                         <?= esc($pendaftaran['skck']) ?>
+                                    </a>
                                     <?php endif; ?><span class="text-slate-400">(.pdf)</span></label>
                             </div>
                             <div class="w-full mb-4">
@@ -251,7 +250,9 @@
                             </div>
                             <div class="w-full mb-4">
                                 <label class="block mb-2 text-sm text-black">KTP : <?php if (!empty($pendaftaran['ktp'])): ?>
-                                        <?= esc($pendaftaran['ktp']) ?>
+                                    <a href="<?= base_url('pengusul/download/ktp/' . rawurlencode(esc($pendaftaran['ktp']))) ?>" class="text-green-900 underline">
+                                                <?= esc($pendaftaran['ktp']) ?>
+                                            </a>
                                     <?php endif; ?><span class="text-slate-400">(.jpg/jpeg)</span>
                                 </label>
                                 <?php if (!empty($pendaftaran['ktp'])): ?>
@@ -262,7 +263,9 @@
                             </div>
                             <div class="w-full mb-4">
                                 <label class="block mb-2 text-sm text-black">SKCK : <?php if (!empty($pendaftaran['skck'])): ?>
+                                    <a href="<?= base_url('pengusul/download/skck/' . rawurlencode(esc($pendaftaran['skck']))) ?>" class="text-green-900 underline">
                                         <?= esc($pendaftaran['skck']) ?>
+                                    </a>
                                     <?php endif; ?><span class="text-slate-400">(.pdf)</span></label>
                             </div>
                             <div class="w-full mb-4">
@@ -811,7 +814,7 @@
                                         <span class="text-red-500 text-sm ml-2">Data belum ditambahkan, segera lengkapi data!</span>
                                     <?php endif; ?>
                                 </label>
-                                <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none  mb-3" placeholder="Tautan Video"
+                                <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none  mb-3"
                                     value="<?= esc($pendaftaran['tautan_video'] ?? '') ?>">
                             </div>
                             <div id="fotoContainer">
@@ -822,17 +825,25 @@
                                         $dataTerisi = true;
                                     ?>
                                         <div class="w-full mb-4">
-                                            <label class="block mb-2 text-sm text-black flex justify-between items-center mt-4">
-                                                <span>Foto Kegiatan <?= $i ?></span>
-                                                <?php if (empty($pendaftaran["foto_kegiatan$i"])): ?>
+                                            <label class="block mb-2 text-sm text-black">Foto Kegiatan <?= $i ?> : 
+                                                <?php if (!empty($pendaftaran["foto_kegiatan$i"])): ?>
+                                                    <a href="<?= base_url('pengusul/download/fotokegiatan/' . $i . '/' . rawurlencode(esc($pendaftaran["foto_kegiatan$i"]))) ?>" class="text-green-900 underline">
+                                                        <?= esc($pendaftaran["foto_kegiatan$i"]) ?>
+                                                    </a>
+                                                <?php else: ?>
                                                     <span class="text-red-500 text-sm ml-2">Data belum ditambahkan, segera lengkapi data!</span>
                                                 <?php endif; ?>
+                                                <span class="text-slate-400">(.jpg/jpeg)</span>
                                             </label>
+                                            
                                             <?php if (!empty($pendaftaran["foto_kegiatan$i"])): ?>
-                                                <img src="<?= base_url('pengusul/preview/fotokegiatan/' . $i . '/' . esc($pendaftaran["foto_kegiatan$i"])) ?>" alt="Foto Kegiatan <?= $i ?>" class="w-24">
+                                                <div class="mt-2">
+                                                    <img src="<?= base_url('pengusul/preview/fotokegiatan/' . $i . '/' . esc($pendaftaran["foto_kegiatan$i"])) ?>" alt="Foto Kegiatan <?= $i ?>" class="w-24">
+                                                </div>
                                             <?php endif; ?>
+
                                             <label class="block mb-2 text-sm text-black mt-2">Deskripsi Foto <?= $i ?> </label>
-                                            <input disabled type="text" placeholder="Keterangan Foto" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none "
+                                            <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none"
                                                 value="<?= esc($pendaftaran["deskripsi_foto_kegiatan$i"] ?? '') ?>">
                                         </div>
                                     <?php endif; ?>
@@ -845,12 +856,11 @@
                                             <span class="text-red-500 text-sm ml-2">Data belum ditambahkan, segera lengkapi data!</span>
                                         </label>
                                         <label class="block mb-2 text-sm text-black mt-2">Deskripsi Foto</label>
-                                        <input type="text" name="deskripsi_foto_kegiatan1" placeholder="Keterangan Foto" class="w-full bg-white border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none" />
+                                        <input type="text" name="deskripsi_foto_kegiatan1" class="w-full bg-white border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none" />
                                     </div>
                                 <?php endif; ?>
                             </div>
                         </div>
-
                     </form>
                 </div>
 
