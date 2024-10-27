@@ -154,25 +154,26 @@
                                         <?= esc($pendaftaran['ktp']) ?>
                                     <?php endif; ?><span class="text-slate-400">(.jpg/jpeg)</span>
                                 </label>
-                                <button onclick="window.location.href='<?= base_url('/admin/download/' . esc($pendaftaran['ktp'])) ?>'"
-                                    class="w-full rounded-md py-2 px-2 text-center font-semibold text-xs text-primary bg-secondary hover:shadow-md flex items-center justify-center gap-4" type="button">
+                                <button onclick="window.location.href='<?= base_url('pengusul/download/ktp/' . esc($pendaftaran['ktp'])) ?>'"
+                                    class="w-40 mb-6 rounded-md py-2 px-2 text-center font-semibold text-xs text-primary bg-secondary hover:shadow-md flex items-center justify-center gap-4" type="button">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
                                     </svg>
-                                    Unduh Surat Pengantar
+                                    Unduh KTP
                                 </button>
-                                <?php if (!empty($pendaftaran['ktp'])): ?>
-                                    <div class="mt-2">
-                                        <img src="<?= base_url('pengusul/preview/ktp/' . esc($pendaftaran['ktp'])) ?>" class="w-24">
-                                    </div>
-                                <?php endif; ?>
                             </div>
-
-
                             <div class="w-full mb-4">
                                 <label class="block mb-2 text-sm text-black">SKCK : <?php if (!empty($pendaftaran['skck'])): ?>
                                         <?= esc($pendaftaran['skck']) ?>
-                                    <?php endif; ?><span class="text-slate-400">(.pdf)</span></label>
+                                    <?php endif; ?><span class="text-slate-400">(.pdf)</span>
+                                </label>
+                                <button onclick="window.location.href='<?= base_url('pengusul/download/skck/' . esc($pendaftaran['skck'])) ?>'"
+                                    class="w-40 mb-6 rounded-md py-2 px-2 text-center font-semibold text-xs text-primary bg-secondary hover:shadow-md flex items-center justify-center gap-4" type="button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                                    </svg>
+                                    Unduh SKCK
+                                </button>
                             </div>
                             <div class="w-full mb-4">
                                 <label class="mb-2 text-sm text-slate-600">Tanggal SKCK</label>
