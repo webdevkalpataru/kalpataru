@@ -34,7 +34,8 @@
                         data-target="pmik">PMIK</button>
                     <button id="keswadayaanButton" class="mt-2 w-full btn-section md:w-40 rounded-md py-2 px-4 text-center text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none text-sm" type="button"
                         data-target="keswadayaan">Keswadayaan dan Kebudayaan</button>
-                    <button id="keistimewaanButton" class="mt-2 w-full btn-section md:w-40 rounded-md py-2 px-4 text-center text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none text-sm" type="button" data-target="keistimewaan">Keistimewaan</button>
+                    <button id="keistimewaanButton" class="mt-2 w-full btn-section md:w-40 rounded-md py-2 px-4 text-center text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none text-sm" type="button"
+                        data-target="keistimewaan">Keistimewaan</button>
 
                     <!-- Button Kembali ke Usulan Saya -->
                     <button onclick="window.location.href='/pengusul/usulansaya'"
@@ -54,46 +55,79 @@
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Nama Kelompok</label>
                                 <input type="text" name="nama_kelompok" value="<?= isset($identitasc['nama_kelompok']) ? $identitasc['nama_kelompok'] : ''; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <?php if (session('errors.nama_kelompok')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.nama_kelompok') ?></p>
+                                <?php endif; ?>
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Tahun Berdiri Kelompok</label>
                                 <input type="date" name="tahun_pembentukan" value="<?= isset($identitasc['tahun_pembentukan']) ? $identitasc['tahun_pembentukan'] : ''; ?>" min="0" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <?php if (session('errors.tahun_pembentukan')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.tahun_pembentukan') ?></p>
+                                <?php endif; ?>
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Jumlah Anggota</label>
                                 <input type="number" name="jumlah_anggota" value="<?= isset($identitasc['jumlah_anggota']) ? $identitasc['jumlah_anggota'] : ''; ?>" min="1" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <?php if (session('errors.jumlah_anggota')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.jumlah_anggota') ?></p>
+                                <?php endif; ?>
                             </div>
                             <div class="w-full mb-2">
-                                <label class="block mb-2 text-sm text-black">Jalan</label>
+                                <label class="block mb-2 text-sm text-black">Alamat</label>
                                 <input type="text" name="jalan" value="<?= isset($identitasc['jalan']) ? $identitasc['jalan'] : ''; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <?php if (session('errors.jalan')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.jalan') ?></p>
+                                <?php endif; ?>
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">RT/RW</label>
                                 <input type="text" name="rt_rw" value="<?= isset($identitasc['rt_rw']) ? $identitasc['rt_rw'] : ''; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <?php if (session('errors.rt_rw')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.rt_rw') ?></p>
+                                <?php endif; ?>
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Desa/Kelurahan</label>
                                 <input type="text" name="desa" value="<?= isset($identitasc['desa']) ? $identitasc['desa'] : ''; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <?php if (session('errors.desa')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.desa') ?></p>
+                                <?php endif; ?>
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Kecamatan</label>
                                 <input type="text" name="kecamatan" value="<?= isset($identitasc['kecamatan']) ? $identitasc['kecamatan'] : ''; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <?php if (session('errors.kecamatan')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.kecamatan') ?></p>
+                                <?php endif; ?>
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Kab/Kota</label>
                                 <input type="text" name="kab_kota" value="<?= isset($identitasc['kab_kota']) ? $identitasc['kab_kota'] : ''; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <?php if (session('errors.kab_kota')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.kab_kota') ?></p>
+                                <?php endif; ?>
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Provinsi</label>
                                 <input type="text" name="provinsi" value="<?= isset($identitasc['provinsi']) ? $identitasc['provinsi'] : ''; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <?php if (session('errors.provinsi')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.provinsi') ?></p>
+                                <?php endif; ?>
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Kode Pos</label>
                                 <input type="text" name="kode_pos" value="<?= isset($identitasc['kode_pos']) ? $identitasc['kode_pos'] : ''; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <?php if (session('errors.kode_pos')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.kode_pos') ?></p>
+                                <?php endif; ?>
                             </div>
                             <div class="w-full mb-4">
                                 <label class="block mb-2 text-sm text-black">Media Sosial</label>
                                 <input name="sosial_media" value="<?= isset($identitasc['sosial_media']) ? $identitasc['sosial_media'] : ''; ?>" type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <?php if (session('errors.sosial_media')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.sosial_media') ?></p>
+                                <?php endif; ?>
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Surat Legalitas : <?php if (!empty($pendaftaran['legalitas'])): ?>
@@ -105,10 +139,20 @@
                                         class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-primary file:text-white">
                                 </div>
                             </div>
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">Tanggal Surat Legalitas Kelompok</label>
+                                <input name="tanggal_legalitas" value="<?= isset($identitasc['tanggal_legalitas']) ? $identitasc['tanggal_legalitas'] : ''; ?>" type="date" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <?php if (session('errors.tanggal_legalitas')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.tanggal_legalitas') ?></p>
+                                <?php endif; ?>
+                            </div>
                             <p class="mt-8 font-semibold mb-2 text-md text-primary underline">Data Ketua Kelompok/ Komunitas</p>
                             <div class="w-full mb-2">
-                                <label class="block mb-2 text-sm text-black">Nama Ketua</label>
+                                <label class="block mb-2 text-sm text-black">Nama Lengkap Ketua</label>
                                 <input type="text" name="nama_ketua" value="<?= isset($identitasc['nama']) ? $identitasc['nama'] : ''; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <?php if (session('errors.nama')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.nama') ?></p>
+                                <?php endif; ?>
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">NIK</label>
@@ -120,14 +164,23 @@
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Tempat Lahir</label>
                                 <input type="text" name="tempat_lahir" value="<?= isset($identitasc['tempat_lahir']) ? $identitasc['tempat_lahir'] : ''; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <?php if (session('errors.tempat_lahir')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.tempat_lahir') ?></p>
+                                <?php endif; ?>
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Tanggal Lahir</label>
                                 <input type="date" name="tanggal_lahir" value="<?= isset($identitasc['tanggal_lahir']) ? $identitasc['tanggal_lahir'] : ''; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <?php if (session('errors.tanggal_lahir')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.tanggal_lahir') ?></p>
+                                <?php endif; ?>
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Usia</label>
                                 <input type="number" name="usia" value="<?= isset($identitasc['usia']) ? $identitasc['usia'] : ''; ?>" min="0" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <?php if (session('errors.usia')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.usia') ?></p>
+                                <?php endif; ?>
                             </div>
                             <div class="w-full mb-4">
                                 <label class="block mb-2 text-sm text-black">Jenis Kelamin</label>
@@ -142,15 +195,24 @@
                                             id="laki-laki" value="Laki-Laki" <?= $identitasabd['jenis_kelamin'] == 'Laki-Laki' ? 'checked' : '' ?>>
                                         <label class="ml-2 text-black cursor-pointer text-sm" for="laki-laki">Laki-Laki</label>
                                     </div>
+                                    <?php if (session('errors.jenis_kelamin')): ?>
+                                        <p class="text-red-500 text-sm mt-2"><?= session('errors.jenis_kelamin') ?></p>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Pekerjaan</label>
                                 <input type="text" name="pekerjaan" value="<?= isset($identitasc['pekerjaan']) ? $identitasc['pekerjaan'] : ''; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <?php if (session('errors.pekerjaan')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.pekerjaan') ?></p>
+                                <?php endif; ?>
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Nomor Telepon</label>
                                 <input type="text" name="telepon" value="<?= isset($identitasc['telepon']) ? $identitasc['telepon'] : ''; ?>" name="telepon" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <?php if (session('errors.telepon')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.telepon') ?></p>
+                                <?php endif; ?>
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Email</label>
@@ -162,6 +224,9 @@
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Pendidikan Terakhir</label>
                                 <input type="text" name="pendidikan" value="<?= isset($identitasc['pendidikan']) ? $identitasc['pendidikan'] : ''; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <?php if (session('errors.pendidikan')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.pendidikan') ?></p>
+                                <?php endif; ?>
                             </div>
                             <div class="w-full mb-4">
                                 <label class="block mb-2 text-sm text-black">KTP : <?php if (!empty($pendaftaran['ktp'])): ?>
@@ -188,6 +253,9 @@
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Tanggal SKCK</label>
                                 <input name="tanggal_skck" value="<?= isset($identitasabd['tanggal_skck']) ? $identitasabd['tanggal_skck'] : ''; ?>" type="date" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <?php if (session('errors.tanggal_skck')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.tanggal_skck') ?></p>
+                                <?php endif; ?>
                             </div>
 
                             <div class="flex justify-end mt-4">
@@ -204,6 +272,9 @@
                             <div class="w-full mb-4">
                                 <label class="mb-2 text-sm text-slate-600">Nama Lengkap</label>
                                 <input name="nama_individu" value="<?= isset($identitasabd['nama']) ? $identitasabd['nama'] : ''; ?>" type="text" class="w-full bg-transparent text-primary placeholder:text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary shadow-sm focus:shadow" />
+                                <?php if (session('errors.nama')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.nama') ?></p>
+                                <?php endif; ?>
                             </div>
                             <div class="w-full mb-4">
                                 <label class="mb-2 text-sm text-slate-600">NIK</label>
@@ -215,14 +286,23 @@
                             <div class="w-full mb-4">
                                 <label class="mb-2 text-sm text-slate-600">Tempat Lahir</label>
                                 <input name="tempat_lahir" value="<?= isset($identitasabd['tempat_lahir']) ? $identitasabd['tempat_lahir'] : ''; ?>" type="text" class="w-full bg-transparent text-primary placeholder:text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary shadow-sm focus:shadow" />
+                                <?php if (session('errors.tempat_lahir')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.tempat_lahir') ?></p>
+                                <?php endif; ?>
                             </div>
                             <div class="w-full mb-4">
                                 <label class="mb-2 text-sm text-slate-600">Tanggal Lahir</label>
                                 <input name="tanggal_lahir" value="<?= isset($identitasabd['tanggal_lahir']) ? $identitasabd['tanggal_lahir'] : ''; ?>" type="date" class="w-full bg-transparent text-primary placeholder:text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary shadow-sm focus:shadow" />
+                                <?php if (session('errors.tanggal_lahir')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.tanggal_lahir') ?></p>
+                                <?php endif; ?>
                             </div>
                             <div class="w-full mb-4">
                                 <label class="mb-2 text-sm text-slate-600">Usia</label>
                                 <input name="usia" value="<?= isset($identitasabd['usia']) ? $identitasabd['usia'] : ''; ?>" type="number" class="w-full bg-transparent text-primary placeholder:text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary shadow-sm focus:shadow" />
+                                <?php if (session('errors.usia')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.usia') ?></p>
+                                <?php endif; ?>
                             </div>
                             <div class="w-full mb-4">
                                 <label class="block mb-2 text-sm text-black">Jenis Kelamin</label>
@@ -238,14 +318,23 @@
                                         <label class="ml-2 text-black cursor-pointer text-sm" for="laki-laki">Laki-Laki</label>
                                     </div>
                                 </div>
+                                <?php if (session('errors.jenis_kelamin')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.jenis_kelamin') ?></p>
+                                <?php endif; ?>
                             </div>
                             <div class="w-full mb-4">
                                 <label class="block mb-2 text-sm text-black">Pekerjaan</label>
                                 <input name="pekerjaan" value="<?= isset($identitasabd['pekerjaan']) ? $identitasabd['pekerjaan'] : ''; ?>" type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <?php if (session('errors.pekerjaan')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.pekerjaan') ?></p>
+                                <?php endif; ?>
                             </div>
                             <div class="w-full mb-4">
                                 <label class="block mb-2 text-sm text-black">Nomor Telepon</label>
                                 <input name="telepon" value="<?= isset($identitasabd['telepon']) ? $identitasabd['telepon'] : ''; ?>" type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <?php if (session('errors.telepon')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.telepon') ?></p>
+                                <?php endif; ?>
                             </div>
                             <div class="w-full mb-4">
                                 <label class="block mb-2 text-sm text-black">Email</label>
@@ -257,38 +346,65 @@
                             <div class="w-full mb-4">
                                 <label class="block mb-2 text-sm text-black">Pendidikan Terakhir</label>
                                 <input name="pendidikan" value="<?= isset($identitasabd['pendidikan']) ? $identitasabd['pendidikan'] : ''; ?>" type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <?php if (session('errors.pendidikan')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.pendidikan') ?></p>
+                                <?php endif; ?>
                             </div>
                             <div class="w-full mb-4">
-                                <label class="block mb-2 text-sm text-black">Jalan</label>
+                                <label class="block mb-2 text-sm text-black">Alamat</label>
                                 <input name="jalan" value="<?= isset($identitasabd['jalan']) ? $identitasabd['jalan'] : ''; ?>" type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <?php if (session('errors.jalan')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.jalan') ?></p>
+                                <?php endif; ?>
                             </div>
                             <div class="w-full mb-4">
                                 <label class="block mb-2 text-sm text-black">RT/RW</label>
                                 <input name="rt_rw" value="<?= isset($identitasabd['rt_rw']) ? $identitasabd['rt_rw'] : ''; ?>" type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <?php if (session('errors.rt_rw')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.rt_rw') ?></p>
+                                <?php endif; ?>
                             </div>
                             <div class="w-full mb-4">
                                 <label class="block mb-2 text-sm text-black">Desa/Kelurahan</label>
                                 <input name="desa" value="<?= isset($identitasabd['desa']) ? $identitasabd['desa'] : ''; ?>" type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <?php if (session('errors.desa')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.desa') ?></p>
+                                <?php endif; ?>
                             </div>
                             <div class="w-full mb-4">
                                 <label class="block mb-2 text-sm text-black">Kecamatan</label>
                                 <input name="kecamatan" value="<?= isset($identitasabd['kecamatan']) ? $identitasabd['kecamatan'] : ''; ?>" type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <?php if (session('errors.kecamatan')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.kecamatan') ?></p>
+                                <?php endif; ?>
                             </div>
                             <div class="w-full mb-4">
                                 <label class="block mb-2 text-sm text-black">Kab/Kota</label>
                                 <input name="kab_kota" value="<?= isset($identitasabd['kab_kota']) ? $identitasabd['kab_kota'] : ''; ?>" type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <?php if (session('errors.kab_kota')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.kab_kota') ?></p>
+                                <?php endif; ?>
                             </div>
                             <div class="w-full mb-4">
                                 <label class="block mb-2 text-sm text-black">Provinsi</label>
                                 <input name="provinsi" value="<?= isset($identitasabd['provinsi']) ? $identitasabd['provinsi'] : ''; ?>" type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <?php if (session('errors.provinsi')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.provinsi') ?></p>
+                                <?php endif; ?>
                             </div>
                             <div class="w-full mb-4">
                                 <label class="block mb-2 text-sm text-black">Kode Pos</label>
                                 <input name="kode_pos" value="<?= isset($identitasabd['kode_pos']) ? $identitasabd['kode_pos'] : ''; ?>" type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <?php if (session('errors.kode_pos')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.kode_pos') ?></p>
+                                <?php endif; ?>
                             </div>
                             <div class="w-full mb-4">
                                 <label class="block mb-2 text-sm text-black">Media Sosial</label>
                                 <input name="sosial_media" value="<?= isset($identitasabd['sosial_media']) ? $identitasabd['sosial_media'] : ''; ?>" type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <?php if (session('errors.sosial_media')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.sosial_media') ?></p>
+                                <?php endif; ?>
                             </div>
                             <div class="w-full mb-4">
                                 <label class="block mb-2 text-sm text-black">KTP : <?php if (!empty($pendaftaran['ktp'])): ?>
@@ -300,6 +416,7 @@
                                         id="ktp" type="file" accept="image/jpeg,image/jpg"
                                         class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-primary file:text-white">
                                 </div>
+
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">SKCK : <?php if (!empty($pendaftaran['skck'])): ?>
@@ -310,10 +427,14 @@
                                         id="skck" type="file" accept=".pdf"
                                         class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-primary file:text-white">
                                 </div>
+
                             </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Tanggal SKCK</label>
                                 <input name="tanggal_skck" value="<?= isset($identitasabd['tanggal_skck']) ? $identitasabd['tanggal_skck'] : ''; ?>" type="date" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <?php if (session('errors.tanggal_skck')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.tanggal_skck') ?></p>
+                                <?php endif; ?>
                             </div>
 
                             <div class="flex justify-end mt-4">
@@ -399,9 +520,9 @@
                             </div>
                             <?php if (isset($kegiatanLainnya) && is_array($kegiatanLainnya)): ?>
                                 <?php foreach ($kegiatanLainnya as $index => $kegiatan): ?>
-                                    <div class="grid grid-cols-1 gap-4 mt-4">
+                                    <div class="grid grid-cols-1 gap-4">
                                         <div class="space-y-4">
-                                            <p class="mt-8 font-semibold mb-2 text-md text-primary underline">Kegiatan Lain ( <?= $index + 1 ?> )</p>
+                                            <p class="mt-8 font-semibold mb-2 text-md text-primary underline">Kegiatan Lainnya (<?= $index + 1 ?>)</p>
                                             <div>
                                                 <input type="hidden" name="kegiatan_lainnya[<?= $index ?>][id_kegiatan]" value="<?= isset($kegiatan['id_kegiatan']) ? $kegiatan['id_kegiatan'] : ''; ?>">
                                                 <label class="block mb-2 text-sm text-black" for="tema">Tema Kegiatan</label>
@@ -503,6 +624,9 @@
                                 <p id="dampakEkonomiCount" class="text-xs text-slate-400 flex justify-end">
                                     <?= (isset($dampak['dampak_ekonomi']) && strlen(trim($dampak['dampak_ekonomi'])) > 0) ? str_word_count($dampak['dampak_ekonomi']) : 0 ?>/1000 Kata
                                 </p>
+                                <?php if (session('errors.dampak_ekonomi')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.dampak_ekonomi') ?></p>
+                                <?php endif; ?>
                             </div>
 
                             <div>
@@ -511,6 +635,9 @@
                                 <p id="dampakSosialCount" class="text-xs text-slate-400 flex justify-end">
                                     <?= (isset($dampak['dampak_sosial_budaya']) && strlen(trim($dampak['dampak_sosial_budaya'])) > 0) ? str_word_count($dampak['dampak_sosial_budaya']) : 0 ?>/1000 Kata
                                 </p>
+                                <?php if (session('errors.dampak_sosial_budaya')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.dampak_sosial_budaya') ?></p>
+                                <?php endif; ?>
                             </div>
                         </div>
 
@@ -653,9 +780,9 @@
                                                 <?php if (!empty($keistimewaan["foto_kegiatan$i"])): ?>
                                                     <label class="block mb-2 text-sm text-black">Foto Kegiatan <?= $i ?> : <?php if (!empty($keistimewaan["foto_kegiatan$i"])): ?>
                                                             <?= esc($keistimewaan["foto_kegiatan$i"]) ?>
-                                                        <?php endif; ?><span class="text-primary">(.JPG/JPEG, , max 1MB)</span></label>
+                                                        <?php endif; ?><span class="text-primary">(JPG/JPEG, max 1MB)</span></label>
                                                 <?php endif; ?>
-                                                <input name="foto_kegiatan<?= $i ?>" type="file" accept=".jpg, .jpeg" class="mb-2 w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                                <input name="foto_kegiatan<?= $i ?>" type="file" accept=".jpg, .jpeg" class="mb-2 w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-primary file:text-white" />
                                                 <?php if (session('errors.foto_kegiatan' . $i)): ?>
                                                     <p class="text-red-500 text-sm mt-2"><?= session('errors.foto_kegiatan' . $i) ?></p>
                                                 <?php endif; ?>
@@ -667,8 +794,8 @@
 
                                     <?php if ($fotoCount === 0): ?>
                                         <div class="mb-4">
-                                            <label class="block mb-2 text-sm text-black">Foto Kegiatan <span class="text-primary"> (.JPG/JPEG, , max 1MB)</span></label>
-                                            <input name="foto_kegiatan1" type="file" accept=".jpg, .jpeg" class="mb-2 w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                            <label class="block mb-2 text-sm text-black">Foto Kegiatan <span class="text-primary"> (JPG/JPEG, max 1MB)</span></label>
+                                            <input name="foto_kegiatan1" type="file" accept=".jpg, .jpeg" class="mb-2 w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-primary file:text-white" />
 
                                             <label class="block mb-2 text-sm text-black">Deskripsi Foto </label>
                                             <input name="deskripsi_foto_kegiatan1" type="text" placeholder="Keterangan Foto" class="w-full mb-4 bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
@@ -689,13 +816,96 @@
                     </form>
                 </div>
 
+
+
+
             </div>
+        </div>
+    </div>
+
+    <div id="modalNotif" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+        <div class="bg-white rounded-lg p-8 flex flex-col items-center max-w-md">
+            <img id="successIcon" src="/images/sukses.png" alt="Success Icon" class="w-16 h-16 mb-4 hidden">
+            <img id="errorIcon" src="/images/error.png" alt="Error Icon" class="w-16 h-16 mb-4 hidden">
+            <p id="notifMessage" class="text-center text-sm text-slate-600 mb-6"></p>
+            <button id="closeButton" class="bg-primary text-white py-2 px-4 rounded-lg">OK</button>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const closeButton = document.getElementById('closeButton');
+
+            // Event listener untuk tombol OK
+            // Event listener untuk tombol OK
+            closeButton.addEventListener('click', function() {
+                closeModal();
+                <?php if (session()->get('status') == 'error'): ?>
+                    location.reload();
+                <?php endif; ?>
+            });
+
+            // Menampilkan modal notifikasi berdasarkan status
+            <?php if (session()->get('status') == 'error'): ?>
+                showModal('Gagal menyimpan data. Periksa kembali input Anda.', 'error');
+            <?php elseif (session()->get('status') == 'success'): ?>
+                showModal('<?= session()->get('message') ?>', 'success');
+            <?php elseif (!empty(session()->get('no_change'))): ?>
+                showModal('Tidak ada perubahan untuk disimpan.', 'no_change');
+            <?php endif; ?>
+        });
+
+        // Fungsi untuk menampilkan modal
+        function showModal(message, status) {
+            const notifMessage = document.getElementById('notifMessage');
+            const successIcon = document.getElementById('successIcon');
+            const errorIcon = document.getElementById('errorIcon');
+
+            notifMessage.textContent = message;
+            document.getElementById('modalNotif').classList.remove('hidden');
+
+            // Tampilkan gambar berdasarkan status
+            if (status === 'success' || status === 'no_change') {
+                successIcon.classList.remove('hidden');
+                errorIcon.classList.add('hidden');
+            } else if (status === 'error') {
+                errorIcon.classList.remove('hidden');
+                successIcon.classList.add('hidden');
+            }
+        }
+
+        // Fungsi untuk menutup modal
+        function closeModal() {
+            document.getElementById('modalNotif').classList.add('hidden');
+            document.getElementById('successIcon').classList.add('hidden');
+            document.getElementById('errorIcon').classList.add('hidden');
+        }
+
+        // Memantau perubahan pada form
+        const forms1 = document.querySelectorAll('form');
+        let isFormDirty1 = false; // Flag untuk menandai apakah form sudah diubah
+
+        // Tambahkan event listener ke setiap input dalam form untuk menandai jika ada perubahan
+        forms1.forEach(form => {
+            form.addEventListener('input', () => {
+                isFormDirty1 = true; // Set flag menjadi true jika ada input yang berubah
+            });
+
+            // Menangani submit form
+            form.addEventListener('submit', function(event) {
+                if (!isFormDirty1) {
+                    // Pesan error jika tidak ada perubahan
+                    showModal('Tidak ada perubahan untuk disimpan.', 'no_change');
+                    event.preventDefault(); // Mencegah submit jika tidak ada perubahan
+                }
+            });
+        });
+
+
+
+        // -----------------------------------------------------------
         const buttons = document.querySelectorAll('.btn-section');
         const sections = document.querySelectorAll('.form-section');
         const forms = document.querySelectorAll('form');
@@ -781,18 +991,6 @@
 
             kegiatanCount++;
         }
-
-
-        // Jenis Kegiatan Lainnya
-        /* function toggleJenisLainnya() {
-            const jenisKegiatan = document.getElementById('jenisKegiatan');
-            const jenisLainnya = document.getElementById('jenisLainnya');
-            if (jenisKegiatan.value === 'jenis-kegiatan-lainnya') {
-                jenisLainnya.classList.remove('hidden');
-            } else {
-                jenisLainnya.classList.add('hidden');
-            }
-        } */
 
         const subTemaOptions = {
             "keanekaragaman-hayati": [{
@@ -1176,7 +1374,7 @@
                 newFotoDiv.classList.add('mb-4');
                 newFotoDiv.innerHTML = `
                     <label class="block mb-2 text-sm text-black">Foto Kegiatan <span class="text-primary">(.JPG/JPEG, max 1MB)</span></label>
-                    <input name="foto_kegiatan${fotoInputCount + 1}" type="file" accept=".jpg, .jpeg" class="mb-2 w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                    <input name="foto_kegiatan${fotoInputCount + 1}" type="file" accept=".jpg, .jpeg" class="mb-2 w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-primary file:text-white" />
                     <label class="block mb-2 text-sm text-black">Deskripsi Foto </label>
                     <input name="deskripsi_foto_kegiatan${fotoInputCount + 1}" type="text" placeholder="Keterangan Foto" class="mb-4 w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                 `;

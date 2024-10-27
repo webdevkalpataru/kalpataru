@@ -217,8 +217,8 @@ class PengusulController extends BaseController
 
         // Aturan validasi
         $rules = [
-            'nama'     => 'required|min_length[3]|max_length[100]',
-            'nik'      => 'required|exact_length[16]|numeric|is_unique[pendaftaran.nik]',
+            'nama'              => 'required|min_length[3]|max_length[100]',
+            'nik'               => 'required|exact_length[16]|numeric|is_unique[pendaftaran.nik]',
             'tempat_lahir'      => 'required|min_length[2]|max_length[50]',
             'tanggal_lahir'     => 'required|valid_date',
             'usia'              => 'required|numeric|min_length[1]|max_length[3]',
@@ -234,7 +234,7 @@ class PengusulController extends BaseController
             'kab_kota'          => 'required|min_length[3]|max_length[100]',
             'provinsi'          => 'required',
             'kode_pos'          => 'required|numeric|exact_length[5]',
-            'media_sosial'      => 'permit_empty|min_length[3]|max_length[100]',
+            'media_sosial'      => 'required|min_length[3]|max_length[100]',
             'ktp'               => 'uploaded[ktp]|mime_in[ktp,image/jpg,image/jpeg]|max_size[ktp,1024]',
             'skck'              => 'uploaded[skck]|mime_in[skck,application/pdf]|max_size[skck,1024]',
             'tanggal_skck'      => 'required|valid_date',
@@ -244,6 +244,7 @@ class PengusulController extends BaseController
             $rules['tahun_pembentukan'] = 'required|valid_date';
             $rules['jumlah_anggota'] = 'required|numeric|min_length[1]|max_length[5]';
             $rules['nama_kelompok'] = 'required|min_length[3]|max_length[100]';
+            $rules['legalitas'] = 'uploaded[legalitas]|mime_in[legalitas,application/pdf]|max_size[legalitas,1024]';
             $rules['tanggal_legalitas'] = 'required|valid_date';
         }
 
@@ -448,7 +449,8 @@ class PengusulController extends BaseController
     }
     
 
-    // -------------------------------------------------------------------------------------------------------------------
+
+    // ---------------DETAIL USULAN SAYA EDIT----------------------------------------------------------------------------------------------------
 
     public function simpanForm($formType)
     {
@@ -489,16 +491,39 @@ class PengusulController extends BaseController
                     'tanggal_skck' => $this->request->getPost('tanggal_skck'),
                 ];
 
-                $validation = \Config\Services::validation();
-                $rules = [
-                    'nik' => 'required|exact_length[16]|numeric|is_unique[pendaftaran.nik],id_pendaftaran,' . $formType . ']',
-                    'email' => 'required|valid_email|is_unique[pendaftaran.email]',
+                $validationRules = [
+                    'tahun_pembentukan' => ($identitas && !empty($data['tahun_pembentukan'])) ? 'permit_empty|min_length[2]|max_length[50]' : 'required|min_length[2]|max_length[50]',
+                    'jumlah_anggota'    => ($identitas && !empty($data['jumlah_anggota'])) ? 'permit_empty|numeric|min_length[1]|max_length[3]' : 'required|numeric|min_length[1]|max_length[3]',
+                    'nama_kelompok'     => ($identitas && !empty($data['nama_kelompok'])) ? 'permit_empty|min_length[3]|max_length[100]' : 'required|min_length[3]|max_length[100]',
+                    'tanggal_legalitas' => ($identitas && !empty($data['tanggal_legalitas'])) ? 'permit_empty|min_length[2]|max_length[50]' : 'required|min_length[2]|max_length[50]',
+                    'nama'              => ($identitas && !empty($data['nama'])) ? 'permit_empty|min_length[3]|max_length[100]' : 'required|min_length[3]|max_length[100]',
+                    'nik'               => 'required|exact_length[16]|numeric|is_unique[pendaftaran.nik,id_pendaftaran,' . $id_pendaftaran . ']',
+                    'tempat_lahir'      => ($identitas && !empty($data['tempat_lahir'])) ? 'permit_empty|min_length[2]|max_length[50]' : 'required|min_length[2]|max_length[50]',
+                    'tanggal_lahir'     => ($identitas && !empty($data['tanggal_lahir'])) ? 'permit_empty|valid_date' : 'required|valid_date',
+                    'usia'              => ($identitas && !empty($data['usia'])) ? 'permit_empty|numeric|min_length[1]|max_length[3]' : 'required|numeric|min_length[1]|max_length[3]',
+                    'jenis_kelamin'     => ($identitas && !empty($data['jenis_kelamin'])) ? 'permit_empty' : 'required',
+                    'pekerjaan'         => ($identitas && !empty($data['pekerjaan'])) ? 'permit_empty|min_length[3]|max_length[100]' : 'required|min_length[3]|max_length[100]',
+                    'telepon'           => ($identitas && !empty($data['telepon'])) ? 'permit_empty|numeric|min_length[10]|max_length[15]' : 'required|numeric|min_length[10]|max_length[15]',
+                    'email'             => 'required|valid_email|is_unique[pendaftaran.email,id_pendaftaran,' . $id_pendaftaran . ']',
+                    'pendidikan'        => ($identitas && !empty($data['pendidikan'])) ? 'permit_empty|min_length[2]|max_length[50]' : 'required|min_length[2]|max_length[50]',
+                    'jalan'             => ($identitas && !empty($data['jalan'])) ? 'permit_empty|min_length[3]|max_length[255]' : 'required|min_length[3]|max_length[255]',
+                    'rt_rw'             => ($identitas && !empty($data['rt_rw'])) ? 'permit_empty|max_length[10]' : 'required|max_length[10]',
+                    'desa'              => ($identitas && !empty($data['desa'])) ? 'permit_empty|min_length[3]|max_length[100]' : 'required|min_length[3]|max_length[100]',
+                    'kecamatan'         => ($identitas && !empty($data['kecamatan'])) ? 'permit_empty|min_length[3]|max_length[100]' : 'required|min_length[3]|max_length[100]',
+                    'kab_kota'          => ($identitas && !empty($data['kab_kota'])) ? 'permit_empty|min_length[3]|max_length[100]' : 'required|min_length[3]|max_length[100]',
+                    'provinsi'          => ($identitas && !empty($data['provinsi'])) ? 'permit_empty' : 'required',
+                    'kode_pos'          => ($identitas && !empty($data['kode_pos'])) ? 'permit_empty|numeric|exact_length[5]' : 'required|numeric|exact_length[5]',
+                    'sosial_media'      => ($identitas && !empty($data['sosial_media'])) ? 'permit_empty|min_length[3]|max_length[100]' : 'required|min_length[3]|max_length[100]',
+                    'tanggal_skck'      => ($identitas && !empty($data['tanggal_skck'])) ? 'permit_empty|valid_date' : 'required|valid_date',
                 ];
 
-                $validation->setRules($rules);
-
-                if (!$validation->withRequest($this->request)->run()) {
-                    return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+                // Validasi input
+                if (!$this->validate($validationRules)) {
+                    // Jika validasi gagal
+                    return redirect()->back()
+                        ->withInput()
+                        ->with('errors', $this->validator->getErrors())
+                        ->with('status', 'error');
                 }
 
                 // Logika untuk upload file SKCK
@@ -535,11 +560,27 @@ class PengusulController extends BaseController
                     }
                 }
 
-                // Update atau insert data identitas
+                // Logika untuk memeriksa apakah ada perubahan
+                $existingData = $model->getIdentitasByIdPendaftaran($id_pendaftaran);
+                if ($existingData == $data) {
+                    // Jika tidak ada perubahan
+                    return redirect()->back()
+                        ->withInput()
+                        ->with('no_change', true); // Kirimkan pesan jika tidak ada perubahan
+                }
+
                 if ($identitas) {
                     $model->updateIdentitas($data, ['id_pendaftaran' => $id_pendaftaran]);
+                    return redirect()->back()
+                        ->withInput()
+                        ->with('status', 'success')
+                        ->with('message', 'Data berhasil disimpan.');
                 } else {
                     $model->insertIdentitas($data);
+                    return redirect()->back()
+                        ->withInput()
+                        ->with('status', 'success')
+                        ->with('message', 'Data berhasil disimpan.');
                 }
                 break;
 
@@ -568,45 +609,80 @@ class PengusulController extends BaseController
                     'tanggal_skck' => $this->request->getPost('tanggal_skck'),
                 ];
 
-                $validation = \Config\Services::validation();
-                $rules = [
-                    'nik' => 'required|exact_length[16]|numeric',
-                    'email' => 'required|valid_email|',
+                $validationRules = [
+                    'nama'              => ($identitas && !empty($data['nama'])) ? 'permit_empty|min_length[3]|max_length[100]' : 'required|min_length[3]|max_length[100]',
+                    'nik'               => 'required|exact_length[16]|numeric|is_unique[pendaftaran.nik,id_pendaftaran,' . $id_pendaftaran . ']',
+                    'tempat_lahir'      => ($identitas && !empty($data['tempat_lahir'])) ? 'permit_empty|min_length[2]|max_length[50]' : 'required|min_length[2]|max_length[50]',
+                    'tanggal_lahir'     => ($identitas && !empty($data['tanggal_lahir'])) ? 'permit_empty|valid_date' : 'required|valid_date',
+                    'usia'              => ($identitas && !empty($data['usia'])) ? 'permit_empty|numeric|min_length[1]|max_length[3]' : 'required|numeric|min_length[1]|max_length[3]',
+                    'jenis_kelamin'     => ($identitas && !empty($data['jenis_kelamin'])) ? 'permit_empty' : 'required',
+                    'pekerjaan'         => ($identitas && !empty($data['pekerjaan'])) ? 'permit_empty|min_length[3]|max_length[100]' : 'required|min_length[3]|max_length[100]',
+                    'telepon'           => ($identitas && !empty($data['telepon'])) ? 'permit_empty|numeric|min_length[10]|max_length[15]' : 'required|numeric|min_length[10]|max_length[15]',
+                    'email'             => 'required|valid_email|is_unique[pendaftaran.email,id_pendaftaran,' . $id_pendaftaran . ']',
+                    'pendidikan'        => ($identitas && !empty($data['pendidikan'])) ? 'permit_empty|min_length[2]|max_length[50]' : 'required|min_length[2]|max_length[50]',
+                    'jalan'             => ($identitas && !empty($data['jalan'])) ? 'permit_empty|min_length[3]|max_length[255]' : 'required|min_length[3]|max_length[255]',
+                    'rt_rw'             => ($identitas && !empty($data['rt_rw'])) ? 'permit_empty|max_length[10]' : 'required|max_length[10]',
+                    'desa'              => ($identitas && !empty($data['desa'])) ? 'permit_empty|min_length[3]|max_length[100]' : 'required|min_length[3]|max_length[100]',
+                    'kecamatan'         => ($identitas && !empty($data['kecamatan'])) ? 'permit_empty|min_length[3]|max_length[100]' : 'required|min_length[3]|max_length[100]',
+                    'kab_kota'          => ($identitas && !empty($data['kab_kota'])) ? 'permit_empty|min_length[3]|max_length[100]' : 'required|min_length[3]|max_length[100]',
+                    'provinsi'          => ($identitas && !empty($data['provinsi'])) ? 'permit_empty' : 'required',
+                    'kode_pos'          => ($identitas && !empty($data['kode_pos'])) ? 'permit_empty|numeric|exact_length[5]' : 'required|numeric|exact_length[5]',
+                    'sosial_media'      => ($identitas && !empty($data['sosial_media'])) ? 'permit_empty|min_length[3]|max_length[100]' : 'required|min_length[3]|max_length[100]',
+                    'tanggal_skck'      => ($identitas && !empty($data['tanggal_skck'])) ? 'permit_empty|valid_date' : 'required|valid_date',
                 ];
 
-                $validation->setRules($rules);
-
-                if (!$validation->withRequest($this->request)->run()) {
-                    return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+                // Validasi input
+                if (!$this->validate($validationRules)) {
+                    // Jika validasi gagal
+                    return redirect()->back()
+                        ->withInput()
+                        ->with('errors', $this->validator->getErrors())
+                        ->with('status', 'error');
                 }
 
-                // Logika untuk upload file KTP dan SKCK sama seperti di atas
-                // Upload KTP
+                // Logika untuk upload file KTP dan SKCK
                 $ktpFile = $this->request->getFile('ktp');
                 if ($ktpFile && $ktpFile->isValid() && !$ktpFile->hasMoved()) {
-                    if ($ktpFile->isValid() && $ktpFile->getMimeType() === 'image/jpeg' && $ktpFile->getSize() <= 1024 * 1024) {
+                    if ($ktpFile->getMimeType() === 'image/jpeg' && $ktpFile->getSize() <= 1024 * 1024) {
                         $ktpFileName = $ktpFile->getRandomName();
                         $ktpFile->store('ktp', $ktpFileName);
                         $data['ktp'] = $ktpFileName;
                     }
                 }
 
-                // Upload SKCK
                 $skckFile = $this->request->getFile('skck');
                 if ($skckFile && $skckFile->isValid() && !$skckFile->hasMoved()) {
-                    if ($skckFile->isValid() && $skckFile->getMimeType() === 'application/pdf' && $skckFile->getSize() <= 1024 * 1024) {
+                    if ($skckFile->getMimeType() === 'application/pdf' && $skckFile->getSize() <= 1024 * 1024) {
                         $skckFileName = $skckFile->getRandomName();
                         $skckFile->store('skck', $skckFileName);
                         $data['skck'] = $skckFileName;
                     }
                 }
 
-                // Update atau insert data identitas
+                // Logika untuk memeriksa apakah ada perubahan
+                $existingData = $model->getIdentitasByIdPendaftaran($id_pendaftaran);
+                if ($existingData == $data) {
+                    // Jika tidak ada perubahan
+                    return redirect()->back()
+                        ->withInput()
+                        ->with('no_change', true); // Kirimkan pesan jika tidak ada perubahan
+                }
+
+                // Logika untuk menyimpan data
                 if ($identitas) {
                     $model->updateIdentitas($data, ['id_pendaftaran' => $id_pendaftaran]);
+                    return redirect()->back()
+                        ->withInput()
+                        ->with('status', 'success')
+                        ->with('message', 'Data berhasil disimpan.');
                 } else {
                     $model->insertIdentitas($data);
+                    return redirect()->back()
+                        ->withInput()
+                        ->with('status', 'success')
+                        ->with('message', 'Data berhasil disimpan.');
                 }
+
                 break;
 
             case 'kegiatan':
@@ -633,6 +709,10 @@ class PengusulController extends BaseController
                 } else {
                     // Insert kegiatan utama sebagai entri baru
                     $model->insertKegiatan($data);
+                    return redirect()->back()
+                        ->withInput()
+                        ->with('status', 'success')
+                        ->with('message', 'Data berhasil disimpan.');
                 }
 
                 // Cek apakah ada kegiatan tambahan yang akan ditambahkan atau diperbarui
@@ -660,9 +740,17 @@ class PengusulController extends BaseController
                             if (isset($kegiatan['id_kegiatan']) && !empty($kegiatan['id_kegiatan'])) {
                                 // Jika ID ada, update kegiatan tambahan
                                 $model->updateKegiatan($dataLain, ['id_kegiatan' => $kegiatan['id_kegiatan']]);
+                                return redirect()->back()
+                                    ->withInput()
+                                    ->with('status', 'success')
+                                    ->with('message', 'Data berhasil disimpan.');
                             } else {
                                 // Insert kegiatan tambahan sebagai entri baru
                                 $model->insertKegiatan($dataLain);
+                                return redirect()->back()
+                                    ->withInput()
+                                    ->with('status', 'success')
+                                    ->with('message', 'Data berhasil disimpan.');
                             }
                         }
                     }
@@ -678,10 +766,19 @@ class PengusulController extends BaseController
                     'dampak_ekonomi' => $this->request->getPost('dampak_ekonomi'),
                     'dampak_sosial_budaya' => $this->request->getPost('dampak_sosial_budaya'),
                 ];
+                // Logika untuk menyimpan data
                 if ($dampak) {
                     $model->updateDampak($data, ['id_pendaftaran' => $id_pendaftaran]);
+                    return redirect()->back()
+                        ->withInput()
+                        ->with('status', 'success')
+                        ->with('message', 'Data berhasil disimpan.');
                 } else {
                     $model->insertDampak($data);
+                    return redirect()->back()
+                        ->withInput()
+                        ->with('status', 'success')
+                        ->with('message', 'Data berhasil disimpan.');
                 }
                 break;
 
@@ -696,8 +793,16 @@ class PengusulController extends BaseController
                 ];
                 if ($pmik) {
                     $model->updatePMIK($data, ['id_pendaftaran' => $id_pendaftaran]);
+                    return redirect()->back()
+                        ->withInput()
+                        ->with('status', 'success')
+                        ->with('message', 'Data berhasil disimpan.');
                 } else {
                     $model->insertPMIK($data);
+                    return redirect()->back()
+                        ->withInput()
+                        ->with('status', 'success')
+                        ->with('message', 'Data berhasil disimpan.');
                 }
                 break;
 
@@ -712,8 +817,16 @@ class PengusulController extends BaseController
                 ];
                 if ($keswadayaan) {
                     $model->updateKeswadayaan($data, ['id_pendaftaran' => $id_pendaftaran]);
+                    return redirect()->back()
+                        ->withInput()
+                        ->with('status', 'success')
+                        ->with('message', 'Data berhasil disimpan.');
                 } else {
                     $model->insertKeswadayaan($data);
+                    return redirect()->back()
+                        ->withInput()
+                        ->with('status', 'success')
+                        ->with('message', 'Data berhasil disimpan.');
                 }
                 break;
 
@@ -751,8 +864,16 @@ class PengusulController extends BaseController
 
                 if ($keistimewaan) {
                     $model->updateKeistimewaan($data, ['id_pendaftaran' => $id_pendaftaran]);
+                    return redirect()->back()
+                        ->withInput()
+                        ->with('status', 'success')
+                        ->with('message', 'Data berhasil disimpan.');
                 } else {
                     $model->insertKeistimewaan($data);
+                    return redirect()->back()
+                        ->withInput()
+                        ->with('status', 'success')
+                        ->with('message', 'Data berhasil disimpan.');
                 }
                 break;
 
@@ -764,23 +885,25 @@ class PengusulController extends BaseController
         $nextFormTarget = '';
         switch ($formType) {
             case 'identitasc':
+                $nextFormTarget = 'identitasc';
+                break;
             case 'identitasabd':
-                $nextFormTarget = 'kegiatan';
+                $nextFormTarget = 'identitasabd';
                 break;
             case 'kegiatan':
-                $nextFormTarget = 'dampak';
+                $nextFormTarget = 'kegiatan';
                 break;
             case 'dampak':
-                $nextFormTarget = 'pmik';
+                $nextFormTarget = 'dampak';
                 break;
             case 'pmik':
-                $nextFormTarget = 'keswadayaan';
+                $nextFormTarget = 'pmik';
                 break;
             case 'keswadayaan':
-                $nextFormTarget = 'keistimewaan';
+                $nextFormTarget = 'keswadayaan';
                 break;
             case 'keistimewaan':
-                return redirect()->to('/pengusul/usulansaya')->with('success', '');
+                $nextFormTarget = 'keistimewaan';
             default:
                 $nextFormTarget = 'identitas-calon';
         }
@@ -1166,11 +1289,11 @@ class PengusulController extends BaseController
         $validation->setRules([
             'judul' => [
                 'label' => 'Judul',
-                'rules' => 'required|min_length[5]|max_length[125]|is_unique[artikel.judul]' // Judul harus unik dan panjang antara 5 dan 125 karakter
+                'rules' => 'required|min_length[5]|max_length[125]|is_unique[artikel.judul]'
             ],
             'konten' => [
                 'label' => 'Konten',
-                'rules' => 'required|min_length[20]' // Konten harus ada dan panjang minimum 20 karakter
+                'rules' => 'required|min_length[20]'
             ],
             'foto' => [
                 'label' => 'Foto',
