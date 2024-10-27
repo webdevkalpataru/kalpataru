@@ -557,13 +557,13 @@
                 fetch(geojsonUrls[provinsi])
                     .then(response => response.json())
                     .then(data => {
-                        var penerimaDiProvinsi = penerimaData.filter(function(penerima) {
+                        var penerimaDiProvinsi = penerimaData.find(function(penerima) {
                             return penerima.provinsi === provinsi;
                         });
 
                         var geojsonLayer = L.geoJSON(data, {
                             style: function() {
-                                return penerimaDiProvinsi.length > 0
+                                return penerimaDiProvinsi && penerimaDiProvinsi.total > 0
                                     ? {
                                         color: 'none',
                                         fillColor: colorAbuMuda,
@@ -587,8 +587,8 @@
                                 }).addTo(map);
 
                                 var popupContent = '<strong>' + provinsi + '</strong>';
-                                if (penerimaDiProvinsi.length > 0) {
-                                    popupContent += '<br>Jumlah Penerima: ' + penerimaDiProvinsi.length;
+                                if (penerimaDiProvinsi && penerimaDiProvinsi.total > 0) {
+                                    popupContent += '<br>Jumlah Penerima: ' + penerimaDiProvinsi.total;
                                 } else {
                                     popupContent += '<br>Tidak ada penerima.';
                                 }
