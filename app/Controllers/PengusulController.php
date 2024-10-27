@@ -5,6 +5,8 @@ namespace App\Controllers;
 use App\Models\PengusulModel;
 use App\Models\PendaftaranModel;
 use App\Models\ArtikelModel;
+use App\Models\KegiatanModel;
+use App\Models\KeistimewaanModel;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 // use CodeIgniter\Controller;
@@ -244,7 +246,7 @@ class PengusulController extends BaseController
             $rules['nama_kelompok'] = 'required|min_length[3]|max_length[100]';
             $rules['tanggal_legalitas'] = 'required|valid_date';
         }
-    
+
         if (!$this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $validation->getErrors());
         }
@@ -404,8 +406,8 @@ class PengusulController extends BaseController
         // Menyajikan file dengan header download
         return $this->response->download($path, null);
     }
-    
-    
+
+
 
 
 
@@ -629,7 +631,7 @@ class PengusulController extends BaseController
                     }
                 }
 
-                    break;                                  
+                break;
 
             case 'dampak':
                 $dampak = $model->getDampakByIdPendaftaran($id_pendaftaran);
@@ -793,18 +795,20 @@ class PengusulController extends BaseController
             'kegiatanLainnya' => $kegiatanLainnya,
             'title' => $title
         ];
-        
+
         return view('pengusul/detailusulansayaedit', $data);
     }
 
 
     // -------------------------------------------------------------------------------------------------------------------
-    
+
 
     public function usulansaya()
     {
         $Model = new PendaftaranModel();
         $PengusulModel = new PengusulModel();
+        $KegiatanModel = new KegiatanModel();
+        $KeistimewaanModel = new KeistimewaanModel();
 
         // Ambil data dengan pagination, limit 5 per halaman
         $perPage = 5;
@@ -818,30 +822,54 @@ class PengusulController extends BaseController
         // Jika ada keyword, tambahkan kondisi pencarian
         if ($keyword) {
             $usulan = $Model->where('id_pengusul', $id_pengusul)
-                ->like('nama', $keyword) // Filter berdasarkan nama_instansi_pribadi
+                ->like('nama', $keyword)
                 ->paginate($perPage, 'usulan');
         } else {
-            // Jika tidak ada pencarian, ambil semua data usulan berdasarkan id_pengusul
             $usulan = $Model->where('id_pengusul', $id_pengusul)
                 ->paginate($perPage, 'usulan');
         }
 
-        // Ambil data pengusul dari tabel pengusul
+        // Ambil data pengusul
         $pengusul = $PengusulModel->where('id_pengusul', $id_pengusul)->first();
 
         // Cek kelengkapan data pengusul
-        $isComplete = !empty($pengusul['nama_instansi_pribadi']) && !empty($pengusul['instansi']) && !empty($pengusul['jabatan_pekerjaan']) && !empty($pengusul['jenis_kelamin']) && !empty($pengusul['jalan']) && !empty($pengusul['rt_rw']) && !empty($pengusul['desa']) && !empty($pengusul['kecamatan']) && !empty($pengusul['kab_kota']) && !empty($pengusul['kode_pos']) && !empty($pengusul['surat_pengantar']);
+        $isComplete = !empty($pengusul['nama_instansi_pribadi']) && !empty($pengusul['instansi']) &&
+            !empty($pengusul['jabatan_pekerjaan']) && !empty($pengusul['jenis_kelamin']) &&
+            !empty($pengusul['jalan']) && !empty($pengusul['rt_rw']) && !empty($pengusul['desa']) &&
+            !empty($pengusul['kecamatan']) && !empty($pengusul['kab_kota']) &&
+            !empty($pengusul['kode_pos']) && !empty($pengusul['surat_pengantar']);
 
-        // Persiapkan data untuk dikirim ke view
+        // Variabel untuk menampung status kelengkapan
+        $isCompleteKegiatanKeistimewaan = []; // Ubah menjadi array
+
+        foreach ($usulan as $u) {
+            $id_pendaftaran = $u['id_pendaftaran'];
+
+            // Periksa kelengkapan kegiatan dan keistimewaan
+            $kegiatanUtama = $KegiatanModel->where(['tipe_kegiatan' => 'kegiatan_utama', 'id_pendaftaran' => $id_pendaftaran])->first();
+            $keistimewaan = $KeistimewaanModel->where('id_pendaftaran', $id_pendaftaran)->first();
+
+            $isKegiatanComplete = !empty($kegiatanUtama['tema']) && !empty($kegiatanUtama['sub_tema']) &&
+                !empty($kegiatanUtama['bentuk_kegiatan']) && !empty($kegiatanUtama['tahun_mulai']) &&
+                !empty($kegiatanUtama['deskripsi_kegiatan']) && !empty($kegiatanUtama['lokasi_kegiatan']) &&
+                !empty($kegiatanUtama['koordinat']) && !empty($kegiatanUtama['pihak_dan_peran']) &&
+                !empty($kegiatanUtama['keberhasilan']);
+
+            $isKeistimewaanComplete = !empty($keistimewaan['foto_kegiatan1']) && !empty($keistimewaan['deskripsi_foto_kegiatan1']);
+
+            // Simpan kelengkapan untuk setiap ID
+            $isCompleteKegiatanKeistimewaan[$id_pendaftaran] = $isKegiatanComplete && $isKeistimewaanComplete;
+        }
+
         $data = [
             'usulan' => $usulan,
             'pager' => $Model->pager,
             'title' => "Usulan Saya",
             'keyword' => $keyword,
             'isComplete' => $isComplete,
+            'isCompleteKegiatanKeistimewaan' => $isCompleteKegiatanKeistimewaan,
         ];
 
-        // Load view untuk menampilkan data calon
         return view('pengusul/usulansaya', $data);
     }
 

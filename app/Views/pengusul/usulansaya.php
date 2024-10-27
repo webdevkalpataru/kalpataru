@@ -280,7 +280,7 @@
 
 
 
-    <!-- Modal -->
+    <!-- Modal Jika Data Lengkap-->
     <div id="modalPopup" class="fixed inset-0 z-50 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden">
         <div class="bg-white rounded-lg p-8 flex flex-col items-center max-w-md">
             <img src="/images/question.png" alt="Question Icon" class="w-16 h-16 mb-4">
@@ -292,19 +292,40 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal Jika Data Belum Lengkap -->
+    <div id="modalIncompleteData" class="fixed inset-0 z-50 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white rounded-lg p-8 flex flex-col items-center max-w-md">
+            <img src="/images/warning.png" alt="warning Icon" class="w-16 h-16 mb-4">
+            <div class="bg-white rounded-lg p-4 flex flex-col items-center max-w-md">
+                <p class="text-center text-lg font-bold text-gray-700 mb-4">Silahkan Lengkapi Kegiatan Utama dan Berikan Setidaknya 1 Foto Kegiatan beserta Deskripsinya</p>
+                <button id="closeIncompleteDataButton" class="px-4 py-2 bg-primary hover:bg-primaryhover text-white rounded-md">Lengkapi</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Ambil tombol untuk menampilkan modal
         const kirimDataButtons = document.querySelectorAll('.kirimDataButton');
         const modalPopup = document.getElementById('modalPopup');
         const confirmButton = document.getElementById('confirmButton');
         const cancelButton = document.getElementById('cancelButton');
+        const modalIncompleteData = document.getElementById('modalIncompleteData');
+        const isCompleteKegiatanKeistimewaan = <?= json_encode($isCompleteKegiatanKeistimewaan); ?>;
 
-        // Event untuk menampilkan modal
         kirimDataButtons.forEach((button) => {
             button.addEventListener('click', () => {
                 const idPendaftaran = button.getAttribute('data-id');
-                confirmButton.setAttribute('data-id', idPendaftaran); // Set data-id pada tombol confirm
-                modalPopup.classList.remove('hidden'); // Tampilkan modal
+                confirmButton.setAttribute('data-id', idPendaftaran);
+
+                // Tentukan modal yang ditampilkan berdasarkan ID pendaftaran
+                if (isCompleteKegiatanKeistimewaan[idPendaftaran]) {
+                    modalPopup.classList.remove('hidden');
+                    modalIncompleteData.classList.add('hidden');
+                } else {
+                    modalIncompleteData.classList.remove('hidden');
+                    modalPopup.classList.add('hidden');
+                }
             });
         });
 
@@ -364,6 +385,12 @@
         cancelButton.addEventListener('click', () => {
             modalPopup.classList.add('hidden');
         });
+
+        // Event untuk menutup modal kelengkapan data
+        document.getElementById('closeIncompleteDataButton').addEventListener('click', () => {
+            modalIncompleteData.classList.add('hidden');
+        });
+
 
 
         // POPUP MODAL CATATAN
