@@ -358,6 +358,34 @@ class AdminController extends BaseController
         }
     }
 
+    public function updateStatusArtikel()
+    {
+        // Inisialisasi model
+        $ArtikelModel = new ArtikelModel();
+        // Ambil data dari POST request
+        $id_Artikel = $this->request->getPost('id_artikel');
+        $status_Artikel = $this->request->getPost('status');
+        $catatan = $this->request->getPost('catatan'); // Ambil catatan verifikasi
+        // Validasi data
+        if ($id_Artikel && $status_Artikel) {
+            // Siapkan data untuk update
+            $updateData = [
+                'status' => $status_Artikel,
+            ];
+            // Jika ada catatan, tambahkan ke data yang akan di-update
+            if ($status_Artikel == 'Ditolak' && $catatan) {
+                $updateData['catatan'] = $catatan;
+            }
+            // Update status dan catatan di database
+            $ArtikelModel->update($id_Artikel, $updateData);
+            // Mengembalikan respons untuk merefresh halaman
+            return $this->response->setJSON(['success' => true, 'message' => 'Data berhasil diperbarui']);
+        } else {
+            // Mengembalikan respons gagal
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui data']);
+        }
+    }
+
     public function hapusArtikel($id_artikel)
     {
         $model = new ArtikelModel();

@@ -16,9 +16,9 @@
             </svg>
 
             <div>
-                <h2 class="text-md font-bold">Joko Susilo</h2>
-                <p class="text-sm text-secondary font-semibold">Penerima</p>
-                <p class="text-sm text-secondary font-semibold">Jawa Barat</p>
+                <h2 class="text-md font-bold"><?= session()->get('nama') ?></h2>
+                <!-- <p class="text-sm text-secondary font-semibold">Penerima</p> -->
+                <p class="text-sm text-secondary font-semibold"><?= session()->get('kategori') ?></p>
             </div>
         </div>
 

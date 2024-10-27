@@ -110,8 +110,9 @@ $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
 /* Penerima */
 $routes->group('penerima', ['filter' => 'auth'], function ($routes) {
     $routes->get('dashboard', 'PenerimaController::dashboard');
-    $routes->get('tambahartikel', 'PenerimaController::tambahartikel');
-    $routes->get('detailartikelsaya', 'PenerimaController::detailartikelsaya');
+    $routes->get('tambah-artikel', 'PenerimaController::tambahartikel');
+    $routes->post('tambah-artikel', 'PenerimaController::tambahArtikelAction');
+    $routes->get('artikel/(:any)', 'PenerimaController::detailartikel/$1');
 });
 
 /* Admin */
@@ -173,7 +174,8 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->post('artikel/edit/(:any)', 'AdminController::updateArtikelAction/$1');
     $routes->get('artikel/(:any)', 'AdminController::detailartikel/$1');
     $routes->post('artikel/hapus/(:num)', 'AdminController::hapusArtikel/$1');
-    $routes->post('updatestatus', 'AdminController::updateStatus');
+    // $routes->post('updatestatus', 'AdminController::updateStatus');
+    $routes->post('updatestatusartikel', 'AdminController::updateStatusArtikel');
 
     // Manajemen Berita
     $routes->get('berita', 'AdminController::beritaAdmin');
