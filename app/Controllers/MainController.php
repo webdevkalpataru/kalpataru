@@ -68,4 +68,10 @@ class MainController extends BaseController
 
         throw new \CodeIgniter\Exceptions\PageNotFoundException('File tidak ditemukan.');
     }
+
+    public function protaru()
+    {
+        $data['title'] = "Protaru";
+        return view('protaru', $data);
+    }
 }

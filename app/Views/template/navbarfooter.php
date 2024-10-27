@@ -328,6 +328,9 @@
             <p class="text-xs">
                 Copyright © 2024 Direktorat Kemitraan Lingkungan
             </p>
+            <p class="text-xs">
+                Created by <a href="/protaru" target="_blank">Protaru</a> with passion and dedication
+            </p>
         </div>
     </footer>
 
