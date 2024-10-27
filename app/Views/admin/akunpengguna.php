@@ -9,10 +9,10 @@
 
 <body class="lg:flex">
 
-  <!-- Sidebar -->
-  <div class="w-64 bg-white text-white">
-    <?= $this->include('template/sidebaradmin') ?>
-  </div>
+    <!-- Sidebar -->
+    <div class="w-64 bg-white text-white">
+        <?= $this->include('template/sidebaradmin') ?>
+    </div>
 
     <div class="lg:flex-1 p-6">
         <div class="min-h-screen flex flex-col">
@@ -26,11 +26,50 @@
                     </div>
                 </div>
             </header>
+
             <div>
                 <a href="/admin/daftarpenerima">
                     <button id="tambahCalon" class="mt-4 w-48 rounded-md py-2 ml-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button"> <span>&#10010</span> Tambah Akun Penerima</button>
                 </a>
             </div>
+
+            <div class="lg:flex lg:justify-between">
+                <!-- Dropdown Filter -->
+                <form id="filterForm" action="" method="get" class="flex items-center my-4 ms-4">
+                    <label for="statusAkun" class="text-sm font-bold text-primary">Filter Status Akun:</label>
+                    <select name="statusAkun" id="statusAkun" class="ml-2 border-2 border-primary text-primary rounded-md shadow-sm" onchange="document.getElementById('filterForm').submit();">
+                        <option value="">Semua Status Akun</option>
+                        <option value="Aktif" <?= ($statusAkun == 'Aktif') ? 'selected' : '' ?>>Aktif</option>
+                        <option value="Pending" <?= ($statusAkun == 'Pending') ? 'selected' : '' ?>>Pending</option>
+                    </select>
+                </form>
+                <form method="get" class="flex items-center justify-end my-4">
+                    <div class="relative lg:w-56 w-80 transition-all focus-within:w-64 lg:mt-0 mt-4">
+                        <input
+                            placeholder="Masukan kata kunci"
+                            class="input shadow-lg focus:border-2 border-2 text-primary border-primary px-5 py-1 pr-10 rounded-md w-full outline-none"
+                            name="search"
+                            value="<?= esc($keyword) ?>" />
+                        <svg
+                            class="w-6 h-6 absolute top-1/2 right-3 transform -translate-y-1/2 text-primary"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                                stroke-linejoin="round"
+                                stroke-linecap="round"></path>
+                        </svg>
+                    </div>
+                </form>
+            </div>
+
+
+            <h4 class="text-sm font-semibold text-primary ms-4">
+                Hasil: <?= esc($countAllPenerima) ?> Akun
+            </h4>
 
             <div class="relative  flex flex-col w-full h-full bg-white shadow-md rounded-lg bg-clip-border my-6">
                 <table class="w-full text-left table-auto min-w-max">
@@ -149,32 +188,10 @@
                         <?php endif; ?>
                     </tbody>
                 </table>
-                <div class="row flex lg:justify-end justify-center my-6 lg:mr-4">
-                    <button class="rounded-md rounded-r-none border border-r-0 border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-primary focus:border-primary active:border-primary active:text-white active:bg-primary disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
-                            <path fill-rule="evenodd" d="M11.03 3.97a.75.75 0 0 1 0 1.06l-6.22 6.22H21a.75.75 0 0 1 0 1.5H4.81l6.22 6.22a.75.75 0 1 1-1.06 1.06l-7.5-7.5a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd" />
-                        </svg>
-                    </button>
-                    <button class="rounded-md rounded-r-none rounded-l-none border border-r-0 border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-primary focus:border-primary active:border-primary active:text-white active:bg-primary disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                        1
-                    </button>
-                    <button class="rounded-md rounded-r-none rounded-l-none border border-r-0 border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-primary focus:border-primary active:border-primary active:text-white active:bg-primary disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                        2
-                    </button>
-                    <button class="rounded-md rounded-r-none rounded-l-none border border-r-0 border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-primary focus:border-primary active:border-primary active:text-white active:bg-primary disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                        3
-                    </button>
-                    <button class="rounded-md rounded-r-none rounded-l-none border border-r-0 border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-primary focus:border-primary active:border-primary active:text-white active:bg-primary disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                        4
-                    </button>
-                    <button class="rounded-md rounded-r-none rounded-l-none border border-r-0 border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-primary focus:border-primary active:border-primary active:text-white active:bg-primary disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                        5
-                    </button>
-                    <button class="rounded-md rounded-l-none border border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-primary focus:border-primary active:border-primary active:text-white active:bg-primary disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
-                            <path fill-rule="evenodd" d="M12.97 3.97a.75.75 0 0 1 1.06 0l7.5 7.5a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 1 1-1.06-1.06l6.22-6.22H3a.75.75 0 0 1 0-1.5h16.19l-6.22-6.22a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
-                        </svg>
-                    </button>
+                <div class="row flex lg:justify-end justify-center my-6 lg:me-2 me-0">
+                    <div class="pagination">
+                        <?= $pager->links('penerima', 'template_pagination') ?>
+                    </div>
                 </div>
             </div>
         </div>
@@ -285,8 +302,7 @@
         buttons.forEach(button => {
             button.addEventListener("click", () => toggleButtonText(button));
         });
-    </script>
-    <script>
+
         // POPUP MODAL HAPUS
         const deleteModal = document.getElementById('deleteModal');
         const confirmDeleteButton = document.getElementById('confirmDeleteButton');

@@ -756,6 +756,16 @@ class PengusulController extends BaseController
     {
         $model = new PendaftaranModel();
         $pendaftaran = $model->getPendaftaranById($id_pendaftaran);
+
+        if (!$pendaftaran) {
+            return redirect()->to('pengusul/usulansaya')->with('error', 'Data tidak ditemukan.');
+        }
+
+        // Cek status_pendaftaran, jika tidak "Draft" atau "Perlu Perbaikan", arahkan ke usulansaya
+        if ($pendaftaran['status_pendaftaran'] !== 'Draft' && $pendaftaran['status_pendaftaran'] !== 'Perlu Perbaikan') {
+            return redirect()->to('pengusul/usulansaya')->with('error', 'Data calon usulan sudah tidak bisa diedit.');
+        }
+
         $identitas = $model->getIdentitasByIdPendaftaran($id_pendaftaran);
         $kegiatan = $model->getKegiatanByPendaftaranId($id_pendaftaran);
         $dampak = $model->getDampakByIdPendaftaran($id_pendaftaran);
@@ -1083,7 +1093,7 @@ class PengusulController extends BaseController
     public function detailusulandlhk()
     {
         $data['title'] = 'Detail Usulan DLHK';
-        return view('pengusul/detailusulandlhk', ['title' => 'Detail Usulan DLHK']);
+        return view('pengusul/detailusulandlhk', $data);
     }
 
     public function tambahartikel()

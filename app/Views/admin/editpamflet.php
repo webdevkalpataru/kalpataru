@@ -28,6 +28,7 @@
           </div>
         </div>
       </header>
+      </header>
 
       <!-- Table -->
       <div class="bg-white shadow-md rounded-lg overflow-x-auto mt-8">

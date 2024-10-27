@@ -213,7 +213,6 @@
                         popupModal.classList.add('hidden');
                         statusModal.classList.remove('hidden'); // Tampilkan modal konfirmasi
                     };
-
                     // Jika tombol batal pada modal catatan ditekan
                     batalBtn.onclick = function() {
                         popupModal.classList.add('hidden'); // Sembunyikan modal catatan
@@ -223,7 +222,6 @@
                     // Jika pilih selain "Ditolak", langsung tampilkan modal konfirmasi
                     statusModal.classList.remove('hidden'); // Tampilkan modal konfirmasi
                 }
-
             });
         });
 
