@@ -581,7 +581,20 @@ class TimteknisController extends BaseController
     
         $namaFile = 'Formulir_' . esc($pendaftaranData['nama']) . '_' . esc($pendaftaranData['kategori']) . '.pdf';
     
-        $dompdf->stream($namaFile, ['Attachment' => false]);
+        $dompdf->stream($namaFile, ['Attachment' => true]);
+    }
+
+    public function downloadSuratPengantar($filename)
+    {
+        $path = WRITEPATH . 'uploads/suratpengantar/' . $filename;
+
+        if (!file_exists($path)) {
+            // File tidak ditemukan, Anda bisa mengarahkan ke halaman error atau menampilkan pesan
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('File tidak ditemukan.');
+        }
+
+        // Menyajikan file dengan header download
+        return $this->response->download($path, null);
     }
 
     public function bahansidang2kategoria()

@@ -1560,6 +1560,6 @@ class PengusulController extends BaseController
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
 
-        $dompdf->stream('laporan_calon_usulan.pdf', ['Attachment' => false]);
+        $dompdf->stream('laporan_calon_usulan.pdf', ['Attachment' => true]);
     }
 }

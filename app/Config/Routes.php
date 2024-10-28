@@ -249,6 +249,7 @@ $routes->group('timteknis', ['filter' => 'auth'], function ($routes) {
     $routes->get('preview/ktp/(:any)', 'PengusulController::showKTP/$1');
     $routes->get('preview/fotokegiatan/(:num)/(:any)', 'PengusulController::showFotoKegiatan/$1/$2');
     $routes->get('pdf/(:any)', 'TimteknisController::exportPDF/$1');
+    $routes->get('download/suratpengantar/(:segment)', 'TimteknisController::downloadSuratPengantar/$1');
 
     $routes->get('verifadminkategoria', 'TimteknisController::verifadminkategoria');
     $routes->get('verifadminkategorib', 'TimteknisController::verifadminkategorib');

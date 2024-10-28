@@ -18,30 +18,30 @@ class MainController extends BaseController
     public function kategori()
     {
         $data['title'] = "Kategori";
-        return view('Kategori', ['title' => 'Kategori']);
+        return view('kategori', ['title' => 'Kategori']);
     }
     public function kategoria()
     {
         $data['title'] = "Kategori Perintis Lingkungan";
-        return view('Kategoria', $data);
+        return view('kategoria', $data);
     }
 
     public function kategorib()
     {
         $data['title'] = "Kategori Pengabdi Lingkungan";
-        return view('Kategorib', $data);
+        return view('kategorib', $data);
     }
 
     public function kategoric()
     {
         $data['title'] = "Kategori Penyelamat Lingkungan";
-        return view('Kategoric', $data);
+        return view('kategoric', $data);
     }
 
     public function kategorid()
     {
         $data['title'] = "Kategori Pembina Lingkungan";
-        return view('Kategorid', $data);
+        return view('kategorid', $data);
     }
 
     public function kontak()

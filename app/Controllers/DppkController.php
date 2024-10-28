@@ -128,6 +128,6 @@ class DppkController extends BaseController
     
         $namaFile = 'Formulir_' . esc($pendaftaranData['nama']) . '_' . esc($pendaftaranData['kategori']) . '.pdf';
     
-        $dompdf->stream($namaFile, ['Attachment' => false]);
+        $dompdf->stream($namaFile, ['Attachment' => true]);
     }
 }
