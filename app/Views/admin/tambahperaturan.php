@@ -53,7 +53,7 @@
 
             <div>
               <label class="block mb-2 text-sm text-black">Unggah Dokumen Peraturan / Kebijakan <span class="text-primary">(.pdf)</span></label>
-              <input required id="file" name="file" type="file" accept="aplication/pdf" class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2">
+              <input required id="file" name="file" type="file" accept="application/pdf" class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2">
               <div class="text-rejected" id="fileError"></div>
             </div>
           </div>

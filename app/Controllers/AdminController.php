@@ -120,7 +120,7 @@ class AdminController extends BaseController
         $validation->setRules([
             'judul' => [
                 'label' => 'Judul',
-                'rules' => 'required|min_length[5]|max_length[125]|is_unique[artikel.judul]' // Judul harus unik dan panjang antara 5 dan 125 karakter
+                'rules' => 'required|min_length[5]|max_length[125]|is_unique[buku_kalpataru.judul]' // Judul harus unik dan panjang antara 5 dan 125 karakter
             ],
             'konten' => [
                 'label' => 'Konten',
@@ -801,7 +801,7 @@ class AdminController extends BaseController
         if (!$id_admin) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
-        
+
         $data = [
             'title' => 'Edit Pamflet',
             'pamflet' => $pamflet,
@@ -1752,7 +1752,7 @@ class AdminController extends BaseController
             ],
             'file' => [
                 'label' => 'File',
-                'rules' => 'required|uploaded[file]|mime_in[file,application/pdf]'
+                'rules' => 'uploaded[file]|mime_in[file,application/pdf]'
             ]
         ]);
 
@@ -2498,30 +2498,30 @@ class AdminController extends BaseController
     public function exportPDF($kode_registrasi)
     {
         $id_admin = session()->get('id_admin');
-    
+
         if (!$id_admin) {
             return redirect()->back()->with('error', 'Anda tidak memiliki akses.');
         }
-    
+
         $pendaftaranModel = new PendaftaranModel();
         $pengusulModel = new PengusulModel();
-    
+
         $pendaftaranData = $pendaftaranModel->where('kode_registrasi', $kode_registrasi)->first();
-    
+
         if (!$pendaftaranData) {
             return redirect()->back()->with('error', 'Data tidak ditemukan.');
         }
-    
+
         $pengusulData = $pengusulModel->where('id_pengusul', $pendaftaranData['id_pengusul'])->first();
-    
+
         $kegiatan = $pendaftaranModel->getKegiatanByPendaftaranId($pendaftaranData['id_pendaftaran']);
         $pendaftaranData['kegiatan'] = $kegiatan;
-    
+
         $dampak = $pendaftaranModel->db->table('dampak')->where('id_pendaftaran', $pendaftaranData['id_pendaftaran'])->get()->getRowArray();
         $pmik = $pendaftaranModel->db->table('pmik')->where('id_pendaftaran', $pendaftaranData['id_pendaftaran'])->get()->getRowArray();
         $keswadayaan = $pendaftaranModel->db->table('keswadayaan')->where('id_pendaftaran', $pendaftaranData['id_pendaftaran'])->get()->getRowArray();
         $keistimewaan = $pendaftaranModel->db->table('keistimewaan')->where('id_pendaftaran', $pendaftaranData['id_pendaftaran'])->get()->getRowArray();
-    
+
         $data = [
             'pendaftaran' => $pendaftaranData,
             'pengusul' => $pengusulData,
@@ -2531,7 +2531,7 @@ class AdminController extends BaseController
             'keswadayaan' => $keswadayaan,
             'keistimewaan' => $keistimewaan
         ];
-    
+
         $kategori = $pendaftaranData['kategori'];
         switch ($kategori) {
             case 'Perintis Lingkungan':
@@ -2549,11 +2549,11 @@ class AdminController extends BaseController
             default:
                 $prefix = 'X';
         }
-    
+
         session()->set('prefix', $prefix);
-    
+
         $html = view('admin/pdf', $data);
-    
+
         $options = new Options();
         $options->set('isHtml5ParserEnabled', true);
         $options->set('isRemoteEnabled', true);
@@ -2563,14 +2563,14 @@ class AdminController extends BaseController
         $options->set('enable_php', false);
         $options->set('enable_javascript', true);
         $options->set('enable_html5_parser', true);
-    
+
         $dompdf = new Dompdf($options);
         $dompdf->loadHtml($html);
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
-    
+
         $namaFile = 'Formulir_' . esc($pendaftaranData['nama']) . '_' . esc($pendaftaranData['kategori']) . '.pdf';
-    
+
         $dompdf->stream($namaFile, ['Attachment' => true]);
     }
 }
