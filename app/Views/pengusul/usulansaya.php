@@ -298,7 +298,7 @@
         <div class="bg-white rounded-lg p-8 flex flex-col items-center max-w-md">
             <img src="/images/warning.png" alt="warning Icon" class="w-16 h-16 mb-4">
             <div class="bg-white rounded-lg p-4 flex flex-col items-center max-w-md">
-                <p class="text-center text-lg font-bold text-gray-700 mb-4">Silahkan Lengkapi Kegiatan Utama dan Berikan Setidaknya 1 Foto Kegiatan beserta Deskripsinya</p>
+                <p class="text-center text-lg font-bold text-gray-700 mb-4">Silahkan Lengkapi SKCK, Kegiatan, Utama dan Berikan Setidaknya 1 Foto Kegiatan beserta Deskripsinya</p>
                 <button id="closeIncompleteDataButton" class="px-4 py-2 bg-primary hover:bg-primaryhover text-white rounded-md">Lengkapi</button>
             </div>
         </div>

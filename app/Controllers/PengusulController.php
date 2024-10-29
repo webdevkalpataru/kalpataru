@@ -1016,8 +1016,11 @@ class PengusulController extends BaseController
             $id_pendaftaran = $u['id_pendaftaran'];
 
             // Periksa kelengkapan kegiatan dan keistimewaan
+            $skck = $Model->where('id_pendaftaran', $id_pendaftaran)->first();
             $kegiatanUtama = $KegiatanModel->where(['tipe_kegiatan' => 'kegiatan_utama', 'id_pendaftaran' => $id_pendaftaran])->first();
             $keistimewaan = $KeistimewaanModel->where('id_pendaftaran', $id_pendaftaran)->first();
+
+            $isSkckComplete = !empty($skck['skck']);
 
             $isKegiatanComplete = !empty($kegiatanUtama['tema']) && !empty($kegiatanUtama['sub_tema']) &&
                 !empty($kegiatanUtama['bentuk_kegiatan']) && !empty($kegiatanUtama['tahun_mulai']) &&
@@ -1028,7 +1031,7 @@ class PengusulController extends BaseController
             $isKeistimewaanComplete = !empty($keistimewaan['foto_kegiatan1']) && !empty($keistimewaan['deskripsi_foto_kegiatan1']);
 
             // Simpan kelengkapan untuk setiap ID
-            $isCompleteKegiatanKeistimewaan[$id_pendaftaran] = $isKegiatanComplete && $isKeistimewaanComplete;
+            $isCompleteKegiatanKeistimewaan[$id_pendaftaran] = $isKegiatanComplete && $isKeistimewaanComplete && $isSkckComplete;
         }
 
         $data = [
