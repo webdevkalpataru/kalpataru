@@ -107,7 +107,7 @@
             <div id="texttentangkalpataru" class="w-full h-[4rem] sm:h-[5rem] relative flex items-center justify-center">
                 <h2 class="text-lg sm:text-xl md:text-2xl lg:text-4xl font-bold text-black">Tentang Kalpataru</h2>
             </div>
-            <hr class="border-2 border-primary max-w-40 mx-auto mt-0" />
+            <hr class="hrcenter border-2 border-primary max-w-40 mx-auto mt-0" />
         </div>
 
         <div class="w-full flex flex-col lg:flex-row items-center justify-between px-6 sm:px-10 md:px-16 lg:px-20 py-12">
@@ -130,10 +130,10 @@
 
     <section id="kategoripenghargaan">
         <div class="lg:my-12 md:my-8 my-4 lg:mx-20 md:mx-10 mx-7">
-            <div id="texttentangkalpataru" class="w-full h-[4rem] sm:h-[5rem] relative flex items-center justify-start">
+            <div id="textkategoripenghargaan" class="w-full h-[4rem] sm:h-[5rem] relative flex items-center justify-start">
                 <h2 class="text-lg sm:text-xl md:text-2xl lg:text-4xl font-medium text-black">Kategori Penghargaan <b>Kalpataru</b></h2>
             </div>
-            <hr class="border-2 border-primary max-w-[45%] mt-0" />
+            <hr class="hrleft border-2 border-primary max-w-[45%] mt-0" />
         </div>
 
         <div class="relative w-full px-6 sm:px-10 md:px-16 lg:px-20 py-12">
@@ -186,7 +186,7 @@
             <div id="texttujuankalpataru" class="w-full h-[4rem] sm:h-[5rem] relative flex items-center justify-center">
                 <h2 class="text-lg sm:text-xl md:text-2xl lg:text-4xl font-bold text-white">Tujuan Kalpataru</h2>
             </div>
-            <hr class="border-2 border-white max-w-40 mx-auto mt-0" />
+            <hr class="hrcenter border-2 border-white max-w-40 mx-auto mt-0" />
         </div>
 
         <div class="px-4 sm:px-10 md:px-16 lg:px-20 text-center">
@@ -244,10 +244,10 @@
 
     <section id="statistikpeta">
         <div class="my-4 pt-10 text-center">
-            <div id="texttujuankalpataru" class="w-full h-[4rem] sm:h-[5rem] relative flex items-center justify-center">
+            <div id="textstatistikpenyebaran" class="w-full h-[4rem] sm:h-[5rem] relative flex items-center justify-center">
                 <h2 class="text-lg sm:text-xl md:text-2xl lg:text-4xl font-medium text-black">Statistik Penyebaran Penghargaan Kalpataru</h2>
             </div>
-            <hr class="border-2 border-primary max-w-64 mx-auto mt-0" />
+            <hr class="hrcenter border-2 border-primary max-w-64 mx-auto mt-0" />
         </div>
 
         <div class="relative w-full px-6 sm:px-10 md:px-16 lg:px-20 py-10">
@@ -436,7 +436,7 @@
 
     <section id="berita">
         <div class="lg:mx-28 p-5">
-            <div class="flex justify-between items-center lg:mt-10 mb-2">
+            <div id="textberita" class="flex justify-between items-center lg:mt-10 mb-2">
                 <h2 class="text-lg font-bold">Berita</h2>
                 <a href="<?= base_url('publikasi/berita') ?>" class="flex items-center text-primary">
                     Selengkapnya
@@ -445,7 +445,7 @@
                     </svg>
                 </a>
             </div>
-            <hr class="border-2 border-primary w-full mt-0 mb-10" />
+            <hr class="hrleft border-2 border-primary w-full mt-0 mb-10" />
 
             <div class="relative flex overflow-x-auto space-x-4 scrollbar-hide">
                 <!-- arrow kiri -->
@@ -483,7 +483,7 @@
 
     <section id="video" class="mb-6">
         <div class="lg:mx-28 p-5">
-            <div class="flex justify-between items-center lg:mt-10 mb-2">
+            <div id="textvideo" class="flex justify-between items-center lg:mt-10 mb-2">
                 <h2 class="text-lg font-bold">Video</h2>
                 <a href="<?= base_url('publikasi/video') ?>" class="flex items-center text-primary">
                     Selengkapnya
@@ -492,7 +492,7 @@
                     </svg>
                 </a>
             </div>
-            <hr class="border-2 border-primary w-full mt-0 mb-10" />
+            <hr class="hrleft border-2 border-primary w-full mt-0 mb-10" />
 
             <div class="relative flex overflow-x-auto space-x-4 scrollbar-hide">
                 <!-- arrow kiri -->
@@ -531,8 +531,8 @@
 
     <section id="faq">
         <div class="max-w-2xl mx-auto px-6 pt-6 pb-14">
-            <h1 class="text-2xl font-medium text-center mb-2">Pertanyaan <b>Umum</b></h1>
-            <hr class="border-2 border-primary w-32 mx-auto mt-0" />
+            <h1 id="textfaq" class="text-2xl font-medium text-center mb-2">Pertanyaan <b>Umum</b></h1>
+            <hr class="hrcenter border-2 border-primary w-32 mx-auto mt-0" />
             <p class="text-center text-gray-600 mt-2">Temukan jawaban atas pertanyaan Anda seputar Penghargaan Kalpataru dan pelestarian lingkungan</p>
 
             <div class="mt-8 space-y-4">
@@ -793,7 +793,163 @@
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/ScrollTrigger.min.js"></script>
+
     <script>
+        /* KUMPULAN ANIMASI (BATAS AWAL) */
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.from("#texttentangkalpataru", {
+            opacity: 0,
+            y: -50,
+            duration: 1,
+            ease: "power2.out",
+            scrollTrigger: {
+                trigger: "#texttentangkalpataru",
+                start: "top 90%",
+                toggleActions: "play none none reverse"
+            }
+        });
+
+        gsap.from("#textkategoripenghargaan", {
+            opacity: 0,
+            y: -50,
+            duration: 1,
+            ease: "power2.out",
+            scrollTrigger: {
+                trigger: "#textkategoripenghargaan",
+                start: "top 90%",
+                toggleActions: "play none none reverse"
+            }
+        });
+
+        gsap.from("#textstatistikpenyebaran", {
+            opacity: 0,
+            y: -50,
+            duration: 1,
+            ease: "power2.out",
+            scrollTrigger: {
+                trigger: "#textstatistikpenyebaran",
+                start: "top 90%",
+                toggleActions: "play none none reverse"
+            }
+        });
+
+        gsap.from("#texttujuankalpataru", {
+            opacity: 0,
+            y: -50,
+            duration: 1,
+            ease: "power2.out",
+            scrollTrigger: {
+                trigger: "#texttujuankalpataru",
+                start: "top 90%",
+                toggleActions: "play none none reverse"
+            }
+        });
+
+        gsap.from("#textberita", {
+            opacity: 0,
+            y: -50,
+            duration: 1,
+            ease: "power2.out",
+            scrollTrigger: {
+                trigger: "#textberita",
+                start: "top 90%",
+                toggleActions: "play none none reverse"
+            }
+        });
+
+        gsap.from("#textvideo", {
+            opacity: 0,
+            y: -50,
+            duration: 1,
+            ease: "power2.out",
+            scrollTrigger: {
+                trigger: "#textvideo",
+                start: "top 90%",
+                toggleActions: "play none none reverse"
+            }
+        });
+
+        gsap.from("#textfaq", {
+            opacity: 0,
+            y: -50,
+            duration: 1,
+            ease: "power2.out",
+            scrollTrigger: {
+                trigger: "#textfaq",
+                start: "top 90%",
+                toggleActions: "play none none reverse"
+            }
+        });
+
+        gsap.utils.toArray(".hrcenter").forEach((hr) => {
+            gsap.from(hr, {
+                opacity: 0,
+                scaleX: 0,
+                duration: 1,
+                delay: 0.3,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: hr,
+                    start: "top 90%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+        });
+
+        gsap.utils.toArray(".hrleft").forEach((hr) => {
+            gsap.from(hr, {
+                opacity: 0,
+                x: -100,
+                duration: 1,
+                delay: 0.5,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: hr,
+                    start: "top 90%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+        });
+
+        gsap.utils.toArray("#categoryContainer a").forEach((image) => {
+            gsap.from(image, {
+                opacity: 0,
+                scale: 0.8,
+                rotate: 10,
+                duration: 1.2,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: image,
+                    start: "top 90%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+        });
+
+        document.querySelectorAll("#categoryContainer a img").forEach((img) => {
+            img.addEventListener("mouseenter", () => {
+                gsap.to(img, {
+                    filter: "brightness(1.2)",
+                    boxShadow: "0px 10px 20px rgba(0, 150, 136, 0.3)",
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+            });
+
+            img.addEventListener("mouseleave", () => {
+                gsap.to(img, {
+                    filter: "brightness(1)",
+                    boxShadow: "0px 5px 10px rgba(0, 0, 0, 0.15)",
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+            });
+        });
+        /* KUMPULAN ANIMASI (BATAS AKHIR) */
+
         /* Hero Section Carousel */
         let currentIndex = 0;
         const totalSlides = 3;
