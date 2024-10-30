@@ -38,7 +38,7 @@
                         data-target="keistimewaan">Keistimewaan</button>
 
                     <!-- Button Kembali ke Usulan Saya -->
-                    <button onclick="window.location.href='/pengusul/usulansaya'"
+                    <button id="kembaliButton"
                         class="text-sm font-bold text-gray-600 no-underline focus:outline-none text-start mt-6">
                         <span class="font-bold text-lg items-center">←</span> Kembali
                     </button>
@@ -52,6 +52,23 @@
                             <input type="hidden" name="id_pendaftaran" value="<?= $pendaftaran['id_pendaftaran'] ?>">
                             <p class="font-semibold mb-2 text-md text-primary underline">Data Kelompok/ Komunitas</p>
 
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">SKCK : <?php if (!empty($pendaftaran['skck'])): ?>
+                                        <?= esc($pendaftaran['skck']) ?>
+                                    <?php endif; ?><span class="text-primary">(.pdf)</span></label>
+                                <div class="relative">
+                                    <input name="skck" value="<?= isset($pendaftaran['skck']) ? $pendaftaran['skck'] : ''; ?>"
+                                        id="skck" type="file" accept=".pdf"
+                                        class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-primary file:text-white">
+                                </div>
+                            </div>
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">Tanggal SKCK</label>
+                                <input name="tanggal_skck" value="<?= isset($identitasabd['tanggal_skck']) ? $identitasabd['tanggal_skck'] : ''; ?>" type="date" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <?php if (session('errors.tanggal_skck')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.tanggal_skck') ?></p>
+                                <?php endif; ?>
+                            </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Nama Kelompok</label>
                                 <input type="text" name="nama_kelompok" value="<?= isset($identitasc['nama_kelompok']) ? $identitasc['nama_kelompok'] : ''; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
@@ -240,23 +257,6 @@
 
                                 </div>
                             </div>
-                            <div class="w-full mb-2">
-                                <label class="block mb-2 text-sm text-black">SKCK : <?php if (!empty($pendaftaran['skck'])): ?>
-                                        <?= esc($pendaftaran['skck']) ?>
-                                    <?php endif; ?><span class="text-primary">(.pdf)</span></label>
-                                <div class="relative">
-                                    <input name="skck" value="<?= isset($pendaftaran['skck']) ? $pendaftaran['skck'] : ''; ?>"
-                                        id="skck" type="file" accept=".pdf"
-                                        class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-primary file:text-white">
-                                </div>
-                            </div>
-                            <div class="w-full mb-2">
-                                <label class="block mb-2 text-sm text-black">Tanggal SKCK</label>
-                                <input name="tanggal_skck" value="<?= isset($identitasabd['tanggal_skck']) ? $identitasabd['tanggal_skck'] : ''; ?>" type="date" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-                                <?php if (session('errors.tanggal_skck')): ?>
-                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.tanggal_skck') ?></p>
-                                <?php endif; ?>
-                            </div>
 
                             <div class="flex justify-end mt-4">
                                 <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="submit">Simpan</button>
@@ -269,6 +269,23 @@
                         <form id="identitasabd" action="<?= base_url('pengusul/simpanForm/identitasabd'); ?>" class="mb-2 w-full" method="post" enctype="multipart/form-data">
                             <?= csrf_field(); ?>
                             <input type="hidden" name="id_pendaftaran" value="<?= $pendaftaran['id_pendaftaran'] ?>">
+                            <div class="w-full mb-4">
+                                <label class="block mb-2 text-sm text-black">SKCK : <?php if (!empty($pendaftaran['skck'])): ?>
+                                        <?= esc($pendaftaran['skck']) ?>
+                                    <?php endif; ?><span class="text-primary">(.pdf)</span></label>
+                                <div class="relative">
+                                    <input name="skck" value="<?= isset($pendaftaran['skck']) ? $pendaftaran['skck'] : ''; ?>"
+                                        id="skck" type="file" accept=".pdf"
+                                        class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-primary file:text-white">
+                                </div>
+                            </div>
+                            <div class="w-full mb-4">
+                                <label class="block mb-2 text-sm text-black">Tanggal SKCK</label>
+                                <input name="tanggal_skck" value="<?= isset($identitasabd['tanggal_skck']) ? $identitasabd['tanggal_skck'] : ''; ?>" type="date" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <?php if (session('errors.tanggal_skck')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.tanggal_skck') ?></p>
+                                <?php endif; ?>
+                            </div>
                             <div class="w-full mb-4">
                                 <label class="mb-2 text-sm text-slate-600">Nama Lengkap</label>
                                 <input name="nama_individu" value="<?= isset($identitasabd['nama']) ? $identitasabd['nama'] : ''; ?>" type="text" class="w-full bg-transparent text-primary placeholder:text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary shadow-sm focus:shadow" />
