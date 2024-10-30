@@ -40,19 +40,66 @@
         </div>
     <?php endif; ?>
 
-    <section id="herosection" class="w-full h-[20rem] sm:h-[30rem] md:h-[34rem] lg:h-[36rem] relative">
-        <img src="/images/herosection.png" alt="herosection" class="w-full h-full object-cover object-right md:object-center">
+    <section id="herosection" class="w-full h-[20rem] sm:h-[30rem] md:h-[34rem] lg:h-[36rem] relative overflow-hidden">
+        <!-- Carousel Wrapper -->
+        <div class="carousel-wrapper w-full h-full flex transition-transform duration-500" style="transform: translateX(0%);">
+            <!-- Carousel 1 -->
+            <div class="carousel-item w-full flex-shrink-0 relative">
+                <img src="/images/herosection1.png" alt="herosection 1" class="w-full h-full object-cover object-right md:object-center">
+                <div class="absolute top-2/4 left-1/2 transform -translate-x-1/2 -translate-y-2/4 w-[90%] sm:w-[70%] md:w-[60%] lg:left-[28%] lg:w-[36%] text-white text-left">
+                    <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">Menyelamatkan Alam, Mewarisi Kehidupan</h1>
+                    <p class="text-sm sm:text-base md:text-lg mt-2 sm:mt-4">Penghargaan nasional untuk individu dan kelompok yang berkontribusi dalam pelestarian lingkungan hidup</p>
+                </div>
+                <a href="auth/register">
+                    <button class="absolute bottom-[18%] left-[20%] sm:left-[20%] lg:left-[17%] transform -translate-x-1/2 rounded-md bg-white py-2 px-4 sm:py-3 sm:px-6 text-center text-xs sm:text-sm md:text-base lg:text-base text-black transition-all shadow-md hover:font-bold hover:shadow-lg focus:bg-site focus:shadow-none active:bg-site hover:bg-site active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                        Daftar Sekarang
+                    </button>
+                </a>
+            </div>
+            <!-- Carousel 2 -->
+            <div class="carousel-item w-full flex-shrink-0 relative flex items-center justify-center">
+                <img src="/images/herosection2.png" alt="herosection 2" class="w-full h-full object-cover object-right md:object-center">
 
-        <div class="absolute top-2/4 left-1/2 transform -translate-x-1/2 -translate-y-2/4 w-[90%] sm:w-[70%] md:w-[60%] lg:left-[28%] lg:w-[36%] text-white text-left">
-            <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">Menyelamatkan Alam, Mewarisi Kehidupan</h1>
-            <p class="text-sm sm:text-base md:text-lg mt-2 sm:mt-4">Penghargaan nasional untuk individu dan kelompok yang berkontribusi dalam pelestarian lingkungan hidup</p>
+                <!-- Overlay untuk meningkatkan kontras teks -->
+                <div class="absolute inset-0 bg-black opacity-40"></div>
+
+                <div class="absolute flex items-center justify-center inset-0 text-white text-center">
+                    <div class="w-full sm:w-[70%] md:w-[60%]">
+                        <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">Kontribusi Lestari untuk Generasi Mendatang</h1>
+                        <p class="text-sm sm:text-base md:text-lg mt-2 sm:mt-4">Menghargai mereka yang menjaga keanekaragaman hayati dan kekayaan alam Indonesia</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Carousel 3 -->
+            <div class="carousel-item w-full flex-shrink-0 relative flex items-center justify-center">
+                <img src="/images/herosection3.png" alt="herosection 3" class="w-full h-full object-cover object-right md:object-center">
+                <div class="absolute flex items-center justify-center inset-0 text-white text-center">
+                    <div class="w-full sm:w-[70%] md:w-[60%]">
+                        <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">Bersama Membangun Lingkungan Lebih Baik</h1>
+                        <p class="text-sm sm:text-base md:text-lg mt-2 sm:mt-4">Dedikasi untuk perubahan positif bagi lingkungan sekitar kita</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <a href="auth/register">
-            <button class="absolute bottom-[18%] left-[20%] sm:left-[20%] lg:left-[17%] transform -translate-x-1/2 rounded-md bg-white py-2 px-4 sm:py-3 sm:px-6 text-center text-xs sm:text-sm md:text-base lg:text-base text-black transition-all shadow-md hover:font-bold hover:shadow-lg focus:bg-site focus:shadow-none active:bg-site hover:bg-site active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                Daftar Sekarang
-            </button>
-        </a>
+        <!-- Carousel Navigation Dots -->
+        <div class="absolute inset-x-0 bottom-8 flex justify-center space-x-3">
+            <button onclick="moveCarousel(0)" class="w-3 h-3 rounded-full bg-white opacity-50 hover:opacity-100"></button>
+            <button onclick="moveCarousel(-100)" class="w-3 h-3 rounded-full bg-white opacity-50 hover:opacity-100"></button>
+            <button onclick="moveCarousel(-200)" class="w-3 h-3 rounded-full bg-white opacity-50 hover:opacity-100"></button>
+        </div>
+
+        <!-- Carousel Navigation Arrows -->
+        <button onclick="moveSlide(-1)" class="hidden lg:block absolute top-1/2 left-4 transform -translate-y-1/2 bg-white p-2 rounded-full shadow hover:shadow-lg focus:outline-none">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+        </button>
+        <button onclick="moveSlide(1)" class="hidden lg:block absolute top-1/2 right-4 transform -translate-y-1/2 bg-white p-2 rounded-full shadow hover:shadow-lg focus:outline-none">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+        </button>
     </section>
 
     <section id="tentangkalpataru">
@@ -223,7 +270,7 @@
                 <!-- Card 2 -->
                 <div class="bg-white shadow-sm border border-slate-200 rounded-lg w-4/5 mx-auto flex items-center justify-center p-4">
                     <div class="space-y-4 w-96">
-                        
+
                         <!-- Keanekaragaman Hayati -->
                         <div class="flex items-center">
                             <img src="/images/statistikkeanekaragamanhayati.png" alt="statistikkeanekaragamanhayati" class="w-10 h-10 mr-3">
@@ -747,6 +794,40 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
+        /* Hero Section Carousel */
+        let currentIndex = 0;
+        const totalSlides = 3;
+
+        function moveSlide(direction) {
+            currentIndex = (currentIndex + direction + totalSlides) % totalSlides;
+            moveCarousel(currentIndex * -100);
+        }
+
+        function moveCarousel(translateValue) {
+            document.querySelector('.carousel-wrapper').style.transform = `translateX(${translateValue}%)`;
+        }
+
+        // Deteksi Gesture Swipe
+        let startX = 0;
+
+        document.querySelector('.carousel-wrapper').addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+        });
+
+        document.querySelector('.carousel-wrapper').addEventListener('touchend', (e) => {
+            const endX = e.changedTouches[0].clientX;
+            const diffX = endX - startX;
+
+            // Geser ke kanan jika swipe ke kiri
+            if (diffX < -50) {
+                moveSlide(1);
+            }
+            // Geser ke kiri jika swipe ke kanan
+            else if (diffX > 50) {
+                moveSlide(-1);
+            }
+        });
+
         //  scroll kategori
         const categoryContainer = document.getElementById('categoryContainer');
         const categoryScrollLeft = document.getElementById('categoryScrollLeft');
@@ -785,50 +866,6 @@
             });
         });
 
-        // scroll video
-        const videoContainer = document.getElementById('videoContainer');
-        const videoScrollLeft = document.getElementById('videoScrollLeft');
-        const videoScrollRight = document.getElementById('videoScrollRight');
-
-        videoScrollLeft.addEventListener('click', () => {
-            videoContainer.scrollBy({
-                left: -300,
-                behavior: 'smooth'
-            });
-        });
-
-        videoScrollRight.addEventListener('click', () => {
-            videoContainer.scrollBy({
-                left: 300,
-                behavior: 'smooth'
-            });
-        });
-
-        // faq
-        function toggleAnswer(index) {
-            const answer = document.getElementById(`answer-${index}`);
-            const icon = document.getElementById(`icon-${index}`);
-            const button = document.getElementById(`button-${index}`);
-            const card = document.getElementById(`card-${index}`);
-
-            answer.classList.toggle('hidden');
-
-            if (answer.classList.contains('hidden')) {
-                button.classList.remove('text-primary');
-                button.classList.add('text-gray-600');
-                icon.setAttribute('d', 'M9 5l7 7-7 7');
-                icon.classList.remove('text-white');
-                button.querySelector('.flex').classList.remove('bg-primary', 'rounded-full');
-                card.classList.remove('border-primary');
-            } else {
-                button.classList.remove('text-gray-600');
-                button.classList.add('text-primary');
-                icon.setAttribute('d', 'M19 9l-7 7-7-7');
-                icon.classList.add('text-white');
-                button.querySelector('.flex').classList.add('bg-primary', 'rounded-full');
-                card.classList.add('border-primary');
-            }
-        }
 
         /* CARD DATA DAN STATISTIK */
         // CARD 2
@@ -918,6 +955,51 @@
                 }
             }
         });
+
+        // scroll video
+        const videoContainer = document.getElementById('videoContainer');
+        const videoScrollLeft = document.getElementById('videoScrollLeft');
+        const videoScrollRight = document.getElementById('videoScrollRight');
+
+        videoScrollLeft.addEventListener('click', () => {
+            videoContainer.scrollBy({
+                left: -300,
+                behavior: 'smooth'
+            });
+        });
+
+        videoScrollRight.addEventListener('click', () => {
+            videoContainer.scrollBy({
+                left: 300,
+                behavior: 'smooth'
+            });
+        });
+
+        // faq
+        function toggleAnswer(index) {
+            const answer = document.getElementById(`answer-${index}`);
+            const icon = document.getElementById(`icon-${index}`);
+            const button = document.getElementById(`button-${index}`);
+            const card = document.getElementById(`card-${index}`);
+
+            answer.classList.toggle('hidden');
+
+            if (answer.classList.contains('hidden')) {
+                button.classList.remove('text-primary');
+                button.classList.add('text-gray-600');
+                icon.setAttribute('d', 'M9 5l7 7-7 7');
+                icon.classList.remove('text-white');
+                button.querySelector('.flex').classList.remove('bg-primary', 'rounded-full');
+                card.classList.remove('border-primary');
+            } else {
+                button.classList.remove('text-gray-600');
+                button.classList.add('text-primary');
+                icon.setAttribute('d', 'M19 9l-7 7-7-7');
+                icon.classList.add('text-white');
+                button.querySelector('.flex').classList.add('bg-primary', 'rounded-full');
+                card.classList.add('border-primary');
+            }
+        }
     </script>
 
     <?= $this->endSection() ?>
