@@ -529,20 +529,78 @@
         </div>
     </section>
 
-    <section id="bagiankalender">
-        <div class="flex justify-center my-4">
-            <div id="calendar" class="w-full sm:w-11/12 md:w-4/5 lg:w-3/4 xl:w-2/3 p-4 bg-white shadow-lg rounded-lg"></div>
-        </div>
-    
-        <div class="flex justify-center mt-4 mb-8">
-            <div class="flex items-center mr-8">
-                <div class="w-4 h-4 bg-blue-600 rounded-full mr-2"></div>
-                <span class="text-gray-700">Hari Nasional</span>
+    <section id="mainContent" class="container mx-auto px-4 py-6">
+        <div class="flex flex-col md:flex-row space-y-8 md:space-y-0 md:space-x-8">
+
+            <!-- Media Sosial Section -->
+            <div id="bagianmediasosial" class="w-full md:w-1/2">
+                <div class="bg-white p-6 shadow-lg rounded-lg">
+                    <h1 class="text-3xl font-semibold text-center text-gray-800 mb-4">Media Sosial</h1>
+                    <div class="social-tabs">
+                        <!-- Tabs Navigation -->
+                        <nav class="flex space-x-4 justify-center mb-4">
+                            <button class="flex-1 py-2 px-4 bg-blue-600 text-white rounded-t-lg font-semibold focus:outline-none"
+                                id="socialTabLink1" data-target="#socialTab1">
+                                <span class="inline-block">Facebook</span>
+                                <span class="inline-block"><i class="fab fa-facebook"></i></span>
+                            </button>
+                            <button class="flex-1 py-2 px-4 bg-gray-200 text-gray-800 rounded-t-lg font-semibold focus:outline-none hover:bg-gray-300"
+                                id="socialTabLink2" data-target="#socialTab2">
+                                <span class="inline-block">Twitter</span>
+                                <span class="inline-block"><i class="fab fa-twitter"></i></span>
+                            </button>
+                        </nav>
+
+                        <!-- Tabs Content -->
+                        <div class="tab-content">
+                            <!-- Facebook Tab -->
+                            <div class="tab-pane active show max-h-[500px] overflow-auto flex justify-center items-center" id="socialTab1" role="tabpanel">
+                                <div class="relative max-h-[500px] overflow-hidden">
+                                    <iframe
+                                        class="h-[500px] rounded-lg border border-gray-300"
+                                        src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FKementerianLHK&tabs=timeline&width=500&height=500&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=52156208006"
+                                        width="500" height="500" scrolling="no" frameborder="0"
+                                        allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+                                    </iframe>
+                                </div>
+                            </div>
+
+
+                            <!-- Twitter Tab -->
+                            <div class="tab-pane active hidden max-h-[500px] overflow-auto flex justify-center items-center" id="socialTab2" role="tabpanel">
+                                <div class="relative w-[500px] max-h-[500px] overflow-auto rounded-lg">
+                                    <a class="twitter-timeline" href="https://twitter.com/KementerianLHK?ref_src=twsrc%5Etfw"></a>
+                                    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
-            <div class="flex items-center">
-                <div class="w-4 h-4 bg-green-600 rounded-full mr-2"></div>
-                <span class="text-gray-700">Hari Lingkungan</span>
+
+            <!-- Kalender Section -->
+            <div id="bagiankalender" class="w-full">
+                <div class="bg-white p-6 shadow-lg rounded-lg">
+                    <h1 class="text-3xl font-semibold text-center text-gray-800 mb-4">Kalender</h1>
+                    <div class="flex justify-center my-4">
+                        <div id="calendar" class="w-full sm:w-3/4"></div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row justify-center my-4">
+                        <div class="flex items-center mr-8 mb-2 sm:mb-0">
+                            <div class="w-4 h-4 bg-blue-600 rounded-full mr-2"></div>
+                            <span class="text-gray-700">Hari Nasional</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-4 h-4 bg-green-600 rounded-full mr-2"></div>
+                            <span class="text-gray-700">Hari Lingkungan</span>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+
         </div>
     </section>
 
@@ -1150,6 +1208,23 @@
             });
         });
 
+        // media sosial
+        document.querySelectorAll("button[data-target]").forEach(button => {
+            button.addEventListener('click', () => {
+                // Get the target tab pane
+                const target = button.getAttribute("data-target");
+
+                // Hide all tab panes
+                document.querySelectorAll(".tab-pane").forEach(tabPane => tabPane.classList.add("hidden"));
+
+                // Remove active class from all tab buttons
+                document.querySelectorAll("button[data-target]").forEach(btn => btn.classList.remove("bg-blue-600", "text-white"));
+
+                // Show the selected tab pane and add active class to the selected tab button
+                document.querySelector(target).classList.remove("hidden");
+                button.classList.add("bg-blue-600", "text-white");
+            });
+        });
         // calendar
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
