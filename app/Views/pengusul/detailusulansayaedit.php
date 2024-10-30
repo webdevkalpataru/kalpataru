@@ -444,7 +444,7 @@
                 <?php endif; ?>
 
                 <!-- Right side: Form inside a card -->
-                <div id="kegiatan" class="form-section flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
+                <div id="kegiatan" class="form-section hidden flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
                     <form id="kegiatanForm" action="<?= base_url('pengusul/simpanForm/kegiatan'); ?>" class="mb-2 w-full" method="post" enctype="multipart/form-data">
                         <div class="grid grid-cols-1 gap-4" id="formContainer">
                             <!-- Kolom kiri -->
@@ -603,7 +603,7 @@
                 </div>
 
                 <!-- Right side: Form inside a card -->
-                <div id="dampak" class="form-section flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
+                <div id="dampak" class="form-section hidden flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
                     <form id="dampakForm" action="<?= base_url('pengusul/simpanForm/dampak'); ?>" method="post" enctype="multipart/form-data">
                         <div class="grid grid-cols-1 gap-4">
                             <?= csrf_field(); ?>
@@ -649,7 +649,7 @@
 
 
                 <!-- Right side: Form inside a card -->
-                <div id="pmik" class="form-section flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
+                <div id="pmik" class="form-section hidden flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
                     <form id="pmikForm" action="<?= base_url('pengusul/simpanForm/pmik'); ?>" class="mb-2 w-full" method="post" enctype="multipart/form-data">
                         <div class="grid grid-cols-1 gap-4">
                             <?= csrf_field(); ?>
@@ -695,7 +695,7 @@
                 </div>
 
                 <!-- Right side: Form inside a card -->
-                <div id="keswadayaan" class="form-section flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
+                <div id="keswadayaan" class="form-section hidden flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
                     <form id="keswadayaanForm" action="<?= base_url('pengusul/simpanForm/keswadayaan'); ?>" class="mb-2 w-full" method="post" enctype="multipart/form-data">
                         <div class="grid grid-cols-1 gap-4">
                             <?= csrf_field(); ?>
@@ -737,7 +737,7 @@
                 </div>
 
                 <!-- Right side: Form inside a card -->
-                <div id="keistimewaan" class="form-section flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
+                <div id="keistimewaan" class="form-section hidden flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
                     <form id="keistimewaanForm" action="<?= base_url('pengusul/simpanForm/keistimewaan'); ?>" class="mb-2 w-full" method="post" enctype="multipart/form-data">
                         <div class="grid grid-cols-1 gap-4">
                             <?= csrf_field(); ?>
