@@ -17,6 +17,9 @@ $routes->get('kategorid', 'MainController::kategorid');
 $routes->get('kontak', 'MainController::kontak');
 $routes->post('kontak/sendEmail', 'KontakController::sendEmail');
 $routes->get('pamflet/(:any)', 'MainController::showPamflet/$1');
+$routes->get('calendar/events', 'CalendarController::events');
+
+/* Protaru */
 $routes->get('protaru', 'MainController::protaru');
 
 /* Informasi */

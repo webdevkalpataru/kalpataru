@@ -529,6 +529,23 @@
         </div>
     </section>
 
+    <section id="bagiankalender">
+        <div class="flex justify-center my-4">
+            <div id="calendar" class="w-full sm:w-11/12 md:w-4/5 lg:w-3/4 xl:w-2/3 p-4 bg-white shadow-lg rounded-lg"></div>
+        </div>
+    
+        <div class="flex justify-center mt-4 mb-8">
+            <div class="flex items-center mr-8">
+                <div class="w-4 h-4 bg-blue-600 rounded-full mr-2"></div>
+                <span class="text-gray-700">Hari Nasional</span>
+            </div>
+            <div class="flex items-center">
+                <div class="w-4 h-4 bg-green-600 rounded-full mr-2"></div>
+                <span class="text-gray-700">Hari Lingkungan</span>
+            </div>
+        </div>
+    </section>
+
     <section id="faq">
         <div class="max-w-2xl mx-auto px-6 pt-6 pb-14">
             <h1 id="textfaq" class="text-2xl font-medium text-center mb-2">Pertanyaan <b>Umum</b></h1>
@@ -795,6 +812,8 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/ScrollTrigger.min.js"></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/locales/id.js'></script>
 
     <script>
         /* KUMPULAN ANIMASI (BATAS AWAL) */
@@ -1129,6 +1148,51 @@
                 left: 300,
                 behavior: 'smooth'
             });
+        });
+
+        // calendar
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                locale: 'id',
+                buttonText: {
+                    today: 'Hari Ini'
+                },
+                events: '<?= base_url('calendar/events') ?>',
+                eventDidMount: function(info) {
+                    info.el.style.cursor = 'pointer';
+
+                    // Membuat elemen tooltip
+                    var tooltip = document.createElement('div');
+                    tooltip.innerText = info.event.extendedProps.description;
+                    tooltip.className = 'bg-slate-400 text-white text-sm p-3 rounded-lg shadow-lg transition-opacity duration-200 opacity-0';
+                    tooltip.style.position = 'absolute';
+                    tooltip.style.zIndex = '10';
+                    tooltip.style.display = 'none';
+
+                    // Tambahkan tooltip ke body
+                    document.body.appendChild(tooltip);
+
+                    // Event untuk menampilkan tooltip saat mouse hover
+                    info.el.addEventListener('mouseenter', function() {
+                        tooltip.style.display = 'block';
+                        tooltip.style.opacity = '1'; // Set opacity to 1 for fade-in effect
+                        var rect = info.el.getBoundingClientRect();
+                        tooltip.style.top = rect.top + window.scrollY - tooltip.offsetHeight - 8 + 'px'; // Adjust for height
+                        tooltip.style.left = rect.left + window.scrollX + (rect.width - tooltip.offsetWidth) / 2 + 'px';
+                    });
+
+                    // Event untuk menyembunyikan tooltip saat mouse keluar
+                    info.el.addEventListener('mouseleave', function() {
+                        tooltip.style.opacity = '0'; // Fade out effect
+                        setTimeout(() => {
+                            tooltip.style.display = 'none'; // Sembunyikan setelah animasi selesai
+                        }, 200); // Durasi animasi fade-out
+                    });
+                }
+            });
+            calendar.render();
         });
 
         // faq
