@@ -259,16 +259,16 @@
         <div class="px-4 sm:px-10 md:px-16 lg:px-20 py-10 text-center">
             <div class="grid gap-4 grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 mt-6 py-10 justify-center">
                 <!-- Card 1 -->
-                <div class="bg-white shadow-sm border border-slate-200 rounded-lg w-4/5 mx-auto flex gap-4 items-center px-4">
-                    <img src="/images/statistikcard1.png" alt="statistikcard1" class="w-32 h-w-32">
+                <div class="bg-white shadow-sm border border-slate-200 rounded-lg w-11/12 sm:w-4/5 mx-auto flex flex-col sm:flex-row gap-4 items-center px-4 py-6 sm:py-4">
+                    <img src="/images/statistikcard1.png" alt="statistikcard1" class="w-20 h-20 sm:w-32 sm:h-32">
                     <div>
-                        <h2 class="text-5xl font-bold text-gray-800 text-start mb-4">428</h2>
-                        <p class="text-gray-600 text-justify">Penerima Penghargaan Kalpataru sejak program ini dimulai pada tahun 1980</p>
+                        <h2 class="text-3xl sm:text-5xl font-bold text-gray-800 text-center sm:text-start mb-4">428</h2>
+                        <p class="text-gray-600 text-center sm:text-justify text-sm sm:text-base">Penerima Penghargaan Kalpataru sejak program ini dimulai pada tahun 1980</p>
                     </div>
                 </div>
 
                 <!-- Card 2 -->
-                <div class="bg-white shadow-sm border border-slate-200 rounded-lg w-4/5 mx-auto flex items-center justify-center p-4">
+                <div class="bg-white shadow-sm border border-slate-200 rounded-lg w-11/12 sm:w-4/5 mx-auto flex items-center justify-center p-4">
                     <div class="space-y-4 w-96">
 
                         <!-- Keanekaragaman Hayati -->
@@ -331,7 +331,7 @@
                 </div>
 
                 <!-- Card 3 -->
-                <div class="bg-white shadow-sm border border-slate-200 rounded-lg w-4/5 mx-auto flex items-center justify-center p-4">
+                <div class="bg-white shadow-sm border border-slate-200 rounded-lg w-11/12 sm:w-4/5 mx-auto flex items-center justify-center p-4">
                     <div class="space-y-4 w-80">
                         <div class="flex items-center">
                             <img src="/images/statistikperintislingkungan.png" alt="statistikperintislingkungan" class="w-10 h-10 mr-3">
@@ -391,18 +391,18 @@
                 </div>
 
                 <!-- Card 4 -->
-                <div class="bg-white shadow-sm border border-slate-200 rounded-lg w-4/5 mx-auto p-4 flex flex-row items-center gap-4 justify-center">
+                <div class="bg-white shadow-sm border border-slate-200 rounded-lg w-11/12 sm:w-4/5 mx-auto p-4 flex flex-col sm:flex-row items-center gap-4 justify-center">
                     <div>
-                        <canvas id="genderChart" width="200" height="200"></canvas>
+                        <canvas id="genderChart" width="150" height="150"></canvas>
                     </div>
                     <div>
-                        <div class="flex">
+                        <div class="flex items-center mb-2">
                             <span class="block w-4 h-4 bg-blue-500 mr-2"></span>
-                            <span>Laki-Laki</span>
+                            <span class="text-sm sm:text-base">Laki-Laki</span>
                         </div>
-                        <div class="flex">
+                        <div class="flex items-center">
                             <span class="block w-4 h-4 bg-green-500 mr-2"></span>
-                            <span>Perempuan</span>
+                            <span class="text-sm sm:text-base">Perempuan</span>
                         </div>
                     </div>
                 </div>
