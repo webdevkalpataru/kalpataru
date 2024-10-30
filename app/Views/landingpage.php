@@ -24,20 +24,20 @@
     <?= $this->extend('template/navbarfooter') ?>
 
     <?= $this->section('content') ?>
-    
+
     <?php if (!empty($pamflet)): ?>
-    <div id="popup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
-        <div class="relative rounded-lg max-w-xs w-full flex items-start mt-12">
-            <img src="<?= base_url('pamflet/' . rawurlencode(esc($pamflet['foto']))) ?>" alt="Popup Image" class="w-full rounded-md">
-            <button id="close-btn" class="lg:text-5xl text-xl top-0 right-0 font-bold text-white ms-2">X</button>
-            
+        <div id="popup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
+            <div class="relative rounded-lg max-w-xs w-full flex items-start mt-12">
+                <img src="<?= base_url('pamflet/' . rawurlencode(esc($pamflet['foto']))) ?>" alt="Popup Image" class="w-full rounded-md">
+                <button id="close-btn" class="lg:text-5xl text-xl top-0 right-0 font-bold text-white ms-2">X</button>
+
+            </div>
+            <a href="auth/register" class="absolute left-1/2 bottom-8  transform -translate-x-1/2">
+                <button class="rounded-md bg-primary text-white py-2 px-4 sm:py-3 sm:px-6 text-center text-xs sm:text-sm md:text-base lg:text-base  transition-all shadow-md hover:font-bold hover:shadow-lg focus:bg-primaryhover focus:shadow-none active:bg-primaryhover hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
+                    Daftar Sekarang
+                </button>
+            </a>
         </div>
-        <a href="auth/register" class="absolute left-1/2 bottom-8  transform -translate-x-1/2">
-            <button class="rounded-md bg-primary text-white py-2 px-4 sm:py-3 sm:px-6 text-center text-xs sm:text-sm md:text-base lg:text-base  transition-all shadow-md hover:font-bold hover:shadow-lg focus:bg-primaryhover focus:shadow-none active:bg-primaryhover hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                Daftar Sekarang
-            </button>
-        </a>
-    </div>
     <?php endif; ?>
 
     <section id="herosection" class="w-full h-[20rem] sm:h-[30rem] md:h-[34rem] lg:h-[36rem] relative">
@@ -212,30 +212,151 @@
         <div class="px-4 sm:px-10 md:px-16 lg:px-20 py-10 text-center">
             <div class="grid gap-4 grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 mt-6 py-10 justify-center">
                 <!-- Card 1 -->
-                <div class="bg-white shadow-sm border border-slate-200 rounded-lg w-4/5 mx-auto">
-                    <div class="p-4">
-                        <img src="/images/statistik1.png" alt="statistik1" class="w-full mx-auto pb-2">
+                <div class="bg-white shadow-sm border border-slate-200 rounded-lg w-4/5 mx-auto flex gap-4 items-center px-4">
+                    <img src="/images/statistikcard1.png" alt="statistikcard1" class="w-32 h-w-32">
+                    <div>
+                        <h2 class="text-5xl font-bold text-gray-800 text-start mb-4">428</h2>
+                        <p class="text-gray-600 text-justify">Penerima Penghargaan Kalpataru sejak program ini dimulai pada tahun 1980</p>
                     </div>
                 </div>
 
                 <!-- Card 2 -->
-                <div class="bg-white shadow-sm border border-slate-200 rounded-lg w-4/5 mx-auto">
-                    <div class="p-4">
-                        <img src="/images/statistik2.png" alt="statistik2" class="w-full mx-auto pb-2">
+                <div class="bg-white shadow-sm border border-slate-200 rounded-lg w-4/5 mx-auto flex items-center justify-center p-4">
+                    <div class="space-y-4 w-96">
+                        
+                        <!-- Keanekaragaman Hayati -->
+                        <div class="flex items-center">
+                            <img src="/images/statistikkeanekaragamanhayati.png" alt="statistikkeanekaragamanhayati" class="w-10 h-10 mr-3">
+                            <div class="w-full">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-700">Keanekaragaman Hayati</span>
+                                    <span class="text-black font-bold">199</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5 mt-1">
+                                    <div id="card2progress2" class="bg-green-500 h-2.5 rounded-full" style="width: 0;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Perubahan Iklim -->
+                        <div class="flex items-center">
+                            <img src="/images/statistikperubahaniklim.png" alt="statistikperubahaniklim" class="w-10 h-10 mr-3">
+                            <div class="w-full">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-700">Perubahan Iklim</span>
+                                    <span class="text-black font-bold">109</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5 mt-1">
+                                    <div id="card2progress4" class="bg-blue-500 h-2.5 rounded-full" style="width: 0;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pencemaran dan Kerusakan Lingkungan -->
+                        <div class="flex items-center">
+                            <img src="/images/statistikpencemarandankerusakanlingkungan.png" alt="statistikpencemarandankerusakanlingkungan" class="w-10 h-10 mr-3">
+                            <div class="w-full">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-700">Pencemaran dan Kerusakan Lingkungan</span>
+                                    <span class="text-black font-bold">27</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5 mt-1">
+                                    <div id="card2progress3" class="bg-yellow-500 h-2.5 rounded-full" style="width: 0;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Hukum dan Budaya -->
+                        <div class="flex items-center">
+                            <img src="/images/statistikhukumdanbudaya.png" alt="statistikhukumdanbudaya" class="w-10 h-10 mr-3">
+                            <div class="w-full">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-700">Hukum dan Budaya</span>
+                                    <span class="text-black font-bold">93</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5 mt-1">
+                                    <div id="card2progress1" class="bg-red-500 h-2.5 rounded-full" style="width: 0;"></div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
                 <!-- Card 3 -->
-                <div class="bg-white shadow-sm border border-slate-200 rounded-lg w-4/5 mx-auto">
-                    <div class="p-4">
-                        <img src="/images/statistik3.png" alt="statistik3" class="w-full mx-auto pb-2">
+                <div class="bg-white shadow-sm border border-slate-200 rounded-lg w-4/5 mx-auto flex items-center justify-center p-4">
+                    <div class="space-y-4 w-80">
+                        <div class="flex items-center">
+                            <img src="/images/statistikperintislingkungan.png" alt="statistikperintislingkungan" class="w-10 h-10 mr-3">
+                            <div class="w-full">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-700">Perintis Lingkungan</span>
+                                    <span class="text-black font-bold">129</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5 mt-1">
+                                    <div id="card3progress1" class="bg-red-500 h-2.5 rounded-full" style="width: 70%;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pengabdi Lingkungan -->
+                        <div class="flex items-center">
+                            <img src="/images/statistikpengabdilingkungan.png" alt="statistikpengabdilingkungan" class="w-10 h-10 mr-3">
+                            <div class="w-full">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-700">Pengabdi Lingkungan</span>
+                                    <span class="text-black font-bold">104</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5 mt-1">
+                                    <div id="card3progress2" class="bg-green-500 h-2.5 rounded-full" style="width: 80%;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Penyelamat Lingkungan -->
+                        <div class="flex items-center">
+                            <img src="/images/statistikpenyelamatlingkungan.png" alt="statistikpenyelamatlingkungan" class="w-10 h-10 mr-3">
+                            <div class="w-full">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-700">Penyelamat Lingkungan</span>
+                                    <span class="text-black font-bold">128</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5 mt-1">
+                                    <div id="card3progress3" class="bg-yellow-500 h-2.5 rounded-full" style="width: 90%;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pembina Lingkungan -->
+                        <div class="flex items-center">
+                            <img src="/images/statistikpembinalingkungan.png" alt="statistikpembinalingkungan" class="w-10 h-10 mr-3">
+                            <div class="w-full">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-700">Pembina Lingkungan</span>
+                                    <span class="text-black font-bold">67</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5 mt-1">
+                                    <div id="card3progress4" class="bg-blue-500 h-2.5 rounded-full" style="width: 50%;"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Card 4 -->
-                <div class="bg-white shadow-sm border border-slate-200 rounded-lg w-4/5 mx-auto">
-                    <div class="p-4">
-                        <img src="/images/statistik4.png" alt="statistik4" class="w-full mx-auto pb-2">
+                <div class="bg-white shadow-sm border border-slate-200 rounded-lg w-4/5 mx-auto p-4 flex flex-row items-center gap-4 justify-center">
+                    <div>
+                        <canvas id="genderChart" width="200" height="200"></canvas>
+                    </div>
+                    <div>
+                        <div class="flex">
+                            <span class="block w-4 h-4 bg-blue-500 mr-2"></span>
+                            <span>Laki-Laki</span>
+                        </div>
+                        <div class="flex">
+                            <span class="block w-4 h-4 bg-green-500 mr-2"></span>
+                            <span>Perempuan</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -563,17 +684,15 @@
 
                         var geojsonLayer = L.geoJSON(data, {
                             style: function() {
-                                return penerimaDiProvinsi && penerimaDiProvinsi.total > 0
-                                    ? {
-                                        color: 'none',
-                                        fillColor: colorAbuMuda,
-                                        fillOpacity: 1,
-                                        weight: 0 
-                                    }
-                                    : {
-                                        color: 'none',
-                                        fillOpacity: 0
-                                    };
+                                return penerimaDiProvinsi && penerimaDiProvinsi.total > 0 ? {
+                                    color: 'none',
+                                    fillColor: colorAbuMuda,
+                                    fillOpacity: 1,
+                                    weight: 0
+                                } : {
+                                    color: 'none',
+                                    fillOpacity: 0
+                                };
                             },
                             onEachFeature: function(feature, layer) {
                                 var center = layer.getBounds().getCenter();
@@ -605,7 +724,9 @@
                     .catch(error => console.error('Error loading GeoJSON for ' + provinsi + ':', error));
             }
 
-            var legend = L.control({ position: 'bottomright' });
+            var legend = L.control({
+                position: 'bottomright'
+            });
 
             legend.onAdd = function(map) {
                 var div = L.DomUtil.create('div', 'info legend');
@@ -624,6 +745,7 @@
         });
     </script>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         //  scroll kategori
         const categoryContainer = document.getElementById('categoryContainer');
@@ -707,6 +829,95 @@
                 card.classList.add('border-primary');
             }
         }
+
+        /* CARD DATA DAN STATISTIK */
+        // CARD 2
+        const progressDataCard2 = [{
+                id: 'card2progress1',
+                value: 93,
+                max: 200
+            },
+            {
+                id: 'card2progress2',
+                value: 199,
+                max: 200
+            },
+            {
+                id: 'card2progress3',
+                value: 27,
+                max: 200
+            },
+            {
+                id: 'card2progress4',
+                value: 109,
+                max: 200
+            },
+        ];
+
+        // Update progress bars based on data
+        progressDataCard2.forEach(data => {
+            const progressElement = document.getElementById(data.id);
+            const progressWidth = (data.value / data.max) * 100;
+            progressElement.style.width = progressWidth + '%';
+        });
+
+        // CARD 3
+        const progressDataCard3 = [{
+                id: 'card3progress1',
+                value: 129,
+                max: 200
+            }, // Adjust max as needed
+            {
+                id: 'card3progress2',
+                value: 104,
+                max: 200
+            },
+            {
+                id: 'card3progress3',
+                value: 128,
+                max: 200
+            },
+            {
+                id: 'card3progress4',
+                value: 67,
+                max: 200
+            },
+        ];
+
+        progressDataCard3.forEach(data => {
+            const progressElement = document.getElementById(data.id);
+            const progressWidth = (data.value / data.max) * 100;
+            progressElement.style.width = progressWidth + '%';
+        });
+
+        // CARD 4
+        const ctx = document.getElementById('genderChart').getContext('2d');
+        const genderChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Laki-Laki', 'Perempuan'],
+                datasets: [{
+                    label: 'Jumlah',
+                    data: [380, 48],
+                    backgroundColor: ['#4299E1', '#48BB78'],
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false // Hide default legend
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw;
+                            }
+                        }
+                    }
+                }
+            }
+        });
     </script>
 
     <?= $this->endSection() ?>
