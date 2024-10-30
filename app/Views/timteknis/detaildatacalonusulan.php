@@ -91,7 +91,7 @@
                                 <!-- Kolom kanan -->
                                 <div class="space-y-4">
                                     <div class="w-full mb-4">
-                                        <label class="block mb-2 text-sm text-black">Jalan</label>
+                                        <label class="block mb-2 text-sm text-black">Alamat</label>
                                         <input disabled type="text" value="<?= $pendaftaran['jalan'] ?>" min="0" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none " />
                                     </div>
                                     <div class="w-full mb-4">
@@ -150,7 +150,7 @@
                                     <input disabled type="number" value="<?= $pendaftaran['jumlah_anggota']; ?>" min="1" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none " />
                                 </div>
                                 <div class="w-full mb-4">
-                                    <label class="block mb-2 text-sm text-black">Jalan</label>
+                                    <label class="block mb-2 text-sm text-black">Alamat</label>
                                     <input disabled type="text" value="<?= $pendaftaran['jalan']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none " />
                                 </div>
                                 <div class="w-full mb-4">
@@ -304,7 +304,7 @@
                                     <input disabled type="text" value="<?= $pendaftaran['pendidikan']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none " />
                                 </div>
                                 <div class="w-full mb-4">
-                                    <label class="block mb-2 text-sm text-black">Jalan</label>
+                                    <label class="block mb-2 text-sm text-black">Alamat</label>
                                     <input disabled type="text" value="<?= $pendaftaran['jalan']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none " />
                                 </div>
                                 <div class="w-full mb-4">

@@ -38,7 +38,7 @@
                         data-target="keistimewaan">Keistimewaan</button>
 
                     <!-- Button Kembali ke Usulan Saya -->
-                    <button onclick="window.location.href='/pengusul/usulansaya'"
+                    <button id="kembaliButton"
                         class="text-sm font-bold text-gray-600 no-underline focus:outline-none text-start mt-6">
                         <span class="font-bold text-lg items-center">←</span> Kembali
                     </button>
@@ -52,6 +52,23 @@
                             <input type="hidden" name="id_pendaftaran" value="<?= $pendaftaran['id_pendaftaran'] ?>">
                             <p class="font-semibold mb-2 text-md text-primary underline">Data Kelompok/ Komunitas</p>
 
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">SKCK : <?php if (!empty($pendaftaran['skck'])): ?>
+                                        <?= esc($pendaftaran['skck']) ?>
+                                    <?php endif; ?><span class="text-primary">(.pdf)</span></label>
+                                <div class="relative">
+                                    <input name="skck" value="<?= isset($pendaftaran['skck']) ? $pendaftaran['skck'] : ''; ?>"
+                                        id="skck" type="file" accept=".pdf"
+                                        class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-primary file:text-white">
+                                </div>
+                            </div>
+                            <div class="w-full mb-2">
+                                <label class="block mb-2 text-sm text-black">Tanggal SKCK</label>
+                                <input name="tanggal_skck" value="<?= isset($identitasabd['tanggal_skck']) ? $identitasabd['tanggal_skck'] : ''; ?>" type="date" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <?php if (session('errors.tanggal_skck')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.tanggal_skck') ?></p>
+                                <?php endif; ?>
+                            </div>
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">Nama Kelompok</label>
                                 <input type="text" name="nama_kelompok" value="<?= isset($identitasc['nama_kelompok']) ? $identitasc['nama_kelompok'] : ''; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
@@ -240,6 +257,18 @@
 
                                 </div>
                             </div>
+
+                            <div class="flex justify-end mt-4">
+                                <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="submit">Simpan</button>
+                            </div>
+                        </form>
+                    </div>
+
+                <?php else: ?>
+                    <div id="identitas-calon" class="form-section flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
+                        <form id="identitasabd" action="<?= base_url('pengusul/simpanForm/identitasabd'); ?>" class="mb-2 w-full" method="post" enctype="multipart/form-data">
+                            <?= csrf_field(); ?>
+                            <input type="hidden" name="id_pendaftaran" value="<?= $pendaftaran['id_pendaftaran'] ?>">
                             <div class="w-full mb-2">
                                 <label class="block mb-2 text-sm text-black">SKCK : <?php if (!empty($pendaftaran['skck'])): ?>
                                         <?= esc($pendaftaran['skck']) ?>
@@ -257,18 +286,6 @@
                                     <p class="text-red-500 text-sm mt-2"><?= session('errors.tanggal_skck') ?></p>
                                 <?php endif; ?>
                             </div>
-
-                            <div class="flex justify-end mt-4">
-                                <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="submit">Simpan</button>
-                            </div>
-                        </form>
-                    </div>
-
-                <?php else: ?>
-                    <div id="identitas-calon" class="form-section flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
-                        <form id="identitasabd" action="<?= base_url('pengusul/simpanForm/identitasabd'); ?>" class="mb-2 w-full" method="post" enctype="multipart/form-data">
-                            <?= csrf_field(); ?>
-                            <input type="hidden" name="id_pendaftaran" value="<?= $pendaftaran['id_pendaftaran'] ?>">
                             <div class="w-full mb-4">
                                 <label class="mb-2 text-sm text-slate-600">Nama Lengkap</label>
                                 <input name="nama_individu" value="<?= isset($identitasabd['nama']) ? $identitasabd['nama'] : ''; ?>" type="text" class="w-full bg-transparent text-primary placeholder:text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary shadow-sm focus:shadow" />
@@ -418,24 +435,6 @@
                                 </div>
 
                             </div>
-                            <div class="w-full mb-2">
-                                <label class="block mb-2 text-sm text-black">SKCK : <?php if (!empty($pendaftaran['skck'])): ?>
-                                        <?= esc($pendaftaran['skck']) ?>
-                                    <?php endif; ?><span class="text-primary">(.pdf)</span></label>
-                                <div class="relative">
-                                    <input name="skck" value="<?= isset($pendaftaran['skck']) ? $pendaftaran['skck'] : ''; ?>"
-                                        id="skck" type="file" accept=".pdf"
-                                        class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-primary file:text-white">
-                                </div>
-
-                            </div>
-                            <div class="w-full mb-2">
-                                <label class="block mb-2 text-sm text-black">Tanggal SKCK</label>
-                                <input name="tanggal_skck" value="<?= isset($identitasabd['tanggal_skck']) ? $identitasabd['tanggal_skck'] : ''; ?>" type="date" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-                                <?php if (session('errors.tanggal_skck')): ?>
-                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.tanggal_skck') ?></p>
-                                <?php endif; ?>
-                            </div>
 
                             <div class="flex justify-end mt-4">
                                 <button class="w-40 rounded-md py-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none" type="submit">Simpan</button>
@@ -445,7 +444,7 @@
                 <?php endif; ?>
 
                 <!-- Right side: Form inside a card -->
-                <div id="kegiatan" class="form-section hidden flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
+                <div id="kegiatan" class="form-section flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
                     <form id="kegiatanForm" action="<?= base_url('pengusul/simpanForm/kegiatan'); ?>" class="mb-2 w-full" method="post" enctype="multipart/form-data">
                         <div class="grid grid-cols-1 gap-4" id="formContainer">
                             <!-- Kolom kiri -->
@@ -479,7 +478,7 @@
                                 </div>
                                 <div>
                                     <label class="block mb-2 text-sm text-black">Tahun Mulai Kegiatan</label>
-                                    <input type="date" id="tahun_mulai" name="tahun_mulai" value="<?= isset($kegiatanUtama['tahun_mulai']) ? $kegiatanUtama['tahun_mulai'] : ''; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                    <input type="date" id="tahun_mulai_utama" name="tahun_mulai" value="<?= isset($kegiatanUtama['tahun_mulai']) ? $kegiatanUtama['tahun_mulai'] : ''; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                                 </div>
                                 <div>
                                     <label class="block mb-2 text-sm text-black">Penjelasan Kegiatan</label>
@@ -547,7 +546,7 @@
                                             </div>
                                             <div>
                                                 <label class="block mb-2 text-sm text-black">Tahun Mulai Kegiatan</label>
-                                                <input type="date" id="tahun_mulai" name="kegiatan_lainnya[<?= $index ?>][tahun_mulai]" value="<?= isset($kegiatan['tahun_mulai']) ? $kegiatan['tahun_mulai'] : ''; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                                <input type="date" name="kegiatan_lainnya[<?= $index ?>][tahun_mulai]" value="<?= isset($kegiatan['tahun_mulai']) ? $kegiatan['tahun_mulai'] : ''; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                                             </div>
                                             <div>
                                                 <label class="block mb-2 text-sm text-black">Penjelasan Kegiatan</label>
@@ -604,7 +603,7 @@
                 </div>
 
                 <!-- Right side: Form inside a card -->
-                <div id="dampak" class="form-section hidden flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
+                <div id="dampak" class="form-section flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
                     <form id="dampakForm" action="<?= base_url('pengusul/simpanForm/dampak'); ?>" method="post" enctype="multipart/form-data">
                         <div class="grid grid-cols-1 gap-4">
                             <?= csrf_field(); ?>
@@ -650,7 +649,7 @@
 
 
                 <!-- Right side: Form inside a card -->
-                <div id="pmik" class="form-section hidden flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
+                <div id="pmik" class="form-section flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
                     <form id="pmikForm" action="<?= base_url('pengusul/simpanForm/pmik'); ?>" class="mb-2 w-full" method="post" enctype="multipart/form-data">
                         <div class="grid grid-cols-1 gap-4">
                             <?= csrf_field(); ?>
@@ -696,7 +695,7 @@
                 </div>
 
                 <!-- Right side: Form inside a card -->
-                <div id="keswadayaan" class="form-section hidden flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
+                <div id="keswadayaan" class="form-section flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
                     <form id="keswadayaanForm" action="<?= base_url('pengusul/simpanForm/keswadayaan'); ?>" class="mb-2 w-full" method="post" enctype="multipart/form-data">
                         <div class="grid grid-cols-1 gap-4">
                             <?= csrf_field(); ?>
@@ -727,7 +726,7 @@
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Kelompok/Perorangan yang meniru</label>
-                                <input type="number" name="jumlah_kelompok_serupa" id="kelompokPeroranganMeniru" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" value="<?= $keswadayaan['jumlah_kelompok_serupa'] ?? '' ?>" />
+                                <input type="text" name="jumlah_kelompok_serupa" id="kelompokPeroranganMeniru" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" value="<?= $keswadayaan['jumlah_kelompok_serupa'] ?? '' ?>" />
                             </div>
                         </div>
 
@@ -738,7 +737,7 @@
                 </div>
 
                 <!-- Right side: Form inside a card -->
-                <div id="keistimewaan" class="form-section hidden flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
+                <div id="keistimewaan" class="form-section flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
                     <form id="keistimewaanForm" action="<?= base_url('pengusul/simpanForm/keistimewaan'); ?>" class="mb-2 w-full" method="post" enctype="multipart/form-data">
                         <div class="grid grid-cols-1 gap-4">
                             <?= csrf_field(); ?>
@@ -885,7 +884,7 @@
 
         // Memantau perubahan pada form
         const forms1 = document.querySelectorAll('form');
-        let isFormDirty1 = false; // Flag untuk menandai apakah form sudah diubah
+        let isFormDirty1 = false;
 
         // Tambahkan event listener ke setiap input dalam form untuk menandai jika ada perubahan
         forms1.forEach(form => {
@@ -925,7 +924,7 @@
 
                     Swal.fire({
                         title: 'Anda Belum melakukan Simpan',
-                        text: "Mohon untuk melakukan Simpan Data Sebelum berpindah Form!",
+                        text: "Mohon untuk melakukan Simpan Data sebelum berpindah Form!",
                         icon: 'warning',
                         confirmButtonColor: '#2C7865',
                         confirmButtonText: 'OK'
@@ -933,7 +932,6 @@
 
                     });
                 } else {
-                    // Jika form belum diubah, langsung pindah form
                     const target = button.getAttribute('data-target');
                     sections.forEach(section => {
                         section.classList.add('hidden');
@@ -941,6 +939,47 @@
                     document.getElementById(target).classList.remove('hidden');
                 }
             });
+        });
+
+        const navbar = document.querySelector('nav');
+        const sidebar = document.getElementById('sidebar');
+
+        [navbar, sidebar].forEach(element => {
+            element.addEventListener('click', (event) => {
+                if (isFormDirty) {
+                    event.preventDefault();
+
+                    Swal.fire({
+                        title: 'Anda Belum melakukan Simpan',
+                        text: "Mohon untuk melakukan Simpan Data sebelum berpindah halaman!",
+                        icon: 'warning',
+                        confirmButtonColor: '#2C7865',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+
+                    });
+                }
+            });
+        });
+
+        const kembaliButton = document.getElementById('kembaliButton');
+
+        kembaliButton.addEventListener('click', (event) => {
+            if (isFormDirty) {
+                event.preventDefault();
+
+                Swal.fire({
+                    title: 'Anda Belum melakukan Simpan',
+                    text: "Mohon untuk melakukan Simpan Data sebelum keluar halaman!",
+                    icon: 'warning',
+                    confirmButtonColor: '#2C7865',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+
+                });
+            } else {
+                window.location.href = '/pengusul/usulansaya';
+            }
         });
 
         // Fungsi untuk mendapatkan parameter query dari URL
@@ -960,23 +999,22 @@
             }
         });
 
-        // Fungsi untuk membatasi tanggal lima tahun ke belakang dari hari ini
-        function setDateRestrictions(inputDateElement) {
-            const today = new Date();
-            const fiveYearsAgo = new Date(today.getFullYear() - 5, today.getMonth(), today.getDate());
-            const maxDate = fiveYearsAgo.toISOString().split('T')[0];
-
-            inputDateElement.setAttribute('max', maxDate);
+        function setDateRestrictions(inputDateElement, isMainActivity = false) {
+            if (isMainActivity) {
+                const today = new Date();
+                const fiveYearsAgo = new Date(today.getFullYear() - 5, today.getMonth(), today.getDate());
+                const maxDate = fiveYearsAgo.toISOString().split('T')[0];
+                inputDateElement.setAttribute('max', maxDate);
+            }
         }
 
-        const mainInputDate = document.getElementById('tahun_mulai');
-
+        const mainInputDate = document.getElementById('tahun_mulai_utama');
         if (mainInputDate) {
-            setDateRestrictions(mainInputDate);
+            setDateRestrictions(mainInputDate, true);
         }
 
         document.querySelectorAll('input[name^="kegiatan_lainnya"]').forEach(function(inputDateElement) {
-            setDateRestrictions(inputDateElement);
+            setDateRestrictions(inputDateElement, false);
         });
 
         function addNewKegiatanInput() {
@@ -985,10 +1023,9 @@
             newKegiatanInput.setAttribute('name', `kegiatan_lainnya[${kegiatanCount}][tahun_mulai]`);
             newKegiatanInput.classList.add('w-full', 'bg-transparent', 'placeholder:text-slate-400', 'text-primary', 'text-sm', 'border-2', 'border-slate-200', 'rounded-md', 'px-3', 'py-2', 'transition', 'duration-300', 'ease', 'focus:outline-none', 'focus:border-primary', 'hover:border-primary', 'focus:shadow');
 
-            setDateRestrictions(newKegiatanInput);
+            setDateRestrictions(newKegiatanInput, false);
 
             document.getElementById('kegiatan-lainnya-container').appendChild(newKegiatanInput);
-
             kegiatanCount++;
         }
 
@@ -1394,7 +1431,10 @@
 
         document.querySelectorAll('input[type="file"]').forEach(fileInput => {
             fileInput.addEventListener('change', function() {
-                validateFile(fileInput);
+                const acceptType = fileInput.getAttribute('accept');
+                if (acceptType.includes('.jpg') || acceptType.includes('.jpeg')) {
+                    validateFile(fileInput);
+                }
             });
         });
     </script>
