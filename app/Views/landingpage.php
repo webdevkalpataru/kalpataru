@@ -552,12 +552,12 @@
             };
 
             var colorRanges = [
-            { min: 1, max: 10, color: '#5EFFD7' },
-            { min: 11, max: 20, color: '#52D5B4' },
-            { min: 21, max: 30, color: '#43B095' },
-            { min: 31, max: 40, color: '#348C76' },
-            { min: 41, max: 50, color: '#2B6556' }
-        ];
+                { min: 1, max: 10, color: '#5EFFD7' },
+                { min: 11, max: 20, color: '#52D5B4' },
+                { min: 21, max: 30, color: '#43B095' },
+                { min: 31, max: 40, color: '#348C76' },
+                { min: 41, max: Infinity, color: '#2B6556' }
+            ];
 
             function getColorByTotal(total) {
                 for (var i = 0; i < colorRanges.length; i++) {
@@ -589,22 +589,25 @@
                                 };
                             },
                             onEachFeature: function(feature, layer) {
-                                var center = layer.getBounds().getCenter();
-                                var label = L.marker(center, {
-                                    icon: L.divIcon({
-                                        className: 'province-label',
-                                        html: '<div style="font-weight: bold; cursor: pointer;">' + provinsi + '</div>',
-                                        iconSize: [100, 40],
-                                        iconAnchor: [50, 20]
-                                    })
-                                }).addTo(map);
+                            var center = layer.getBounds().getCenter();
+                            var label = L.marker(center, {
+                                icon: L.divIcon({
+                                    className: 'province-label',
+                                    html: '<div style="font-weight: bold; cursor: pointer;">' + provinsi + '</div>',
+                                    iconSize: [100, 40],
+                                    iconAnchor: [50, 20]
+                                })
+                            }).addTo(map);
 
-                                var popupContent = '<strong>' + provinsi + '</strong>';
-                                if (penerimaDiProvinsi && penerimaDiProvinsi.total > 0) {
-                                    popupContent += '<br>Jumlah Penerima: ' + penerimaDiProvinsi.total;
-                                } else {
-                                    popupContent += '<br>Tidak ada penerima.';
-                                }
+                            var popupContent = '<div style="font-family: Arial, sans-serif; text-align: center;">' +
+                                            '<strong style="font-size: 16px; color: #333;">' + provinsi + '</strong>';
+                            if (penerimaDiProvinsi && penerimaDiProvinsi.total > 0) {
+                                popupContent += '<br><span style="font-size: 14px; color: #555;">Jumlah Penerima: </span>' +
+                                                '<span style="font-size: 14px; font-weight: bold; color: #000;">' + penerimaDiProvinsi.total + '</span>';
+                            } else {
+                                popupContent += '<br><span style="font-size: 14px; color: #555;">Tidak ada penerima</span>';
+                            }
+                            popupContent += '</div>';
 
                                 label.on('click', function() {
                                     var popup = L.popup()
@@ -626,8 +629,9 @@
                 var colors = colorRanges.map(range => range.color);
 
                 for (var i = 0; i < colors.length; i++) {
+                    var rangeText = (colorRanges[i].max === Infinity) ? '≥ ' + colorRanges[i].min : colorRanges[i].min + '-' + colorRanges[i].max;
                     labels.push(
-                        '<i style="background:' + colors[i] + '"></i> ' + colorRanges[i].min + '-' + colorRanges[i].max + ' Penerima'
+                        '<i style="background:' + colors[i] + '"></i> ' + rangeText + ' Penerima'
                     );
                 }
 
