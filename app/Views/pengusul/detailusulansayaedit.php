@@ -36,6 +36,8 @@
                         data-target="keswadayaan">Keswadayaan dan Kebudayaan</button>
                     <button id="keistimewaanButton" class="mt-2 w-full btn-section md:w-40 rounded-md py-2 px-4 text-center text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none text-sm" type="button"
                         data-target="keistimewaan">Keistimewaan</button>
+                    <button id="keistimewaanButton" class="mt-2 w-full btn-section md:w-40 rounded-md py-2 px-4 text-center text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none text-sm" type="button"
+                        data-target="keistimewaan">Upload Dokumen</button>
 
                     <!-- Button Kembali ke Usulan Saya -->
                     <button onclick="window.location.href='/pengusul/usulansaya'"
@@ -648,7 +650,6 @@
                 </div>
 
 
-
                 <!-- Right side: Form inside a card -->
                 <div id="pmik" class="form-section hidden flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
                     <form id="pmikForm" action="<?= base_url('pengusul/simpanForm/pmik'); ?>" class="mb-2 w-full" method="post" enctype="multipart/form-data">
@@ -822,6 +823,14 @@
                         <img id="errorIcon" src="/images/error.png" alt="Error Icon" class="w-16 h-16 mb-4 hidden">
                         <p id="notifMessage" class="text-center text-sm text-slate-600 mb-6"></p>
                         <button id="closeButton" class="bg-primary text-white py-2 px-4 rounded-lg">OK</button>
+                    </div>
+                </div>
+
+                <div id="modalKata" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+                    <div class="bg-white rounded-lg p-8 flex flex-col items-center max-w-md">
+                        <img src="/images/error.png" alt="Error Icon" class="w-16 h-16 mb-4">
+                        <p id="modalMessage" class="text-center text-sm text-slate-600 mb-6">Mohon lengkapi minimal 100 kata pada semua bidang dampak sebelum menyimpan.</p>
+                        <button id="closeButtonkata" class="bg-primary text-white py-2 px-4 rounded-lg">OK</button>
                     </div>
                 </div>
 
@@ -1108,59 +1117,73 @@
         }
 
         // Batasan Kata
-        function updateWordCount(textarea, countId, maxWords) {
+        function updateWordCount(textarea, countId, maxWords, minWords = 100) {
             const countElement = document.getElementById(countId);
 
             // Tambahkan event listener untuk mendeteksi perubahan input
             textarea.addEventListener('input', function() {
-                let words = textarea.value.trim().split(/\s+/).filter(word => word.length > 0); // Pisahkan kata berdasarkan spasi
+                let words = textarea.value.trim().split(/\s+/).filter(word => word.length > 0);
                 let currentLength = words.length;
 
-                // Jika kata lebih dari 1000, potong ke 1000 kata
+                // Jika kata lebih dari maxWords, potong ke maxWords kata
                 if (currentLength > maxWords) {
                     words = words.slice(0, maxWords);
                     textarea.value = words.join(" ");
-                    currentLength = maxWords; // Set currentLength ke batas maksimal
+                    currentLength = maxWords;
                 }
 
                 // Update jumlah kata di elemen counter
                 countElement.textContent = `${currentLength}/${maxWords} kata`;
-            });
 
-            // Event keydown untuk mencegah input baru jika kata sudah mencapai 1000
-            textarea.addEventListener('keydown', function(event) {
-                let words = textarea.value.trim().split(/\s+/).filter(word => word.length > 0);
-                let currentLength = words.length;
-
-                const isControlKey = event.key === "Backspace" || event.key === "Delete" || event.key.startsWith("Arrow");
-
-                // Jika sudah 1000 kata, cegah input baru kecuali tombol penghapusan atau navigasi
-                if (currentLength >= maxWords && !isControlKey) {
-                    event.preventDefault(); // Cegah penambahan input baru jika mencapai batas maksimal kata
+                // Cek apakah jumlah kata memenuhi minimal requirement
+                if (currentLength < minWords) {
+                    countElement.style.color = "red"; // Ganti warna teks jika di bawah minimum
+                    countElement.textContent += ` (Minimal ${minWords} kata diperlukan)`;
+                } else {
+                    countElement.style.color = "black"; // Kembalikan warna teks normal jika mencapai minimum
                 }
             });
         }
 
-        // Jalankan fungsi ketika halaman di-load
-        updateWordCount(document.getElementById('pihakPeran'), 'pihakPeranCount', 1000);
-        updateWordCount(document.getElementById('penjelasan'), 'penjelasanCount', 1000);
-        updateWordCount(document.getElementById('keberhasilan'), 'keberhasilanCount', 1000);
-
+        // Panggil updateWordCount untuk setiap textarea
         updateWordCount(document.getElementById('dampakLingkungan'), 'dampakLingkunganCount', 1000);
         updateWordCount(document.getElementById('dampakEkonomi'), 'dampakEkonomiCount', 1000);
         updateWordCount(document.getElementById('dampakSosial'), 'dampakSosialCount', 1000);
 
-        updateWordCount(document.getElementById('prakarsa'), 'prakarsaCount', 1000);
-        updateWordCount(document.getElementById('motivasi'), 'motivasiCount', 1000);
-        updateWordCount(document.getElementById('inovasi'), 'inovasiCount', 1000);
-        updateWordCount(document.getElementById('kreativitas'), 'kreativitasCount', 1000);
+        // Fungsi untuk memeriksa jumlah kata minimal
+        function checkMinWordCount(textarea, minWords = 100) {
+            const words = textarea.value.trim().split(/\s+/).filter(word => word.length > 0);
+            return words.length >= minWords;
+        }
 
-        updateWordCount(document.getElementById('sumber'), 'sumberCount', 1000);
-        updateWordCount(document.getElementById('teknologi'), 'teknologiCount', 1000);
-        updateWordCount(document.getElementById('statusLahan'), 'statusLahanCount', 1000);
+        // Fungsi untuk menampilkan modal
+        function showModal(message) {
+            const modal = document.getElementById("modalKata");
+            const modalMessage = document.getElementById("modalMessage");
+            modalMessage.textContent = message;
+            modal.classList.remove("hidden");
+        }
 
-        updateWordCount(document.getElementById('keistimewaanCalon'), 'keistimewaanCalonCount', 1000);
-        updateWordCount(document.getElementById('penghargaanRelevan'), 'penghargaanRelevanCount', 1000);
+        // Fungsi untuk menutup modal
+        document.getElementById("closeButtonkata").addEventListener("click", function() {
+            document.getElementById("modalKata").classList.add("hidden");
+        });
+
+        // Event Listener pada form submit
+        document.getElementById("dampakForm").addEventListener("submit", function(event) {
+            const dampakLingkungan = document.getElementById("dampakLingkungan");
+            const dampakEkonomi = document.getElementById("dampakEkonomi");
+            const dampakSosial = document.getElementById("dampakSosial");
+
+            // Validasi semua textarea yang memerlukan minimal 100 kata
+            if (!checkMinWordCount(dampakLingkungan) || !checkMinWordCount(dampakEkonomi) || !checkMinWordCount(dampakSosial)) {
+                event.preventDefault(); // Mencegah pengiriman form
+                showModal("Mohon lengkapi minimal 100 kata pada semua bidang dampak sebelum menyimpan.");
+            } else {
+                console.log("Form berhasil divalidasi dan siap dikirim.");
+            }
+        });
+
 
         let kegiatanCount = <?= isset($kegiatanLainnya) ? count($kegiatanLainnya) : 0; ?>;
         const maxKegiatan = 3;

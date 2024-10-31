@@ -103,8 +103,38 @@ class PengusulController extends BaseController
         $id_pengusul = $this->request->getPost('id_pengusul');
         $kategori = $this->request->getPost('kategori');
 
-        $totalKategori = $Model->where('kategori', $kategori)->countAllResults();
+        $data = [
+            'id_pengusul' => $id_pengusul,
+            'kategori' => $kategori,
+            'tanggal_pendaftaran' => date('Y-m-d H:i:s'),
+            'title' => 'Input Kategori'
+        ];
 
+        session()->set('pendaftaran_data', $data);
+
+        return redirect()->to('pengusul/tambahcalonidentitas')->with('success', 'Kategori berhasil dipilih, lanjutkan mengisi identitas.');
+    }
+
+    public function updateStatus()
+    {
+        // Validasi ID pendaftaran
+        $id_pendaftaran = $this->request->getPost('id_pendaftaran');
+
+        if (!$id_pendaftaran) {
+            return $this->response->setJSON(['success' => false, 'message' => 'ID pendaftaran tidak ditemukan']);
+        }
+
+        // Ambil model
+        $pendaftaranModel = new PendaftaranModel();
+
+        // Ambil data pendaftaran berdasarkan ID untuk mendapatkan kategori
+        $pendaftaran = $pendaftaranModel->find($id_pendaftaran);
+        if (!$pendaftaran) {
+            return $this->response->setJSON(['success' => false, 'message' => 'Data pendaftaran tidak ditemukan']);
+        }
+
+        // Tentukan prefix berdasarkan kategori
+        $kategori = $pendaftaran['kategori'];
         switch ($kategori) {
             case 'Perintis Lingkungan':
                 $prefix = 'A';
@@ -122,21 +152,37 @@ class PengusulController extends BaseController
                 $prefix = 'X';
         }
 
+        // Gunakan transaksi untuk menghindari duplikasi kode registrasi
+        $db = \Config\Database::connect();
+        $db->transStart();
+
+        // Hitung total kategori yang ada dengan prefix tersebut
+        $totalKategori = $pendaftaranModel->where('kategori', $kategori)->countAllResults();
+
+        // Buat kode registrasi yang unik
         $kode_registrasi = $prefix . str_pad($totalKategori + 1, 2, '0', STR_PAD_LEFT);
 
+        // Perbarui data dengan kode_registrasi baru dan status yang telah diubah
         $data = [
-            'id_pengusul' => $id_pengusul,
-            'kategori' => $kategori,
-            'tanggal_pendaftaran' => date('Y-m-d H:i:s'),
             'kode_registrasi' => $kode_registrasi,
-            'title' => 'Input Kategori'
+            'status_pendaftaran' => 'Terkirim',
+            'edit' => 'Off',
         ];
 
-        session()->set('pendaftaran_data', $data);
+        // Update data pendaftaran
+        $updated = $pendaftaranModel->update($id_pendaftaran, $data);
 
-        return redirect()->to('pengusul/tambahcalonidentitas')->with('success', 'Kategori berhasil dipilih, lanjutkan mengisi identitas.');
+        // Selesaikan transaksi
+        $db->transComplete();
+
+        if ($db->transStatus() === false || !$updated) {
+            // Jika ada kesalahan, rollback transaksi dan kirim respons gagal
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui status dan kode registrasi']);
+        }
+
+        // Kirim respons berhasil
+        return $this->response->setJSON(['success' => true]);
     }
-
 
 
     public function tambahCalonIdentitas()
@@ -147,54 +193,11 @@ class PengusulController extends BaseController
             return redirect()->back()->with('error', 'Data kategori atau pendaftaran tidak ditemukan.');
         }
 
-        $provinsi_list = [
-            'Aceh',
-            'Bali',
-            'Bangka Belitung',
-            'Banten',
-            'Bengkulu',
-            'DI Yogyakarta',
-            'DKI Jakarta',
-            'Gorontalo',
-            'Jambi',
-            'Jawa Barat',
-            'Jawa Tengah',
-            'Jawa Timur',
-            'Kalimantan Barat',
-            'Kalimantan Selatan',
-            'Kalimantan Tengah',
-            'Kalimantan Timur',
-            'Kalimantan Utara',
-            'Kepulauan Bangka Belitung',
-            'Kepulauan Riau',
-            'Lampung',
-            'Maluku',
-            'Maluku Utara',
-            'Nusa Tenggara Barat',
-            'Nusa Tenggara Timur',
-            'Papua',
-            'Papua Barat',
-            'Papua Barat Daya',
-            'Papua Pegunungan',
-            'Papua Selatan',
-            'Papua Tengah',
-            'Riau',
-            'Sulawesi Barat',
-            'Sulawesi Selatan',
-            'Sulawesi Tengah',
-            'Sulawesi Tenggara',
-            'Sulawesi Utara',
-            'Sumatera Barat',
-            'Sumatera Selatan',
-            'Sumatera Utara'
-        ];
-
 
         $data = [
             'title' => 'Tambah Identitas Calon Usulan',
             'id_pengusul' => $pendaftaranData['id_pengusul'],
             'kategori' => $pendaftaranData['kategori'],
-            'provinsi_list' => $provinsi_list,
         ];
 
         return view('pengusul/tambahcalonidentitas', $data);
@@ -227,12 +230,12 @@ class PengusulController extends BaseController
             'pendidikan'        => 'required|min_length[2]|max_length[50]',
             'jalan'             => 'required|min_length[3]|max_length[255]',
             'rt_rw'             => 'required|max_length[10]',
-            'desa'              => 'required|min_length[3]|max_length[100]',
-            'kecamatan'         => 'required|min_length[3]|max_length[100]',
-            'kab_kota'          => 'required|min_length[3]|max_length[100]',
             'provinsi'          => 'required',
+            'kab_kota'          => 'required',
+            'kecamatan'         => 'required',
+            'desa'              => 'required',
             'kode_pos'          => 'required|numeric|exact_length[5]',
-            'media_sosial'      => 'required|min_length[3]|max_length[100]',
+            'media_sosial'      => 'permit_empty',
             'ktp'               => 'uploaded[ktp]|mime_in[ktp,image/jpg,image/jpeg]|max_size[ktp,1024]',
             'skck'              => 'uploaded[skck]|mime_in[skck,application/pdf]|max_size[skck,1024]',
             'tanggal_skck'      => 'required|valid_date',
@@ -275,10 +278,10 @@ class PengusulController extends BaseController
                 'jumlah_anggota' => $this->request->getPost('jumlah_anggota'),
                 'jalan' => $this->request->getPost('jalan'),
                 'rt_rw' => $this->request->getPost('rt_rw'),
-                'desa' => $this->request->getPost('desa'),
-                'kecamatan' => $this->request->getPost('kecamatan'),
-                'kab_kota' => $this->request->getPost('kab_kota'),
-                'provinsi' => $this->request->getPost('provinsi'),
+                'provinsi' => $this->request->getPost('nama_provinsi'),
+                'kab_kota' => $this->request->getPost('nama_kabupaten'),
+                'kecamatan' => $this->request->getPost('nama_kecamatan'),
+                'desa' => $this->request->getPost('nama_kelurahan'),
                 'kode_pos' => $this->request->getPost('kode_pos'),
                 'sosial_media' => $this->request->getPost('media_sosial'),
                 'nama_kelompok' => $this->request->getPost('nama_kelompok'),
@@ -311,10 +314,10 @@ class PengusulController extends BaseController
                 'pendidikan' => $this->request->getPost('pendidikan'),
                 'jalan' => $this->request->getPost('jalan'),
                 'rt_rw' => $this->request->getPost('rt_rw'),
-                'desa' => $this->request->getPost('desa'),
-                'kecamatan' => $this->request->getPost('kecamatan'),
-                'kab_kota' => $this->request->getPost('kab_kota'),
-                'provinsi' => $this->request->getPost('provinsi'),
+                'provinsi' => $this->request->getPost('nama_provinsi'),
+                'kab_kota' => $this->request->getPost('nama_kabupaten'),
+                'kecamatan' => $this->request->getPost('nama_kecamatan'),
+                'desa' => $this->request->getPost('nama_kelurahan'),
                 'kode_pos' => $this->request->getPost('kode_pos'),
                 'sosial_media' => $this->request->getPost('media_sosial'),
                 'tanggal_skck' => $this->request->getPost('tanggal_skck'),
@@ -322,6 +325,7 @@ class PengusulController extends BaseController
                 'skck' => $skckFileName
             ];
         }
+
 
         // Gabungkan data identitas dengan data pendaftaran sebelumnya dari session
         $finalData = array_merge($pendaftaranData, $data);
@@ -737,6 +741,7 @@ class PengusulController extends BaseController
                     'dampak_ekonomi' => $this->request->getPost('dampak_ekonomi'),
                     'dampak_sosial_budaya' => $this->request->getPost('dampak_sosial_budaya'),
                 ];
+
                 // Logika untuk menyimpan data
                 if ($dampak) {
                     $model->updateDampak($data, ['id_pendaftaran' => $id_pendaftaran]);
@@ -968,34 +973,6 @@ class PengusulController extends BaseController
 
         // Load view untuk menampilkan data calon
         return view('pengusul/usulansaya', $data);
-    }
-
-    // Fungsi untuk update status pendaftaran dan edit
-    public function updateStatus()
-    {
-        // Validasi ID pendaftaran
-        $id_pendaftaran = $this->request->getPost('id_pendaftaran');
-
-        if (!$id_pendaftaran) {
-            return $this->response->setJSON(['success' => false, 'message' => 'ID pendaftaran tidak ditemukan']);
-        }
-
-        // Ambil model
-        $pendaftaranModel = new PendaftaranModel();
-
-        // Perbarui status pendaftaran menjadi 'Terkirim' dan edit menjadi 'Off'
-        $data = [
-            'status_pendaftaran' => 'Terkirim',
-            'edit' => 'Off',
-        ];
-
-        $updated = $pendaftaranModel->update($id_pendaftaran, $data);
-
-        if ($updated) {
-            return $this->response->setJSON(['success' => true]);
-        } else {
-            return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui status']);
-        }
     }
 
     public function usulandlhk()
