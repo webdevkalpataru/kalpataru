@@ -133,6 +133,7 @@ $routes->group('penerima', ['filter' => 'auth'], function ($routes) {
 $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('dashboard', 'AdminController::dashboard');
     $routes->get('datacalon', 'AdminController::datacalon');
+    $routes->get('exportexcel', 'AdminController::exportToExcel');
     $routes->post('updatestatuspendaftaran', 'AdminController::updateStatusPendaftaran');
     $routes->get('detaildatacalon/(:num)', 'AdminController::detailDataCalon/$1');
     $routes->get('preview/ktp/(:any)', 'PengusulController::showKTP/$1');

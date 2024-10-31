@@ -16,6 +16,8 @@ use App\Models\PendaftaranModel;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use App\Models\PamfletModel;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 
 class AdminController extends BaseController
@@ -2571,5 +2573,116 @@ class AdminController extends BaseController
         $namaFile = 'Formulir_' . esc($pendaftaranData['nama']) . '_' . esc($pendaftaranData['kategori']) . '.pdf';
 
         $dompdf->stream($namaFile, ['Attachment' => true]);
+    }
+
+    public function exportToExcel()
+    {
+        $db = \Config\Database::connect();
+
+        $query = $db->query("
+        SELECT 
+            p.kategori, p.nama, p.nik, p.tempat_lahir, p.tanggal_lahir, p.usia, p.jenis_kelamin, p.jalan, 
+            p.rt_rw, p.desa, p.kecamatan, p.kab_kota, p.provinsi, p.kode_pos, p.pekerjaan, p.telepon, 
+            p.email, p.sosial_media, p.pendidikan, p.nama_kelompok, p.jumlah_anggota, p.tahun_pembentukan,
+            k.tema, k.sub_tema, k.bentuk_kegiatan, k.tahun_mulai, k.deskripsi_kegiatan, k.lokasi_kegiatan, 
+            k.koordinat, k.pihak_dan_peran, k.keberhasilan,
+            d.dampak_lingkungan, d.dampak_ekonomi, d.dampak_sosial_budaya,
+            pm.prakarsa, pm.motivasi, pm.inovasi, pm.kreativitas,
+            ks.sumber_biaya, ks.teknologi_kegiatan, ks.status_lahan_kegiatan, ks.jumlah_kelompok_serupa,
+            ke.keistimewaan, ke.penghargaan
+        FROM Pendaftaran p
+        LEFT JOIN Kegiatan k ON p.id_pendaftaran = k.id_pendaftaran
+        LEFT JOIN Dampak d ON p.id_pendaftaran = d.id_pendaftaran
+        LEFT JOIN PMIK pm ON p.id_pendaftaran = pm.id_pendaftaran
+        LEFT JOIN Keswadayaan ks ON p.id_pendaftaran = ks.id_pendaftaran
+        LEFT JOIN Keistimewaan ke ON p.id_pendaftaran = ke.id_pendaftaran
+    ");
+
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setTitle("Data Pendaftaran");
+
+        $data = $query->getResultArray();
+
+        // Header Kolom Kustom
+        $headers = [
+            'Kategori',
+            'Nama',
+            'NIK',
+            'Tempat Lahir',
+            'Tanggal Lahir',
+            'Usia',
+            'Jenis Kelamin',
+            'Alamat Jalan',
+            'RT/RW',
+            'Desa/Kelurahan',
+            'Kecamatan',
+            'Kabupaten/Kota',
+            'Provinsi',
+            'Kode Pos',
+            'Pekerjaan',
+            'Telepon',
+            'Email',
+            'Sosial Media',
+            'Pendidikan',
+            'Nama Kelompok',
+            'Jumlah Anggota',
+            'Tahun Pembentukan',
+            'Tema Kegiatan',
+            'Sub Tema',
+            'Bentuk Kegiatan',
+            'Tahun Mulai',
+            'Deskripsi Kegiatan',
+            'Lokasi Kegiatan',
+            'Koordinat Lokasi',
+            'Pihak dan Peran',
+            'Keberhasilan',
+            'Dampak Lingkungan',
+            'Dampak Ekonomi',
+            'Dampak Sosial Budaya',
+            'Prakarsa',
+            'Motivasi',
+            'Inovasi',
+            'Kreativitas',
+            'Sumber Biaya',
+            'Teknologi Kegiatan',
+            'Status Lahan Kegiatan',
+            'Jumlah Kelompok Serupa',
+            'Keistimewaan',
+            'Penghargaan'
+        ];
+
+        // Mengisi Header
+        $columnCount = count($headers); // Menghitung jumlah kolom
+        $columnLetter = 'A';
+        foreach ($headers as $header) {
+            $sheet->setCellValue($columnLetter . '1', $header);
+            $columnLetter++;
+        }
+
+        // Isi Data
+        $rowIndex = 2;
+        foreach ($data as $row) {
+            $columnLetter = 'A';
+            foreach ($row as $cellData) {
+                $sheet->setCellValue($columnLetter . $rowIndex, $cellData);
+                $columnLetter++;
+            }
+            $rowIndex++;
+        }
+
+        // Mengatur lebar kolom otomatis
+        for ($col = 0; $col < $columnCount; $col++) {
+            $sheet->getColumnDimensionByColumn($col + 1)->setAutoSize(true); // +1 karena setColumnDimensionByColumn menggunakan indeks 1
+        }
+
+        // Unduh file
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="Data_Pendaftaran_Ekspor.xlsx"');
+        header('Cache-Control: max-age=0');
+
+        $writer = new Xlsx($spreadsheet);
+        $writer->save('php://output');
+        exit;
     }
 }
