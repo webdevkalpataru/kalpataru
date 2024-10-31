@@ -24,22 +24,21 @@
     <?= $this->extend('template/navbarfooter') ?>
 
     <?= $this->section('content') ?>
-    <!-- Popup Modal -->
+    
+    <?php if (!empty($pamflet)): ?>
     <div id="popup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
-        <!-- Close Button -->
         <div class="relative rounded-lg max-w-xs w-full flex items-start mt-12">
-            <!-- Popup Image -->
-            <img src="/images/popup.png" alt="Popup Image" class="w-full rounded-md">
+            <img src="<?= base_url('pamflet/' . rawurlencode(esc($pamflet['foto']))) ?>" alt="Popup Image" class="w-full rounded-md">
             <button id="close-btn" class="lg:text-5xl text-xl top-0 right-0 font-bold text-white ms-2">X</button>
-
+            
         </div>
-        <!-- Daftar Sekarang Button -->
         <a href="auth/register" class="absolute left-1/2 bottom-8  transform -translate-x-1/2">
             <button class="rounded-md bg-primary text-white py-2 px-4 sm:py-3 sm:px-6 text-center text-xs sm:text-sm md:text-base lg:text-base  transition-all shadow-md hover:font-bold hover:shadow-lg focus:bg-primaryhover focus:shadow-none active:bg-primaryhover hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
                 Daftar Sekarang
             </button>
         </a>
     </div>
+    <?php endif; ?>
 
     <section id="herosection" class="w-full h-[20rem] sm:h-[30rem] md:h-[34rem] lg:h-[36rem] relative">
         <img src="/images/herosection.png" alt="herosection" class="w-full h-full object-cover object-right md:object-center">
@@ -558,13 +557,13 @@
                 fetch(geojsonUrls[provinsi])
                     .then(response => response.json())
                     .then(data => {
-                        var penerimaDiProvinsi = penerimaData.filter(function(penerima) {
+                        var penerimaDiProvinsi = penerimaData.find(function(penerima) {
                             return penerima.provinsi === provinsi;
                         });
 
                         var geojsonLayer = L.geoJSON(data, {
                             style: function() {
-                                return penerimaDiProvinsi.length > 0
+                                return penerimaDiProvinsi && penerimaDiProvinsi.total > 0
                                     ? {
                                         color: 'none',
                                         fillColor: colorAbuMuda,
@@ -588,8 +587,8 @@
                                 }).addTo(map);
 
                                 var popupContent = '<strong>' + provinsi + '</strong>';
-                                if (penerimaDiProvinsi.length > 0) {
-                                    popupContent += '<br>Jumlah Penerima: ' + penerimaDiProvinsi.length;
+                                if (penerimaDiProvinsi && penerimaDiProvinsi.total > 0) {
+                                    popupContent += '<br>Jumlah Penerima: ' + penerimaDiProvinsi.total;
                                 } else {
                                     popupContent += '<br>Tidak ada penerima.';
                                 }

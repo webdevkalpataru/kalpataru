@@ -505,35 +505,33 @@ class TimteknisController extends BaseController
         return view('timteknis/bahansidang1/kategorid', $data);
     }
 
-    public function generatePDF($kode_registrasi)
+    public function exportPDF($kode_registrasi)
     {
-        $id_pengusul = session()->get('id_pengusul');
-        $role_akun = session()->get('role_akun');
-        $provinsi = session()->get('provinsi');
-
-        if (!$id_pengusul) {
-            return redirect()->back()->with('error', '');
+        $id_tim_teknis = session()->get('id_tim_teknis');
+    
+        if (!$id_tim_teknis) {
+            return redirect()->back()->with('error', 'Anda tidak memiliki akses.');
         }
-
+    
         $pendaftaranModel = new PendaftaranModel();
         $pengusulModel = new PengusulModel();
-
+    
         $pendaftaranData = $pendaftaranModel->where('kode_registrasi', $kode_registrasi)->first();
-
-        if (!$pendaftaranData || ($pendaftaranData['id_pengusul'] != $id_pengusul && !($role_akun == 'DLHK' && $pendaftaranData['provinsi'] == $provinsi))) {
-            return redirect()->back()->with('error', 'Error');
+    
+        if (!$pendaftaranData) {
+            return redirect()->back()->with('error', 'Data tidak ditemukan.');
         }
-
+    
         $pengusulData = $pengusulModel->where('id_pengusul', $pendaftaranData['id_pengusul'])->first();
-
+    
         $kegiatan = $pendaftaranModel->getKegiatanByPendaftaranId($pendaftaranData['id_pendaftaran']);
         $pendaftaranData['kegiatan'] = $kegiatan;
-
+    
         $dampak = $pendaftaranModel->db->table('dampak')->where('id_pendaftaran', $pendaftaranData['id_pendaftaran'])->get()->getRowArray();
         $pmik = $pendaftaranModel->db->table('pmik')->where('id_pendaftaran', $pendaftaranData['id_pendaftaran'])->get()->getRowArray();
         $keswadayaan = $pendaftaranModel->db->table('keswadayaan')->where('id_pendaftaran', $pendaftaranData['id_pendaftaran'])->get()->getRowArray();
         $keistimewaan = $pendaftaranModel->db->table('keistimewaan')->where('id_pendaftaran', $pendaftaranData['id_pendaftaran'])->get()->getRowArray();
-
+    
         $data = [
             'pendaftaran' => $pendaftaranData,
             'pengusul' => $pengusulData,
@@ -543,7 +541,7 @@ class TimteknisController extends BaseController
             'keswadayaan' => $keswadayaan,
             'keistimewaan' => $keistimewaan
         ];
-
+    
         $kategori = $pendaftaranData['kategori'];
         switch ($kategori) {
             case 'Perintis Lingkungan':
@@ -561,11 +559,11 @@ class TimteknisController extends BaseController
             default:
                 $prefix = 'X';
         }
-
+    
         session()->set('prefix', $prefix);
-
-        $html = view('pengusul/pdf', $data);
-
+    
+        $html = view('timteknis/pdf', $data);
+    
         $options = new Options();
         $options->set('isHtml5ParserEnabled', true);
         $options->set('isRemoteEnabled', true);
@@ -575,13 +573,28 @@ class TimteknisController extends BaseController
         $options->set('enable_php', false);
         $options->set('enable_javascript', true);
         $options->set('enable_html5_parser', true);
-
+    
         $dompdf = new Dompdf($options);
         $dompdf->loadHtml($html);
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
+    
+        $namaFile = 'Formulir_' . esc($pendaftaranData['nama']) . '_' . esc($pendaftaranData['kategori']) . '.pdf';
+    
+        $dompdf->stream($namaFile, ['Attachment' => true]);
+    }
 
-        $dompdf->stream('laporan_calon_usulan.pdf', ['Attachment' => false]);
+    public function downloadSuratPengantar($filename)
+    {
+        $path = WRITEPATH . 'uploads/suratpengantar/' . $filename;
+
+        if (!file_exists($path)) {
+            // File tidak ditemukan, Anda bisa mengarahkan ke halaman error atau menampilkan pesan
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('File tidak ditemukan.');
+        }
+
+        // Menyajikan file dengan header download
+        return $this->response->download($path, null);
     }
 
     public function bahansidang2kategoria()

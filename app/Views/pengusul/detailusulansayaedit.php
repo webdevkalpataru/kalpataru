@@ -783,7 +783,7 @@
                                                             <?= esc($keistimewaan["foto_kegiatan$i"]) ?>
                                                         <?php endif; ?><span class="text-primary">(JPG/JPEG, max 1MB)</span></label>
                                                 <?php endif; ?>
-                                                <input name="foto_kegiatan<?= $i ?>" type="file" accept=".jpg, .jpeg" class="mb-2 w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                                <input name="foto_kegiatan<?= $i ?>" type="file" accept=".jpg, .jpeg" class="mb-2 w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-primary file:text-white" />
                                                 <?php if (session('errors.foto_kegiatan' . $i)): ?>
                                                     <p class="text-red-500 text-sm mt-2"><?= session('errors.foto_kegiatan' . $i) ?></p>
                                                 <?php endif; ?>
@@ -796,7 +796,7 @@
                                     <?php if ($fotoCount === 0): ?>
                                         <div class="mb-4">
                                             <label class="block mb-2 text-sm text-black">Foto Kegiatan <span class="text-primary"> (JPG/JPEG, max 1MB)</span></label>
-                                            <input name="foto_kegiatan1" type="file" accept=".jpg, .jpeg" class="mb-2 w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                            <input name="foto_kegiatan1" type="file" accept=".jpg, .jpeg" class="mb-2 w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-primary file:text-white" />
 
                                             <label class="block mb-2 text-sm text-black">Deskripsi Foto </label>
                                             <input name="deskripsi_foto_kegiatan1" type="text" placeholder="Keterangan Foto" class="w-full mb-4 bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
@@ -817,14 +817,7 @@
                     </form>
                 </div>
 
-                <div id="modalNotif" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
-                    <div class="bg-white rounded-lg p-8 flex flex-col items-center max-w-md">
-                        <img id="successIcon" src="/images/sukses.png" alt="Success Icon" class="w-16 h-16 mb-4 hidden">
-                        <img id="errorIcon" src="/images/error.png" alt="Error Icon" class="w-16 h-16 mb-4 hidden">
-                        <p id="notifMessage" class="text-center text-sm text-slate-600 mb-6"></p>
-                        <button id="closeButton" class="bg-primary text-white py-2 px-4 rounded-lg">OK</button>
-                    </div>
-                </div>
+
 
                 <div id="modalKata" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
                     <div class="bg-white rounded-lg p-8 flex flex-col items-center max-w-md">
@@ -839,6 +832,15 @@
         </div>
     </div>
 
+    <div id="modalNotif" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+        <div class="bg-white rounded-lg p-8 flex flex-col items-center max-w-md">
+            <img id="successIcon" src="/images/sukses.png" alt="Success Icon" class="w-16 h-16 mb-4 hidden">
+            <img id="errorIcon" src="/images/error.png" alt="Error Icon" class="w-16 h-16 mb-4 hidden">
+            <p id="notifMessage" class="text-center text-sm text-slate-600 mb-6"></p>
+            <button id="closeButton" class="bg-primary text-white py-2 px-4 rounded-lg">OK</button>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
@@ -846,7 +848,13 @@
             const closeButton = document.getElementById('closeButton');
 
             // Event listener untuk tombol OK
-            closeButton.addEventListener('click', closeModal);
+            // Event listener untuk tombol OK
+            closeButton.addEventListener('click', function() {
+                closeModal();
+                <?php if (session()->get('status') == 'error'): ?>
+                    location.reload();
+                <?php endif; ?>
+            });
 
             // Menampilkan modal notifikasi berdasarkan status
             <?php if (session()->get('status') == 'error'): ?>
@@ -911,12 +919,11 @@
         const sections = document.querySelectorAll('.form-section');
         const forms = document.querySelectorAll('form');
 
-        let isFormDirty = false; // Flag untuk menandai apakah form sudah diubah
+        let isFormDirty = false;
 
-        // Tambahkan event listener ke setiap input dalam form untuk menandai jika ada perubahan
         forms.forEach(form => {
             form.addEventListener('input', () => {
-                isFormDirty = true; // Set flag menjadi true jika ada input yang berubah
+                isFormDirty = true;
             });
         });
 
@@ -926,24 +933,13 @@
                     event.preventDefault();
 
                     Swal.fire({
-                        title: 'Anda yakin ingin pindah form?',
-                        text: "Data yang belum disimpan akan hilang!",
+                        title: 'Anda Belum melakukan Simpan',
+                        text: "Mohon untuk melakukan Simpan Data Sebelum berpindah Form!",
                         icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Ya, pindah',
-                        cancelButtonText: 'Batal'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            // Jika user yakin, lanjutkan pindah form
-                            isFormDirty = false; // Reset flag
-                            const target = button.getAttribute('data-target');
-                            sections.forEach(section => {
-                                section.classList.add('hidden');
-                            });
-                            document.getElementById(target).classList.remove('hidden');
-                        }
+                        confirmButtonColor: '#2C7865',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+
                     });
                 } else {
                     // Jika form belum diubah, langsung pindah form
@@ -1401,7 +1397,7 @@
                 newFotoDiv.classList.add('mb-4');
                 newFotoDiv.innerHTML = `
                     <label class="block mb-2 text-sm text-black">Foto Kegiatan <span class="text-primary">(.JPG/JPEG, max 1MB)</span></label>
-                    <input name="foto_kegiatan${fotoInputCount + 1}" type="file" accept=".jpg, .jpeg" class="mb-2 w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                    <input name="foto_kegiatan${fotoInputCount + 1}" type="file" accept=".jpg, .jpeg" class="mb-2 w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-primary file:text-white" />
                     <label class="block mb-2 text-sm text-black">Deskripsi Foto </label>
                     <input name="deskripsi_foto_kegiatan${fotoInputCount + 1}" type="text" placeholder="Keterangan Foto" class="mb-4 w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                 `;

@@ -118,6 +118,9 @@
                                     <th class="p-4 border-b border-accent2 bg-accent1 text-center">
                                         <p class="block text-xs md:text-sm font-bold leading-none text-accent2">Detail</p>
                                     </th>
+                                    <th class="p-4 border-b border-accent2 bg-accent1 text-center">
+                                        <p class="block text-xs md:text-sm font-bold leading-none text-accent2">Unduh</p>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -148,12 +151,28 @@
                                             </td>
                                             <td class="p-4 border-b border-slate-200 text-center">
                                                 <?php
-                                                $statusClass = ($item['status_pendaftaran'] === 'Tidak Lolos Administrasi') ? 'text-rejected' : 'text-accepted';
+                                                // Inisialisasi kelas status berdasarkan nilai status_pendaftaran
+                                                if ($item['status_pendaftaran'] === 'Lolos Administrasi') {
+                                                    $statusClass = 'text-accepted'; // Text accepted
+                                                } elseif ($item['status_pendaftaran'] === 'Tidak Lolos Administrasi') {
+                                                    $statusClass = 'text-rejected'; // Text rejected
+                                                } elseif ($item['status_pendaftaran'] === 'Verifikasi Administrasi') {
+                                                    $statusClass = 'text-primary'; // Text primary
+                                                } else {
+                                                    $statusClass = ''; // Default class jika tidak ada yang cocok
+                                                }
                                                 ?>
                                                 <p class="block text-xs font-bold <?= $statusClass ?>"><?= $item['status_pendaftaran'] ?></p>
                                             </td>
                                             <td class="p-4 border-b border-slate-200 text-center">
                                                 <a href="<?= base_url('timteknis/detaildatacalonusulan/' . $item['id_pendaftaran']); ?>" class="mt-4 w-full rounded-md py-2 mb-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover">Selengkapnya</a>
+                                            </td>
+                                            <td class="p-4 border-b border-slate-200 text-center">
+                                                <a href="./pdf/<?= $item['kode_registrasi']; ?>" class="flex justify-center items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="h-6 w-6">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                                                    </svg>
+                                                </a>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>

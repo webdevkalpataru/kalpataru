@@ -10,8 +10,6 @@
 
 <body class="lg:flex">
 
-
-
     <!-- Sidebar -->
     <div class="w-64 bg-white text-white">
         <?= $this->include('template/sidebaradmin') ?>

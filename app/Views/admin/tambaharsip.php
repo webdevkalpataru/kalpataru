@@ -12,8 +12,8 @@
 
     <!-- Sidebar -->
     <div class="w-64 bg-white text-white">
-    <?= $this->include('template/sidebaradmin') ?>
-  </div>
+        <?= $this->include('template/sidebaradmin') ?>
+    </div>
 
     <!-- Main Content -->
     <div class="lg:flex-1 p-6">
@@ -87,15 +87,15 @@
                                 <textarea name="penerima" id="penerima" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" rows="4" required></textarea>
                             </div>
                             <div class="mt-2">
-                            <label class="block mb-2 text-sm text-black">Status</label>
-                            <select name="status" id="status" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required>
-                                <option value="" disabled selected>Pilih Status</option>
-                                <option value="aktif">Aktif</option>
-                                <option value="tidak_aktif">Tidak Aktif</option>
-                                <option value="meninggal">Meninggal</option>
-                            </select>
-                            </div>  
-                            
+                                <label class="block mb-2 text-sm text-black">Status</label>
+                                <select name="status" id="status" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required>
+                                    <option value="" disabled selected>Pilih Status</option>
+                                    <option value="aktif">Aktif</option>
+                                    <option value="tidak_aktif">Tidak Aktif</option>
+                                    <option value="meninggal">Meninggal</option>
+                                </select>
+                            </div>
+
                         </div>
 
                         <!-- Kolom kanan -->
@@ -151,8 +151,8 @@
                                     <option value="" disabled selected>Pilih Subtema</option>
                                 </select>
                             </div>
-                            
-                            
+
+
                             <div>
                                 <label class="block mb-2 text-sm text-black">Dokumentasi (link gdrive)</label>
                                 <input type="text" name="penerima" id="penerima" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
@@ -166,14 +166,22 @@
                                 <input required id="foto" name="foto" type="file" accept="image/jpeg, image/jpg" class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2">
                                 <div class="text-red-500" id="fotoError"></div>
                             </div>
-                            
+
                         </div>
 
                         <!-- Tombol Paling Bawah di Mobile -->
-                        <div class="md:col-span-2 flex justify-center md:justify-start">
-                            <button id="uploadBtn" class="mt-4 w-full md:w-32 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="submit" disabled>Tambahkan Arsip</button>
+                        <div class="md:col-span-2 flex justify-between items-center">
+                            <!-- Tombol Kembali -->
+                            <a href="/admin/arsippenerima"
+                                class="text-sm font-bold text-gray-600 no-underline focus:outline-none text-start">
+                                <span class="font-bold text-lg items-center">←</span> Kembali
+                            </a>
+
+                            <!-- Tombol Daftarkan Akun -->
+                            <button id="uploadBtn" class="mt-4 w-full md:w-32 rounded-md py-2 px-2 text-center text-sm text-white transition-all shadow-md hover:shadow-lg bg-primary hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="submit" disabled>
+                                Tambahkan Arsip
+                            </button>
                         </div>
-                    </div>
                 </form>
             </div>
 
@@ -224,13 +232,13 @@
                 };
 
                 // Update sub tema options based on selected tema
-                document.getElementById('tema').addEventListener('change', function () {
+                document.getElementById('tema').addEventListener('change', function() {
                     const selectedTema = this.value;
                     const subtemaSelect = document.getElementById('subtema');
 
                     // Clear existing options
                     subtemaSelect.innerHTML = '<option value="" disabled selected>Pilih Subtema</option>';
-                    
+
                     if (selectedTema && subTemaOptions[selectedTema]) {
                         subTemaOptions[selectedTema].forEach(subTema => {
                             const option = document.createElement('option');

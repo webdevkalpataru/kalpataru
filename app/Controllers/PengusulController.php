@@ -5,6 +5,8 @@ namespace App\Controllers;
 use App\Models\PengusulModel;
 use App\Models\PendaftaranModel;
 use App\Models\ArtikelModel;
+use App\Models\KegiatanModel;
+use App\Models\KeistimewaanModel;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 // use CodeIgniter\Controller;
@@ -397,6 +399,20 @@ class PengusulController extends BaseController
         throw new \CodeIgniter\Exceptions\PageNotFoundException('File tidak ditemukan.');
     }
 
+    public function downloadFotoKegiatan($folder, $filename)
+{
+    $filePath = WRITEPATH . "uploads/foto_kegiatan$folder/" . $filename;
+    if (file_exists($filePath)) {
+        return $this->response
+            ->setHeader('Content-Type', 'application/octet-stream')
+            ->setHeader('Content-Disposition', 'attachment; filename="' . basename($filePath) . '"')
+            ->setBody(file_get_contents($filePath));
+    }
+
+    throw new \CodeIgniter\Exceptions\PageNotFoundException('File tidak ditemukan.');
+}
+
+
     public function downloadSKCK($filename)
     {
         $path = WRITEPATH . 'uploads/skck/' . $filename;
@@ -423,6 +439,19 @@ class PengusulController extends BaseController
         return $this->response->download($path, null);
     }
 
+    public function downloadLegalitas($filename)
+    {
+        $path = WRITEPATH . 'uploads/legalitas/' . $filename;
+
+        if (!file_exists($path)) {
+            // File tidak ditemukan, Anda bisa mengarahkan ke halaman error atau menampilkan pesan
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('File tidak ditemukan.');
+        }
+
+        // Menyajikan file dengan header download
+        return $this->response->download($path, null);
+    }
+    
 
 
     // ---------------DETAIL USULAN SAYA EDIT----------------------------------------------------------------------------------------------------
@@ -892,6 +921,16 @@ class PengusulController extends BaseController
     {
         $model = new PendaftaranModel();
         $pendaftaran = $model->getPendaftaranById($id_pendaftaran);
+
+        if (!$pendaftaran) {
+            return redirect()->to('pengusul/usulansaya')->with('error', 'Data tidak ditemukan.');
+        }
+
+        // Cek status_pendaftaran, jika tidak "Draft" atau "Perlu Perbaikan", arahkan ke usulansaya
+        if ($pendaftaran['status_pendaftaran'] !== 'Draft' && $pendaftaran['status_pendaftaran'] !== 'Perlu Perbaikan') {
+            return redirect()->to('pengusul/usulansaya')->with('error', 'Data calon usulan sudah tidak bisa diedit.');
+        }
+
         $identitas = $model->getIdentitasByIdPendaftaran($id_pendaftaran);
         $kegiatan = $model->getKegiatanByPendaftaranId($id_pendaftaran);
         $dampak = $model->getDampakByIdPendaftaran($id_pendaftaran);
@@ -901,8 +940,16 @@ class PengusulController extends BaseController
         $kegiatanUtama = isset($kegiatan[0]) ? $kegiatan[0] : null;
         $kegiatanLainnya = array_slice($kegiatan, 1);
 
+        // Ambil ID pengusul yang sedang login dari session
+        $id_pengusul_session = session()->get('id_pengusul'); // Asumsikan id_pengusul disimpan dalam session
+
         if (!$pendaftaran) {
             return redirect()->to('pengusul/usulansaya')->with('error', 'Data tidak ditemukan.');
+        }
+
+        // Cek apakah pengusul yang sedang login adalah pemilik pendaftaran
+        if ($pendaftaran['id_pengusul'] != $id_pengusul_session) {
+            return redirect()->to('/pengusul/usulansaya')->with('error', 'Anda tidak memiliki akses ke data ini.');
         }
 
         $title = "Edit Calon Usulan";
@@ -935,6 +982,8 @@ class PengusulController extends BaseController
     {
         $Model = new PendaftaranModel();
         $PengusulModel = new PengusulModel();
+        $KegiatanModel = new KegiatanModel();
+        $KeistimewaanModel = new KeistimewaanModel();
 
         // Ambil data dengan pagination, limit 5 per halaman
         $perPage = 5;
@@ -948,30 +997,54 @@ class PengusulController extends BaseController
         // Jika ada keyword, tambahkan kondisi pencarian
         if ($keyword) {
             $usulan = $Model->where('id_pengusul', $id_pengusul)
-                ->like('nama', $keyword) // Filter berdasarkan nama_instansi_pribadi
+                ->like('nama', $keyword)
                 ->paginate($perPage, 'usulan');
         } else {
-            // Jika tidak ada pencarian, ambil semua data usulan berdasarkan id_pengusul
             $usulan = $Model->where('id_pengusul', $id_pengusul)
                 ->paginate($perPage, 'usulan');
         }
 
-        // Ambil data pengusul dari tabel pengusul
+        // Ambil data pengusul
         $pengusul = $PengusulModel->where('id_pengusul', $id_pengusul)->first();
 
         // Cek kelengkapan data pengusul
-        $isComplete = !empty($pengusul['nama_instansi_pribadi']) && !empty($pengusul['instansi']) && !empty($pengusul['jabatan_pekerjaan']) && !empty($pengusul['jenis_kelamin']) && !empty($pengusul['jalan']) && !empty($pengusul['rt_rw']) && !empty($pengusul['desa']) && !empty($pengusul['kecamatan']) && !empty($pengusul['kab_kota']) && !empty($pengusul['kode_pos']) && !empty($pengusul['surat_pengantar']);
+        $isComplete = !empty($pengusul['nama_instansi_pribadi']) && !empty($pengusul['instansi']) &&
+            !empty($pengusul['jabatan_pekerjaan']) && !empty($pengusul['jenis_kelamin']) &&
+            !empty($pengusul['jalan']) && !empty($pengusul['rt_rw']) && !empty($pengusul['desa']) &&
+            !empty($pengusul['kecamatan']) && !empty($pengusul['kab_kota']) &&
+            !empty($pengusul['kode_pos']) && !empty($pengusul['surat_pengantar']);
 
-        // Persiapkan data untuk dikirim ke view
+        // Variabel untuk menampung status kelengkapan
+        $isCompleteKegiatanKeistimewaan = []; // Ubah menjadi array
+
+        foreach ($usulan as $u) {
+            $id_pendaftaran = $u['id_pendaftaran'];
+
+            // Periksa kelengkapan kegiatan dan keistimewaan
+            $kegiatanUtama = $KegiatanModel->where(['tipe_kegiatan' => 'kegiatan_utama', 'id_pendaftaran' => $id_pendaftaran])->first();
+            $keistimewaan = $KeistimewaanModel->where('id_pendaftaran', $id_pendaftaran)->first();
+
+            $isKegiatanComplete = !empty($kegiatanUtama['tema']) && !empty($kegiatanUtama['sub_tema']) &&
+                !empty($kegiatanUtama['bentuk_kegiatan']) && !empty($kegiatanUtama['tahun_mulai']) &&
+                !empty($kegiatanUtama['deskripsi_kegiatan']) && !empty($kegiatanUtama['lokasi_kegiatan']) &&
+                !empty($kegiatanUtama['koordinat']) && !empty($kegiatanUtama['pihak_dan_peran']) &&
+                !empty($kegiatanUtama['keberhasilan']);
+
+            $isKeistimewaanComplete = !empty($keistimewaan['foto_kegiatan1']) && !empty($keistimewaan['deskripsi_foto_kegiatan1']);
+
+            // Simpan kelengkapan untuk setiap ID
+            $isCompleteKegiatanKeistimewaan[$id_pendaftaran] = $isKegiatanComplete && $isKeistimewaanComplete;
+        }
+
         $data = [
             'usulan' => $usulan,
             'pager' => $Model->pager,
             'title' => "Usulan Saya",
             'keyword' => $keyword,
             'isComplete' => $isComplete,
+            'isCompleteKegiatanKeistimewaan' => $isCompleteKegiatanKeistimewaan,
         ];
 
-        // Load view untuk menampilkan data calon
         return view('pengusul/usulansaya', $data);
     }
 
@@ -989,11 +1062,7 @@ class PengusulController extends BaseController
         $keyword = $this->request->getGet('search');
 
         // Ambil ID pengusul dan provinsi dari session
-        $id_pengusul = session()->get('id_pengusul');
         $provinsi = session()->get('provinsi');
-
-        // Filter query berdasarkan id_pengusul
-        $model->where('id_pengusul', $id_pengusul);
 
         // Filter query berdasarkan provinsi
         if ($provinsi) {
@@ -1161,7 +1230,7 @@ class PengusulController extends BaseController
     public function detailusulandlhk()
     {
         $data['title'] = 'Detail Usulan DLHK';
-        return view('pengusul/detailusulandlhk', ['title' => 'Detail Usulan DLHK']);
+        return view('pengusul/detailusulandlhk', $data);
     }
 
     public function tambahartikel()
@@ -1468,6 +1537,6 @@ class PengusulController extends BaseController
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
 
-        $dompdf->stream('laporan_calon_usulan.pdf', ['Attachment' => false]);
+        $dompdf->stream('laporan_calon_usulan.pdf', ['Attachment' => true]);
     }
 }

@@ -169,8 +169,8 @@ $subTemaMapping = [
             <?php foreach (array_slice($kegiatan, 1) as $index => $kegiatan_lain): ?>
                 <p class="heading" style="margin: 0px; padding-left: 50px;">a. Kegiatan Lain (<?= $index + 1; ?>)</p>
                 <table style="margin: 0px;">
-                    <tr><td class="label">Tema Kegiatan</td><td class="separator">:</td><td class="input"><?= $temaMapping[$kegiatan[0]['tema']] ?? $kegiatan[0]['tema']; ?></td></tr>
-                    <tr><td class="label">Sub Tema Kegiatan</td><td class="separator">:</td><td class="input"><?= $subTemaMapping[$kegiatan[0]['sub_tema']] ?? $kegiatan[0]['sub_tema']; ?></td></tr>
+                    <tr><td class="label">Tema Kegiatan</td><td class="separator">:</td><td class="input"><?= $temaMapping[$kegiatan_lain['tema']] ?? $kegiatan_lain['tema']; ?></td></tr>
+                    <tr><td class="label">Sub Tema Kegiatan</td><td class="separator">:</td><td class="input"><?= $subTemaMapping[$kegiatan_lain['sub_tema']] ?? $kegiatan_lain['sub_tema']; ?></td></tr>
                     <tr><td class="label">Jenis Kegiatan</td><td class="separator">:</td><td class="input"><?= $kegiatan_lain['bentuk_kegiatan']; ?></td></tr>
                     <tr><td class="label">Tahun Mulai Kegiatan</td><td class="separator">:</td><td class="input"><?= $kegiatan_lain['tahun_mulai']; ?></td></tr>
                     <tr><td class="label">Penjelasan Kegiatan</td><td class="separator">:</td><td class="input"><?= $kegiatan_lain['deskripsi_kegiatan']; ?></td></tr>

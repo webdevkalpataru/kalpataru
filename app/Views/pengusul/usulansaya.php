@@ -162,7 +162,22 @@
                                             <p class="block text-xs text-slate-800"><?= $u['provinsi']; ?></p>
                                         </td>
                                         <td class="p-4 border-b border-slate-200 text-center">
-                                            <?php $statusClass = ($u['status_pendaftaran'] === 'Tidak Lolos Administrasi') ? 'text-rejected' : 'text-accepted'; ?>
+                                            <?php
+                                            // Inisialisasi kelas status berdasarkan nilai status_pendaftaran
+                                            if ($u['status_pendaftaran'] === 'Draft') {
+                                                $statusClass = 'text-yellow-800'; // Kuning
+                                            } elseif ($u['status_pendaftaran'] === 'Perlu Perbaikan') {
+                                                $statusClass = 'text-orange-800'; // Orange
+                                            } elseif (in_array($u['status_pendaftaran'], ['Terkirim', 'Sesuai', 'Lolos Administrasi'])) {
+                                                $statusClass = 'text-accepted'; // Text accepted
+                                            } elseif ($u['status_pendaftaran'] === 'Tidak Lolos Administrasi') {
+                                                $statusClass = 'text-rejected'; // Text rejected
+                                            } elseif ($u['status_pendaftaran'] === 'Verifikasi Administrasi') {
+                                                $statusClass = 'text-primary'; // Text primary
+                                            } else {
+                                                $statusClass = ''; // Default class jika tidak ada yang cocok
+                                            }
+                                            ?>
                                             <p class="block text-xs font-bold w-24 <?= $statusClass ?>"><?= $u['status_pendaftaran'] ?></p>
                                         </td>
                                         <td class="p-4 border-b border-slate-200 text-center">
@@ -265,7 +280,7 @@
 
 
 
-    <!-- Modal -->
+    <!-- Modal Jika Data Lengkap-->
     <div id="modalPopup" class="fixed inset-0 z-50 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden">
         <div class="bg-white rounded-lg p-8 flex flex-col items-center max-w-md">
             <img src="/images/question.png" alt="Question Icon" class="w-16 h-16 mb-4">
@@ -277,19 +292,40 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal Jika Data Belum Lengkap -->
+    <div id="modalIncompleteData" class="fixed inset-0 z-50 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white rounded-lg p-8 flex flex-col items-center max-w-md">
+            <img src="/images/warning.png" alt="warning Icon" class="w-16 h-16 mb-4">
+            <div class="bg-white rounded-lg p-4 flex flex-col items-center max-w-md">
+                <p class="text-center text-lg font-bold text-gray-700 mb-4">Silahkan Lengkapi Kegiatan Utama dan Berikan Setidaknya 1 Foto Kegiatan beserta Deskripsinya</p>
+                <button id="closeIncompleteDataButton" class="px-4 py-2 bg-primary hover:bg-primaryhover text-white rounded-md">Lengkapi</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Ambil tombol untuk menampilkan modal
         const kirimDataButtons = document.querySelectorAll('.kirimDataButton');
         const modalPopup = document.getElementById('modalPopup');
         const confirmButton = document.getElementById('confirmButton');
         const cancelButton = document.getElementById('cancelButton');
+        const modalIncompleteData = document.getElementById('modalIncompleteData');
+        const isCompleteKegiatanKeistimewaan = <?= json_encode($isCompleteKegiatanKeistimewaan); ?>;
 
-        // Event untuk menampilkan modal
         kirimDataButtons.forEach((button) => {
             button.addEventListener('click', () => {
                 const idPendaftaran = button.getAttribute('data-id');
-                confirmButton.setAttribute('data-id', idPendaftaran); // Set data-id pada tombol confirm
-                modalPopup.classList.remove('hidden'); // Tampilkan modal
+                confirmButton.setAttribute('data-id', idPendaftaran);
+
+                // Tentukan modal yang ditampilkan berdasarkan ID pendaftaran
+                if (isCompleteKegiatanKeistimewaan[idPendaftaran]) {
+                    modalPopup.classList.remove('hidden');
+                    modalIncompleteData.classList.add('hidden');
+                } else {
+                    modalIncompleteData.classList.remove('hidden');
+                    modalPopup.classList.add('hidden');
+                }
             });
         });
 
@@ -349,6 +385,13 @@
         cancelButton.addEventListener('click', () => {
             modalPopup.classList.add('hidden');
         });
+
+        // Event untuk menutup modal kelengkapan data
+        document.getElementById('closeIncompleteDataButton').addEventListener('click', () => {
+            modalIncompleteData.classList.add('hidden');
+        });
+
+
 
         // POPUP MODAL CATATAN
         function showCatatanModal(modalId) {

@@ -38,7 +38,7 @@
             </div>
 
             <button onclick="window.history.back()"
-                class="text-sm font-bold text-gray-600 no-underline focus:outline-none text-start">
+                class="text-sm font-bold text-gray-600 no-underline focus:outline-none text-start w-1/12">
                 <span class="font-bold text-lg items-center">←</span> Kembali
             </button>
         </div>

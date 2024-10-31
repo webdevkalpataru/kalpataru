@@ -13,6 +13,9 @@ use App\Models\PeraturanModel;
 use App\Models\TimteknisModel;
 use App\Models\VideoModel;
 use App\Models\PendaftaranModel;
+use Dompdf\Dompdf;
+use Dompdf\Options;
+use App\Models\PamfletModel;
 
 
 class AdminController extends BaseController
@@ -27,6 +30,7 @@ class AdminController extends BaseController
     public function dashboard()
     {
         $Model = new PendaftaranModel();
+        $model = new PamfletModel();
 
         $perPage = 5;
         $currentPage = $this->request->getVar('page_calon') ? $this->request->getVar('page_calon') : 1;
@@ -47,6 +51,7 @@ class AdminController extends BaseController
         $data['pager'] = $Model->pager;
         $data['title'] = "Dashboard Admin";
         $data['keyword'] = $keyword;
+        $data['pamflet'] = $model->first();
 
         return view('admin/dashboard', $data);
     }
@@ -358,6 +363,39 @@ class AdminController extends BaseController
         }
     }
 
+    public function updateStatusArtikel()
+    {
+        // Inisialisasi model
+        $ArtikelModel = new ArtikelModel();
+
+        // Ambil data dari POST request
+        $id_Artikel = $this->request->getPost('id_artikel');
+        $status_Artikel = $this->request->getPost('status');
+        $catatan = $this->request->getPost('catatan'); // Ambil catatan verifikasi
+
+        // Validasi data
+        if ($id_Artikel && $status_Artikel) {
+            // Siapkan data untuk update
+            $updateData = [
+                'status' => $status_Artikel,
+            ];
+
+            // Jika ada catatan, tambahkan ke data yang akan di-update
+            if ($status_Artikel == 'Ditolak' && $catatan) {
+                $updateData['catatan'] = $catatan;
+            }
+
+            // Update status dan catatan di database
+            $ArtikelModel->update($id_Artikel, $updateData);
+
+            // Mengembalikan respons untuk merefresh halaman
+            return $this->response->setJSON(['success' => true, 'message' => 'Data berhasil diperbarui']);
+        } else {
+            // Mengembalikan respons gagal
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal memperbarui data']);
+        }
+    }
+
     public function hapusArtikel($id_artikel)
     {
         $model = new ArtikelModel();
@@ -376,11 +414,42 @@ class AdminController extends BaseController
     public function akundlhk()
     {
         $model = new PengusulModel();
-        $pengusul = $model->where('role_akun', 'DLHK')->findAll();
 
+        // Ambil data dengan pagination, limit 5 per halaman
+        $perPage = 5;
+
+        // Ambil statusAkun dari filter
+        $statusAkun = $this->request->getVar('statusAkun');
+
+        // Ambil kata kunci dari request untuk pencarian
+        $keyword = $this->request->getGet('search');
+
+        // Ambil pengusul dengan role_akun 'Pengusul'
+        $builder = $model->where('role_akun', 'DLHK');
+
+        // Jika statusAkun dipilih, tambahkan filter statusAkun
+        if ($statusAkun) {
+            $builder->where('status_akun', $statusAkun);
+        }
+
+        // Jika ada kata kunci, tambahkan kondisi pencarian berdasarkan nama_instansi_pribadi
+        if ($keyword) {
+            $builder->like('instansi', $keyword);
+        }
+
+        // Hitung total pengusul yang sesuai dengan filter dan pencarian
+        $totalFilteredPengusul = $builder->countAllResults(false); // False untuk tidak reset query builder
+
+        // Dapatkan data dengan pagination setelah semua filter
+        $pengusul = $builder->paginate($perPage, 'pengusul');
+
+        // Data untuk view
         $data['pengusul'] = $pengusul;
-        $data['countAllPengusul'] = count($data['pengusul']); // Menghitung semua akun pengusul
-        $data['title'] = "Akun DLHK";
+        $data['countAllPengusul'] = $totalFilteredPengusul; // Total pengusul setelah filter dan pencarian
+        $data['title'] = "Akun DLHK Provinsi";
+        $data['pager'] = $model->pager;
+        $data['keyword'] = $keyword;
+        $data['statusAkun'] = $statusAkun;
 
         return view('admin/akundlhk', $data);
     }
@@ -502,14 +571,45 @@ class AdminController extends BaseController
     public function akundppk()
     {
         $model = new DppkModel();
-        $dppk = $model->findAll(); // Menampilkan semua data dari tabel dppk tanpa filter
+
+        // Ambil data dengan pagination, limit 5 per halaman
+        $perPage = 5;
+
+        // Ambil statusAkun dari filter
+        $statusAkun = $this->request->getVar('statusAkun');
+
+        // Ambil kata kunci dari request untuk pencarian
+        $keyword = $this->request->getGet('search');
+
+        // Mulai query builder dari model
+        $builder = $model->table('dppk');
+
+        // Jika statusAkun dipilih, tambahkan filter statusAkun
+        if ($statusAkun) {
+            $builder->where('status_akun', $statusAkun);
+        }
+
+        // Jika ada kata kunci, tambahkan kondisi pencarian berdasarkan nama
+        if ($keyword) {
+            $builder->like('nama', $keyword);
+        }
+
+        // Hitung total dppk yang sesuai dengan filter dan pencarian
+        $totalFilteredDppk = $builder->countAllResults(false); // False untuk tidak reset query builder
+
+        // Dapatkan data dengan pagination setelah semua filter
+        $dppk = $builder->paginate($perPage, 'dppk');
 
         $data['dppk'] = $dppk;
-        $data['countAlldppk'] = count($data['dppk']); // Menghitung semua data di tabel dppk
+        $data['countAllDppk'] = $totalFilteredDppk; // Total dppk setelah filter dan pencarian
         $data['title'] = "Akun DPPK";
+        $data['pager'] = $model->pager;
+        $data['keyword'] = $keyword;
+        $data['statusAkun'] = $statusAkun;
 
         return view('admin/akundppk', $data);
     }
+
 
     public function updateDppk()
     {
@@ -688,10 +788,77 @@ class AdminController extends BaseController
         return view('admin/sidang1', ['title' => 'Sidang 1']);
     }
 
-    public function editpamflet()
+    public function editpamflet($id_pamflet)
     {
-        $data['title'] = "Edit Pamflet";
-        return view('admin/editpamflet', ['title' => 'Edit Pamflet']);
+        $model = new PamfletModel();
+        $pamflet = $model->find($id_pamflet);
+        if (!$pamflet) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        $id_admin = session()->get('id_admin');
+
+        if (!$id_admin) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+        
+        $data = [
+            'title' => 'Edit Pamflet',
+            'pamflet' => $pamflet,
+        ];
+        return view('admin/editpamflet', $data);
+    }
+
+    public function editpamfletAction($id)
+    {
+        $model = new PamfletModel();
+
+        $validation = \Config\Services::validation();
+        $validation->setRules([
+            'foto' => 'is_image[foto]',
+            'status' => 'required|in_list[Nonaktif,Aktif]'
+        ]);
+
+        if (!$this->validate($validation->getRules())) {
+            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+        }
+
+        $fotoFile = $this->request->getFile('foto');
+        $data = [
+            'status' => $this->request->getPost('status'),
+        ];
+
+        if ($fotoFile && $fotoFile->isValid()) {
+            $data['foto'] = $fotoFile->getName();
+            $fotoFile->move(WRITEPATH . 'uploads/pamflet');
+        } else {
+            $data['foto'] = $this->request->getPost('foto_lama');
+        }
+
+        if ($model->update($id, $data)) {
+            return redirect()->to("/admin/editpamflet/$id")->with('message', 'Pamflet berhasil diperbarui');
+        } else {
+            return redirect()->back()->with('error', 'Gagal memperbarui pamflet.');
+        }
+    }
+
+    public function showPamflet($filename)
+    {
+        $filePathJpg = WRITEPATH . 'uploads/pamflet/' . $filename;
+        if (file_exists($filePathJpg)) {
+            return $this->response
+                ->setHeader('Content-Type', 'image/jpeg')
+                ->setBody(file_get_contents($filePathJpg));
+        }
+
+        $filePathJpeg = WRITEPATH . 'uploads/pamflet/' . $filename;
+        if (file_exists($filePathJpeg)) {
+            return $this->response
+                ->setHeader('Content-Type', 'image/jpeg')
+                ->setBody(file_get_contents($filePathJpeg));
+        }
+
+        throw new \CodeIgniter\Exceptions\PageNotFoundException('File tidak ditemukan.');
     }
 
     public function sidang2()
@@ -722,11 +889,40 @@ class AdminController extends BaseController
     public function akuntimteknis()
     {
         $model = new TimteknisModel();
-        $timteknis = $model->findAll(); // Menampilkan semua data dari tabel timteknis tanpa filter
+        // Ambil data dengan pagination, limit 5 per halaman
+        $perPage = 5;
 
-        $data['timteknis'] = $timteknis;
-        $data['countAlltimteknis'] = count($data['timteknis']); // Menghitung semua data di tabel timteknis
+        // Ambil statusAkun dari filter
+        $statusAkun = $this->request->getVar('statusAkun');
+
+        // Ambil kata kunci dari request untuk pencarian
+        $keyword = $this->request->getGet('search');
+
+        // Mulai query builder dari tabel tim_teknis
+        $builder = $model->table('tim_teknis');
+
+        // Jika statusAkun dipilih, tambahkan filter statusAkun
+        if ($statusAkun) {
+            $builder->where('status_akun', $statusAkun);
+        }
+
+        // Jika ada kata kunci, tambahkan kondisi pencarian berdasarkan nama
+        if ($keyword) {
+            $builder->like('nama', $keyword);
+        }
+
+        // Hitung total tim teknis yang sesuai dengan filter dan pencarian
+        $totalFilteredTimTeknis = $builder->countAllResults(false); // False untuk tidak reset query builder
+
+        // Dapatkan data dengan pagination setelah semua filter
+        $timTeknis = $builder->paginate($perPage, 'tim_teknis');
+
+        $data['timTeknis'] = $timTeknis;
+        $data['countAllTimTeknis'] = $totalFilteredTimTeknis; // Total tim teknis setelah filter dan pencarian
         $data['title'] = "Akun Tim Teknis";
+        $data['pager'] = $model->pager;
+        $data['keyword'] = $keyword;
+        $data['statusAkun'] = $statusAkun;
 
         return view('admin/akuntimteknis', $data);
     }
@@ -769,11 +965,42 @@ class AdminController extends BaseController
     public function akunpenerima()
     {
         $model = new PenerimaModel();
-        $penerima = $model->findAll(); // Menampilkan semua data dari tabel penerima tanpa filter
+
+        // Ambil data dengan pagination, limit 5 per halaman
+        $perPage = 5;
+
+        // Ambil statusAkun dari filter
+        $statusAkun = $this->request->getVar('statusAkun');
+
+        // Ambil kata kunci dari request untuk pencarian
+        $keyword = $this->request->getGet('search');
+
+        // Mulai query builder dari model
+        $builder = $model->table('penerima');
+
+        // Jika statusAkun dipilih, tambahkan filter statusAkun
+        if ($statusAkun) {
+            $builder->where('status_akun', $statusAkun);
+        }
+
+        // Jika ada kata kunci, tambahkan kondisi pencarian berdasarkan nama
+        if ($keyword) {
+            $builder->like('nama', $keyword);
+        }
+
+        // Hitung total penerima yang sesuai dengan filter dan pencarian
+        $totalFilteredPenerima = $builder->countAllResults(false); // False untuk tidak reset query builder
+
+        // Dapatkan data dengan pagination setelah semua filter
+        $penerima = $builder->paginate($perPage, 'penerima');
 
         $data['penerima'] = $penerima;
-        $data['countAllpenerima'] = count($data['penerima']); // Menghitung semua data di tabel penerima
-        $data['title'] = "Akun Penerima Penghargaan Kalpataru";
+        $data['countAllPenerima'] = $totalFilteredPenerima; // Total penerima setelah filter dan pencarian
+        $data['title'] = "Akun Penerima";
+        $data['pager'] = $model->pager;
+        $data['keyword'] = $keyword;
+        $data['statusAkun'] = $statusAkun;
+
         return view('admin/akunpengguna', $data);
     }
 
@@ -2266,5 +2493,84 @@ class AdminController extends BaseController
         }
 
         return redirect()->to('/admin/buku-kalpataru'); // Sesuaikan dengan URL yang diinginkan
+    }
+
+    public function exportPDF($kode_registrasi)
+    {
+        $id_admin = session()->get('id_admin');
+    
+        if (!$id_admin) {
+            return redirect()->back()->with('error', 'Anda tidak memiliki akses.');
+        }
+    
+        $pendaftaranModel = new PendaftaranModel();
+        $pengusulModel = new PengusulModel();
+    
+        $pendaftaranData = $pendaftaranModel->where('kode_registrasi', $kode_registrasi)->first();
+    
+        if (!$pendaftaranData) {
+            return redirect()->back()->with('error', 'Data tidak ditemukan.');
+        }
+    
+        $pengusulData = $pengusulModel->where('id_pengusul', $pendaftaranData['id_pengusul'])->first();
+    
+        $kegiatan = $pendaftaranModel->getKegiatanByPendaftaranId($pendaftaranData['id_pendaftaran']);
+        $pendaftaranData['kegiatan'] = $kegiatan;
+    
+        $dampak = $pendaftaranModel->db->table('dampak')->where('id_pendaftaran', $pendaftaranData['id_pendaftaran'])->get()->getRowArray();
+        $pmik = $pendaftaranModel->db->table('pmik')->where('id_pendaftaran', $pendaftaranData['id_pendaftaran'])->get()->getRowArray();
+        $keswadayaan = $pendaftaranModel->db->table('keswadayaan')->where('id_pendaftaran', $pendaftaranData['id_pendaftaran'])->get()->getRowArray();
+        $keistimewaan = $pendaftaranModel->db->table('keistimewaan')->where('id_pendaftaran', $pendaftaranData['id_pendaftaran'])->get()->getRowArray();
+    
+        $data = [
+            'pendaftaran' => $pendaftaranData,
+            'pengusul' => $pengusulData,
+            'kegiatan' => $kegiatan,
+            'dampak' => $dampak,
+            'pmik' => $pmik,
+            'keswadayaan' => $keswadayaan,
+            'keistimewaan' => $keistimewaan
+        ];
+    
+        $kategori = $pendaftaranData['kategori'];
+        switch ($kategori) {
+            case 'Perintis Lingkungan':
+                $prefix = 'A';
+                break;
+            case 'Pengabdi Lingkungan':
+                $prefix = 'B';
+                break;
+            case 'Penyelamat Lingkungan':
+                $prefix = 'C';
+                break;
+            case 'Pembina Lingkungan':
+                $prefix = 'D';
+                break;
+            default:
+                $prefix = 'X';
+        }
+    
+        session()->set('prefix', $prefix);
+    
+        $html = view('admin/pdf', $data);
+    
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isRemoteEnabled', true);
+        $options->set('defaultPaperSize', 'A4');
+        $options->set('defaultPaperOrientation', 'portrait');
+        $options->set('dpi', 150);
+        $options->set('enable_php', false);
+        $options->set('enable_javascript', true);
+        $options->set('enable_html5_parser', true);
+    
+        $dompdf = new Dompdf($options);
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+    
+        $namaFile = 'Formulir_' . esc($pendaftaranData['nama']) . '_' . esc($pendaftaranData['kategori']) . '.pdf';
+    
+        $dompdf->stream($namaFile, ['Attachment' => true]);
     }
 }

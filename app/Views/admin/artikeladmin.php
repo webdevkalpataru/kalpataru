@@ -12,8 +12,8 @@
 
     <!-- Sidebar -->
     <div class="w-64 bg-white text-white">
-    <?= $this->include('template/sidebaradmin') ?>
-  </div>
+        <?= $this->include('template/sidebaradmin') ?>
+    </div>
 
     <!-- Konten utama -->
     <div class="lg:flex-1 p-4 md:p-6">
@@ -100,8 +100,9 @@
                                     </td>
                                     <td class="p-2 border-b text-center"><?= esc($artikel['tanggal']) ?></td>
                                     <td class="p-2 border-b text-center">
-                                        <form method="POST" action="/admin/updatestatus">
+                                        <form method="POST" action="/admin/updatestatusartikel">
                                             <input type="hidden" name="id_artikel" value="<?= $artikel['id_artikel'] ?>">
+                                            <input type="hidden" name="catatan" id="catatanArtikel-<?= $artikel['id_artikel'] ?>"> <!-- Input hidden untuk catatan -->
                                             <select name="status" class="status-dropdown border-2 border-primary text-primary rounded-md shadow-sm text-xs" data-id="<?= $artikel['id_artikel'] ?>">
                                                 <?php
                                                 $statuses = ['Ditangguhkan', 'Terbit', 'Ditolak'];
@@ -167,11 +168,28 @@
         </div>
     </div>
 
+    <!-- Modal Catatan Artikel -->
+    <div id="popupModal" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 hidden">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+            <h2 class="text-xl font-semibold mb-4">Tambah Catatan</h2>
+            <textarea id="catatanArtikel" rows="4" class="w-full p-2 border border-slate-300 rounded-md" placeholder="Masukan catatan artikel..."></textarea>
+            <div class="flex justify-end mt-4">
+                <button id="kirimCatatanBtn" class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primaryhover transition">Kirim Catatan</button>
+                <button id="batalBtn" class="ml-2 px-4 py-2 bg-gray-300 text-black rounded-md hover:bg-gray-400 transition">Batal</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // POPUP MODAL STATUS
         const statusModal = document.getElementById('statusModal');
         const confirmStatusButton = document.getElementById('confirmStatusButton');
         const cancelStatusButton = document.getElementById('cancelStatusButton');
+
+        const popupModal = document.getElementById('popupModal');
+        const kirimCatatanBtn = document.getElementById('kirimCatatanBtn');
+        const batalBtn = document.getElementById('batalBtn');
+
         let selectedDropdown = null;
         let initialValue = ''; // Menyimpan nilai awal dropdown
 
@@ -180,7 +198,30 @@
             dropdown.addEventListener('change', function() {
                 selectedDropdown = this;
                 initialValue = this.value; // Simpan nilai awal
-                statusModal.classList.remove('hidden'); // Tampilkan modal
+
+                if (this.value === "Ditolak") {
+                    popupModal.classList.remove('hidden'); // Tampilkan modal catatan
+
+                    kirimCatatanBtn.onclick = function() {
+                        const catatan = document.getElementById('catatanArtikel').value;
+                        const catatanInput = document.getElementById(`catatanArtikel-${selectedDropdown.dataset.id}`);
+
+                        // Set nilai catatan ke input hidden
+                        catatanInput.value = catatan;
+
+                        // Sembunyikan modal catatan dan tampilkan modal konfirmasi setelah catatan diisi
+                        popupModal.classList.add('hidden');
+                        statusModal.classList.remove('hidden'); // Tampilkan modal konfirmasi
+                    };
+                    // Jika tombol batal pada modal catatan ditekan
+                    batalBtn.onclick = function() {
+                        popupModal.classList.add('hidden'); // Sembunyikan modal catatan
+                        location.reload();
+                    };
+                } else if (this.value !== "Ditolak") {
+                    // Jika pilih selain "Ditolak", langsung tampilkan modal konfirmasi
+                    statusModal.classList.remove('hidden'); // Tampilkan modal konfirmasi
+                }
             });
         });
 
@@ -231,7 +272,7 @@
             }
         });
 
-        
+
         // POPUP MODAL HAPUS
         const deleteModal = document.getElementById('deleteModal');
         const confirmDeleteButton = document.getElementById('confirmDeleteButton');
