@@ -551,7 +551,22 @@
                 'Riau': 'https://kalpatarujson.vercel.app/json/riau.json',
             };
 
-            var colorAbuMuda = '#D3D3D3';
+            var colorRanges = [
+            { min: 1, max: 10, color: '#5EFFD7' },
+            { min: 11, max: 20, color: '#52D5B4' },
+            { min: 21, max: 30, color: '#43B095' },
+            { min: 31, max: 40, color: '#348C76' },
+            { min: 41, max: 50, color: '#2B6556' }
+        ];
+
+            function getColorByTotal(total) {
+                for (var i = 0; i < colorRanges.length; i++) {
+                    if (total >= colorRanges[i].min && total <= colorRanges[i].max) {
+                        return colorRanges[i].color;
+                    }
+                }
+                return '#D3D3D3';
+            }
 
             for (let provinsi in geojsonUrls) {
                 fetch(geojsonUrls[provinsi])
@@ -563,17 +578,15 @@
 
                         var geojsonLayer = L.geoJSON(data, {
                             style: function() {
-                                return penerimaDiProvinsi && penerimaDiProvinsi.total > 0
-                                    ? {
-                                        color: 'none',
-                                        fillColor: colorAbuMuda,
-                                        fillOpacity: 1,
-                                        weight: 0 
-                                    }
-                                    : {
-                                        color: 'none',
-                                        fillOpacity: 0
-                                    };
+                                var fillColor = penerimaDiProvinsi && penerimaDiProvinsi.total > 0
+                                    ? getColorByTotal(penerimaDiProvinsi.total)
+                                    : 'none';
+                                return {
+                                    color: 'none',
+                                    fillColor: fillColor,
+                                    fillOpacity: 1,
+                                    weight: 0 
+                                };
                             },
                             onEachFeature: function(feature, layer) {
                                 var center = layer.getBounds().getCenter();
@@ -610,11 +623,13 @@
             legend.onAdd = function(map) {
                 var div = L.DomUtil.create('div', 'info legend');
                 var labels = ['<strong>Keterangan</strong>'];
-                var colors = [colorAbuMuda];
+                var colors = colorRanges.map(range => range.color);
 
-                labels.push(
-                    '<i style="background:' + colors[0] + '"></i> Penerima Kalpataru'
-                );
+                for (var i = 0; i < colors.length; i++) {
+                    labels.push(
+                        '<i style="background:' + colors[i] + '"></i> ' + colorRanges[i].min + '-' + colorRanges[i].max + ' Penerima'
+                    );
+                }
 
                 div.innerHTML = labels.join('<br>');
                 return div;
