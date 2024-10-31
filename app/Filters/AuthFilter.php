@@ -60,6 +60,14 @@ class AuthFilter implements FilterInterface
                 throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // Halaman 404 jika bukan pengusul atau DLHK
             }
         }
+
+        // Cek apakah halaman yang diakses adalah halaman pengguna
+        if ($uri->getSegment(1) == 'dashboard') {
+            // Pastikan pengguna yang login adalah dppk
+            if (session()->get('role') != 'Pengguna') {
+                throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+            }
+        }
     }
 
 

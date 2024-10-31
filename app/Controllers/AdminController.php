@@ -132,7 +132,6 @@ class AdminController extends BaseController
             ]
         ]);
 
-
         if (!$this->validate($validation->getRules())) {
             return $this->response->setJSON([
                 'success' => false,

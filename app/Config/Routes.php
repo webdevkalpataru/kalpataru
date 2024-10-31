@@ -34,6 +34,15 @@ $routes->get('artikel/(:any)', 'PublikasiController::detailartikel/$1');
 $routes->get('publikasi/video', 'PublikasiController::video');
 $routes->get('publikasi/buku', 'PublikasiController::buku');
 
+/* Auth Pengguna */
+$routes->get('/login', 'PenggunaController::loginpage');
+$routes->post('/login', 'PenggunaController::login');
+$routes->get('/register', 'PenggunaController::registerpage');
+$routes->post('/register', 'PenggunaController::register');
+$routes->get('/verify', 'PenggunaController::verifypage');
+$routes->post('/verify', 'PenggunaController::verify');
+
+
 /* Auth Penerima */
 $routes->get('auth/loginpenerima', 'AuthController::loginPenerima');
 $routes->post('auth/loginpenerima', 'AuthController::loginPenerimaAction');
@@ -283,5 +292,9 @@ $routes->group('dppk', ['filter' => 'auth'], function ($routes) {
     $routes->get('bahansidang2', 'DppkController::bahansidang2');
 
     $routes->get('pdf/(:any)', 'DppkController::exportPDF/$1');
+});
 
+/* Pengguna */
+$routes->group('dashboard', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'PenggunaController::dashboard');
 });
