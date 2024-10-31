@@ -708,10 +708,6 @@ class PengusulController extends BaseController
                 } else {
                     // Insert kegiatan utama sebagai entri baru
                     $model->insertKegiatan($data);
-                    return redirect()->back()
-                        ->withInput()
-                        ->with('status', 'success')
-                        ->with('message', 'Data berhasil disimpan.');
                 }
 
                 // Cek apakah ada kegiatan tambahan yang akan ditambahkan atau diperbarui
@@ -739,21 +735,18 @@ class PengusulController extends BaseController
                             if (isset($kegiatan['id_kegiatan']) && !empty($kegiatan['id_kegiatan'])) {
                                 // Jika ID ada, update kegiatan tambahan
                                 $model->updateKegiatan($dataLain, ['id_kegiatan' => $kegiatan['id_kegiatan']]);
-                                return redirect()->back()
-                                    ->withInput()
-                                    ->with('status', 'success')
-                                    ->with('message', 'Data berhasil disimpan.');
                             } else {
                                 // Insert kegiatan tambahan sebagai entri baru
                                 $model->insertKegiatan($dataLain);
-                                return redirect()->back()
-                                    ->withInput()
-                                    ->with('status', 'success')
-                                    ->with('message', 'Data berhasil disimpan.');
                             }
                         }
                     }
                 }
+
+                return redirect()->back()
+                    ->withInput()
+                    ->with('status', 'success')
+                    ->with('message', 'Data berhasil disimpan.');
 
                 break;
 
