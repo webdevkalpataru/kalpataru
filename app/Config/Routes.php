@@ -283,5 +283,4 @@ $routes->group('dppk', ['filter' => 'auth'], function ($routes) {
     $routes->get('bahansidang2', 'DppkController::bahansidang2');
 
     $routes->get('pdf/(:any)', 'DppkController::exportPDF/$1');
-
 });
