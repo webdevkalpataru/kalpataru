@@ -19,6 +19,9 @@ $routes->post('kontak/sendEmail', 'KontakController::sendEmail');
 $routes->get('pamflet/(:any)', 'MainController::showPamflet/$1');
 $routes->get('protaru', 'MainController::protaru');
 
+$routes->get('datausulanprovinsi', 'StatistikController::datausulanprovinsi');
+$routes->get('profilpenerima', 'StatistikController::profilpenerima');
+
 /* Informasi */
 $routes->get('informasi/pengumuman', 'InformasiController::pengumuman');
 $routes->get('informasi/peraturan-kebijakan', 'InformasiController::peraturan');

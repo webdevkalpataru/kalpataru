@@ -83,18 +83,10 @@
                                 <input type="text" name="penerima" id="penerima" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required />
                             </div>
                             <div>
-                                <label class="block mb-2 mt-2 text-sm text-black">Profil Singkat</label>
-                                <textarea name="penerima" id="penerima" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" rows="4" required></textarea>
+                                <label class="block mb-2 mt-2 text-sm text-black">Profil Singkat (Penerima dan Kegiatan)</label>
+                                <textarea name="penerima" id="penerima" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" rows="10" required></textarea>
                             </div>
-                            <div class="mt-2">
-                                <label class="block mb-2 text-sm text-black">Status</label>
-                                <select name="status" id="status" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required>
-                                    <option value="" disabled selected>Pilih Status</option>
-                                    <option value="aktif">Aktif</option>
-                                    <option value="tidak_aktif">Tidak Aktif</option>
-                                    <option value="meninggal">Meninggal</option>
-                                </select>
-                            </div>
+                            
 
                         </div>
 
@@ -159,10 +151,19 @@
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Bentuk Kegiatan</label>
-                                <textarea name="penerima" id="penerima" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2  transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" rows="4" required></textarea>
+                                <input type="text" name="penerima" id="penerima" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2  transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" rows="4" required></i>
+                            </div>
+                            <div class="mt-2">
+                                <label class="block mb-2 text-sm text-black">Status</label>
+                                <select name="status" id="status" class="w-full placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" required>
+                                    <option value="" disabled selected>Pilih Status</option>
+                                    <option value="aktif">Aktif</option>
+                                    <option value="tidak_aktif">Tidak Aktif</option>
+                                    <option value="meninggal">Meninggal</option>
+                                </select>
                             </div>
                             <div>
-                                <label class="block mb-2 text-sm text-black">Unggah Penerima (.jpg/jpeg)</label>
+                                <label class="block mb-2 text-sm text-black">Unggah Foto Penerima (.jpg/jpeg)</label>
                                 <input required id="foto" name="foto" type="file" accept="image/jpeg, image/jpg" class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2">
                                 <div class="text-red-500" id="fotoError"></div>
                             </div>
