@@ -424,7 +424,7 @@
             </p>
 
             <!-- Cards section -->
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+            <!-- <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
                 <div id="cardpencapaian1" class="card relative overflow-hidden cursor-pointer">
                     <img src="/images/pencapaian1.jpg" alt="Infografis 1" class="w-full h-full object-cover" onclick="openPopup('/images/pencapaian1.jpg')" />
                 </div>
@@ -436,6 +436,29 @@
                 </div>
                 <div id="cardpencapaian4" class="card relative overflow-hidden cursor-pointer">
                     <img src="/images/pencapaian4.jpg" alt="Infografis 4" class="w-full h-full object-cover" onclick="openPopup('/images/pencapaian4.jpg')" />
+                </div>
+            </div> -->
+
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+                <div id="cardpencapaian1" class="card relative overflow-hidden cursor-pointer">
+                    <a href="<?= base_url('pencapaian?image=pencapaian1.jpg') ?>">
+                        <img src="/images/pencapaian1.jpg" alt="Infografis 1" class="w-full h-full object-cover" />
+                    </a>
+                </div>
+                <div id="cardpencapaian2" class="card relative overflow-hidden cursor-pointer">
+                    <a href="<?= base_url('pencapaian?image=pencapaian2.jpg') ?>">
+                        <img src="/images/pencapaian2.jpg" alt="Infografis 2" class="w-full h-full object-cover" />
+                    </a>
+                </div>
+                <div id="cardpencapaian3" class="card relative overflow-hidden cursor-pointer">
+                    <a href="<?= base_url('pencapaian?image=pencapaian3.jpg') ?>">
+                        <img src="/images/pencapaian3.jpg" alt="Infografis 3" class="w-full h-full object-cover" />
+                    </a>
+                </div>
+                <div id="cardpencapaian4" class="card relative overflow-hidden cursor-pointer">
+                    <a href="<?= base_url('pencapaian?image=pencapaian4.jpg') ?>">
+                        <img src="/images/pencapaian4.jpg" alt="Infografis 4" class="w-full h-full object-cover" />
+                    </a>
                 </div>
             </div>
 

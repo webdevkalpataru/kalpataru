@@ -69,6 +69,13 @@ class MainController extends BaseController
         throw new \CodeIgniter\Exceptions\PageNotFoundException('File tidak ditemukan.');
     }
 
+    public function pencapaian()
+    {
+        $data['title'] = "Pencapaian";
+        $data['selectedImage'] = $this->request->getGet('image');
+        return view('pencapaian', $data);
+    }
+
     public function protaru()
     {
         $data['title'] = "Protaru";
