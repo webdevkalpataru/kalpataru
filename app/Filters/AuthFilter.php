@@ -8,21 +8,60 @@ use CodeIgniter\Filters\FilterInterface;
 
 class AuthFilter implements FilterInterface
 {
+
+
     public function before(RequestInterface $request, $arguments = null)
     {
-        // Periksa apakah pengguna sudah login
+        // Cek apakah pengguna sudah login
         if (!session()->get('logged_in')) {
-            // Jika belum login, kembalikan JSON dengan pesan
-            if ($request->isAJAX()) {
-                return \Config\Services::response()
-                    ->setJSON(['success' => false, 'message' => 'Harap login terlebih dahulu'])
-                    ->setStatusCode(401);
-            } else {
-                // Arahkan ke halaman login jika bukan AJAX request
-                return redirect()->to('/auth/login');
+            return redirect()->to('/'); // Arahkan ke halaman utama jika belum login
+        }
+
+        // Cek URI untuk menentukan akses
+        $uri = service('uri');
+
+        // Cek apakah halaman yang diakses adalah halaman admin
+        if ($uri->getSegment(1) == 'admin') {
+            // Pastikan pengguna yang login adalah admin
+            if (session()->get('role') != 'admin') {
+                throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+            }
+        }
+
+        // Cek apakah halaman yang diakses adalah halaman tim teknis
+        if ($uri->getSegment(1) == 'timteknis') {
+            // Pastikan pengguna yang login adalah tim teknis
+            if (session()->get('role') != 'Tim Teknis') {
+                throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+            }
+        }
+
+        // Cek apakah halaman yang diakses adalah halaman tim teknis
+        if ($uri->getSegment(1) == 'dppk') {
+            // Pastikan pengguna yang login adalah dppk
+            if (session()->get('role') != 'DPPK') {
+                throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+            }
+        }
+
+        // Cek apakah halaman yang diakses adalah halaman tim teknis
+        if ($uri->getSegment(1) == 'penerima') {
+            // Pastikan pengguna yang login adalah dppk
+            if (session()->get('role') != 'Penerima') {
+                throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+            }
+        }
+
+        // Cek apakah halaman yang diakses adalah halaman pengusul
+        if ($uri->getSegment(1) == 'pengusul') {
+            // Pastikan pengguna yang login adalah pengusul atau DLHK
+            $roleAkun = session()->get('role_akun');
+            if ($roleAkun != 'Pengusul' && $roleAkun != 'DLHK') {
+                throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // Halaman 404 jika bukan pengusul atau DLHK
             }
         }
     }
+
 
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
     {

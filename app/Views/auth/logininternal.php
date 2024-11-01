@@ -4,87 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/app.css">
+    <link rel="stylesheet" href="/css/app.css">
     <title><?= $title; ?></title>
-    <style>
-        /* images */
-        /*  @keyframes fadeInRight {
-            from {
-                opacity: 0;
-                transform: translateX(100%);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes fadeInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-100%);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .fade-in-right {
-            animation: fadeInRight 0.5s forwards;
-        }
-
-        .fade-in-left {
-            animation: fadeInLeft 0.5s forwards;
-        } */
-
-        /* toast error */
-        .toast {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            background-color: #800000;
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            display: none;
-        }
-
-        .show-toast {
-            display: block;
-        }
-
-        /* Show/hide password */
-        .password-icon {
-            cursor: pointer;
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-
-        /* Responsive style */
-        @media (max-width: 640px) {
-            .max-w-md {
-                max-width: 90%;
-            }
-        }
-
-        .toasthidden {
-            display: none;
-        }
-    </style>
 </head>
 
 <body>
     <div class="flex h-screen">
         <div class="flex-1 relative hidden sm:block">
-            <img id="backgroundImage" src="/images/loginregist1.jpeg" alt="loginregist1"
+            <img id="backgroundImage" src="/images/loginregist2.jpeg" alt="loginregist2"
                 class="w-full h-full object-cover fade-in-right">
         </div>
 
@@ -92,107 +19,38 @@
             <div class="w-full max-w-md p-6 fade-in-left">
 
                 <h2 class="text-2xl font-bold text-gray-900 mb-4">Masuk</h2>
-                <form class="flex flex-col" onsubmit="validateForm(event)" action="/auth/login" method="POST">
-                    <label for="email" class="text-xs">Email</label>
-                    <input id="email" type="text" name="email" required
-                        class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none"
-                        placeholder="Masukkan Email">
+                <form class="lg:flex gap-6 justify-center" onsubmit="validateForm(event)" action="/auth/logininternal" method="POST">
 
-                    <label for="password" class="text-xs">Kata Sandi</label>
-                    <div class="relative">
-                        <input id="password" type="password" name="kata_sandi" required
-                            class="block w-full border-2 border-gray-300 text-primary text-xs rounded-lg p-2 pr-10 mb-4 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none"
-                            placeholder="Masukkan Kata Sandi">
-                        <span id="togglePassword" class="password-icon absolute inset-y-0 right-2 flex items-center">
-                            <img src="/images/hide.svg" alt="hide" class="w-4 h-4 mb-4">
-                        </span>
-                    </div>
+                    <a href="/auth/loginadmin">
+                        <div class="group relative overflow-hidden hover:scale-105 transition-transform duration-500 shadow-lg hover:shadow-xl rounded-xl bg-secondary outline outline-primary -outline-offset-4 hover:outline-primaryhover hover:outline-4">
+                            <div class="absolute inset-0 before:absolute before:w-16 before:h-16 before:rounded-full before:top-6 before:right-6 before:opacity-75"></div>
+                            <div class="relative z-10 flex flex-col items-center gap-2 p-4">
+                                <span class="text-primary text-xl font-bold">ADMIN</span>
+                            </div>
+                        </div>
+                    </a>
 
-                    <div class="flex items-center justify-between flex-wrap">
-                        <p class="text-gray-900 text-xs">
-                            Belum punya akun? <a href="./registerinternal" class="text-primary hover:underline font-bold">Daftar Sekarang</a>
-                        </p>
-                    </div>
+                    <a href="/auth/logintimteknis">
+                        <div class="group relative overflow-hidden hover:scale-105 transition-transform duration-500 shadow-lg hover:shadow-xl rounded-xl bg-secondary outline outline-primary -outline-offset-4 hover:outline-primaryhover hover:outline-4">
+                            <div class="absolute inset-0 before:absolute before:w-16 before:h-16 before:rounded-full before:top-6 before:right-6 before:opacity-75"></div>
+                            <div class="relative z-10 flex flex-col items-center gap-2 p-4">
+                                <span class="text-primary text-xl font-bold">TIM TEKNIS</span>
+                            </div>
+                        </div>
+                    </a>
 
-                    <button type="submit"
-                        class="bg-secondary text-primary font-bold py-2 px-4 rounded-md mt-4 hover:bg-primary hover:text-white transition ease-in-out duration-150">
-                        Masuk
-                    </button>
+                    <a href="/auth/logindppk">
+                        <div class="group relative overflow-hidden hover:scale-105 transition-transform duration-500 shadow-lg hover:shadow-xl rounded-xl bg-secondary outline outline-primary -outline-offset-4 hover:outline-primaryhover hover:outline-4">
+                            <div class="absolute inset-0 before:absolute before:w-16 before:h-16 before:rounded-full before:top-6 before:right-6 before:opacity-75"></div>
+                            <div class="relative z-10 flex flex-col items-center gap-2 p-4">
+                                <span class="text-primary text-xl font-bold">DPPK</span>
+                            </div>
+                        </div>
+                    </a>
                 </form>
             </div>
         </div>
     </div>
-
-    <div id="toast" class="toast">Email atau password salah!</div>
-
-    <script>
-        /* const imageArray = ['/images/loginregist1.jpeg', '/images/loginregist2.jpeg', '/images/loginregist3.jpeg'];
-        let currentImageIndex = 0;
-        const backgroundImage = document.getElementById('backgroundImage');
-
-        setInterval(() => {
-            currentImageIndex = (currentImageIndex + 1) % imageArray.length;
-            backgroundImage.src = imageArray[currentImageIndex];
-            backgroundImage.classList.remove('fade-in-right');
-            void backgroundImage.offsetWidth;
-            backgroundImage.classList.add('fade-in-right');
-        }, 10000); */
-
-        // Toggle password visibility
-        const passwordInput = document.getElementById('password');
-        const togglePassword = document.getElementById('togglePassword');
-        let isPasswordVisible = false;
-
-        togglePassword.addEventListener('click', () => {
-            isPasswordVisible = !isPasswordVisible;
-            const type = isPasswordVisible ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
-
-            // Update the icon
-            togglePassword.innerHTML = isPasswordVisible ?
-                `<img src="/images/show.svg" alt="show" class="w-4 h-4 mb-4">` :
-                `<img src="/images/hide.svg" alt="hide" class="w-4 h-4 mb-4">`;
-        });
-
-        function validateForm(event) {
-            event.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            const form = event.target;
-            const formData = new FormData(form);
-
-            fetch(form.action, {
-                    method: form.method,
-                    body: formData,
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        // Redirect ke URL yang diberikan oleh server
-                        window.location.href = data.redirectUrl;
-                    } else {
-                        showToast(data.message); // Tampilkan pesan kesalahan
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    showToast('Terjadi kesalahan. Silakan coba lagi');
-                });
-        }
-
-
-
-        // Show toast with custom message
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.classList.add('show-toast');
-            setTimeout(() => {
-                toast.classList.remove('show-toast');
-            }, 3000);
-        }
-    </script>
 </body>
 
 </html>

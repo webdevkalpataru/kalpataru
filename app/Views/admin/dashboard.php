@@ -10,20 +10,19 @@
 
 <body class="lg:flex">
 
-  <!-- Sidebar -->
-  <?= $this->include('template/sidebaradmin') ?>
+  <div class="w-64 bg-white text-white">
+    <?= $this->include('template/sidebaradmin') ?>
+  </div>
 
-  <!-- Main Content -->
   <div class="lg:flex-1 p-6">
     <div class="min-h-screen flex flex-col">
 
-      <!-- Header -->
       <header class="bg-white shadow">
         <div class="container mx-auto flex items-center justify-between p-4 md:p-6">
           <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Dashboard</h1>
           <div class="flex items-center">
-            <p class="text-gray-500 mr-2 md:mr-4">Hello, Admin</p>
-            <button class="bg-rejected text-white px-3 py-2 md:px-4 md:py-2 rounded-lg">Keluar</button>
+            <p class="text-gray-500 mr-2 md:mr-4">Hello, <?= session()->get('nama'); ?></p>
+            <a href="/auth/logoutinternal" class="bg-rejected text-white px-3 py-2 md:px-4 md:py-2 rounded-lg inline-block">Keluar</a>
           </div>
         </div>
       </header>
@@ -33,98 +32,110 @@
         <!-- Cards Summary -->
         <div class="grid gap-4 mb-8 sm:grid-cols-2 lg:grid-cols-4">
           <div class="flex items-center p-4 bg-white shadow rounded-lg">
-            <div class="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M5 3a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2H5zM4 5a1 1 0 011-1h10a1 1 0 011 1v10a1 1 0 01-1 1H5a1 1 0 01-1-1V5z" clip-rule="evenodd" />
-              </svg>
-            </div>
+            <img src="/images/kategoria.jpg" class="w-1/4 mr-4">
             <div>
-              <p class="mb-1 md:mb-2 text-sm font-medium text-gray-600">Total Users</p>
+              <p class="mb-1 md:mb-2 text-sm font-medium text-gray-600">Perintis Lingkungan</p>
               <p class="text-lg font-semibold text-gray-700">1,245</p>
             </div>
           </div>
           <div class="flex items-center p-4 bg-white shadow rounded-lg">
-            <div class="p-3 mr-4 text-green-500 bg-green-100 rounded-full">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c1.105 0 2 .672 2 1.5S13.105 11 12 11s-2-.672-2-1.5S10.895 8 12 8zm0 0c-2.5 0-3 1.875-3 1.875S9.5 13 12 13s3-1.875 3-1.875S14.5 8 12 8zm0 4.875v2.625m-5-2.625a5 5 0 0110 0" />
-              </svg>
-            </div>
+            <img src="/images/kategorib.jpg" class="w-1/4 mr-4">
             <div>
-              <p class="mb-1 md:mb-2 text-sm font-medium text-gray-600">Revenue</p>
-              <p class="text-lg font-semibold text-gray-700">$12,432</p>
+              <p class="mb-1 md:mb-2 text-sm font-medium text-gray-600">Pengabdi Lingkungan</p>
+              <p class="text-lg font-semibold text-gray-700">2,432</p>
             </div>
           </div>
           <div class="flex items-center p-4 bg-white shadow rounded-lg">
-            <div class="p-3 mr-4 text-yellow-500 bg-yellow-100 rounded-full">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a5 5 0 00-10 0v2H5v10h14V9h-2zm-6 6a2 2 0 110-4 2 2 0 010 4z" />
-              </svg>
-            </div>
+            <img src="/images/kategoric.jpg" class="w-1/4 mr-4">
             <div>
-              <p class="mb-1 md:mb-2 text-sm font-medium text-gray-600">Orders</p>
+              <p class="mb-1 md:mb-2 text-sm font-medium text-gray-600">Penyelamat Lingkungan</p>
               <p class="text-lg font-semibold text-gray-700">157</p>
             </div>
           </div>
           <div class="flex items-center p-4 bg-white shadow rounded-lg">
-            <div class="p-3 mr-4 text-red-500 bg-red-100 rounded-full">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.707a1 1 0 00-1.414-1.414L9 9.586 7.707 8.293a1 1 0 00-1.414 1.414L9 12.414l5-5z" clip-rule="evenodd" />
-              </svg>
-            </div>
+            <img src="/images/kategorid.jpg" class="w-1/4 mr-4">
             <div>
-              <p class="mb-1 md:mb-2 text-sm font-medium text-gray-600">Completed</p>
+              <p class="mb-1 md:mb-2 text-sm font-medium text-gray-600">Pembina Lingkungan</p>
               <p class="text-lg font-semibold text-gray-700">420</p>
             </div>
           </div>
         </div>
 
-        <!-- Chart Section -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div class="bg-white shadow rounded-lg p-4 md:p-6">
-            <h2 class="text-lg md:text-xl font-semibold mb-4">Sales Overview</h2>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-1 bg-white shadow rounded-lg p-4 md:p-6">
+            <h2 class="text-lg md:text-xl font-semibold mb-4">Pamflet</h2>
             <div>
-              <!-- Placeholder for Chart -->
-              <div class="w-full h-48 md:h-64 bg-gray-200 flex items-center justify-center text-gray-500">[Insert Chart Here]</div>
+                <div class="w-full h-full md:h-64 flex items-center justify-center relative text-gray-500">
+                  <?php if (!empty($pamflet)): ?>
+                      <img class="h-full" src="<?= base_url('admin/preview/pamflet/' . rawurlencode(esc($pamflet['foto']))) ?>">
+
+                      <?php if ($pamflet['status'] === 'Nonaktif'): ?>
+                          <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-white">
+                              <span class="text-lg font-semibold">Pamflet Nonaktif</span>
+                          </div>
+                  <?php endif; ?>
+              </div>
+            </div>
+            <div class="relative my-6 bg-white shadow-sm border border-slate-200 rounded-lg w-full ">
+              <div class="p-4">
+                <h5 class="mb-2 flex flex-col text-slate-800 text-xl items-center font-semibold">
+                  Edit Pamflet
+                </h5>
+                  <a href="/admin/editpamflet/<?= ($pamflet['id_flayer']) ?>">
+                    <button class="rounded-md bg-primary py-2 px-4 mt-6 border border-transparent text-center text-sm text-white w-full transition-all shadow-md hover:shadow-lg focus:bg-primaryhover focus:shadow-none active:bg-primaryhover hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
+                      Edit
+                    </button>
+                  </a>
+                <?php else: ?>
+                  <p>Data pamflet tidak tersedia.</p>
+                <?php endif; ?>
+              </div>
             </div>
           </div>
 
-          <div class="bg-white shadow rounded-lg p-4 md:p-6">
-            <h2 class="text-lg md:text-xl font-semibold mb-4">Recent Orders</h2>
-            <table class="w-full">
-              <thead>
-                <tr class="text-gray-500 text-xs md:text-sm">
-                  <th class="px-2 md:px-4 py-2 text-left">Order ID</th>
-                  <th class="px-2 md:px-4 py-2 text-left">Customer</th>
-                  <th class="px-2 md:px-4 py-2 text-left">Status</th>
-                  <th class="px-2 md:px-4 py-2 text-left">Amount</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="bg-gray-50 text-xs md:text-sm">
-                  <td class="px-2 md:px-4 py-2">#1234</td>
-                  <td class="px-2 md:px-4 py-2">John Doe</td>
-                  <td class="px-2 md:px-4 py-2 text-green-600">Completed</td>
-                  <td class="px-2 md:px-4 py-2">$120.00</td>
-                </tr>
-                <tr class="text-xs md:text-sm">
-                  <td class="px-2 md:px-4 py-2">#1235</td>
-                  <td class="px-2 md:px-4 py-2">Jane Smith</td>
-                  <td class="px-2 md:px-4 py-2 text-yellow-600">Pending</td>
-                  <td class="px-2 md:px-4 py-2">$90.00</td>
-                </tr>
-                <tr class="bg-gray-50 text-xs md:text-sm">
-                  <td class="px-2 md:px-4 py-2">#1236</td>
-                  <td class="px-2 md:px-4 py-2">Bob Lee</td>
-                  <td class="px-2 md:px-4 py-2 text-red-600">Cancelled</td>
-                  <td class="px-2 md:px-4 py-2">$50.00</td>
-                </tr>
-              </tbody>
-            </table>
+          <div class="lg:col-span-2 bg-white shadow rounded-lg p-4 md:p-6">
+            <h2 class="text-lg md:text-xl font-semibold mb-4">Data Calon</h2>
+            <div class="overflow-x-auto">
+              <table class="w-full">
+                <thead>
+                  <tr class="text-gray-500 text-xs md:text-sm">
+                    <th class="px-2 md:px-4 py-2 text-left">Kode Registrasi</th>
+                    <th class="px-2 md:px-4 py-2 text-left">Nama</th>
+                    <th class="px-2 md:px-4 py-2 text-left">Kategori</th>
+                    <th class="px-2 md:px-4 py-2 text-left">Provinsi</th>
+                    <th class="px-2 md:px-4 py-2 text-left">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php if (!empty($calon)): ?>
+                    <?php foreach ($calon as $index => $item): ?>
+                      <tr class="<?= $index % 2 == 0 ? 'bg-gray-50' : '' ?> text-xs md:text-sm">
+                        <td class="px-2 md:px-4 py-2"><?= esc($item['kode_registrasi']) ?></td>
+                        <td class="px-2 md:px-4 py-2"><?= esc($item['nama']) ?></td>
+                        <td class="px-2 md:px-4 py-2"><?= esc($item['kategori']) ?></td>
+                        <td class="px-2 md:px-4 py-2"><?= esc($item['provinsi']) ?></td>
+                        <td class="px-2 md:px-4 py-2"><?= esc($item['status_pendaftaran']) ?></td>
+                      </tr>
+                    <?php endforeach; ?>
+                  <?php else: ?>
+                    <tr>
+                      <td colspan="5" class="px-2 md:px-4 py-2 text-center">No data available</td>
+                    </tr>
+                  <?php endif; ?>
+                </tbody>
+              </table>
+            </div>
+            <div class="row flex lg:justify-end justify-center my-6 lg:me-2 me-0">
+              <div class="pagination">
+                <?= $pager->links('calon', 'template_pagination') ?>
+              </div>
+            </div>
           </div>
         </div>
-
       </div>
+
     </div>
+  </div>
   </div>
 
 </body>

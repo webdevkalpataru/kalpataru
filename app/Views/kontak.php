@@ -4,42 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../../public/css/app.css">
     <title><?= $title; ?></title>
-    <style>
-        .fixed {
-            position: fixed;
-        }
-
-        .bottom-4 {
-            bottom: 1rem;
-        }
-
-        .right-4 {
-            right: 1rem;
-        }
-
-        .bg-red-500 {
-            background-color: #800000;
-        }
-
-        .text-white {
-            color: white;
-        }
-
-        .p-4 {
-            padding: 1rem;
-        }
-
-        .rounded {
-            border-radius: 0.25rem;
-        }
-
-        .shadow {
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-    </style>
-
 </head>
 
 <body>
@@ -98,7 +63,7 @@
                 <div class="p-8">
                     <h2 class="text-2xl font-bold mb-2 flex justify-center">Kontak Kami</h2>
                     <hr class="border-2 border-footer w-1/4 mx-auto">
-                    <form id="contactForm" class="mt-4" onsubmit="return validateForm()">
+                    <form id="contactForm" class="mt-4" method="POST" onsubmit="return validateForm(event)">
                         <div class="mb-4">
                             <label for="nama" class="block text-sm font-medium text-gray-700">Nama Instansi / Nama Pribadi</label>
                             <input type="text" name="nama" id="nama" placeholder="contoh: Kemitraan Lingkungan" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
@@ -122,52 +87,119 @@
                         <button type="submit" class="w-full bg-primary hover:bg-primaryhover text-white font-semibold py-2 px-4 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">KIRIM</button>
                     </form>
                 </div>
-
             </div>
         </div>
     </div>
 
 
     <script>
-        function validateForm() {
+        // Fungsi validasi form dan pengiriman data
+        function validateForm(event) {
+            event.preventDefault(); // Mencegah form submit langsung
+
             let nama = document.getElementById('nama').value.trim();
             let email = document.getElementById('email').value.trim();
             let telepon = document.getElementById('telepon').value.trim();
             let pesan = document.getElementById('pesan').value.trim();
 
             if (!nama) {
-                showToast('Silahkan lengkapi nama instansi / nama pribadi');
-                return false; // Stop form submission
-            }
-
-            if (!email) {
-                showToast('Silahkan lengkapi email Anda');
+                showToast('Silahkan lengkapi nama instansi / nama pribadi', 'error');
                 return false;
             }
 
-            // Simple email format validation
+            if (!email) {
+                showToast('Silahkan lengkapi email Anda', 'error');
+                return false;
+            }
+
             let emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
             if (!emailPattern.test(email)) {
-                showToast('Format email tidak valid');
+                showToast('Format email tidak valid', 'error');
                 return false;
             }
 
             if (!telepon) {
-                showToast('Silahkan lengkapi nomor telepon Anda');
+                showToast('Silahkan lengkapi nomor telepon Anda', 'error');
                 return false;
             }
 
             if (!pesan) {
-                showToast('Silahkan isi pesan dan saran Anda');
+                showToast('Silahkan isi pesan dan saran Anda', 'error');
                 return false;
             }
 
-            return true;
+            // Tampilkan popup konfirmasi sebelum mengirim
+            showConfirmationPopup(nama, email, telepon, pesan);
         }
 
-        function showToast(message) {
+        // Fungsi untuk menampilkan popup konfirmasi
+        function showConfirmationPopup(nama, email, telepon, pesan) {
+            let confirmationDialog = document.createElement('div');
+            confirmationDialog.className = 'fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50';
+
+            confirmationDialog.innerHTML = `
+        <div class="bg-white rounded-lg p-8 flex flex-col items-center max-w-md">
+        <img src="/images/question.png" alt="Question Icon" class="w-16 h-16 mb-4">
+            <p class="text-center text-lg font-bold text-gray-700 mb-4">Apakah Anda yakin ingin mengirimkan pesan ini?</p>
+            <div class="flex justify-end space-x-4">
+                <button class="px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-700 hover:text-white rounded-md" id="cancelButton">Batal</button>
+                <button class="px-4 py-2 bg-primary hover:bg-primaryhover text-white rounded-md" id="confirmButton">Ya Kirim</button>
+            </div>
+        </div>
+    `;
+
+            document.body.appendChild(confirmationDialog);
+
+            // Jika tombol "Batal" ditekan, hapus popup dan batalkan pengiriman
+            document.getElementById('cancelButton').addEventListener('click', function() {
+                confirmationDialog.remove();
+            });
+
+            // Jika tombol "Ya Kirim" ditekan, kirim email dan tutup popup
+            document.getElementById('confirmButton').addEventListener('click', function() {
+                confirmationDialog.remove();
+                sendEmail(nama, email, telepon, pesan); // Kirim email
+            });
+        }
+
+        // Fungsi untuk mengirim email
+        function sendEmail(nama, email, telepon, pesan) {
+            fetch('/kontak/sendEmail', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        nama: nama,
+                        email: email,
+                        telepon: telepon,
+                        pesan: pesan
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        showToast('Terima kasih, pesan Anda telah terkirim!', 'success');
+                        setTimeout(() => {
+                            location.reload();
+                        }, 2000);
+                    } else {
+                        showToast('Pesan gagal dikirim: ' + data.message, 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showToast('Gagal mengirim pesan.', 'error');
+                });
+        }
+
+        // Fungsi untuk menampilkan toast
+        function showToast(message, type) {
             let toast = document.createElement('div');
-            toast.className = 'fixed top-32 right-4 bg-[#800000] text-white p-4 rounded shadow';
+            toast.className = `
+        fixed top-32 right-4 px-4 py-2 rounded-md shadow-lg text-white
+        ${type === 'success' ? 'bg-primary' : 'bg-rejected'}
+    `;
             toast.innerText = message;
 
             document.body.appendChild(toast);

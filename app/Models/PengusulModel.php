@@ -13,9 +13,11 @@ class PengusulModel extends Model
         'role_akun',
         'jenis_instansi',
         'nama_instansi_pribadi',
+        'instansi',
         'telepon',
         'email',
         'kata_sandi',
+        'reset_token',
         'jabatan_pekerjaan',
         'jenis_kelamin',
         'status_akun',
@@ -26,7 +28,8 @@ class PengusulModel extends Model
         'kab_kota',
         'provinsi',
         'kode_pos',
-        'surat_pengantar'
+        'surat_pengantar',
+        'tambah_usulan'
     ];
 
     public function getUserByEmail($email)
@@ -37,5 +40,10 @@ class PengusulModel extends Model
     public function createPengusul($data)
     {
         return $this->insert($data);
+    }
+
+    public function getDetailById($id_pengusul)
+    {
+        return $this->where('id_pengusul', $id_pengusul)->first();
     }
 }

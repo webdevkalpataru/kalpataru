@@ -61,4 +61,13 @@ class PublikasiModel extends Model
             'total_buku' => $total_buku
         ];
     }
+
+    public function tampilPetaPenerima()
+    {
+        $query = $this->db->table('arsip_penerima')
+                            ->select('provinsi, COUNT(*) as total')
+                            ->groupBy('provinsi')
+                            ->get();
+        return $query->getResult();
+    }
 }

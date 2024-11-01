@@ -5,28 +5,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $title; ?></title>
+    <style>
+        .province-label {
+            font-size: 16px;
+            font-weight: bold;
+            background: none;
+            border: none;
+            box-shadow: none;
+            color: black;
+            text-align: center;
+            line-height: 1.5;
+            white-space: nowrap;
+        }
+    </style>
 </head>
 
 <body>
     <?= $this->extend('template/navbarfooter') ?>
 
     <?= $this->section('content') ?>
-    <!-- Popup Modal -->
+    
+    <?php if (!empty($pamflet)): ?>
     <div id="popup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
-        <!-- Close Button -->
         <div class="relative rounded-lg max-w-xs w-full flex items-start mt-12">
-            <!-- Popup Image -->
-            <img src="/images/popup.png" alt="Popup Image" class="w-full rounded-md">
+            <img src="<?= base_url('pamflet/' . rawurlencode(esc($pamflet['foto']))) ?>" alt="Popup Image" class="w-full rounded-md">
             <button id="close-btn" class="lg:text-5xl text-xl top-0 right-0 font-bold text-white ms-2">X</button>
-
+            
         </div>
-        <!-- Daftar Sekarang Button -->
         <a href="auth/register" class="absolute left-1/2 bottom-8  transform -translate-x-1/2">
             <button class="rounded-md bg-primary text-white py-2 px-4 sm:py-3 sm:px-6 text-center text-xs sm:text-sm md:text-base lg:text-base  transition-all shadow-md hover:font-bold hover:shadow-lg focus:bg-primaryhover focus:shadow-none active:bg-primaryhover hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
                 Daftar Sekarang
             </button>
         </a>
     </div>
+    <?php endif; ?>
 
     <section id="herosection" class="w-full h-[20rem] sm:h-[30rem] md:h-[34rem] lg:h-[36rem] relative">
         <img src="/images/herosection.png" alt="herosection" class="w-full h-full object-cover object-right md:object-center">
@@ -85,19 +97,35 @@
 
             <!-- Kontainer gambar kategori dengan properti flex untuk memusatkan gambar -->
             <div id="categoryContainer" class="flex gap-16 lg:justify-center lg:items-center overflow-x-auto sm:overflow-x-auto md:overflow-x-hidden scrollbar-show snap-x snap-mandatory scroll-smooth">
-                <a href="/profil/#kategoria" class="block flex-shrink-0 snap-center">
+                <a href="/kategori" class="block flex-shrink-0 snap-center">
                     <img src="/images/kategoria.jpg" alt="kategoria" class="w-56 h-auto rounded-2xl shadow-lg mx-auto">
                 </a>
-                <a href="/profil/#kategorib" class="block flex-shrink-0 snap-center">
+                <a href="/kategori" class="block flex-shrink-0 snap-center">
                     <img src="/images/kategorib.jpg" alt="kategorib" class="w-56 h-auto rounded-2xl shadow-lg mx-auto">
                 </a>
-                <a href="/profil/#kategoric" class="block flex-shrink-0 snap-center">
+                <a href="/kategori" class="block flex-shrink-0 snap-center">
                     <img src="/images/kategoric.jpg" alt="kategoric" class="w-56 h-auto rounded-2xl shadow-lg mx-auto">
                 </a>
-                <a href="/profil/#kategorid" class="block flex-shrink-0 snap-center">
+                <a href="/kategori" class="block flex-shrink-0 snap-center">
                     <img src="/images/kategorid.jpg" alt="kategorid" class="w-56 h-auto rounded-2xl shadow-lg mx-auto">
                 </a>
             </div>
+
+            <!-- backup permintaan gambar jadi text -->
+            <!-- <div id="categoryContainer" class="flex gap-16 lg:justify-center lg:items-center overflow-x-auto sm:overflow-x-auto md:overflow-x-hidden scrollbar-show snap-x snap-mandatory scroll-smooth">
+                <a href="/kategoria" class="block flex-shrink-0 snap-center">
+                    <img src="/images/perintis.jpg" alt="perintis" class="w-56 h-auto rounded-2xl shadow-lg mx-auto">
+                </a>
+                <a href="/kategorib" class="block flex-shrink-0 snap-center">
+                    <img src="/images/pengabdi.jpg" alt="pengabdi" class="w-56 h-auto rounded-2xl shadow-lg mx-auto">
+                </a>
+                <a href="/kategorib" class="block flex-shrink-0 snap-center">
+                    <img src="/images/penyelamat.jpg" alt="penyelamat" class="w-56 h-auto rounded-2xl shadow-lg mx-auto">
+                </a>
+                <a href="/kategorid" class="block flex-shrink-0 snap-center">
+                    <img src="/images/pembina.jpg" alt="pembina" class="w-56 h-auto rounded-2xl shadow-lg mx-auto">
+                </a>
+            </div> -->
 
             <!-- arrow kanan -->
             <button id="categoryScrollRight" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-footer text-white p-2 rounded-full shadow-md z-10 focus:outline-none sm:block md:hidden">
@@ -168,15 +196,15 @@
     </section>
 
     <section id="statistikpeta">
-        <div class="lg:my-12 md:my-8 my-4 pt-10 text-center">
+        <div class="my-4 pt-10 text-center">
             <div id="texttujuankalpataru" class="w-full h-[4rem] sm:h-[5rem] relative flex items-center justify-center">
                 <h2 class="text-lg sm:text-xl md:text-2xl lg:text-4xl font-medium text-black">Statistik Penyebaran Penghargaan Kalpataru</h2>
             </div>
             <hr class="border-2 border-primary max-w-64 mx-auto mt-0" />
         </div>
 
-        <div class="relative w-full px-6 sm:px-10 md:px-16 lg:px-20 py-12">
-            <img src="/images/peta.png" alt="peta" class="w-full mx-auto">
+        <div class="relative w-full px-6 sm:px-10 md:px-16 lg:px-20 py-10">
+            <div id="map"></div>
         </div>
     </section>
 
@@ -257,20 +285,24 @@
                     &#9664;
                 </button>
                 <div id="beritaContainer" class="flex overflow-x-auto space-x-4 scrollbar-hide">
-                    <?php foreach ($berita['data_berita'] as $item): ?>
-                        <div class="flex-none w-64 bg-white rounded-lg shadow-md my-2">
-                            <img src="<?= base_url('images/berita/' . esc($item->foto)) ?>" alt="<?= esc($item->judul) ?>" class="w-full h-40 object-cover rounded-t-lg">
-                            <div class="p-4">
-                                <h3 class="font-bold text-md mb-2"><?= word_limiter(esc($item->judul), 4); ?></h3>
-                                <a href="#" class="text-primary flex items-center text-sm">
-                                    Baca Selengkapnya
-                                    <svg class="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                    </svg>
-                                </a>
+                    <?php if (!empty($berita) && is_array($berita)): ?>
+                        <?php foreach ($berita as $item): ?>
+                            <div class="flex-none w-64 bg-white rounded-lg shadow-md my-2">
+                                <img src="/public/<?= esc($item['foto']); ?>" alt="<?= esc($item['judul']); ?>" class="w-full h-40 object-cover rounded-t-lg">
+                                <div class="p-4">
+                                    <h3 class="font-bold text-md mb-2"><?= word_limiter(esc($item['judul']), 4); ?></h3>
+                                    <a href="/berita/<?= esc($item['slug']); ?>" class="text-primary flex items-center text-sm">
+                                        Baca Selengkapnya
+                                        <svg class="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                        </svg>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                    <?php endforeach; ?>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>Tidak ada berita yang terbit saat ini</p>
+                    <?php endif; ?>
                 </div>
 
                 <!-- arrow kanan -->
@@ -292,7 +324,7 @@
                     </svg>
                 </a>
             </div>
-            <hr class="border-2 border-primary w-full mt-0 mb-5" />
+            <hr class="border-2 border-primary w-full mt-0 mb-10" />
 
             <div class="relative flex overflow-x-auto space-x-4 scrollbar-hide">
                 <!-- arrow kiri -->
@@ -300,21 +332,25 @@
                     &#9664;
                 </button>
                 <div id="videoContainer" class="flex overflow-x-auto space-x-4 scrollbar-hide">
-                    <?php foreach ($videos['data_video'] as $item): ?>
-                        <div class="flex-none w-full bg-white rounded-lg shadow-md my-2">
-                            <?php
-                            preg_match("/(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/", $item->link_video, $matches);
-                            $youtube_id = $matches[1];
-                            ?>
-                            <iframe width="380" height="200" src="https://www.youtube.com/embed/<?= $youtube_id; ?>"
-                                title="<?= esc($item->judul_video); ?>" frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <?php if (!empty($video) && is_array($video)): ?>
+                        <?php foreach ($video as $item): ?>
+                            <div class="flex-none bg-white rounded-lg shadow-md my-2">
+                                <?php
+                                preg_match("/(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/", $item['link_video'], $matches);
+                                $youtube_id = $matches[1];
+                                ?>
+                                <iframe class="w-full object-cover rounded-t-lg" height="200" src="https://www.youtube.com/embed/<?= $youtube_id; ?>"
+                                    title="<?= esc($item['judul_video']); ?>" frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-                            <div class="p-2">
-                                <h5 class="font-bold text-sm mb-2"><?= word_limiter(esc($item->judul_video), 6); ?></h5>
+                                <div class="p-2">
+                                    <h5 class="font-bold text-sm mb-2"><?= word_limiter(esc($item['judul_video']), 6); ?></h5>
+                                </div>
                             </div>
-                        </div>
-                    <?php endforeach; ?>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>Tidak ada video saat ini</p>
+                    <?php endif; ?>
                 </div>
 
                 <!-- arrow kanan -->
@@ -443,15 +479,148 @@
     <script defer>
         // popup
         document.addEventListener('DOMContentLoaded', function() {
-            // Set delay for 5 seconds (5000 milliseconds)
+            // Set delay for 2 seconds (2000 milliseconds)
             setTimeout(function() {
                 document.getElementById('popup').classList.remove('hidden');
-            }, 5000); // 5 seconds delay
+            }, 2000); // 2 seconds delay
 
             // Close popup on clicking X button
             document.getElementById('close-btn').addEventListener('click', function() {
                 document.getElementById('popup').classList.add('hidden');
             });
+        });
+    </script>
+
+    <script defer>
+        document.addEventListener('DOMContentLoaded', function() {
+            var map = L.map('map', {
+                center: [-1.062209, 113.885034],
+                zoom: 5,
+                minZoom: 4,
+                maxZoom: 14,
+                maxBounds: [
+                    [-37.972342, 29.516035],
+                    [32.873401, 178.643460]
+                ]
+            });
+
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png', {
+                attribution: ''
+            }).addTo(map);
+
+            var penerimaData = <?= json_encode($peta); ?>;
+
+            var geojsonUrls = {
+                'DKI Jakarta': 'https://kalpatarujson.vercel.app/json/dkijakarta.json',
+                'Jawa Barat': 'https://kalpatarujson.vercel.app/json/jawabarat.json',
+                'Jawa Tengah': 'https://kalpatarujson.vercel.app/json/jawatengah.json',
+                'Jawa Timur': 'https://kalpatarujson.vercel.app/json/jawatimur.json',
+                'Banten': 'https://kalpatarujson.vercel.app/json/banten.json',
+                'DI Yogyakarta': 'https://kalpatarujson.vercel.app/json/diy.json',
+                'Bali': 'https://kalpatarujson.vercel.app/json/bali.json',
+                'Aceh': 'https://kalpatarujson.vercel.app/json/aceh.json',
+                'Papua Barat Daya': 'https://kalpatarujson.vercel.app/json/papuabaratdaya.json',
+                'Papua Barat': 'https://kalpatarujson.vercel.app/json/papuabarat.json',
+                'Papua Tengah': 'https://kalpatarujson.vercel.app/json/papuatengah.json',
+                'Papua Selatan': 'https://kalpatarujson.vercel.app/json/papuaselatan.json',
+                'Papua Pegunungan': 'https://kalpatarujson.vercel.app/json/papuapegunungan.json',
+                'Papua': 'https://kalpatarujson.vercel.app/json/papua.json',
+                'Maluku Utara': 'https://kalpatarujson.vercel.app/json/malukuutara.json',
+                'Maluku': 'https://kalpatarujson.vercel.app/json/maluku.json',
+                'Sulawesi Barat': 'https://kalpatarujson.vercel.app/json/sulawesibarat.json',
+                'Gorontalo': 'https://kalpatarujson.vercel.app/json/gorontalo.json',
+                'Sulawesi Tenggara': 'https://kalpatarujson.vercel.app/json/sulawesitenggara.json',
+                'Sulawesi Selatan': 'https://kalpatarujson.vercel.app/json/sulawesiselatan.json',
+                'Sulawesi Tengah': 'https://kalpatarujson.vercel.app/json/sulawesitengah.json',
+                'Sulawesi Utara': 'https://kalpatarujson.vercel.app/json/sulawesiutara.json',
+                'Kalimantan Utara': 'https://kalpatarujson.vercel.app/json/kalimantanutara.json',
+                'Kalimantan Timur': 'https://kalpatarujson.vercel.app/json/kalimantantimur.json',
+                'Kalimantan Selatan': 'https://kalpatarujson.vercel.app/json/kalimantanselatan.json',
+                'Kalimantan Tengah': 'https://kalpatarujson.vercel.app/json/kalimantantengah.json',
+                'Kalimantan Barat': 'https://kalpatarujson.vercel.app/json/kalimantanbarat.json',
+                'Nusa Tenggara Timur': 'https://kalpatarujson.vercel.app/json/nusatenggaratimur.json',
+                'Nusa Tenggara Barat': 'https://kalpatarujson.vercel.app/json/nusatenggarabarat.json',
+                'Kepulauan Riau': 'https://kalpatarujson.vercel.app/json/kepulauanriau.json',
+                'Kepulauan Bangka Belitung': 'https://kalpatarujson.vercel.app/json/kepulauanbangkabelitung.json',
+                'Lampung': 'https://kalpatarujson.vercel.app/json/lampung.json',
+                'Bengkulu': 'https://kalpatarujson.vercel.app/json/bengkulu.json',
+                'Sumatera Selatan': 'https://kalpatarujson.vercel.app/json/sumateraselatan.json',
+                'Sumatera Barat': 'https://kalpatarujson.vercel.app/json/sumaterabarat.json',
+                'Sumatera Utara': 'https://kalpatarujson.vercel.app/json/sumaterautara.json',
+                'Jambi': 'https://kalpatarujson.vercel.app/json/jambi.json',
+                'Riau': 'https://kalpatarujson.vercel.app/json/riau.json',
+            };
+
+            var colorAbuMuda = '#D3D3D3';
+
+            for (let provinsi in geojsonUrls) {
+                fetch(geojsonUrls[provinsi])
+                    .then(response => response.json())
+                    .then(data => {
+                        var penerimaDiProvinsi = penerimaData.find(function(penerima) {
+                            return penerima.provinsi === provinsi;
+                        });
+
+                        var geojsonLayer = L.geoJSON(data, {
+                            style: function() {
+                                return penerimaDiProvinsi && penerimaDiProvinsi.total > 0
+                                    ? {
+                                        color: 'none',
+                                        fillColor: colorAbuMuda,
+                                        fillOpacity: 1,
+                                        weight: 0 
+                                    }
+                                    : {
+                                        color: 'none',
+                                        fillOpacity: 0
+                                    };
+                            },
+                            onEachFeature: function(feature, layer) {
+                                var center = layer.getBounds().getCenter();
+                                var label = L.marker(center, {
+                                    icon: L.divIcon({
+                                        className: 'province-label',
+                                        html: '<div style="font-weight: bold; cursor: pointer;">' + provinsi + '</div>',
+                                        iconSize: [100, 40],
+                                        iconAnchor: [50, 20]
+                                    })
+                                }).addTo(map);
+
+                                var popupContent = '<strong>' + provinsi + '</strong>';
+                                if (penerimaDiProvinsi && penerimaDiProvinsi.total > 0) {
+                                    popupContent += '<br>Jumlah Penerima: ' + penerimaDiProvinsi.total;
+                                } else {
+                                    popupContent += '<br>Tidak ada penerima.';
+                                }
+
+                                label.on('click', function() {
+                                    var popup = L.popup()
+                                        .setLatLng(center)
+                                        .setContent(popupContent)
+                                        .openOn(map);
+                                });
+                            }
+                        }).addTo(map);
+                    })
+                    .catch(error => console.error('Error loading GeoJSON for ' + provinsi + ':', error));
+            }
+
+            var legend = L.control({ position: 'bottomright' });
+
+            legend.onAdd = function(map) {
+                var div = L.DomUtil.create('div', 'info legend');
+                var labels = ['<strong>Keterangan</strong>'];
+                var colors = [colorAbuMuda];
+
+                labels.push(
+                    '<i style="background:' + colors[0] + '"></i> Penerima Kalpataru'
+                );
+
+                div.innerHTML = labels.join('<br>');
+                return div;
+            };
+
+            legend.addTo(map);
         });
     </script>
 
