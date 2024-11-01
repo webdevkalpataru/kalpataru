@@ -91,6 +91,32 @@
         </div>
     </div>
 
+    <!-- Loading Spinner (initially hidden) -->
+    <div id="loadingSpinner" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 hidden">
+        <div class="loader border-t-4 border-primary rounded-full w-16 h-16 animate-spin"></div>
+    </div>
+
+    <style>
+        /* Loader Style */
+        .loader {
+            border-top-color: #3490dc;
+            border-radius: 50%;
+            width: 4rem;
+            height: 4rem;
+            border-width: 6px;
+            border-style: solid;
+            border-color: #f3f3f3 #f3f3f3 #f3f3f3 #3490dc;
+            animation: spin 1s linear infinite;
+        }
+
+        /* Keyframe for spinning */
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+
 
     <script>
         // Fungsi validasi form dan pengiriman data
@@ -162,8 +188,20 @@
             });
         }
 
-        // Fungsi untuk mengirim email
+        // Show loading spinner
+        function showLoading() {
+            document.getElementById('loadingSpinner').classList.remove('hidden');
+        }
+
+        // Hide loading spinner
+        function hideLoading() {
+            document.getElementById('loadingSpinner').classList.add('hidden');
+        }
+
+        // Modified sendEmail function with loading spinner
         function sendEmail(nama, email, telepon, pesan) {
+            showLoading(); // Show loading spinner
+
             fetch('/kontak/sendEmail', {
                     method: 'POST',
                     headers: {
@@ -178,6 +216,8 @@
                 })
                 .then(response => response.json())
                 .then(data => {
+                    hideLoading(); // Hide loading spinner
+
                     if (data.success) {
                         showToast('Terima kasih, pesan Anda telah terkirim!', 'success');
                         setTimeout(() => {
@@ -189,6 +229,7 @@
                 })
                 .catch(error => {
                     console.error('Error:', error);
+                    hideLoading(); // Hide loading spinner
                     showToast('Gagal mengirim pesan.', 'error');
                 });
         }
