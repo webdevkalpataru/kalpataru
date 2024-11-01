@@ -111,7 +111,7 @@
     <div class="custom-cursor" id="customCursor"></div>
 
     <!-- Navbar -->
-    <nav class="my-5 block rounded-lg w-full max-w-screen-lg px-4 py-4 mx-auto bg-white bg-opacity-90 sticky top-3 shadow-lg lg:px-8 lg:py-3 backdrop-blur-lg backdrop-saturate-150 z-[9999]">
+    <nav class="my-5 block rounded-lg w-full max-w-screen-lg px-4 py-4 mx-auto bg-white bg-opacity-90 sticky top-3 shadow-lg lg:px-8 lg:py-3 backdrop-blur-lg backdrop-saturate-150 z-[888]">
         <div class="container flex flex-wrap items-center justify-between mx-auto text-slate-800">
             <a href="/" class="mr-4 block cursor-pointer py-1.5 text-base text-slate-800 font-semibold">
                 <img src="/images/logo.png" alt="Logo" width="200">

@@ -410,6 +410,71 @@
         </div>
     </section>
 
+    <section id="pencapaian">
+        <div class="lg:my-12 md:my-8 my-4">
+            <div id="textpencapaian" class="w-full h-[4rem] sm:h-[5rem] relative flex items-center justify-center">
+                <h2 class="text-lg sm:text-xl md:text-2xl lg:text-4xl font-bold text-black">Pencapaian</h2>
+            </div>
+            <hr class="hrcenter border-2 border-primary max-w-40 mx-auto mt-0" />
+        </div>
+
+        <div class="px-4 sm:px-10 md:px-16 lg:px-20 text-center mb-12">
+            <p class="text-sm sm:text-base md:text-lg text-black mx-auto max-w-5xl">
+                Keanekaragaman Hayati, Perubahan Iklim, Pencemaran dan Kerusakan Lingkungan, dan Hukum dan Budaya
+            </p>
+
+            <!-- Cards section -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+                <div id="cardpencapaian1" class="card relative overflow-hidden cursor-pointer">
+                    <img src="/images/pencapaian1.jpg" alt="Infografis 1" class="w-full h-full object-cover" onclick="openPopup('/images/pencapaian1.jpg')" />
+                </div>
+                <div id="cardpencapaian2" class="card relative overflow-hidden cursor-pointer">
+                    <img src="/images/pencapaian2.jpg" alt="Infografis 2" class="w-full h-full object-cover" onclick="openPopup('/images/pencapaian2.jpg')" />
+                </div>
+                <div id="cardpencapaian3" class="card relative overflow-hidden cursor-pointer">
+                    <img src="/images/pencapaian3.jpg" alt="Infografis 3" class="w-full h-full object-cover" onclick="openPopup('/images/pencapaian3.jpg')" />
+                </div>
+                <div id="cardpencapaian4" class="card relative overflow-hidden cursor-pointer">
+                    <img src="/images/pencapaian4.jpg" alt="Infografis 4" class="w-full h-full object-cover" onclick="openPopup('/images/pencapaian4.jpg')" />
+                </div>
+            </div>
+
+            <!-- Popup Modal pencapaian-->
+            <div id="popuppencapaian" class="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center hidden z-[999]">
+                <div class="relative bg-white p-4 rounded-lg max-w-lg w-full flex flex-col items-center">
+                    <div id="imageContainer" class="overflow-hidden max-h-[80vh] w-full flex justify-center items-center">
+                        <img id="popupImage" src="" alt="Large Infografis" class="object-contain mb-4 transform transition-transform duration-200" />
+                    </div>
+
+                    <!-- Zoom controls -->
+                    <div class="flex justify-end space-x-2 mb-4">
+                        <button onclick="zoomIn()" class="rounded-md px-4 py-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM10.5 7.5v6m3-3h-6" />
+                            </svg>
+                        </button>
+                        <button onclick="zoomOut()" class="rounded-md px-4 py-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM13.5 10.5h-6" />
+                            </svg>
+                        </button>
+                        <button onclick="resetZoom()" class="rounded-md px-4 py-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9.75 14.25 12m0 0 2.25 2.25M14.25 12l2.25-2.25M14.25 12 12 14.25m-2.58 4.92-6.374-6.375a1.125 1.125 0 0 1 0-1.59L9.42 4.83c.21-.211.497-.33.795-.33H19.5a2.25 2.25 0 0 1 2.25 2.25v10.5a2.25 2.25 0 0 1-2.25 2.25h-9.284c-.298 0-.585-.119-.795-.33Z" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Container for back and download buttons -->
+                    <div class="flex justify-end space-x-2">
+                        <button class="bg-slate-600 text-white rounded-md px-4 py-2" onclick="closePopup()">Kembali</button>
+                        <a id="downloadButton" download class="bg-primary text-white rounded-md px-4 py-2">Download</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="ajakan" class="relative">
         <img src="/images/ajakan.png" alt="ajakan" class="w-full h-auto max-h-[300px] object-cover">
 
@@ -919,6 +984,18 @@
             }
         });
 
+        gsap.from("#textpencapaian", {
+            opacity: 0,
+            y: -50,
+            duration: 1,
+            ease: "power2.out",
+            scrollTrigger: {
+                trigger: "#textpencapaian",
+                start: "top 90%",
+                toggleActions: "play none none reverse"
+            }
+        });
+
         gsap.from("#textberita", {
             opacity: 0,
             y: -50,
@@ -1019,6 +1096,35 @@
                 });
             });
         });
+
+        function addHoverEffect(cardId) {
+            const card = document.getElementById(cardId);
+
+            card.addEventListener("mouseenter", () => {
+                gsap.to(card, {
+                    scale: 1.05,
+                    boxShadow: "0px 4px 20px rgba(255, 255, 255, 0.6)",
+                    duration: 0.4,
+                    ease: "power2.out"
+                });
+            });
+
+            card.addEventListener("mouseleave", () => {
+                gsap.to(card, {
+                    scale: 1,
+                    boxShadow: "0px 0px 0px rgba(0, 0, 0, 0)",
+                    duration: 0.4,
+                    ease: "power2.out"
+                });
+            });
+        }
+
+        // Add hover effect to each card
+        addHoverEffect("cardpencapaian1");
+        addHoverEffect("cardpencapaian2");
+        addHoverEffect("cardpencapaian3");
+        addHoverEffect("cardpencapaian4");
+
         /* KUMPULAN ANIMASI (BATAS AKHIR) */
 
         /* Hero Section Carousel */
@@ -1181,6 +1287,99 @@
                     }
                 }
             }
+        });
+
+        // POPUP Pencapaian
+        function openPopup(imageSrc) {
+            const popup = document.getElementById('popuppencapaian');
+            const popupImage = document.getElementById('popupImage');
+            const downloadButton = document.getElementById('downloadButton');
+
+            // Set the image source for the popup and download link
+            popupImage.src = imageSrc;
+            downloadButton.href = imageSrc;
+
+            // Show the popup
+            popup.classList.remove('hidden');
+        }
+
+        function closePopup() {
+            const popup = document.getElementById('popuppencapaian');
+            popup.classList.add('hidden');
+            resetZoom(); // Reset zoom when closing the popup
+        }
+
+        // Zoom level to track the current scale of the image
+        let zoomLevel = 1;
+        let isDragging = false;
+        let startXX, startY, offsetX = 0,
+            offsetY = 0;
+
+        function zoomIn() {
+            zoomLevel += 0.2;
+            applyTransform();
+        }
+
+        function zoomOut() {
+            zoomLevel = Math.max(1, zoomLevel - 0.2); // Ensure zoom level does not go below 1
+            applyTransform();
+        }
+
+        function resetZoom() {
+            zoomLevel = 1;
+            offsetX = 0;
+            offsetY = 0;
+            applyTransform();
+        }
+
+        // Apply scaling and translation to the image
+        function applyTransform() {
+            const popupImage = document.getElementById("popupImage");
+            popupImage.style.transform = `scale(${zoomLevel}) translate(${offsetX}px, ${offsetY}px)`;
+        }
+
+        // Mouse and touch events for dragging
+        const popupImage = document.getElementById("popupImage");
+
+        popupImage.addEventListener("mousedown", (e) => {
+            isDragging = true;
+            startXX = e.clientX - offsetX;
+            startY = e.clientY - offsetY;
+        });
+
+        popupImage.addEventListener("mousemove", (e) => {
+            if (isDragging && zoomLevel > 1) {
+                offsetX = e.clientX - startXX;
+                offsetY = e.clientY - startY;
+                applyTransform();
+            }
+        });
+
+        popupImage.addEventListener("mouseup", () => {
+            isDragging = false;
+        });
+
+        popupImage.addEventListener("mouseleave", () => {
+            isDragging = false;
+        });
+
+        // Touch events for mobile devices
+        popupImage.addEventListener("touchstart", (e) => {
+            isDragging = true;
+            startXX = e.touches[0].clientX - offsetX;
+            startY = e.touches[0].clientY - offsetY;
+        });
+
+        popupImage.addEventListener("touchmove", (e) => {
+            if (isDragging && zoomLevel > 1) {
+                offsetX = e.touches[0].clientX - startXX;
+                offsetY = e.touches[0].clientY - startY;
+                applyTransform();
+            }
+        });
+
+        popupImage.addEventListener("touchend", () => {
+            isDragging = false;
         });
 
         // scroll video
