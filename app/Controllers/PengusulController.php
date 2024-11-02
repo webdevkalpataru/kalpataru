@@ -6,6 +6,9 @@ use App\Models\PengusulModel;
 use App\Models\PendaftaranModel;
 use App\Models\ArtikelModel;
 use App\Models\KegiatanModel;
+use App\Models\DampakModel;
+use App\Models\PmikModel;
+use App\Models\KeswadayaanModel;
 use App\Models\KeistimewaanModel;
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -396,17 +399,17 @@ class PengusulController extends BaseController
     }
 
     public function downloadFotoKegiatan($folder, $filename)
-{
-    $filePath = WRITEPATH . "uploads/foto_kegiatan$folder/" . $filename;
-    if (file_exists($filePath)) {
-        return $this->response
-            ->setHeader('Content-Type', 'application/octet-stream')
-            ->setHeader('Content-Disposition', 'attachment; filename="' . basename($filePath) . '"')
-            ->setBody(file_get_contents($filePath));
-    }
+    {
+        $filePath = WRITEPATH . "uploads/foto_kegiatan$folder/" . $filename;
+        if (file_exists($filePath)) {
+            return $this->response
+                ->setHeader('Content-Type', 'application/octet-stream')
+                ->setHeader('Content-Disposition', 'attachment; filename="' . basename($filePath) . '"')
+                ->setBody(file_get_contents($filePath));
+        }
 
-    throw new \CodeIgniter\Exceptions\PageNotFoundException('File tidak ditemukan.');
-}
+        throw new \CodeIgniter\Exceptions\PageNotFoundException('File tidak ditemukan.');
+    }
 
 
     public function downloadSKCK($filename)
@@ -447,7 +450,7 @@ class PengusulController extends BaseController
         // Menyajikan file dengan header download
         return $this->response->download($path, null);
     }
-    
+
 
 
     // ---------------DETAIL USULAN SAYA EDIT----------------------------------------------------------------------------------------------------
@@ -1041,6 +1044,40 @@ class PengusulController extends BaseController
         ];
 
         return view('pengusul/usulansaya', $data);
+    }
+
+    public function hapusUsulan($id_pendaftaran)
+    {
+        $modelPendaftaran = new PendaftaranModel();
+        $modelKegiatan = new KegiatanModel();
+        $modelDampak = new DampakModel();
+        $modelPmik = new PmikModel();
+        $modelKeswadayaan = new KeswadayaanModel();
+        $modelKeistimewaan = new KeistimewaanModel();
+
+        // Hapus data di tabel kegiatan yang memiliki id_pendaftaran terkait
+        $modelKegiatan->where('id_pendaftaran', $id_pendaftaran)->delete();
+
+        // Hapus data di tabel dampak yang memiliki id_pendaftaran terkait
+        $modelDampak->where('id_pendaftaran', $id_pendaftaran)->delete();
+
+        // Hapus data di tabel pmik yang memiliki id_pendaftaran terkait
+        $modelPmik->where('id_pendaftaran', $id_pendaftaran)->delete();
+
+        // Hapus data di tabel keswadayaan yang memiliki id_pendaftaran terkait
+        $modelKeswadayaan->where('id_pendaftaran', $id_pendaftaran)->delete();
+
+        // Hapus data di tabel keistimewaan yang memiliki id_pendaftaran terkait
+        $modelKeistimewaan->where('id_pendaftaran', $id_pendaftaran)->delete();
+
+        // Lalu hapus data di tabel pendaftaran
+        if ($modelPendaftaran->deletePendaftaran($id_pendaftaran)) {
+            session()->setFlashdata('success', 'Data Usulan berhasil dihapus.');
+        } else {
+            session()->setFlashdata('error', 'Gagal menghapus data usulan.');
+        }
+
+        return redirect()->to('/pengusul/usulansaya'); // Sesuaikan dengan URL yang diinginkan
     }
 
     // Fungsi untuk update status pendaftaran dan edit
