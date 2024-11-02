@@ -24,35 +24,82 @@
     <?= $this->extend('template/navbarfooter') ?>
 
     <?= $this->section('content') ?>
-    
+
     <?php if (!empty($pamflet)): ?>
-    <div id="popup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
-        <div class="relative rounded-lg max-w-xs w-full flex items-start mt-12">
-            <img src="<?= base_url('pamflet/' . rawurlencode(esc($pamflet['foto']))) ?>" alt="Popup Image" class="w-full rounded-md">
-            <button id="close-btn" class="lg:text-5xl text-xl top-0 right-0 font-bold text-white ms-2">X</button>
-            
+        <div id="popup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
+            <div class="relative rounded-lg max-w-xs w-full flex items-start mt-12">
+                <img src="<?= base_url('pamflet/' . rawurlencode(esc($pamflet['foto']))) ?>" alt="Popup Image" class="w-full rounded-md">
+                <button id="close-btn" class="lg:text-5xl text-xl top-0 right-0 font-bold text-white ms-2">X</button>
+
+            </div>
+            <a href="auth/register" class="absolute left-1/2 bottom-8  transform -translate-x-1/2">
+                <button class="rounded-md bg-primary text-white py-2 px-4 sm:py-3 sm:px-6 text-center text-xs sm:text-sm md:text-base lg:text-base  transition-all shadow-md hover:font-bold hover:shadow-lg focus:bg-primaryhover focus:shadow-none active:bg-primaryhover hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
+                    Daftar Sekarang
+                </button>
+            </a>
         </div>
-        <a href="auth/register" class="absolute left-1/2 bottom-8  transform -translate-x-1/2">
-            <button class="rounded-md bg-primary text-white py-2 px-4 sm:py-3 sm:px-6 text-center text-xs sm:text-sm md:text-base lg:text-base  transition-all shadow-md hover:font-bold hover:shadow-lg focus:bg-primaryhover focus:shadow-none active:bg-primaryhover hover:bg-primaryhover active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                Daftar Sekarang
-            </button>
-        </a>
-    </div>
     <?php endif; ?>
 
-    <section id="herosection" class="w-full h-[20rem] sm:h-[30rem] md:h-[34rem] lg:h-[36rem] relative">
-        <img src="/images/herosection.png" alt="herosection" class="w-full h-full object-cover object-right md:object-center">
+    <section id="herosection" class="w-full h-[20rem] sm:h-[30rem] md:h-[34rem] lg:h-[36rem] relative overflow-hidden">
+        <!-- Carousel Wrapper -->
+        <div class="carousel-wrapper w-full h-full flex transition-transform duration-500" style="transform: translateX(0%);">
+            <!-- Carousel 1 -->
+            <div class="carousel-item w-full flex-shrink-0 relative">
+                <img src="/images/herosection1.png" alt="herosection 1" class="w-full h-full object-cover object-right md:object-center">
+                <div class="absolute top-2/4 left-1/2 transform -translate-x-1/2 -translate-y-2/4 w-[90%] sm:w-[70%] md:w-[60%] lg:left-[28%] lg:w-[36%] text-white text-left">
+                    <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">Menyelamatkan Alam, Mewarisi Kehidupan</h1>
+                    <p class="text-sm sm:text-base md:text-lg mt-2 sm:mt-4">Penghargaan nasional untuk individu dan kelompok yang berkontribusi dalam pelestarian lingkungan hidup</p>
+                </div>
+                <a href="auth/register">
+                    <button class="absolute bottom-[18%] left-[20%] sm:left-[20%] lg:left-[17%] transform -translate-x-1/2 rounded-md bg-white py-2 px-4 sm:py-3 sm:px-6 text-center text-xs sm:text-sm md:text-base lg:text-base text-black transition-all shadow-md hover:font-bold hover:shadow-lg focus:bg-site focus:shadow-none active:bg-site hover:bg-site active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                        Daftar Sekarang
+                    </button>
+                </a>
+            </div>
+            <!-- Carousel 2 -->
+            <div class="carousel-item w-full flex-shrink-0 relative flex items-center justify-center">
+                <img src="/images/herosection2.png" alt="herosection 2" class="w-full h-full object-cover object-right md:object-center">
 
-        <div class="absolute top-2/4 left-1/2 transform -translate-x-1/2 -translate-y-2/4 w-[90%] sm:w-[70%] md:w-[60%] lg:left-[28%] lg:w-[36%] text-white text-left">
-            <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">Menyelamatkan Alam, Mewarisi Kehidupan</h1>
-            <p class="text-sm sm:text-base md:text-lg mt-2 sm:mt-4">Penghargaan nasional untuk individu dan kelompok yang berkontribusi dalam pelestarian lingkungan hidup</p>
+                <!-- Overlay untuk meningkatkan kontras teks -->
+                <div class="absolute inset-0 bg-black opacity-40"></div>
+
+                <div class="absolute flex items-center justify-center inset-0 text-white text-center">
+                    <div class="w-full sm:w-[70%] md:w-[60%]">
+                        <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">Kontribusi Lestari untuk Generasi Mendatang</h1>
+                        <p class="text-sm sm:text-base md:text-lg mt-2 sm:mt-4">Menghargai mereka yang menjaga keanekaragaman hayati dan kekayaan alam Indonesia</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Carousel 3 -->
+            <div class="carousel-item w-full flex-shrink-0 relative flex items-center justify-center">
+                <img src="/images/herosection3.png" alt="herosection 3" class="w-full h-full object-cover object-right md:object-center">
+                <div class="absolute flex items-center justify-center inset-0 text-white text-center">
+                    <div class="w-full sm:w-[70%] md:w-[60%]">
+                        <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">Bersama Membangun Lingkungan Lebih Baik</h1>
+                        <p class="text-sm sm:text-base md:text-lg mt-2 sm:mt-4">Dedikasi untuk perubahan positif bagi lingkungan sekitar kita</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <a href="auth/register">
-            <button class="absolute bottom-[18%] left-[20%] sm:left-[20%] lg:left-[17%] transform -translate-x-1/2 rounded-md bg-white py-2 px-4 sm:py-3 sm:px-6 text-center text-xs sm:text-sm md:text-base lg:text-base text-black transition-all shadow-md hover:font-bold hover:shadow-lg focus:bg-site focus:shadow-none active:bg-site hover:bg-site active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                Daftar Sekarang
-            </button>
-        </a>
+        <!-- Carousel Navigation Dots -->
+        <div class="absolute inset-x-0 bottom-8 flex justify-center space-x-3">
+            <button onclick="moveCarousel(0)" class="w-3 h-3 rounded-full bg-white opacity-50 hover:opacity-100"></button>
+            <button onclick="moveCarousel(-100)" class="w-3 h-3 rounded-full bg-white opacity-50 hover:opacity-100"></button>
+            <button onclick="moveCarousel(-200)" class="w-3 h-3 rounded-full bg-white opacity-50 hover:opacity-100"></button>
+        </div>
+
+        <!-- Carousel Navigation Arrows -->
+        <button onclick="moveSlide(-1)" class="hidden lg:block absolute top-1/2 left-4 transform -translate-y-1/2 bg-white p-2 rounded-full shadow hover:shadow-lg focus:outline-none">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+        </button>
+        <button onclick="moveSlide(1)" class="hidden lg:block absolute top-1/2 right-4 transform -translate-y-1/2 bg-white p-2 rounded-full shadow hover:shadow-lg focus:outline-none">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+        </button>
     </section>
 
     <section id="tentangkalpataru">
@@ -60,7 +107,7 @@
             <div id="texttentangkalpataru" class="w-full h-[4rem] sm:h-[5rem] relative flex items-center justify-center">
                 <h2 class="text-lg sm:text-xl md:text-2xl lg:text-4xl font-bold text-black">Tentang Kalpataru</h2>
             </div>
-            <hr class="border-2 border-primary max-w-40 mx-auto mt-0" />
+            <hr class="hrcenter border-2 border-primary max-w-40 mx-auto mt-0" />
         </div>
 
         <div class="w-full flex flex-col lg:flex-row items-center justify-between px-6 sm:px-10 md:px-16 lg:px-20 py-12">
@@ -83,10 +130,10 @@
 
     <section id="kategoripenghargaan">
         <div class="lg:my-12 md:my-8 my-4 lg:mx-20 md:mx-10 mx-7">
-            <div id="texttentangkalpataru" class="w-full h-[4rem] sm:h-[5rem] relative flex items-center justify-start">
+            <div id="textkategoripenghargaan" class="w-full h-[4rem] sm:h-[5rem] relative flex items-center justify-start">
                 <h2 class="text-lg sm:text-xl md:text-2xl lg:text-4xl font-medium text-black">Kategori Penghargaan <b>Kalpataru</b></h2>
             </div>
-            <hr class="border-2 border-primary max-w-[45%] mt-0" />
+            <hr class="hrleft border-2 border-primary max-w-[45%] mt-0" />
         </div>
 
         <div class="relative w-full px-6 sm:px-10 md:px-16 lg:px-20 py-12">
@@ -139,7 +186,7 @@
             <div id="texttujuankalpataru" class="w-full h-[4rem] sm:h-[5rem] relative flex items-center justify-center">
                 <h2 class="text-lg sm:text-xl md:text-2xl lg:text-4xl font-bold text-white">Tujuan Kalpataru</h2>
             </div>
-            <hr class="border-2 border-white max-w-40 mx-auto mt-0" />
+            <hr class="hrcenter border-2 border-white max-w-40 mx-auto mt-0" />
         </div>
 
         <div class="px-4 sm:px-10 md:px-16 lg:px-20 text-center">
@@ -197,10 +244,10 @@
 
     <section id="statistikpeta">
         <div class="my-4 pt-10 text-center">
-            <div id="texttujuankalpataru" class="w-full h-[4rem] sm:h-[5rem] relative flex items-center justify-center">
+            <div id="textstatistikpenyebaran" class="w-full h-[4rem] sm:h-[5rem] relative flex items-center justify-center">
                 <h2 class="text-lg sm:text-xl md:text-2xl lg:text-4xl font-medium text-black">Statistik Penyebaran Penghargaan Kalpataru</h2>
             </div>
-            <hr class="border-2 border-primary max-w-64 mx-auto mt-0" />
+            <hr class="hrcenter border-2 border-primary max-w-64 mx-auto mt-0" />
         </div>
 
         <div class="relative w-full px-6 sm:px-10 md:px-16 lg:px-20 py-10">
@@ -212,30 +259,239 @@
         <div class="px-4 sm:px-10 md:px-16 lg:px-20 py-10 text-center">
             <div class="grid gap-4 grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 mt-6 py-10 justify-center">
                 <!-- Card 1 -->
-                <div class="bg-white shadow-sm border border-slate-200 rounded-lg w-4/5 mx-auto">
-                    <div class="p-4">
-                        <img src="/images/statistik1.png" alt="statistik1" class="w-full mx-auto pb-2">
+                <div class="bg-white shadow-sm border border-slate-200 rounded-lg w-11/12 sm:w-4/5 mx-auto flex flex-col sm:flex-row gap-4 items-center px-4 py-6 sm:py-4">
+                    <img src="/images/statistikcard1.png" alt="statistikcard1" class="w-20 h-20 sm:w-32 sm:h-32">
+                    <div>
+                        <h2 class="text-3xl sm:text-5xl font-bold text-gray-800 text-center sm:text-start mb-4">428</h2>
+                        <p class="text-gray-600 text-center sm:text-justify text-sm sm:text-base">Penerima Penghargaan Kalpataru sejak program ini dimulai pada tahun 1980</p>
                     </div>
                 </div>
 
                 <!-- Card 2 -->
-                <div class="bg-white shadow-sm border border-slate-200 rounded-lg w-4/5 mx-auto">
-                    <div class="p-4">
-                        <img src="/images/statistik2.png" alt="statistik2" class="w-full mx-auto pb-2">
+                <div class="bg-white shadow-sm border border-slate-200 rounded-lg w-11/12 sm:w-4/5 mx-auto flex items-center justify-center p-4">
+                    <div class="space-y-4 w-96">
+
+                        <!-- Keanekaragaman Hayati -->
+                        <div class="flex items-center">
+                            <img src="/images/statistikkeanekaragamanhayati.png" alt="statistikkeanekaragamanhayati" class="w-10 h-10 mr-3">
+                            <div class="w-full">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-700">Keanekaragaman Hayati</span>
+                                    <span class="text-black font-bold">199</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5 mt-1">
+                                    <div id="card2progress2" class="bg-green-500 h-2.5 rounded-full" style="width: 0;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Perubahan Iklim -->
+                        <div class="flex items-center">
+                            <img src="/images/statistikperubahaniklim.png" alt="statistikperubahaniklim" class="w-10 h-10 mr-3">
+                            <div class="w-full">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-700">Perubahan Iklim</span>
+                                    <span class="text-black font-bold">109</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5 mt-1">
+                                    <div id="card2progress4" class="bg-blue-500 h-2.5 rounded-full" style="width: 0;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pencemaran dan Kerusakan Lingkungan -->
+                        <div class="flex items-center">
+                            <img src="/images/statistikpencemarandankerusakanlingkungan.png" alt="statistikpencemarandankerusakanlingkungan" class="w-10 h-10 mr-3">
+                            <div class="w-full">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-700">Pencemaran dan Kerusakan Lingkungan</span>
+                                    <span class="text-black font-bold">27</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5 mt-1">
+                                    <div id="card2progress3" class="bg-yellow-500 h-2.5 rounded-full" style="width: 0;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Hukum dan Budaya -->
+                        <div class="flex items-center">
+                            <img src="/images/statistikhukumdanbudaya.png" alt="statistikhukumdanbudaya" class="w-10 h-10 mr-3">
+                            <div class="w-full">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-700">Hukum dan Budaya</span>
+                                    <span class="text-black font-bold">93</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5 mt-1">
+                                    <div id="card2progress1" class="bg-red-500 h-2.5 rounded-full" style="width: 0;"></div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
                 <!-- Card 3 -->
-                <div class="bg-white shadow-sm border border-slate-200 rounded-lg w-4/5 mx-auto">
-                    <div class="p-4">
-                        <img src="/images/statistik3.png" alt="statistik3" class="w-full mx-auto pb-2">
+                <div class="bg-white shadow-sm border border-slate-200 rounded-lg w-11/12 sm:w-4/5 mx-auto flex items-center justify-center p-4">
+                    <div class="space-y-4 w-80">
+                        <div class="flex items-center">
+                            <img src="/images/statistikperintislingkungan.png" alt="statistikperintislingkungan" class="w-10 h-10 mr-3">
+                            <div class="w-full">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-700">Perintis Lingkungan</span>
+                                    <span class="text-black font-bold">129</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5 mt-1">
+                                    <div id="card3progress1" class="bg-red-500 h-2.5 rounded-full" style="width: 70%;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pengabdi Lingkungan -->
+                        <div class="flex items-center">
+                            <img src="/images/statistikpengabdilingkungan.png" alt="statistikpengabdilingkungan" class="w-10 h-10 mr-3">
+                            <div class="w-full">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-700">Pengabdi Lingkungan</span>
+                                    <span class="text-black font-bold">104</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5 mt-1">
+                                    <div id="card3progress2" class="bg-green-500 h-2.5 rounded-full" style="width: 80%;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Penyelamat Lingkungan -->
+                        <div class="flex items-center">
+                            <img src="/images/statistikpenyelamatlingkungan.png" alt="statistikpenyelamatlingkungan" class="w-10 h-10 mr-3">
+                            <div class="w-full">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-700">Penyelamat Lingkungan</span>
+                                    <span class="text-black font-bold">128</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5 mt-1">
+                                    <div id="card3progress3" class="bg-yellow-500 h-2.5 rounded-full" style="width: 90%;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pembina Lingkungan -->
+                        <div class="flex items-center">
+                            <img src="/images/statistikpembinalingkungan.png" alt="statistikpembinalingkungan" class="w-10 h-10 mr-3">
+                            <div class="w-full">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-700">Pembina Lingkungan</span>
+                                    <span class="text-black font-bold">67</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5 mt-1">
+                                    <div id="card3progress4" class="bg-blue-500 h-2.5 rounded-full" style="width: 50%;"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Card 4 -->
-                <div class="bg-white shadow-sm border border-slate-200 rounded-lg w-4/5 mx-auto">
-                    <div class="p-4">
-                        <img src="/images/statistik4.png" alt="statistik4" class="w-full mx-auto pb-2">
+                <div class="bg-white shadow-sm border border-slate-200 rounded-lg w-11/12 sm:w-4/5 mx-auto p-4 flex flex-col sm:flex-row items-center gap-4 justify-center">
+                    <div>
+                        <canvas id="genderChart" width="150" height="150"></canvas>
+                    </div>
+                    <div>
+                        <div class="flex items-center mb-2">
+                            <span class="block w-4 h-4 bg-blue-500 mr-2"></span>
+                            <span class="text-sm sm:text-base">Laki-Laki</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="block w-4 h-4 bg-green-500 mr-2"></span>
+                            <span class="text-sm sm:text-base">Perempuan</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pencapaian">
+        <div class="lg:my-12 md:my-8 my-4">
+            <div id="textpencapaian" class="w-full h-[4rem] sm:h-[5rem] relative flex items-center justify-center">
+                <h2 class="text-lg sm:text-xl md:text-2xl lg:text-4xl font-bold text-black">Pencapaian</h2>
+            </div>
+            <hr class="hrcenter border-2 border-primary max-w-40 mx-auto mt-0" />
+        </div>
+
+        <div class="px-4 sm:px-10 md:px-16 lg:px-20 text-center mb-12">
+            <p class="text-sm sm:text-base md:text-lg text-black mx-auto max-w-5xl">
+                Keanekaragaman Hayati, Perubahan Iklim, Pencemaran dan Kerusakan Lingkungan, dan Hukum dan Budaya
+            </p>
+
+            <!-- Cards section -->
+            <!-- <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+                <div id="cardpencapaian1" class="card relative overflow-hidden cursor-pointer">
+                    <img src="/images/pencapaian1.jpg" alt="Infografis 1" class="w-full h-full object-cover" onclick="openPopup('/images/pencapaian1.jpg')" />
+                </div>
+                <div id="cardpencapaian2" class="card relative overflow-hidden cursor-pointer">
+                    <img src="/images/pencapaian2.jpg" alt="Infografis 2" class="w-full h-full object-cover" onclick="openPopup('/images/pencapaian2.jpg')" />
+                </div>
+                <div id="cardpencapaian3" class="card relative overflow-hidden cursor-pointer">
+                    <img src="/images/pencapaian3.jpg" alt="Infografis 3" class="w-full h-full object-cover" onclick="openPopup('/images/pencapaian3.jpg')" />
+                </div>
+                <div id="cardpencapaian4" class="card relative overflow-hidden cursor-pointer">
+                    <img src="/images/pencapaian4.jpg" alt="Infografis 4" class="w-full h-full object-cover" onclick="openPopup('/images/pencapaian4.jpg')" />
+                </div>
+            </div> -->
+
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+                <div id="cardpencapaian1" class="card relative overflow-hidden cursor-pointer">
+                    <a href="<?= base_url('pencapaian?image=pencapaian1.jpg') ?>">
+                        <img src="/images/pencapaian1.jpg" alt="Infografis 1" class="w-full h-full object-cover" />
+                    </a>
+                </div>
+                <div id="cardpencapaian2" class="card relative overflow-hidden cursor-pointer">
+                    <a href="<?= base_url('pencapaian?image=pencapaian2.jpg') ?>">
+                        <img src="/images/pencapaian2.jpg" alt="Infografis 2" class="w-full h-full object-cover" />
+                    </a>
+                </div>
+                <div id="cardpencapaian3" class="card relative overflow-hidden cursor-pointer">
+                    <a href="<?= base_url('pencapaian?image=pencapaian3.jpg') ?>">
+                        <img src="/images/pencapaian3.jpg" alt="Infografis 3" class="w-full h-full object-cover" />
+                    </a>
+                </div>
+                <div id="cardpencapaian4" class="card relative overflow-hidden cursor-pointer">
+                    <a href="<?= base_url('pencapaian?image=pencapaian4.jpg') ?>">
+                        <img src="/images/pencapaian4.jpg" alt="Infografis 4" class="w-full h-full object-cover" />
+                    </a>
+                </div>
+            </div>
+
+            <!-- Popup Modal pencapaian-->
+            <div id="popuppencapaian" class="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center hidden z-[999]">
+                <div class="relative bg-white p-4 rounded-lg max-w-lg w-full flex flex-col items-center">
+                    <div id="imageContainer" class="overflow-hidden max-h-[80vh] w-full flex justify-center items-center">
+                        <img id="popupImage" src="" alt="Large Infografis" class="object-contain mb-4 transform transition-transform duration-200" />
+                    </div>
+
+                    <!-- Zoom controls -->
+                    <div class="flex justify-end space-x-2 mb-4">
+                        <button onclick="zoomIn()" class="rounded-md px-4 py-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM10.5 7.5v6m3-3h-6" />
+                            </svg>
+                        </button>
+                        <button onclick="zoomOut()" class="rounded-md px-4 py-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM13.5 10.5h-6" />
+                            </svg>
+                        </button>
+                        <button onclick="resetZoom()" class="rounded-md px-4 py-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9.75 14.25 12m0 0 2.25 2.25M14.25 12l2.25-2.25M14.25 12 12 14.25m-2.58 4.92-6.374-6.375a1.125 1.125 0 0 1 0-1.59L9.42 4.83c.21-.211.497-.33.795-.33H19.5a2.25 2.25 0 0 1 2.25 2.25v10.5a2.25 2.25 0 0 1-2.25 2.25h-9.284c-.298 0-.585-.119-.795-.33Z" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Container for back and download buttons -->
+                    <div class="flex justify-end space-x-2">
+                        <button class="bg-slate-600 text-white rounded-md px-4 py-2" onclick="closePopup()">Kembali</button>
+                        <a id="downloadButton" download class="bg-primary text-white rounded-md px-4 py-2">Download</a>
                     </div>
                 </div>
             </div>
@@ -268,7 +524,7 @@
 
     <section id="berita">
         <div class="lg:mx-28 p-5">
-            <div class="flex justify-between items-center lg:mt-10 mb-2">
+            <div id="textberita" class="flex justify-between items-center lg:mt-10 mb-2">
                 <h2 class="text-lg font-bold">Berita</h2>
                 <a href="<?= base_url('publikasi/berita') ?>" class="flex items-center text-primary">
                     Selengkapnya
@@ -277,7 +533,7 @@
                     </svg>
                 </a>
             </div>
-            <hr class="border-2 border-primary w-full mt-0 mb-10" />
+            <hr class="hrleft border-2 border-primary w-full mt-0 mb-10" />
 
             <div class="relative flex overflow-x-auto space-x-4 scrollbar-hide">
                 <!-- arrow kiri -->
@@ -315,7 +571,7 @@
 
     <section id="video" class="mb-6">
         <div class="lg:mx-28 p-5">
-            <div class="flex justify-between items-center lg:mt-10 mb-2">
+            <div id="textvideo" class="flex justify-between items-center lg:mt-10 mb-2">
                 <h2 class="text-lg font-bold">Video</h2>
                 <a href="<?= base_url('publikasi/video') ?>" class="flex items-center text-primary">
                     Selengkapnya
@@ -324,7 +580,7 @@
                     </svg>
                 </a>
             </div>
-            <hr class="border-2 border-primary w-full mt-0 mb-10" />
+            <hr class="hrleft border-2 border-primary w-full mt-0 mb-10" />
 
             <div class="relative flex overflow-x-auto space-x-4 scrollbar-hide">
                 <!-- arrow kiri -->
@@ -361,10 +617,79 @@
         </div>
     </section>
 
+    <section class="bg-primary">
+        <div id="mainContent" class="container mx-auto px-4 py-6">
+            <div class="flex flex-col md:flex-row space-y-8 md:space-y-0 md:space-x-8 items-stretch">
+                <!-- Media Sosial Section (1/3 width) -->
+                <div id="bagianmediasosial" class="w-full md:w-1/3 flex flex-col">
+                    <div class="bg-white p-6 shadow-lg rounded-lg flex-grow">
+                        <h1 class="text-3xl font-semibold text-center text-gray-800 mb-4">Media Sosial</h1>
+                        <div class="social-tabs">
+                            <!-- Tabs Navigation -->
+                            <nav class="flex space-x-4 justify-center mb-4">
+                                <button class="flex-1 py-2 px-4 bg-gray-200 rounded-t-lg font-semibold focus:outline-none"
+                                    id="socialTabLink1" data-target="#socialTab1">
+                                    <span class="inline-block text-primary">Facebook</span>
+                                    <span class="inline-block"><i class="fab fa-facebook"></i></span>
+                                </button>
+                                <button class="flex-1 py-2 px-4 bg-gray-200 rounded-t-lg font-semibold focus:outline-none"
+                                    id="socialTabLink2" data-target="#socialTab2">
+                                    <span class="inline-block text-primary">Twitter</span>
+                                    <span class="inline-block"><i class="fab fa-twitter"></i></span>
+                                </button>
+                            </nav>
+
+                            <!-- Tabs Content -->
+                            <div class="tab-content">
+                                <!-- Facebook Tab -->
+                                <div class="tab-pane active show max-h-[500px] overflow-auto flex justify-center items-center" id="socialTab1" role="tabpanel">
+                                    <div class="relative max-h-[500px] overflow-hidden w-full">
+                                        <iframe class="h-[500px] rounded-lg border border-gray-300"
+                                            src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FKementerianLHK&tabs=timeline&width=500&height=500&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=52156208006"
+                                            width="100%" height="500" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+                                        </iframe>
+                                    </div>
+                                </div>
+
+                                <!-- Twitter Tab -->
+                                <div class="tab-pane hidden max-h-[500px] overflow-auto flex justify-center items-center" id="socialTab2" role="tabpanel">
+                                    <div class="relative max-h-[500px] overflow-auto rounded-lg w-full">
+                                        <a class="twitter-timeline" href="https://twitter.com/KementerianLHK?ref_src=twsrc%5Etfw"></a>
+                                        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kalender Section (2/3 width) -->
+                <div id="bagiankalender" class="w-full md:w-2/3 flex flex-col">
+                    <div class="bg-white p-6 shadow-lg rounded-lg flex-grow">
+                        <h1 class="text-3xl font-semibold text-center text-gray-800 mb-4">Kalender</h1>
+                        <div class="flex justify-center my-4">
+                            <div id="calendar" class="w-full sm:w-3/4"></div>
+                        </div>
+                        <div class="flex flex-col sm:flex-row justify-center my-4">
+                            <div class="flex items-center mr-8 mb-2 sm:mb-0">
+                                <div class="w-4 h-4 bg-blue-600 rounded-full mr-2"></div>
+                                <span class="text-gray-700">Hari Nasional</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-4 h-4 bg-green-600 rounded-full mr-2"></div>
+                                <span class="text-gray-700">Hari Lingkungan</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="faq">
         <div class="max-w-2xl mx-auto px-6 pt-6 pb-14">
-            <h1 class="text-2xl font-medium text-center mb-2">Pertanyaan <b>Umum</b></h1>
-            <hr class="border-2 border-primary w-32 mx-auto mt-0" />
+            <h1 id="textfaq" class="text-2xl font-medium text-center mb-2">Pertanyaan <b>Umum</b></h1>
+            <hr class="hrcenter border-2 border-primary w-32 mx-auto mt-0" />
             <p class="text-center text-gray-600 mt-2">Temukan jawaban atas pertanyaan Anda seputar Penghargaan Kalpataru dan pelestarian lingkungan</p>
 
             <div class="mt-8 space-y-4">
@@ -563,17 +888,15 @@
 
                         var geojsonLayer = L.geoJSON(data, {
                             style: function() {
-                                return penerimaDiProvinsi && penerimaDiProvinsi.total > 0
-                                    ? {
-                                        color: 'none',
-                                        fillColor: colorAbuMuda,
-                                        fillOpacity: 1,
-                                        weight: 0 
-                                    }
-                                    : {
-                                        color: 'none',
-                                        fillOpacity: 0
-                                    };
+                                return penerimaDiProvinsi && penerimaDiProvinsi.total > 0 ? {
+                                    color: 'none',
+                                    fillColor: colorAbuMuda,
+                                    fillOpacity: 1,
+                                    weight: 0
+                                } : {
+                                    color: 'none',
+                                    fillOpacity: 0
+                                };
                             },
                             onEachFeature: function(feature, layer) {
                                 var center = layer.getBounds().getCenter();
@@ -605,7 +928,9 @@
                     .catch(error => console.error('Error loading GeoJSON for ' + provinsi + ':', error));
             }
 
-            var legend = L.control({ position: 'bottomright' });
+            var legend = L.control({
+                position: 'bottomright'
+            });
 
             legend.onAdd = function(map) {
                 var div = L.DomUtil.create('div', 'info legend');
@@ -624,7 +949,241 @@
         });
     </script>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/ScrollTrigger.min.js"></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/locales/id.js'></script>
+
     <script>
+        /* KUMPULAN ANIMASI (BATAS AWAL) */
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.from("#texttentangkalpataru", {
+            opacity: 0,
+            y: -50,
+            duration: 1,
+            ease: "power2.out",
+            scrollTrigger: {
+                trigger: "#texttentangkalpataru",
+                start: "top 90%",
+                toggleActions: "play none none reverse"
+            }
+        });
+
+        gsap.from("#textkategoripenghargaan", {
+            opacity: 0,
+            y: -50,
+            duration: 1,
+            ease: "power2.out",
+            scrollTrigger: {
+                trigger: "#textkategoripenghargaan",
+                start: "top 90%",
+                toggleActions: "play none none reverse"
+            }
+        });
+
+        gsap.from("#textstatistikpenyebaran", {
+            opacity: 0,
+            y: -50,
+            duration: 1,
+            ease: "power2.out",
+            scrollTrigger: {
+                trigger: "#textstatistikpenyebaran",
+                start: "top 90%",
+                toggleActions: "play none none reverse"
+            }
+        });
+
+        gsap.from("#texttujuankalpataru", {
+            opacity: 0,
+            y: -50,
+            duration: 1,
+            ease: "power2.out",
+            scrollTrigger: {
+                trigger: "#texttujuankalpataru",
+                start: "top 90%",
+                toggleActions: "play none none reverse"
+            }
+        });
+
+        gsap.from("#textpencapaian", {
+            opacity: 0,
+            y: -50,
+            duration: 1,
+            ease: "power2.out",
+            scrollTrigger: {
+                trigger: "#textpencapaian",
+                start: "top 90%",
+                toggleActions: "play none none reverse"
+            }
+        });
+
+        gsap.from("#textberita", {
+            opacity: 0,
+            y: -50,
+            duration: 1,
+            ease: "power2.out",
+            scrollTrigger: {
+                trigger: "#textberita",
+                start: "top 90%",
+                toggleActions: "play none none reverse"
+            }
+        });
+
+        gsap.from("#textvideo", {
+            opacity: 0,
+            y: -50,
+            duration: 1,
+            ease: "power2.out",
+            scrollTrigger: {
+                trigger: "#textvideo",
+                start: "top 90%",
+                toggleActions: "play none none reverse"
+            }
+        });
+
+        gsap.from("#textfaq", {
+            opacity: 0,
+            y: -50,
+            duration: 1,
+            ease: "power2.out",
+            scrollTrigger: {
+                trigger: "#textfaq",
+                start: "top 90%",
+                toggleActions: "play none none reverse"
+            }
+        });
+
+        gsap.utils.toArray(".hrcenter").forEach((hr) => {
+            gsap.from(hr, {
+                opacity: 0,
+                scaleX: 0,
+                duration: 1,
+                delay: 0.3,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: hr,
+                    start: "top 90%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+        });
+
+        gsap.utils.toArray(".hrleft").forEach((hr) => {
+            gsap.from(hr, {
+                opacity: 0,
+                x: -100,
+                duration: 1,
+                delay: 0.5,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: hr,
+                    start: "top 90%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+        });
+
+        gsap.utils.toArray("#categoryContainer a").forEach((image) => {
+            gsap.from(image, {
+                opacity: 0,
+                scale: 0.8,
+                rotate: 10,
+                duration: 1.2,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: image,
+                    start: "top 90%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+        });
+
+        document.querySelectorAll("#categoryContainer a img").forEach((img) => {
+            img.addEventListener("mouseenter", () => {
+                gsap.to(img, {
+                    filter: "brightness(1.2)",
+                    boxShadow: "0px 10px 20px rgba(0, 150, 136, 0.3)",
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+            });
+
+            img.addEventListener("mouseleave", () => {
+                gsap.to(img, {
+                    filter: "brightness(1)",
+                    boxShadow: "0px 5px 10px rgba(0, 0, 0, 0.15)",
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+            });
+        });
+
+        function addHoverEffect(cardId) {
+            const card = document.getElementById(cardId);
+
+            card.addEventListener("mouseenter", () => {
+                gsap.to(card, {
+                    scale: 1.05,
+                    boxShadow: "0px 4px 20px rgba(255, 255, 255, 0.6)",
+                    duration: 0.4,
+                    ease: "power2.out"
+                });
+            });
+
+            card.addEventListener("mouseleave", () => {
+                gsap.to(card, {
+                    scale: 1,
+                    boxShadow: "0px 0px 0px rgba(0, 0, 0, 0)",
+                    duration: 0.4,
+                    ease: "power2.out"
+                });
+            });
+        }
+
+        // Add hover effect to each card
+        addHoverEffect("cardpencapaian1");
+        addHoverEffect("cardpencapaian2");
+        addHoverEffect("cardpencapaian3");
+        addHoverEffect("cardpencapaian4");
+
+        /* KUMPULAN ANIMASI (BATAS AKHIR) */
+
+        /* Hero Section Carousel */
+        let currentIndex = 0;
+        const totalSlides = 3;
+
+        function moveSlide(direction) {
+            currentIndex = (currentIndex + direction + totalSlides) % totalSlides;
+            moveCarousel(currentIndex * -100);
+        }
+
+        function moveCarousel(translateValue) {
+            document.querySelector('.carousel-wrapper').style.transform = `translateX(${translateValue}%)`;
+        }
+
+        // Deteksi Gesture Swipe
+        let startX = 0;
+
+        document.querySelector('.carousel-wrapper').addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+        });
+
+        document.querySelector('.carousel-wrapper').addEventListener('touchend', (e) => {
+            const endX = e.changedTouches[0].clientX;
+            const diffX = endX - startX;
+
+            // Geser ke kanan jika swipe ke kiri
+            if (diffX < -50) {
+                moveSlide(1);
+            }
+            // Geser ke kiri jika swipe ke kanan
+            else if (diffX > 50) {
+                moveSlide(-1);
+            }
+        });
+
         //  scroll kategori
         const categoryContainer = document.getElementById('categoryContainer');
         const categoryScrollLeft = document.getElementById('categoryScrollLeft');
@@ -663,6 +1222,189 @@
             });
         });
 
+
+        /* CARD DATA DAN STATISTIK */
+        // CARD 2
+        const progressDataCard2 = [{
+                id: 'card2progress1',
+                value: 93,
+                max: 200
+            },
+            {
+                id: 'card2progress2',
+                value: 199,
+                max: 200
+            },
+            {
+                id: 'card2progress3',
+                value: 27,
+                max: 200
+            },
+            {
+                id: 'card2progress4',
+                value: 109,
+                max: 200
+            },
+        ];
+
+        // Update progress bars based on data
+        progressDataCard2.forEach(data => {
+            const progressElement = document.getElementById(data.id);
+            const progressWidth = (data.value / data.max) * 100;
+            progressElement.style.width = progressWidth + '%';
+        });
+
+        // CARD 3
+        const progressDataCard3 = [{
+                id: 'card3progress1',
+                value: 129,
+                max: 200
+            }, // Adjust max as needed
+            {
+                id: 'card3progress2',
+                value: 104,
+                max: 200
+            },
+            {
+                id: 'card3progress3',
+                value: 128,
+                max: 200
+            },
+            {
+                id: 'card3progress4',
+                value: 67,
+                max: 200
+            },
+        ];
+
+        progressDataCard3.forEach(data => {
+            const progressElement = document.getElementById(data.id);
+            const progressWidth = (data.value / data.max) * 100;
+            progressElement.style.width = progressWidth + '%';
+        });
+
+        // CARD 4
+        const ctx = document.getElementById('genderChart').getContext('2d');
+        const genderChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Laki-Laki', 'Perempuan'],
+                datasets: [{
+                    label: 'Jumlah',
+                    data: [380, 48],
+                    backgroundColor: ['#4299E1', '#48BB78'],
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false // Hide default legend
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // POPUP Pencapaian
+        function openPopup(imageSrc) {
+            const popup = document.getElementById('popuppencapaian');
+            const popupImage = document.getElementById('popupImage');
+            const downloadButton = document.getElementById('downloadButton');
+
+            // Set the image source for the popup and download link
+            popupImage.src = imageSrc;
+            downloadButton.href = imageSrc;
+
+            // Show the popup
+            popup.classList.remove('hidden');
+        }
+
+        function closePopup() {
+            const popup = document.getElementById('popuppencapaian');
+            popup.classList.add('hidden');
+            resetZoom(); // Reset zoom when closing the popup
+        }
+
+        // Zoom level to track the current scale of the image
+        let zoomLevel = 1;
+        let isDragging = false;
+        let startXX, startY, offsetX = 0,
+            offsetY = 0;
+
+        function zoomIn() {
+            zoomLevel += 0.2;
+            applyTransform();
+        }
+
+        function zoomOut() {
+            zoomLevel = Math.max(1, zoomLevel - 0.2); // Ensure zoom level does not go below 1
+            applyTransform();
+        }
+
+        function resetZoom() {
+            zoomLevel = 1;
+            offsetX = 0;
+            offsetY = 0;
+            applyTransform();
+        }
+
+        // Apply scaling and translation to the image
+        function applyTransform() {
+            const popupImage = document.getElementById("popupImage");
+            popupImage.style.transform = `scale(${zoomLevel}) translate(${offsetX}px, ${offsetY}px)`;
+        }
+
+        // Mouse and touch events for dragging
+        const popupImage = document.getElementById("popupImage");
+
+        popupImage.addEventListener("mousedown", (e) => {
+            isDragging = true;
+            startXX = e.clientX - offsetX;
+            startY = e.clientY - offsetY;
+        });
+
+        popupImage.addEventListener("mousemove", (e) => {
+            if (isDragging && zoomLevel > 1) {
+                offsetX = e.clientX - startXX;
+                offsetY = e.clientY - startY;
+                applyTransform();
+            }
+        });
+
+        popupImage.addEventListener("mouseup", () => {
+            isDragging = false;
+        });
+
+        popupImage.addEventListener("mouseleave", () => {
+            isDragging = false;
+        });
+
+        // Touch events for mobile devices
+        popupImage.addEventListener("touchstart", (e) => {
+            isDragging = true;
+            startXX = e.touches[0].clientX - offsetX;
+            startY = e.touches[0].clientY - offsetY;
+        });
+
+        popupImage.addEventListener("touchmove", (e) => {
+            if (isDragging && zoomLevel > 1) {
+                offsetX = e.touches[0].clientX - startXX;
+                offsetY = e.touches[0].clientY - startY;
+                applyTransform();
+            }
+        });
+
+        popupImage.addEventListener("touchend", () => {
+            isDragging = false;
+        });
+
         // scroll video
         const videoContainer = document.getElementById('videoContainer');
         const videoScrollLeft = document.getElementById('videoScrollLeft');
@@ -680,6 +1422,68 @@
                 left: 300,
                 behavior: 'smooth'
             });
+        });
+
+        // media sosial
+        document.querySelectorAll("button[data-target]").forEach(button => {
+            button.addEventListener('click', () => {
+                // Get the target tab pane
+                const target = button.getAttribute("data-target");
+
+                // Hide all tab panes
+                document.querySelectorAll(".tab-pane").forEach(tabPane => tabPane.classList.add("hidden"));
+
+                // Remove active class from all tab buttons
+                document.querySelectorAll("button[data-target]").forEach(btn => btn.classList.remove("bg-blue-600", "text-white"));
+
+                // Show the selected tab pane and add active class to the selected tab button
+                document.querySelector(target).classList.remove("hidden");
+                button.classList.add("bg-blue-600", "text-white");
+            });
+        });
+        // calendar
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                locale: 'id',
+                buttonText: {
+                    today: 'Hari Ini'
+                },
+                events: '<?= base_url('calendar/events') ?>',
+                eventDidMount: function(info) {
+                    info.el.style.cursor = 'pointer';
+
+                    // Membuat elemen tooltip
+                    var tooltip = document.createElement('div');
+                    tooltip.innerText = info.event.extendedProps.description;
+                    tooltip.className = 'bg-slate-400 text-white text-sm p-3 rounded-lg shadow-lg transition-opacity duration-200 opacity-0';
+                    tooltip.style.position = 'absolute';
+                    tooltip.style.zIndex = '10';
+                    tooltip.style.display = 'none';
+
+                    // Tambahkan tooltip ke body
+                    document.body.appendChild(tooltip);
+
+                    // Event untuk menampilkan tooltip saat mouse hover
+                    info.el.addEventListener('mouseenter', function() {
+                        tooltip.style.display = 'block';
+                        tooltip.style.opacity = '1'; // Set opacity to 1 for fade-in effect
+                        var rect = info.el.getBoundingClientRect();
+                        tooltip.style.top = rect.top + window.scrollY - tooltip.offsetHeight - 8 + 'px'; // Adjust for height
+                        tooltip.style.left = rect.left + window.scrollX + (rect.width - tooltip.offsetWidth) / 2 + 'px';
+                    });
+
+                    // Event untuk menyembunyikan tooltip saat mouse keluar
+                    info.el.addEventListener('mouseleave', function() {
+                        tooltip.style.opacity = '0'; // Fade out effect
+                        setTimeout(() => {
+                            tooltip.style.display = 'none'; // Sembunyikan setelah animasi selesai
+                        }, 200); // Durasi animasi fade-out
+                    });
+                }
+            });
+            calendar.render();
         });
 
         // faq
