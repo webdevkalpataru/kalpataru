@@ -142,9 +142,6 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('preview/ktp/(:any)', 'PengusulController::showKTP/$1');
     $routes->get('preview/fotokegiatan/(:num)/(:any)', 'PengusulController::showFotoKegiatan/$1/$2');
     $routes->get('nominasi', 'AdminController::nominasi');
-    $routes->get('arsippenerima', 'AdminController::arsippenerima');
-    $routes->get('tambaharsippenerima', 'AdminController::tambaharsip');
-    $routes->get('arsipselengkapnya', 'AdminController::arsipselengkapnya');
     $routes->get('sidang1', 'AdminController::sidang1');
     $routes->get('sidang2', 'AdminController::sidang2');
     $routes->get('editpamflet/(:num)', 'AdminController::editpamflet/$1');
@@ -184,7 +181,13 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('pengusul/detail/(:any)', 'AdminController::detailPengusul/$1');
     $routes->get('download/suratpengantar/(:segment)', 'AdminController::downloadSuratPengantar/$1');
 
-
+    // Manajemen Arsip Penerima
+    $routes->get('arsippenerima', 'AdminController::arsippenerima');
+    $routes->post('arsip/hapus/(:num)', 'AdminController::hapusArsip/$1');
+    $routes->get('tambaharsippenerima', 'AdminController::tambaharsip');
+    $routes->post('tambaharsippenerima', 'AdminController::tambahArsipAction');
+    $routes->get('arsip/edit/(:any)', 'AdminController::editArsip/$1');
+    $routes->post('arsip/edit/(:any)', 'AdminController::editArsipAction/$1');
 
     // Manajemen Artikel
     $routes->get('artikel', 'AdminController::artikeladmin');
