@@ -76,7 +76,7 @@
                 Hasil: <?= esc($countAllPengusul) ?> Akun
             </h4>
 
-            <div class="relative flex flex-col w-full h-full bg-white shadow-md rounded-lg bg-clip-border my-6">
+            <div class="overflow-auto bg-white shadow-md rounded-lg">
                 <table class="w-full text-left table-auto min-w-max">
                     <thead>
                         <tr>

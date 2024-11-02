@@ -12,10 +12,10 @@
 
 
 
-  <!-- Sidebar -->
-  <div class="w-64 bg-white text-white">
-    <?= $this->include('template/sidebaradmin') ?>
-  </div>
+    <!-- Sidebar -->
+    <div class="w-64 bg-white text-white">
+        <?= $this->include('template/sidebaradmin') ?>
+    </div>
 
     <div class="lg:flex-1 p-4 md:p-6">
         <div class="min-h-screen flex flex-col">
@@ -141,7 +141,6 @@
                         <?php endif; ?>
                     </tbody>
                 </table>
-                </div>
                 <div class="row flex lg:justify-end justify-center my-6 lg:me-2 me-0">
                     <div class="pagination">
                         <?= $pager->links('bukus', 'template_pagination') ?>
@@ -149,6 +148,7 @@
                 </div>
             </div>
         </div>
+    </div>
 
     <!-- Modal Hapus -->
     <div id="deleteModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">

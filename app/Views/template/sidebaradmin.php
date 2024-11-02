@@ -48,7 +48,7 @@
     </button>
 
     <!-- Sidebar -->
-    <div id="sidebar" class="fixed top-0 left-0 h-full w-64 overflow-hidden md:translate-x-0 transition-transform duration-300 ease-in-out flex flex-col rounded-xl bg-white bg-clip-border px-4 py-8 text-gray-700 shadow-xl shadow-blue-gray-900/5 overflow-y-auto overflow-x-hidden">
+    <div id="sidebar" class="fixed top-0 z-40 left-0 h-full w-64 overflow-hidden -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out flex flex-col rounded-xl bg-white bg-clip-border px-4 py-8 text-gray-700 shadow-xl shadow-blue-gray-900/5 overflow-y-auto">
         <img src="/images/logo.png" alt="Logo" class="mb-4">
         <hr class="border-primary border-2 mb-4">
         <div class="p-4 mb-2">
