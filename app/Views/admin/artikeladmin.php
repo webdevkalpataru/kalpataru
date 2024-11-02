@@ -135,10 +135,10 @@
                         <?php endif; ?>
                     </tbody>
                 </table>
-            </div>
-            <div class="row flex lg:justify-end justify-center my-6 lg:me-2 me-0">
-                <div class="pagination">
-                    <?= $pager->links('artikels', 'template_pagination') ?>
+                <div class="row flex lg:justify-end justify-center my-6 lg:me-2 me-0">
+                    <div class="pagination">
+                        <?= $pager->links('artikels', 'template_pagination') ?>
+                    </div>
                 </div>
             </div>
         </div>
@@ -169,7 +169,7 @@
     </div>
 
     <!-- Modal Catatan Artikel -->
-    <div id="popupModal" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 hidden">
+    <div id="popupModal" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50 hidden">
         <div class="bg-white p-6 rounded-lg shadow-lg w-96">
             <h2 class="text-xl font-semibold mb-4">Tambah Catatan</h2>
             <textarea id="catatanArtikel" rows="4" class="w-full p-2 border border-slate-300 rounded-md" placeholder="Masukan catatan artikel..."></textarea>

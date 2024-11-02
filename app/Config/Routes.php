@@ -82,6 +82,7 @@ $routes->group('pengusul', ['filter' => 'auth'], function ($routes) {
 
     $routes->post('simpanForm/(:any)', 'PengusulController::simpanForm/$1');
     $routes->get('detailusulansayaedit/(:num)', 'PengusulController::detailUsulanSayaEdit/$1');
+    $routes->post('hapususulan/(:num)', 'PengusulController::hapusUsulan/$1');
 
     // --------------------------
 

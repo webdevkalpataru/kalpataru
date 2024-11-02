@@ -144,11 +144,10 @@
                         <?php endif; ?>
                     </tbody>
                 </table>
-            </div>
-
-            <div class="row flex lg:justify-end justify-center my-6 lg:me-2 me-0">
-                <div class="pagination">
-                    <?= $pager->links('peraturans', 'template_pagination') ?>
+                <div class="row flex lg:justify-end justify-center my-6 lg:me-2 me-0">
+                    <div class="pagination">
+                        <?= $pager->links('peraturans', 'template_pagination') ?>
+                    </div>
                 </div>
             </div>
         </div>
