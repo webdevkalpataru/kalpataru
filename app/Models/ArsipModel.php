@@ -40,4 +40,21 @@ class ArsipModel extends Model
     {
         return $this->insert($data);
     }
+
+    public function dataProvinsi()
+    {
+        $query = $this->db->query("
+        SELECT 
+            provinsi,
+            SUM(CASE WHEN kategori = 'Perintis Lingkungan' THEN 1 ELSE 0 END) AS perintis,
+            SUM(CASE WHEN kategori = 'Pengabdi Lingkungan' THEN 1 ELSE 0 END) AS pengabdi,
+            SUM(CASE WHEN kategori = 'Penyelamat Lingkungan' THEN 1 ELSE 0 END) AS penyelamat,
+            SUM(CASE WHEN kategori = 'Pembina Lingkungan' THEN 1 ELSE 0 END) AS pembina,
+            COUNT(*) AS total
+        FROM arsip_penerima
+        GROUP BY provinsi
+        ORDER BY provinsi DESC
+    ");
+        return $query->getResultArray();
+    }
 }
