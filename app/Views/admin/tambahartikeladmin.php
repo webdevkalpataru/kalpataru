@@ -137,18 +137,9 @@
         })
         .catch(error => {
           console.error('Error:', error);
-          alert('URL sudah digunakan, silahkan ganti judul.');
+          alert('Gagal menyimpan data, silahkan coba lagi.');
         });
     }
-
-    // Attach event listener ke form submit
-    document.getElementById('isiArtikelForm').addEventListener('submit', validateForm);
-
-
-    // Attach event listener ke form submit
-    document.getElementById('isiArtikelForm').addEventListener('submit', validateForm);
-
-
     // Attach event listener ke form submit
     document.getElementById('isiArtikelForm').addEventListener('submit', validateForm);
 

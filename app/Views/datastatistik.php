@@ -39,7 +39,8 @@
                     <div class="p-4">
                         <h2 class="text-xs font-semibold">Kalpataru</h2>
                         <div class="text-start text-xs flex justify-start items-center">
-                            <p class="text-lg text-primary mr-4">117</p>
+                            <p class="text-lg text-primary mr-4"><?= $kategoriData->total_perintis; ?></p>
+                            </p>
                             <img src="/images/trophy.png" alt="trophy" class="w-10 h-10">
                         </div>
                         <p class="text-xs font-normal text-gray-600 text-start">Perintis Lingkungan</p>
@@ -50,7 +51,7 @@
                     <div class="p-4">
                         <h2 class="text-xs font-semibold">Kalpataru</h2>
                         <div class="text-start text-xs flex justify-start items-center">
-                            <p class="text-lg text-primary mr-4">83</p>
+                            <p class="text-lg text-primary mr-4"><?= $kategoriData->total_pengabdi; ?></p>
                             <img src="/images/trophy.png" alt="trophy" class="w-10 h-10">
                         </div>
                         <p class="text-xs font-normal text-gray-600 text-start">Pengabdi Lingkungan</p>
@@ -61,7 +62,7 @@
                     <div class="p-4">
                         <h2 class="text-xs font-semibold">Kalpataru</h2>
                         <div class="text-start text-xs flex justify-start items-center">
-                            <p class="text-lg text-primary mr-4">66</p>
+                            <p class="text-lg text-primary mr-4"><?= $kategoriData->total_penyelamat; ?></p>
                             <img src="/images/trophy.png" alt="trophy" class="w-10 h-10">
                         </div>
                         <p class="text-xs font-normal text-gray-600 text-start">Penyelamat Lingkungan</p>
@@ -72,7 +73,7 @@
                     <div class="p-4">
                         <h2 class="text-xs font-semibold">Kalpataru</h2>
                         <div class="text-start text-xs flex justify-start items-center">
-                            <p class="text-lg text-primary mr-4">162</p>
+                            <p class="text-lg text-primary mr-4"><?= $kategoriData->total_pembina; ?></p>
                             <img src="/images/trophy.png" alt="trophy" class="w-10 h-10">
                         </div>
                         <p class="text-xs font-normal text-gray-600 text-start">Pembina Lingkungan</p>
@@ -151,7 +152,7 @@
             </div>
             <hr class="border-2 border-primary max-w-[16%] mt-0" />
 
-            <div class="relative flex flex-col w-full h-full overflow-scroll bg-white shadow-md rounded-lg bg-clip-border my-6">
+            <div class="relative flex flex-col w-full h-full bg-white shadow-md rounded-lg bg-clip-border my-6">
                 <table class="w-full text-left table-auto min-w-max">
                     <thead>
                         <tr>
@@ -239,405 +240,27 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="hover:bg-slate-50">
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    01
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    Nanggroe Aceh Darussalam
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    1
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    5
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    6
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    8
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    20
-                                </p>
-                            </td>
-                        </tr>
-                        <tr class="hover:bg-slate-50">
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    02
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    Sumatera Utara
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    1
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    5
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    6
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    8
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    20
-                                </p>
-                            </td>
-                        </tr>
-                        <tr class="hover:bg-slate-50">
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    03
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    Sumatera Selatan
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    1
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    5
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    6
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    8
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    20
-                                </p>
-                            </td>
-                        </tr>
-                        <tr class="hover:bg-slate-50">
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    04
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    Sumatera Barat
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    1
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    5
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    6
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    8
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    20
-                                </p>
-                            </td>
-                        </tr>
-                        <tr class="hover:bg-slate-50">
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    05
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    Bengkulu
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    1
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    5
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    6
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    8
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    20
-                                </p>
-                            </td>
-                        </tr>
-                        <tr class="hover:bg-slate-50">
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    06
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    Riau
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    1
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    5
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    6
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    8
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    20
-                                </p>
-                            </td>
-                        </tr>
-                        <tr class="hover:bg-slate-50">
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    07
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    Kepulauan Riau
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    1
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    5
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    6
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    8
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    20
-                                </p>
-                            </td>
-                        </tr>
-                        <tr class="hover:bg-slate-50">
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    08
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    Jambi
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    1
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    5
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    6
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    8
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    20
-                                </p>
-                            </td>
-                        </tr>
-                        <tr class="hover:bg-slate-50">
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    09
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    Lampung
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    1
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    5
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    6
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    8
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    20
-                                </p>
-                            </td>
-                        </tr>
-                        <tr class="hover:bg-slate-50">
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    10
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    Bangka Belitung
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    1
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    5
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    6
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    8
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-slate-200">
-                                <p class="block text-sm text-slate-800">
-                                    20
-                                </p>
-                            </td>
-                        </tr>
+                        <?php if (!empty($provinsiData)): ?>
+                            <?php $no = 1; ?>
+                            <?php foreach ($provinsiData as $data): ?>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-4 border-b border-slate-200"><?php echo $no++; ?></td>
+                                    <td class="p-4 border-b border-slate-200"><?php echo $data['provinsi']; ?></td>
+                                    <td class="p-4 border-b border-slate-200"><?php echo $data['perintis']; ?></td>
+                                    <td class="p-4 border-b border-slate-200"><?php echo $data['pengabdi']; ?></td>
+                                    <td class="p-4 border-b border-slate-200"><?php echo $data['penyelamat']; ?></td>
+                                    <td class="p-4 border-b border-slate-200"><?php echo $data['pembina']; ?></td>
+                                    <td class="p-4 border-b border-slate-200"><?php echo $data['total']; ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="7" class="p-4 text-center text-red-500">Data tidak tersedia</td>
+                            </tr>
+                        <?php endif; ?>
                     </tbody>
                 </table>
-                <div class="row flex lg:justify-end justify-center my-6 lg:mr-4">
-                    <button class="rounded-md rounded-r-none border border-r-0 border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-primary focus:border-primary active:border-primary active:text-white active:bg-primary disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
-                            <path fill-rule="evenodd" d="M11.03 3.97a.75.75 0 0 1 0 1.06l-6.22 6.22H21a.75.75 0 0 1 0 1.5H4.81l6.22 6.22a.75.75 0 1 1-1.06 1.06l-7.5-7.5a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd" />
-                        </svg>
-                    </button>
-                    <button class="rounded-md rounded-r-none rounded-l-none border border-r-0 border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-primary focus:border-primary active:border-primary active:text-white active:bg-primary disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                        1
-                    </button>
-                    <button class="rounded-md rounded-r-none rounded-l-none border border-r-0 border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-primary focus:border-primary active:border-primary active:text-white active:bg-primary disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                        2
-                    </button>
-                    <button class="rounded-md rounded-r-none rounded-l-none border border-r-0 border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-primary focus:border-primary active:border-primary active:text-white active:bg-primary disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                        3
-                    </button>
-                    <button class="rounded-md rounded-r-none rounded-l-none border border-r-0 border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-primary focus:border-primary active:border-primary active:text-white active:bg-primary disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                        4
-                    </button>
-                    <button class="rounded-md rounded-r-none rounded-l-none border border-r-0 border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-primary focus:border-primary active:border-primary active:text-white active:bg-primary disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                        5
-                    </button>
-                    <button class="rounded-md rounded-l-none border border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-primary focus:border-primary active:border-primary active:text-white active:bg-primary disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
-                            <path fill-rule="evenodd" d="M12.97 3.97a.75.75 0 0 1 1.06 0l7.5 7.5a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 1 1-1.06-1.06l6.22-6.22H3a.75.75 0 0 1 0-1.5h16.19l-6.22-6.22a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
-                        </svg>
-                    </button>
-                </div>
+
             </div>
 
         </div>

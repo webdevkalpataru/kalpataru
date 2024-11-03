@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use Config\Services;
 
-class KontakController extends BaseController
+class KontakControllerHosting extends BaseController
 {
     public function sendEmail()
     {

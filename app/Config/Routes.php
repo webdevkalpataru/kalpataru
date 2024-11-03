@@ -23,6 +23,9 @@ $routes->get('pencapaian', 'MainController::pencapaian');
 /* Protaru */
 $routes->get('protaru', 'MainController::protaru');
 
+$routes->get('datausulanprovinsi', 'StatistikController::datausulanprovinsi');
+$routes->get('profilpenerima', 'StatistikController::profilpenerima');
+
 /* Informasi */
 $routes->get('informasi/pengumuman', 'InformasiController::pengumuman');
 $routes->get('informasi/peraturan-kebijakan', 'InformasiController::peraturan');
@@ -37,6 +40,15 @@ $routes->get('publikasi/artikel', 'PublikasiController::artikel');
 $routes->get('artikel/(:any)', 'PublikasiController::detailartikel/$1');
 $routes->get('publikasi/video', 'PublikasiController::video');
 $routes->get('publikasi/buku', 'PublikasiController::buku');
+
+/* Auth Pengguna */
+$routes->get('/login', 'PenggunaController::loginpage');
+$routes->post('/login', 'PenggunaController::login');
+$routes->get('/register', 'PenggunaController::registerpage');
+$routes->post('/register', 'PenggunaController::register');
+$routes->get('/verify', 'PenggunaController::verifypage');
+$routes->post('/verify', 'PenggunaController::verify');
+
 
 /* Auth Penerima */
 $routes->get('auth/loginpenerima', 'AuthController::loginPenerima');
@@ -129,14 +141,12 @@ $routes->group('penerima', ['filter' => 'auth'], function ($routes) {
 $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('dashboard', 'AdminController::dashboard');
     $routes->get('datacalon', 'AdminController::datacalon');
+    $routes->get('exportexcel', 'AdminController::exportToExcel');
     $routes->post('updatestatuspendaftaran', 'AdminController::updateStatusPendaftaran');
     $routes->get('detaildatacalon/(:num)', 'AdminController::detailDataCalon/$1');
     $routes->get('preview/ktp/(:any)', 'PengusulController::showKTP/$1');
     $routes->get('preview/fotokegiatan/(:num)/(:any)', 'PengusulController::showFotoKegiatan/$1/$2');
     $routes->get('nominasi', 'AdminController::nominasi');
-    $routes->get('arsippenerima', 'AdminController::arsippenerima');
-    $routes->get('tambaharsippenerima', 'AdminController::tambaharsip');
-    $routes->get('arsipselengkapnya', 'AdminController::arsipselengkapnya');
     $routes->get('sidang1', 'AdminController::sidang1');
     $routes->get('sidang2', 'AdminController::sidang2');
     $routes->get('editpamflet/(:num)', 'AdminController::editpamflet/$1');
@@ -176,7 +186,13 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('pengusul/detail/(:any)', 'AdminController::detailPengusul/$1');
     $routes->get('download/suratpengantar/(:segment)', 'AdminController::downloadSuratPengantar/$1');
 
-
+    // Manajemen Arsip Penerima
+    $routes->get('arsippenerima', 'AdminController::arsippenerima');
+    $routes->post('arsip/hapus/(:num)', 'AdminController::hapusArsip/$1');
+    $routes->get('tambaharsippenerima', 'AdminController::tambaharsip');
+    $routes->post('tambaharsippenerima', 'AdminController::tambahArsipAction');
+    $routes->get('arsip/edit/(:any)', 'AdminController::editArsip/$1');
+    $routes->post('arsip/edit/(:any)', 'AdminController::editArsipAction/$1');
 
     // Manajemen Artikel
     $routes->get('artikel', 'AdminController::artikeladmin');
@@ -288,5 +304,9 @@ $routes->group('dppk', ['filter' => 'auth'], function ($routes) {
     $routes->get('bahansidang2', 'DppkController::bahansidang2');
 
     $routes->get('pdf/(:any)', 'DppkController::exportPDF/$1');
+});
 
+/* Pengguna */
+$routes->group('dashboard', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'PenggunaController::dashboard');
 });

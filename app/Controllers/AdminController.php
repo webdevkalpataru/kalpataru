@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\ArsipModel;
 use App\Models\ArtikelModel;
 use App\Models\BeritaModel;
 use App\Models\BukuModel;
@@ -16,6 +17,8 @@ use App\Models\PendaftaranModel;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use App\Models\PamfletModel;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 
 class AdminController extends BaseController
@@ -120,7 +123,7 @@ class AdminController extends BaseController
         $validation->setRules([
             'judul' => [
                 'label' => 'Judul',
-                'rules' => 'required|min_length[5]|max_length[125]|is_unique[artikel.judul]' // Judul harus unik dan panjang antara 5 dan 125 karakter
+                'rules' => 'required|min_length[5]|max_length[125]|is_unique[buku_kalpataru.judul]' // Judul harus unik dan panjang antara 5 dan 125 karakter
             ],
             'konten' => [
                 'label' => 'Konten',
@@ -131,7 +134,6 @@ class AdminController extends BaseController
                 'rules' => 'uploaded[foto]|is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/gif,image/png]|max_size[foto,1024]'
             ]
         ]);
-
 
         if (!$this->validate($validation->getRules())) {
             return $this->response->setJSON([
@@ -648,9 +650,345 @@ class AdminController extends BaseController
 
     public function arsippenerima()
     {
-        $data['title'] = "Arsip Penerima";
-        return view('admin/arsippenerima', ['title' => 'Arsip Penerima']);
+        $model = new ArsipModel();
+
+        // Ambil data dengan pagination, limit 5 per halaman
+        $perPage = 5;
+
+        $kategori = $this->request->getVar('kategori');
+
+        $keyword = $this->request->getGet('search');
+
+        $builder = $model->table('arsip_penerima');
+
+        if ($kategori) {
+            $builder->where('kategori', $kategori);
+        }
+
+        if ($keyword) {
+            $builder->like('nama', $keyword);
+        }
+
+        $totalFilter = $builder->countAllResults(false);
+
+        $arsip = $builder->paginate($perPage, 'arsip');
+
+        $data = [
+            'title' => 'Arsip Penerima',
+            'arsip' => $arsip,
+            'countAllArsip' => $totalFilter,
+            'pager' => $model->pager,
+            'keyword' => $keyword,
+            'kategori' => $kategori,
+        ];
+
+        return view('admin/arsippenerima', $data);
     }
+
+
+    public function tambaharsip()
+    {
+        $provinsi_list = [
+            'Aceh',
+            'Bali',
+            'Bangka Belitung',
+            'Banten',
+            'Bengkulu',
+            'DI Yogyakarta',
+            'DKI Jakarta',
+            'Gorontalo',
+            'Jambi',
+            'Jawa Barat',
+            'Jawa Tengah',
+            'Jawa Timur',
+            'Kalimantan Barat',
+            'Kalimantan Selatan',
+            'Kalimantan Tengah',
+            'Kalimantan Timur',
+            'Kalimantan Utara',
+            'Kepulauan Bangka Belitung',
+            'Kepulauan Riau',
+            'Lampung',
+            'Maluku',
+            'Maluku Utara',
+            'Nusa Tenggara Barat',
+            'Nusa Tenggara Timur',
+            'Papua',
+            'Papua Barat',
+            'Papua Barat Daya',
+            'Papua Pegunungan',
+            'Papua Selatan',
+            'Papua Tengah',
+            'Riau',
+            'Sulawesi Barat',
+            'Sulawesi Selatan',
+            'Sulawesi Tengah',
+            'Sulawesi Tenggara',
+            'Sulawesi Utara',
+            'Sumatera Barat',
+            'Sumatera Selatan',
+            'Sumatera Utara'
+        ];
+
+        $data = [
+            'title' => 'Arsip Penerima',
+            'provinsi_list' => $provinsi_list,
+        ];
+        return view('admin/tambaharsip', $data);
+    }
+
+    public function tambahArsipAction()
+    {
+        // Inisialisasi model penerima
+        $penerimaModel = new ArsipModel();
+
+        // Validasi input
+        $validation = \Config\Services::validation();
+        $validation->setRules([
+            'nama' => 'required',
+            'usia' => 'required|integer',
+            'jenis_kelamin' => 'required',
+            'telepon' => 'required|numeric',
+            'email' => 'required|valid_email',
+            'tahun_penerimaan' => 'required',
+            'provinsi' => 'required',
+            'kabupaten' => 'required',
+            'kecamatan' => 'required',
+            'desa' => 'required',
+            'profil' => 'required',
+            'nama_pengusul' => 'required',
+            'instansi_pengusul' => 'required',
+            'email_pengusul' => 'required|valid_email',
+            'jabatan_pengusul' => 'required',
+            'telepon_pengusul' => 'required|numeric',
+            'slogan' => 'required',
+            'kategori' => 'required',
+            'tema' => 'required',
+            'subtema' => 'required',
+            'bentuk_kegiatan' => 'required',
+            'link_dokumentasi' => 'required',
+            'status' => 'required',
+            'foto_profil' => 'uploaded[foto_profil]|mime_in[foto_profil,image/jpg,image/jpeg]|max_size[foto_profil,2048]'
+        ]);
+
+        if (!$this->validate($validation->getRules())) {
+            return $this->response->setJSON([
+                'success' => false,
+                'messages' => $validation->getErrors(),
+            ]);
+        }
+
+        // Proses upload foto
+        $foto = $this->request->getFile('foto_profil');
+        $fotoName = $foto->getRandomName();
+        $foto->move(ROOTPATH . 'public/images/penerima', $fotoName);
+
+        // Menyimpan data ke database
+        $data = [
+            'id_admin' => session()->get('id_admin'),
+            'nama' => $this->request->getPost('nama'),
+            'usia' => $this->request->getPost('usia'),
+            'jenis_kelamin' => $this->request->getPost('jenis_kelamin'),
+            'telepon' => $this->request->getPost('telepon'),
+            'email' => $this->request->getPost('email'),
+            'tahun_penerimaan' => $this->request->getPost('tahun_penerimaan'),
+            'provinsi' => $this->request->getPost('provinsi'),
+            'kabupaten' => $this->request->getPost('kabupaten'),
+            'kecamatan' => $this->request->getPost('kecamatan'),
+            'desa' => $this->request->getPost('desa'),
+            'profil' => $this->request->getPost('profil'),
+            'nama_pengusul' => $this->request->getPost('nama_pengusul'),
+            'instansi_pengusul' => $this->request->getPost('instansi_pengusul'),
+            'email_pengusul' => $this->request->getPost('email_pengusul'),
+            'jabatan_pengusul' => $this->request->getPost('jabatan_pengusul'),
+            'telepon_pengusul' => $this->request->getPost('telepon_pengusul'),
+            'slogan' => $this->request->getPost('slogan'),
+            'kategori' => $this->request->getPost('kategori'),
+            'tema' => $this->request->getPost('tema'),
+            'sub_tema' => $this->request->getPost('subtema'),
+            'link_dokumentasi' => $this->request->getPost('link_dokumentasi'),
+            'bentuk_kegiatan' => $this->request->getPost('bentuk_kegiatan'),
+            'status' => $this->request->getPost('status'),
+            'foto_profil' => $fotoName
+        ];
+
+        if ($penerimaModel->insert($data)) {
+            return $this->response->setJSON(['success' => true, 'message' => 'Aarsip berhasil ditambahkan.']);
+        } else {
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal menambahkan arsip.']);
+        }
+    }
+
+    public function hapusArsip($id)
+    {
+        $model = new ArsipModel();
+
+        if ($model->delete($id)) {
+            // Set flash message atau lakukan redirect setelah menghapus
+            session()->setFlashdata('success', 'Arsip berhasil dihapus.');
+        } else {
+            session()->setFlashdata('error', 'Gagal menghapus arsip.');
+        }
+
+        return redirect()->to('/admin/arsippenerima'); // Sesuaikan dengan URL yang diinginkan
+    }
+
+    public function editArsip($id)
+    {
+        $model = new ArsipModel();
+        $arsip = $model->find($id);
+
+        $provinsi_list = [
+            'Aceh',
+            'Bali',
+            'Bangka Belitung',
+            'Banten',
+            'Bengkulu',
+            'DI Yogyakarta',
+            'DKI Jakarta',
+            'Gorontalo',
+            'Jambi',
+            'Jawa Barat',
+            'Jawa Tengah',
+            'Jawa Timur',
+            'Kalimantan Barat',
+            'Kalimantan Selatan',
+            'Kalimantan Tengah',
+            'Kalimantan Timur',
+            'Kalimantan Utara',
+            'Kepulauan Bangka Belitung',
+            'Kepulauan Riau',
+            'Lampung',
+            'Maluku',
+            'Maluku Utara',
+            'Nusa Tenggara Barat',
+            'Nusa Tenggara Timur',
+            'Papua',
+            'Papua Barat',
+            'Papua Barat Daya',
+            'Papua Pegunungan',
+            'Papua Selatan',
+            'Papua Tengah',
+            'Riau',
+            'Sulawesi Barat',
+            'Sulawesi Selatan',
+            'Sulawesi Tengah',
+            'Sulawesi Tenggara',
+            'Sulawesi Utara',
+            'Sumatera Barat',
+            'Sumatera Selatan',
+            'Sumatera Utara'
+        ];
+
+        if (!$arsip) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        $id_admin = session()->get('id_admin');
+
+        if (!$id_admin) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        $data = [
+            'title' => 'Edit Arsip - ' . $arsip['nama'],
+            'arsip' => $arsip,
+            'provinsi_list' => $provinsi_list,
+        ];
+        return view('admin/editarsip', $data);
+    }
+
+    public function editArsipAction($id)
+    {
+        $model = new ArsipModel();
+
+        // Validasi input
+        $validation = \Config\Services::validation();
+        $validation->setRules([
+            'nama' => 'required',
+            'usia' => 'required|integer',
+            'jenis_kelamin' => 'required',
+            'telepon' => 'required|numeric',
+            'email' => 'required|valid_email',
+            'tahun_penerimaan' => 'required|valid_date',
+            'provinsi' => 'required',
+            'kabupaten' => 'required',
+            'kecamatan' => 'required',
+            'desa' => 'required',
+            'profil' => 'required',
+            'nama_pengusul' => 'required',
+            'instansi_pengusul' => 'required',
+            'email_pengusul' => 'required|valid_email',
+            'jabatan_pengusul' => 'required',
+            'telepon_pengusul' => 'required|numeric',
+            'slogan' => 'required',
+            'kategori' => 'required',
+            'tema' => 'required',
+            'subtema' => 'required',
+            'bentuk_kegiatan' => 'required',
+            'link_dokumentasi' => 'required',
+            'status' => 'required',
+            'foto_profil' => 'permit_empty|uploaded[foto_profil]|max_size[foto_profil,2048]|is_image[foto_profil]|mime_in[foto_profil,image/jpg,image/jpeg]'
+        ]);
+
+        if (!$validation->withRequest($this->request)->run()) {
+            return $this->response->setJSON([
+                'status' => 'error',
+                'errors' => $validation->getErrors(),
+            ]);
+        }
+
+        // Ambil data dari request
+        $data = [
+            'nama' => $this->request->getPost('nama'),
+            'usia' => $this->request->getPost('usia'),
+            'jenis_kelamin' => $this->request->getPost('jenis_kelamin'),
+            'telepon' => $this->request->getPost('telepon'),
+            'email' => $this->request->getPost('email'),
+            'tahun_penerimaan' => $this->request->getPost('tahun_penerimaan'),
+            'provinsi' => $this->request->getPost('provinsi'),
+            'kabupaten' => $this->request->getPost('kabupaten'),
+            'kecamatan' => $this->request->getPost('kecamatan'),
+            'desa' => $this->request->getPost('desa'),
+            'profil' => $this->request->getPost('profil'),
+            'nama_pengusul' => $this->request->getPost('nama_pengusul'),
+            'instansi_pengusul' => $this->request->getPost('instansi_pengusul'),
+            'email_pengusul' => $this->request->getPost('email_pengusul'),
+            'jabatan_pengusul' => $this->request->getPost('jabatan_pengusul'),
+            'telepon_pengusul' => $this->request->getPost('telepon_pengusul'),
+            'slogan' => $this->request->getPost('slogan'),
+            'kategori' => $this->request->getPost('kategori'),
+            'tema' => $this->request->getPost('tema'),
+            'sub_tema' => $this->request->getPost('subtema'),
+            'link_dokumentasi' => $this->request->getPost('link_dokumentasi'),
+            'bentuk_kegiatan' => $this->request->getPost('bentuk_kegiatan'),
+            'status' => $this->request->getPost('status')
+
+        ];
+
+        // Cek dan proses foto profil baru jika ada
+        $fotoProfil = $this->request->getFile('foto_profil');
+        if ($fotoProfil && $fotoProfil->isValid() && !$fotoProfil->hasMoved()) {
+            // Hapus foto lama jika ada
+            $arsip = $this->arsipModel->find($id);
+            if ($arsip && file_exists(ROOTPATH . 'public/images/penerima/' . $arsip['foto_profil'])) {
+                unlink(ROOTPATH . 'public/images/penerima/' . $arsip['foto_profil']);
+            }
+
+            // Simpan foto baru
+            $newName = $fotoProfil->getRandomName();
+            $fotoProfil->move(ROOTPATH . 'public/images/penerima', $newName);
+            $data['foto_profil'] = $newName;
+        }
+
+        // Update data arsip dalam database
+        if ($model->update($id, $data)) {
+            return $this->response->setJSON(['success' => true, 'message' => 'Aarsip berhasil ditambahkan.']);
+        } else {
+            return $this->response->setJSON(['success' => false, 'message' => 'Gagal menambahkan arsip.']);
+        }
+    }
+
 
     public function dataCalon()
     {
@@ -801,7 +1139,7 @@ class AdminController extends BaseController
         if (!$id_admin) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
-        
+
         $data = [
             'title' => 'Edit Pamflet',
             'pamflet' => $pamflet,
@@ -878,13 +1216,6 @@ class AdminController extends BaseController
         $data['title'] = "Nominasi";
         return view('admin/nominasi', ['title' => 'Nominasi']);
     }
-
-    public function tambaharsip()
-    {
-        $data['title'] = "Arsip Penerima";
-        return view('admin/tambaharsip', ['title' => 'Tambah Arsip Penerima']);
-    }
-
 
     public function akuntimteknis()
     {
@@ -1752,7 +2083,7 @@ class AdminController extends BaseController
             ],
             'file' => [
                 'label' => 'File',
-                'rules' => 'required|uploaded[file]|mime_in[file,application/pdf]'
+                'rules' => 'uploaded[file]|mime_in[file,application/pdf]'
             ]
         ]);
 
@@ -2498,30 +2829,30 @@ class AdminController extends BaseController
     public function exportPDF($kode_registrasi)
     {
         $id_admin = session()->get('id_admin');
-    
+
         if (!$id_admin) {
             return redirect()->back()->with('error', 'Anda tidak memiliki akses.');
         }
-    
+
         $pendaftaranModel = new PendaftaranModel();
         $pengusulModel = new PengusulModel();
-    
+
         $pendaftaranData = $pendaftaranModel->where('kode_registrasi', $kode_registrasi)->first();
-    
+
         if (!$pendaftaranData) {
             return redirect()->back()->with('error', 'Data tidak ditemukan.');
         }
-    
+
         $pengusulData = $pengusulModel->where('id_pengusul', $pendaftaranData['id_pengusul'])->first();
-    
+
         $kegiatan = $pendaftaranModel->getKegiatanByPendaftaranId($pendaftaranData['id_pendaftaran']);
         $pendaftaranData['kegiatan'] = $kegiatan;
-    
+
         $dampak = $pendaftaranModel->db->table('dampak')->where('id_pendaftaran', $pendaftaranData['id_pendaftaran'])->get()->getRowArray();
         $pmik = $pendaftaranModel->db->table('pmik')->where('id_pendaftaran', $pendaftaranData['id_pendaftaran'])->get()->getRowArray();
         $keswadayaan = $pendaftaranModel->db->table('keswadayaan')->where('id_pendaftaran', $pendaftaranData['id_pendaftaran'])->get()->getRowArray();
         $keistimewaan = $pendaftaranModel->db->table('keistimewaan')->where('id_pendaftaran', $pendaftaranData['id_pendaftaran'])->get()->getRowArray();
-    
+
         $data = [
             'pendaftaran' => $pendaftaranData,
             'pengusul' => $pengusulData,
@@ -2531,7 +2862,7 @@ class AdminController extends BaseController
             'keswadayaan' => $keswadayaan,
             'keistimewaan' => $keistimewaan
         ];
-    
+
         $kategori = $pendaftaranData['kategori'];
         switch ($kategori) {
             case 'Perintis Lingkungan':
@@ -2549,11 +2880,11 @@ class AdminController extends BaseController
             default:
                 $prefix = 'X';
         }
-    
+
         session()->set('prefix', $prefix);
-    
+
         $html = view('admin/pdf', $data);
-    
+
         $options = new Options();
         $options->set('isHtml5ParserEnabled', true);
         $options->set('isRemoteEnabled', true);
@@ -2563,14 +2894,125 @@ class AdminController extends BaseController
         $options->set('enable_php', false);
         $options->set('enable_javascript', true);
         $options->set('enable_html5_parser', true);
-    
+
         $dompdf = new Dompdf($options);
         $dompdf->loadHtml($html);
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
-    
+
         $namaFile = 'Formulir_' . esc($pendaftaranData['nama']) . '_' . esc($pendaftaranData['kategori']) . '.pdf';
-    
+
         $dompdf->stream($namaFile, ['Attachment' => true]);
+    }
+
+    public function exportToExcel()
+    {
+        $db = \Config\Database::connect();
+
+        $query = $db->query("
+        SELECT 
+            p.kategori, p.nama, p.nik, p.tempat_lahir, p.tanggal_lahir, p.usia, p.jenis_kelamin, p.jalan, 
+            p.rt_rw, p.desa, p.kecamatan, p.kab_kota, p.provinsi, p.kode_pos, p.pekerjaan, p.telepon, 
+            p.email, p.sosial_media, p.pendidikan, p.nama_kelompok, p.jumlah_anggota, p.tahun_pembentukan,
+            k.tema, k.sub_tema, k.bentuk_kegiatan, k.tahun_mulai, k.deskripsi_kegiatan, k.lokasi_kegiatan, 
+            k.koordinat, k.pihak_dan_peran, k.keberhasilan,
+            d.dampak_lingkungan, d.dampak_ekonomi, d.dampak_sosial_budaya,
+            pm.prakarsa, pm.motivasi, pm.inovasi, pm.kreativitas,
+            ks.sumber_biaya, ks.teknologi_kegiatan, ks.status_lahan_kegiatan, ks.jumlah_kelompok_serupa,
+            ke.keistimewaan, ke.penghargaan
+        FROM Pendaftaran p
+        LEFT JOIN Kegiatan k ON p.id_pendaftaran = k.id_pendaftaran
+        LEFT JOIN Dampak d ON p.id_pendaftaran = d.id_pendaftaran
+        LEFT JOIN PMIK pm ON p.id_pendaftaran = pm.id_pendaftaran
+        LEFT JOIN Keswadayaan ks ON p.id_pendaftaran = ks.id_pendaftaran
+        LEFT JOIN Keistimewaan ke ON p.id_pendaftaran = ke.id_pendaftaran
+    ");
+
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setTitle("Data Pendaftaran");
+
+        $data = $query->getResultArray();
+
+        // Header Kolom Kustom
+        $headers = [
+            'Kategori',
+            'Nama',
+            'NIK',
+            'Tempat Lahir',
+            'Tanggal Lahir',
+            'Usia',
+            'Jenis Kelamin',
+            'Alamat Jalan',
+            'RT/RW',
+            'Desa/Kelurahan',
+            'Kecamatan',
+            'Kabupaten/Kota',
+            'Provinsi',
+            'Kode Pos',
+            'Pekerjaan',
+            'Telepon',
+            'Email',
+            'Sosial Media',
+            'Pendidikan',
+            'Nama Kelompok',
+            'Jumlah Anggota',
+            'Tahun Pembentukan',
+            'Tema Kegiatan',
+            'Sub Tema',
+            'Bentuk Kegiatan',
+            'Tahun Mulai',
+            'Deskripsi Kegiatan',
+            'Lokasi Kegiatan',
+            'Koordinat Lokasi',
+            'Pihak dan Peran',
+            'Keberhasilan',
+            'Dampak Lingkungan',
+            'Dampak Ekonomi',
+            'Dampak Sosial Budaya',
+            'Prakarsa',
+            'Motivasi',
+            'Inovasi',
+            'Kreativitas',
+            'Sumber Biaya',
+            'Teknologi Kegiatan',
+            'Status Lahan Kegiatan',
+            'Jumlah Kelompok Serupa',
+            'Keistimewaan',
+            'Penghargaan'
+        ];
+
+        // Mengisi Header
+        $columnCount = count($headers); // Menghitung jumlah kolom
+        $columnLetter = 'A';
+        foreach ($headers as $header) {
+            $sheet->setCellValue($columnLetter . '1', $header);
+            $columnLetter++;
+        }
+
+        // Isi Data
+        $rowIndex = 2;
+        foreach ($data as $row) {
+            $columnLetter = 'A';
+            foreach ($row as $cellData) {
+                $sheet->setCellValue($columnLetter . $rowIndex, $cellData);
+                $columnLetter++;
+            }
+            $rowIndex++;
+        }
+
+        // Mengatur lebar kolom otomatis
+        for ($col = 0; $col < $columnCount; $col++) {
+            $sheet->getColumnDimensionByColumn($col + 1)->setAutoSize(true); // +1 karena setColumnDimensionByColumn menggunakan indeks 1
+        }
+
+        // Unduh file
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="Data_Pendaftaran_Ekspor.xlsx"');
+        header('Cache-Control: max-age=0');
+
+        $writer = new Xlsx($spreadsheet);
+        $writer->save('php://output');
+        exit;
     }
 }

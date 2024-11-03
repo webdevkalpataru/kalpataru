@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\ArsipModel;
 use App\Models\InformasiModel;
 use App\Models\PengumumanModel;
 use App\Models\PeraturanModel;
@@ -151,9 +152,13 @@ class InformasiController extends BaseController
         return view('peraturankebijakan', $data, ['title' => 'Peraturan dan Kebijakan']);
     }
 
-    public function datastatistik()
+    public function dataStatistik()
     {
+        $model = new ArsipModel();
+        $data['provinsiData'] = $model->dataProvinsi();
+        $data['kategoriData'] = $model->dataKategori();
         $data['title'] = 'Data dan Statistik';
-        return view('datastatistik', ['title' => 'Data dan Statistik']);
+
+        return view('datastatistik', $data);
     }
 }

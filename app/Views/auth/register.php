@@ -65,6 +65,7 @@
         .toasthidden {
             display: none;
         }
+
         /* Captcha styles */
         .captcha-box {
             display: flex;
@@ -80,8 +81,6 @@
             border-radius: 5px;
             letter-spacing: 3px;
         }
-
-        
     </style>
 </head>
 
@@ -168,7 +167,7 @@
                         <input id="surat_pengantar" type="file" accept="application/pdf" name="surat_pengantar"
                             class="border-2 border-gray-300 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
                     </div>
-                    
+
                     <!-- CAPTCHA Section -->
                     <label for="captcha" class="text-xs mb-2">Masukkan CAPTCHA</label>
                     <div class="captcha-box mb-4">
@@ -214,8 +213,8 @@
 
     <div id="toast" class="toast"></div>
     <script>
-         // CAPTCHA 
-         function generateCaptcha() {
+        // CAPTCHA 
+        function generateCaptcha() {
             const characters = '1234567890';
             let captcha = '';
             for (let i = 0; i < 4; i++) {
@@ -260,132 +259,132 @@
                 `<img src="/images/hide.svg" alt="hide" class="w-4 h-4 mb-4">`;
         });
 
-        
+
 
 
         // Form validation
-function validateForm(event) {
-    event.preventDefault();
+        function validateForm(event) {
+            event.preventDefault();
 
-    const jenis_instansi = document.getElementById('jenis_instansi').value;
-    const nama_instansi_pribadi = document.getElementById('nama_instansi_pribadi').value;
-    const provinsi = document.getElementById('provinsi').value;
-    const telepon = document.getElementById('telepon').value;
-    const email = document.getElementById('email').value;
-    const kata_sandi = document.getElementById('kata_sandi').value;
-    const passwordCheck = document.getElementById('passwordcheck').value;
-    const surat_pengantar = document.getElementById('surat_pengantar').files[0];
+            const jenis_instansi = document.getElementById('jenis_instansi').value;
+            const nama_instansi_pribadi = document.getElementById('nama_instansi_pribadi').value;
+            const provinsi = document.getElementById('provinsi').value;
+            const telepon = document.getElementById('telepon').value;
+            const email = document.getElementById('email').value;
+            const kata_sandi = document.getElementById('kata_sandi').value;
+            const passwordCheck = document.getElementById('passwordcheck').value;
+            const surat_pengantar = document.getElementById('surat_pengantar').files[0];
 
-    let isValid = true;
-    let passwordErrors = [];
+            let isValid = true;
+            let passwordErrors = [];
 
-    // Validasi Surat Pengantar
-    if (!surat_pengantar) {
-        showToast('Surat Pengantar belum diunggah. Silakan lengkapi');
-        isValid = false;
-    } else if (surat_pengantar.type !== 'application/pdf') {
-        showToast('Surat Pengantar harus berformat PDF.');
-        isValid = false;
-    } else if (surat_pengantar.size > 1048576) {
-        showToast('Ukuran file Surat Pengantar maksimal 1 MB.');
-        isValid = false;
-    }
+            // Validasi Surat Pengantar
+            if (!surat_pengantar) {
+                showToast('Surat Pengantar belum diunggah. Silakan lengkapi');
+                isValid = false;
+            } else if (surat_pengantar.type !== 'application/pdf') {
+                showToast('Surat Pengantar harus berformat PDF.');
+                isValid = false;
+            } else if (surat_pengantar.size > 1048576) {
+                showToast('Ukuran file Surat Pengantar maksimal 1 MB.');
+                isValid = false;
+            }
 
-    // Check for length
-    if (kata_sandi.length < 8) {
-        passwordErrors.push('Kata sandi harus minimal 8 karakter.');
-    }
+            // Check for length
+            if (kata_sandi.length < 8) {
+                passwordErrors.push('Kata sandi harus minimal 8 karakter.');
+            }
 
-    // Check for lowercase letters
-    if (!/[a-z]/.test(kata_sandi)) {
-        passwordErrors.push('Kata sandi harus mengandung setidaknya satu huruf kecil.');
-    }
+            // Check for lowercase letters
+            if (!/[a-z]/.test(kata_sandi)) {
+                passwordErrors.push('Kata sandi harus mengandung setidaknya satu huruf kecil.');
+            }
 
-    // Check for uppercase letters
-    if (!/[A-Z]/.test(kata_sandi)) {
-        passwordErrors.push('Kata sandi harus mengandung setidaknya satu huruf besar.');
-    }
+            // Check for uppercase letters
+            if (!/[A-Z]/.test(kata_sandi)) {
+                passwordErrors.push('Kata sandi harus mengandung setidaknya satu huruf besar.');
+            }
 
-    // Check for special characters
-    const specialCharacters = /[!@#$%^&*_-]/;
-    if (!specialCharacters.test(kata_sandi)) {
-        passwordErrors.push('Kata sandi harus mengandung setidaknya satu simbol (!@#$%^&*_-).');
-    }
+            // Check for special characters
+            const specialCharacters = /[!@#$%^&*_-]/;
+            if (!specialCharacters.test(kata_sandi)) {
+                passwordErrors.push('Kata sandi harus mengandung setidaknya satu simbol (!@#$%^&*_-).');
+            }
 
-    // Display password errors if any
-    if (passwordErrors.length > 0) {
-        passwordError.innerHTML = passwordErrors.join('<br>'); // Show all error messages
-        passwordInput.classList.add('error');
-        passwordError.style.display = 'block';
-        isValid = false;
-    } else {
-        passwordInput.classList.remove('error');
-        passwordError.style.display = 'none';
-    }
+            // Display password errors if any
+            if (passwordErrors.length > 0) {
+                passwordError.innerHTML = passwordErrors.join('<br>'); // Show all error messages
+                passwordInput.classList.add('error');
+                passwordError.style.display = 'block';
+                isValid = false;
+            } else {
+                passwordInput.classList.remove('error');
+                passwordError.style.display = 'none';
+            }
 
-    // Validate CAPTCHA
-    const captchaInput = document.getElementById('captchaInput').value;
-    const captchaText = document.getElementById('captchaText').textContent;
+            // Validate CAPTCHA
+            const captchaInput = document.getElementById('captchaInput').value;
+            const captchaText = document.getElementById('captchaText').textContent;
 
-    if (captchaInput !== captchaText) {
-        showToast('CAPTCHA tidak cocok. Silakan coba lagi.');
-        isValid = false; // Prevent form submission
-    }
+            if (captchaInput !== captchaText) {
+                showToast('CAPTCHA tidak cocok. Silakan coba lagi.');
+                isValid = false; // Prevent form submission
+            }
 
-    // Validasi Konfirmasi Kata Sandi
-    if (kata_sandi !== passwordCheck) {
-        passwordCheckInput.classList.add('error');
-        passwordCheckError.style.display = 'block';
-        isValid = false;
-    } else {
-        passwordCheckInput.classList.remove('error');
-        passwordCheckError.style.display = 'none';
-    }
+            // Validasi Konfirmasi Kata Sandi
+            if (kata_sandi !== passwordCheck) {
+                passwordCheckInput.classList.add('error');
+                passwordCheckError.style.display = 'block';
+                isValid = false;
+            } else {
+                passwordCheckInput.classList.remove('error');
+                passwordCheckError.style.display = 'none';
+            }
 
-    // Validasi input lain
-    if (jenis_instansi === '') {
-        showToast('Jenis Instansi belum terisi. Silakan lengkapi');
-        isValid = false;
-    } else if (nama_instansi_pribadi === '') {
-        showToast('Nama Instansi/Nama Pribadi belum terisi. Silakan lengkapi');
-        isValid = false;
-    } else if (provinsi === '') {
-        showToast('Provinsi belum terisi. Silakan lengkapi');
-        isValid = false;
-    } else if (telepon === '') {
-        showToast('Nomor Telepon belum terisi. Silakan lengkapi');
-        isValid = false;
-    } else if (email === '') {
-        showToast('Email belum terisi. Silakan lengkapi');
-        isValid = false;
-    }
+            // Validasi input lain
+            if (jenis_instansi === '') {
+                showToast('Jenis Instansi belum terisi. Silakan lengkapi');
+                isValid = false;
+            } else if (nama_instansi_pribadi === '') {
+                showToast('Nama Instansi/Nama Pribadi belum terisi. Silakan lengkapi');
+                isValid = false;
+            } else if (provinsi === '') {
+                showToast('Provinsi belum terisi. Silakan lengkapi');
+                isValid = false;
+            } else if (telepon === '') {
+                showToast('Nomor Telepon belum terisi. Silakan lengkapi');
+                isValid = false;
+            } else if (email === '') {
+                showToast('Email belum terisi. Silakan lengkapi');
+                isValid = false;
+            }
 
-    if (isValid) {
-        const form = event.target;
-        const formData = new FormData(form);
+            if (isValid) {
+                const form = event.target;
+                const formData = new FormData(form);
 
-        fetch(form.action, {
-                method: form.method,
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    document.getElementById('successPopup').classList.remove('toasthidden');
-                } else {
-                    let errorMessage = '';
-                    for (const [key, value] of Object.entries(data.errors)) {
-                        errorMessage += `${value}\n`; // Menggabungkan pesan kesalahan
-                    }
-                    alert(errorMessage); // Menampilkan semua kesalahan
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Terjadi kesalahan. Silakan coba lagi.');
-            });
-    }
-}
+                fetch(form.action, {
+                        method: form.method,
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            document.getElementById('successPopup').classList.remove('toasthidden');
+                        } else {
+                            let errorMessage = '';
+                            for (const [key, value] of Object.entries(data.errors)) {
+                                errorMessage += `${value}\n`; // Menggabungkan pesan kesalahan
+                            }
+                            alert(errorMessage); // Menampilkan semua kesalahan
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Terjadi kesalahan. Silakan coba lagi.');
+                    });
+            }
+        }
 
         // Realtime validation for password
         passwordInput.addEventListener('input', () => {
@@ -445,8 +444,6 @@ function validateForm(event) {
             const successPopup = document.getElementById('successPopup');
             successPopup.classList.remove('toasthidden');
         }
-
-        
     </script>
 </body>
 
