@@ -156,6 +156,7 @@ class InformasiController extends BaseController
     {
         $model = new ArsipModel();
         $data['provinsiData'] = $model->dataProvinsi();
+        $data['kategoriData'] = $model->dataKategori();
         $data['title'] = 'Data dan Statistik';
 
         return view('datastatistik', $data);

@@ -57,4 +57,14 @@ class ArsipModel extends Model
     ");
         return $query->getResultArray();
     }
+
+    public function dataKategori()
+    {
+        return $this->select("SUM(CASE WHEN kategori = 'Perintis Lingkungan' THEN 1 ELSE 0 END) AS total_perintis")
+            ->select("SUM(CASE WHEN kategori = 'Pengabdi Lingkungan' THEN 1 ELSE 0 END) AS total_pengabdi")
+            ->select("SUM(CASE WHEN kategori = 'Penyelamat Lingkungan' THEN 1 ELSE 0 END) AS total_penyelamat")
+            ->select("SUM(CASE WHEN kategori = 'Pembina Lingkungan' THEN 1 ELSE 0 END) AS total_pembina")
+            ->get()
+            ->getRow();
+    }
 }

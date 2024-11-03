@@ -39,7 +39,8 @@
                     <div class="p-4">
                         <h2 class="text-xs font-semibold">Kalpataru</h2>
                         <div class="text-start text-xs flex justify-start items-center">
-                            <p class="text-lg text-primary mr-4">117</p>
+                            <p class="text-lg text-primary mr-4"><?= $kategoriData->total_perintis; ?></p>
+                            </p>
                             <img src="/images/trophy.png" alt="trophy" class="w-10 h-10">
                         </div>
                         <p class="text-xs font-normal text-gray-600 text-start">Perintis Lingkungan</p>
@@ -50,7 +51,7 @@
                     <div class="p-4">
                         <h2 class="text-xs font-semibold">Kalpataru</h2>
                         <div class="text-start text-xs flex justify-start items-center">
-                            <p class="text-lg text-primary mr-4">83</p>
+                            <p class="text-lg text-primary mr-4"><?= $kategoriData->total_pengabdi; ?></p>
                             <img src="/images/trophy.png" alt="trophy" class="w-10 h-10">
                         </div>
                         <p class="text-xs font-normal text-gray-600 text-start">Pengabdi Lingkungan</p>
@@ -61,7 +62,7 @@
                     <div class="p-4">
                         <h2 class="text-xs font-semibold">Kalpataru</h2>
                         <div class="text-start text-xs flex justify-start items-center">
-                            <p class="text-lg text-primary mr-4">66</p>
+                            <p class="text-lg text-primary mr-4"><?= $kategoriData->total_penyelamat; ?></p>
                             <img src="/images/trophy.png" alt="trophy" class="w-10 h-10">
                         </div>
                         <p class="text-xs font-normal text-gray-600 text-start">Penyelamat Lingkungan</p>
@@ -72,7 +73,7 @@
                     <div class="p-4">
                         <h2 class="text-xs font-semibold">Kalpataru</h2>
                         <div class="text-start text-xs flex justify-start items-center">
-                            <p class="text-lg text-primary mr-4">162</p>
+                            <p class="text-lg text-primary mr-4"><?= $kategoriData->total_pembina; ?></p>
                             <img src="/images/trophy.png" alt="trophy" class="w-10 h-10">
                         </div>
                         <p class="text-xs font-normal text-gray-600 text-start">Pembina Lingkungan</p>
