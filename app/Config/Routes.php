@@ -6,7 +6,7 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 /* Public */
-$routes->get('/', 'Home::index');
+$routes->get('/', 'Home::index', ['filter' => 'visitorcounter']);
 $routes->get('/beranda', 'MainController::beranda');
 $routes->get('profil', 'MainController::profil');
 $routes->get('kategori', 'MainController::kategori');

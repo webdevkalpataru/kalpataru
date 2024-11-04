@@ -619,7 +619,7 @@
 
     <section class="bg-primary">
         <div id="mainContent" class="container mx-auto px-4 py-6">
-            <div class="flex flex-col md:flex-row space-y-8 md:space-y-0 md:space-x-8 items-stretch">
+            <div class="flex flex-col md:flex-row space-y-8 md:space-y-0 md:space-x-8 justify-center">
                 <!-- Media Sosial Section (1/3 width) -->
                 <div id="bagianmediasosial" class="w-full md:w-1/3 flex flex-col">
                     <div class="bg-white p-6 shadow-lg rounded-lg flex-grow">
@@ -627,7 +627,7 @@
                         <div class="social-tabs">
                             <!-- Tabs Navigation -->
                             <nav class="flex space-x-4 justify-center mb-4">
-                                <button class="flex-1 py-2 px-4 bg-gray-200 rounded-t-lg font-semibold focus:outline-none"
+                                <button class="flex-1 py-2 px-2 bg-gray-200 rounded-t-lg font-semibold focus:outline-none"
                                     id="socialTabLink1" data-target="#socialTab1">
                                     <span class="inline-block text-primary">Facebook</span>
                                     <span class="inline-block"><i class="fab fa-facebook"></i></span>
@@ -678,25 +678,49 @@
                     </div>
                 </div>
 
-                <!-- Kalender Section (2/3 width) -->
-                <div id="bagiankalender" class="w-full md:w-2/3 flex flex-col">
-                    <div class="bg-white p-6 shadow-lg rounded-lg flex-grow">
-                        <h1 class="text-3xl font-semibold text-center text-gray-800 mb-4">Kalender</h1>
-                        <div class="flex justify-center my-4">
-                            <div id="calendar" class="w-full sm:w-3/4 text-sm"></div>
-                        </div>
-                        <div class="flex flex-col sm:flex-row justify-center my-4">
-                            <div class="flex items-center mr-8 mb-2 sm:mb-0">
-                                <div class="w-4 h-4 bg-blue-600 rounded-full mr-2"></div>
-                                <span class="text-gray-700">Hari Nasional</span>
+                <div class="flex flex-col space-y-8">
+                    <!-- Kalender Section -->
+                    <div id="bagiankalender" class="flex flex-col">
+                        <div class="bg-white p-6 shadow-lg rounded-lg flex-grow">
+                            <h1 class="text-3xl font-semibold text-center text-gray-800 mb-4">Kalender</h1>
+                            <div class="flex justify-center my-4">
+                                <div id="calendar" class="w-full h-[480px] text-sm"></div>
                             </div>
-                            <div class="flex items-center">
-                                <div class="w-4 h-4 bg-green-600 rounded-full mr-2"></div>
-                                <span class="text-gray-700">Hari Lingkungan</span>
+                            <div class="flex flex-col sm:flex-row justify-center">
+                                <div class="flex items-center mr-8 ">
+                                    <div class="w-4 h-4 bg-blue-600 rounded-full mr-2"></div>
+                                    <span class="text-gray-700">Hari Nasional</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-4 h-4 bg-green-600 rounded-full mr-2"></div>
+                                    <span class="text-gray-700">Hari Lingkungan</span>
+                                </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Jumlah Pengunjung (1 baris, 3 kolom) -->
+                    <div id="jumlahPengunjungWrapper" class="overflow-auto">
+                        <div id="jumlahPengunjung" class="flex flex-row justify-between space-x-4 flex-nowrap">
+                            <div class="bg-white text-primary p-4 rounded-md flex-1 min-w-[250px] mb-2">
+                                <h1 class="text-sm font-bold">Jumlah Pengunjung Hari Ini</h1>
+                                <p class="text-2xl"><?= $visitorCountToday ?></p>
+                            </div>
+
+                            <div class="bg-white text-primary p-4 rounded-md flex-1 min-w-[250px] mb-2">
+                                <h1 class="text-sm font-bold">Jumlah Pengunjung Minggu Ini</h1>
+                                <p class="text-2xl"><?= $visitorCountWeekly ?></p>
+                            </div>
+
+                            <div class="bg-white text-primary p-4 rounded-md flex-1 min-w-[250px] mb-2">
+                                <h1 class="text-sm font-bold">Jumlah Pengunjung Bulan Ini</h1>
+                                <p class="text-2xl"><?= $visitorCountMonthly ?></p>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
+
             </div>
         </div>
     </section>
