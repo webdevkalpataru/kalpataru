@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/app.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <title><?= $title; ?></title>
     <meta name="description" content="Website resmi Kalpataru, penghargaan bagi pelestari lingkungan di Indonesia. Temukan informasi, berita, dan program pelestarian alam terbaru.">
     <style>
@@ -406,5 +407,134 @@
         };
     </script>
 </body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    var urlProvinsi = "/provinsi/provinsi.json";
+    var urlKabupaten = "/kabupaten_kota/";
+    var urlKecamatan = "/kecamatan/";
+    var urlKelurahan = "/kelurahan_desa/";
+
+
+    // Muat data provinsi pada saat halaman dimuat
+    window.onload = function() {
+        loadProvinsi();
+    };
+
+    // Memuat data Provinsi dari /public/provinsi/provinsi.json
+    function loadProvinsi() {
+        fetch('/provinsi/provinsi.json')
+            .then(response => response.json())
+            .then(data => {
+                const provinsiSelect = document.getElementById('provinsi');
+                provinsiSelect.innerHTML = '<option value="">Pilih Provinsi</option>';
+                for (const [kode, nama] of Object.entries(data)) {
+                    provinsiSelect.innerHTML += `<option value="${kode}">${nama}</option>`;
+                }
+            })
+            .catch(error => console.error('Gagal memuat data provinsi:', error));
+    }
+
+    // Memuat data Kabupaten/Kota berdasarkan kode provinsi yang dipilih
+    function loadKabupaten() {
+        const kodeProvinsi = document.getElementById('provinsi').value;
+        const kabupatenSelect = document.getElementById('kabupaten');
+        kabupatenSelect.innerHTML = '<option value="">Pilih Kabupaten/Kota</option>';
+        document.getElementById('kecamatan').innerHTML = '<option value="">Pilih Kecamatan</option>';
+        document.getElementById('kelurahan').innerHTML = '<option value="">Pilih Kelurahan/Desa</option>';
+        document.getElementById('kecamatan').disabled = true;
+        document.getElementById('kelurahan').disabled = true;
+
+        if (kodeProvinsi) {
+            fetch(`/kabupaten_kota/kab-${kodeProvinsi}.json`)
+                .then(response => response.json())
+                .then(data => {
+                    for (const [kode, nama] of Object.entries(data)) {
+                        kabupatenSelect.innerHTML += `<option value="${kode}">${nama}</option>`;
+                    }
+                    kabupatenSelect.disabled = false;
+                })
+                .catch(error => console.error('Gagal memuat data kabupaten:', error));
+        } else {
+            kabupatenSelect.disabled = true;
+        }
+    }
+
+    // Memuat data Kecamatan berdasarkan kode provinsi dan kabupaten yang dipilih
+    function loadKecamatan() {
+        const kodeProvinsi = document.getElementById('provinsi').value;
+        const kodeKabupaten = document.getElementById('kabupaten').value;
+        const kecamatanSelect = document.getElementById('kecamatan');
+        kecamatanSelect.innerHTML = '<option value="">Pilih Kecamatan</option>';
+        document.getElementById('kelurahan').innerHTML = '<option value="">Pilih Kelurahan/Desa</option>';
+        document.getElementById('kelurahan').disabled = true;
+
+        if (kodeProvinsi && kodeKabupaten) {
+            fetch(`/kecamatan/kec-${kodeProvinsi}-${kodeKabupaten}.json`)
+                .then(response => response.json())
+                .then(data => {
+                    for (const [kode, nama] of Object.entries(data)) {
+                        kecamatanSelect.innerHTML += `<option value="${kode}">${nama}</option>`;
+                    }
+                    kecamatanSelect.disabled = false;
+                })
+                .catch(error => console.error('Gagal memuat data kecamatan:', error));
+        } else {
+            kecamatanSelect.disabled = true;
+        }
+    }
+
+    // Memuat data Kelurahan/Desa berdasarkan kode provinsi, kabupaten, dan kecamatan yang dipilih
+    function loadKelurahan() {
+        const kodeProvinsi = document.getElementById('provinsi').value;
+        const kodeKabupaten = document.getElementById('kabupaten').value;
+        const kodeKecamatan = document.getElementById('kecamatan').value;
+        const kelurahanSelect = document.getElementById('kelurahan');
+        kelurahanSelect.innerHTML = '<option value="">Pilih Kelurahan/Desa</option>';
+
+        if (kodeProvinsi && kodeKabupaten && kodeKecamatan) {
+            fetch(`/kelurahan_desa/keldesa-${kodeProvinsi}-${kodeKabupaten}-${kodeKecamatan}.json`)
+                .then(response => response.json())
+                .then(data => {
+                    for (const [kode, nama] of Object.entries(data)) {
+                        kelurahanSelect.innerHTML += `<option value="${kode}">${nama}</option>`;
+                    }
+                    kelurahanSelect.disabled = false;
+                })
+                .catch(error => console.error('Gagal memuat data kelurahan:', error));
+        } else {
+            kelurahanSelect.disabled = true;
+        }
+    }
+
+    // Fungsi untuk mengisi nama provinsi ke dalam hidden input
+    function setNamaProvinsi() {
+        const provinsiSelect = document.getElementById("provinsi");
+        const namaProvinsi = provinsiSelect.options[provinsiSelect.selectedIndex].text;
+        document.getElementById("nama_provinsi").value = namaProvinsi;
+    }
+
+    // Fungsi untuk mengisi nama kabupaten ke dalam hidden input
+    function setNamaKabupaten() {
+        const kabupatenSelect = document.getElementById("kabupaten");
+        const namaKabupaten = kabupatenSelect.options[kabupatenSelect.selectedIndex].text;
+        document.getElementById("nama_kabupaten").value = namaKabupaten;
+    }
+
+    // Fungsi untuk mengisi nama kecamatan ke dalam hidden input
+    function setNamaKecamatan() {
+        const kecamatanSelect = document.getElementById("kecamatan");
+        const namaKecamatan = kecamatanSelect.options[kecamatanSelect.selectedIndex].text;
+        document.getElementById("nama_kecamatan").value = namaKecamatan;
+    }
+
+    // Fungsi untuk mengisi nama kelurahan ke dalam hidden input
+    function setNamaKelurahan() {
+        const kelurahanSelect = document.getElementById("kelurahan");
+        const namaKelurahan = kelurahanSelect.options[kelurahanSelect.selectedIndex].text;
+        document.getElementById("nama_kelurahan").value = namaKelurahan;
+    }
+</script>
 
 </html>

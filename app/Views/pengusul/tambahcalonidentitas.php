@@ -63,42 +63,7 @@
                                     <p class="text-red-500 text-sm mt-2"><?= session('errors.rt_rw') ?></p>
                                 <?php endif; ?>
                             </div>
-                            <div>
-                                <label class="block mb-2 text-sm text-black">Desa/Kelurahan</label>
-                                <input type="text" name="desa" value="<?= old('desa') ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-                                <?php if (session('errors.desa')): ?>
-                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.desa') ?></p>
-                                <?php endif; ?>
-                            </div>
-                            <div>
-                                <label class="block mb-2 text-sm text-black">Kecamatan</label>
-                                <input type="text" name="kecamatan" value="<?= old('kecamatan') ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-                                <?php if (session('errors.kecamatan')): ?>
-                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.kecamatan') ?></p>
-                                <?php endif; ?>
-                            </div>
-                            <div>
-                                <label class="block mb-2 text-sm text-black">Kab/Kota</label>
-                                <input type="text" name="kab_kota" value="<?= old('kab_kota') ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-                                <?php if (session('errors.kab_kota')): ?>
-                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.kab_kota') ?></p>
-                                <?php endif; ?>
-                            </div>
-                            <div>
-                                <label class="block mb-2 text-sm text-black">Provinsi</label>
-                                <select id="provinsi" name="provinsi"
-                                    class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow">
-                                    <option value="" disabled <?= old('provinsi') ? '' : 'selected' ?>>Pilih Provinsi</option>
-                                    <?php foreach ($provinsi_list as $provinsi) { ?>
-                                        <option value="<?php echo $provinsi; ?>" <?= old('provinsi') == $provinsi ? 'selected' : '' ?>>
-                                            <?php echo $provinsi; ?>
-                                        </option>
-                                    <?php } ?>
-                                </select>
-                                <?php if (session('errors.provinsi')): ?>
-                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.provinsi') ?></p>
-                                <?php endif; ?>
-                            </div>
+
                             <div>
                                 <label class="block mb-2 text-sm text-black">Kode Pos</label>
                                 <input type="text" name="kode_pos" value="<?= old('kode_pos') ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
@@ -336,39 +301,47 @@
                                 <?php endif; ?>
                             </div>
                             <div>
-                                <label class="block mb-2 text-sm text-black">Desa/Kelurahan</label>
-                                <input type="text" name="desa" value="<?= old('desa') ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-                                <?php if (session('errors.desa')): ?>
-                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.desa') ?></p>
-                                <?php endif; ?>
-                            </div>
-                            <div>
-                                <label class="block mb-2 text-sm text-black">Kecamatan</label>
-                                <input type="text" name="kecamatan" value="<?= old('kecamatan') ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-                                <?php if (session('errors.kecamatan')): ?>
-                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.kecamatan') ?></p>
+                                <label class="block mb-2 text-sm text-black">Provinsi</label>
+                                <select class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow"
+                                    id="provinsi" onchange="loadKabupaten(); setNamaProvinsi()" name="provinsi">
+                                    <option value="">Pilih Provinsi</option>
+                                </select>
+                                <input type="hidden" id="nama_provinsi" name="nama_provinsi">
+                                <?php if (session('errors.provinsi')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.provinsi') ?></p>
                                 <?php endif; ?>
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Kab/Kota</label>
-                                <input type="text" name="kab_kota" value="<?= old('kab_kota') ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <select class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow"
+                                    id="kabupaten" onchange="loadKecamatan(); setNamaKabupaten()" disabled name="kab_kota">
+                                    <option value="">Pilih Kabupaten/Kota</option>
+                                </select>
+                                <input type="hidden" id="nama_kabupaten" name="nama_kabupaten">
                                 <?php if (session('errors.kab_kota')): ?>
                                     <p class="text-red-500 text-sm mt-2"><?= session('errors.kab_kota') ?></p>
                                 <?php endif; ?>
                             </div>
                             <div>
-                                <label class="block mb-2 text-sm text-black">Provinsi</label>
-                                <select id="provinsi" name="provinsi"
-                                    class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow">
-                                    <option value="" disabled <?= old('provinsi') ? '' : 'selected' ?>>Pilih Provinsi</option>
-                                    <?php foreach ($provinsi_list as $provinsi) { ?>
-                                        <option value="<?php echo $provinsi; ?>" <?= old('provinsi') == $provinsi ? 'selected' : '' ?>>
-                                            <?php echo $provinsi; ?>
-                                        </option>
-                                    <?php } ?>
+                                <label class="block mb-2 text-sm text-black">Kecamatan</label>
+                                <select class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow"
+                                    id="kecamatan" onchange="loadKelurahan(); setNamaKecamatan()" disabled name="kecamatan">
+                                    <option value="">Pilih Kecamatan</option>
                                 </select>
-                                <?php if (session('errors.provinsi')): ?>
-                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.provinsi') ?></p>
+                                <input type="hidden" id="nama_kecamatan" name="nama_kecamatan">
+                                <?php if (session('errors.kecamatan')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.kecamatan') ?></p>
+                                <?php endif; ?>
+                            </div>
+                            <div>
+                                <label class="block mb-2 text-sm text-black">Kelurahan/Desa</label>
+                                <select class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow"
+                                    id="kelurahan" onchange="setNamaKelurahan()" disabled name="desa">
+                                    <option value="">Pilih Kelurahan/Desa</option>
+                                </select>
+                                <input type="hidden" id="nama_kelurahan" name="nama_kelurahan">
+                                <?php if (session('errors.desa')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.desa') ?></p>
                                 <?php endif; ?>
                             </div>
                             <div>

@@ -647,7 +647,6 @@
                 </div>
 
 
-
                 <!-- Right side: Form inside a card -->
                 <div id="pmik" class="form-section hidden flex flex-col w-full md:w-3/4 rounded-lg border-2 border-gray-300 bg-white shadow-lg p-6">
                     <form id="pmikForm" action="<?= base_url('pengusul/simpanForm/pmik'); ?>" class="mb-2 w-full" method="post" enctype="multipart/form-data">
@@ -656,32 +655,28 @@
                             <input type="hidden" name="id_pendaftaran" value="<?= $pendaftaran['id_pendaftaran'] ?>">
                             <div>
                                 <label class="block mb-2 text-sm text-black">Prakarsa</label>
-                                <textarea name="prakarsa" id="prakarsa" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                    oninput="updateWordCount(this, 'prakarsaCount', 1000)"><?= isset($pmik['prakarsa']) ? htmlspecialchars($pmik['prakarsa']) : '' ?></textarea>
+                                <textarea name="prakarsa" id="prakarsa" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"><?= isset($pmik['prakarsa']) ? htmlspecialchars($pmik['prakarsa']) : '' ?></textarea>
                                 <p id="prakarsaCount" class="text-xs text-slate-400 flex justify-end">
                                     <?= (isset($pmik['prakarsa']) && strlen(trim($pmik['prakarsa'])) > 0) ? str_word_count($pmik['prakarsa']) : 0 ?>/1000 Kata
                                 </p>
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Motivasi</label>
-                                <textarea name="motivasi" id="motivasi" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                    oninput="updateWordCount(this, 'motivasiCount', 1000)"><?= isset($pmik['motivasi']) ? htmlspecialchars($pmik['motivasi']) : '' ?></textarea>
+                                <textarea name="motivasi" id="motivasi" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"><?= isset($pmik['motivasi']) ? htmlspecialchars($pmik['motivasi']) : '' ?></textarea>
                                 <p id="motivasiCount" class="text-xs text-slate-400 flex justify-end">
                                     <?= (isset($pmik['motivasi']) && strlen(trim($pmik['motivasi'])) > 0) ? str_word_count($pmik['motivasi']) : 0 ?>/1000 Kata
                                 </p>
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Inovasi</label>
-                                <textarea name="inovasi" id="inovasi" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                    oninput="updateWordCount(this, 'inovasiCount', 1000)"><?= isset($pmik['inovasi']) ? htmlspecialchars($pmik['inovasi']) : '' ?></textarea>
+                                <textarea name="inovasi" id="inovasi" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"><?= isset($pmik['inovasi']) ? htmlspecialchars($pmik['inovasi']) : '' ?></textarea>
                                 <p id="inovasiCount" class="text-xs text-slate-400 flex justify-end">
                                     <?= (isset($pmik['inovasi']) && strlen(trim($pmik['inovasi'])) > 0) ? str_word_count($pmik['inovasi']) : 0 ?>/1000 Kata
                                 </p>
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Kreativitas</label>
-                                <textarea name="kreativitas" id="kreativitas" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                    oninput="updateWordCount(this, 'kreativitasCount', 1000)"><?= isset($pmik['kreativitas']) ? htmlspecialchars($pmik['kreativitas']) : '' ?></textarea>
+                                <textarea name="kreativitas" id="kreativitas" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"><?= isset($pmik['kreativitas']) ? htmlspecialchars($pmik['kreativitas']) : '' ?></textarea>
                                 <p id="kreativitasCount" class="text-xs text-slate-400 flex justify-end">
                                     <?= (isset($pmik['kreativitas']) && strlen(trim($pmik['kreativitas'])) > 0) ? str_word_count($pmik['kreativitas']) : 0 ?>/1000 Kata
                                 </p>
@@ -702,24 +697,21 @@
                             <input type="hidden" name="id_pendaftaran" value="<?= $pendaftaran['id_pendaftaran'] ?>">
                             <div>
                                 <label class="block mb-2 text-sm text-black">Sumber Pembiayaan Kegiatan</label>
-                                <textarea name="sumber_biaya" id="sumber" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                    oninput="updateWordCount(this, 'sumberCount', 1000)"><?= isset($keswadayaan['sumber_biaya']) ? htmlspecialchars($keswadayaan['sumber_biaya']) : '' ?></textarea>
+                                <textarea name="sumber_biaya" id="sumber_biaya" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"><?= isset($keswadayaan['sumber_biaya']) ? htmlspecialchars($keswadayaan['sumber_biaya']) : '' ?></textarea>
                                 <p id="sumberCount" class="text-xs text-slate-400 flex justify-end">
                                     <?= (isset($keswadayaan['sumber_biaya']) && strlen(trim($keswadayaan['sumber_biaya'])) > 0) ? str_word_count($keswadayaan['sumber_biaya']) : 0 ?>/1000 Kata
                                 </p>
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Teknologi/Alat/Fasilitas yang digunakan</label>
-                                <textarea name="teknologi_kegiatan" id="teknologi" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                    oninput="updateWordCount(this, 'teknologiCount', 1000)"><?= isset($keswadayaan['teknologi_kegiatan']) ? htmlspecialchars($keswadayaan['teknologi_kegiatan']) : '' ?></textarea>
+                                <textarea name="teknologi_kegiatan" id="teknologi_kegiatan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"><?= isset($keswadayaan['teknologi_kegiatan']) ? htmlspecialchars($keswadayaan['teknologi_kegiatan']) : '' ?></textarea>
                                 <p id="teknologiCount" class="text-xs text-slate-400 flex justify-end">
                                     <?= (isset($keswadayaan['teknologi_kegiatan']) && strlen(trim($keswadayaan['teknologi_kegiatan'])) > 0) ? str_word_count($keswadayaan['teknologi_kegiatan']) : 0 ?>/1000 Kata
                                 </p>
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Status Lahan/Areal Kegiatan</label>
-                                <textarea name="status_lahan_kegiatan" id="statusLahan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                    oninput="updateWordCount(this, 'statusLahanCount', 1000)"><?= isset($keswadayaan['status_lahan_kegiatan']) ? htmlspecialchars($keswadayaan['status_lahan_kegiatan']) : '' ?></textarea>
+                                <textarea name="status_lahan_kegiatan" id="status_lahan_kegiatan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"><?= isset($keswadayaan['status_lahan_kegiatan']) ? htmlspecialchars($keswadayaan['status_lahan_kegiatan']) : '' ?></textarea>
                                 <p id="statusLahanCount" class="text-xs text-slate-400 flex justify-end">
                                     <?= (isset($keswadayaan['status_lahan_kegiatan']) && strlen(trim($keswadayaan['status_lahan_kegiatan'])) > 0) ? str_word_count($keswadayaan['status_lahan_kegiatan']) : 0 ?>/1000 Kata
                                 </p>
@@ -744,16 +736,14 @@
                             <input type="hidden" name="id_pendaftaran" value="<?= $pendaftaran['id_pendaftaran'] ?>">
                             <div>
                                 <label class="block mb-2 text-sm text-black">Keistimewaan Calon</label>
-                                <textarea name="keistimewaan" id="keistimewaanCalon" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                    oninput="updateWordCount(this, 'keistimewaanCalonCount', 1000)"><?= isset($keistimewaan['keistimewaan']) ? htmlspecialchars($keistimewaan['keistimewaan']) : '' ?></textarea>
+                                <textarea name="keistimewaan" id="keistimewaanCalon" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"><?= isset($keistimewaan['keistimewaan']) ? htmlspecialchars($keistimewaan['keistimewaan']) : '' ?></textarea>
                                 <p id="keistimewaanCalonCount" class="text-xs text-slate-400 flex justify-end">
                                     <?= (isset($keistimewaan['keistimewaan']) && strlen(trim($keistimewaan['keistimewaan'])) > 0) ? str_word_count($keistimewaan['keistimewaan']) : 0 ?>/1000 Kata
                                 </p>
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Penghargaan relevan yang pernah diterima</label>
-                                <textarea name="penghargaan" id="penghargaanRelevan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"
-                                    oninput="updateWordCount(this, 'penghargaanRelevanCount', 1000)"><?= isset($keistimewaan['penghargaan']) ? htmlspecialchars($keistimewaan['penghargaan']) : '' ?></textarea>
+                                <textarea name="penghargaan" id="penghargaanRelevan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"><?= isset($keistimewaan['penghargaan']) ? htmlspecialchars($keistimewaan['penghargaan']) : '' ?></textarea>
                                 <p id="penghargaanRelevanCount" class="text-xs text-slate-400 flex justify-end">
                                     <?= (isset($keistimewaan['penghargaan']) && strlen(trim($keistimewaan['penghargaan'])) > 0) ? str_word_count($keistimewaan['penghargaan']) : 0 ?>/1000 Kata
                                 </p>
@@ -816,6 +806,14 @@
                 </div>
 
 
+
+                <div id="modalKata" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+                    <div class="bg-white rounded-lg p-8 flex flex-col items-center max-w-md">
+                        <img src="/images/error.png" alt="Error Icon" class="w-16 h-16 mb-4">
+                        <p id="modalMessage" class="text-center text-sm text-slate-600 mb-6">Mohon lengkapi minimal 100 kata pada semua bidang dampak sebelum menyimpan.</p>
+                        <button id="closeButtonkata" class="bg-primary text-white py-2 px-4 rounded-lg">OK</button>
+                    </div>
+                </div>
 
 
             </div>
@@ -1140,36 +1138,30 @@
             });
         }
 
-        // Batasan Kata
-        function updateWordCount(textarea, countId, maxWords) {
+        // Fungsi untuk pembatasan kata
+        function updateWordCount(textarea, countId, maxWords, minWords = 100) {
             const countElement = document.getElementById(countId);
 
-            // Tambahkan event listener untuk mendeteksi perubahan input
             textarea.addEventListener('input', function() {
-                let words = textarea.value.trim().split(/\s+/).filter(word => word.length > 0); // Pisahkan kata berdasarkan spasi
+                let words = textarea.value.trim().split(/\s+/).filter(word => word.length > 0);
                 let currentLength = words.length;
 
-                // Jika kata lebih dari 1000, potong ke 1000 kata
+                // Potong ke maxWords kata jika melebihi
                 if (currentLength > maxWords) {
                     words = words.slice(0, maxWords);
                     textarea.value = words.join(" ");
-                    currentLength = maxWords; // Set currentLength ke batas maksimal
+                    currentLength = maxWords;
                 }
 
                 // Update jumlah kata di elemen counter
                 countElement.textContent = `${currentLength}/${maxWords} kata`;
-            });
 
-            // Event keydown untuk mencegah input baru jika kata sudah mencapai 1000
-            textarea.addEventListener('keydown', function(event) {
-                let words = textarea.value.trim().split(/\s+/).filter(word => word.length > 0);
-                let currentLength = words.length;
-
-                const isControlKey = event.key === "Backspace" || event.key === "Delete" || event.key.startsWith("Arrow");
-
-                // Jika sudah 1000 kata, cegah input baru kecuali tombol penghapusan atau navigasi
-                if (currentLength >= maxWords && !isControlKey) {
-                    event.preventDefault(); // Cegah penambahan input baru jika mencapai batas maksimal kata
+                // Cek apakah jumlah kata memenuhi minimal requirement
+                if (currentLength < minWords) {
+                    countElement.style.color = "red"; // Ganti warna teks jika di bawah minimum
+                    countElement.textContent += ` (Minimal ${minWords} kata diperlukan)`;
+                } else {
+                    countElement.style.color = "black"; // Kembalikan warna teks normal jika mencapai minimum
                 }
             });
         }
@@ -1188,12 +1180,102 @@
         updateWordCount(document.getElementById('inovasi'), 'inovasiCount', 1000);
         updateWordCount(document.getElementById('kreativitas'), 'kreativitasCount', 1000);
 
-        updateWordCount(document.getElementById('sumber'), 'sumberCount', 1000);
-        updateWordCount(document.getElementById('teknologi'), 'teknologiCount', 1000);
-        updateWordCount(document.getElementById('statusLahan'), 'statusLahanCount', 1000);
+        updateWordCount(document.getElementById('sumber_biaya'), 'sumberCount', 1000);
+        updateWordCount(document.getElementById('teknologi_kegiatan'), 'teknologiCount', 1000);
+        updateWordCount(document.getElementById('status_lahan_kegiatan'), 'statusLahanCount', 1000);
 
         updateWordCount(document.getElementById('keistimewaanCalon'), 'keistimewaanCalonCount', 1000);
         updateWordCount(document.getElementById('penghargaanRelevan'), 'penghargaanRelevanCount', 1000);
+
+        // Fungsi untuk memeriksa jumlah kata minimal jika textarea diisi
+        function checkMinWordCountIfFilled(textarea, minWords = 100) {
+            const words = textarea.value.trim().split(/\s+/).filter(word => word.length > 0);
+            // Hanya validasi jika textarea diisi, atau jika tidak diisi, abaikan
+            return words.length === 0 || words.length >= minWords;
+        }
+
+        // Fungsi untuk menampilkan modal
+        function showModalkata(message) {
+            const modal = document.getElementById("modalKata");
+            const modalMessage = document.getElementById("modalMessage");
+            modalMessage.textContent = message;
+            modal.classList.remove("hidden");
+        }
+
+        // Event listener untuk tombol tutup modal
+        document.getElementById("closeButtonkata").addEventListener("click", function() {
+            document.getElementById("modalKata").classList.add("hidden");
+        });
+
+        document.getElementById("dampakForm").addEventListener("submit", function(event) {
+            const dampakLingkungan = document.getElementById("dampakLingkungan");
+            const dampakEkonomi = document.getElementById("dampakEkonomi");
+            const dampakSosial = document.getElementById("dampakSosial");
+
+            // Validasi hanya jika minimal satu textarea memiliki lebih dari 100 kata
+            if (
+                !checkMinWordCountIfFilled(dampakLingkungan) ||
+                !checkMinWordCountIfFilled(dampakEkonomi) ||
+                !checkMinWordCountIfFilled(dampakSosial)
+            ) {
+                event.preventDefault(); // Mencegah pengiriman form
+                showModalkata("Pastikan setiap bidang yang diisi memiliki minimal 100 kata.");
+            } else {
+                console.log("Form berhasil divalidasi dan siap dikirim.");
+            }
+        });
+
+        document.getElementById("pmikForm").addEventListener("submit", function(event) {
+            const prakarsa = document.getElementById("prakarsa");
+            const motivasi = document.getElementById("motivasi");
+            const inovasi = document.getElementById("inovasi");
+            const kreativitas = document.getElementById("kreativitas");
+
+            if (
+                !checkMinWordCountIfFilled(prakarsa) ||
+                !checkMinWordCountIfFilled(motivasi) ||
+                !checkMinWordCountIfFilled(inovasi) ||
+                !checkMinWordCountIfFilled(kreativitas)
+            ) {
+                event.preventDefault();
+                showModalkata("Pastikan setiap bidang yang diisi memiliki minimal 100 kata.");
+            } else {
+                console.log("Form berhasil divalidasi dan siap dikirim.");
+            }
+        });
+
+        document.getElementById("keswadayaanForm").addEventListener("submit", function(event) {
+            const sumber_biaya = document.getElementById("sumber_biaya");
+            const teknologi_kegiatan = document.getElementById("teknologi_kegiatan");
+            const status_lahan_kegiatan = document.getElementById("status_lahan_kegiatan");
+
+            if (
+                !checkMinWordCountIfFilled(sumber_biaya) ||
+                !checkMinWordCountIfFilled(teknologi_kegiatan) ||
+                !checkMinWordCountIfFilled(status_lahan_kegiatan)
+            ) {
+                event.preventDefault();
+                showModalkata("Pastikan setiap bidang yang diisi memiliki minimal 100 kata.");
+            } else {
+                console.log("Form berhasil divalidasi dan siap dikirim.");
+            }
+        });
+
+        document.getElementById("keistimewaanForm").addEventListener("submit", function(event) {
+            const keistimewaanCalon = document.getElementById("keistimewaanCalon");
+            const penghargaanRelevan = document.getElementById("penghargaanRelevan");
+
+            if (
+                !checkMinWordCountIfFilled(keistimewaanCalon) ||
+                !checkMinWordCountIfFilled(penghargaanRelevan)
+            ) {
+                event.preventDefault();
+                showModalkata("Pastikan setiap bidang yang diisi memiliki minimal 100 kata.");
+            } else {
+                console.log("Form berhasil divalidasi dan siap dikirim.");
+            }
+        });
+
 
         let kegiatanCount = <?= isset($kegiatanLainnya) ? count($kegiatanLainnya) : 0; ?>;
         const maxKegiatan = 3;
