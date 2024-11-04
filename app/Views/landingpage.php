@@ -637,6 +637,11 @@
                                     <span class="inline-block text-primary">Twitter</span>
                                     <span class="inline-block"><i class="fab fa-twitter"></i></span>
                                 </button>
+                                <button class="flex-1 py-2 px-4 bg-gray-200 rounded-t-lg font-semibold focus:outline-none"
+                                    id="socialTabLink3" data-target="#socialTab3">
+                                    <span class="inline-block text-primary">Instagram</span>
+                                    <span class="inline-block"><i class="fab fa-instagram"></i></span>
+                                </button>
                             </nav>
 
                             <!-- Tabs Content -->
@@ -658,6 +663,16 @@
                                         <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                                     </div>
                                 </div>
+
+                                <!-- Instagram Tab -->
+                                <div class="tab-pane hidden max-h-[500px] overflow-auto flex justify-center items-center" id="socialTab3" role="tabpanel">
+                                    <div class="relative max-h-[500px] overflow-hidden w-full">
+                                        <iframe class="h-[500px] rounded-lg border border-gray-300"
+                                            src="https://www.instagram.com/direktoratkemitraanlingkungan/embed"
+                                            width="100%" height="500" frameborder="0" scrolling="no" allowtransparency="true">
+                                        </iframe>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -668,7 +683,7 @@
                     <div class="bg-white p-6 shadow-lg rounded-lg flex-grow">
                         <h1 class="text-3xl font-semibold text-center text-gray-800 mb-4">Kalender</h1>
                         <div class="flex justify-center my-4">
-                            <div id="calendar" class="w-full sm:w-3/4"></div>
+                            <div id="calendar" class="w-full sm:w-3/4 text-sm"></div>
                         </div>
                         <div class="flex flex-col sm:flex-row justify-center my-4">
                             <div class="flex items-center mr-8 mb-2 sm:mb-0">
