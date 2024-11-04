@@ -19,7 +19,7 @@ $routes->post('kontak/sendEmail', 'KontakController::sendEmail');
 $routes->get('pamflet/(:any)', 'MainController::showPamflet/$1');
 $routes->get('protaru', 'MainController::protaru');
 
-$routes->get('datausulanprovinsi', 'StatistikController::datausulanprovinsi');
+$routes->get('informasi/datausulanprovinsi', 'StatistikController::datausulanprovinsi');
 $routes->get('profilpenerima', 'StatistikController::profilpenerima');
 
 /* Informasi */

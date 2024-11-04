@@ -105,7 +105,7 @@
   --tw-contain-paint:  ;
   --tw-contain-style:  ;
 }/*
-! tailwindcss v3.4.13 | MIT License | https://tailwindcss.com
+! tailwindcss v3.4.14 | MIT License | https://tailwindcss.com
 *//*
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
 2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
@@ -496,7 +496,7 @@ video {
 }
 
 /* Make elements with the HTML hidden attribute stay hidden by default */
-[hidden] {
+[hidden]:where(:not([hidden="until-found"])) {
   display: none;
 }
 .container {
@@ -2035,6 +2035,10 @@ video {
   --tw-border-opacity: 1;
   border-color: rgb(44 120 101 / var(--tw-border-opacity));
 }
+.hover\:border-slate-800:hover {
+  --tw-border-opacity: 1;
+  border-color: rgb(30 41 59 / var(--tw-border-opacity));
+}
 .hover\:bg-blue-600:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(30 136 229 / var(--tw-bg-opacity));
@@ -2082,6 +2086,10 @@ video {
 .hover\:bg-slate-50:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(248 250 252 / var(--tw-bg-opacity));
+}
+.hover\:bg-slate-800:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(30 41 59 / var(--tw-bg-opacity));
 }
 .hover\:bg-white\/20:hover {
   background-color: rgb(255 255 255 / 0.2);
@@ -2157,6 +2165,10 @@ video {
   --tw-border-opacity: 1;
   border-color: rgb(44 120 101 / var(--tw-border-opacity));
 }
+.focus\:border-slate-800:focus {
+  --tw-border-opacity: 1;
+  border-color: rgb(30 41 59 / var(--tw-border-opacity));
+}
 .focus\:bg-blue-gray-50:focus {
   --tw-bg-opacity: 1;
   background-color: rgb(236 239 241 / var(--tw-bg-opacity));
@@ -2172,6 +2184,10 @@ video {
 .focus\:bg-red-100:focus {
   --tw-bg-opacity: 1;
   background-color: rgb(255 205 210 / var(--tw-bg-opacity));
+}
+.focus\:bg-slate-800:focus {
+  --tw-bg-opacity: 1;
+  background-color: rgb(30 41 59 / var(--tw-bg-opacity));
 }
 .focus\:bg-opacity-80:focus {
   --tw-bg-opacity: 0.8;
@@ -2214,6 +2230,10 @@ video {
   --tw-border-opacity: 1;
   border-color: rgb(44 120 101 / var(--tw-border-opacity));
 }
+.active\:border-slate-800:active {
+  --tw-border-opacity: 1;
+  border-color: rgb(30 41 59 / var(--tw-border-opacity));
+}
 .active\:bg-blue-gray-50:active {
   --tw-bg-opacity: 1;
   background-color: rgb(236 239 241 / var(--tw-bg-opacity));
@@ -2229,6 +2249,10 @@ video {
 .active\:bg-red-100:active {
   --tw-bg-opacity: 1;
   background-color: rgb(255 205 210 / var(--tw-bg-opacity));
+}
+.active\:bg-slate-800:active {
+  --tw-bg-opacity: 1;
+  background-color: rgb(30 41 59 / var(--tw-bg-opacity));
 }
 .active\:bg-opacity-80:active {
   --tw-bg-opacity: 0.8;

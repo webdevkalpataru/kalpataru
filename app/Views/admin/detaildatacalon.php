@@ -190,9 +190,9 @@
                                     <label class="block mb-2 text-sm text-black">Tanggal Legalitas</label>
                                     <input disabled type="date" value="<?= $pendaftaran['tanggal_legalitas']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none " />
                                 </div>
-                                <p class="mt-8 font-semibold mb-2 text-md text-primary underline">Data Ketua Kelompok/ Komunitas</p>
+                                <p class="mt-8 font-semibold mb-2 text-md text-primary underline">Data Ketua / Anggota Kelompok</p>
                                 <div class="w-full mb-4">
-                                    <label class="block mb-2 text-sm text-black">Nama Ketua</label>
+                                    <label class="block mb-2 text-sm text-black">Nama Ketua / Anggota Kelompok</label>
                                     <input disabled type="text" value="<?= $pendaftaran['nama']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none " />
                                 </div>
                                 <div class="w-full mb-4">
@@ -240,7 +240,7 @@
                                     </label>
                                     <?php if (!empty($pendaftaran['ktp'])): ?>
                                         <div class="mt-2">
-                                            <img src="<?= base_url('admin/preview/ktp/' . esc($pendaftaran['ktp'])) ?>" class="w-24">
+                                            <img src="<?= base_url('admin/preview/ktp/' . esc($pendaftaran['ktp'])) ?>" class="w-48">
                                         </div>
                                     <?php endif; ?>
                                 </div>
