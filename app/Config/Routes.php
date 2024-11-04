@@ -188,6 +188,7 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->post('tambaharsippenerima', 'AdminController::tambahArsipAction');
     $routes->get('arsip/edit/(:any)', 'AdminController::editArsip/$1');
     $routes->post('arsip/edit/(:any)', 'AdminController::editArsipAction/$1');
+    $routes->get('exportarsip', 'AdminController::exportArsipToExcel');
 
     // Manajemen Artikel
     $routes->get('artikel', 'AdminController::artikeladmin');
