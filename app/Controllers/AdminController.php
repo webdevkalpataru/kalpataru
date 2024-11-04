@@ -3015,4 +3015,97 @@ class AdminController extends BaseController
         $writer->save('php://output');
         exit;
     }
+
+    public function exportArsipToExcel()
+    {
+        $db = \Config\Database::connect();
+
+        $query = $db->query("
+        SELECT 
+            nama,
+            usia,
+            jenis_kelamin,
+            telepon,
+            email,
+            kategori,
+            tema,
+            sub_tema,
+            bentuk_kegiatan,
+            tahun_penerimaan,
+            status,
+            provinsi,
+            kabupaten,
+            kecamatan,
+            desa,
+            nama_pengusul,
+            instansi_pengusul,
+            email_pengusul,
+            jabatan_pengusul,
+            telepon_pengusul
+        FROM arsip_penerima
+    ");
+
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setTitle("Data Arsip Penerima");
+
+        $data = $query->getResultArray();
+
+        // Header Kolom
+        $headers = [
+            'Nama',
+            'Usia',
+            'Jenis Kelamin',
+            'Telepon',
+            'Email',
+            'Kategori',
+            'Tema',
+            'Sub Tema',
+            'Bentuk Kegiatan',
+            'Tahun Penerimaan',
+            'Status',
+            'Provinsi',
+            'Kabupaten',
+            'Kecamatan',
+            'Desa',
+            'Nama Pengusul',
+            'Instansi Pengusul',
+            'Email Pengusul',
+            'Jabatan Pengusul',
+            'Telepon Pengusul'
+        ];
+
+        // Mengisi Header
+        $columnLetter = 'A';
+        foreach ($headers as $header) {
+            $sheet->setCellValue($columnLetter . '1', $header);
+            $columnLetter++;
+        }
+
+        // Isi Data
+        $rowIndex = 2;
+        foreach ($data as $row) {
+            $columnLetter = 'A';
+            foreach ($row as $cellData) {
+                $sheet->setCellValue($columnLetter . $rowIndex, $cellData);
+                $columnLetter++;
+            }
+            $rowIndex++;
+        }
+
+        // Mengatur lebar kolom otomatis
+        $columnCount = count($headers);
+        for ($col = 0; $col < $columnCount; $col++) {
+            $sheet->getColumnDimensionByColumn($col + 1)->setAutoSize(true);
+        }
+
+        // Unduh file
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="Data_Arsip_Penerima.xlsx"');
+        header('Cache-Control: max-age=0');
+
+        $writer = new Xlsx($spreadsheet);
+        $writer->save('php://output');
+        exit;
+    }
 }
