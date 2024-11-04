@@ -618,7 +618,7 @@
     </section>
 
     <section class="bg-primary">
-        <div id="mainContent" class="container mx-auto px-4 py-6">
+        <div id="mainContent" class="container mx-auto px-4 py-12">
             <div class="flex flex-col md:flex-row space-y-8 md:space-y-0 md:space-x-8 justify-center">
                 <!-- Media Sosial Section (1/3 width) -->
                 <div id="bagianmediasosial" class="w-full md:w-1/3 flex flex-col">
@@ -627,7 +627,7 @@
                         <div class="social-tabs">
                             <!-- Tabs Navigation -->
                             <nav class="flex space-x-4 justify-center mb-4">
-                                <button class="flex-1 py-2 px-2 bg-gray-200 rounded-t-lg font-semibold focus:outline-none"
+                                <button class="flex-1 bg-gray-200 rounded-t-lg font-semibold focus:outline-none"
                                     id="socialTabLink1" data-target="#socialTab1">
                                     <span class="inline-block text-primary">Facebook</span>
                                     <span class="inline-block"><i class="fab fa-facebook"></i></span>
@@ -647,29 +647,29 @@
                             <!-- Tabs Content -->
                             <div class="tab-content">
                                 <!-- Facebook Tab -->
-                                <div class="tab-pane active show max-h-[500px] overflow-auto flex justify-center items-center" id="socialTab1" role="tabpanel">
-                                    <div class="relative max-h-[500px] overflow-hidden w-full">
-                                        <iframe class="h-[500px] rounded-lg border border-gray-300"
-                                            src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FKementerianLHK&tabs=timeline&width=500&height=500&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=52156208006"
-                                            width="100%" height="500" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+                                <div class="tab-pane active show max-h-[580px] overflow-auto flex justify-center items-center" id="socialTab1" role="tabpanel">
+                                    <div class="relative max-h-[580px] overflow-hidden w-full">
+                                        <iframe class="h-[580px] rounded-lg border border-gray-300"
+                                            src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FKementerianLHK&tabs=timeline&width=580&height=580&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=52156208006"
+                                            width="100%" height="580" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
                                         </iframe>
                                     </div>
                                 </div>
 
                                 <!-- Twitter Tab -->
-                                <div class="tab-pane hidden max-h-[500px] overflow-auto flex justify-center items-center" id="socialTab2" role="tabpanel">
-                                    <div class="relative max-h-[500px] overflow-auto rounded-lg w-full">
+                                <div class="tab-pane hidden max-h-[580px] overflow-auto flex justify-center items-center" id="socialTab2" role="tabpanel">
+                                    <div class="relative max-h-[580px] overflow-auto rounded-lg w-full">
                                         <a class="twitter-timeline" href="https://twitter.com/KementerianLHK?ref_src=twsrc%5Etfw"></a>
                                         <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                                     </div>
                                 </div>
 
                                 <!-- Instagram Tab -->
-                                <div class="tab-pane hidden max-h-[500px] overflow-auto flex justify-center items-center" id="socialTab3" role="tabpanel">
-                                    <div class="relative max-h-[500px] overflow-hidden w-full">
-                                        <iframe class="h-[500px] rounded-lg border border-gray-300"
+                                <div class="tab-pane hidden max-h-[580px] overflow-auto flex justify-center items-center" id="socialTab3" role="tabpanel">
+                                    <div class="relative max-h-[580px] overflow-hidden w-full">
+                                        <iframe class="h-[580px] rounded-lg border border-gray-300"
                                             src="https://www.instagram.com/direktoratkemitraanlingkungan/embed"
-                                            width="100%" height="500" frameborder="0" scrolling="no" allowtransparency="true">
+                                            width="100%" height="580" frameborder="0" scrolling="no" allowtransparency="true">
                                         </iframe>
                                     </div>
                                 </div>
@@ -702,17 +702,17 @@
                     <!-- Jumlah Pengunjung (1 baris, 3 kolom) -->
                     <div id="jumlahPengunjungWrapper" class="overflow-auto">
                         <div id="jumlahPengunjung" class="flex flex-row justify-between space-x-4 flex-nowrap">
-                            <div class="bg-white text-primary p-4 rounded-md flex-1 min-w-[250px] mb-2">
+                            <div class="bg-white text-primary p-4 rounded-md flex-1 min-w-[250px] lg:mb-0 mb-2">
                                 <h1 class="text-sm font-bold">Jumlah Pengunjung Hari Ini</h1>
                                 <p class="text-2xl"><?= $visitorCountToday ?></p>
                             </div>
 
-                            <div class="bg-white text-primary p-4 rounded-md flex-1 min-w-[250px] mb-2">
+                            <div class="bg-white text-primary p-4 rounded-md flex-1 min-w-[250px] lg:mb-0 mb-2">
                                 <h1 class="text-sm font-bold">Jumlah Pengunjung Minggu Ini</h1>
                                 <p class="text-2xl"><?= $visitorCountWeekly ?></p>
                             </div>
 
-                            <div class="bg-white text-primary p-4 rounded-md flex-1 min-w-[250px] mb-2">
+                            <div class="bg-white text-primary p-4 rounded-md flex-1 min-w-[250px] lg:mb-0 mb-2">
                                 <h1 class="text-sm font-bold">Jumlah Pengunjung Bulan Ini</h1>
                                 <p class="text-2xl"><?= $visitorCountMonthly ?></p>
                             </div>
@@ -839,6 +839,15 @@
             </div>
         </div>
     </section>
+
+    <!-- Popup Modal Calendar -->
+    <div id="popupModalCalendar" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-10">
+        <div class="bg-white p-6 rounded-lg shadow-lg max-w-md mx-auto">
+            <h2 id="modalTitle" class="text-2xl font-bold mb-4"></h2>
+            <p id="modalDescription" class="text-gray-700"></p>
+            <button onclick="closeModal()" class="mt-4 px-4 py-2 bg-primary text-white rounded hover:bg-primaryhover">tutup</button>
+        </div>
+    </div>
 
     <script defer>
         // popup
@@ -1493,10 +1502,10 @@
                 eventDidMount: function(info) {
                     info.el.style.cursor = 'pointer';
 
-                    // Membuat elemen tooltip
+                    // Membuat elemen tooltip untuk menampilkan title saja
                     var tooltip = document.createElement('div');
-                    tooltip.innerText = info.event.extendedProps.description;
-                    tooltip.className = 'bg-slate-400 text-white text-sm p-3 rounded-lg shadow-lg transition-opacity duration-200 opacity-0';
+                    tooltip.innerText = info.event.title;
+                    tooltip.className = 'bg-slate-400 text-white text-sm p-2 rounded-lg shadow-lg transition-opacity duration-200 opacity-0';
                     tooltip.style.position = 'absolute';
                     tooltip.style.zIndex = '10';
                     tooltip.style.display = 'none';
@@ -1509,7 +1518,7 @@
                         tooltip.style.display = 'block';
                         tooltip.style.opacity = '1'; // Set opacity to 1 for fade-in effect
                         var rect = info.el.getBoundingClientRect();
-                        tooltip.style.top = rect.top + window.scrollY - tooltip.offsetHeight - 8 + 'px'; // Adjust for height
+                        tooltip.style.top = rect.top + window.scrollY - tooltip.offsetHeight - 8 + 'px';
                         tooltip.style.left = rect.left + window.scrollX + (rect.width - tooltip.offsetWidth) / 2 + 'px';
                     });
 
@@ -1517,13 +1526,30 @@
                     info.el.addEventListener('mouseleave', function() {
                         tooltip.style.opacity = '0'; // Fade out effect
                         setTimeout(() => {
-                            tooltip.style.display = 'none'; // Sembunyikan setelah animasi selesai
+                            tooltip.style.display = 'none';
                         }, 200); // Durasi animasi fade-out
+                    });
+
+                    // Event untuk membuka modal saat title diklik
+                    info.el.addEventListener('click', function() {
+                        openModal(info.event.title, info.event.extendedProps.description);
                     });
                 }
             });
             calendar.render();
         });
+
+        // Fungsi untuk membuka modal dengan title dan description
+        function openModal(title, description) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalDescription').innerText = description;
+            document.getElementById('popupModalCalendar').classList.remove('hidden');
+        }
+
+        // Fungsi untuk menutup modal
+        function closeModal() {
+            document.getElementById('popupModalCalendar').classList.add('hidden');
+        }
 
         // faq
         function toggleAnswer(index) {
