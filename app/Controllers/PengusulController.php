@@ -239,8 +239,6 @@ class PengusulController extends BaseController
             'kode_pos'          => 'required|numeric|exact_length[5]',
             'media_sosial'      => 'required|min_length[3]|max_length[100]',
             'ktp'               => 'uploaded[ktp]|mime_in[ktp,image/jpg,image/jpeg]|max_size[ktp,1024]',
-            'skck'              => 'uploaded[skck]|mime_in[skck,application/pdf]|max_size[skck,1024]',
-            'tanggal_skck'      => 'required|valid_date',
         ];
 
         if ($pendaftaranData['kategori'] == 'Penyelamat Lingkungan') {
@@ -257,14 +255,10 @@ class PengusulController extends BaseController
 
         // Pengelolaan file KTP, SKCK, dan legalitas
         $ktpFile = $this->request->getFile('ktp');
-        $skckFile = $this->request->getFile('skck');
         $legalitasFile = $this->request->getFile('legalitas');
 
         // Proses file KTP
         $ktpFileName = $this->handleFileUpload($ktpFile, ['jpg', 'jpeg'], 'ktp');
-
-        // Proses file SKCK
-        $skckFileName = $this->handleFileUpload($skckFile, ['pdf'], 'skck');
 
         // Proses file legalitas (opsional)
         $legalitasFileName = null;
@@ -296,11 +290,9 @@ class PengusulController extends BaseController
                 'telepon' => $this->request->getPost('telepon'),
                 'email' => $this->request->getPost('email'),
                 'pendidikan' => $this->request->getPost('pendidikan'),
-                'tanggal_skck' => $this->request->getPost('tanggal_skck'),
                 'tanggal_legalitas' => $this->request->getPost('tanggal_legalitas'),
                 'legalitas' => $legalitasFileName,
-                'ktp' => $ktpFileName,
-                'skck' => $skckFileName
+                'ktp' => $ktpFileName
             ];
         } else {
             $data = [
@@ -322,9 +314,7 @@ class PengusulController extends BaseController
                 'provinsi' => $this->request->getPost('provinsi'),
                 'kode_pos' => $this->request->getPost('kode_pos'),
                 'sosial_media' => $this->request->getPost('media_sosial'),
-                'tanggal_skck' => $this->request->getPost('tanggal_skck'),
-                'ktp' => $ktpFileName,
-                'skck' => $skckFileName
+                'ktp' => $ktpFileName
             ];
         }
 
@@ -468,6 +458,8 @@ class PengusulController extends BaseController
             case 'identitasc':
                 $identitas = $model->getIdentitasByIdPendaftaran($id_pendaftaran);
 
+                $skckFile = $this->request->getFile('skck');
+                $skckFileName = $this->handleFileUpload($skckFile, ['pdf'], 'skck');
 
                 $data = [
                     'nama' => $this->request->getPost('nama_ketua'),
@@ -492,6 +484,7 @@ class PengusulController extends BaseController
                     'email' => $this->request->getPost('email'),
                     'pendidikan' => $this->request->getPost('pendidikan'),
                     'tanggal_skck' => $this->request->getPost('tanggal_skck'),
+                    'skck' => $skckFileName
                 ];
 
                 $validationRules = [
@@ -518,6 +511,7 @@ class PengusulController extends BaseController
                     'kode_pos'          => ($identitas && !empty($data['kode_pos'])) ? 'permit_empty|numeric|exact_length[5]' : 'required|numeric|exact_length[5]',
                     'sosial_media'      => ($identitas && !empty($data['sosial_media'])) ? 'permit_empty|min_length[3]|max_length[100]' : 'required|min_length[3]|max_length[100]',
                     'tanggal_skck'      => ($identitas && !empty($data['tanggal_skck'])) ? 'permit_empty|valid_date' : 'required|valid_date',
+                    'skck'              => ($identitas && !empty($data['skck'])) ? 'permit_empty|uploaded[skck]|mime_in[skck,application/pdf]|max_size[skck,1024]' : 'required|uploaded[skck]|mime_in[skck,application/pdf]|max_size[skck,1024]',
                 ];
 
                 // Validasi input
@@ -590,6 +584,9 @@ class PengusulController extends BaseController
             case 'identitasabd':
                 $identitas = $model->getIdentitasByIdPendaftaran($id_pendaftaran);
 
+                $skckFile = $this->request->getFile('skck');
+                $skckFileName = $this->handleFileUpload($skckFile, ['pdf'], 'skck');
+
                 $data = [
                     'nama' => $this->request->getPost('nama_individu'),
                     'nik' => $this->request->getPost('nik'),
@@ -610,6 +607,7 @@ class PengusulController extends BaseController
                     'kode_pos' => $this->request->getPost('kode_pos'),
                     'sosial_media' => $this->request->getPost('sosial_media'),
                     'tanggal_skck' => $this->request->getPost('tanggal_skck'),
+                    'skck' => $skckFileName
                 ];
 
                 $validationRules = [
@@ -632,6 +630,7 @@ class PengusulController extends BaseController
                     'kode_pos'          => ($identitas && !empty($data['kode_pos'])) ? 'permit_empty|numeric|exact_length[5]' : 'required|numeric|exact_length[5]',
                     'sosial_media'      => ($identitas && !empty($data['sosial_media'])) ? 'permit_empty|min_length[3]|max_length[100]' : 'required|min_length[3]|max_length[100]',
                     'tanggal_skck'      => ($identitas && !empty($data['tanggal_skck'])) ? 'permit_empty|valid_date' : 'required|valid_date',
+                    'skck'              => ($identitas && !empty($data['skck'])) ? 'permit_empty|uploaded[skck]|mime_in[skck,application/pdf]|max_size[skck,1024]' : 'required|uploaded[skck]|mime_in[skck,application/pdf]|max_size[skck,1024]',
                 ];
 
                 // Validasi input
@@ -712,10 +711,6 @@ class PengusulController extends BaseController
                 } else {
                     // Insert kegiatan utama sebagai entri baru
                     $model->insertKegiatan($data);
-                    return redirect()->back()
-                        ->withInput()
-                        ->with('status', 'success')
-                        ->with('message', 'Data berhasil disimpan.');
                 }
 
                 // Cek apakah ada kegiatan tambahan yang akan ditambahkan atau diperbarui
@@ -743,21 +738,18 @@ class PengusulController extends BaseController
                             if (isset($kegiatan['id_kegiatan']) && !empty($kegiatan['id_kegiatan'])) {
                                 // Jika ID ada, update kegiatan tambahan
                                 $model->updateKegiatan($dataLain, ['id_kegiatan' => $kegiatan['id_kegiatan']]);
-                                return redirect()->back()
-                                    ->withInput()
-                                    ->with('status', 'success')
-                                    ->with('message', 'Data berhasil disimpan.');
                             } else {
                                 // Insert kegiatan tambahan sebagai entri baru
                                 $model->insertKegiatan($dataLain);
-                                return redirect()->back()
-                                    ->withInput()
-                                    ->with('status', 'success')
-                                    ->with('message', 'Data berhasil disimpan.');
                             }
                         }
                     }
                 }
+
+                return redirect()->back()
+                    ->withInput()
+                    ->with('status', 'success')
+                    ->with('message', 'Data berhasil disimpan.');
 
                 break;
 

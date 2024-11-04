@@ -122,7 +122,7 @@
                                 <?php endif; ?>
                             </div>
                             <div>
-                                <label class="block mb-2 text-sm text-black" for="tanggal_skck">Tanggal Surat Legalitas Kelompok</label>
+                                <label class="block mb-2 text-sm text-black" for="tanggal_legalitas">Tanggal Surat Legalitas Kelompok</label>
                                 <input type="date" name="tanggal_legalitas" value="<?= old('tanggal_legalitas') ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                                 <?php if (session('errors.tanggal_legalitas')): ?>
                                     <p class="text-red-500 text-sm mt-2"><?= session('errors.tanggal_legalitas') ?></p>
@@ -217,20 +217,6 @@
                                 <input type="file" name="ktp" id="ktp" accept=".jpg,.jpeg" class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
                                 <?php if (session('errors.ktp')): ?>
                                     <p class="text-red-500 text-sm mt-2"><?= session('errors.ktp') ?></p>
-                                <?php endif; ?>
-                            </div>
-                            <div>
-                                <label for="skck" class="block mb-2 text-sm text-black">Unggah SKCK <span class="text-primary">(PDF, max 1MB)</span></label>
-                                <input type="file" name="skck" id="skck" accept=".pdf" class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
-                                <?php if (session('errors.skck')): ?>
-                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.skck') ?></p>
-                                <?php endif; ?>
-                            </div>
-                            <div>
-                                <label class="block mb-2 text-sm text-black" for="tanggal_skck">Tanggal SKCK</label>
-                                <input type="date" name="tanggal_skck" value="<?= old('tanggal_skck') ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-                                <?php if (session('errors.tanggal_skck')): ?>
-                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.tanggal_skck') ?></p>
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -404,20 +390,6 @@
                                 <input type="file" name="ktp" id="ktp" accept=".jpg,.jpeg" class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
                                 <?php if (session('errors.ktp')): ?>
                                     <p class="text-red-500 text-sm mt-2"><?= session('errors.ktp') ?></p>
-                                <?php endif; ?>
-                            </div>
-                            <div>
-                                <label for="skck" class="block mb-2 text-sm text-black">Unggah SKCK <span class="text-primary">(PDF, max 1MB)</span></label>
-                                <input type="file" name="skck" id="skck" accept=".pdf" class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2 transition ease-in-out duration-150 focus:border-primary hover:border-primary focus:outline-none">
-                                <?php if (session('errors.skck')): ?>
-                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.skck') ?></p>
-                                <?php endif; ?>
-                            </div>
-                            <div>
-                                <label class="block mb-2 text-sm text-black" for="tanggal_skck">Tanggal SKCK</label>
-                                <input type="date" name="tanggal_skck" value="<?= old('tanggal_skck') ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-                                <?php if (session('errors.tanggal_skck')): ?>
-                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.tanggal_skck') ?></p>
                                 <?php endif; ?>
                             </div>
                         </div>

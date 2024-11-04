@@ -67,7 +67,7 @@
                                     <input disabled type="number" min="1" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                                 </div>
                                 <div class="w-full mb-2">
-                                    <label class="block mb-2 text-sm text-black">Jalan</label>
+                                    <label class="block mb-2 text-sm text-black">Alamat</label>
                                     <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                                 </div>
                                 <div class="w-full mb-2">
@@ -222,7 +222,7 @@
                                     <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                                 </div>
                                 <div class="w-full mb-2">
-                                    <label class="block mb-2 text-sm text-black">Jalan</label>
+                                    <label class="block mb-2 text-sm text-black">Alamat</label>
                                     <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
                                 </div>
                                 <div class="w-full mb-2">
