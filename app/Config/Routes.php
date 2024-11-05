@@ -140,6 +140,7 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('editpamflet/(:num)', 'AdminController::editpamflet/$1');
     $routes->post('editpamflet/(:num)', 'AdminController::editpamfletAction/$1');
     $routes->get('preview/pamflet/(:any)', 'AdminController::showPamflet/$1');
+    $routes->get('postercapaian', 'AdminController::postercapaian');
 
     // Manajemen Akun Penerima Penghargaan Kalpataru
     $routes->get('akunpenerima', 'AdminController::akunpenerima');

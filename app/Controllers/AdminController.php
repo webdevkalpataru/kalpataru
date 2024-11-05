@@ -56,6 +56,14 @@ class AdminController extends BaseController
         return view('admin/dashboard', $data);
     }
 
+    public function postercapaian()
+    {
+        $data['title'] = "Poster Capaian";
+
+        return view('admin/postercapaian', $data); // Adjust the view path if necessary
+    }
+
+
     public function artikeladmin()
     {
         $model = new ArtikelModel();
