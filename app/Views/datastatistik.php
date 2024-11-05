@@ -28,11 +28,11 @@
     </div>
 
     <section id="databykategori">
-    <div class="lg:my-12 md:my-8 my-4 lg:mx-20 md:mx-10 mx-7">
-    <div id="textdatabykategori" class="w-full h-[4rem] sm:h-[5rem] relative flex items-center justify-start">
-        <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-3xl font-medium text-black">Berdasarkan <b>Kategori</b></h2>
-    </div>
-    <hr class="border-2 border-primary max-w-[16%] mt-0" />
+        <div class="lg:my-12 md:my-8 my-4 lg:mx-20 md:mx-10 mx-7">
+            <div id="textdatabykategori" class="w-full h-[4rem] sm:h-[5rem] relative flex items-center justify-start">
+                <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-3xl font-medium text-black">Berdasarkan <b>Kategori</b></h2>
+            </div>
+            <hr class="border-2 border-primary max-w-[16%] mt-0" />
 
             <div class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-6 my-6">
                 <div class="bg-white rounded-lg border-2 border-gray-200 shadow-md overflow-hidden">
@@ -79,12 +79,8 @@
                         <p class="text-xs font-normal text-gray-600 text-start">Pembina Lingkungan</p>
                     </div>
                 </div>
-                <p class="text-sm font-normal text-gray-600 text-start">Pembina Lingkungan</p>
             </div>
         </div>
-    </div>
-</div>
-
     </section>
 
     <section id="databygender">
@@ -219,7 +215,9 @@
                             <?php foreach ($provinsiData as $data): ?>
                                 <tr class="hover:bg-slate-50">
                                     <td class="p-4 border-b border-slate-200"><?php echo $no++; ?></td>
-                                    <td class="p-4 border-b border-slate-200"><?php echo $data['provinsi']; ?></td>
+                                    <td class="p-4 border-b border-slate-200">
+                                        <a href="/informasi/datausulanprovinsi"><?php echo $data['provinsi']; ?></a>
+                                    </td>
                                     <td class="p-4 border-b border-slate-200"><?php echo $data['perintis']; ?></td>
                                     <td class="p-4 border-b border-slate-200"><?php echo $data['pengabdi']; ?></td>
                                     <td class="p-4 border-b border-slate-200"><?php echo $data['penyelamat']; ?></td>

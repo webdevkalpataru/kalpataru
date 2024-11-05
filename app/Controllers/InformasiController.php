@@ -161,4 +161,16 @@ class InformasiController extends BaseController
 
         return view('datastatistik', $data);
     }
+
+    public function dataUsulanProvinsi()
+    {
+        $data['title'] = 'Data Usulan Provinsi';
+
+        return view('datausulanprovinsi', $data);
+    }
+    public function profilpenerima()
+    {
+        $data['title'] = 'Profil Penerima';
+        return view('profilpenerima');
+    }
 }
