@@ -1007,6 +1007,9 @@ video {
 .max-w-40 {
   max-width: 10rem;
 }
+.max-w-4xl {
+  max-width: 56rem;
+}
 .max-w-5xl {
   max-width: 64rem;
 }
@@ -1169,6 +1172,9 @@ video {
 }
 .justify-around {
   justify-content: space-around;
+}
+.justify-items-center {
+  justify-items: center;
 }
 .gap-1 {
   gap: 0.25rem;

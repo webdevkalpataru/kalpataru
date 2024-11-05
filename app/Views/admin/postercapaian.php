@@ -7,7 +7,7 @@
   <title><?= $title; ?></title>
 </head>
 
-<body class="flex flex-col lg:flex-row justify-center">
+<body class="flex flex-col lg:flex-row">
 
   <!-- Sidebar -->
   <div class="w-64">
@@ -16,182 +16,193 @@
 
   <!-- Main Content -->
   <div class="flex-1 p-4 lg:p-6">
-    <div class="min-h-screen flex flex-col items-center">
+    <div class="min-h-screen flex flex-col">
 
       <!-- Header -->
-      <header class="bg-white shadow w-full max-w-4xl">
+      <header class="bg-white shadow">
         <div class="container mx-auto flex items-center justify-between p-4 md:p-6">
-          <h1 class="text-xl md:text-2xl font-semibold text-gray-700 text-center">Poster Capaian</h1>
-          <div class="flex items-center justify-center">
+          <h1 class="text-xl md:text-2xl font-semibold text-gray-700">Poster Capaian</h1>
+          <div class="flex items-center">
             <p class="text-gray-500 mr-2 md:mr-4">Hello, <?= session()->get('nama'); ?></p>
             <a href="/auth/logoutinternal" class="bg-rejected text-white px-3 py-2 md:px-4 md:py-2 rounded-lg inline-block">Keluar</a>
           </div>
         </div>
       </header>
 
-      <!-- Table Section -->
-      <div class="bg-white shadow-md rounded-lg overflow-x-auto mt-8 w-full max-w-4xl">
-        <form id="pamfletForm" action="/admin/editpamflet/" method="post" enctype="multipart/form-data">
-          <input type="hidden" name="id_flayer" value="">
+      <div class="flex justify-center">
+        <!-- Table Section -->
+        <div class="bg-white shadow-md rounded-lg overflow-x-auto mt-8 w-full">
+          <form id="capaianForm1" action="/admin/editcapaian/" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="id_capaian" value="">
 
-          <!-- Tables -->
-          <div class="grid grid-cols-1 gap-8 justify-items-center">
+            <!-- Tables -->
+            <div class="grid grid-cols-1 gap-8 justify-items-center">
 
-            <!-- First Table -->
-            <table class="w-full text-left min-w-max">
-              <thead>
-                <tr>
-                  <th class="p-4 border-b border-slate-300 bg-slate-50 text-center text-sm font-bold text-gray-800">Hukum dan Budaya</th>
-                  <th class="p-4 border-b border-slate-300 bg-slate-50 text-center text-sm font-bold text-gray-800">Status</th>
-                  <th class="p-4 border-b border-slate-300 bg-slate-50 text-center text-sm font-bold text-gray-800">Tindakan</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="hover:bg-gray-50">
-                  <td class="p-4 border-b border-gray-200 text-center">
-                    <label class="block mb-2 text-sm text-black">Poster Capaian: <span class="text-primary">(.jpg/jpeg)</span></label>
-                    <input type="file" name="foto" accept="image/jpeg, image/jpg" class="border-2 border-primary text-primary rounded-md shadow-sm text-xs p-1">
-                  </td>
-                  <td class="p-4 border-b border-gray-200 text-center">
-                    <select name="status" class="status-dropdown ml-2 border-2 border-primary text-primary rounded-md shadow-sm text-xs">
-                      <option value="Nonaktif">Nonaktif</option>
-                      <option value="Aktif">Aktif</option>
-                    </select>
-                  </td>
-                  <td class="p-4 border-b border-gray-200 text-center">
-                    <button type="button" class="bg-primary text-white px-4 py-2 rounded-lg" onclick="showModal(event)">Simpan</button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </form>
+              <!-- First Table -->
+              <table class="w-full text-left min-w-max">
+                <thead>
+                  <tr>
+                    <th class="p-4 border-b border-slate-300 bg-slate-50 text-center text-sm font-bold text-gray-800">Hukum dan Budaya</th>
+                    <th class="p-4 border-b border-slate-300 bg-slate-50 text-center text-sm font-bold text-gray-800">Status</th>
+                    <th class="p-4 border-b border-slate-300 bg-slate-50 text-center text-sm font-bold text-gray-800">Tindakan</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="hover:bg-gray-50">
+                    <td class="p-4 border-b border-gray-200 text-center">
+                      <label class="block mb-2 text-sm text-black">Poster Capaian: <span class="text-primary">(.jpg/jpeg)</span></label>
+                      <input type="file" name="foto" accept="image/jpeg, image/jpg" class="border-2 border-primary text-primary rounded-md shadow-sm text-xs p-1">
+                    </td>
+                    <td class="p-4 border-b border-gray-200 text-center">
+                      <select name="status" class="status-dropdown ml-2 border-2 border-primary text-primary rounded-md shadow-sm text-xs">
+                        <option value="Nonaktif">Nonaktif</option>
+                        <option value="Aktif">Aktif</option>
+                      </select>
+                    </td>
+                    <td class="p-4 border-b border-gray-200 text-center">
+                      <button type="button" class="bg-primary text-white px-4 py-2 rounded-lg" onclick="showModal(event)">Simpan</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </form>
+        </div>
       </div>
 
-      <div class="bg-white shadow-md rounded-lg overflow-x-auto mt-8 w-full max-w-4xl">
-        <form id="pamfletForm" action="/admin/editpamflet/" method="post" enctype="multipart/form-data">
-          <input type="hidden" name="id_flayer" value="">
+      <div class="flex justify-center">
 
-          <!-- Tables -->
-          <div class="grid grid-cols-1 gap-8 justify-items-center">
+        <div class="bg-white shadow-md rounded-lg overflow-x-auto mt-8 w-full">
+          <form id="capaianForm2" action="/admin/editcapaian/" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="id_capaian" value="">
 
-            <!-- First Table -->
-            <table class="w-full text-left min-w-max">
-              <thead>
-                <tr>
-                  <th class="p-4 border-b border-slate-300 bg-slate-50 text-center text-sm font-bold text-gray-800">Keanekaragaman Hayati</th>
-                  <th class="p-4 border-b border-slate-300 bg-slate-50 text-center text-sm font-bold text-gray-800">Status</th>
-                  <th class="p-4 border-b border-slate-300 bg-slate-50 text-center text-sm font-bold text-gray-800">Tindakan</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="hover:bg-gray-50">
-                  <td class="p-4 border-b border-gray-200 text-center">
-                    <label class="block mb-2 text-sm text-black">Poster Capaian: <span class="text-primary">(.jpg/jpeg)</span></label>
-                    <input type="file" name="foto" accept="image/jpeg, image/jpg" class="border-2 border-primary text-primary rounded-md shadow-sm text-xs p-1">
-                  </td>
-                  <td class="p-4 border-b border-gray-200 text-center">
-                    <select name="status" class="status-dropdown ml-2 border-2 border-primary text-primary rounded-md shadow-sm text-xs">
-                      <option value="Nonaktif">Nonaktif</option>
-                      <option value="Aktif">Aktif</option>
-                    </select>
-                  </td>
-                  <td class="p-4 border-b border-gray-200 text-center">
-                    <button type="button" class="bg-primary text-white px-4 py-2 rounded-lg" onclick="showModal(event)">Simpan</button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </form>
+            <!-- Tables -->
+            <div class="grid grid-cols-1 gap-8 justify-items-center">
+
+              <!-- First Table -->
+              <table class="w-full text-left min-w-max">
+                <thead>
+                  <tr>
+                    <th class="p-4 border-b border-slate-300 bg-slate-50 text-center text-sm font-bold text-gray-800">Keanekaragaman Hayati</th>
+                    <th class="p-4 border-b border-slate-300 bg-slate-50 text-center text-sm font-bold text-gray-800">Status</th>
+                    <th class="p-4 border-b border-slate-300 bg-slate-50 text-center text-sm font-bold text-gray-800">Tindakan</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="hover:bg-gray-50">
+                    <td class="p-4 border-b border-gray-200 text-center">
+                      <label class="block mb-2 text-sm text-black">Poster Capaian: <span class="text-primary">(.jpg/jpeg)</span></label>
+                      <input type="file" name="foto" accept="image/jpeg, image/jpg" class="border-2 border-primary text-primary rounded-md shadow-sm text-xs p-1">
+                    </td>
+                    <td class="p-4 border-b border-gray-200 text-center">
+                      <select name="status" class="status-dropdown ml-2 border-2 border-primary text-primary rounded-md shadow-sm text-xs">
+                        <option value="Nonaktif">Nonaktif</option>
+                        <option value="Aktif">Aktif</option>
+                      </select>
+                    </td>
+                    <td class="p-4 border-b border-gray-200 text-center">
+                      <button type="button" class="bg-primary text-white px-4 py-2 rounded-lg" onclick="showModal(event)">Simpan</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </form>
+        </div>
       </div>
 
-      <div class="bg-white shadow-md rounded-lg overflow-x-auto mt-8 w-full max-w-4xl">
-        <form id="pamfletForm" action="/admin/editpamflet/" method="post" enctype="multipart/form-data">
-          <input type="hidden" name="id_flayer" value="">
+      <div class="flex justify-center">
+        <div class="bg-white shadow-md rounded-lg overflow-x-auto mt-8 w-full">
+          <form id="capaianForm3" action="/admin/editcapaian/" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="id_capaian" value="">
 
-          <!-- Tables -->
-          <div class="grid grid-cols-1 gap-8 justify-items-center">
+            <!-- Tables -->
+            <div class="grid grid-cols-1 gap-8 justify-items-center">
 
-            <!-- First Table -->
-            <table class="w-full text-left min-w-max">
-              <thead>
-                <tr>
-                  <th class="p-4 border-b border-slate-300 bg-slate-50 text-center text-sm font-bold text-gray-800">Pencemaran Lingkungan</th>
-                  <th class="p-4 border-b border-slate-300 bg-slate-50 text-center text-sm font-bold text-gray-800">Status</th>
-                  <th class="p-4 border-b border-slate-300 bg-slate-50 text-center text-sm font-bold text-gray-800">Tindakan</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="hover:bg-gray-50">
-                  <td class="p-4 border-b border-gray-200 text-center">
-                    <label class="block mb-2 text-sm text-black">Poster Capaian: <span class="text-primary">(.jpg/jpeg)</span></label>
-                    <input type="file" name="foto" accept="image/jpeg, image/jpg" class="border-2 border-primary text-primary rounded-md shadow-sm text-xs p-1">
-                  </td>
-                  <td class="p-4 border-b border-gray-200 text-center">
-                    <select name="status" class="status-dropdown ml-2 border-2 border-primary text-primary rounded-md shadow-sm text-xs">
-                      <option value="Nonaktif">Nonaktif</option>
-                      <option value="Aktif">Aktif</option>
-                    </select>
-                  </td>
-                  <td class="p-4 border-b border-gray-200 text-center">
-                    <button type="button" class="bg-primary text-white px-4 py-2 rounded-lg" onclick="showModal(event)">Simpan</button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </form>
+              <!-- First Table -->
+              <table class="w-full text-left min-w-max">
+                <thead>
+                  <tr>
+                    <th class="p-4 border-b border-slate-300 bg-slate-50 text-center text-sm font-bold text-gray-800">Pencemaran Lingkungan</th>
+                    <th class="p-4 border-b border-slate-300 bg-slate-50 text-center text-sm font-bold text-gray-800">Status</th>
+                    <th class="p-4 border-b border-slate-300 bg-slate-50 text-center text-sm font-bold text-gray-800">Tindakan</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="hover:bg-gray-50">
+                    <td class="p-4 border-b border-gray-200 text-center">
+                      <label class="block mb-2 text-sm text-black">Poster Capaian: <span class="text-primary">(.jpg/jpeg)</span></label>
+                      <input type="file" name="foto" accept="image/jpeg, image/jpg" class="border-2 border-primary text-primary rounded-md shadow-sm text-xs p-1">
+                    </td>
+                    <td class="p-4 border-b border-gray-200 text-center">
+                      <select name="status" class="status-dropdown ml-2 border-2 border-primary text-primary rounded-md shadow-sm text-xs">
+                        <option value="Nonaktif">Nonaktif</option>
+                        <option value="Aktif">Aktif</option>
+                      </select>
+                    </td>
+                    <td class="p-4 border-b border-gray-200 text-center">
+                      <button type="button" class="bg-primary text-white px-4 py-2 rounded-lg" onclick="showModal(event)">Simpan</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </form>
+        </div>
       </div>
 
-      <div class="bg-white shadow-md rounded-lg overflow-x-auto mt-8 w-full max-w-4xl">
-        <form id="pamfletForm" action="/admin/editpamflet/" method="post" enctype="multipart/form-data">
-          <input type="hidden" name="id_flayer" value="">
+      <div class="flex justify-center">
+        <div class="bg-white shadow-md rounded-lg overflow-x-auto mt-8 w-full">
+          <form id="capaianForm4" action="/admin/editcapaian/" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="id_capaian" value="">
 
-          <!-- Tables -->
-          <div class="grid grid-cols-1 gap-8 justify-items-center">
+            <!-- Tables -->
+            <div class="grid grid-cols-1 gap-8 justify-items-center">
 
-            <!-- First Table -->
-            <table class="w-full text-left min-w-max">
-              <thead>
-                <tr>
-                  <th class="p-4 border-b border-slate-300 bg-slate-50 text-center text-sm font-bold text-gray-800">Perubahan Iklim</th>
-                  <th class="p-4 border-b border-slate-300 bg-slate-50 text-center text-sm font-bold text-gray-800">Status</th>
-                  <th class="p-4 border-b border-slate-300 bg-slate-50 text-center text-sm font-bold text-gray-800">Tindakan</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="hover:bg-gray-50">
-                  <td class="p-4 border-b border-gray-200 text-center">
-                    <label class="block mb-2 text-sm text-black">Poster Capaian: <span class="text-primary">(.jpg/jpeg)</span></label>
-                    <input type="file" name="foto" accept="image/jpeg, image/jpg" class="border-2 border-primary text-primary rounded-md shadow-sm text-xs p-1">
-                  </td>
-                  <td class="p-4 border-b border-gray-200 text-center">
-                    <select name="status" class="status-dropdown ml-2 border-2 border-primary text-primary rounded-md shadow-sm text-xs">
-                      <option value="Nonaktif">Nonaktif</option>
-                      <option value="Aktif">Aktif</option>
-                    </select>
-                  </td>
-                  <td class="p-4 border-b border-gray-200 text-center">
-                    <button type="button" class="bg-primary text-white px-4 py-2 rounded-lg" onclick="showModal(event)">Simpan</button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </form>
+              <!-- First Table -->
+              <table class="w-full text-left min-w-max">
+                <thead>
+                  <tr>
+                    <th class="p-4 border-b border-slate-300 bg-slate-50 text-center text-sm font-bold text-gray-800">Perubahan Iklim</th>
+                    <th class="p-4 border-b border-slate-300 bg-slate-50 text-center text-sm font-bold text-gray-800">Status</th>
+                    <th class="p-4 border-b border-slate-300 bg-slate-50 text-center text-sm font-bold text-gray-800">Tindakan</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="hover:bg-gray-50">
+                    <td class="p-4 border-b border-gray-200 text-center">
+                      <label class="block mb-2 text-sm text-black">Poster Capaian: <span class="text-primary">(.jpg/jpeg)</span></label>
+                      <input type="file" name="foto" accept="image/jpeg, image/jpg" class="border-2 border-primary text-primary rounded-md shadow-sm text-xs p-1">
+                    </td>
+                    <td class="p-4 border-b border-gray-200 text-center">
+                      <select name="status" class="status-dropdown ml-2 border-2 border-primary text-primary rounded-md shadow-sm text-xs">
+                        <option value="Nonaktif">Nonaktif</option>
+                        <option value="Aktif">Aktif</option>
+                      </select>
+                    </td>
+                    <td class="p-4 border-b border-gray-200 text-center">
+                      <button type="button" class="bg-primary text-white px-4 py-2 rounded-lg" onclick="showModal(event)">Simpan</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </form>
+        </div>
       </div>
+
+
     </div>
     <button onclick="window.location.href='/admin/dashboard'" class="text-sm font-bold text-gray-600 no-underline focus:outline-none text-start w-1/12 mt-8">
-        <span class="font-bold text-lg items-center">←</span> Kembali
-      </button>
+      <span class="font-bold text-lg items-center">←</span> Kembali
+    </button>
   </div>
 
   <!-- Modal Popup -->
   <div id="modalPopup" class="fixed inset-0 z-50 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden">
     <div class="bg-white rounded-lg p-8 flex flex-col items-center max-w-md">
       <img src="/images/question.png" alt="Question Icon" class="w-16 h-16 mb-4">
-      <p class="text-center text-lg font-bold text-gray-700 mb-4">Apakah anda yakin ingin menyimpan data Pamflet?</p>
+      <p class="text-center text-lg font-bold text-gray-700 mb-4">Apakah anda yakin ingin menyimpan data Capaian?</p>
       <div class="flex justify-end space-x-4">
         <button id="cancelButton" class="px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-700 hover:text-white rounded-md" onclick="closeModal()">Periksa Kembali</button>
         <button id="confirmButton" class="px-4 py-2 bg-primary hover:bg-primaryhover text-white rounded-md" onclick="confirmSubmit()">Ya, Kirim Data</button>
@@ -211,7 +222,7 @@
 
     function confirmSubmit() {
       closeModal();
-      document.getElementById("pamfletForm").submit();
+      document.getElementById("capaianForm").submit();
     }
   </script>
 
