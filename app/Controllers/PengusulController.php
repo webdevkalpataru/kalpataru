@@ -463,7 +463,11 @@ class PengusulController extends BaseController
                 $identitas = $model->getIdentitasByIdPendaftaran($id_pendaftaran);
 
                 $skckFile = $this->request->getFile('skck');
-                $skckFileName = $this->handleFileUpload($skckFile, ['pdf'], 'skck');
+                $skckFileName = $identitas['skck'];
+
+                if ($skckFile && $skckFile->isValid() && !$skckFile->hasMoved()) {
+                    $skckFileName = $this->handleFileUpload($skckFile, ['pdf'], 'skck');
+                }
 
                 $data = [
                     'nama' => $this->request->getPost('nama_ketua'),
@@ -515,7 +519,7 @@ class PengusulController extends BaseController
                     'kode_pos'          => ($identitas && !empty($data['kode_pos'])) ? 'permit_empty|numeric|exact_length[5]' : 'required|numeric|exact_length[5]',
                     'sosial_media'      => ($identitas && !empty($data['sosial_media'])) ? 'permit_empty|min_length[3]|max_length[100]' : 'required|min_length[3]|max_length[100]',
                     'tanggal_skck'      => ($identitas && !empty($data['tanggal_skck'])) ? 'permit_empty|valid_date' : 'required|valid_date',
-                    'skck'              => ($identitas && !empty($data['skck'])) ? 'permit_empty|uploaded[skck]|mime_in[skck,application/pdf]|max_size[skck,1024]' : 'required|uploaded[skck]|mime_in[skck,application/pdf]|max_size[skck,1024]',
+                    'skck'              => ($identitas && !empty($data['skck'])) ? 'permit_empty|mime_in[skck,application/pdf]|max_size[skck,1024]' : 'required|uploaded[skck]|mime_in[skck,application/pdf]|max_size[skck,1024]',
                 ];
 
                 // Validasi input
@@ -589,7 +593,11 @@ class PengusulController extends BaseController
                 $identitas = $model->getIdentitasByIdPendaftaran($id_pendaftaran);
 
                 $skckFile = $this->request->getFile('skck');
-                $skckFileName = $this->handleFileUpload($skckFile, ['pdf'], 'skck');
+                $skckFileName = $identitas['skck'];
+
+                if ($skckFile && $skckFile->isValid() && !$skckFile->hasMoved()) {
+                    $skckFileName = $this->handleFileUpload($skckFile, ['pdf'], 'skck');
+                }
 
                 $data = [
                     'nama' => $this->request->getPost('nama_individu'),
@@ -634,7 +642,7 @@ class PengusulController extends BaseController
                     'kode_pos'          => ($identitas && !empty($data['kode_pos'])) ? 'permit_empty|numeric|exact_length[5]' : 'required|numeric|exact_length[5]',
                     'sosial_media'      => ($identitas && !empty($data['sosial_media'])) ? 'permit_empty|min_length[3]|max_length[100]' : 'required|min_length[3]|max_length[100]',
                     'tanggal_skck'      => ($identitas && !empty($data['tanggal_skck'])) ? 'permit_empty|valid_date' : 'required|valid_date',
-                    'skck'              => ($identitas && !empty($data['skck'])) ? 'permit_empty|uploaded[skck]|mime_in[skck,application/pdf]|max_size[skck,1024]' : 'required|uploaded[skck]|mime_in[skck,application/pdf]|max_size[skck,1024]',
+                    'skck'              => ($identitas && !empty($data['skck'])) ? 'permit_empty|mime_in[skck,application/pdf]|max_size[skck,1024]' : 'required|uploaded[skck]|mime_in[skck,application/pdf]|max_size[skck,1024]',
                 ];
 
                 // Validasi input

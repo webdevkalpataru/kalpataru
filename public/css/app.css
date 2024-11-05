@@ -991,9 +991,6 @@ video {
   width: -moz-max-content;
   width: max-content;
 }
-.w-3\/4 {
-  width: 75%;
-}
 .min-w-\[240px\] {
   min-width: 240px;
 }
