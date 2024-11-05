@@ -111,7 +111,7 @@
                                 <label class="block mb-2 text-sm text-black">Tanggal Legalitas</label>
                                 <input disabled type="date" value="<?= $pendaftaran['tanggal_legalitas']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none " />
                             </div>
-                            <p class="mt-8 font-semibold mb-2 text-md text-primary underline">Data Ketua Kelompok/ Komunitas</p>
+                            <p class="mt-8 font-semibold mb-2 text-md text-primary underline">Data Ketua / Pengurus Kelompok</p>
                             <div class="w-full mb-4">
                                 <label class="block mb-2 text-sm text-black">Nama Ketua</label>
                                 <input disabled type="text" value="<?= $pendaftaran['nama']; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none " />

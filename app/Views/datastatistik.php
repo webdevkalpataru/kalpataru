@@ -28,11 +28,11 @@
     </div>
 
     <section id="databykategori">
-        <div class="lg:my-12 md:my-8 my-4 lg:mx-20 md:mx-10 mx-7">
-            <div id="textdatabykategori" class="w-full h-[4rem] sm:h-[5rem] relative flex items-center justify-start">
-                <h2 class="text-lg sm:text-xl md:text-2xl lg:text-2xl font-medium text-black">Berdasarkan <b>Kategori</b></h2>
-            </div>
-            <hr class="border-2 border-primary max-w-[16%] mt-0" />
+    <div class="lg:my-12 md:my-8 my-4 lg:mx-20 md:mx-10 mx-7">
+    <div id="textdatabykategori" class="w-full h-[4rem] sm:h-[5rem] relative flex items-center justify-start">
+        <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-3xl font-medium text-black">Berdasarkan <b>Kategori</b></h2>
+    </div>
+    <hr class="border-2 border-primary max-w-[16%] mt-0" />
 
             <div class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-6 my-6">
                 <div class="bg-white rounded-lg border-2 border-gray-200 shadow-md overflow-hidden">
@@ -79,8 +79,12 @@
                         <p class="text-xs font-normal text-gray-600 text-start">Pembina Lingkungan</p>
                     </div>
                 </div>
+                <p class="text-sm font-normal text-gray-600 text-start">Pembina Lingkungan</p>
             </div>
         </div>
+    </div>
+</div>
+
     </section>
 
     <section id="databygender">
@@ -159,7 +163,7 @@
                             <th
                                 class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
                                 <p
-                                    class="flex items-center justify-between gap-2 text-sm font-normal leading-none text-slate-800">
+                                    class="flex items-center justify-between gap-2 text-sm font-bold leading-none text-slate-800">
                                     No
                                 </p>
                             </th>
@@ -167,7 +171,7 @@
                             <th
                                 class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
                                 <p
-                                    class="flex items-center justify-between gap-2 text-sm font-normal leading-none text-slate-800">
+                                    class="flex items-center justify-between gap-2 text-sm font-bold leading-none text-slate-800">
                                     Provinsi
                                 </p>
                             </th>
@@ -175,35 +179,35 @@
                             <th
                                 class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
                                 <p
-                                    class="flex items-center justify-between gap-2 text-sm font-normal leading-none text-slate-800">
+                                    class="flex items-center justify-between gap-2 text-sm font-bold leading-none text-slate-800">
                                     Perintis
                                 </p>
                             </th>
                             <th
                                 class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
                                 <p
-                                    class="flex items-center justify-between gap-2 text-sm font-normal leading-none text-slate-800">
+                                    class="flex items-center justify-between gap-2 text-sm font-bold leading-none text-slate-800">
                                     Pengabdi
                                 </p>
                             </th>
                             <th
                                 class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
                                 <p
-                                    class="flex items-center justify-between gap-2 text-sm font-normal leading-none text-slate-800">
+                                    class="flex items-center justify-between gap-2 text-sm font-bold leading-none text-slate-800">
                                     Penyelamat
                                 </p>
                             </th>
                             <th
                                 class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
                                 <p
-                                    class="flex items-center justify-between gap-2 text-sm font-normal leading-none text-slate-800">
+                                    class="flex items-center justify-between gap-2 text-sm font-bold leading-none text-slate-800">
                                     Pembina
                                 </p>
                             </th>
                             <th
                                 class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
                                 <p
-                                    class="flex items-center justify-between gap-2 text-sm font-normal leading-none text-slate-800">
+                                    class="flex items-center justify-between gap-2 text-sm font-bold leading-none text-slate-800">
                                     Total
                                 </p>
                             </th>

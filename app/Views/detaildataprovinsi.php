@@ -155,14 +155,11 @@
                 <table class="w-full text-left table-auto min-w-max">
                     <thead>
                         <tr>
-                            <th
-                                class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
-                                <p
-                                    class="flex items-center justify-between gap-2 text-sm font-normal leading-none text-slate-800">
-                                    No
-                                </p>
-                            </th>
-
+                        <th class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
+                        <p class="flex items-center justify-between gap-2 text-lg font-normal leading-none text-slate-800"> <!-- Changed text-sm to text-lg -->
+                            No
+                        </p>
+                    </th>
                             <th
                                 class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
                                 <p
