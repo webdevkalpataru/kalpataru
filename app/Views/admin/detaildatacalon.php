@@ -240,7 +240,7 @@
                                     </label>
                                     <?php if (!empty($pendaftaran['ktp'])): ?>
                                         <div class="mt-2">
-                                            <img src="<?= base_url('admin/preview/ktp/' . esc($pendaftaran['ktp'])) ?>" class="w-48">
+                                            <img src="<?= base_url('admin/preview/ktp/' . esc($pendaftaran['ktp'])) ?>" class="w-1/2">
                                         </div>
                                     <?php endif; ?>
                                 </div>
@@ -342,7 +342,7 @@
                                     </label>
                                     <?php if (!empty($pendaftaran['ktp'])): ?>
                                         <div class="mt-2">
-                                            <img src="<?= base_url('admin/preview/ktp/' . esc($pendaftaran['ktp'])) ?>" class="w-24">
+                                            <img src="<?= base_url('admin/preview/ktp/' . esc($pendaftaran['ktp'])) ?>" class="w-1/2">
                                         </div>
                                     <?php endif; ?>
                                 </div>
@@ -911,7 +911,7 @@
                                                     <span class="text-slate-400">(.jpg/jpeg)</span>
                                                     </label>
                                                     <?php if (!empty($pendaftaran["foto_kegiatan$i"])): ?>
-                                                        <img src="<?= base_url('admin/preview/fotokegiatan/' . $i . '/' . esc($pendaftaran["foto_kegiatan$i"])) ?>" alt="Foto Kegiatan <?= $i ?>" class="w-24">
+                                                        <img src="<?= base_url('admin/preview/fotokegiatan/' . $i . '/' . esc($pendaftaran["foto_kegiatan$i"])) ?>" alt="Foto Kegiatan <?= $i ?>" class="w-full">
                                                     <?php endif; ?>
                                                     <label class="block mb-2 text-sm text-black mt-2">Deskripsi Foto <?= $i ?> </label>
                                                     <input disabled type="text" class="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none "
