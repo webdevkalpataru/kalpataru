@@ -87,32 +87,54 @@
                                     <p class="text-red-500 text-sm mt-2"><?= session('errors.rt_rw') ?></p>
                                 <?php endif; ?>
                             </div>
-                            <div class="w-full mb-2">
-                                <label class="block mb-2 text-sm text-black">Desa/Kelurahan</label>
-                                <input type="text" name="desa" value="<?= isset($identitasc['desa']) ? $identitasc['desa'] : ''; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-                                <?php if (session('errors.desa')): ?>
-                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.desa') ?></p>
+                            <!-- Provinsi -->
+                            <div class="w-full mb-4">
+                                <label class="block mb-2 text-sm text-black">Provinsi</label>
+                                <select
+                                    class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow"
+                                    id="provinsi"
+                                    onchange="loadKabupaten(); setNamaProvinsi()"
+                                    name="provinsi"
+                                    data-placeholder="Provinsi">
+                                    <option value=""><?= $provinsiTerpilih; ?></option>
+                                </select>
+                                <input type="hidden" id="nama_provinsi" name="nama_provinsi">
+                                <?php if (session('errors.provinsi')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.provinsi') ?></p>
                                 <?php endif; ?>
                             </div>
-                            <div class="w-full mb-2">
-                                <label class="block mb-2 text-sm text-black">Kecamatan</label>
-                                <input type="text" name="kecamatan" value="<?= isset($identitasc['kecamatan']) ? $identitasc['kecamatan'] : ''; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-                                <?php if (session('errors.kecamatan')): ?>
-                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.kecamatan') ?></p>
-                                <?php endif; ?>
-                            </div>
-                            <div class="w-full mb-2">
+
+                            <!-- Kabupaten -->
+                            <div class="w-full mb-4">
                                 <label class="block mb-2 text-sm text-black">Kab/Kota</label>
-                                <input type="text" name="kab_kota" value="<?= isset($identitasc['kab_kota']) ? $identitasc['kab_kota'] : ''; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <select class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" id="kabupaten" onchange="loadKecamatan(); setNamaKabupaten()" data-placeholder="Kabupaten/Kota" name="kab_kota" disabled>
+                                    <option value=""><?= $kab_kotaTerpilih; ?></option>
+                                </select>
+                                <input type="hidden" id="nama_kabupaten" name="nama_kabupaten">
                                 <?php if (session('errors.kab_kota')): ?>
                                     <p class="text-red-500 text-sm mt-2"><?= session('errors.kab_kota') ?></p>
                                 <?php endif; ?>
                             </div>
-                            <div class="w-full mb-2">
-                                <label class="block mb-2 text-sm text-black">Provinsi</label>
-                                <input type="text" name="provinsi" value="<?= isset($identitasc['provinsi']) ? $identitasc['provinsi'] : ''; ?>" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-                                <?php if (session('errors.provinsi')): ?>
-                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.provinsi') ?></p>
+                            <!-- Kecamatan -->
+                            <div class="w-full mb-4">
+                                <label class="block mb-2 text-sm text-black">Kecamatan</label>
+                                <select class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" id="kecamatan" onchange="loadKelurahan(); setNamaKecamatan()" data-placeholder="Kecamatan" name="kecamatan" disabled>
+                                    <option value=""><?= $kecamatanTerpilih; ?></option>
+                                </select>
+                                <input type="hidden" id="nama_kecamatan" name="nama_kecamatan">
+                                <?php if (session('errors.kecamatan')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.kecamatan') ?></p>
+                                <?php endif; ?>
+                            </div>
+                            <!-- Kelurahan -->
+                            <div class="w-full mb-4">
+                                <label class="block mb-2 text-sm text-black">Kelurahan/Desa</label>
+                                <select class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" id="kelurahan" onchange="setNamaKelurahan()" data-placeholder="Kelurahan/Desa" name="desa" disabled>
+                                    <option value=""><?= $desaTerpilih; ?></option>
+                                </select>
+                                <input type="hidden" id="nama_kelurahan" name="nama_kelurahan">
+                                <?php if (session('errors.desa')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.desa') ?></p>
                                 <?php endif; ?>
                             </div>
                             <div class="w-full mb-2">
@@ -364,34 +386,57 @@
                                     <p class="text-red-500 text-sm mt-2"><?= session('errors.rt_rw') ?></p>
                                 <?php endif; ?>
                             </div>
-                            <div class="w-full mb-4">
-                                <label class="block mb-2 text-sm text-black">Desa/Kelurahan</label>
-                                <input name="desa" value="<?= isset($identitasabd['desa']) ? $identitasabd['desa'] : ''; ?>" type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-                                <?php if (session('errors.desa')): ?>
-                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.desa') ?></p>
-                                <?php endif; ?>
-                            </div>
-                            <div class="w-full mb-4">
-                                <label class="block mb-2 text-sm text-black">Kecamatan</label>
-                                <input name="kecamatan" value="<?= isset($identitasabd['kecamatan']) ? $identitasabd['kecamatan'] : ''; ?>" type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-                                <?php if (session('errors.kecamatan')): ?>
-                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.kecamatan') ?></p>
-                                <?php endif; ?>
-                            </div>
-                            <div class="w-full mb-4">
-                                <label class="block mb-2 text-sm text-black">Kab/Kota</label>
-                                <input name="kab_kota" value="<?= isset($identitasabd['kab_kota']) ? $identitasabd['kab_kota'] : ''; ?>" type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
-                                <?php if (session('errors.kab_kota')): ?>
-                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.kab_kota') ?></p>
-                                <?php endif; ?>
-                            </div>
+                            <!-- Provinsi -->
                             <div class="w-full mb-4">
                                 <label class="block mb-2 text-sm text-black">Provinsi</label>
-                                <input name="provinsi" value="<?= isset($identitasabd['provinsi']) ? $identitasabd['provinsi'] : ''; ?>" type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
+                                <select
+                                    class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow"
+                                    id="provinsi"
+                                    onchange="loadKabupaten(); setNamaProvinsi()"
+                                    name="provinsi"
+                                    data-placeholder="Provinsi">
+                                    <option value=""><?= $provinsiTerpilih; ?></option>
+                                </select>
+                                <input type="hidden" id="nama_provinsi" name="nama_provinsi">
                                 <?php if (session('errors.provinsi')): ?>
                                     <p class="text-red-500 text-sm mt-2"><?= session('errors.provinsi') ?></p>
                                 <?php endif; ?>
                             </div>
+
+                            <!-- Kabupaten -->
+                            <div class="w-full mb-4">
+                                <label class="block mb-2 text-sm text-black">Kab/Kota</label>
+                                <select class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" id="kabupaten" onchange="loadKecamatan(); setNamaKabupaten()" data-placeholder="Kabupaten/Kota" name="kab_kota" disabled>
+                                    <option value=""><?= $kab_kotaTerpilih; ?></option>
+                                </select>
+                                <input type="hidden" id="nama_kabupaten" name="nama_kabupaten">
+                                <?php if (session('errors.kab_kota')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.kab_kota') ?></p>
+                                <?php endif; ?>
+                            </div>
+                            <!-- Kecamatan -->
+                            <div class="w-full mb-4">
+                                <label class="block mb-2 text-sm text-black">Kecamatan</label>
+                                <select class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" id="kecamatan" onchange="loadKelurahan(); setNamaKecamatan()" data-placeholder="Kecamatan" name="kecamatan" disabled>
+                                    <option value=""><?= $kecamatanTerpilih; ?></option>
+                                </select>
+                                <input type="hidden" id="nama_kecamatan" name="nama_kecamatan">
+                                <?php if (session('errors.kecamatan')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.kecamatan') ?></p>
+                                <?php endif; ?>
+                            </div>
+                            <!-- Kelurahan -->
+                            <div class="w-full mb-4">
+                                <label class="block mb-2 text-sm text-black">Kelurahan/Desa</label>
+                                <select class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" id="kelurahan" onchange="setNamaKelurahan()" data-placeholder="Kelurahan/Desa" name="desa" disabled>
+                                    <option value=""><?= $desaTerpilih; ?></option>
+                                </select>
+                                <input type="hidden" id="nama_kelurahan" name="nama_kelurahan">
+                                <?php if (session('errors.desa')): ?>
+                                    <p class="text-red-500 text-sm mt-2"><?= session('errors.desa') ?></p>
+                                <?php endif; ?>
+                            </div>
+
                             <div class="w-full mb-4">
                                 <label class="block mb-2 text-sm text-black">Kode Pos</label>
                                 <input name="kode_pos" value="<?= isset($identitasabd['kode_pos']) ? $identitasabd['kode_pos'] : ''; ?>" type="text" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-primary hover:border-primary focus:shadow" />
@@ -699,21 +744,21 @@
                             <div>
                                 <label class="block mb-2 text-sm text-black">Sumber Pembiayaan Kegiatan</label>
                                 <textarea name="sumber_biaya" id="sumber_biaya" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"><?= isset($keswadayaan['sumber_biaya']) ? htmlspecialchars($keswadayaan['sumber_biaya']) : '' ?></textarea>
-                                <p id="sumberCount" class="text-xs text-slate-400 flex justify-end">
+                                <p id="sumber_biayaCount" class="text-xs text-slate-400 flex justify-end">
                                     <?= (isset($keswadayaan['sumber_biaya']) && strlen(trim($keswadayaan['sumber_biaya'])) > 0) ? str_word_count($keswadayaan['sumber_biaya']) : 0 ?>/1000 Kata
                                 </p>
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Teknologi/Alat/Fasilitas yang digunakan</label>
                                 <textarea name="teknologi_kegiatan" id="teknologi_kegiatan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"><?= isset($keswadayaan['teknologi_kegiatan']) ? htmlspecialchars($keswadayaan['teknologi_kegiatan']) : '' ?></textarea>
-                                <p id="teknologiCount" class="text-xs text-slate-400 flex justify-end">
+                                <p id="teknologi_kegiatanCount" class="text-xs text-slate-400 flex justify-end">
                                     <?= (isset($keswadayaan['teknologi_kegiatan']) && strlen(trim($keswadayaan['teknologi_kegiatan'])) > 0) ? str_word_count($keswadayaan['teknologi_kegiatan']) : 0 ?>/1000 Kata
                                 </p>
                             </div>
                             <div>
-                                <label class="block mb-2 text-sm text-black">Status Lahan/Areal Kegiatan</label>
+                                <label class="block mb-2 text-sm text-black">Status Lahan/Area Kegiatan</label>
                                 <textarea name="status_lahan_kegiatan" id="status_lahan_kegiatan" class="w-full bg-transparent placeholder:text-slate-400 text-primary text-sm border-2 border-slate-200 rounded-md px-3 py-2 focus:outline-none focus:border-primary hover:border-primary transition duration-300 ease" rows="4"><?= isset($keswadayaan['status_lahan_kegiatan']) ? htmlspecialchars($keswadayaan['status_lahan_kegiatan']) : '' ?></textarea>
-                                <p id="statusLahanCount" class="text-xs text-slate-400 flex justify-end">
+                                <p id="status_lahan_kegiatanCount" class="text-xs text-slate-400 flex justify-end">
                                     <?= (isset($keswadayaan['status_lahan_kegiatan']) && strlen(trim($keswadayaan['status_lahan_kegiatan'])) > 0) ? str_word_count($keswadayaan['status_lahan_kegiatan']) : 0 ?>/1000 Kata
                                 </p>
                             </div>
@@ -831,7 +876,6 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const closeButton = document.getElementById('closeButton');
@@ -1143,9 +1187,9 @@
         updateWordCount(document.getElementById('inovasi'), 'inovasiCount', 1000);
         updateWordCount(document.getElementById('kreativitas'), 'kreativitasCount', 1000);
 
-        updateWordCount(document.getElementById('sumber_biaya'), 'sumberCount', 1000);
-        updateWordCount(document.getElementById('teknologi_kegiatan'), 'teknologiCount', 1000);
-        updateWordCount(document.getElementById('status_lahan_kegiatan'), 'statusLahanCount', 1000);
+        updateWordCount(document.getElementById('sumber_biaya'), 'sumber_biayaCount', 1000);
+        updateWordCount(document.getElementById('teknologi_kegiatan'), 'teknologi_kegiatanCount', 1000);
+        updateWordCount(document.getElementById('status_lahan_kegiatan'), 'status_lahan_kegiatanCount', 1000);
 
         updateWordCount(document.getElementById('keistimewaanCalon'), 'keistimewaanCalonCount', 1000);
         updateWordCount(document.getElementById('penghargaanRelevan'), 'penghargaanRelevanCount', 1000);
@@ -1480,6 +1524,8 @@
             });
         });
     </script>
+
+
     <?= $this->endSection() ?>
 
 </body>

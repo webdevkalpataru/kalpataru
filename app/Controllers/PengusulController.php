@@ -400,17 +400,17 @@ class PengusulController extends BaseController
     }
 
     public function downloadFotoKegiatan($folder, $filename)
-{
-    $filePath = WRITEPATH . "uploads/foto_kegiatan$folder/" . $filename;
-    if (file_exists($filePath)) {
-        return $this->response
-            ->setHeader('Content-Type', 'application/octet-stream')
-            ->setHeader('Content-Disposition', 'attachment; filename="' . basename($filePath) . '"')
-            ->setBody(file_get_contents($filePath));
-    }
+    {
+        $filePath = WRITEPATH . "uploads/foto_kegiatan$folder/" . $filename;
+        if (file_exists($filePath)) {
+            return $this->response
+                ->setHeader('Content-Type', 'application/octet-stream')
+                ->setHeader('Content-Disposition', 'attachment; filename="' . basename($filePath) . '"')
+                ->setBody(file_get_contents($filePath));
+        }
 
-    throw new \CodeIgniter\Exceptions\PageNotFoundException('File tidak ditemukan.');
-}
+        throw new \CodeIgniter\Exceptions\PageNotFoundException('File tidak ditemukan.');
+    }
 
 
     public function downloadSKCK($filename)
@@ -451,7 +451,7 @@ class PengusulController extends BaseController
         // Menyajikan file dengan header download
         return $this->response->download($path, null);
     }
-    
+
 
 
     // ---------------DETAIL USULAN SAYA EDIT----------------------------------------------------------------------------------------------------
@@ -476,10 +476,10 @@ class PengusulController extends BaseController
                     'jumlah_anggota' => $this->request->getPost('jumlah_anggota'),
                     'jalan' => $this->request->getPost('jalan'),
                     'rt_rw' => $this->request->getPost('rt_rw'),
-                    'desa' => $this->request->getPost('desa'),
-                    'kecamatan' => $this->request->getPost('kecamatan'),
-                    'kab_kota' => $this->request->getPost('kab_kota'),
-                    'provinsi' => $this->request->getPost('provinsi'),
+                    'provinsi' => $this->request->getPost('nama_provinsi'),
+                    'kab_kota' => $this->request->getPost('nama_kabupaten'),
+                    'kecamatan' => $this->request->getPost('nama_kecamatan'),
+                    'desa' => $this->request->getPost('nama_kelurahan'),
                     'kode_pos' => $this->request->getPost('kode_pos'),
                     'sosial_media' => $this->request->getPost('sosial_media'),
                     'nama_kelompok' => $this->request->getPost('nama_kelompok'),
@@ -512,12 +512,12 @@ class PengusulController extends BaseController
                     'pendidikan'        => ($identitas && !empty($data['pendidikan'])) ? 'permit_empty|min_length[2]|max_length[50]' : 'required|min_length[2]|max_length[50]',
                     'jalan'             => ($identitas && !empty($data['jalan'])) ? 'permit_empty|min_length[3]|max_length[255]' : 'required|min_length[3]|max_length[255]',
                     'rt_rw'             => ($identitas && !empty($data['rt_rw'])) ? 'permit_empty|max_length[10]' : 'required|max_length[10]',
-                    'desa'              => ($identitas && !empty($data['desa'])) ? 'permit_empty|min_length[3]|max_length[100]' : 'required|min_length[3]|max_length[100]',
-                    'kecamatan'         => ($identitas && !empty($data['kecamatan'])) ? 'permit_empty|min_length[3]|max_length[100]' : 'required|min_length[3]|max_length[100]',
-                    'kab_kota'          => ($identitas && !empty($data['kab_kota'])) ? 'permit_empty|min_length[3]|max_length[100]' : 'required|min_length[3]|max_length[100]',
+                    'desa'              => ($identitas && !empty($data['desa'])) ? 'permit_empty' : 'required',
+                    'kecamatan'         => ($identitas && !empty($data['kecamatan'])) ? 'permit_empty' : 'required',
+                    'kab_kota'          => ($identitas && !empty($data['kab_kota'])) ? 'permit_empty' : 'required',
                     'provinsi'          => ($identitas && !empty($data['provinsi'])) ? 'permit_empty' : 'required',
                     'kode_pos'          => ($identitas && !empty($data['kode_pos'])) ? 'permit_empty|numeric|exact_length[5]' : 'required|numeric|exact_length[5]',
-                    'sosial_media'      => ($identitas && !empty($data['sosial_media'])) ? 'permit_empty|min_length[3]|max_length[100]' : 'required|min_length[3]|max_length[100]',
+                    'sosial_media'      => ($identitas && !empty($data['sosial_media'])) ? 'permit_empty' : 'permit_empty',
                     'tanggal_skck'      => ($identitas && !empty($data['tanggal_skck'])) ? 'permit_empty|valid_date' : 'required|valid_date',
                 ];
 
@@ -604,10 +604,10 @@ class PengusulController extends BaseController
                     'pendidikan' => $this->request->getPost('pendidikan'),
                     'jalan' => $this->request->getPost('jalan'),
                     'rt_rw' => $this->request->getPost('rt_rw'),
-                    'desa' => $this->request->getPost('desa'),
-                    'kecamatan' => $this->request->getPost('kecamatan'),
-                    'kab_kota' => $this->request->getPost('kab_kota'),
-                    'provinsi' => $this->request->getPost('provinsi'),
+                    'provinsi' => $this->request->getPost('nama_provinsi'),
+                    'kab_kota' => $this->request->getPost('nama_kabupaten'),
+                    'kecamatan' => $this->request->getPost('nama_kecamatan'),
+                    'desa' => $this->request->getPost('nama_kelurahan'),
                     'kode_pos' => $this->request->getPost('kode_pos'),
                     'sosial_media' => $this->request->getPost('sosial_media'),
                     'tanggal_skck' => $this->request->getPost('tanggal_skck'),
@@ -626,12 +626,12 @@ class PengusulController extends BaseController
                     'pendidikan'        => ($identitas && !empty($data['pendidikan'])) ? 'permit_empty|min_length[2]|max_length[50]' : 'required|min_length[2]|max_length[50]',
                     'jalan'             => ($identitas && !empty($data['jalan'])) ? 'permit_empty|min_length[3]|max_length[255]' : 'required|min_length[3]|max_length[255]',
                     'rt_rw'             => ($identitas && !empty($data['rt_rw'])) ? 'permit_empty|max_length[10]' : 'required|max_length[10]',
-                    'desa'              => ($identitas && !empty($data['desa'])) ? 'permit_empty|min_length[3]|max_length[100]' : 'required|min_length[3]|max_length[100]',
-                    'kecamatan'         => ($identitas && !empty($data['kecamatan'])) ? 'permit_empty|min_length[3]|max_length[100]' : 'required|min_length[3]|max_length[100]',
-                    'kab_kota'          => ($identitas && !empty($data['kab_kota'])) ? 'permit_empty|min_length[3]|max_length[100]' : 'required|min_length[3]|max_length[100]',
+                    'desa'              => ($identitas && !empty($data['desa'])) ? 'permit_empty' : 'required',
+                    'kecamatan'         => ($identitas && !empty($data['kecamatan'])) ? 'permit_empty' : 'required',
+                    'kab_kota'          => ($identitas && !empty($data['kab_kota'])) ? 'permit_empty' : 'required',
                     'provinsi'          => ($identitas && !empty($data['provinsi'])) ? 'permit_empty' : 'required',
                     'kode_pos'          => ($identitas && !empty($data['kode_pos'])) ? 'permit_empty|numeric|exact_length[5]' : 'required|numeric|exact_length[5]',
-                    'sosial_media'      => ($identitas && !empty($data['sosial_media'])) ? 'permit_empty|min_length[3]|max_length[100]' : 'required|min_length[3]|max_length[100]',
+                    'sosial_media'      => ($identitas && !empty($data['sosial_media'])) ? 'permit_empty' : 'permit_empty',
                     'tanggal_skck'      => ($identitas && !empty($data['tanggal_skck'])) ? 'permit_empty|valid_date' : 'required|valid_date',
                 ];
 
@@ -940,6 +940,7 @@ class PengusulController extends BaseController
         $kegiatanUtama = isset($kegiatan[0]) ? $kegiatan[0] : null;
         $kegiatanLainnya = array_slice($kegiatan, 1);
 
+
         // Ambil ID pengusul yang sedang login dari session
         $id_pengusul_session = session()->get('id_pengusul'); // Asumsikan id_pengusul disimpan dalam session
 
@@ -956,6 +957,7 @@ class PengusulController extends BaseController
 
         session()->set('id_pendaftaran', $id_pendaftaran);
 
+
         $data = [
             'title' => 'Edit Detail Usulan Saya - Pengusul',
             'pendaftaran' => $pendaftaran,
@@ -968,7 +970,11 @@ class PengusulController extends BaseController
             'keistimewaan' => $keistimewaan,
             'kegiatanUtama' => $kegiatanUtama,
             'kegiatanLainnya' => $kegiatanLainnya,
-            'title' => $title
+            'title' => $title,
+            'provinsiTerpilih' => $pendaftaran['provinsi'],
+            'kab_kotaTerpilih' => $pendaftaran['kab_kota'],
+            'kecamatanTerpilih' => $pendaftaran['kecamatan'],
+            'desaTerpilih' => $pendaftaran['desa'],
         ];
 
         return view('pengusul/detailusulansayaedit', $data);

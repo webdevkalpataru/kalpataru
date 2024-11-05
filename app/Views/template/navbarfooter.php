@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/app.css">
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <title><?= $title; ?></title>
     <meta name="description" content="Website resmi Kalpataru, penghargaan bagi pelestari lingkungan di Indonesia. Temukan informasi, berita, dan program pelestarian alam terbaru.">
     <style>
@@ -407,9 +406,6 @@
         };
     </script>
 </body>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
     var urlProvinsi = "/provinsi/provinsi.json";
     var urlKabupaten = "/kabupaten_kota/";
@@ -422,13 +418,15 @@
         loadProvinsi();
     };
 
-    // Memuat data Provinsi dari /public/provinsi/provinsi.json
+
+    // Fungsi untuk Memuat Data Provinsi dan Menandai Provinsi Terpilih
     function loadProvinsi() {
         fetch('/provinsi/provinsi.json')
             .then(response => response.json())
             .then(data => {
                 const provinsiSelect = document.getElementById('provinsi');
-                provinsiSelect.innerHTML = '<option value="">Pilih Provinsi</option>';
+
+                // Tambahkan pilihan lain dari JSON
                 for (const [kode, nama] of Object.entries(data)) {
                     provinsiSelect.innerHTML += `<option value="${kode}">${nama}</option>`;
                 }
@@ -534,6 +532,13 @@
         const kelurahanSelect = document.getElementById("kelurahan");
         const namaKelurahan = kelurahanSelect.options[kelurahanSelect.selectedIndex].text;
         document.getElementById("nama_kelurahan").value = namaKelurahan;
+    }
+
+    // Fungsi untuk menonaktifkan dropdown jika belum ada pilihan di level sebelumnya
+    function disableSelect(selectId) {
+        const selectElement = document.getElementById(selectId);
+        selectElement.innerHTML = `<option value="">Pilih ${selectElement.getAttribute("data-placeholder")}</option>`;
+        selectElement.disabled = true;
     }
 </script>
 
