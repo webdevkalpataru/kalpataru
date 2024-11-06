@@ -94,20 +94,12 @@
                 <!-- Left Card -->
                 <div class="bg-white border-2 border-gray-200 rounded-lg p-4 shadow-lg flex flex-col items-start w-full md:w-2/4">
                     <h2 class="text-sm font-bold text-gray-800">Kalpataru</h2>
-                    <p class="text-2xl font-semibold text-primary">428</p>
+                    <p class="text-2xl font-semibold text-primary"><?= $total; ?></p>
                     <h2 class="text-sm font-bold text-gray-800">Total Penerima</h2>
 
                     <div class="relative mt-4 flex items-center">
                         <svg class="w-16 h-16 md:w-24 md:h-24" viewBox="0 0 36 36">
-                            <circle
-                                class="text-brown-600"
-                                stroke-width="4"
-                                stroke="currentColor"
-                                fill="transparent"
-                                r="16"
-                                cx="18"
-                                cy="18"
-                                stroke-dasharray="100, 100" />
+                            <!-- Lingkaran total perempuan (background) -->
                             <circle
                                 class="text-primary"
                                 stroke-width="4"
@@ -116,8 +108,23 @@
                                 r="16"
                                 cx="18"
                                 cy="18"
-                                stroke-dasharray="25, 100" />
+                                stroke-dasharray="100, 100" />
+
+                            <!-- Lingkaran persentase laki-laki (foreground) -->
+                            <circle
+                                class="text-brown-600"
+                                stroke-width="4"
+                                stroke="currentColor"
+                                fill="transparent"
+                                r="16"
+                                cx="18"
+                                cy="18"
+                                stroke-dasharray="<?= $persentaseLakiLaki; ?>, 100"
+                                transform="rotate(-90 18 18)" />
                         </svg>
+
+
+
                         <!-- Div for text alignment -->
                         <div class="ml-2 md:ml-4">
                             <div class="flex items-center">
@@ -135,9 +142,9 @@
                 <!-- Right Card -->
                 <div class="bg-white border-2 border-gray-200 rounded-lg p-6 shadow-lg h-auto md:h-52 flex justify-center items-center w-full md:w-auto">
                     <p class="text-gray-800 text-xs md:text-base mx-4 md:mx-32">
-                        Dari total <span class="font-semibold">428</span> penerima penghargaan Kalpataru yang telah diberikan sejak tahun 1980, terdapat
-                        <span class="font-semibold">265</span> penerima penghargaan yang berjenis kelamin <span class="font-bold">laki-laki</span> dan
-                        <span class="font-semibold">163</span> penerima penghargaan yang berjenis kelamin <span class="font-bold">perempuan</span>.
+                        Dari total <span class="font-semibold"><?= $total; ?></span> penerima penghargaan Kalpataru yang telah diberikan sejak tahun 1980, terdapat
+                        <span class="font-semibold"><?= $totalLakiLaki; ?></span> penerima penghargaan yang berjenis kelamin <span class="font-bold">laki-laki</span> dan
+                        <span class="font-semibold"><?= $totalPerempuan; ?></span> penerima penghargaan yang berjenis kelamin <span class="font-bold">perempuan</span>.
                     </p>
                 </div>
             </div>

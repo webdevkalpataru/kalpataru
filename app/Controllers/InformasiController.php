@@ -155,12 +155,24 @@ class InformasiController extends BaseController
     public function dataStatistik()
     {
         $model = new ArsipModel();
+        $totalPerempuan = $model->genderPerempuan();
+        $totalLakiLaki = $model->genderLakiLaki();
+        $total = $totalPerempuan + $totalLakiLaki;
+
+        // Hitung persentase
+        $persentaseLakiLaki = ($total > 0) ? ($totalLakiLaki / $total) * 100 : 0;
+
         $data['provinsiData'] = $model->dataProvinsi();
         $data['kategoriData'] = $model->dataKategori();
+        $data['total'] = $total;
+        $data['totalPerempuan'] = $totalPerempuan;
+        $data['totalLakiLaki'] = $totalLakiLaki;
+        $data['persentaseLakiLaki'] = $persentaseLakiLaki;
         $data['title'] = 'Data dan Statistik';
 
         return view('datastatistik', $data);
     }
+
 
     public function dataUsulanProvinsi()
     {

@@ -67,4 +67,19 @@ class ArsipModel extends Model
             ->get()
             ->getRow();
     }
+
+    public function totalPenerima()
+    {
+        return $this->countAllResults();
+    }
+
+    public function genderPerempuan()
+    {
+        return $this->where('jenis_kelamin', 'Perempuan')->countAllResults();
+    }
+
+    public function genderLakiLaki()
+    {
+        return $this->where('jenis_kelamin', 'Laki-Laki')->countAllResults();
+    }
 }
