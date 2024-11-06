@@ -29,6 +29,7 @@ $routes->get('protaru', 'MainController::protaru');
 $routes->get('informasi/pengumuman', 'InformasiController::pengumuman');
 $routes->get('informasi/peraturan-kebijakan', 'InformasiController::peraturan');
 $routes->get('informasi/datastatistik', 'InformasiController::datastatistik');
+$routes->get('informasi/penerima/(:segment)', 'InformasiController::arsipByProvinsi/$1');
 $routes->get('pengumuman/(:any)', 'InformasiController::detailpengumuman/$1');
 $routes->get('informasi/datausulanprovinsi', 'InformasiController::datausulanprovinsi');
 $routes->get('informasi/profilpenerima', 'InformasiController::profilpenerima');

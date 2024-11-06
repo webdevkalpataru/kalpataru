@@ -158,59 +158,42 @@
                 <h2 class="text-lg sm:text-xl md:text-2xl lg:text-2xl font-medium text-black">Berdasarkan <b>Provinsi</b></h2>
             </div>
             <hr class="border-2 border-primary max-w-[16%] mt-0" />
-
             <div class="relative flex flex-col w-full h-full bg-white shadow-md rounded-lg bg-clip-border my-6">
                 <table class="w-full text-left table-auto min-w-max">
                     <thead>
                         <tr>
-                            <th
-                                class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
-                                <p
-                                    class="flex items-center justify-between gap-2 text-sm font-bold leading-none text-slate-800">
+                            <th class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
+                                <p class="flex items-center justify-between gap-2 text-sm font-bold leading-none text-slate-800">
                                     No
                                 </p>
                             </th>
-
-                            <th
-                                class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
-                                <p
-                                    class="flex items-center justify-between gap-2 text-sm font-bold leading-none text-slate-800">
+                            <th class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
+                                <p class="flex items-center justify-between gap-2 text-sm font-bold leading-none text-slate-800">
                                     Provinsi
                                 </p>
                             </th>
-
-                            <th
-                                class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
-                                <p
-                                    class="flex items-center justify-between gap-2 text-sm font-bold leading-none text-slate-800">
+                            <th class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
+                                <p class="flex items-center justify-between gap-2 text-sm font-bold leading-none text-slate-800">
                                     Perintis
                                 </p>
                             </th>
-                            <th
-                                class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
-                                <p
-                                    class="flex items-center justify-between gap-2 text-sm font-bold leading-none text-slate-800">
+                            <th class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
+                                <p class="flex items-center justify-between gap-2 text-sm font-bold leading-none text-slate-800">
                                     Pengabdi
                                 </p>
                             </th>
-                            <th
-                                class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
-                                <p
-                                    class="flex items-center justify-between gap-2 text-sm font-bold leading-none text-slate-800">
+                            <th class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
+                                <p class="flex items-center justify-between gap-2 text-sm font-bold leading-none text-slate-800">
                                     Penyelamat
                                 </p>
                             </th>
-                            <th
-                                class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
-                                <p
-                                    class="flex items-center justify-between gap-2 text-sm font-bold leading-none text-slate-800">
+                            <th class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
+                                <p class="flex items-center justify-between gap-2 text-sm font-bold leading-none text-slate-800">
                                     Pembina
                                 </p>
                             </th>
-                            <th
-                                class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
-                                <p
-                                    class="flex items-center justify-between gap-2 text-sm font-bold leading-none text-slate-800">
+                            <th class="p-4 transition-colors cursor-pointer border-b border-slate-300 bg-slate-50 hover:bg-slate-100">
+                                <p class="flex items-center justify-between gap-2 text-sm font-bold leading-none text-slate-800">
                                     Total
                                 </p>
                             </th>
@@ -223,7 +206,7 @@
                                 <tr class="hover:bg-slate-50">
                                     <td class="p-4 border-b border-slate-200"><?php echo $no++; ?></td>
                                     <td class="p-4 border-b border-slate-200">
-                                        <a href="/informasi/datausulanprovinsi"><?php echo $data['provinsi']; ?></a>
+                                        <a href="/informasi/penerima/<?php echo urlencode($data['provinsi']); ?>"><?php echo $data['provinsi']; ?></a>
                                     </td>
                                     <td class="p-4 border-b border-slate-200"><?php echo $data['perintis']; ?></td>
                                     <td class="p-4 border-b border-slate-200"><?php echo $data['pengabdi']; ?></td>
@@ -239,12 +222,9 @@
                         <?php endif; ?>
                     </tbody>
                 </table>
-
             </div>
-
         </div>
     </section>
-
     <?= $this->endSection() ?>
 </body>
 

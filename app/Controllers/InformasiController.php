@@ -173,13 +173,41 @@ class InformasiController extends BaseController
         return view('datastatistik', $data);
     }
 
-
-    public function dataUsulanProvinsi()
+    public function arsipByProvinsi($provinsi)
     {
+        $arsipModel = new ArsipModel();
+
+        $perPage = 5;
+
+        $kategori = $this->request->getVar('kategori');
+        $keyword = $this->request->getGet('search');
+
+        $builder = $arsipModel->table('arsip_penerima');
+
+        if ($kategori) {
+            $builder->where('kategori', $kategori);
+        }
+
+        if ($keyword) {
+            $builder->like('nama', $keyword);
+        }
+
+        // Ambil data arsip berdasarkan provinsi
+        $arsip = $builder->where('provinsi', $provinsi)->paginate($perPage, 'arsip');
+
+        $data['provinsi'] = rawurldecode($provinsi);  // Pastikan provinsi aman dalam URL
+        $data['arsip'] = $arsip;
+        $data['pager'] = $arsipModel->pager;
+        $data['keyword'] = $keyword;
+        $data['kategori'] = $kategori;
+        $data['arsipPenerima'] = $arsip;
         $data['title'] = 'Data Usulan Provinsi';
 
         return view('datausulanprovinsi', $data);
     }
+
+
+
     public function profilpenerima()
     {
         $data['title'] = 'Profil Penerima';

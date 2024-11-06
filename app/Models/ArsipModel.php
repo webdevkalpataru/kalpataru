@@ -82,4 +82,9 @@ class ArsipModel extends Model
     {
         return $this->where('jenis_kelamin', 'Laki-Laki')->countAllResults();
     }
+
+    public function getArsipByProvinsi($provinsi)
+    {
+        return $this->where('provinsi', $provinsi)->findAll();
+    }
 }
