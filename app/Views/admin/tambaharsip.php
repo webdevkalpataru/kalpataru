@@ -188,7 +188,7 @@
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm text-black">Unggah Foto Penerima (.jpg/jpeg)</label>
-                                <input required id="foto" name="foto_profil" type="file" accept="image/jpeg, image/jpg" class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2">
+                                <input id="foto" name="foto_profil" type="file" accept="image/jpeg, image/jpg" class="w-full border-2 border-slate-200 text-primary text-xs rounded-lg p-2">
                                 <div class="text-red-500" id="fotoError"></div>
                             </div>
                         </div>

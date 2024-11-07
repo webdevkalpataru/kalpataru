@@ -72,7 +72,7 @@
                     <p class="mb-1">Kategori: <b><?php echo $arsip['kategori']; ?></b></p>
                     <p class="mb-4">Tahun: <b><?php echo $arsip['tahun_penerimaan']; ?></b></p>
                     <p class="text-sm leading-relaxed text-justify mb-4">
-                        <?php echo $arsip['profil']; ?>
+                        <?= word_limiter(esc($arsip['profil']), 60); ?>
                     </p>
                     <button class="bg-primary text-white px-4 py-2 mb-6 lg:mb-0 rounded-md hover:bg-primaryhover">Selengkapnya</button>
                 </div>

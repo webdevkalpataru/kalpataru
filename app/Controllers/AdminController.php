@@ -776,7 +776,7 @@ class AdminController extends BaseController
             'bentuk_kegiatan' => 'required',
             'link_dokumentasi' => 'required',
             'status' => 'required',
-            'foto_profil' => 'uploaded[foto_profil]|mime_in[foto_profil,image/jpg,image/jpeg]|max_size[foto_profil,2048]'
+            'foto_profil' => 'is_image[foto_profil]|mime_in[foto_profil,image/jpg,image/jpeg]|max_size[foto_profil,5120]'
         ]);
 
         if (!$this->validate($validation->getRules())) {
@@ -788,8 +788,12 @@ class AdminController extends BaseController
 
         // Proses upload foto
         $foto = $this->request->getFile('foto_profil');
-        $fotoName = $foto->getRandomName();
-        $foto->move(ROOTPATH . 'public/images/penerima', $fotoName);
+        if ($foto && $foto->isValid() && !$foto->hasMoved()) {
+            $fotoName = $foto->getRandomName();
+            $foto->move(ROOTPATH . 'public/images/penerima', $fotoName);
+        } else {
+            $fotoName = 'default-profile.jpg'; // Gunakan foto default
+        }
 
         // Menyimpan data ke database
         $data = [
