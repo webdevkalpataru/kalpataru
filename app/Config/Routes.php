@@ -20,6 +20,7 @@ $routes->get('pamflet/(:any)', 'MainController::showPamflet/$1');
 $routes->get('calendar/events', 'CalendarController::events');
 $routes->get('pencapaian', 'MainController::pencapaian');
 
+
 /* Protaru */
 $routes->get('protaru', 'MainController::protaru');
 
@@ -32,6 +33,7 @@ $routes->get('informasi/datastatistik', 'InformasiController::datastatistik');
 $routes->get('pengumuman/(:any)', 'InformasiController::detailpengumuman/$1');
 $routes->get('informasi/datausulanprovinsi', 'InformasiController::datausulanprovinsi');
 $routes->get('informasi/profilpenerima', 'InformasiController::profilpenerima');
+$routes->get('informasi/detaildataprovinsi', 'InformasiController::detaildataprovinsi');
 
 
 /* Publikasi */

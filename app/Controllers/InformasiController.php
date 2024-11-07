@@ -173,4 +173,12 @@ class InformasiController extends BaseController
         $data['title'] = 'Profil Penerima';
         return view('profilpenerima');
     }
+
+    public function detaildataprovinsi()
+    {
+        $data['title'] = "Detail Data Provinsi";
+
+        return view('detaildataprovinsi', $data); // Adjust the view path if necessary
+    }
+
 }
